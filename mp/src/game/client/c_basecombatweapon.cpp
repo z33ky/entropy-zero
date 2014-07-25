@@ -207,11 +207,29 @@ ShadowType_t C_BaseCombatWeapon::ShadowCastType()
 void C_BaseCombatWeapon::Redraw()
 {
 	if ( g_pClientMode->ShouldDrawCrosshair() )
-	{
 		DrawCrosshair();
-	}
 
-	// ammo drawing has been moved into hud_ammo.cpp
+	DrawAmmo();
+}
+
+#if 0
+#include "hud_ammo.h"
+#endif
+
+void C_BaseCombatWeapon::DrawAmmo()
+{
+#if 0
+	GetHudAmmo()->SetPrimaryAmmo( 
+		m_iPrimaryAmmoType, 
+		GetPrimaryAmmoCount(), 
+		Clip1(), 
+		GetMaxClip1() );
+	GetHudAmmo()->SetSecondaryAmmo( 
+		m_iSecondaryAmmoType, 
+		GetPrimaryAmmoCount(), 
+		Clip2(), 
+		GetMaxClip2() );
+#endif
 }
 
 //-----------------------------------------------------------------------------

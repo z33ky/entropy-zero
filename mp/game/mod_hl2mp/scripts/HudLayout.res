@@ -10,7 +10,9 @@
 		"visible" "1"
 		"enabled" "1"
 
-		"PaintBackgroundType"	"2"
+		TextColor			"255 255 255 255"
+		TextColorWarning	"255 255 255 255"
+		TextColorCritical	"255 0 0 255"
 		
 		"text_xpos" "8"
 		"text_ypos" "20"
@@ -99,9 +101,9 @@
 		"digit_ypos" "2"
 	}
 
-	HudAmmo
+	HudAmmoPrimary
 	{
-		"fieldName" "HudAmmo"
+		"fieldName" "HudAmmoPrimary"
 		"xpos"	"r150"
 		"ypos"	"432"
 		"wide"	"136"
@@ -117,6 +119,22 @@
 		"digit_ypos" "2"
 		"digit2_xpos" "98"
 		"digit2_ypos" "16"
+	}
+	
+	HudAmmoPrimaryClip
+	{
+		"fieldName" "HudAmmoPrimaryClip"
+		"xpos"	"r76"
+		"ypos"	"432"
+		"wide"	"60"
+		"tall"  "36"
+		"visible" "1"
+		"enabled" "1"
+
+		"PaintBackgroundType"	"2"
+
+		"digit_xpos" "10"
+		"digit_ypos" "2"
 	}
 
 	HudAmmoSecondary

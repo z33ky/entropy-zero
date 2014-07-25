@@ -471,6 +471,7 @@ public:
 	// for first person and third person.
 	bool					GetShootPosition( Vector &vOrigin, QAngle &vAngles );
 	virtual void			DrawCrosshair( void );
+	virtual	void			DrawAmmo(void);
 	virtual bool			ShouldDrawCrosshair( void ) { return true; }
 	
 	// Weapon state checking
