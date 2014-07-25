@@ -62,29 +62,12 @@ END_DATADESC()
 
 const char *g_ppszRandomCitizenModels[] = 
 {
-	"models/humans/group03/male_01.mdl",
-	"models/humans/group03/male_02.mdl",
-	"models/humans/group03/female_01.mdl",
-	"models/humans/group03/male_03.mdl",
-	"models/humans/group03/female_02.mdl",
-	"models/humans/group03/male_04.mdl",
-	"models/humans/group03/female_03.mdl",
-	"models/humans/group03/male_05.mdl",
-	"models/humans/group03/female_04.mdl",
-	"models/humans/group03/male_06.mdl",
-	"models/humans/group03/female_06.mdl",
-	"models/humans/group03/male_07.mdl",
-	"models/humans/group03/female_07.mdl",
-	"models/humans/group03/male_08.mdl",
-	"models/humans/group03/male_09.mdl",
+	"models/player/alien_commando.mdl",
 };
 
 const char *g_ppszRandomCombineModels[] =
 {
-	"models/combine_soldier.mdl",
-	"models/combine_soldier_prisonguard.mdl",
-	"models/combine_super_soldier.mdl",
-	"models/police.mdl",
+	"models/player/human_commando.mdl",
 };
 
 
@@ -247,7 +230,7 @@ void CHL2MP_Player::PickDefaultSpawnTeam( void )
 				{
 					char szReturnString[512];
 
-					Q_snprintf( szReturnString, sizeof (szReturnString ), "cl_playermodel models/combine_soldier.mdl\n" );
+					Q_snprintf( szReturnString, sizeof (szReturnString ), "cl_playermodel models/player/human_commando.mdl\n" );
 					engine->ClientCommand ( edict(), szReturnString );
 				}
 
@@ -373,7 +356,7 @@ void CHL2MP_Player::SetPlayerTeamModel( void )
 
 	if ( modelIndex == -1 || ValidatePlayerModel( szModelName ) == false )
 	{
-		szModelName = "models/Combine_Soldier.mdl";
+		szModelName = "models/player/human_commando.mdl";
 		m_iModelType = TEAM_COMBINE;
 
 		char szReturnString[512];
@@ -426,7 +409,7 @@ void CHL2MP_Player::SetPlayerModel( void )
 
 		if ( ValidatePlayerModel( pszCurrentModelName ) == false )
 		{
-			pszCurrentModelName = "models/Combine_Soldier.mdl";
+			pszCurrentModelName = "models/player/human_commando.mdl";
 		}
 
 		Q_snprintf( szReturnString, sizeof (szReturnString ), "cl_playermodel %s\n", pszCurrentModelName );
@@ -474,7 +457,7 @@ void CHL2MP_Player::SetPlayerModel( void )
 
 	if ( modelIndex == -1 )
 	{
-		szModelName = "models/Combine_Soldier.mdl";
+		szModelName = "models/player/human_commando.mdl";
 		m_iModelType = TEAM_COMBINE;
 
 		char szReturnString[512];
@@ -674,164 +657,110 @@ extern ConVar hl2_normspeed;
 // Set the activity based on an event or current state
 void CHL2MP_Player::SetAnimation( PLAYER_ANIM playerAnim )
 {
-	int animDesired;
+	// Assume no change
+	Activity idealActivity = GetActivity();
+	int animDesired = GetSequence();
 
-	float speed;
+	float speed = GetAbsVelocity().Length2D();
 
-	speed = GetAbsVelocity().Length2D();
-
+	bool isMoving = ( speed != 0.0f ) ? true : false;
+	bool isRunning = false;
 	
-	// bool bRunning = true;
-
-	//Revisit!
-/*	if ( ( m_nButtons & ( IN_FORWARD | IN_BACK | IN_MOVELEFT | IN_MOVERIGHT ) ) )
+#ifdef IMPLEMENT_ME
+	if ( GetPlayerClass()  )
 	{
-		if ( speed > 1.0f && speed < hl2_normspeed.GetFloat() - 20.0f )
+// FIXME: TF2 makes no distinction between walking and running for now,
+//  use the run animation always
+		if ( speed > 10.0f )
 		{
-			bRunning = false;
+			isRunning = true;
 		}
-	}*/
-
-	if ( GetFlags() & ( FL_FROZEN | FL_ATCONTROLS ) )
-	{
-		speed = 0;
-		playerAnim = PLAYER_IDLE;
-	}
-
-	Activity idealActivity = ACT_HL2MP_RUN;
-
-	// This could stand to be redone. Why is playerAnim abstracted from activity? (sjb)
-	if ( playerAnim == PLAYER_JUMP )
-	{
-		idealActivity = ACT_HL2MP_JUMP;
-	}
-	else if ( playerAnim == PLAYER_DIE )
-	{
-		if ( m_lifeState == LIFE_ALIVE )
-		{
-			return;
-		}
-	}
-	else if ( playerAnim == PLAYER_ATTACK1 )
-	{
-		if ( GetActivity( ) == ACT_HOVER	|| 
-			 GetActivity( ) == ACT_SWIM		||
-			 GetActivity( ) == ACT_HOP		||
-			 GetActivity( ) == ACT_LEAP		||
-			 GetActivity( ) == ACT_DIESIMPLE )
-		{
-			idealActivity = GetActivity( );
-		}
-		else
-		{
-			idealActivity = ACT_HL2MP_GESTURE_RANGE_ATTACK;
-		}
-	}
-	else if ( playerAnim == PLAYER_RELOAD )
-	{
-		idealActivity = ACT_HL2MP_GESTURE_RELOAD;
-	}
-	else if ( playerAnim == PLAYER_IDLE || playerAnim == PLAYER_WALK )
-	{
-		if ( !( GetFlags() & FL_ONGROUND ) && GetActivity( ) == ACT_HL2MP_JUMP )	// Still jumping
-		{
-			idealActivity = GetActivity( );
-		}
-		/*
-		else if ( GetWaterLevel() > 1 )
-		{
-			if ( speed == 0 )
-				idealActivity = ACT_HOVER;
-			else
-				idealActivity = ACT_SWIM;
-		}
-		*/
-		else
-		{
-			if ( GetFlags() & FL_DUCKING )
-			{
-				if ( speed > 0 )
-				{
-					idealActivity = ACT_HL2MP_WALK_CROUCH;
-				}
-				else
-				{
-					idealActivity = ACT_HL2MP_IDLE_CROUCH;
-				}
-			}
-			else
-			{
-				if ( speed > 0 )
-				{
-					/*
-					if ( bRunning == false )
-					{
-						idealActivity = ACT_WALK;
-					}
-					else
-					*/
-					{
-						idealActivity = ACT_HL2MP_RUN;
-					}
-				}
-				else
-				{
-					idealActivity = ACT_HL2MP_IDLE;
-				}
-			}
-		}
-
-		idealActivity = TranslateTeamActivity( idealActivity );
-	}
-	
-	if ( idealActivity == ACT_HL2MP_GESTURE_RANGE_ATTACK )
-	{
-		RestartGesture( Weapon_TranslateActivity( idealActivity ) );
-
-		// FIXME: this seems a bit wacked
-		Weapon_SetActivity( Weapon_TranslateActivity( ACT_RANGE_ATTACK1 ), 0 );
-
-		return;
-	}
-	else if ( idealActivity == ACT_HL2MP_GESTURE_RELOAD )
-	{
-		RestartGesture( Weapon_TranslateActivity( idealActivity ) );
-		return;
 	}
 	else
 	{
-		SetActivity( idealActivity );
-
-		animDesired = SelectWeightedSequence( Weapon_TranslateActivity ( idealActivity ) );
-
-		if (animDesired == -1)
+		if ( speed > ARBITRARY_RUN_SPEED )
 		{
-			animDesired = SelectWeightedSequence( idealActivity );
-
-			if ( animDesired == -1 )
-			{
-				animDesired = 0;
-			}
+			isRunning = true;
 		}
-	
-		// Already using the desired animation?
-		if ( GetSequence() == animDesired )
-			return;
-
-		m_flPlaybackRate = 1.0;
-		ResetSequence( animDesired );
-		SetCycle( 0 );
-		return;
 	}
+#endif
+
+	bool isDucked = ( GetFlags() & FL_DUCKING ) ? true : false;
+	bool isStillJumping = !( GetFlags() & FL_ONGROUND ) && ( GetActivity() == ACT_HOP );
+
+	//StoreCycle();
+
+	// Decide upon an animation activity based upon the desired Player animation
+	switch ( playerAnim )
+	{
+	default:
+	case PLAYER_RELOAD:
+	case PLAYER_ATTACK1:
+	case PLAYER_IDLE:
+	case PLAYER_WALK:
+		// Are we still jumping?
+		// If so, keep playing the jump animation.
+		if ( !isStillJumping )
+		{
+			idealActivity = ACT_WALK;
+
+			if ( isDucked )
+				idealActivity = !isMoving ? ACT_CROUCHIDLE : ACT_CROUCH;
+			else
+			{
+
+				if ( isRunning )
+					idealActivity = ACT_RUN;
+				else
+					idealActivity = isMoving ? ACT_WALK : ACT_IDLE;
+			}
+
+#ifdef IMPLEMENT_ME
+			// Allow shield to override
+			idealActivity = ShieldTranslateActivity( idealActivity );
+#endif
+			// Allow body yaw to override for standing and turning in place
+			idealActivity = m_PlayerAnimState.BodyYawTranslateActivity( idealActivity );
+		}
+		break;
+
+	case PLAYER_IN_VEHICLE:
+		// For now, use manned gun pose for all vehicles
+		idealActivity = ACT_RIDE_MANNED_GUN;
+		break;
+	case PLAYER_JUMP:
+		idealActivity = ACT_HOP;
+		break;
+	case PLAYER_DIE:
+		// Uses Ragdoll now???
+		idealActivity = ACT_DIESIMPLE;
+		break;
+	// FIXME:  Use overlays for reload, start/leave aiming, attacking
+	case PLAYER_START_AIMING:
+	case PLAYER_LEAVE_AIMING:
+		idealActivity = ACT_WALK;
+		break;
+	}
+
+	// No change requested?
+	if ( ( GetActivity() == idealActivity ) && ( GetSequence() != -1 ) )
+		return;
+
+	//bool useStoredCycle = ShouldMatchCycles( idealActivity, GetActivity() );
+
+	animDesired = SelectWeightedSequence( idealActivity );
+
+	SetActivity( idealActivity );
 
 	// Already using the desired animation?
 	if ( GetSequence() == animDesired )
 		return;
 
-	//Msg( "Set animation to %d\n", animDesired );
-	// Reset to first frame of desired animation
 	ResetSequence( animDesired );
-	SetCycle( 0 );
+
+	// Reset to first frame of desired animation or match previous animation if activities are
+	//  meant to synchronize
+	//m_flCycle	= useStoredCycle ? RetrieveCycle() : 0;
 }
 
 

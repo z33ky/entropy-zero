@@ -185,21 +185,65 @@ void CPlayerAnimState::ComputePlaybackRate()
 
 	bool isMoving = ( speed > 0.5f ) ? true : false;
 
-	float maxspeed = GetOuter()->GetSequenceGroundSpeed( GetOuter()->GetSequence() );
-	
-	if ( isMoving && ( maxspeed > 0.0f ) )
-	{
-		float flFactor = 1.0f;
+	Activity currentActivity = 	GetOuter()->GetSequenceActivity( GetOuter()->GetSequence() );
 
-		// Note this gets set back to 1.0 if sequence changes due to ResetSequenceInfo below
-		GetOuter()->SetPlaybackRate( ( speed * flFactor ) / maxspeed );
-
-		// BUG BUG:
-		// This stuff really should be m_flPlaybackRate = speed / m_flGroundSpeed
-	}
-	else
+	switch ( currentActivity )
 	{
-		GetOuter()->SetPlaybackRate( 1.0f );
+	case ACT_WALK:
+	case ACT_RUN:
+	case ACT_IDLE:
+		{
+			float maxspeed = GetOuter()->MaxSpeed();
+			if ( isMoving && ( maxspeed > 0.0f ) )
+			{
+				float flFactor = 1.0f;
+
+				// HACK HACK:: Defender backward animation is animated at 0.6 times speed, so scale up animation for this class
+				//  if he's running backward.
+
+#ifdef IMPLEMENT_ME
+				// Not sure if we're really going to do all classes this way.
+				if ( GetOuter()->IsClass( TFCLASS_DEFENDER ) ||
+					 GetOuter()->IsClass( TFCLASS_MEDIC ) )
+				{
+					Vector facing;
+					Vector moving;
+
+					moving = vel;
+					AngleVectors( GetOuter()->GetLocalAngles(), &facing );
+					VectorNormalize( moving );
+
+					float dot = moving.Dot( facing );
+					if ( dot < 0.0f )
+					{
+						float backspeed = sv_backspeed.GetFloat();
+						flFactor = 1.0f - fabs( dot ) * (1.0f - backspeed);
+
+						if ( flFactor > 0.0f )
+						{
+							flFactor = 1.0f / flFactor;
+						}
+					}
+				}
+#endif
+
+				// Note this gets set back to 1.0 if sequence changes due to ResetSequenceInfo below
+				GetOuter()->SetPlaybackRate( ( speed * flFactor ) / maxspeed );
+
+				// BUG BUG:
+				// This stuff really should be m_flPlaybackRate = speed / m_flGroundSpeed
+			}
+			else
+			{
+				GetOuter()->SetPlaybackRate( 1.0f );
+			}
+		}
+		break;
+	default:
+		{
+			GetOuter()->SetPlaybackRate( 1.0f );
+		}
+		break;
 	}
 }
 
@@ -316,7 +360,6 @@ void CPlayerAnimState::ComputePoseParam_BodyPitch( CStudioHdr *pStudioHdr )
 {
 	// Get pitch from v_angle
 	float flPitch = GetOuter()->GetLocalAngles()[ PITCH ];
-
 	if ( flPitch > 180.0f )
 	{
 		flPitch -= 360.0f;
@@ -326,10 +369,13 @@ void CPlayerAnimState::ComputePoseParam_BodyPitch( CStudioHdr *pStudioHdr )
 	QAngle absangles = GetOuter()->GetAbsAngles();
 	absangles.x = 0.0f;
 	m_angRender = absangles;
-	m_angRender[ PITCH ] = m_angRender[ ROLL ] = 0.0f;
 
 	// See if we have a blender for pitch
-	GetOuter()->SetPoseParameter( pStudioHdr, "aim_pitch", flPitch );
+	int pitch = GetOuter()->LookupPoseParameter( "body_pitch" );
+	if ( pitch < 0 )
+		return;
+
+	GetOuter()->SetPoseParameter( pitch, flPitch );
 }
 
 //-----------------------------------------------------------------------------

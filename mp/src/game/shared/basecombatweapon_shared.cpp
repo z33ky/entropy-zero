@@ -1053,18 +1053,12 @@ int CBaseCombatWeapon::UpdateClientData( CBasePlayer *pPlayer )
 	if ( pPlayer->GetActiveWeapon() == this )
 	{
 		if ( pPlayer->m_fOnTarget ) 
-		{
 			iNewState = WEAPON_IS_ONTARGET;
-		}
 		else
-		{
 			iNewState = WEAPON_IS_ACTIVE;
-		}
 	}
 	else
-	{
 		iNewState = WEAPON_IS_CARRIED_BY_PLAYER;
-	}
 
 	if ( m_iState != iNewState )
 	{

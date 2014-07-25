@@ -164,15 +164,11 @@ void respawn( CBaseEntity *pEdict, bool fCopyCorpse )
 
 	if ( pPlayer )
 	{
-		if ( gpGlobals->curtime > pPlayer->GetDeathTime() + DEATH_ANIMATION_TIME )
-		{		
+		if ( gpGlobals->curtime > pPlayer->GetDeathTime() + DEATH_ANIMATION_TIME )	
 			// respawn player
 			pPlayer->Spawn();			
-		}
 		else
-		{
 			pPlayer->SetNextThink( gpGlobals->curtime + 0.1f );
-		}
 	}
 }
 

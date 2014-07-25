@@ -1,12 +1,12 @@
 "GameInfo"
 {
-	game	"My First HL2MP Mod"
-	title	"HALF+LIFE'"
-	title2	"deathmatch mod"
-	type multiplayer_only
-	nomodels 0
-	nohimodel 1
-	nocrosshair 1
+	game		"Project Fortress"
+	title		"Fortress'"
+	type 		multiplayer_only
+	icon		"icon"
+	nomodels 	0
+	nohimodel 	1
+	nocrosshair 	1
 	hidden_maps
 	{
 		"test_speakers"		1

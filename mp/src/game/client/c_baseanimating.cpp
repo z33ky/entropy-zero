@@ -3313,8 +3313,8 @@ void C_BaseAnimating::ProcessMuzzleFlashEvent()
 			QAngle dummyAngles;
 			GetAttachment( 1, vAttachment, dummyAngles );
 
-			// Make an elight
-			dlight_t *el = effects->CL_AllocElight( LIGHT_INDEX_MUZZLEFLASH + index );
+			// Make an dlight
+			dlight_t *el = effects->CL_AllocDlight( LIGHT_INDEX_MUZZLEFLASH + index );
 			el->origin = vAttachment;
 			el->radius = random->RandomInt( 32, 64 ); 
 			el->decay = el->radius / 0.05f;

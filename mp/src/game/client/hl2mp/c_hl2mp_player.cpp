@@ -370,7 +370,6 @@ void C_HL2MP_Player::AddEntity( void )
 		if ( IsEffectActive( EF_DIMLIGHT ) )
 		{
 			int iAttachment = LookupAttachment( "anim_attachment_RH" );
-
 			if ( iAttachment < 0 )
 				return;
 
@@ -452,13 +451,9 @@ ShadowType_t C_HL2MP_Player::ShadowCastType( void )
 const QAngle& C_HL2MP_Player::GetRenderAngles()
 {
 	if ( IsRagdoll() )
-	{
 		return vec3_angle;
-	}
 	else
-	{
 		return m_PlayerAnimState.GetRenderAngles();
-	}
 }
 
 bool C_HL2MP_Player::ShouldDraw( void )
@@ -466,9 +461,6 @@ bool C_HL2MP_Player::ShouldDraw( void )
 	// If we're dead, our ragdoll will be drawn for us instead.
 	if ( !IsAlive() )
 		return false;
-
-//	if( GetTeamNumber() == TEAM_SPECTATOR )
-//		return false;
 
 	if( IsLocalPlayer() && IsRagdoll() )
 		return true;

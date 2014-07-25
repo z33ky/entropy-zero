@@ -57,20 +57,14 @@ void C_BaseCombatWeapon::NotifyShouldTransmit( ShouldTransmitState_t state )
 	if (state == SHOULDTRANSMIT_END)
 	{
 		if (m_iState == WEAPON_IS_ACTIVE)
-		{
 			m_iState = WEAPON_IS_CARRIED_BY_PLAYER;
-		}
 	}
 	else if( state == SHOULDTRANSMIT_START )
 	{
 		if( m_iState == WEAPON_IS_CARRIED_BY_PLAYER )
-		{
 			if( GetOwner() && GetOwner()->GetActiveWeapon() == this )
-			{
 				// Restore the Activeness of the weapon if we client-twiddled it off in the first case above.
 				m_iState = WEAPON_IS_ACTIVE;
-			}
-		}
 	}
 }
 
@@ -438,10 +432,8 @@ bool C_BaseCombatWeapon::ShouldDraw( void )
 
 	// If it's a player, then only show active weapons
 	if ( pOwner->IsPlayer() )
-	{
 		// Show it if it's active...
 		return bIsActive;
-	}
 
 	// FIXME: We may want to only show active weapons on NPCs
 	// These are carried by AIs; always show them
