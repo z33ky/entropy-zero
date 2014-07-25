@@ -5,7 +5,7 @@ WeaponData
 	// Weapon data is loaded by both the Game and Client DLLs.
 	"printname"	"#HL2_SMG1"
 	"viewmodel"				"models/weapons/v_smg1.mdl"
-	"playermodel"			"models/weapons/w_smg1.mdl"	//FIXME: 
+	"playermodel"			"models/weapons/placeholders/w_smg.mdl"	//FIXME: 
 	"anim_prefix"			"smg2"
 	"bucket"				"2"
 	"bucket_position"		"0"
