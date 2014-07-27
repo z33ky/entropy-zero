@@ -1125,30 +1125,6 @@ void FX_Tesla( const CTeslaInfo &teslaInfo )
 
 
 //-----------------------------------------------------------------------------
-// Purpose: Tesla effect
-//-----------------------------------------------------------------------------
-void BuildTeslaCallback( const CEffectData &data )
-{
-	if ( data.entindex() < 0 )
-		return;
-
-	CTeslaInfo teslaInfo;
-
-	teslaInfo.m_vPos = data.m_vOrigin;
-	teslaInfo.m_vAngles = data.m_vAngles;
-	teslaInfo.m_nEntIndex = data.entindex();
-	teslaInfo.m_flBeamWidth = 5;
-	teslaInfo.m_vColor.Init( 1, 1, 1 );
-	teslaInfo.m_flTimeVisible = 0.3;
-	teslaInfo.m_flRadius = 192;
-	teslaInfo.m_nBeams = 6;
-	teslaInfo.m_pszSpriteName = "sprites/physbeam.vmt";
-
-	FX_Tesla( teslaInfo );
-}
-
-
-//-----------------------------------------------------------------------------
 // Purpose: Tesla hitbox
 //-----------------------------------------------------------------------------
 void FX_BuildTeslaHitbox( 

@@ -270,6 +270,11 @@ Scheme
 
 		// Blank space to leave beneath the menu on the main screen
 		"Main.BottomBorder"	"32"
+		
+		// Fortress
+		NumericText			"255 255 255 255"
+		NumericTextWarning	"OrangeDim"
+		NumericTextCritical	"255 0 0 255"
 	}
 	
 	//////////////////////// FONTS /////////////////////////////
@@ -757,7 +762,7 @@ Scheme
 		{
 			"1"
 			{
-				"name"  "HL2MP"
+				"name"  "Arial"
 				"tall"  "46"
 				"weight" "0"
 				"additive" "0"

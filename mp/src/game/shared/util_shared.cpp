@@ -872,13 +872,9 @@ void UTIL_BloodDecalTrace( trace_t *pTrace, int bloodColor )
 	if ( UTIL_ShouldShowBlood( bloodColor ) )
 	{
 		if ( bloodColor == BLOOD_COLOR_RED )
-		{
 			UTIL_DecalTrace( pTrace, "Blood" );
-		}
 		else
-		{
 			UTIL_DecalTrace( pTrace, "YellowBlood" );
-		}
 	}
 }
 

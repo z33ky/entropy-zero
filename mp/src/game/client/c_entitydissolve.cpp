@@ -24,7 +24,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-CLIENTEFFECT_REGISTER_BEGIN( PrecacheEffectBuild )
+CLIENTEFFECT_REGISTER_BEGIN( PrecacheEffectDissolve )
 CLIENTEFFECT_MATERIAL( "effects/tesla_glow_noz" )
 CLIENTEFFECT_MATERIAL( "effects/spark" )
 CLIENTEFFECT_MATERIAL( "effects/combinemuzzle2" )

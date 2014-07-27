@@ -212,13 +212,9 @@ void C_BaseCombatWeapon::Redraw()
 	DrawAmmo();
 }
 
-#if 0
-#include "hud_ammo.h"
-#endif
-
 void C_BaseCombatWeapon::DrawAmmo()
 {
-#if 0
+#if 0	// Added in so that HUD can be tested, probably obsolete now and can be removed.
 	GetHudAmmo()->SetPrimaryAmmo( 
 		m_iPrimaryAmmoType, 
 		GetPrimaryAmmoCount(), 

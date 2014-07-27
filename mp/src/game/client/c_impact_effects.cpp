@@ -176,7 +176,6 @@ static void CreateFleckParticles( const Vector& origin, const Vector &color, tra
 	case CHAR_TEX_WOOD:
 		hMaterial = g_Mat_Fleck_Wood;
 		break;
-
 	case CHAR_TEX_CONCRETE:
 	case CHAR_TEX_TILE:
 	default:

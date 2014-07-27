@@ -10,9 +10,9 @@
 		"visible" "1"
 		"enabled" "1"
 
-		TextColor			"255 255 255 255"
-		TextColorWarning	"255 255 255 255"
-		TextColorCritical	"255 0 0 255"
+		//TextColor			"255 255 255 255"
+		//TextColorWarning	"255 255 255 255"
+		//TextColorCritical	"255 0 0 255"
 		
 		"text_xpos" "8"
 		"text_ypos" "20"
