@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: Clients CBaseObject
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "c_baseobject.h"
 #include "c_basetfplayer.h"
@@ -25,9 +19,7 @@
 #include "c_weapon_builder.h"
 #endif
 #include "IVRenderView.h"
-#ifdef IMPLEMENT_ME
 #include "ObjectControlPanel.h"
-#endif
 #include "engine/ivmodelinfo.h"
 #include "c_te_effect_dispatch.h"
 
@@ -55,9 +47,6 @@ IMPLEMENT_CLIENTCLASS_DT(C_BaseObject, DT_BaseObject, CBaseObject)
 	RecvPropEHandle( RECVINFO( m_hBuilder ) ),
 END_RECV_TABLE()
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_BaseObject::C_BaseObject(  )
 {
 	m_flDamageFlash = 0;
@@ -72,16 +61,10 @@ C_BaseObject::C_BaseObject(  )
 	m_ThermalMaterial.Init("player/thermal/thermal",TEXTURE_GROUP_MODEL);
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_BaseObject::~C_BaseObject( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseObject::PreDataUpdate( DataUpdateType_t updateType )
 {
 	BaseClass::PreDataUpdate( updateType );
@@ -201,10 +184,8 @@ bool C_BaseObject::OffsetObjectOrigin( Vector& origin )
 	if ( !m_bBuilding )
 		return false;
 	
-#ifdef IMPLEMENT_ME
 	if ( inv_demo.GetBool() )
 		return false;
-#endif
 
 	Vector vecWorldMins, vecWorldMaxs;
 	CollisionProp()->WorldSpaceAABB( &vecWorldMins, &vecWorldMaxs );
@@ -240,7 +221,6 @@ int C_BaseObject::DrawModel( int flags )
 	}
 
 	int drawn;
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pLocal = C_BaseTFPlayer::GetLocalPlayer();
 	if ( pLocal && pLocal->IsUsingThermalVision() )
 	{
@@ -249,7 +229,6 @@ int C_BaseObject::DrawModel( int flags )
 		modelrender->ForcedMaterialOverride( NULL );
 	}
 	else
-#endif
 	{
 		// If we're a brush-built, map-defined object chain up to baseentity draw
 		if ( modelinfo->GetModelType( GetModel() ) == mod_brush )
@@ -265,7 +244,6 @@ int C_BaseObject::DrawModel( int flags )
 	// If we were drawn, draw building effects if we're building, or damage effects if we're damaged
 	if ( drawn && (m_flNextEffect < gpGlobals->curtime) )
 	{
-#ifdef IMPLEMENT_ME
 		// Haxory LOD
 		C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
 		if ( (GetAbsOrigin() - pPlayer->GetAbsOrigin()).LengthSqr() < lod_effect_distance.GetFloat() )
@@ -275,14 +253,15 @@ int C_BaseObject::DrawModel( int flags )
 
 			if ( !m_bPlacing && !m_bBuilding )
 			{
+#ifdef IMPLEMENT_ME
 				if ( !HasPowerup( POWERUP_EMP ) )
 					DrawRunningEffects();
+#endif
 
 				if ( GetHealth() < GetMaxHealth() )
 					DrawDamageEffects();
 			}
 		}
-#endif
 	}
 
 	HighlightBuildPoints( flags );
@@ -444,9 +423,7 @@ void C_BaseObject::PostDataUpdate( DataUpdateType_t updateType )
 
 	bool bNewEntity = (updateType == DATA_UPDATE_CREATED);
 	if ( bNewEntity )
-	{
 		m_flAttackTime = -1000;
-	}
 
 	// Determine if we're under attack
 	if ( !bNewEntity )
@@ -477,21 +454,20 @@ void C_BaseObject::PostDataUpdate( DataUpdateType_t updateType )
 				// Play a sound.
 				CLocalPlayerFilter filter;
 				EmitSound( filter, SOUND_FROM_LOCAL_PLAYER, "BaseObject.SapperDestroyingTeamBuilding" );
-#ifdef IMPLEMENT_ME
+
 				MinimapCreateTempTrace( "minimap_under_attack", MINIMAP_PERSONAL_ORDERS, GetAbsOrigin() );
-#endif
 			}
 		}
 	}
 
-#ifdef IMPLEMENT_ME
 	// Notify the hint system of the object being built.
 	if ( bNewEntity && GetOwner() && ( GetOwner() == C_BasePlayer::GetLocalPlayer() ) )
 	{
+#ifdef IMPLEMENT_ME
 		C_HintEvent_ObjectBuiltByLocalPlayer event( this );
 		GlobalHintEvent( &event );
-	}
 #endif
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -499,14 +475,10 @@ void C_BaseObject::PostDataUpdate( DataUpdateType_t updateType )
 //-----------------------------------------------------------------------------
 void C_BaseObject::Release( void )
 {
-#ifdef IMPLEMENT_ME
 	// Remove any reticles on this entity
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if ( pPlayer )
-	{
 		pPlayer->Remove_Target( this );
-	}
-#endif
 
 	BaseClass::Release();
 }
@@ -536,11 +508,7 @@ bool C_BaseObject::IsOwnedByLocalPlayer() const
 	if ( !m_hBuilder )
 		return false;
 
-#ifdef IMPLEMENT_ME
 	return ( m_hBuilder == C_BaseTFPlayer::GetLocalPlayer() );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -584,10 +552,8 @@ void C_BaseObject::AddEntity( void )
 //-----------------------------------------------------------------------------
 void C_BaseObject::Select( void )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	pPlayer->SetSelectedObject( this );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -639,17 +605,9 @@ void C_BaseObject::SetObjectCollisionBox( void )
 //-----------------------------------------------------------------------------
 bool C_BaseObject::IsValidIDTarget( void )
 {
-#ifdef IMPLEMENT_ME
 	return InSameTeam( C_BaseTFPlayer::GetLocalPlayer() ) && m_bBuilding;
-#else
-	return false;
-#endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseObject::RecalculateIDString( void )
 {
 	// Subclasses may have filled this out with a string
@@ -917,7 +875,6 @@ void CObjectPowerProxy::OnBind( void *pRenderable )
 
 EXPOSE_INTERFACE( CObjectPowerProxy, IMaterialProxy, "ObjectPower" IMATERIAL_PROXY_INTERFACE_VERSION );
 
-#ifdef IMPLEMENT_ME
 //-----------------------------------------------------------------------------
 // Control screen 
 //-----------------------------------------------------------------------------
@@ -929,9 +886,7 @@ public:
 	CBasicControlPanel( vgui::Panel *parent, const char *panelName );
 };
 
-
 DECLARE_VGUI_SCREEN_FACTORY( CBasicControlPanel, "basic_control_panel" );
-
 
 //-----------------------------------------------------------------------------
 // Constructor: 
@@ -940,4 +895,3 @@ CBasicControlPanel::CBasicControlPanel( vgui::Panel *parent, const char *panelNa
 	: BaseClass( parent, "CBasicControlPanel" ) 
 {
 }
-#endif

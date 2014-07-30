@@ -11,9 +11,9 @@
 #include <KeyValues.h>
 
 #ifndef CLIENT_DLL
-#ifdef IMPLEMENT_ME
 	#include "tf_team.h"
 	#include "tf_class_commando.h"
+#ifdef IMPLEMENT_ME
 	#include "tf_class_defender.h"
 	#include "tf_class_escort.h"
 	#include "tf_class_infiltrator.h"
@@ -179,7 +179,6 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 //--------------------------------------------------------------------------
 // PLAYER CLASSES
 //--------------------------------------------------------------------------
-#ifdef IMPLEMENT_ME
 #if defined( CLIENT_DLL )
 	
 	#define DEFINE_PLAYERCLASS_ALLOC_FNS( className, iClass )				\
@@ -203,6 +202,7 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 
 	BEGIN_RECV_TABLE_NOBASE( C_AllPlayerClasses, DT_AllPlayerClasses )
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_COMMANDO]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassCommandoData ),		DataTableRecvProxy_PointerDataTable ),
+#ifdef IMPLEMENT_ME
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_DEFENDER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassDefenderData ),		DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_ESCORT]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassEscortData ),			DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_INFILTRATOR]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassInfiltratorData ), DataTableRecvProxy_PointerDataTable ),
@@ -210,7 +210,8 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_RECON]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassReconData ),				DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SNIPER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSniperData ),			DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SUPPORT]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSupportData ),			DataTableRecvProxy_PointerDataTable ),
-		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SAPPER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSapperData ),	DataTableRecvProxy_PointerDataTable )
+		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SAPPER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSapperData ),			DataTableRecvProxy_PointerDataTable )
+#endif
 	END_RECV_TABLE()
 
 #else		
@@ -237,6 +238,7 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 
 	BEGIN_SEND_TABLE_NOBASE( CAllPlayerClasses, DT_AllPlayerClasses )
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_COMMANDO]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassCommandoData ),	SendProxy_DataTablePtrToDataTable ),
+#ifdef IMPLEMENT_ME
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_DEFENDER]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassDefenderData ),	SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_ESCORT]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassEscortData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_INFILTRATOR]),&REFERENCE_SEND_TABLE( DT_PlayerClassInfiltratorData ), SendProxy_DataTablePtrToDataTable ),
@@ -244,11 +246,11 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_RECON]),		&REFERENCE_SEND_TABLE( DT_PlayerClassReconData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SNIPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSniperData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SUPPORT]),	&REFERENCE_SEND_TABLE( DT_PlayerClassSupportData ),		SendProxy_DataTablePtrToDataTable ),
-		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SAPPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSapperData ),	SendProxy_DataTablePtrToDataTable )
+		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SAPPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSapperData ),		SendProxy_DataTablePtrToDataTable )
+#endif
 	END_SEND_TABLE()
 
 #endif
-
 
 
 // ------------------------------------------------------------------------------------- //
@@ -274,9 +276,7 @@ CAllPlayerClasses::CAllPlayerClasses( PLAYER_TYPE *pPlayer )
 CAllPlayerClasses::~CAllPlayerClasses()
 {
 	for ( int i=0; i < TFCLASS_CLASS_COUNT; i++ )
-	{
 		delete m_pClasses[i];
-	}
 }
 
 PLAYER_CLASS_TYPE* CAllPlayerClasses::GetPlayerClass( int iClass )
@@ -285,6 +285,7 @@ PLAYER_CLASS_TYPE* CAllPlayerClasses::GetPlayerClass( int iClass )
 	return m_pClasses[iClass];
 }
 
+#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Recon,		TFCLASS_RECON );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Commando,		TFCLASS_COMMANDO );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Medic,		TFCLASS_MEDIC );
@@ -292,13 +293,17 @@ DEFINE_PLAYERCLASS_ALLOC_FNS( Defender,		TFCLASS_DEFENDER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sniper,		TFCLASS_SNIPER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Support,		TFCLASS_SUPPORT );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Escort,		TFCLASS_ESCORT );
-DEFINE_PLAYERCLASS_ALLOC_FNS( Sapper,	TFCLASS_SAPPER );
+DEFINE_PLAYERCLASS_ALLOC_FNS( Sapper,		TFCLASS_SAPPER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Infiltrator,	TFCLASS_INFILTRATOR );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
+#else
+DEFINE_PLAYERCLASS_ALLOC_FNS( Commando,		TFCLASS_COMMANDO );
+#endif
 
 CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 {
 	{ "Undecided",	g_iClassInfo_Undecided,		false, NULL, NULL, NULL },
+#ifdef IMPLEMENT_ME
 	{ "Recon",		g_iClassInfo_Recon,			false, GENERATE_PLAYERCLASS_INFO( Recon ) },
 	{ "Commando",	g_iClassInfo_Commando,		true, GENERATE_PLAYERCLASS_INFO( Commando ) },
 	{ "Medic",		g_iClassInfo_Medic,			true, GENERATE_PLAYERCLASS_INFO( Medic ) },
@@ -309,6 +314,10 @@ CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 	{ "Sapper",		g_iClassInfo_Sapper,		true, GENERATE_PLAYERCLASS_INFO( Sapper ) },
 	{ "Infiltrator",g_iClassInfo_Infiltrator,	false, GENERATE_PLAYERCLASS_INFO( Infiltrator ) },
 	{ "Pyro",		g_iClassInfo_Pyro,			false, GENERATE_PLAYERCLASS_INFO( Pyro ) }
+#else
+	{ "Dummy",		g_iClassInfo_Undecided,			false, NULL, NULL, NULL },	// Dummy class to make Commando accesible. ~hogsy
+	{ "Commando",	g_iClassInfo_Commando,		true, GENERATE_PLAYERCLASS_INFO( Commando ) },
+#endif
 };
 
 
@@ -317,7 +326,6 @@ const CTFClassInfo* GetTFClassInfo( int i )
 	Assert( i >= 0 && i < TFCLASS_CLASS_COUNT );
 	return &g_TFClassInfos[i];
 }
-#endif
 
 // ------------------------------------------------------------------------------------------------ //
 // CObjectInfo tables.
@@ -342,7 +350,6 @@ CObjectInfo::CObjectInfo( char *pObjectName )
 	m_pIconActive = NULL;
 }
 
-
 CObjectInfo::~CObjectInfo()
 {
 	delete [] m_pClassName;
@@ -351,7 +358,6 @@ CObjectInfo::~CObjectInfo()
 	delete [] m_pBuilderPlacementString;
 	delete [] m_pIconActive;
 }
-
 
 CObjectInfo g_ObjectInfos[OBJ_LAST] =
 {
@@ -415,7 +421,6 @@ bool AreObjectInfosLoaded()
 	return g_ObjectInfos[0].m_pClassName != NULL;
 }
 
-
 void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 {
 	const char *pFilename = "scripts/objects.txt";
@@ -470,14 +475,12 @@ void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 	pValues->deleteThis();
 }
 
-
 const CObjectInfo* GetObjectInfo( int iObject )
 {
 	Assert( iObject >= 0 && iObject < OBJ_LAST );
 	Assert( AreObjectInfosLoaded() );
 	return &g_ObjectInfos[iObject];
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Return true if the specified class is allowed to build the specified object type

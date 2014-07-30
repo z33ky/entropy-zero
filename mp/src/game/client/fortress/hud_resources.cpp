@@ -6,13 +6,8 @@
 //=============================================================================
 #include "cbase.h"
 #include "hud_numeric.h"
-#ifdef IMPLEMENT_ME
 #include "c_basetfplayer.h"
-#endif
 #include "hud_macros.h"
-#ifdef IMPLEMENT_ME
-#include "parsemsg.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -57,7 +52,6 @@ bool CHudResources::GetValue( char *val, int maxlen )
 
 bool CHudResources::GetResourceCount( int& value )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if ( !pPlayer )
 		return false;
@@ -66,15 +60,8 @@ bool CHudResources::GetResourceCount( int& value )
 
 	value = pPlayer->m_TFLocal.m_iBankResources;
 	return true;
-#else
-	return false;
-#endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 class CHudResourcesPickup : public CHudNumeric
 {
 	DECLARE_CLASS_SIMPLE( CHudResourcesPickup, CHudNumeric )
@@ -87,7 +74,7 @@ public:
 	virtual bool		GetValue( char *val, int maxlen );
 
 	// Handler for our message
-	void MsgFunc_PickupRes( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_PickupRes( bf_read &msg );
 
 private:
 	int		m_iPickupAmount;
@@ -96,31 +83,18 @@ private:
 };
 
 DECLARE_HUDELEMENT( CHudResourcesPickup );
-#ifdef IMPLEMENT_ME
 DECLARE_HUD_MESSAGE( CHudResourcesPickup, PickupRes );
-#endif
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudResourcesPickup::CHudResourcesPickup( const char *pElementName ) : CHudNumeric( pElementName, "HudResourcesPickup")
 {
 	m_iPickupAmount = 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudResourcesPickup::Init( void )
 {
-#ifdef IMPLEMENT_ME
-	HOOK_MESSAGE( PickupRes );
-#endif
+	HOOK_HUD_MESSAGE( CHudResourcesPickup, PickupRes );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CHudResourcesPickup::GetValue( char *val, int maxlen )
 {
 	if ( !m_iPickupAmount )
@@ -133,13 +107,9 @@ bool CHudResourcesPickup::GetValue( char *val, int maxlen )
 //-----------------------------------------------------------------------------
 // Purpose: Message handler for PickupRes message
 //-----------------------------------------------------------------------------
-void CHudResourcesPickup::MsgFunc_PickupRes( const char *pszName, int iSize, void *pbuf )
+void CHudResourcesPickup::MsgFunc_PickupRes( bf_read &msg )
 {
-#ifdef IMPLEMENT_ME
-	BEGIN_READ( pbuf, iSize );
-
-	m_iPickupAmount = READ_BYTE();
-#endif
+	m_iPickupAmount = msg.ReadByte();
 
 	ForcePulse();
 }

@@ -50,9 +50,6 @@ void CBaseObject::CreateBuildPoints( void )
 	modelKeyValues->deleteThis();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::AddAndParseBuildPoint( int iAttachmentNumber, KeyValues *pkvBuildPoint )
 {
 	int iPoint = AddBuildPoint( iAttachmentNumber );
@@ -221,12 +218,8 @@ int CBaseObject::GetNumObjectsOnMe( void )
 {
 	int iObjects = 0;
 	for ( int i = 0; i < GetNumBuildPoints(); i++ )
-	{
 		if ( m_BuildPoints[i].m_hObject )
-		{
 			iObjects++;
-		}
-	}
 
 	return iObjects;
 }
@@ -448,10 +441,6 @@ void CBaseObject::SetType( int iObjectType )
 	NetworkStateChanged( );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : act - 
-//-----------------------------------------------------------------------------
 void CBaseObject::SetActivity( Activity act ) 
 { 
 	// Allow any model swapping, etc. to occur
@@ -508,9 +497,6 @@ void CBaseObject::AttemptToGoActive( void )
 		OnGoActive();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::OnGoActive( void )
 {
 #ifndef CLIENT_DLL
@@ -527,9 +513,6 @@ void CBaseObject::OnGoActive( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::OnGoInactive( void )
 {
 #ifndef CLIENT_DLL

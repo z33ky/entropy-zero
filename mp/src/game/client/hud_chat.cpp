@@ -1,9 +1,3 @@
-//========= Copyright Valve Corporation, All rights reserved. ============//
-//
-// Purpose:
-//
-//=============================================================================//
-
 #include "cbase.h"
 #include "hud_chat.h"
 #include "hud_macros.h"
@@ -12,17 +6,11 @@
 #include "hud_basechat.h"
 #include <vgui/ILocalize.h>
 
-
-
 DECLARE_HUDELEMENT( CHudChat );
 
 DECLARE_HUD_MESSAGE( CHudChat, SayText );
 DECLARE_HUD_MESSAGE( CHudChat, SayText2 );
 DECLARE_HUD_MESSAGE( CHudChat, TextMsg );
-
-//=====================
-//CHudChat
-//=====================
 
 CHudChat::CHudChat( const char *pElementName ) : BaseClass( pElementName )
 {
@@ -69,10 +57,8 @@ void CHudChat::MsgFunc_SayText2( bf_read &msg )
 		Msg( "%s\n", RemoveColorMarkup(ansiString) );
 	}
 	else
-	{
 		// print raw chat text
 		ChatPrintf( client, CHAT_FILTER_NONE, "%s", ansiString );
-	}
 }
 
 //-----------------------------------------------------------------------------

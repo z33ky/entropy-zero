@@ -19,6 +19,66 @@
 		"digit_xpos" "50"
 		"digit_ypos" "2"
 	}
+	
+	HudResourcesPickup
+	{
+		"fieldName"		"HudResourcesPickup"
+		"xpos"	"16"
+		"ypos"	"432"
+		"wide"	"102"
+		"tall"  "36"
+		"visible" "1"
+		"enabled" "1"
+
+		//TextColor			"255 255 255 255"
+		//TextColorWarning	"255 255 255 255"
+		//TextColorCritical	"255 0 0 255"
+		
+		"text_xpos" "8"
+		"text_ypos" "20"
+		"digit_xpos" "50"
+		"digit_ypos" "2"
+	}
+	
+	HudResources
+	{
+		"fieldName"		"HudResources"
+		"xpos"	"16"
+		"ypos"	"432"
+		"wide"	"102"
+		"tall"  "36"
+		"visible" "1"
+		"enabled" "1"
+
+		//TextColor			"255 255 255 255"
+		//TextColorWarning	"255 255 255 255"
+		//TextColorCritical	"255 0 0 255"
+		
+		"text_xpos" "8"
+		"text_ypos" "20"
+		"digit_xpos" "50"
+		"digit_ypos" "2"
+	}
+	
+	HudMinimap
+	{
+		"fieldName"		"HudMinimap"
+		"xpos"	"16"
+		"ypos"	"432"
+		"wide"	"102"
+		"tall"  "36"
+		"visible" "1"
+		"enabled" "1"
+
+		//TextColor			"255 255 255 255"
+		//TextColorWarning	"255 255 255 255"
+		//TextColorCritical	"255 0 0 255"
+		
+		"text_xpos" "8"
+		"text_ypos" "20"
+		"digit_xpos" "50"
+		"digit_ypos" "2"
+	}
 
 	TargetID
 	{

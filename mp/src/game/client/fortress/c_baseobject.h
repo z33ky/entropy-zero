@@ -9,9 +9,9 @@
 #include <vgui_controls/Label.h>
 #ifdef IMPLEMENT_ME
 #include "vgui_healthbar.h"
+#endif
 #include "commanderoverlay.h"
 #include "hud_minimap.h"
-#endif
 #include "particlemgr.h"
 #include "particle_prototype.h"
 #include "particle_util.h"
@@ -36,10 +36,8 @@ class C_BaseObject : public C_BaseCombatCharacter
 	DECLARE_CLASS( C_BaseObject, C_BaseCombatCharacter );
 public:
 	DECLARE_CLIENTCLASS();
-#ifdef IMPLEMENT_ME
 	DECLARE_ENTITY_PANEL();
 	DECLARE_MINIMAP_PANEL();
-#endif
 
 	C_BaseObject();
 	~C_BaseObject( void );

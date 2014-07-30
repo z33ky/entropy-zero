@@ -15,7 +15,9 @@
 #include "tf_shareddefs.h"
 #ifdef IMPLEMENT_ME
 #include "tf_playerlocaldata.h"
+#endif
 #include "tf_playerclass.h"
+#ifdef IMPLEMENT_ME
 #include "basenetworkable.h"
 #endif
 #include "iscorer.h"
@@ -551,9 +553,7 @@ private:
 	float	m_flFinishedDeploying;
 	
 	CNetworkVar( int, m_iPlayerClass );
-#ifdef IMPLEMENT_ME
 	CAllPlayerClasses			m_PlayerClasses;
-#endif
 
 	// This times how long each class is active.
 	CFastTimer					m_Timer;

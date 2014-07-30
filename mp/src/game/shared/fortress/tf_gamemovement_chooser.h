@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: Auto Repair
-//
-// $NoKeywords: $
-//=============================================================================
-
 #ifndef TF_GAMEMOVEMENT_CHOOSER_H
 #define TF_GAMEMOVEMENT_CHOOSER_H
 #ifdef _WIN32
@@ -16,7 +9,9 @@
 #include "tf_gamemovement.h"
 #ifdef IMPLEMENT_ME
 #include "tf_gamemovement_recon.h"
+#endif
 #include "tf_gamemovement_commando.h"
+#ifdef IMPLEMENT_ME
 #include "tf_gamemovement_medic.h"
 #include "tf_gamemovement_defender.h"
 #include "tf_gamemovement_sniper.h"
@@ -62,6 +57,8 @@ protected:
 	CTFGameMovementSapper			m_SapperMovement;
 	CTFGameMovementInfiltrator		m_InfiltratorMovement;
 	CTFGameMovementPyro				m_PyroMovement;
+#else
+	CTFGameMovementCommando			m_CommandoMovement;
 #endif
 
 	// Vector of class specific movements (for quick addressing).

@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "c_basetfplayer.h"
 #include "beamdraw.h"
@@ -374,12 +368,14 @@ END_PREDICTION_DATA()
 BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 
 	DEFINE_PRED_TYPEDESCRIPTION( m_TFLocal, CTFPlayerLocalData ),
-	
+
 	DEFINE_PRED_FIELD( m_flCycle, FIELD_FLOAT, FTYPEDESC_INSENDTABLE | FTYPEDESC_PRIVATE | FTYPEDESC_OVERRIDE ),
 	DEFINE_PRED_FIELD( m_flPlaybackRate, FIELD_FLOAT, FTYPEDESC_INSENDTABLE | FTYPEDESC_PRIVATE | FTYPEDESC_OVERRIDE ),
 
-#ifdef IMPLEMENT_ME
+#if 0	
+
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_COMMANDO], C_PlayerClassCommando ),
+#ifdef IMPLEMENT_ME
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_DEFENDER], C_PlayerClassDefender ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_ESCORT], C_PlayerClassEscort ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_INFILTRATOR], C_PlayerClassInfiltrator ),
@@ -454,6 +450,7 @@ BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hSelectedOrder, CHandle < C_Order > ),
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hPersonalOrder, FIELD_EHANDLE ),
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hSelectedObject, CHandle < C_BaseObject > ),
+#endif
 
 END_PREDICTION_DATA()
 
@@ -494,19 +491,15 @@ bool IsLocalPlayerInTactical( void )
 	if (!pPlayer)
 		return false;
 
-#ifdef IMPLEMENT_ME
 	return !!pPlayer->m_TFLocal.m_nInTacticalView;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-C_BaseTFPlayer::C_BaseTFPlayer() 
+C_BaseTFPlayer::C_BaseTFPlayer() : m_PlayerClasses( this )
 #ifdef IMPLEMENT_ME
-:	m_PlayerClasses( this ), m_PlayerAnimState( this )
+, m_PlayerAnimState( this )
 #endif
 {
 	Clear();
@@ -580,9 +573,7 @@ C_BaseTFPlayer::~C_BaseTFPlayer()
 void C_BaseTFPlayer::SetDormant( bool bDormant )
 {
 	BaseClass::SetDormant( bDormant );
-#ifdef IMPLEMENT_ME
 	ENTITY_PANEL_ACTIVATE( "player", !bDormant );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -615,17 +606,19 @@ bool C_BaseTFPlayer::ShouldDraw()
 	if ( local && local->IsUsingThermalVision() )
 		return true;
 
-#ifdef IMPLEMENT_ME
 	// Draw the local player if he's the driver of a vehicle.
 	// We can safely return true here because vehicles will hide drivers that shouldn't be visible.
+#ifdef IMPLEMENT_ME
 	if ( mannedgun_usethirdperson.GetInt() && IsVehicleMounted() && IsLocalPlayer() )
+#else
+	if ( IsVehicleMounted() && IsLocalPlayer() )
+#endif
 	{
 		IClientVehicle *pVehicle = GetVehicle();
 		int nRole = pVehicle->GetPassengerRole( this );
 		if ( nRole == VEHICLE_ROLE_DRIVER )
 			return !IsEffectActive(EF_NODRAW);
 	}
-#endif
 
 	return BaseClass::ShouldDraw();
 }
@@ -706,18 +699,12 @@ void C_BaseTFPlayer::ClientThink( void )
 void C_BaseTFPlayer::OnPreDataChanged( DataUpdateType_t updateType )
 {
 	BaseClass::OnPreDataChanged( updateType );
-#ifdef IMPLEMENT_ME
-	m_nOldTacticalView = m_TFLocal.m_nInTacticalView;
-#endif
 
-	m_iLastHealth = GetHealth();
-
-#ifdef IMPLEMENT_ME
+	m_nOldTacticalView		= m_TFLocal.m_nInTacticalView;
+	m_iLastHealth			= GetHealth();
 	m_bOldKnockDownState	= m_TFLocal.m_bKnockedDown; 
 	m_bOldThermalVision		= m_TFLocal.m_bThermalVision;
-#endif
-
-	m_nOldPlayerClass = m_iPlayerClass;
+	m_nOldPlayerClass		= m_iPlayerClass;
 
 	// Chain.
 	if ( GetPlayerClass() )
@@ -733,11 +720,9 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 	bool bnewentity = (updateType == DATA_UPDATE_CREATED);
 	if ( bnewentity )
 	{
-#ifdef IMPLEMENT_ME
 		// Do the minimap panel thing here because we don't
 		// want predicted players to have traces
 		CONSTRUCT_MINIMAP_PANEL( "minimap_player", MINIMAP_PLAYERS );
-#endif
 
 		SetNextClientThink( CLIENT_THINK_ALWAYS );
 		m_BoostMaterial.Init( "player/damageboost/thermal", TEXTURE_GROUP_CLIENT_EFFECTS );
@@ -749,17 +734,14 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 	// Only care about this stuff for the local player
 	if ( IsLocalPlayer() )
 	{
-#ifdef IMPLEMENT_ME
 		// Check to see if we switched into/out of the commander mode.
 		if ( m_TFLocal.m_nInTacticalView != m_nOldTacticalView )
 		{
 			// Is this the local player
 			C_BasePlayer *player = C_BasePlayer::GetLocalPlayer();
 			if ( player == this )
-			{
 				// Tell mode switcher that server changed our mode
 				modemanager->SwitchMode( m_TFLocal.m_nInTacticalView ? true : false, false );
-			}
 		}
 
 		// Knockdown
@@ -793,11 +775,8 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 				vieweffects->Fade( sf );
 			}
 			else
-			{
-				vieweffects->ClearPermanentFades();
-			}		
+				vieweffects->ClearPermanentFades();	
 		}
-#endif
 
 		if ( m_nOldPlayerClass != m_iPlayerClass )
 			GetHudWeaponSelection()->CancelWeaponSelection();
@@ -817,11 +796,9 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 			if (GetHealth() < GetMaxHealth())
 			{
 				m_flLastDamageTime = gpGlobals->curtime;
-#ifdef IMPLEMENT_ME
 				C_TFTeam *pTeam = static_cast<C_TFTeam*>(GetTeam());
 				if (pTeam && !IsLocalPlayer() && m_bUnderAttack )
 					pTeam->NotifyBaseUnderAttack( GetAbsOrigin(), false );
-#endif
 			}
 		}
 		else
@@ -830,9 +807,7 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 
 			// If we were just fully healed, remove all decals
 			if ( GetHealth() >= GetMaxHealth() )
-			{
 				RemoveAllDecals();
-			}
 		}
 	}
 
@@ -851,9 +826,8 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 void C_BaseTFPlayer::PreDataUpdate( DataUpdateType_t updateType )
 {
 	BaseClass::PreDataUpdate( updateType );
-#ifdef IMPLEMENT_ME
+
 	m_bOldAttachingSapper = m_TFLocal.m_bAttachingSapper;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -894,25 +868,21 @@ void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void C_BaseTFPlayer::ReceiveMessage( const char *msgname, int length, void *data )
+void C_BaseTFPlayer::ReceiveMessage( int classID, bf_read &msg )
 {
-#ifdef IMPLEMENT_ME // This is totally rewritten in the 2007 version, so probably pull that over ~hogsy
-	BEGIN_READ( data, length );
-	
 	Vector vOffsetFromEnt;
-	READ_VEC3COORD( vOffsetFromEnt );
+	msg.ReadBitVec3Coord( vOffsetFromEnt );
 
 	// Show a personal shield effect.
 	Vector vIncomingDirection;
-	READ_VEC3NORMAL( vIncomingDirection );
+	msg.ReadBitVec3Normal( vIncomingDirection );
 
-	short iDamage = READ_SHORT();
+	short iDamage = msg.ReadShort();
 
 	// Show the effect.
 	CPersonalShieldEffect *pEffect = CPersonalShieldEffect::Create( this, vOffsetFromEnt, vIncomingDirection, iDamage );
 	if ( pEffect )
 		m_PersonalShieldEffects.AddToTail( pEffect );
-#endif
 }
 
 
@@ -924,16 +894,11 @@ void C_BaseTFPlayer::Release( void )
 	// Remove any reticles on this entity
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if ( pPlayer )
-	{
 		pPlayer->Remove_Target( this );
-	}
 
 	BaseClass::Release();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::ItemPostFrame( void )
 {
 	if ( m_flNextUseCheck < gpGlobals->curtime )		
@@ -978,14 +943,12 @@ void C_BaseTFPlayer::ItemPostFrame( void )
 			return;
 	}
 
-#ifdef IMPLEMENT_ME
 	// If we're attaching a sapper, handle player use only
 	if ( m_TFLocal.m_bAttachingSapper )
 	{
 		PlayerUse();
 		return;
 	}
-#endif
 
 	BaseClass::ItemPostFrame();
 
@@ -1066,10 +1029,6 @@ int C_BaseTFPlayer::DrawModel( int flags )
 	return drawn;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int C_BaseTFPlayer::GetClass( void )
 {
 	if ( !GetPlayerClass() )
@@ -1078,9 +1037,6 @@ int C_BaseTFPlayer::GetClass( void )
 	return m_iPlayerClass;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::OverrideView( CViewSetup *pSetup )
 {
 	if ( CheckKnockdownAngleOverride() )
@@ -1095,9 +1051,6 @@ void C_BaseTFPlayer::OverrideView( CViewSetup *pSetup )
 	BaseClass::OverrideView( pSetup );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::ShouldDrawViewModel()
 {
 	// Don't draw if we're hiding the weapons
@@ -1271,11 +1224,7 @@ void C_BaseTFPlayer::RemoveOrderTarget()
 //-----------------------------------------------------------------------------
 int C_BaseTFPlayer::GetBankResources( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_iBankResources;
-#else
-	return 0;
-#endif
 }
 
 
@@ -1366,38 +1315,19 @@ void C_BaseTFPlayer::Remove_Target( CTargetReticle *pTargetReticle )
 //-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsUsingThermalVision( void ) const
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_bThermalVision;
-#else
-	return false;
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int C_BaseTFPlayer::GetIDTarget( void ) const
 {
 	return m_iIDEntIndex;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : Returns true on success, false on failure.
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsKnockedDown( void ) const
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_bKnockedDown;
-#else
-	return false;
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : ang - 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::SetKnockdownAngles( const QAngle& ang )
 {
 	m_bKnockdownOverrideAngles = true;
@@ -1407,18 +1337,11 @@ void C_BaseTFPlayer::SetKnockdownAngles( const QAngle& ang )
 	engine->SetViewAngles( fixedAngles );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : outAngles - 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::GetKnockdownAngles( QAngle& outAngles )
 {
 	outAngles = m_vecCurrentKnockdownAngles;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::CheckKnockdownState( void )
 {
 	m_bKnockdownOverrideAngles = false;
@@ -1634,9 +1557,7 @@ int C_BaseTFPlayer::ComputeCamoAlpha( void )
 
 	// Too far, just blend out completely
 	if ( distance >= CAMO_OUTER_RADIUS )
-	{
 		baseline = 0;
-	}
 	else if ( distance >= CAMO_INNER_RADIUS )
 	{
 		float frac = ( distance - CAMO_INNER_RADIUS ) / ( CAMO_OUTER_RADIUS - CAMO_INNER_RADIUS );
@@ -1650,11 +1571,9 @@ int C_BaseTFPlayer::ComputeCamoAlpha( void )
 		baseline = (int)( (float)( CAMO_INNER_ALPHA ) * frac );
 	}
 	else
-	{
 		// NOTE:  return 1 or else the renderer will skip drawing and we won't be
 		//  able to draw the up close effect
 		baseline = 1;
-	}
 	
 	// Suppress everything based on server ramp
 	return baseline + (int)( (float)( 255 - baseline ) * ( m_flCamouflageAmount / 100.0f ) );
@@ -1683,9 +1602,7 @@ void C_BaseTFPlayer::ComputeFxBlend( void )
 bool C_BaseTFPlayer::IsTransparent( void )
 {
 	if ( IsCamouflaged() )
-	{
 		return true;
-	}
 
 	return BaseClass::IsTransparent();
 }
@@ -1697,9 +1614,7 @@ bool C_BaseTFPlayer::IsTransparent( void )
 bool C_BaseTFPlayer::ViewModel_IsTransparent( void )
 {
 	if ( IsCamouflaged() )
-	{
 		return true;
-	}
 
 	return BaseClass::ViewModel_IsTransparent();
 }
@@ -1715,8 +1630,10 @@ bool C_BaseTFPlayer::IsOverridingViewmodel( void )
 
 #ifdef IMPLEMENT_ME
 	if ( IsDamageBoosted() || IsCamouflaged() || HasPowerup(POWERUP_EMP) )
-		return true;
+#else
+	if(IsDamageBoosted() || IsCamouflaged())
 #endif
+		return true;
 
 	return BaseClass::IsOverridingViewmodel();
 }
@@ -2030,11 +1947,6 @@ float C_BaseTFPlayer::GetLastGainHealthTime( void ) const
 	return m_flLastGainHealthTime;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float C_BaseTFPlayer::GetOverlayAlpha( void )
 {
 	float alpha = 1.0f;
@@ -2057,9 +1969,7 @@ float C_BaseTFPlayer::GetOverlayAlpha( void )
 				if ( dt > SNIPER_STATIONARY_FADESTART )
 				{
 					if ( dt > SNIPER_STATIONARY_FADEFINISH )
-					{
 						alpha = 0.0;
-					}
 					else
 					{
 						float frac = ( dt - SNIPER_STATIONARY_FADESTART ) / ( SNIPER_STATIONARY_FADEFINISH - SNIPER_STATIONARY_FADESTART );
@@ -2076,25 +1986,16 @@ float C_BaseTFPlayer::GetOverlayAlpha( void )
 	return alpha;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsDeployed( void )
 {
 	return m_bDeployed;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsDeploying( void )
 {
 	return m_bDeploying;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsUnDeploying( void )
 {
 	return m_bUnDeploying;
@@ -2149,11 +2050,7 @@ int C_BaseTFPlayer::GetNumObjects( int iObjectType )
 //-----------------------------------------------------------------------------
 int	C_BaseTFPlayer::GetObjectCount( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_aObjects.Count();
-#else
-	return 0;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2218,14 +2115,12 @@ void C_BaseTFPlayer::UpdateIDTarget( void )
 	if ( !IsLocalPlayer() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// If the server's forcing us to a specific ID target, use it instead
 	if ( m_TFLocal.m_iIDEntIndex )
 	{
 		m_iIDEntIndex = m_TFLocal.m_iIDEntIndex;
 		return;
 	}
-#endif
 
 	// Clear old target and find a new one
 	m_iIDEntIndex = 0;
@@ -2320,9 +2215,7 @@ void C_BaseTFPlayer::PreThink( void )
 
 	// Chain pre-think to player class.
 	if ( GetPlayerClass() )
-	{
 		GetPlayerClass()->PreClassThink();
-	}
 }
 
 void C_BaseTFPlayer::PostThink( void )
@@ -2336,11 +2229,7 @@ void C_BaseTFPlayer::PostThink( void )
 
 C_PlayerClass *C_BaseTFPlayer::GetPlayerClass( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_PlayerClasses.GetPlayerClass( PlayerClass() );
-#else
-	return NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2369,16 +2258,14 @@ void C_BaseTFPlayer::SetVehicleRole( int nRole )
 bool C_BaseTFPlayer::CanGetInVehicle( void )
 {
 	if ( GetPlayerClass() )
-	{
 		return GetPlayerClass()->CanGetInVehicle();
-	}
 
 	return true;
 }
 
-
 // How fast to avoid collisions with center of other object, in units per second
 #define AVOID_SPEED 1000.0f
+
 extern ConVar cl_forwardspeed;
 extern ConVar cl_backspeed;
 extern ConVar cl_sidespeed;
@@ -2564,13 +2451,10 @@ void C_BaseTFPlayer::PerformClientSideObstacleAvoidance( float flFrameTime, CUse
 	pCmd->sidemove		+= adjustsidemove;
 
 	if ( pCmd->forwardmove > 0.0f )
-	{
 		pCmd->forwardmove = clamp( pCmd->forwardmove, -cl_forwardspeed.GetFloat(), cl_forwardspeed.GetFloat() );
-	}
 	else
-	{
 		pCmd->forwardmove = clamp( pCmd->forwardmove, -cl_backspeed.GetFloat(), cl_backspeed.GetFloat() );
-	}
+
 	pCmd->sidemove = clamp( pCmd->sidemove, -cl_sidespeed.GetFloat(), cl_sidespeed.GetFloat() );
 }
 
@@ -2620,12 +2504,10 @@ C_BaseAnimating* C_BaseTFPlayer::GetRenderedWeaponModel()
 //-----------------------------------------------------------------------------
 void C_BaseTFPlayer::SetIDEnt( C_BaseEntity *pEntity )
 {
-#ifdef IMPLEMENT_ME
 	if ( pEntity )
 		m_TFLocal.m_iIDEntIndex = pEntity->entindex();
 	else
 		m_TFLocal.m_iIDEntIndex = 0;
-#endif
 }
 
 

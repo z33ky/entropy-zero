@@ -22,7 +22,6 @@ CTFGameMovementChooser::CTFGameMovementChooser()
 #ifdef IMPLEMENT_ME
 	// NOTE: the order here matches the enum order in tf_shareddefs.h
 	m_Movements[TFCLASS_RECON] = &m_ReconMovement;
-	m_Movements[TFCLASS_COMMANDO] = &m_CommandoMovement;
 	m_Movements[TFCLASS_MEDIC] = &m_MedicMovement;
 	m_Movements[TFCLASS_DEFENDER] = &m_DefenderMovement;
 	m_Movements[TFCLASS_SNIPER] = &m_SniperMovement;
@@ -31,6 +30,8 @@ CTFGameMovementChooser::CTFGameMovementChooser()
 	m_Movements[TFCLASS_SAPPER] = &m_SapperMovement;
 	m_Movements[TFCLASS_INFILTRATOR] = &m_InfiltratorMovement;
 	m_Movements[TFCLASS_PYRO] = &m_PyroMovement;
+#else
+	m_Movements[TFCLASS_COMMANDO] = &m_CommandoMovement;
 #endif
 }
 
@@ -47,9 +48,7 @@ void CTFGameMovementChooser::ProcessMovement( CBasePlayer *pPlayer, CMoveData *p
 
 	// Player class movement. (If possible)
 	if ( m_nClassID != TFCLASS_UNDECIDED )
-	{
 		m_Movements[m_nClassID]->ProcessClassMovement( (CBaseTFPlayer *)pPlayer, pTFMoveData );
-	}
 }
 
 Vector CTFGameMovementChooser::GetPlayerMins( bool ducked ) const

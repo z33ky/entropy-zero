@@ -8,13 +8,15 @@
 #include "c_tf_basecombatweapon.h"
 #include "hud.h"
 #include "iclientmode.h"
-#ifdef IMPLEMENT_ME
 #include "tf_hints.h"
+#ifdef IMPLEMENT_ME
 #include "itfhintitem.h"
-#include "c_tf_basehint.h"
-#include "hud_technologytreedoc.h"  
-#include "c_tf_hintmanager.h"
 #endif
+#include "c_tf_basehint.h"
+#ifdef IMPLEMENT_ME
+#include "hud_technologytreedoc.h"  
+#endif
+#include "c_tf_hintmanager.h"
 #include "hud_ammo.h"
 #include "c_weapon__stubs.h"
 #ifdef IMPLEMENT_ME
@@ -64,10 +66,6 @@ int C_BaseTFCombatWeapon::DrawModel( int flags )
 	return BaseClass::DrawModel(flags);
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 int C_BaseTFCombatWeapon::GetFxBlend( void )
 {
 	if ( !IsCamouflaged() )
@@ -88,27 +86,17 @@ bool C_BaseTFCombatWeapon::IsTransparent( void )
 	return BaseClass::IsTransparent();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : static void
-//-----------------------------------------------------------------------------
 void C_BaseTFCombatWeapon::CreateCrosshairPanels( void )
 {
 	m_pCrosshairAmmo	= new vgui::Label( (vgui::Panel *)NULL, "crosshairammo", "100" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFCombatWeapon::DestroyCrosshairPanels( void )
 {
 	delete m_pCrosshairAmmo;
 	m_pCrosshairAmmo = NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFCombatWeapon::InitializeCrosshairPanels( void )
 {
 	// Init the crosshair labels if they haven't been
@@ -214,10 +202,6 @@ bool C_BaseTFCombatWeapon::ShouldDrawPickup( void )
 	return false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : char const
-//-----------------------------------------------------------------------------
 const char *C_BaseTFCombatWeapon::GetPrintName( void )
 {
 	return GetWpnData().szPrintName;

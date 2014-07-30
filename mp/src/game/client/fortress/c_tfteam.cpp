@@ -38,9 +38,7 @@ void RecvProxyArrayLength_TeamObjects( void *pStruct, int objectID, int currentA
 	C_TFTeam *pTeam = (C_TFTeam*)pStruct;
 	
 	if ( pTeam->m_aObjects.Count() != currentArrayLength )
-	{
 		pTeam->m_aObjects.SetSize( currentArrayLength );
-	}
 }
 
 
@@ -92,9 +90,7 @@ void C_TFTeam::NotifyBaseUnderAttack( const Vector &vecPosition, bool bPlaySound
 				C_BaseEntity::EmitSound( filter, SOUND_FROM_LOCAL_PLAYER, "TFTeam.NotifyBaseUnderAttack" );
 			}
 
-#ifdef IMPLEMENT_ME
 			MinimapCreateTempTrace( "minimap_under_attack", MINIMAP_PERSONAL_ORDERS, vecPosition );
-#endif
 		}
 	}
 }

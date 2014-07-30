@@ -476,9 +476,7 @@ void CTFGameMovement::HandleDuck( void )
 				// Finish ducking immediately if duck time is over or not on ground
 				if ( ( duckseconds > TIME_TO_UNDUCK ) ||
 					 ( player->GetGroundEntity() == NULL ) )
-				{
 					FinishUnDuck();
-				}
 				else
 				{
 					// Calc parametric time
@@ -490,9 +488,6 @@ void CTFGameMovement::HandleDuck( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::SetupViewAngles( void )
 {
 	// Cache the view angles.
@@ -565,8 +560,10 @@ void CTFGameMovement::PlayStepSound( surfacedata_t *psurface, float fvol, bool f
 	if (!force && !ShouldPlayStepSound( psurface, fvol ))
 		return;
 
+#ifdef IMPLEMENT_ME
 // TODO:  See note above, should this be hooked up?
 //	PlantFootprint( psurface );
+#endif
 
 	unsigned short stepSoundName = player->m_Local.m_nStepside ? psurface->sounds.stepleft : psurface->sounds.stepright;
 	player->m_Local.m_nStepside = !player->m_Local.m_nStepside;
@@ -653,18 +650,10 @@ bool CTFGameMovement::PrePlayerMove( void )
 	return true;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::PostPlayerMove( void )
 {
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFGameMovement::HandlePlayerMove( void )
 {
 	// Handle movement.
@@ -725,10 +714,6 @@ void CTFGameMovement::HandlePlayerMove( void )
 	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFGameMovement::PlayerMove( void )
 {
 	VPROF( "CTFGameMovement::PlayerMove" );
@@ -837,9 +822,8 @@ void CTFGameMovement::FullWalkMove( const bool bOnLadder )
 
 		// If we are on ground, no downward velocity.
 		if ( player->GetGroundEntity() != NULL )
-		{
 			mv->m_vecVelocity[2] = 0;
-		}
+
 		CheckFalling();
 	}
 
@@ -1123,14 +1107,9 @@ void CTFGameMovement::AccelerateWithoutMomentum( Vector &wishdir, float wishspee
 
 	// Adjust velocity.
 	for ( int iAxis = 0; iAxis < 3; iAxis++ )
-	{
 		mv->m_vecVelocity[iAxis] += flAccelSpeed * wishdir[iAxis];
-	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::Accelerate( Vector &wishdir, float wishspeed, float accel )
 {
 	// No acceleration if the player is water-jumping or dead.
@@ -1163,9 +1142,6 @@ void CTFGameMovement::Accelerate( Vector &wishdir, float wishspeed, float accel 
 		mv->m_vecVelocity[iAxis] += ( flAccelSpeed * wishdir[iAxis] * flGravityAdj );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 float CTFGameMovement::CalcGravityAdjustment( const Vector &wishdir )
 {
 	// Get the TF movement data.
@@ -1209,9 +1185,7 @@ float CTFGameMovement::CalcGravityAdjustment( const Vector &wishdir )
 		flModifier = 0.5f - ( 0.40f * flDelta );
 	}
 	else
-	{
 		flModifier = 0.35f;
-	}
 
 	AddToMomentumList( flModifier );
 	flModifier = GetMomentum();
@@ -1231,9 +1205,6 @@ float CTFGameMovement::CalcGravityAdjustment( const Vector &wishdir )
 	return flModifier;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::CalcWishVelocityAndPosition( Vector &vWishPos, Vector &vWishDir,
 												   float &flWishSpeed )
 {
@@ -1304,9 +1275,6 @@ bool CTFGameMovement::CalcWishVelocityAndPosition( Vector &vWishPos, Vector &vWi
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 inline void CTFGameMovement::TracePlayerBBoxWithStep( const Vector &vStart, const Vector &vEnd, 
 							unsigned int fMask, int collisionGroup, trace_t &trace )
 {
@@ -1321,9 +1289,6 @@ inline void CTFGameMovement::TracePlayerBBoxWithStep( const Vector &vStart, cons
 	UTIL_TraceRay( ray, fMask, mv->m_nPlayerHandle.Get(), collisionGroup, &trace );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 inline void CGameMovement::TracePlayerBBox( const Vector &start, const Vector &end, 
 							unsigned int fMask, int collisionGroup, trace_t& pm )
 {

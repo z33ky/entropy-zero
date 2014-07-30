@@ -13,10 +13,8 @@
 
 #include "tf_vehicleshared.h"
 #include "c_baseplayer.h"
-#ifdef IMPLEMENT_ME
 #include "CommanderOverlay.h"
 #include "hud_minimap.h"
-#endif
 #include "hud_targetreticle.h"
 #include "c_tfplayerlocaldata.h"
 #include "particlemgr.h"
@@ -46,10 +44,8 @@ class C_BaseTFPlayer : public C_BasePlayer
 public:
 	DECLARE_CLASS( C_BaseTFPlayer, C_BasePlayer );
 	DECLARE_CLIENTCLASS();
-#ifdef IMPLEMENT_ME
 	DECLARE_ENTITY_PANEL();
 	DECLARE_MINIMAP_PANEL();
-#endif
 	DECLARE_PREDICTABLE();
 
 					C_BaseTFPlayer();
@@ -78,7 +74,7 @@ public:
 	virtual void		OnDataChanged( DataUpdateType_t updateType );
 	virtual void		PreDataUpdate( DataUpdateType_t updateType );
 	virtual void		PostDataUpdate( DataUpdateType_t updateType );
-	virtual void		ReceiveMessage( const char *msgname, int length, void *data );
+	virtual void		ReceiveMessage( int classID, bf_read &msg );
 	virtual void		Release( void );
 
 	virtual void		ItemPostFrame( void );
@@ -283,9 +279,7 @@ private:
 
 	// Player Class
 	int							m_iPlayerClass;
-#ifdef IMPLEMENT_ME
 	C_AllPlayerClasses			m_PlayerClasses;
-#endif
 
 	// Spawn location...
 	EHANDLE				m_hSpawnPoint;

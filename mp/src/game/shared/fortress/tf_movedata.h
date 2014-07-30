@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
-
 #ifndef TF_MOVEDATA_H
 #define TF_MOVEDATA_H
 #ifdef _WIN32

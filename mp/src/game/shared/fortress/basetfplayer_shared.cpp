@@ -31,7 +31,6 @@
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsClass( TFClass iClass )
 {
-#ifdef IMPLEMENT_ME
 	if ( !GetPlayerClass()  )
 	{
 		// Special case for undecided players
@@ -41,9 +40,6 @@ bool CBaseTFPlayer::IsClass( TFClass iClass )
 	}
 
 	return ( PlayerClass() == iClass );
-#else
-	return false;
-#endif
 }
 
 #ifdef IMPLEMENT_ME
@@ -129,7 +125,6 @@ void CBaseTFPlayer::PainSound( void )
 		sSoundName = "Humans.Pain";
 	else if ( GetTeamNumber() == TEAM_ALIENS )
 	{
-#ifdef IMPLEMENT_ME
 		switch( PlayerClass() )
 		{
 		case TFCLASS_COMMANDO:
@@ -151,9 +146,6 @@ void CBaseTFPlayer::PainSound( void )
 		default:
 			break;
 		}
-#else
-		sSoundName = "AlienCommand.Pain";
-#endif
 	}
 
 	if ( !sSoundName )
