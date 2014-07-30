@@ -20,9 +20,7 @@
 #endif
 // NVNT end extra includes
 
-#if defined ( TF_DLL ) || defined ( TF_CLIENT_DLL )
 #include "tf_shareddefs.h"
-#endif
 
 #if !defined( CLIENT_DLL )
 

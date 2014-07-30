@@ -22,9 +22,6 @@ BEGIN_PREDICTION_DATA_NO_BASE( C_PlayerClassCommando )
 
 END_PREDICTION_DATA()
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 C_PlayerClassCommando::C_PlayerClassCommando( C_BaseTFPlayer *pPlayer ) :
 	C_PlayerClass( pPlayer )
 {
@@ -37,46 +34,28 @@ C_PlayerClassCommando::C_PlayerClassCommando( C_BaseTFPlayer *pPlayer ) :
 	m_ClassData.m_flDoubleTapForwardTime = COMMANDO_TIME_INVALID;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 C_PlayerClassCommando::~C_PlayerClassCommando()
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::ClassThink( void )
 {
 	CheckBullRushState();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::PostClassThink( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::ClassPreDataUpdate( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::ClassOnDataChanged( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void C_PlayerClassCommando::CreateMove( float flFrameTime, float flInputSampleTime, CUserCmd *pCmd )
+void C_PlayerClassCommando::CreateMove( float flInputSampleTime, CUserCmd *pCmd )
 {
 	if ( m_ClassData.m_bBullRush )
 	{
@@ -86,9 +65,6 @@ void C_PlayerClassCommando::CreateMove( float flFrameTime, float flInputSampleTi
 	} 
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_PlayerClassCommando::CanGetInVehicle( void )
 {
 	if ( m_ClassData.m_bBullRush )
@@ -97,20 +73,12 @@ bool C_PlayerClassCommando::CanGetInVehicle( void )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::CheckBullRushState( void )
 {
 	if ( m_ClassData.m_bBullRush )
-	{
 		InterpolateBullRushViewAngles();
-	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void C_PlayerClassCommando::InterpolateBullRushViewAngles( void )
 {
 	// Determine the fraction.

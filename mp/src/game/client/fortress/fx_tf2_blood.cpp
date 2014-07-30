@@ -18,9 +18,7 @@
 #include "fx_blood.h"
 #include "tf_shareddefs.h"
 #include "view.h"
-#ifdef IMPLEMENT_ME
 #include "c_basetfplayer.h"
-#endif
 
 CLIENTEFFECT_REGISTER_BEGIN( PrecacheEffectTF2BloodSpray )
 CLIENTEFFECT_MATERIAL( "effects/blood_gore" )
@@ -339,10 +337,8 @@ void TF2BloodSprayCallback( const CEffectData &data )
 		GetBloodColorForTeam( pEntity->GetTeamNumber(), r, g, b );
 		if ( pEntity->IsPlayer() )
 		{
-#ifdef IMPLEMENT_ME
 			C_BaseTFPlayer *pPlayer = (C_BaseTFPlayer *)pEntity;
 			pPlayer->PainSound();
-#endif
 		}
 	}
 	else

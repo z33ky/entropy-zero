@@ -6850,11 +6850,13 @@ void CBasePlayer::RumbleEffect( unsigned char index, unsigned char rumbleData, u
 	CSingleUserRecipientFilter filter( this );
 	filter.MakeReliable();
 
+#if 0
 	UserMessageBegin( filter, "Rumble" );
 	WRITE_BYTE( index );
 	WRITE_BYTE( rumbleData );
 	WRITE_BYTE( rumbleFlags	);
 	MessageEnd();
+#endif
 }
 
 void CBasePlayer::EnableControl(bool fControl)
@@ -7483,15 +7485,11 @@ void CBasePlayer::ChangeTeam( int iTeamNum, bool bAutoTeam, bool bSilent)
 
 	// Remove him from his current team
 	if ( GetTeam() )
-	{
 		GetTeam()->RemovePlayer( this );
-	}
 
 	// Are we being added to a team?
 	if ( iTeamNum )
-	{
 		GetGlobalTeam( iTeamNum )->AddPlayer( this );
-	}
 
 	BaseClass::ChangeTeam( iTeamNum );
 }

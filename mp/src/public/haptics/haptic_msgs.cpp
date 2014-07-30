@@ -12,9 +12,6 @@
 	#include "c_prop_vehicle.h"
 	#include "prediction.h"
 	#include "activitylist.h"
-#ifdef TERROR
-	#include "ClientTerrorPlayer.h"
-#endif
 extern vgui::IInputInternal *g_InputInternal;
 #else
 	#include "usermessages.h"
@@ -115,7 +112,6 @@ void HookHapticMessages(void)
 	HOOK_MESSAGE(HapSetDrag);
 	HOOK_MESSAGE(HapSetConst);
 	HOOK_MESSAGE(HapMeleeContact);
-
 }
 
 // Defined in haptics_utils

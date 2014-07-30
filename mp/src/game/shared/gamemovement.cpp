@@ -796,9 +796,7 @@ CBaseHandle CGameMovement::TestPlayerPosition( const Vector& pos, int collisionG
 	}
 }
 
-
-/*
-
+#ifdef IMPLEMENT_ME	// I want to get this back in at some point... ~hogsy
 // FIXME FIXME:  Does this need to be hooked up?
 bool CGameMovement::IsWet() const
 {
@@ -813,16 +811,14 @@ bool CGameMovement::IsWet() const
 void CGameMovement::PlantFootprint( surfacedata_t *psurface )
 {
 	// Can't plant footprints on fake materials (ladders, wading)
-	if ( psurface->gameMaterial != 'X' )
+	if ( psurface->game.material != 'X' )
 	{
 		int footprintDecal = -1;
 
 		// Figure out which footprint type to plant...
 		// Use the wet footprint if we're wet...
 		if (IsWet())
-		{
 			footprintDecal = DECAL_FOOTPRINT_WET;
-		}
 		else
 		{	   
 			// FIXME: Activate this once we decide to pull the trigger on it.
@@ -865,8 +861,8 @@ void CGameMovement::PlantFootprint( surfacedata_t *psurface )
 	m_IsFootprintOnLeft = !m_IsFootprintOnLeft;
 }
 
-#define WET_TIME			    5.f	// how many seconds till we're completely wet/dry
-#define DRY_TIME			   20.f	// how many seconds till we're completely wet/dry
+#define WET_TIME	5.f		// how many seconds till we're completely wet/dry
+#define DRY_TIME	20.f	// how many seconds till we're completely wet/dry
 
 void CBasePlayer::UpdateWetness()
 {
@@ -912,8 +908,7 @@ void CBasePlayer::UpdateWetness()
 		}
 	}
 }
-*/
-
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: 

@@ -57,7 +57,6 @@ void CBaseObject::AddAndParseBuildPoint( int iAttachmentNumber, KeyValues *pkvBu
 {
 	int iPoint = AddBuildPoint( iAttachmentNumber );
 
-	
 	m_BuildPoints[iPoint].m_bPutInAttachmentSpace = (pkvBuildPoint->GetInt( "PutInAttachmentSpace", 0 ) != 0);
 
 	// Now see if we've got a set of valid objects specified
@@ -177,11 +176,8 @@ bool CBaseObject::GetBuildPoint( int iPoint, Vector &vecOrigin, QAngle &vecAngle
 		return true;
 	}
 	else
-	{
 		return GetAttachment( m_BuildPoints[iPoint].m_iAttachmentNum, vecOrigin, vecAngles );
-	}
 }
-
 
 int CBaseObject::GetBuildPointAttachmentIndex( int iPoint ) const
 {
@@ -197,19 +193,12 @@ int CBaseObject::GetBuildPointAttachmentIndex( int iPoint ) const
 	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CBaseObject::SetObjectOnBuildPoint( int iPoint, CBaseObject *pObject )
 {
 	Assert( iPoint >= 0 && iPoint <= GetNumBuildPoints() );
 	m_BuildPoints[iPoint].m_hObject = pObject;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 float CBaseObject::GetMaxSnapDistance( int iPoint )
 {
 	Assert( iPoint >= 0 && iPoint <= GetNumBuildPoints() );
@@ -248,10 +237,8 @@ int CBaseObject::GetNumObjectsOnMe( void )
 CBaseEntity *CBaseObject::GetFirstObjectOnMe( void )
 {
 	for ( int i = 0; i < GetNumBuildPoints(); i++ )
-	{
 		if ( m_BuildPoints[i].m_hObject )
 			return m_BuildPoints[i].m_hObject;
-	}
 
 	return NULL;
 }
@@ -263,10 +250,9 @@ CBaseEntity *CBaseObject::GetFirstObjectOnMe( void )
 int CBaseObject::FindObjectOnBuildPoint( CBaseObject *pObject )
 {
 	for (int i = m_BuildPoints.Count(); --i >= 0; )
-	{
 		if (m_BuildPoints[i].m_hObject == pObject)
 			return i;
-	}
+
 	return -1;
 }
 
@@ -280,10 +266,8 @@ CBaseObject *CBaseObject::GetObjectOfTypeOnMe( int iObjectType )
 	{
 		CBaseObject *pObject = dynamic_cast<CBaseObject*>( m_BuildPoints[iObject].m_hObject.Get() );
 		if ( pObject )
-		{
 			if ( pObject->GetType() == iObjectType )
 				return pObject;
-		}
 	}
 
 	return NULL;
@@ -332,7 +316,6 @@ bool CBaseObject::CanPowerupEver( int iPowerup )
 			return false;
 		break;
 #endif
-
 	case POWERUP_POWER:
 		// Do we use power?
 		if ( m_fObjectFlags & OF_DOESNT_NEED_POWER )
@@ -429,16 +412,11 @@ bool CBaseObject::TestHitboxes( const Ray_t &ray, unsigned int fContentsMask, tr
 	if( !sv_ignore_hitboxes.GetBool() )
 		return bReturn;
 
-
 	if( !bReturn )
-	{
 		return false;
-	}
 
 	if( tr.fraction == 1.f  && !tr.allsolid && !tr.startsolid )
-	{
 		return false;
-	}
 
 	return bReturn;
 }
@@ -513,9 +491,7 @@ void CBaseObject::SetObjectSequence( int sequence )
 {
 	ResetSequence( sequence );
 
-#ifdef IMPLEMENT_ME
-	m_flCycle = 0;
-#endif
+	SetCycle( 0 );
 
 #if !defined( CLIENT_DLL )
 	if ( IsUsingClientSideAnimation() )
@@ -546,9 +522,7 @@ void CBaseObject::OnGoActive( void )
 	{
 		int index = FindBodygroupByName( "powertoggle" );
 		if ( index >= 0 )
-		{
 			SetBodygroup( index, 1 );
-		}
 	}
 #endif
 }
@@ -564,9 +538,7 @@ void CBaseObject::OnGoInactive( void )
 		// Switch to the off state
 		int index = FindBodygroupByName( "powertoggle" );
 		if ( index >= 0 )
-		{
 			SetBodygroup( index, 0 );
-		}
 	}
 #endif
 }

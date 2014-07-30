@@ -79,6 +79,9 @@ public:
 
 	// Original bounds
 	wrect_t		rc;
+	
+public:
+	bool	m_bTeamplay;
 };
 
 #include "hudtexturehandle.h"
@@ -149,6 +152,7 @@ public:
 	// User messages
 	void						MsgFunc_ResetHUD(bf_read &msg);
 	void 						MsgFunc_SendAudio(bf_read &msg);
+	void						MsgFunc_GameMode(bf_read &msg);
 
 	// Hud Render group
 	int							LookupRenderGroupIndexByName( const char *pszGroupName );

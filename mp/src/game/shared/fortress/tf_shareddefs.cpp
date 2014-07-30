@@ -10,9 +10,8 @@
 #include "basetypes.h"
 #include <KeyValues.h>
 
-#ifdef IMPLEMENT_ME
 #ifndef CLIENT_DLL
-
+#ifdef IMPLEMENT_ME
 	#include "tf_team.h"
 	#include "tf_class_commando.h"
 	#include "tf_class_defender.h"
@@ -24,11 +23,11 @@
 	#include "tf_class_support.h"
 	#include "tf_class_sapper.h"
 	#include "tf_class_pyro.h"
-
+#endif
 #else
-
 	#include "c_tfteam.h"
 	#include "c_tf_class_commando.h"
+#ifdef IMPLEMENT_ME
 	#include "c_tf_class_defender.h"
 	#include "c_tf_class_escort.h"
 	#include "c_tf_class_infiltrator.h"
@@ -38,9 +37,9 @@
 	#include "c_tf_class_support.h"
 	#include "c_tf_class_sapper.h"
 	#include "c_tf_class_pyro.h"
+#endif
 
 #define CTFTeam C_TFTeam
-#endif
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -425,9 +424,9 @@ void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 	Assert( !AreObjectInfosLoaded() );
 
 	KeyValues *pValues = new KeyValues( "Object descriptions" );
-	if ( !pValues->LoadFromFile( pFileSystem, pFilename, "GAME" ) )
+	if ( !pValues->LoadFromFile( pFileSystem, pFilename, "MOD" ) )
 	{
-		Error( "Can't open %s for object info.", pFilename );
+		//Error( "Can't open %s for object info.", pFilename );
 		pValues->deleteThis();
 		return;
 	}
@@ -513,9 +512,7 @@ int CalculateObjectCost( int iObjectType, int iNumberOfObjects, int iTeam, bool 
 
 	// Find out how much the next object should cost
 	if ( bLast )
-	{
 		iNumberOfObjects = max(0,iNumberOfObjects-1);
-	}
 
 	int iCost = GetObjectInfo( iObjectType )->m_Cost;
 
@@ -541,15 +538,11 @@ int CalculateObjectCost( int iObjectType, int iNumberOfObjects, int iTeam, bool 
 
 	// Human objects cost less across the board
 	if ( iTeam == TEAM_HUMANS )
-	{
 		iCost = ( ((float)iCost) * 0.8 );
-	}
 
 	// Calculate the cost based upon the number of objects
 	for ( int i = 0; i < iNumberOfObjects; i++ )
-	{
 		iCost *= GetObjectInfo( iObjectType )->m_CostMultiplierPerInstance;
-	}
 
 	return iCost;
 }
@@ -565,9 +558,7 @@ int	CalculateObjectUpgrade( int iObjectType, int iObjectLevel )
 
 	int iCost = GetObjectInfo( iObjectType )->m_UpgradeCost;
 	for ( int i = 0; i < (iObjectLevel - 1); i++ )
-	{
 		iCost *= OBJECT_UPGRADE_COST_MULTIPLIER_PER_LEVEL;
-	}
 
 	return iCost;
 }

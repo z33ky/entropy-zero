@@ -1619,9 +1619,7 @@ void C_BasePlayer::CalcFreezeCamView( Vector& eyeOrigin, QAngle& eyeAngles, floa
 		vecCamTarget.z -= (maxs.z * 0.5);
 	}
 	else
-	{
 		vecCamTarget.z += pTarget->GetBaseAnimating() ? VEC_DEAD_VIEWHEIGHT_SCALED( pTarget->GetBaseAnimating() ).z : VEC_DEAD_VIEWHEIGHT.z;	// look over ragdoll, not through
-	}
 
 	// Figure out a view position in front of the target
 	Vector vecEyeOnPlane = eyeOrigin;
@@ -1685,7 +1683,7 @@ void C_BasePlayer::CalcInEyeCamView(Vector& eyeOrigin, QAngle& eyeAngles, float&
 		VectorCopy( EyePosition(), eyeOrigin );
 		VectorCopy( EyeAngles(), eyeAngles );
 		return;
-	};
+	}
 
 	if ( !target->IsAlive() )
 	{
@@ -1712,13 +1710,9 @@ void C_BasePlayer::CalcInEyeCamView(Vector& eyeOrigin, QAngle& eyeAngles, float&
 	{
 		C_BaseAnimating *pTargetAnimating = target->GetBaseAnimating();
 		if ( target->GetFlags() & FL_DUCKING )
-		{
 			eyeOrigin += pTargetAnimating ? VEC_DUCK_VIEW_SCALED( pTargetAnimating ) : VEC_DUCK_VIEW;
-		}
 		else
-		{
 			eyeOrigin += pTargetAnimating ? VEC_VIEW_SCALED( pTargetAnimating ) : VEC_VIEW;
-		}
 	}
 	else
 	{
@@ -1808,13 +1802,9 @@ C_BaseAnimating* C_BasePlayer::GetRenderedWeaponModel()
 {
 	// Attach to either their weapon model or their view model.
 	if ( ShouldDrawLocalPlayer() || !IsLocalPlayer() )
-	{
 		return GetActiveWeapon();
-	}
 	else
-	{
 		return GetViewModel();
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1845,13 +1835,9 @@ void C_BasePlayer::ThirdPersonSwitch( bool bThirdperson )
 			if ( pBoneAttachment )
 			{
 				if ( bShouldDrawLocalPlayer )
-				{
 					pBoneAttachment->RemoveEffects( EF_NODRAW );
-				}
 				else
-				{
 					pBoneAttachment->AddEffects( EF_NODRAW );
-				}
 			}
 		}
 	}

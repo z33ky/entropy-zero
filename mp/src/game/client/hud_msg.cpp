@@ -56,3 +56,10 @@ void CHud::MsgFunc_SendAudio( bf_read &msg )
 	CLocalPlayerFilter filter;
 	C_BaseEntity::EmitSound( filter, SOUND_FROM_LOCAL_PLAYER, szString );
 }
+
+void CHud::MsgFunc_GameMode( bf_read &msg )
+{
+#ifdef IMPLEMENT_ME
+	m_bTeamplay = msg.ReadByte() ? true : false;
+#endif
+}

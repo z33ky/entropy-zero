@@ -286,7 +286,7 @@ DECLARE_CLIENT_EFFECT( "BuildTesla", BuildTeslaCallback );
 //			of it's lifetime, the drops back to its initial size by the end of its life.
 //			Alpha scales the same way.
 //-----------------------------------------------------------------------------
-#define WARPEMMITER_MIDPOINT	0.6
+#define WARPEMMITER_MIDPOINT	0.6f
 
 class CWarpParticleEmitter : public CSimpleEmitter
 {
@@ -502,12 +502,7 @@ void BuildSparksMetalCallback( const CEffectData &data )
 	Vector vecNormal = data.m_vNormal;
 
 	// Sparks
-#ifdef IMPLEMENT_ME // ?
-	FX_MetalSpark( vecOrigin, vecNormal, 2 );
-#else
-	// Just use the normal for direction, bleh ~hogsy
-	FX_MetalSpark( vecOrigin,vecNormal, vecNormal, 2 );
-#endif
+	FX_MetalSpark( vecOrigin, vecNormal, vecNormal, 2 );
 }
 
 DECLARE_CLIENT_EFFECT( "BuildSparksMetal", BuildSparksMetalCallback );
@@ -682,17 +677,21 @@ public:
 		m_flLastParticleSpawnTime = gpGlobals->curtime + m_flSpawnRate;
 	}
 
-#ifdef IMPLEMENT_ME
-	bool SimulateAndRender( Particle *pParticle, ParticleDraw *pDraw, float &sortKey )
+	virtual void SimulateParticles( CParticleSimulateIterator *pIterator )
 	{
-		// If our lifetime isn't up, create more particles
-		if ( m_flDeathTime > gpGlobals->curtime )
-			if ( m_flLastParticleSpawnTime <= gpGlobals->curtime )
-				CreateSpurtParticles();
+		Particle *pParticle = (Particle*)pIterator->GetFirst();
+		while ( pParticle )
+		{
+			// If our lifetime isn't up, create more particles
+			if ( m_flDeathTime > gpGlobals->curtime )
+				if ( m_flLastParticleSpawnTime <= gpGlobals->curtime )
+					CreateSpurtParticles();
 
-		return BaseClass::SimulateAndRender( pParticle, pDraw, sortKey );
+			pParticle = (Particle*)pIterator->GetNext();
+		}
+
+		BaseClass::SimulateParticles( pIterator );
 	}
-#endif
 
 private:
 	float		m_flDeathTime;

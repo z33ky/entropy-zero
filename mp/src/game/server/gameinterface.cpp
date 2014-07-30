@@ -116,15 +116,6 @@ extern ConVar tf_mm_servermode;
 #include "econ_item_system.h"
 #endif // USES_ECON_ITEMS
 
-#ifdef CSTRIKE_DLL // BOTPORT: TODO: move these ifdefs out
-#include "bot/bot.h"
-#endif
-
-#ifdef PORTAL
-#include "prop_portal_shared.h"
-#include "portal_player.h"
-#endif
-
 #if defined( REPLAY_ENABLED )
 #include "replay/ireplaysystem.h"
 #endif

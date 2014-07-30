@@ -26,7 +26,7 @@ public:
 	virtual void			ClassPreDataUpdate( void ) {};
 	virtual void			ClassOnDataChanged( void ) {};
 
-	virtual void			CreateMove( float flFrameTime, float flInputSampleTime, CUserCmd *pCmd ) {};
+	virtual void			CreateMove( float flInputSampleTime, CUserCmd *pCmd ) {};
 
 	// Vehicles
 	virtual bool			CanGetInVehicle( void ) { return true; }
@@ -37,7 +37,7 @@ protected:
 };
 
 
-#include "TFClassData_Shared.h"
+#include "tfclassdata_shared.h"
 
 
 #endif // C_TF_PLAYERCLASS_H

@@ -9,9 +9,7 @@
 #include "playerandobjectenumerator.h"
 #include "c_ai_basenpc.h"
 
-#ifdef INVASION_CLIENT_DLL
 #include "tf_shareddefs.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -52,9 +50,7 @@ IterationRetval_t CPlayerAndObjectEnumerator::EnumElement( IHandleEntity *pHandl
 
 	if ( !pEnt->IsPlayer() &&
 		 !pEnt->IsNPC() )
-	{
 		return ITERATION_CONTINUE;
-	}
 
 	if ( pEnt->IsNPC() )
 	{
@@ -68,11 +64,9 @@ IterationRetval_t CPlayerAndObjectEnumerator::EnumElement( IHandleEntity *pHandl
 	if ( pEnt->GetCollisionGroup() == COLLISION_GROUP_VEHICLE )
 		return ITERATION_CONTINUE;
 
-#ifdef INVASION_CLIENT_DLL
 	// If it's solid to player movement, don't steer around it since we'll just bump into it
 	if ( pEnt->GetCollisionGroup() == TFCOLLISION_GROUP_OBJECT_SOLIDTOPLAYERMOVEMENT )
 		return ITERATION_CONTINUE;
-#endif
 
 	Vector	deltaPos = pEnt->GetAbsOrigin() - m_pLocal->GetAbsOrigin();
 	if ( deltaPos.LengthSqr() > m_flRadiusSquared )

@@ -32,7 +32,7 @@ public:
 	void						ClassPreDataUpdate( void );
 	void						ClassOnDataChanged( void );
 
-	void						CreateMove( float flFrameTime, float flInputSampleTime, CUserCmd *pCmd );
+	void						CreateMove( float flInputSampleTime, CUserCmd *pCmd );
 
 	// Vehicles
 	bool						CanGetInVehicle( void );

@@ -377,10 +377,7 @@ int	CHudElement::GetRenderGroupPriority( void )
 CHud gHUD;  // global HUD object
 
 DECLARE_MESSAGE(gHUD, ResetHUD);
-
-#ifdef CSTRIKE_DLL
-DECLARE_MESSAGE(gHUD, SendAudio);
-#endif
+DECLARE_MESSAGE(gHUD, GameMode);
 
 CHud::CHud()
 {
@@ -395,10 +392,7 @@ CHud::CHud()
 void CHud::Init( void )
 {
 	HOOK_HUD_MESSAGE( gHUD, ResetHUD );
-	
-#ifdef CSTRIKE_DLL
-	HOOK_HUD_MESSAGE( gHUD, SendAudio );
-#endif
+	HOOK_HUD_MESSAGE(gHUD, GameMode);
 
 	InitFonts();
 

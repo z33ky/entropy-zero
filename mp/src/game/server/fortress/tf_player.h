@@ -133,9 +133,9 @@ public:
 		return (CBaseTFPlayer*)CreateEntityByName( className );
 	}
 
-	virtual bool	ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea );
+	virtual int		ShouldTransmit( const CCheckTransmitInfo *pInfo );
 	// Networking is about to update this player, let it override and specify it's own pvs
-	virtual void	SetupVisibility( unsigned char *pvs, unsigned char *pas );
+	virtual void	SetupVisibility( CBaseEntity *pViewEntity, unsigned char *pvs, int pvssize );
 
 	virtual void	Spawn( void );
 	virtual void	InitialSpawn( void );
@@ -202,7 +202,7 @@ public:
 	void			TFPlayerDeathThink( void );
 
 	virtual void	CheatImpulseCommands( int iImpulse );
-	virtual bool	ClientCommand(const char *cmd);
+	virtual bool	ClientCommand(const CCommand &args);
 	virtual void	SetAnimation( PLAYER_ANIM playerAnim );
 	
 	// Combat
@@ -551,7 +551,9 @@ private:
 	float	m_flFinishedDeploying;
 	
 	CNetworkVar( int, m_iPlayerClass );
+#ifdef IMPLEMENT_ME
 	CAllPlayerClasses			m_PlayerClasses;
+#endif
 
 	// This times how long each class is active.
 	CFastTimer					m_Timer;

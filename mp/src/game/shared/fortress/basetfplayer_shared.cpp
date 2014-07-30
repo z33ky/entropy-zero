@@ -13,7 +13,9 @@
 #include "weapon_twohandedcontainer.h"
 #endif
 #ifdef CLIENT_DLL
+#ifdef IMPLEMENT_ME
 #include "c_weapon_builder.h"
+#endif
 #else
 #ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
@@ -44,10 +46,15 @@ bool CBaseTFPlayer::IsClass( TFClass iClass )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
+#ifdef IMPLEMENT_ME
 CWeaponCombatShield *CBaseTFPlayer::GetCombatShield( void )
+#else	// Temporary workaround until we get the right headers added. ~hogsy
+#ifndef CLIENT_DLL
+CWeaponCombatShield *CBaseTFPlayer::GetCombatShield(void)
+#else
+C_WeaponCombatShield *CBaseTFPlayer::GetCombatShield(void)
+#endif
+#endif
 {
 	if ( !m_hWeaponCombatShield )
 	{
@@ -57,9 +64,7 @@ CWeaponCombatShield *CBaseTFPlayer::GetCombatShield( void )
 			m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( Weapon_OwnsThisType( "weapon_combat_shield_alien" ) );
 #ifndef CLIENT_DLL
 			if ( !m_hWeaponCombatShield )
-			{
 				m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( GiveNamedItem( "weapon_combat_shield_alien" ) );
-			}
 #endif
 		}
 		else
@@ -67,9 +72,7 @@ CWeaponCombatShield *CBaseTFPlayer::GetCombatShield( void )
 			m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( Weapon_OwnsThisType( "weapon_combat_shield" ) );
 #ifndef CLIENT_DLL
 			if ( !m_hWeaponCombatShield )
-			{
 				m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( GiveNamedItem( "weapon_combat_shield" ) );
-			}
 #endif
 		}
 #endif

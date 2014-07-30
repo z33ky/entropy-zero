@@ -6,13 +6,9 @@
 //=============================================================================
 #include "cbase.h"
 #include "c_baseobject.h"
-#ifdef IMPLEMENT_ME
 #include "c_basetfplayer.h"
-#endif
 #include "hud.h"
-#ifdef IMPLEMENT_ME
 #include "c_tfteam.h"
-#endif
 #include "engine/IEngineSound.h"
 #include "particles_simple.h"
 #include "FunctionProxy.h"

@@ -14,9 +14,7 @@
 #include "c_pixel_visibility.h"
 #endif
 
-#ifdef TF_CLIENT_DLL
 #include "tf_shareddefs.h"
-#endif
 
 #ifdef GAME_DLL
 #include "ai_utils.h"
