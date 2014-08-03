@@ -65,3 +65,5 @@ config.cfg
 # shader files
 *.tmp
 
+/mp/tools/SSbump_Generator_5_3
+/mp/src/vgui2/vgui_controls/generated_proto
