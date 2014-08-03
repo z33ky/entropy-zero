@@ -1,9 +1,3 @@
-//========= Copyright Valve Corporation, All rights reserved. ============//
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================//
 #include "cbase.h"
 #include "ivieweffects.h"
 #include "shake.h"
@@ -135,14 +129,6 @@ IViewEffects *vieweffects = ( IViewEffects * )&g_ViewEffects;
 static int s_nCallbackParameter;
 static void ( *s_pfnFadeDoneCallback )( int parm1 );
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pszName - 
-//			iSize - 
-//			*pbuf - 
-// Output : static int
-//-----------------------------------------------------------------------------
 void __MsgFunc_Shake( bf_read &msg )
 {
 	ScreenShake_t shake;
@@ -155,13 +141,6 @@ void __MsgFunc_Shake( bf_read &msg )
 	g_ViewEffects.Shake( shake );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pszName - 
-//			iSize - 
-//			*pbuf - 
-// Output : static int
-//-----------------------------------------------------------------------------
 void __MsgFunc_Fade( bf_read &msg )
 {
 	ScreenFade_t fade;
@@ -177,24 +156,17 @@ void __MsgFunc_Fade( bf_read &msg )
 	g_ViewEffects.Fade( fade );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CViewEffects::Init( void )
 {
 	HOOK_MESSAGE( Shake );
 	HOOK_MESSAGE( Fade );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CViewEffects::LevelInit( void )
 {
 	ClearAllShakes();
 	ClearAllFades();
 }
-
 
 static ConVar shake_show( "shake_show", "0", 0, "Displays a list of the active screen shakes." );
 static ConCommand shake_stop("shake_stop", CC_Shake_Stop, "Stops all active screen shakes.\n", FCVAR_CHEAT );
@@ -206,7 +178,6 @@ void CC_Shake_Stop()
 {
 	g_ViewEffects.ClearAllShakes();
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Apply noise to the eye position.

@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "tf_gamemovement.h"
 #include "in_buttons.h"
@@ -13,7 +7,6 @@
 #define	SPEED_STOP_THRESHOLD		1.0f
 #define BUMP_MAX_COUNT				8
 
-//#define IMPACT_NORMAL_FLOOR			0.35f
 #define	IMPACT_NORMAL_FLOOR			0.7f
 #define IMPACT_NORMAL_WALL			0.0f
 
@@ -31,17 +24,11 @@ enum
 
 char    *va(char *format, ...);
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 {
 	BaseClass::ProcessMovement( pPlayer, pMove );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 {
 	mv	= pMove;
@@ -83,9 +70,6 @@ void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 	FinishMove();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::CategorizePosition( void )
 {
 	VPROF( "CTFGameMovement::CategorizePosition" );
@@ -172,9 +156,6 @@ void CTFGameMovement::CategorizePosition( void )
 	m_nOldWaterLevel = player->GetWaterLevel();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::HandleLadder( void )
 {
 	// No ladder movement if the player is dead or on a train.
@@ -193,9 +174,6 @@ void CTFGameMovement::HandleLadder( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::SpeedCrop( void )
 {
 	// Verify speed hasn't been cropped already (shouldn't have!!!).
@@ -245,10 +223,8 @@ void CTFGameMovement::SpeedCrop( void )
 	mv->m_flSideMove *= flFactor;
 }
 
-
-//-----------------------------------------------------------------------------
-// Figures out how the constraint should slow us down
-//-----------------------------------------------------------------------------
+/*	Figures out how the constraint should slow us down.
+*/
 float CTFGameMovement::ComputeConstraintSpeedFactor( void )
 {
 	// If we have a constraint, slow down because of that too...
@@ -353,10 +329,6 @@ void CTFGameMovement::SetupSpeed( void )
 	SpeedCrop();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::FinishUnDuck( void )
 {
 	int i;
@@ -404,9 +376,6 @@ void CTFGameMovement::FinishUnDuck( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::HandleDuck( void )
 {
 	// Store button presses and changes.
@@ -510,9 +479,6 @@ void CTFGameMovement::SetupViewAngles( void )
 		mv->m_vecViewAngles[YAW] -= 360.0f;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::CheckDeath( void )
 {
 	// If we are dead, setup the appropriate data
@@ -538,9 +504,8 @@ void CTFGameMovement::UpdateTimers( void )
 	BaseClass::DecayPunchAngle();
 }
 
-//-----------------------------------------------------------------------------
-// Should the step sound play?
-//-----------------------------------------------------------------------------
+/*	Should the step sound play?
+*/
 bool CTFGameMovement::ShouldPlayStepSound( surfacedata_t *psurface, float fvol )
 {
 	if ( !m_nOnLadder && Vector2DLength( mv->m_vecVelocity.AsVector2D() ) <= 100 )
@@ -593,9 +558,6 @@ void CTFGameMovement::PlayStepSound( surfacedata_t *psurface, float fvol, bool f
 	MoveHelper( )->StartSound( mv->GetAbsOrigin(), CHAN_BODY, params.soundname, fvol, params.soundlevel, 0, params.pitch );
 }	
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 int CTFGameMovement::CheckStuck( void )
 {
 	VPROF( "CTFGameMovement::CheckStuck" );
@@ -610,9 +572,6 @@ int CTFGameMovement::CheckStuck( void )
 	return BaseClass::CheckStuck();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::PrePlayerMove( void )
 {
 	VPROF( "CTFGameMovement::PrePlayerMove" );
@@ -660,9 +619,7 @@ void CTFGameMovement::HandlePlayerMove( void )
 	switch ( player->GetMoveType() )
 	{
 		case MOVETYPE_NONE:
-			{
-				break;
-			}
+			break;
 		case MOVETYPE_NOCLIP:
 			{
 				FullNoClipMove(sv_specspeed.GetFloat(),sv_specaccelerate.GetFloat());
