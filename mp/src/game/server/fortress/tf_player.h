@@ -13,13 +13,9 @@
 
 #include "player.h"
 #include "tf_shareddefs.h"
-#ifdef IMPLEMENT_ME
 #include "tf_playerlocaldata.h"
-#endif
 #include "tf_playerclass.h"
-#ifdef IMPLEMENT_ME
-#include "basenetworkable.h"
-#endif
+#include "iservernetworkable.h"
 #include "iscorer.h"
 #ifdef IMPLEMENT_ME
 #include "tf_playeranimstate.h"
@@ -292,9 +288,7 @@ public:
 	bool	IsUsingThermalVision( void );
 	void	SetUsingThermalVision( bool thermal );
 
-#ifdef IMPLEMENT_ME
 	CTFPlayerLocalData *GetLocalData() { return &m_TFLocal; }
-#endif
 
 	// Acts
 	void	CleanupOnActStart( void );
@@ -465,9 +459,8 @@ private:
 
 	// This player's TF2 specific data that should only be replicated to 
 	//  the player and not to other players.
-#ifdef IMPLEMENT_ME
 	CNetworkVarEmbedded( CTFPlayerLocalData, m_TFLocal );
-#endif
+
 	IMPLEMENT_NETWORK_VAR_FOR_DERIVED( m_iMaxHealth ); // Make sure this ent is marked as changed when m_iMaxHealth changes.
 
 	CHandle< CWeaponBuilder > m_hWeaponBuilder;
@@ -594,10 +587,6 @@ inline CBaseTFPlayer *ToBaseTFPlayer( CBaseEntity *pEntity )
 	return dynamic_cast<CBaseTFPlayer *>( pEntity );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 class CPhysicsPlayerCallback : public IPhysicsPlayerControllerEvent
 {
 public:

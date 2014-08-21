@@ -117,13 +117,6 @@ void C_BaseObject::SetDormant( bool bDormant )
 #define TF_OBJ_BODYGROUPTURNON			1
 #define TF_OBJ_BODYGROUPTURNOFF			0
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : origin - 
-//			angles - 
-//			event - 
-//			*options - 
-//-----------------------------------------------------------------------------
 void C_BaseObject::FireEvent( const Vector& origin, const QAngle& angles, int event, const char *options )
 {
 	switch ( event )
@@ -176,9 +169,6 @@ void C_BaseObject::FireEvent( const Vector& origin, const QAngle& angles, int ev
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseObject::OffsetObjectOrigin( Vector& origin )
 {
 	if ( !m_bBuilding )
@@ -196,19 +186,11 @@ bool C_BaseObject::OffsetObjectOrigin( Vector& origin )
 	return true;
 }
 
-
 const char* C_BaseObject::GetStatusName() const
 {
-#ifdef IMPLEMENT_ME
 	return GetObjectInfo( GetType() )->m_pStatusName;
-#else
-	return "";
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int C_BaseObject::DrawModel( int flags )
 {
 	Vector vRealOrigin = GetLocalOrigin();
@@ -274,7 +256,6 @@ int C_BaseObject::DrawModel( int flags )
 //-----------------------------------------------------------------------------
 void C_BaseObject::HighlightBuildPoints( int flags )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pLocal = C_BaseTFPlayer::GetLocalPlayer();
 	if ( !pLocal )
 		return;
@@ -282,6 +263,7 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 	if ( !GetNumBuildPoints() || !InLocalTeam() )
 		return;
 
+#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *pBuilderWpn = dynamic_cast< C_WeaponBuilder * >( pLocal->GetActiveWeaponForSelection() );
 	if ( !pBuilderWpn )
 		return;
@@ -470,9 +452,6 @@ void C_BaseObject::PostDataUpdate( DataUpdateType_t updateType )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseObject::Release( void )
 {
 	// Remove any reticles on this entity
@@ -483,26 +462,17 @@ void C_BaseObject::Release( void )
 	BaseClass::Release();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseObject::IsUnderAttack( )
 {
 	// It's under attack for the 3 seconds after the last attack time
 	return (gpGlobals->curtime - m_flAttackTime) < 5.0f;
 }
 
-//-----------------------------------------------------------------------------
-// Ownership: 
-//-----------------------------------------------------------------------------
 C_BaseTFPlayer *C_BaseObject::GetOwner()
 {
 	return m_hBuilder;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseObject::IsOwnedByLocalPlayer() const
 {
 	if ( !m_hBuilder )
@@ -619,24 +589,18 @@ void C_BaseObject::RecalculateIDString( void )
 	{
 		char szHealth[ MAX_ID_STRING ];
 		if ( IsDeteriorating() )
-		{
 			Q_snprintf( szHealth, sizeof(szHealth), "\nBUILDER LOST, DETERIORATING... %.0f percent", ceil(((float)m_iHealth / (float)m_iMaxHealth) * 100) );
-		}
 		else if ( m_bBuilding )
-		{
 			Q_snprintf( szHealth, sizeof(szHealth), "\nConstruction at %.0f percent\nHealth at %.0f percent", (m_flPercentageConstructed * 100), ceil(((float)m_iHealth / (float)m_iMaxHealth) * 100) );
-		}
 		else
-		{
 			Q_snprintf( szHealth, sizeof(szHealth), "\nHealth at %.0f percent", ceil(((float)m_iHealth / (float)m_iMaxHealth) * 100) );
-		}
+
 		Q_strncat( m_szIDString, szHealth, sizeof(m_szIDString)-1 );
 	}
 
 	if ( m_bHasSapper )
 		Q_strncat( m_szIDString, "\nUse it to remove the attached enemy object", sizeof(m_szIDString)-1 );
 
-#ifdef IMPLEMENT_ME
 	// If it's deteriorating, and I can buy it, tell me
 	C_BaseTFPlayer *pLocalPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if ( IsDeteriorating() && pLocalPlayer && ClassCanBuild( pLocalPlayer->PlayerClass(), GetType() ) )
@@ -646,9 +610,7 @@ void C_BaseObject::RecalculateIDString( void )
 		Q_snprintf( szBuy, sizeof(szBuy), "\nBUY THIS OBJECT FOR %d RESOURCES", iCost );
 		Q_strncat( m_szIDString, szBuy, sizeof(m_szIDString)-1 );
 	}
-#endif
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Effects created when the object's running

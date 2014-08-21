@@ -328,9 +328,8 @@ public:
 
 // IServerNetworkable.
 public:
-
-	virtual bool	ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea );
-	virtual void	SetTransmit( CCheckTransmitInfo *pInfo );
+	virtual int		ShouldTransmit( const CCheckTransmitInfo *pInfo );
+	virtual void	SetTransmit( CCheckTransmitInfo *pInfo, bool bAlways );
 
 
 protected:

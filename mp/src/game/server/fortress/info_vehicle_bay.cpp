@@ -15,9 +15,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( info_vehicle_bay, CInfoVehicleBay );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CInfoVehicleBay::Spawn( void )
 {
 }
@@ -44,9 +41,6 @@ bool CInfoVehicleBay::CanBuildObjectOnBuildPoint( int iPoint, int iObjectType )
 	return ( iObjectType >= OBJ_BATTERING_RAM );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CInfoVehicleBay::GetBuildPoint( int iPoint, Vector &vecOrigin, QAngle &vecAngles )
 {
 	ASSERT( iPoint <= GetNumBuildPoints() );
@@ -61,56 +55,35 @@ int CInfoVehicleBay::GetBuildPointAttachmentIndex( int iPoint ) const
 	return 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CInfoVehicleBay::SetObjectOnBuildPoint( int iPoint, CBaseObject *pObject )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int CInfoVehicleBay::GetNumObjectsOnMe( void )
 {
 	return 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseEntity	*CInfoVehicleBay::GetFirstObjectOnMe( void )
 {
 	return NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseObject *CInfoVehicleBay::GetObjectOfTypeOnMe( int iObjectType )
 {
 	return NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int	CInfoVehicleBay::FindObjectOnBuildPoint( CBaseObject *pObject )
 {
 	return -1;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CInfoVehicleBay::GetExitPoint( CBaseEntity *pPlayer, int iPoint, Vector *pAbsOrigin, QAngle *pAbsAngles )
 {
 	Assert(0);
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CInfoVehicleBay::RemoveAllObjects( void )
 {
 }
@@ -130,9 +103,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( vgui_screen_vehicle_bay, CVGuiScreenVehicleBay );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CVGuiScreenVehicleBay::Activate( void )
 {
 	BaseClass::Activate();
@@ -151,9 +121,6 @@ void CVGuiScreenVehicleBay::Activate( void )
 	SetBuildPoint( vecOrigin, vecAngles );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CVGuiScreenVehicleBay::SetBuildPoint( Vector &vecOrigin, QAngle &vecAngles )
 {
 	m_vecBuildPointOrigin = vecOrigin;
@@ -165,9 +132,6 @@ void CVGuiScreenVehicleBay::SetBuildPoint( Vector &vecOrigin, QAngle &vecAngles 
 	SetNextThink( gpGlobals->curtime + 0.1f );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CVGuiScreenVehicleBay::BuildVehicle( CBaseTFPlayer *pPlayer, int iObjectType )
 {
 	if ( !IsObjectAVehicle(iObjectType) )
@@ -220,9 +184,6 @@ void CVGuiScreenVehicleBay::BuildVehicle( CBaseTFPlayer *pPlayer, int iObjectTyp
 	m_bBayIsClear = false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CVGuiScreenVehicleBay::FinishedBuildVehicle( CBaseObject *pObject )
 {
 	m_OnFinishedBuild.FireOutput( pObject->GetBuilder(), this );

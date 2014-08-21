@@ -312,9 +312,7 @@ IMPLEMENT_CLIENTCLASS_DT(C_BaseTFPlayer, DT_BaseTFPlayer, CBaseTFPlayer)
 
 	// Class Data Tables
 	RecvPropInt( RECVINFO(m_iPlayerClass)),
-#ifdef IMPLEMENT_ME
 	RecvPropDataTable( RECVINFO_DT( m_PlayerClasses ), 0, &REFERENCE_RECV_TABLE( DT_AllPlayerClasses ), DataTableRecvProxy_StaticDataTable ),
-#endif
 
 	RecvPropEHandle( RECVINFO( m_hSelectedMCV ) ),
 	RecvPropInt( RECVINFO(m_iCurrentZoneState ) ),
@@ -373,8 +371,6 @@ BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 	DEFINE_PRED_FIELD( m_flPlaybackRate, FIELD_FLOAT, FTYPEDESC_INSENDTABLE | FTYPEDESC_PRIVATE | FTYPEDESC_OVERRIDE ),
 
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_COMMANDO], C_PlayerClassCommando ),
-
-#if 0	
 #ifdef IMPLEMENT_ME
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_DEFENDER], C_PlayerClassDefender ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_ESCORT], C_PlayerClassEscort ),
@@ -450,7 +446,6 @@ BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hSelectedOrder, CHandle < C_Order > ),
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hPersonalOrder, FIELD_EHANDLE ),
 	// DEFINE_FIELD( C_BaseTFPlayer, m_hSelectedObject, CHandle < C_BaseObject > ),
-#endif
 
 END_PREDICTION_DATA()
 

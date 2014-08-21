@@ -263,14 +263,10 @@ void C_TFBaseHint::PerformLayout()
 	needY += 8;
 
 	if ( m_pClearLabel )
-	{
 		m_pClearLabel->SetBounds( x, y + needY + 2, w, 14 );
-	}
 
 	if ( m_pCaption )
-	{
 		m_pCaption->SetBounds( x, BORDER, w, CAPTION );
-	}
 
 	needY += 14 + BORDER;
 
@@ -291,18 +287,13 @@ void C_TFBaseHint::SetCompletionFunction( HINTCOMPLETIONFUNCTION pfn )
 	m_pfnCompletion = pfn;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_TFBaseHint::CheckForCompletion( void )
 {
 	if ( m_pfnCompletion )
 	{
 		bool complete = (*m_pfnCompletion)( this );
 		if ( complete )
-		{
 			SetCompleted( true );
-		}
 	}
 }
 
@@ -395,55 +386,31 @@ void C_TFBaseHint::OnTick()
 */
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 int C_TFBaseHint::GetID( void )
 {
 	return m_nID;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : id - 
-//-----------------------------------------------------------------------------
 void C_TFBaseHint::SetID( int id )
 {
 	m_nID = id;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 int C_TFBaseHint::GetPriority( void )
 {
 	return m_nPriority;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : priority - 
-//-----------------------------------------------------------------------------
 void C_TFBaseHint::SetPriority( int priority )
 {
 	m_nPriority = priority;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 int C_TFBaseHint::GetEntity( void )
 {
 	return m_nEntity;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : C_BaseEntity
-//-----------------------------------------------------------------------------
 C_BaseEntity *C_TFBaseHint::GetBaseEntity( void )
 {
 	return m_nEntity != -1 ? cl_entitylist->GetEnt( m_nEntity ) : NULL;

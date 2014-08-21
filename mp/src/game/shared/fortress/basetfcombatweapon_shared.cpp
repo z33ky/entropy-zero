@@ -78,10 +78,8 @@ void CBaseTFCombatWeapon::CheckRemoveDisguise( void )
 #if !defined( CLIENT_DLL )
 	CBaseTFPlayer *player = static_cast< CBaseTFPlayer * >( GetOwner());
 	if ( player )
-	{
 		// Always remove camo
 		player->ClearCamouflage();
-	}
 #endif
 }
 
@@ -462,19 +460,11 @@ EXPOSE_INTERFACE( CPlayerBoostedProxy, IMaterialProxy, "PlayerBoosted" IMATERIAL
 
 #else
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float CBaseTFCombatWeapon::CalcViewmodelBob( void )
 {
 	return 0.0f;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 void CBaseTFCombatWeapon::AddViewmodelBob( CBaseViewModel *viewmodel, Vector &origin, QAngle &angles )
 {
 }

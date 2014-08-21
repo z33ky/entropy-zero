@@ -159,7 +159,6 @@ bool CPlayerClassCommando::ResupplyAmmo( float flFraction, ResupplyReason_t reas
 	return bGiven;
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Set commando class specific movement data here.
 //-----------------------------------------------------------------------------
@@ -169,9 +168,6 @@ void CPlayerClassCommando::SetupMoveData( void )
 	m_flMaxWalkingSpeed = class_commando_speed.GetFloat();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CPlayerClassCommando::SetupSizeData( void )
 {
 	// Initially set the player to the base player class standing hull size.
@@ -239,7 +235,6 @@ bool CPlayerClassCommando::CanBullRush( void )
 	return m_ClassData.m_bCanBullRush;
 }
 
-
 //-----------------------------------------------------------------------------
 // Should we take damage-based force?
 //-----------------------------------------------------------------------------
@@ -248,9 +243,6 @@ bool CPlayerClassCommando::ShouldApplyDamageForce( const CTakeDamageInfo &info )
 	return !InBullRush();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CPlayerClassCommando::BullRushTouch( CBaseEntity *pTouched )
 {
 	if ( pTouched->IsPlayer() && !pTouched->InSameTeam( m_pPlayer ) )
@@ -366,7 +358,6 @@ void CPlayerClassCommando::ClassThink( void )
 		m_bOldBullRush = (bool)m_ClassData.m_bBullRush;
 	} 
 
-#ifdef IMPLEMENT_ME
 	// Check for melee attack
 	if ( m_bCanBoot && m_pPlayer->IsAlive() && m_flNextBootCheck < gpGlobals->curtime )
 	{
@@ -390,15 +381,10 @@ void CPlayerClassCommando::ClassThink( void )
 			}
 		}
 	}
-#endif
 
 	BaseClass::ClassThink();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassCommando::StartAdrenalinRush( void )
 {
 	// Am I actually alive?
@@ -462,7 +448,6 @@ void CPlayerClassCommando::Boot( CBaseTFPlayer *pTarget )
 
 	// Knock the target to the ground for a few seconds (use default duration)
 	pTarget->KnockDownPlayer( vecForward, 500.0f, tf_knockdowntime.GetFloat() );
-
 }
 
 //-----------------------------------------------------------------------------
@@ -495,9 +480,6 @@ void CPlayerClassCommando::GetPlayerHull( bool bDucking, Vector &vecMin, Vector 
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassCommando::CreatePersonalOrder( void )
 {
 	if ( CreateInitialOrder() )
@@ -511,10 +493,6 @@ void CPlayerClassCommando::CreatePersonalOrder( void )
 	BaseClass::CreatePersonalOrder();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassCommando::ResetViewOffset( void )
 {
 	if ( m_pPlayer )

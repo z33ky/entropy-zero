@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: Auto Repair
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "c_tf_class_commando.h"
 #ifdef IMPLEMENT_ME
@@ -17,18 +11,12 @@
 #include "c_tf_class_sapper.h"
 #endif
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 C_PlayerClass::C_PlayerClass( C_BaseTFPlayer *pPlayer )
 {
 	// Save peer.
 	m_pPlayer = pPlayer;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 C_PlayerClass::~C_PlayerClass()
 {
 }

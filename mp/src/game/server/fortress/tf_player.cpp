@@ -14,18 +14,12 @@
 #endif
 #include "tf_shareddefs.h"
 #include "AmmoDef.h"
-#ifdef IMPLEMENT_ME
 #include "techtree.h"
-#endif
 #include "in_buttons.h"
-#ifdef IMPLEMENT_ME
 #include "tf_team.h"
-#endif
 #include "client.h"
 #include "baseviewmodel.h"
-#ifdef IMPLEMENT_ME
 #include "tf_gamerules.h"
-#endif
 #include "tf_obj.h"
 #ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
@@ -41,7 +35,9 @@
 #ifdef IMPLEMENT_ME
 #include "tf_obj_respawn_station.h"
 #include "tf_obj_resourcepump.h"
+#endif
 #include "tf_class_commando.h"
+#ifdef IMPLEMENT_ME
 #include "tf_class_defender.h"
 #include "tf_class_escort.h"
 #include "tf_class_infiltrator.h"
@@ -63,9 +59,7 @@
 #include "weapon_twohandedcontainer.h"
 #endif
 #include "NDebugOverlay.h"
-#ifdef IMPLEMENT_ME
-#include "vstdlib/strtools.h"
-#endif
+#include "tier1/strtools.h"
 #include "IEffects.h"
 #ifdef IMPLEMENT_ME
 #include "info_act.h"
@@ -94,16 +88,15 @@ ConVar tf_autoteam( "tf_autoteam", "1", 0, "Automatically place players on the t
 ConVar tf_destroyobjects( "tf_destroyobjects", "1", FCVAR_CHEAT, "Destroy objects when players change class or team." );
 
 IMPLEMENT_SERVERCLASS_ST(CBaseTFPlayer, DT_BaseTFPlayer)
+
 #ifdef IMPLEMENT_ME
 	SendPropDataTable(SENDINFO_DT(m_TFLocal), &REFERENCE_SEND_TABLE(DT_TFLocal), SendProxy_SendLocalDataTable),
 #endif
 
 	SendPropInt(SENDINFO(m_iPlayerClass), 4, SPROP_UNSIGNED),
 	
-#ifdef IMPLEMENT_ME
 	// Class Data Tables
 	SendPropDataTable( SENDINFO_DT( m_PlayerClasses ), &REFERENCE_SEND_TABLE( DT_AllPlayerClasses ), SendProxy_SendLocalDataTable ),
-#endif
 
 	SendPropEHandle( SENDINFO( m_hSelectedMCV ) ),
 	SendPropInt( SENDINFO(m_iCurrentZoneState ), 3 ),
@@ -140,7 +133,6 @@ BEGIN_DATADESC( CBaseTFPlayer )
 
 END_DATADESC()
 
-#ifdef IMPLEMENT_ME
 BEGIN_PREDICTION_DATA_NO_BASE( CTFPlayerLocalData )
 
 	DEFINE_FIELD( m_nInTacticalView, FIELD_INTEGER ),
@@ -156,11 +148,10 @@ BEGIN_PREDICTION_DATA_NO_BASE( CTFPlayerLocalData )
 	DEFINE_FIELD( m_bForceMapOverview, FIELD_BOOLEAN ),
 
 END_PREDICTION_DATA()
-#endif
 
 BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 
-#ifdef CLIENT_DLL	// Seems this is tranditionally done on the client now... Hm ~hogsy
+#ifdef CLIENT_DLL	// TODO: Move over to client. ~hogsy
 	// DEFINE_FIELD( m_pfnClassTouch, void (CPlayerClass ::*m_pfnClassTouch ),
 	DEFINE_FIELD( m_bWasMoving, FIELD_BOOLEAN ),
 	// DEFINE_FIELD( m_hSpawnPoint, EHANDLE ),
@@ -272,10 +263,8 @@ CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this )
 	m_bWasMoving = false;
 
 	m_iLastSecondsToGo = -1;
-#ifdef IMPLEMENT_ME
 	m_TFLocal.m_nInTacticalView = 0;
 	m_TFLocal.m_pPlayer = this;
-#endif
 	m_bSwitchingView = false;
 	ClearActiveWeapon();
 	
@@ -450,16 +439,12 @@ void CBaseTFPlayer::Spawn( void )
 
 	SetCantMove( false );
 
-#ifdef IMPLEMENT_ME
 	m_TFLocal.m_nInTacticalView = 0;
-#endif
 	m_flLastTimeDamagedByEnemy = -1000;
 
-#ifdef IMPLEMENT_ME
 	// Purge resource chunks
 	for ( int i=0; i < m_TFLocal.m_iResourceAmmo.Count(); i++ )
 		m_TFLocal.m_iResourceAmmo.Set( i, 0 );
-#endif
 
 	ResetKnockdown();
 	SetGagged( false );
@@ -543,11 +528,9 @@ void CBaseTFPlayer::Precache( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::UpdateClientData( void )
 {
-#ifdef IMPLEMENT_ME
 	CTeam *pTeam = GetTeam();
 	if ( pTeam )
 		pTeam->UpdateClientData( this );
-#endif
 
 	BaseClass::UpdateClientData();
 }
@@ -634,7 +617,6 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 
 	BaseClass::ChangeTeam( iTeamNum );
 
-#ifdef IMPLEMENT_ME
 	// Now handle resources:
 	//  - If it's the first spawn ever, give the player the team's currently calculated resource amount
 	//  - If the player has more resources than the team's joining amount, drop his resources to that amount. Otherwise, he can keep his current.
@@ -652,7 +634,6 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 				SetBankResources( flJoiningResources );
 		}
 	}
-#endif
 
 	// Clear the client ragdoll, when changing teams.
 	ClearClientRagdoll( false );
@@ -886,12 +867,10 @@ void CBaseTFPlayer::PreThink(void)
 	// Update reinforcement state
 	if (m_lifeState >= LIFE_DYING)
 	{
-#ifdef IMPLEMENT_ME
 		// After 3 seconds, move them to the Tactical Map
 		if ( (gpGlobals->curtime - m_flTimeOfDeath) > 3.0 )
 			if ( m_TFLocal.m_nInTacticalView == false )
 				ShowTacticalView( 1 );
-#endif
 
 		// ROBIN: Maps will define whether or not teams reinforce
 		/*
@@ -931,9 +910,6 @@ void CBaseTFPlayer::PreThink(void)
 	BaseClass::PreThink();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::PostThink()
 {
 	BaseClass::PostThink();
@@ -942,9 +918,8 @@ void CBaseTFPlayer::PostThink()
 	// Make sure we have a valid MCV id.
 	CVehicleTeleportStation *pMCV = GetSelectedMCV();
 	if ( !pMCV || !pMCV->IsDeployed() )
-	{
 		m_hSelectedMCV = CVehicleTeleportStation::GetFirstDeployedMCV( GetTeamNumber() );
-	}
+#endif
 
 	// Tell the client if our damage is boosted so it can do a smurfy effect on the weapon.
 	if ( GetAttackDamageScale() == 1 )
@@ -952,7 +927,9 @@ void CBaseTFPlayer::PostThink()
 	else
 		m_TFPlayerFlags |= TF_PLAYER_DAMAGE_BOOST;
 
+#ifdef IMPLEMENT_ME
 	m_PlayerAnimState.Update();
+#endif
 //	SetLocalAngles( m_PlayerAnimState.GetRenderAngles() );
 
 	float flTimeSinceAttacked = gpGlobals->curtime - LastTimeDamagedByEnemy();
@@ -976,7 +953,6 @@ void CBaseTFPlayer::PostThink()
 		m_bSwitchingView = false;
 		SetMoveType( m_TFLocal.m_nInTacticalView ? MOVETYPE_ISOMETRIC : MOVETYPE_WALK );
 	}
-#endif
 
 	FollowClientRagdoll();
 }
@@ -1975,9 +1951,8 @@ void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 		return;
 
 	m_bSwitchingView	= true;
-#ifdef IMPLEMENT_ME
+
 	m_TFLocal.m_nInTacticalView = bTactical ? 1 : 0;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1985,11 +1960,7 @@ void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsInTacticalView( void ) const
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_nInTacticalView;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2143,7 +2114,6 @@ void CBaseTFPlayer::SetupVisibility( CBaseEntity *pViewEntity, unsigned char *pv
 	if ( m_vecCameraPVSOrigin != vec3_origin )
 		engine->AddOriginToPVS( m_vecCameraPVSOrigin );
 	
-#ifdef IMPLEMENT_ME
 	// If in tactical mode, merge in pvs from all of our teammates, too
 	// send all the others team info
 	if ( m_TFLocal.m_nInTacticalView )
@@ -2163,7 +2133,6 @@ void CBaseTFPlayer::SetupVisibility( CBaseEntity *pViewEntity, unsigned char *pv
 			}
 		}
 	}
-#endif
 }
 
 //--------------------------------------------------------------------------------------------------------------
@@ -3151,11 +3120,7 @@ void CBaseTFPlayer::DropAllResourceChunks( void )
 //-----------------------------------------------------------------------------
 int CBaseTFPlayer::GetBankResources( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.ResourceCount();
-#else
-	return 0;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3182,9 +3147,9 @@ void CBaseTFPlayer::SetBankResources( int iAmount )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::AddBankResources( int iAmount )
 {
-#ifdef IMPLEMENT_ME
 	m_TFLocal.AddResources( iAmount );
 
+#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
@@ -3197,9 +3162,9 @@ void CBaseTFPlayer::AddBankResources( int iAmount )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::RemoveBankResources( int iAmount, bool bSpent )
 {
-#ifdef IMPLEMENT_ME
 	m_TFLocal.RemoveResources( iAmount );
 
+#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )

@@ -128,12 +128,10 @@ int GetStatGroupFor( CBaseTFPlayer *pPlayer )
 		if ( dynamic_cast<CObjectMannedPlasmagun*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_PLASMA;
 	}
+#endif
 
 	// Otherwise, use the playerclass
 	return pPlayer->GetPlayerClass()->GetTFClass();
-#else
-	return 0;
-#endif
 }
 
 const char* GetGroupNameFor( int iStatGroup )
@@ -252,9 +250,8 @@ void PrintDetailedPlayerClassStats()
 
 		// Print the header.
 		for ( i=TFCLASS_UNDECIDED+1; i < STATS_NUM_GROUPS; i++ )
-		{
 			pFileSys->FPrintf( hFile, "%s dist\t%s dmg\t", GetGroupNameFor( i ), GetGroupNameFor( i ) );
-		}
+
 		pFileSys->FPrintf( hFile, "\n" );
 
 		// Write out each column.
@@ -269,9 +266,7 @@ void PrintDetailedPlayerClassStats()
 			for ( i=TFCLASS_UNDECIDED+1; i < STATS_NUM_GROUPS; i++ )
 			{
 				if ( iterators[i] == g_ClassShotInfos[i].InvalidIndex() )
-				{
 					pFileSys->FPrintf( hFile, "\t\t" );
-				}
 				else
 				{
 					CShotInfo *pInfo = &g_ClassShotInfos[i][iterators[i]];
@@ -302,9 +297,8 @@ CPlayerClass::CPlayerClass( CBaseTFPlayer *pPlayer, TFClass iClass )
 	m_pPlayer = pPlayer;
 	
 	for (int i = 0; i <= MAX_TF_TEAMS; ++i)
-	{
 		m_sClassModel[i] = NULL_STRING;
-	}
+
 	m_iNumWeaponTechAssociations = 0;
 
 	m_bTechAssociationsSet = false;
@@ -367,7 +361,6 @@ void CPlayerClass::NetworkStateChanged(void *pVar)
 		m_pPlayer->NetworkStateChanged();
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Setup the default movement parameters, quite a few of these will be
 //          overridden with class specific values.
@@ -378,9 +371,6 @@ void CPlayerClass::SetupMoveData( void )
 	m_flMaxWalkingSpeed = 120;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClass::SetupSizeData( void )
 {
 	// Initially set the player to the base player class standing hull size.
@@ -389,9 +379,6 @@ void CPlayerClass::SetupSizeData( void )
 	m_pPlayer->m_Local.m_flStepSize = PLAYERCLASS_STEPSIZE;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClass::CreateClass( void )
 { 
 #ifdef IMPLEMENT_ME
@@ -506,13 +493,10 @@ void CPlayerClass::RespawnClass( void )
 		if ( pWeapon )
 		{
 			if ( pWeapon->UsesClipsForAmmo1() )
-			{
 				pWeapon->m_iClip1 = pWeapon->GetDefaultClip1();
-			}
+
 			if ( pWeapon->UsesClipsForAmmo2() )
-			{
 				pWeapon->m_iClip2 = pWeapon->GetDefaultClip2();
-			}
 		}
 	}
 }
@@ -534,10 +518,8 @@ bool CPlayerClass::ResupplyAmmoType( float flAmount, const char *pAmmoType )
 
 	bool bGiven = false;
 	if ( g_pGameRules->CanHaveAmmo( m_pPlayer, pAmmoType ) )
-	{
 		if ( m_pPlayer->GiveAmmo( nAmount, pAmmoType, true ) > 0 )
 			bGiven = true;
-	}
 
 	return bGiven;
 }
@@ -626,19 +608,13 @@ int CPlayerClass::GetMaxHealthCVarValue()
 void CPlayerClass::SetMaxHealth( float flMaxHealth )
 {
 	if ( m_pPlayer )
-	{
 		m_pPlayer->m_iMaxHealth = m_pPlayer->m_iHealth = flMaxHealth;
-	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 string_t CPlayerClass::GetClassModel( int nTeam )
 {
 	return m_sClassModel[nTeam];
 }
-
 
 const char*	CPlayerClass::GetClassModelString( int nTeam )
 {
@@ -659,17 +635,10 @@ bool CPlayerClass::CanSeePlayerOnRadar( CBaseTFPlayer *pl )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClass::ItemPostFrame()
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : TFClass
-//-----------------------------------------------------------------------------
 TFClass CPlayerClass::GetTFClass( void )
 {
 	return m_TFClass;
@@ -831,9 +800,7 @@ int	CPlayerClass::GetNumObjects( int iObjectType )
 {
 	// For the purposes of costs/limits, Sentryguns tally up all sentrygun types
 	if ( iObjectType == OBJ_SENTRYGUN_PLASMA || iObjectType == OBJ_SENTRYGUN_ROCKET_LAUNCHER  )
-	{
 		return ( m_pPlayer->GetNumObjects( OBJ_SENTRYGUN_PLASMA ) + m_pPlayer->GetNumObjects( OBJ_SENTRYGUN_ROCKET_LAUNCHER ) );
-	}
 
 	return m_pPlayer->GetNumObjects( iObjectType );
 }
@@ -1037,20 +1004,10 @@ void CPlayerClass::InitVCollision( void )
 		m_pPlayer->SetVCollisionState( m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), VPHYS_WALK );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pObject - 
-//			*pNewOwner - 
-//-----------------------------------------------------------------------------
 void CPlayerClass::OwnedObjectChangeToTeam( CBaseObject *pObject, CBaseTFPlayer *pNewOwner )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pObject - 
-//			*pOldOwner - 
-//-----------------------------------------------------------------------------
 void CPlayerClass::OwnedObjectChangeFromTeam( CBaseObject *pObject, CBaseTFPlayer *pOldOwner )
 {
 }

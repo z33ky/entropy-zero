@@ -2,10 +2,6 @@
 {
 	$baseTexture					"models/player/commando/human_commando_headarmslegs"
 	$bumpmap						"models/player/commando/human_commando_headarmslegs_normal"
-	$color							"[1 1 1]"
 	$normalmapalphaenvmapmask 		"1"
 	$envmap 						env_cubemap
-	$selfIllum						"0"
-	$translucent					"0"
-	$alpha							"1"
 }

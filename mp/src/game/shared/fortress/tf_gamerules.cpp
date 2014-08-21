@@ -630,11 +630,9 @@ END_NETWORK_TABLE()
 		}
 		else if ( FStrEq( pcmd, "tactical" ) )
 		{
-#ifdef IMPLEMENT_ME
 			bool bTactical = args[1][0] == '!' ? !pPlayer->GetLocalData()->m_nInTacticalView : (atoi( args[1] ) ? true : false);
 
 			pPlayer->ShowTacticalView( bTactical );
-#endif
 			return true;
 		}
 		else if ( FStrEq( pcmd, "tech" ) )

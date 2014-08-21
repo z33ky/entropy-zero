@@ -6,9 +6,7 @@
 //=============================================================================
 #include "cbase.h"
 #include "tf_player.h"
-#ifdef IMPLEMENT_ME
 #include "tf_team.h"
-#endif
 #include "tf_obj.h"
 #ifdef IMPLEMENT_ME
 #include "tf_basecombatweapon.h"
@@ -23,15 +21,13 @@
 #include "rope_helpers.h"
 #include "IEffects.h"
 #include "vstdlib/random.h"
-#ifdef IMPLEMENT_ME
-#include "vstdlib/strtools.h"
-#endif
+#include "tier1/strtools.h"
 #include "basegrenade_shared.h"
 #ifdef IMPLEMENT_ME
 #include "grenade_objectsapper.h"
 #include "tf_stats.h"
-#include "tf_gamerules.h"
 #endif
+#include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
 #ifdef IMPLEMENT_ME
 #include "tf_obj_sentrygun.h"
@@ -151,11 +147,11 @@ public:
 	{
 	}
 	
-	virtual bool ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea, bool bPrevShouldTransmitResult )
+	virtual int ShouldTransmit( const CCheckTransmitInfo *pInfo, int nPrevShouldTransmitResult )
 	{
 		// Don't transmit the rope if it's not even visible.
-		if ( !bPrevShouldTransmitResult )
-			return false;
+		if ( !nPrevShouldTransmitResult )
+			return FL_EDICT_DONTSEND;
 
 		// This proxy only wants to be active while one of the two objects is being placed.
 		// When they're done being placed, the proxy goes away and the rope draws like normal.
@@ -163,29 +159,24 @@ public:
 		if ( !bAnyObjectPlacing )
 		{
 			Release();
-			return bPrevShouldTransmitResult;
+			return nPrevShouldTransmitResult;
 		}
 
 		// Give control to whichever object is being placed.
 		if ( m_hObj1 && m_hObj1->IsPlacing() )
-			return m_hObj1->ShouldTransmit( recipient, pvs, clientArea );
+			return m_hObj1->ShouldTransmit( pInfo );
 		
 		else if ( m_hObj2 && m_hObj2->IsPlacing() )
-			return m_hObj2->ShouldTransmit( recipient, pvs, clientArea );
+			return m_hObj2->ShouldTransmit( pInfo );
 		
 		else
-			return true;
+			return FL_EDICT_ALWAYS;
 	}
-
 
 	CHandle<CBaseObject> m_hObj1;
 	CHandle<CBaseObject> m_hObj2;
 };
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseObject::CBaseObject()
 {
 	m_hPowerPack = NULL;
@@ -212,9 +203,6 @@ CBaseObject::CBaseObject()
 	m_iszEnabledModel = NULL_STRING;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::UpdateOnRemove( void )
 {
 	m_bDying = true;
@@ -223,9 +211,8 @@ void CBaseObject::UpdateOnRemove( void )
 	// Remove anything left on me
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
 	if ( pBPInterface && pBPInterface->GetNumObjectsOnMe() )
-	{
 		pBPInterface->RemoveAllObjects();
-	}
+#endif
 
 	DestroyObject();
 	
@@ -235,41 +222,31 @@ void CBaseObject::UpdateOnRemove( void )
 	// Make sure the object isn't in either team's list of objects...
 	Assert( !GetGlobalTFTeam(1)->IsObjectOnTeam( this ) );
 	Assert( !GetGlobalTFTeam(2)->IsObjectOnTeam( this ) );
-#endif
 
 	// Chain at end to mimic destructor unwind order
 	BaseClass::UpdateOnRemove();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-bool CBaseObject::ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea )
+int CBaseObject::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
-#ifdef IMPLEMENT_ME
 	// Always transmit to owner
-	if ( GetBuilder() && recipient == GetBuilder()->edict() )
-		return true;
+	if ( GetBuilder() && pInfo->m_pClientEnt == GetBuilder()->edict() )
+		return FL_EDICT_ALWAYS;
 
 	// Placement models only transmit to owners
 	if ( IsPlacing() )
-		return false;
+		return FL_EDICT_DONTSEND;
 
-	return BaseClass::ShouldTransmit( recipient, pvs, clientArea );
-#else
-	return false;
-#endif
+	return BaseClass::ShouldTransmit( pInfo );
 }
 
-
-void CBaseObject::SetTransmit( CCheckTransmitInfo *pInfo )
+void CBaseObject::SetTransmit( CCheckTransmitInfo *pInfo, bool bAlways )
 {
-#ifdef IMPLEMENT_ME
 	// Are we already marked for transmission?
-	if ( pInfo->WillTransmit( entindex() ) )
+	if ( pInfo->m_pTransmitEdict->Get( entindex() ) )
 		return;
 
-	BaseClass::SetTransmit( pInfo );
+	BaseClass::SetTransmit( pInfo, bAlways );
 
 	// Force our screens to be sent too.
 	int nTeam = CBaseEntity::Instance( pInfo->m_pClientEnt )->GetTeamNumber();
@@ -277,35 +254,23 @@ void CBaseObject::SetTransmit( CCheckTransmitInfo *pInfo )
 	{
 		CVGuiScreen *pScreen = m_hScreens[i].Get();
 		if ( pScreen && pScreen->IsVisibleToTeam( nTeam ) )
-			pScreen->SetTransmit( pInfo );
+			pScreen->SetTransmit( pInfo, bAlways );
 	}
-#endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::Precache()
 {
 	PrecacheVGuiScreen( "screen_basic_with_disable" );
 
 	if ( m_iszUnderAttackSound != NULL_STRING )
-	{
 		PrecacheSound( STRING(m_iszUnderAttackSound) );
-	}
+
 	PrecacheMaterial( SCREEN_OVERLAY_MATERIAL );
 
 	if ( m_iszDisabledModel != NULL_STRING )
-	{
 		PrecacheModel( STRING( m_iszDisabledModel ) );
-	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::Spawn( void )
 {
 	Precache();
@@ -338,7 +303,6 @@ void CBaseObject::Spawn( void )
 	// Cache off the normal model name
 	m_iszEnabledModel = GetModelName();
 }
-
 
 //-----------------------------------------------------------------------------
 // Returns information about the various control panels
@@ -463,9 +427,6 @@ void CBaseObject::DismantleCommand( CBaseTFPlayer *pSender )
 		PickupObject();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::YawCommand( CBaseTFPlayer *pSender, float flYaw )
 {
 	if ( CanBeRotatedBy(pSender) )
@@ -481,12 +442,8 @@ void CBaseObject::YawCommand( CBaseTFPlayer *pSender, float flYaw )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::TakeControlCommand( CBaseTFPlayer *pSender )
 {
-#ifdef IMPLEMENT_ME
 	// Deteriorating objects can be bought
 	if ( InSameTeam( pSender ) && IsDeteriorating() )
 	{
@@ -502,7 +459,6 @@ void CBaseObject::TakeControlCommand( CBaseTFPlayer *pSender )
 			}
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -535,9 +491,6 @@ bool CBaseObject::ClientCommand( CBaseTFPlayer *pSender, const char *pCmd, IComm
 	return false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::BaseObjectThink( void )
 {
 	SetNextThink( gpGlobals->curtime + 0.1, OBJ_BASE_THINK_CONTEXT );
@@ -547,9 +500,7 @@ void CBaseObject::BaseObjectThink( void )
 
 	// Can't animate without a model
 	if ( !(m_fObjectFlags & OF_DOESNT_HAVE_A_MODEL) )
-	{
 		StudioFrameAdvance();
-	}
 
 	/*
 	ROBIN: Hierarchy should do this for us
@@ -592,9 +543,7 @@ void CBaseObject::BaseObjectThink( void )
 
 	// If we're deteriorating, keep going
 	if ( IsDeteriorating() )
-	{
 		DeterioratingThink();
-	}
 
 	// If we're building, keep going
 	if ( IsBuilding() )
@@ -604,9 +553,6 @@ void CBaseObject::BaseObjectThink( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseTFPlayer *CBaseObject::GetOwner()
 {
 	return m_hBuilder;
@@ -621,17 +567,11 @@ bool CBaseObject::MustBeBuiltInResourceZone( void ) const
 	return (m_fObjectFlags & OF_MUST_BE_BUILT_IN_RESOURCE_ZONE) != 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseObject::MustBeBuiltInConstructionYard( ) const
 {
 	return (m_fObjectFlags & OF_MUST_BE_BUILT_IN_CONSTRUCTION_YARD) != 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseObject::MustNotBeBuiltInConstructionYard( void ) const
 {
 	return !MustBeBuiltInConstructionYard();
@@ -667,9 +607,7 @@ void CBaseObject::InitializeMapPlacedObject( void )
 	// place for the control panel)
 
 	if ( !(m_fObjectFlags & OF_DOESNT_HAVE_A_MODEL) )
-	{
 		SpawnControlPanels();
-	}
 
 	SetHealth( GetMaxHealth() );
 
@@ -677,10 +615,6 @@ void CBaseObject::InitializeMapPlacedObject( void )
 	FinishedBuilding();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::Activate( void )
 {
 	BaseClass::Activate();
@@ -786,9 +720,6 @@ void CBaseObject::StartDeteriorating( void )
 	NetworkStateChanged();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::StopDeteriorating( void )
 {
 	m_bDeteriorating = false;
@@ -807,9 +738,7 @@ void CBaseObject::DeterioratingThink( void )
 	flDamage = 0.1 * ( GetMaxHealth() / object_deterioration_time.GetFloat() ) * ceil(flDeteriorationTime / object_deterioration_time.GetFloat());
 	// Hax0r the damage to get around the object damage reduction
 	if ( obj_damage_factor.GetFloat() )
-	{
 		flDamage *= 1 / obj_damage_factor.GetFloat();
-	}
 
 	// Apply the damage
 	OnTakeDamage( CTakeDamageInfo( GetContainingEntity(INDEXENT(0)), GetContainingEntity(INDEXENT(0)), flDamage, DMG_GENERIC ) );
@@ -848,9 +777,7 @@ void CBaseObject::StartPlacement( CBaseTFPlayer *pPlayer )
 	if ( pPlayer )
 	{
 		SetBuilder( pPlayer );
-#ifdef IMPLEMENT_ME
 		ChangeTeam( pPlayer->GetTeamNumber() );
-#endif
 	}
 
 	// Make it semi-transparent
@@ -947,7 +874,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 	// See if there are any nearby build positions to snap to
 	Vector vecNearestBuildPoint = vec3_origin;
 	float flNearestPoint = 9999;
-#ifdef IMPLEMENT_ME
+
 	// First, look for nearby buildpoints on other objects
 	for ( int i = 0; i < GetTFTeam()->GetNumObjects(); i++ )
 	{
@@ -964,7 +891,6 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 			}
 		}
 	}
-#endif
 
 	// If we're a vehicle, look for vehicle build points
 	if ( IsAVehicle() )
@@ -997,9 +923,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 			continue;
 
 		if ( FindNearestBuildPoint( g_MapDefinedBuildPoints[i], vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
-		{
 			bSnappedToPoint = true;
-		}
 	}
 #endif
 
@@ -1019,9 +943,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 	if ( bSnappedToPoint )
 	{
 		if ( bShouldAttachToParent )
-		{
 			AttachObjectToObject( m_hBuiltOnEntity.Get(), m_iBuiltOnPoint, vecNearestBuildPoint );
-		}
 
 		return CheckBuildOrigin( pPlayer, vecNearestBuildPoint, true );
 	}
@@ -1102,11 +1024,6 @@ bool CBaseObject::CheckBuildPoint( Vector vecPoint, Vector &vecTrace, Vector *ve
 
 	return bClear;
 }
-
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 
 bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecInitialBuildOrigin, bool bSnappedToPoint )
 {
@@ -1250,15 +1167,15 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 					return false;
 				}
 
-#ifdef IMPLEMENT_ME
 				// Sentryguns may be turtled, and non-solid
 				if ( pEntity->Classify() == CLASS_MILITARY )
 				{
+#ifdef IMPLEMENT_ME
 					CObjectSentrygun *pSentry = dynamic_cast<CObjectSentrygun*>(pEntity);
 					if ( pSentry && pSentry->IsTurtled() )
 						return false;
-				}
 #endif
+				}
 			}
 		}
 	}
@@ -1334,13 +1251,11 @@ void CBaseObject::GetExitPoint( CBaseEntity *pPlayer, int nBuildPoint, Vector *p
 
 	// Now select a good spot to drop onto
 	Vector vNewPos;
-#ifdef IMPLEMENT_ME
 	if ( !EntityPlacementTest(pPlayer, *pAbsPosition, vNewPos, true) )
 	{
 		Warning("Can't find valid place to exit object.\n");
 		return;
 	}
-#endif
 
 	*pAbsPosition = vNewPos;
 }
@@ -1371,9 +1286,6 @@ void CBaseObject::AttemptToFindPower( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CBaseObject::AttemptToFindBuffStation( void )
 {
 	// Check to see if this object can be connected to a buff station.
@@ -1406,9 +1318,6 @@ bool CBaseObject::UpdatePlacement( CBaseTFPlayer *pPlayer )
 	return placementOk;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseObject::PreStartBuilding()
 {
 #if 0
@@ -1423,9 +1332,7 @@ bool CBaseObject::PreStartBuilding()
 
 	Vector vecMorphMin, vecMorphMax;
 	if ( VPhysicsGetObject() )
-	{
 		physcollision->CollideGetAABB( vecMorphMin, vecMorphMax, VPhysicsGetObject()->GetCollide(), GetAbsOrigin(), GetAbsAngles() );
-	}
 
 	vecMorphMin -= Vector( 75.0f, 75.0f, 300.0f );
 	vecMorphMax += Vector( 75.0f, 75.0f, 0.0f );
@@ -1444,15 +1351,12 @@ bool CBaseObject::PreStartBuilding()
 //-----------------------------------------------------------------------------
 bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 {
-#ifdef IMPLEMENT_ME
 	// Need to add the object to the team now...
 	CTFTeam *pTFTeam = ( CTFTeam * )GetGlobalTeam( GetTeamNumber() );
-#endif
 
 	// Deduct the cost from the player
 	if ( pBuilder && pBuilder->IsPlayer() )
 	{
-#ifdef IMPLEMENT_ME
 		m_iAmountPlayerPaidForMe = ((CBaseTFPlayer*)pBuilder)->StartedBuildingObject( m_iObjectType );
 		if ( !m_iAmountPlayerPaidForMe )
 		{
@@ -1461,15 +1365,12 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 			StopPlacement();
 			return false;
 		}
-#endif
 	}
 	
-#ifdef IMPLEMENT_ME
 	// Add this object to the team's list (because we couldn't add it during
 	// placement mode)
 	if ( pTFTeam && !pTFTeam->IsObjectOnTeam( this ) )
 		pTFTeam->AddObject( this );
-#endif
 
 	m_bPlacing = false;
 	m_bBuilding = true;
@@ -1517,10 +1418,8 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 	// Start the build animations
 	m_flTotalConstructionTime = m_flConstructionTimeLeft = GetTotalTime();
 
-#ifdef IMPLEMENT_ME
 	if ( pBuilder && pBuilder->IsPlayer() )
 		((CBaseTFPlayer*)pBuilder)->FinishedObject( this );
-#endif
 
 	m_vecBuildOrigin = GetAbsOrigin();
 
@@ -1536,9 +1435,6 @@ void CBaseObject::BuildingThink( void )
 	Repair( (GetMaxHealth() - OBJECT_CONSTRUCTION_STARTINGHEALTH) / m_flTotalConstructionTime * OBJECT_CONSTRUCTION_INTERVAL );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::AttemptToActivateBuffStation( void )
 {
 	if ( !GetBuffStation() )
@@ -1555,9 +1451,6 @@ void CBaseObject::AttemptToActivateBuffStation( void )
 	BuffStationActivate();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::SetControlPanelsActive( bool bState )
 {
 	// Activate control panel screens
@@ -1566,9 +1459,6 @@ void CBaseObject::SetControlPanelsActive( bool bState )
 			m_hScreens[i]->SetActive( bState );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::FinishedBuilding( void )
 {
 	SetControlPanelsActive( true );
@@ -1944,10 +1834,8 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 
 	// Check teams
 	if ( info.GetAttacker() )
-	{
 		if ( InSameTeam(info.GetAttacker()) )
 			return 0;
-	}
 
 #ifdef IMPLEMENT_ME
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
@@ -2048,7 +1936,6 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 		// Notify team about interesting stuff going on with this object
 		if ( !(m_fObjectFlags & OF_SUPPRESS_NOTIFY_UNDER_ATTACK) && ( m_iszUnderAttackSound != NULL_STRING ) )
 		{
-#ifdef IMPLEMENT_ME
 			CTFTeam *pTeam = GetTFTeam();
 			if ( pTeam )
 			{
@@ -2062,9 +1949,10 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 					WRITE_VEC3COORD( vecPosition );
 				MessageEnd();
 
+#ifdef IMPLEMENT_ME
 				GetTFTeam()->PostMessage( TEAMMSG_CUSTOM_SOUND, NULL, (char*)STRING(m_iszUnderAttackSound) );
-			}
 #endif
+			}
 		}
 	}
 
@@ -2090,9 +1978,7 @@ float CBaseObject::GetRepairTime( void )
 
 	int iRepairHealth = GetMaxHealth() - GetHealth();
 	if ( iRepairHealth )
-	{
 		return ((float)iRepairHealth / OBJECT_REPAIR_RATE);
-	}
 
 	return 0;
 }
@@ -2117,10 +2003,8 @@ bool CBaseObject::Repair( float flHealth )
 
 	if ( IsBuilding() )
 	{
-#ifdef IMPLEMENT_ME
 		if ( HasPowerup(POWERUP_EMP) )
 			return false;
-#endif
 
 		// Reduce the construction time by the correct amount for the health passed in
 		float flConstructionTime = flHealth / ((GetMaxHealth() - OBJECT_CONSTRUCTION_STARTINGHEALTH) / m_flTotalConstructionTime);
@@ -2387,17 +2271,14 @@ void CBaseObject::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 	}
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Builder has picked up the object
 //-----------------------------------------------------------------------------
 void CBaseObject::PickupObject( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell the playerclass
 	if ( GetBuilder() && GetBuilder()->GetPlayerClass() )
 		GetBuilder()->GetPlayerClass()->PickupObject( this );
-#endif
 
 	UTIL_Remove( this );
 }
@@ -2446,7 +2327,6 @@ bool CBaseObject::CanBeRotatedBy( CBaseTFPlayer *pPlayer )
 //-----------------------------------------------------------------------------
 void CBaseObject::ChangeTeam( int iTeamNum )
 {
-#ifdef IMPLEMENT_ME
 	CTFTeam *pTeam = ( CTFTeam * )GetGlobalTeam( iTeamNum );
 	CTFTeam *pExisting = ( CTFTeam * )GetTeam();
 
@@ -2459,10 +2339,8 @@ void CBaseObject::ChangeTeam( int iTeamNum )
 		return;
 
 	if ( pExisting )
-	{
 		// Remove it from current team ( if it's in one ) and give it to new team
 		pExisting->RemoveObject( this );
-	}
 		
 	// Change to new team
 	BaseClass::ChangeTeam( iTeamNum );
@@ -2470,10 +2348,7 @@ void CBaseObject::ChangeTeam( int iTeamNum )
 	// Add this object to the team's list
 	// But only if we're not placing it
 	if ( pTeam && (!m_bPlacing) )
-	{
 		pTeam->AddObject( this );
-	}
-#endif
 
 	// Setup for our new team's model
 	SetupTeamModel();
@@ -2489,19 +2364,11 @@ void CBaseObject::ChangeTeam( int iTeamNum )
 	NetworkStateChanged();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : const char
-//-----------------------------------------------------------------------------
 const char *CBaseObject::GetWeaponClassnameForObject( void )
 {
 	return NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pNewOwner - 
-//-----------------------------------------------------------------------------
 void CBaseObject::AddItemsNeededForObject( CBaseTFPlayer *pNewOwner )
 {
 }
@@ -2531,10 +2398,8 @@ void CBaseObject::ChangeBuilder( CBaseTFPlayer *pNewBuilder, bool moveobjects )
 	if ( !moveobjects )
 		return;
 
-#ifdef IMPLEMENT_ME
 	if ( oldBuilder )
 		oldBuilder->OwnedObjectChangeTeam( this, pNewBuilder );
-#endif
 
 	// For instance, if this is a mortar being added to a technician via subversion, then
 	//  the "weapon_mortar" will be added to the player if the player doesn't have it.
@@ -2650,19 +2515,13 @@ void CBaseObject::GainedNewTechnology( CBaseTechnology *pTechnology )
 	// Base object doesn't respond to tech
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pRecipient - 
-//			*techname - 
-//-----------------------------------------------------------------------------
 void CBaseObject::GiveNamedTechnology( CBaseTFPlayer *pRecipient, const char *techname )
 {
-#ifdef IMPLEMENT_ME
 	CTFTeam *team = static_cast< CTFTeam * >( pRecipient->GetTeam() );
 	if ( !team )
 		return;
 
+#ifdef IMPLEMENT_ME
 	CBaseTechnology *tech = team->m_pTechnologyTree->GetTechnology( techname );
 	if ( tech )
 	{
@@ -2681,9 +2540,7 @@ bool CBaseObject::ShowVGUIScreen( int panelIndex, bool bShow )
 		return true;
 	}
 	else
-	{
 		return false;
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2794,23 +2651,20 @@ int CBaseObject::GetCableAttachment( void )
 //====================================================================================================================
 // POWER PACKS
 //====================================================================================================================
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
+
 void CBaseObject::SetPowerPack( CObjectPowerPack *pPack )
 {
-#ifdef IMPLEMENT_ME
 	bool bHadPower = HasPowerup( POWERUP_POWER );
 	CObjectPowerPack *pOldPack = m_hPowerPack;
 
 	m_hPowerPack = pPack;
 
+#ifdef IMPLEMENT_ME
 	// If it's placing, I don't get power yet
 	if ( m_hPowerPack && !m_hPowerPack->IsPlacing() )
-	{
 		SetPowerup( POWERUP_POWER, true );
-	}
 	else
+#endif
 	{
 		// Lose power in a second, to give any nearby powerpacks time to connect to me and replace the power
 		if ( bHadPower )
@@ -2824,11 +2678,8 @@ void CBaseObject::SetPowerPack( CObjectPowerPack *pPack )
 			}
 		}
 		else
-		{
 			SetPowerup( POWERUP_POWER, false );
-		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2836,7 +2687,6 @@ void CBaseObject::SetPowerPack( CObjectPowerPack *pPack )
 //-----------------------------------------------------------------------------
 void CBaseObject::LostPowerThink( void )
 {
-#ifdef IMPLEMENT_ME
 	// We may have found another powerpack
 	if ( !m_hPowerPack )
 	{
@@ -2844,7 +2694,6 @@ void CBaseObject::LostPowerThink( void )
 		m_iPowerups |= (1 << POWERUP_POWER);
 		SetPowerup( POWERUP_POWER, false );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2881,10 +2730,6 @@ void CBaseObject::InputRemoveHealth( inputdata_t &inputdata )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : &inputdata - 
-//-----------------------------------------------------------------------------
 void CBaseObject::InputSetMinDisabledHealth( inputdata_t &inputdata )
 {
 	float minhealth = inputdata.value.Float();
@@ -2899,9 +2744,7 @@ void CBaseObject::InputSetMinDisabledHealth( inputdata_t &inputdata )
 
 		// Disable it if not already disabled
 		if ( !wasdisabled )
-		{
 			m_OnBecomingDisabled.FireOutput( inputdata.pActivator, this );
-		}
 	}
 	else if ( wasdisabled && ( m_flHealth > minhealth ) )
 	{
@@ -2925,17 +2768,11 @@ void CBaseObject::InputSetSolidToPlayer( inputdata_t &inputdata )
 	SetSolidToPlayers( stp );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::PlayStartupAnimation( void )
 {
 	SetActivity( ACT_OBJ_STARTUP );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::DetermineAnimation( void )
 {
 	Activity desiredActivity = m_Activity;
@@ -3122,10 +2959,6 @@ void CBaseObject::SpawnObjectPoints( void )
 	modelKeyValues->deleteThis();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::CreateVulnerablePoints()
 {
 	KeyValues *modelKeyValues = new KeyValues("");
@@ -3174,7 +3007,6 @@ void CBaseObject::AddVulnerablePoint( const char* szName, float fMultiplier )
 	m_VulnerablePoints.AddToTail( v );
 }
 
-
 float CBaseObject::FindVulnerablePointMultiplier( int nGroup, int nBox ) 		
 {
 	for( int i=0; i < m_VulnerablePoints.Count(); i++ )
@@ -3196,9 +3028,6 @@ float CBaseObject::FindVulnerablePointMultiplier( int nGroup, int nBox )
 	return 1.f;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 QAngle CBaseObject::ConvertAbsAnglesToLocal( QAngle vecLocalAngles )
 {
 	if ( !GetMoveParent() )
@@ -3229,9 +3058,7 @@ bool CBaseObject::IsSolidToPlayers( void ) const
 	case SOLID_TO_PLAYER_USE_DEFAULT:
 		{
 			if ( GetObjectInfo( ObjectType() ) )
-			{
 				return GetObjectInfo( ObjectType() )->m_bSolidToPlayerMovement;
-			}
 		}
 		break;
 	case SOLID_TO_PLAYER_YES:

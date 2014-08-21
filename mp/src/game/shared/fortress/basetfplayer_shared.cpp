@@ -219,11 +219,7 @@ bool CBaseTFPlayer::Weapon_ShouldSelectItem( CBaseCombatWeapon *pWeapon )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsAttachingSapper( void )
 {
-#ifdef IMPLEMENT_ME
 	return ( m_TFLocal.m_bAttachingSapper );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -260,12 +256,8 @@ void CBaseTFPlayer::StartAttachingSapper( CBaseObject *pObject, CGrenadeObjectSa
 }
 #endif
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::CheckSapperAttaching( void )
 {
-#ifdef IMPLEMENT_ME
 	// Did we stop attaching?
 	if ( !m_TFLocal.m_bAttachingSapper )
 	{
@@ -274,7 +266,6 @@ void CBaseTFPlayer::CheckSapperAttaching( void )
 
 		return;
 	}
-#endif
 
 	// Object gone?
 	if ( m_hSappedObject == NULL )
@@ -328,20 +319,13 @@ void CBaseTFPlayer::CheckSapperAttaching( void )
 	FinishAttaching();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::CleanupAfterAttaching( void )
 {
-#ifdef IMPLEMENT_ME
 	Assert( m_TFLocal.m_bAttachingSapper );
-	m_TFLocal.m_bAttachingSapper = false;
-#endif
-	m_flSapperAttachmentFinishTime = -1;
-	m_flSapperAttachmentStartTime = -1;
-#ifdef IMPLEMENT_ME
-	m_TFLocal.m_flSapperAttachmentFrac = 0.0f;
-#endif
+	m_TFLocal.m_bAttachingSapper		= false;
+	m_flSapperAttachmentFinishTime		= -1;
+	m_flSapperAttachmentStartTime		= -1;
+	m_TFLocal.m_flSapperAttachmentFrac	= 0.0f;
 
 	// Restore the player's weapon
 	m_flNextAttack = gpGlobals->curtime;
@@ -349,9 +333,6 @@ void CBaseTFPlayer::CleanupAfterAttaching( void )
 		GetActiveWeapon()->Deploy();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::StopAttaching( void )
 {
 	CleanupAfterAttaching();	
@@ -368,9 +349,6 @@ void CBaseTFPlayer::StopAttaching( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::FinishAttaching( void )
 {
 	CleanupAfterAttaching();

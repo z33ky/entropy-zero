@@ -31,10 +31,6 @@ bool CBaseCombatCharacter::CanPowerupEver( int iPowerup )
 	return true;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseCombatCharacter::CanPowerupNow( int iPowerup )
 {
 	Assert( iPowerup >= 0 && iPowerup < MAX_POWERUPS );
@@ -73,9 +69,6 @@ bool CBaseCombatCharacter::CanPowerupNow( int iPowerup )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseCombatCharacter::SetPowerup( int iPowerup, bool bState, float flTime, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier )
 {
 	Assert( iPowerup >= 0 && iPowerup < MAX_POWERUPS );
@@ -108,9 +101,6 @@ void CBaseCombatCharacter::SetPowerup( int iPowerup, bool bState, float flTime, 
 		SetContextThink( &CBaseCombatCharacter::PowerupThink, gpGlobals->curtime + 0.1, POWERUP_THINK_CONTEXT );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseCombatCharacter::PowerupThink( void )
 {
 	// If we don't have any powerups, stop thinking
@@ -133,9 +123,6 @@ void CBaseCombatCharacter::PowerupThink( void )
 	SetNextThink( gpGlobals->curtime + 0.1, POWERUP_THINK_CONTEXT );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseCombatCharacter::AttemptToPowerup( int iPowerup, float flTime, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier )
 {
 	Assert( iPowerup >= 0 && iPowerup < MAX_POWERUPS );
@@ -185,9 +172,7 @@ void CBaseCombatCharacter::PowerupStart( int iPowerup, float flAmount, CBaseEnti
 			// Can we boost health further?
 			if ( GetHealth() < iMaxBoostedHealth )
 			{
-#ifdef IMPLEMENT_ME
 				int maxHealthToAdd = iMaxBoostedHealth - GetHealth();
-#endif
 
 				// It uses floating point in here so it doesn't lose the fractional healing part on small frame times.
 				float flHealthToAdd = flAmount + m_flFractionalBoost;
@@ -195,27 +180,25 @@ void CBaseCombatCharacter::PowerupStart( int iPowerup, float flAmount, CBaseEnti
 				m_flFractionalBoost = flHealthToAdd - nHealthToAdd; 
 				if ( nHealthToAdd )
 				{
-#ifdef IMPLEMENT_ME
 					int nHealthAdded = min( nHealthToAdd, maxHealthToAdd );
 					if ( IsPlayer() )
 						((CBaseTFPlayer*)this)->TakeHealthBoost( nHealthAdded, GetMaxHealth(), 25 );
 					else
 						TakeHealth( nHealthAdded, DMG_GENERIC );
 
+#ifdef IMPLEMENT_ME
 					TFStats()->IncrementPlayerStat( pAttacker, TF_PLAYER_STAT_HEALTH_GIVEN, nHealthAdded );
 #endif
 				}
 			}
 		}
 		break;
-
 	case POWERUP_EMP:
 		{
 			// EMP removes adrenalin rush
 			SetPowerup( POWERUP_RUSH, false );
 		}
 		break;
-
 	default:
 		break;
 	}

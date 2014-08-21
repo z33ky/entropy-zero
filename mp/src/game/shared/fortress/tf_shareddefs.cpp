@@ -431,7 +431,9 @@ void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 	KeyValues *pValues = new KeyValues( "Object descriptions" );
 	if ( !pValues->LoadFromFile( pFileSystem, pFilename, "MOD" ) )
 	{
-		//Error( "Can't open %s for object info.", pFilename );
+#ifdef IMPLEMENT_ME	// Left out for now, just for quick debugging.
+		Error( "Can't open %s for object info.", pFilename );
+#endif
 		pValues->deleteThis();
 		return;
 	}
@@ -532,11 +534,9 @@ int CalculateObjectCost( int iObjectType, int iNumberOfObjects, int iTeam, bool 
 	// MCVs have special rules: The team's first one is always free
 	if ( iObjectType == OBJ_VEHICLE_TELEPORT_STATION )
 	{
-#ifdef IMPLEMENT_ME
 		CTFTeam *pTeam = (CTFTeam *)GetGlobalTeam(iTeam);
 		if ( pTeam && pTeam->GetNumObjects(OBJ_VEHICLE_TELEPORT_STATION) == 0 )
 			iCost = 0;
-#endif
 	}
 
 	// Human objects cost less across the board
