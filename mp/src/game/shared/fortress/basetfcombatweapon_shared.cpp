@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "basetfplayer_shared.h"
 #include "basetfcombatweapon_shared.h"
@@ -208,10 +202,6 @@ bool CBaseTFCombatWeapon::SendWeaponAnim( int iActivity )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : reflect - 
-//-----------------------------------------------------------------------------
 void CBaseTFCombatWeapon::SetReflectViewModelAnimations( bool reflect )
 {
 	m_bReflectViewModelAnimations = reflect;
@@ -226,9 +216,6 @@ bool CBaseTFCombatWeapon::IsReflectingAnimations( void ) const
 	return m_bReflectViewModelAnimations;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseTFCombatWeapon::IsCamouflaged( void )
 {
 	CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)GetOwner();
@@ -251,11 +238,6 @@ static ConVar	v_iyaw_level( "v_iyaw_level", "0.3"/*, FCVAR_UNREGISTERED*/ );
 static ConVar	v_iroll_level( "v_iroll_level", "0.1"/*, FCVAR_UNREGISTERED*/ );
 static ConVar	v_ipitch_level( "v_ipitch_level", "0.3"/*, FCVAR_UNREGISTERED*/ );
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float CBaseTFCombatWeapon::CalcViewmodelBob( void )
 {
 	static	double	bobtime;
@@ -293,10 +275,6 @@ float CBaseTFCombatWeapon::CalcViewmodelBob( void )
 	
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 void CBaseTFCombatWeapon::AddViewmodelBob( CBaseViewModel *viewmodel, Vector &origin, QAngle &angles )
 {
 	float fIdleScale = 2.0f;
@@ -381,9 +359,7 @@ bool CBaseTFCombatWeapon::OnFireEvent( C_BaseViewModel *pViewModel, const Vector
 				}
 				else
 #endif
-				{
 					FX_MuzzleEffect( attachOrigin, attachAngles, 1.0, entindex() );
-				}
 
 				return true;
 			}
@@ -429,20 +405,14 @@ void CPlayerBoostedProxy::OnBind( void *pRenderable )
 	CBaseTFPlayer *pPlayer = NULL;
 	C_BaseViewModel *pViewModel = dynamic_cast<C_BaseViewModel*>(pEntity);
 	if ( pViewModel )
-	{
 		pPlayer = C_BaseTFPlayer::GetLocalPlayer();
-	}
 	else
 	{
 		CBaseTFCombatWeapon *pWeapon = dynamic_cast<CBaseTFCombatWeapon*>(pEntity);
 		if ( pWeapon )
-		{
 			pPlayer = ToBaseTFPlayer( pWeapon->GetOwner() );
-		}
 		else 
-		{
 			pPlayer = dynamic_cast<CBaseTFPlayer*>(pEntity);
-		}
 	}
 
 	// Find him?

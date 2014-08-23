@@ -36,7 +36,7 @@ void RegisterUserMessages( void )
 	usermessages->Register( "VoiceMask", VOICE_MAX_PLAYERS_DW*4 * 2 + 1 );
 	usermessages->Register( "RequestState", 0 );
 
-	usermessages->Register( "TerrainMod", -1 );
+	//usermessages->Register( "TerrainMod", -1 );
 
 	// TF User messages
 	usermessages->Register( "Damage", 13 );

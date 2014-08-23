@@ -606,7 +606,7 @@ bool C_BaseTFPlayer::ShouldDraw()
 #ifdef IMPLEMENT_ME
 	if ( mannedgun_usethirdperson.GetInt() && IsVehicleMounted() && IsLocalPlayer() )
 #else
-	if ( IsVehicleMounted() && IsLocalPlayer() )
+	if(IsVehicleMounted() && IsLocalPlayer())
 #endif
 	{
 		IClientVehicle *pVehicle = GetVehicle();
@@ -815,9 +815,6 @@ void C_BaseTFPlayer::OnDataChanged( DataUpdateType_t updateType )
 		GetPlayerClass()->ClassOnDataChanged();
 } 
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::PreDataUpdate( DataUpdateType_t updateType )
 {
 	BaseClass::PreDataUpdate( updateType );
@@ -825,9 +822,6 @@ void C_BaseTFPlayer::PreDataUpdate( DataUpdateType_t updateType )
 	m_bOldAttachingSapper = m_TFLocal.m_bAttachingSapper;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 {
 	BaseClass::PostDataUpdate( updateType );
@@ -967,10 +961,6 @@ bool C_BaseTFPlayer::IsVehicleMounted() const
 	return false;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int C_BaseTFPlayer::DrawModel( int flags )
 {
 	int drawn = 0;
@@ -1202,11 +1192,9 @@ void C_BaseTFPlayer::RemoveOrderTarget()
 {
 	if ( m_iPersonalTarget )
 	{
-#ifdef IMPLEMENT_ME
 		C_BaseEntity *pTarget = cl_entitylist->GetBaseEntity( m_iPersonalTarget );
 		if ( pTarget )
 			Remove_Target( pTarget );
-#endif
 
 		m_iPersonalTarget = 0;
 	}
@@ -1215,13 +1203,11 @@ void C_BaseTFPlayer::RemoveOrderTarget()
 //====================================================================================================
 // RESOURCES
 //====================================================================================================
-// Purpose: 
-//-----------------------------------------------------------------------------
+
 int C_BaseTFPlayer::GetBankResources( void )
 {
 	return m_TFLocal.m_iBankResources;
 }
-
 
 //====================================================================================================
 // OBJECTS
@@ -1233,9 +1219,8 @@ void C_BaseTFPlayer::SetSelectedObject( C_BaseObject *pObject )
 	// Do we have an order already?
 	if ( m_hSelectedObject )
 	{
-#ifdef IMPLEMENT_ME
 		Remove_Target( m_hSelectedObject );
-#endif
+
 		// If we selected our existing one, we just wanted to deselect
 		if ( pObject == m_hSelectedObject )
 		{
@@ -1246,11 +1231,9 @@ void C_BaseTFPlayer::SetSelectedObject( C_BaseObject *pObject )
 
 	m_hSelectedObject = pObject;
 
-#ifdef IMPLEMENT_ME
 	// Add a new target to our list
 	if ( pObject )
 		Add_Target( pObject, pObject->GetTargetDescription() );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1417,10 +1400,6 @@ bool C_BaseTFPlayer::CheckKnockdownAngleOverride( void ) const
 	return m_bKnockdownOverrideAngles;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float C_BaseTFPlayer::GetKnockdownViewheightAdjust( void ) const
 {
 	return m_flKnockdownViewheightAdjust;
@@ -1522,9 +1501,7 @@ float C_BaseTFPlayer::ComputeCamoEffectAmount( void )
 	float dampening = 0.0f;
 	C_BaseTFPlayer *local = GetLocalPlayer();
 	if ( local )
-	{
 		dampening = local->GetDampeningAmount() / 100.0f;
-	}
 
 	// Now apply suppression (i.e., less visible) based on camera and viewer movement
 	effect_amount *= 1 + LOCAL_MOTION_CAMO_EFFECT_AMOUNT * dampening;
@@ -1536,10 +1513,6 @@ float C_BaseTFPlayer::ComputeCamoEffectAmount( void )
 	return effect_amount;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 int C_BaseTFPlayer::ComputeCamoAlpha( void )
 {
 	Assert( IsCamouflaged() );
@@ -1575,10 +1548,6 @@ int C_BaseTFPlayer::ComputeCamoAlpha( void )
 
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::ComputeFxBlend( void )
 {
 	if ( !IsCamouflaged() )
@@ -2053,11 +2022,7 @@ int	C_BaseTFPlayer::GetObjectCount( void )
 //-----------------------------------------------------------------------------
 C_BaseObject *C_BaseTFPlayer::GetObject( int index )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_aObjects[index].Get();
-#else
-	return NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2247,9 +2212,6 @@ void C_BaseTFPlayer::SetVehicleRole( int nRole )
 	engine->ServerCmd( szCmd );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::CanGetInVehicle( void )
 {
 	if ( GetPlayerClass() )
@@ -2273,9 +2235,7 @@ static ConVar tf2_solidplayers( "tf2_solidplayers", "1", 0, "Treat players and o
 void C_BaseTFPlayer::PerformClientSideObstacleAvoidance( float flFrameTime, CUserCmd *pCmd )
 {
 	if ( !tf2_solidplayers.GetBool() )
-	{
 		return;
-	}
 
 	// Don't avoid if noclipping or in movetype none
 	switch ( GetMoveType() )
@@ -2327,9 +2287,7 @@ void C_BaseTFPlayer::PerformClientSideObstacleAvoidance( float flFrameTime, CUse
 	{
 		istryingtomove = true;
 		if ( pCmd->forwardmove > 1.0f )
-		{
 			ismovingforward = true;
-		}
 	}
 
 	//engine->Con_NPrintf( slot++, "moving %s forward %s\n", istryingtomove ? "true" : "false", ismovingforward ? "true" : "false"  );
@@ -2494,9 +2452,6 @@ C_BaseAnimating* C_BaseTFPlayer::GetRenderedWeaponModel()
 		return GetViewModel();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::SetIDEnt( C_BaseEntity *pEntity )
 {
 	if ( pEntity )

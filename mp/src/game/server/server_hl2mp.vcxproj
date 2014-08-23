@@ -339,6 +339,7 @@ exit 1
     <ClInclude Include="fortress\info_vehicle_bay.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="fortress\team_messages.h" />
     <ClInclude Include="fortress\tf_class_commando.h" />
     <ClInclude Include="fortress\tf_hintmanager.h" />
     <ClInclude Include="fortress\tf_obj.h" />

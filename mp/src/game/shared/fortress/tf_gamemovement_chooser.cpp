@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: Auto Repair
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "tf_gamemovement_chooser.h"
 #include "tf_movedata.h"
@@ -11,9 +5,6 @@
 static CTFGameMovementChooser g_GameMovement;
 IGameMovement *g_pGameMovement = ( IGameMovement* )&g_GameMovement;
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 CTFGameMovementChooser::CTFGameMovementChooser()
 {
 	// Allocate memory for a movement type for each class (0 = undecided)
@@ -35,9 +26,6 @@ CTFGameMovementChooser::CTFGameMovementChooser()
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovementChooser::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMoveData )
 {
 	// Convert CMoveData to CTFMoveData

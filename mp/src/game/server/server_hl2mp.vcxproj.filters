@@ -1652,6 +1652,9 @@
     <ClInclude Include="fortress\tf_playerlocaldata.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\team_messages.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">

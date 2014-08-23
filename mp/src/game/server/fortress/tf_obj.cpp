@@ -44,8 +44,8 @@
 #include "tf_func_no_build.h"
 #endif
 #include <KeyValues.h>
-#ifdef IMPLEMENT_ME
 #include "team_messages.h"
+#ifdef IMPLEMENT_ME
 #include "info_act.h"
 #endif
 #include "info_vehicle_bay.h"

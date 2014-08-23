@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
-
 #include "cbase.h"
 #include "player_command.h"
 #include "tf_player.h"
@@ -153,29 +146,24 @@ void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, I
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFPlayerMove::SetupMoveCommando( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, IMoveHelper *pHelper, 
 								       CTFMoveData *pTFMove )
 {
-#ifdef IMPLEMENT_ME
 	CPlayerClassCommando *pCommando = static_cast<CPlayerClassCommando*>( pTFPlayer->GetPlayerClass() );
 	if ( pCommando )
 	{
 		PlayerClassCommandoData_t *pCommandoData = pCommando->GetClassData();
 		if ( pCommandoData )
 		{
-			pTFMove->CommandoData().m_bCanBullRush = pCommandoData->m_bCanBullRush;
-			pTFMove->CommandoData().m_bBullRush = pCommandoData->m_bBullRush;
-			pTFMove->CommandoData().m_vecBullRushDir = pCommandoData->m_vecBullRushDir;
-			pTFMove->CommandoData().m_vecBullRushViewDir = pCommandoData->m_vecBullRushViewDir;
-			pTFMove->CommandoData().m_vecBullRushViewGoalDir = pCommandoData->m_vecBullRushViewGoalDir;
-			pTFMove->CommandoData().m_flBullRushTime = pCommandoData->m_flBullRushTime;
-			pTFMove->CommandoData().m_flDoubleTapForwardTime = pCommandoData->m_flDoubleTapForwardTime;
+			pTFMove->CommandoData().m_bCanBullRush				= pCommandoData->m_bCanBullRush;
+			pTFMove->CommandoData().m_bBullRush					= pCommandoData->m_bBullRush;
+			pTFMove->CommandoData().m_vecBullRushDir			= pCommandoData->m_vecBullRushDir;
+			pTFMove->CommandoData().m_vecBullRushViewDir		= pCommandoData->m_vecBullRushViewDir;
+			pTFMove->CommandoData().m_vecBullRushViewGoalDir	= pCommandoData->m_vecBullRushViewGoalDir;
+			pTFMove->CommandoData().m_flBullRushTime			= pCommandoData->m_flBullRushTime;
+			pTFMove->CommandoData().m_flDoubleTapForwardTime	= pCommandoData->m_flDoubleTapForwardTime;
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -218,9 +206,7 @@ void CTFPlayerMove::FinishMove( CBasePlayer *player, CUserCmd *ucmd, CMoveData *
 				break;
 			}
 		default:
-			{
-				break;
-			}
+			break;
 		}
 	}
 	else
@@ -280,13 +266,13 @@ void CTFPlayerMove::FinishMoveCommando( CBaseTFPlayer *pTFPlayer, CTFMoveData *p
 		PlayerClassCommandoData_t *pCommandoData = pCommando->GetClassData();
 		if ( pCommandoData )
 		{
-			pCommandoData->m_bCanBullRush = pTFMove->CommandoData().m_bCanBullRush;
-			pCommandoData->m_bBullRush = pTFMove->CommandoData().m_bBullRush;
-			pCommandoData->m_vecBullRushDir = pTFMove->CommandoData().m_vecBullRushDir;
-			pCommandoData->m_vecBullRushViewDir = pTFMove->CommandoData().m_vecBullRushViewDir;
+			pCommandoData->m_bCanBullRush			= pTFMove->CommandoData().m_bCanBullRush;
+			pCommandoData->m_bBullRush				= pTFMove->CommandoData().m_bBullRush;
+			pCommandoData->m_vecBullRushDir			= pTFMove->CommandoData().m_vecBullRushDir;
+			pCommandoData->m_vecBullRushViewDir		= pTFMove->CommandoData().m_vecBullRushViewDir;
 			pCommandoData->m_vecBullRushViewGoalDir = pTFMove->CommandoData().m_vecBullRushViewGoalDir;
-			pCommandoData->m_flBullRushTime = pTFMove->CommandoData().m_flBullRushTime;
-			pCommandoData->m_flDoubleTapForwardTime = pTFMove->CommandoData().m_flDoubleTapForwardTime;
+			pCommandoData->m_flBullRushTime			= pTFMove->CommandoData().m_flBullRushTime;
+			pCommandoData->m_flDoubleTapForwardTime	= pTFMove->CommandoData().m_flDoubleTapForwardTime;
 		}
 	}
 }

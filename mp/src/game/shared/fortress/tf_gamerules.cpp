@@ -38,8 +38,8 @@
 #ifdef IMPLEMENT_ME
 	#include "terrainmodmgr.h"
 	#include "tf_class_infiltrator.h"
-	#include "team_messages.h"
 #endif
+	#include "team_messages.h"
 	#include "ndebugoverlay.h"
 #ifdef IMPLEMENT_ME
 	#include "bot_base.h"
@@ -498,11 +498,9 @@ END_NETWORK_TABLE()
 			g_flNextReinforcementTime += REINFORCEMENT_TIME;
 		}
 
-#ifdef IMPLEMENT_ME
 		// Tell each Team to think
 		for ( int i = 1; i <= GetNumberOfTeams(); i++ )
 			GetGlobalTeam( i )->Think();
-#endif
 	}
 
 	//-----------------------------------------------------------------------------
@@ -658,10 +656,8 @@ END_NETWORK_TABLE()
 		}
 		else if ( FStrEq( pcmd, "techall" ) )
 		{
-#ifdef IMPLEMENT_ME
 			if ( pPlayer->GetTFTeam() )
 				pPlayer->GetTFTeam()->EnableAllTechnologies();
-#endif
 
 			return true;
 		}
@@ -671,12 +667,10 @@ END_NETWORK_TABLE()
 		{
 			if ( args.ArgC() == 3 )
 			{
-#ifdef IMPLEMENT_ME
 				int team = atoi( args[1] );
 				float flResourceAmount = atof( args[2] );
 				if ( team > 0 && team <= GetNumberOfTeams() ) 
 					GetGlobalTFTeam( team )->AddTeamResources( flResourceAmount );
-#endif
 			}
 			else
 				Msg( "usage:  ar <team 1 : 2> <amount>\n" );
@@ -699,9 +693,9 @@ END_NETWORK_TABLE()
 #endif
 			return true;
 		}
+#ifdef IMPLEMENT_ME	// Sadly the Source Engine doesn't support this anymore as far as I'm aware. Shame. ~hogsy
 		else if( FStrEq( pcmd, "terrainmod" ) )
 		{
-#ifdef IMPLEMENT_ME	// Sadly the Source Engine doesn't support this anymore as far as I'm aware. Shame. ~hogsy
 			CTerrainModParams params;
 			
 			if( args.ArgC() >= 2 )
@@ -774,9 +768,10 @@ END_NETWORK_TABLE()
 					}
 				}
 			}
-#endif
+
 			return true;
 		}
+#endif
 		else if( FStrEq( pcmd, "decaltest" ) )
 		{
 			trace_t trace;
@@ -798,10 +793,8 @@ END_NETWORK_TABLE()
 		}
 		else if( FStrEq( pcmd, "killorder" ) )
 		{
-#ifdef IMPLEMENT_ME
 			if( pPlayer->GetTFTeam() )
 				pPlayer->GetTFTeam()->RemoveOrdersToPlayer( pPlayer );
-#endif
 		
 			return true;
 		}
@@ -1168,12 +1161,6 @@ END_NETWORK_TABLE()
 		return pAssistant;
 	}
 
-	//-----------------------------------------------------------------------------
-	// Purpose: 
-	// Input  : *pVictim - 
-	//			*pKiller - 
-	//			*pInflictor - 
-	//-----------------------------------------------------------------------------
 	void CTeamFortress::DeathNotice( CBasePlayer *pVictim, const CTakeDamageInfo &info )
 	{
 		// Work out what killed the player, and send a message to all clients about it
@@ -1299,15 +1286,15 @@ END_NETWORK_TABLE()
 
 		if ( listener && speaker )
 		{
-#ifdef IMPLEMENT_ME
 			if ( listener->IsClass( TFCLASS_INFILTRATOR ) )
 			{
+#ifdef IMPLEMENT_ME
 				Vector delta;
 				delta = listener->EarPosition() - speaker->GetAbsOrigin();
 				if ( delta.Length() < INFILTRATOR_EAVESDROP_RADIUS )
 					return true;
-			}
 #endif
+			}
 		}
 
 		return false;
@@ -1350,15 +1337,11 @@ END_NETWORK_TABLE()
 	//-----------------------------------------------------------------------------
 	CTFTeam *GetOpposingTeam( CTeam *pTeam )
 	{
-#ifdef IMPLEMENT_ME
 		// Hacky!
 		if ( pTeam->GetTeamNumber() == 1 )
 			return GetGlobalTFTeam( 2 );
 
 		return GetGlobalTFTeam( 1 );
-#else
-		return NULL;
-#endif
 	}
 
 

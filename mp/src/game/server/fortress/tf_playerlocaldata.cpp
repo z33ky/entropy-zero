@@ -94,9 +94,7 @@ void CTFPlayerLocalData::AddResources( int iAmount )
 	m_iBankResources += iAmount;
 
 	if ( !tf_fastbuild.GetBool() && (m_iBankResources > tf_maxbankresources.GetFloat()) )
-	{
 		m_iBankResources = tf_maxbankresources.GetFloat();
-	}
 
 	// Clamp for overflow...
 	if ( m_iBankResources > MAX_PLAYER_RESOURCES )

@@ -19,8 +19,8 @@
 #endif
 #include "entitylist.h"
 #include "team_spawnpoint.h"
-#ifdef IMPLEMENT_ME
 #include "team_messages.h"
+#ifdef IMPLEMENT_ME
 #include "tf_obj_powerpack.h"
 #endif
 #include "tf_gamerules.h"
@@ -94,7 +94,6 @@ CTFTeam *GetGlobalTFTeam( int iIndex )
 	return (CTFTeam*)GetGlobalTeam( iIndex );
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Needed because this is an entity, but should never be used
 //-----------------------------------------------------------------------------
@@ -115,9 +114,6 @@ void CTFTeam::Init( const char *pName, int iNumber )
 	m_flTotalResourcesSoFar = m_iLastUpdateSentAt = 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CTFTeam::~CTFTeam( void )
 {
 	m_aResourcesBeingCollected.Purge();
@@ -128,9 +124,6 @@ CTFTeam::~CTFTeam( void )
 	delete m_pTechnologyTree;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFTeam::Precache( void )
 {
 #ifdef IMPLEMENT_ME
@@ -147,7 +140,6 @@ void CTFTeam::Precache( void )
 	enginesound->PrecacheSound( "vox/voted-for-tech-bought.wav" );
 	enginesound->PrecacheSound( "vox/stolen-tech-received.wav" );
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Precache a technology's files
@@ -303,9 +295,6 @@ void CTFTeam::UpdateTechnologyData( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CTFTeam::ShouldTransmitToPlayer( CBasePlayer* pRecipient, CBaseEntity* pEntity )
 {
 	return IsEntityVisibleToTactical( pEntity );
@@ -760,8 +749,7 @@ int	CTFTeam::GetNumOfClass( TFClass iClass )
 //------------------------------------------------------------------------------------------------------------------
 // RESOURCE BANK
 //-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
+
 void CTFTeam::InitializeTeamResources( void )
 {
 	m_fResources = 0.0f;
@@ -769,9 +757,6 @@ void CTFTeam::InitializeTeamResources( void )
 	m_bHaveZone = false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 float CTFTeam::GetTeamResources( void )
 {
 	return m_fResources;
@@ -909,9 +894,6 @@ void CTFTeam::RemoveResupply( CObjectResupply *pResupply )
 	m_aResupplyBeacons.FindAndRemove( pResupply );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int CTFTeam::GetNumObjects( int iObjectType )
 {
 	// Asking for a count of a specific object type?
@@ -922,9 +904,7 @@ int CTFTeam::GetNumObjects( int iObjectType )
 		{
 			CBaseObject *pObject = GetObject(i);
 			if ( pObject && pObject->GetType() == iObjectType )
-			{
 				iCount++;
-			}
 		}
 		return iCount;
 	}
@@ -932,34 +912,22 @@ int CTFTeam::GetNumObjects( int iObjectType )
 	return m_aObjects.Count();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseObject *CTFTeam::GetObject( int num )
 {
  	Assert( num >= 0 && num < m_aObjects.Count() );
 	return m_aObjects[ num ];
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int CTFTeam::GetNumResupplies( void )
 {
 	return m_aResupplyBeacons.Count();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CObjectResupply *CTFTeam::GetResupply( int num )
 {
 	Assert( num >= 0 && num < m_aResupplyBeacons.Count() );
 	return m_aResupplyBeacons[ num ];
 }
-
 
 bool CTFTeam::IsCoveredBySentryGun( const Vector &vPos )
 {
@@ -969,12 +937,10 @@ bool CTFTeam::IsCoveredBySentryGun( const Vector &vPos )
 		
 		if ( pObj->IsSentrygun() && vPos.DistTo( pObj->GetAbsOrigin() ) < OBJECT_COVERED_DIST )
 			return true;
-
 	}
 
 	return false;
 }
-
 
 int CTFTeam::GetNumShieldWallsCoveringPosition( const Vector &vPos )
 {
@@ -993,7 +959,6 @@ int CTFTeam::GetNumShieldWallsCoveringPosition( const Vector &vPos )
 
 	return count;
 }
-
 
 int CTFTeam::GetNumResuppliesCoveringPosition( const Vector &vPos )
 {
@@ -1234,11 +1199,9 @@ void CTFTeam::CreatePersonalOrders( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::CreatePersonalOrder( CBaseTFPlayer *pPlayer )
 {
-#ifdef IMPLEMENT_ME
 	// We still haven't made a personal order, so ask the class if it wants to
 	if ( pPlayer->GetPlayerClass() )
 		pPlayer->GetPlayerClass()->CreatePersonalOrder();
-#endif
 }
 
 

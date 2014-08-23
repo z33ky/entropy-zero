@@ -29,8 +29,8 @@
 #ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
 #include "resource_chunk.h"
-#include "team_messages.h"
 #endif
+#include "team_messages.h"
 #include "tier0/dbg.h"
 #ifdef IMPLEMENT_ME
 #include "tf_obj_respawn_station.h"
@@ -89,9 +89,7 @@ ConVar tf_destroyobjects( "tf_destroyobjects", "1", FCVAR_CHEAT, "Destroy object
 
 IMPLEMENT_SERVERCLASS_ST(CBaseTFPlayer, DT_BaseTFPlayer)
 
-#ifdef IMPLEMENT_ME
 	SendPropDataTable(SENDINFO_DT(m_TFLocal), &REFERENCE_SEND_TABLE(DT_TFLocal), SendProxy_SendLocalDataTable),
-#endif
 
 	SendPropInt(SENDINFO(m_iPlayerClass), 4, SPROP_UNSIGNED),
 	
@@ -133,6 +131,7 @@ BEGIN_DATADESC( CBaseTFPlayer )
 
 END_DATADESC()
 
+#ifdef IMPLEMENT_ME	// Move over to client. ~hogsy
 BEGIN_PREDICTION_DATA_NO_BASE( CTFPlayerLocalData )
 
 	DEFINE_FIELD( m_nInTacticalView, FIELD_INTEGER ),
@@ -151,7 +150,6 @@ END_PREDICTION_DATA()
 
 BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 
-#ifdef CLIENT_DLL	// TODO: Move over to client. ~hogsy
 	// DEFINE_FIELD( m_pfnClassTouch, void (CPlayerClass ::*m_pfnClassTouch ),
 	DEFINE_FIELD( m_bWasMoving, FIELD_BOOLEAN ),
 	// DEFINE_FIELD( m_hSpawnPoint, EHANDLE ),
@@ -206,9 +204,9 @@ BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 	// DEFINE_ARRAY( m_rgClientTechAvail, tfplayertech_t,  MAX_TECHNOLOGIES  ),
 	// DEFINE_FIELD( m_hRagdollShadow, CHandle < CRagdollShadow > ),
 	DEFINE_FIELD( m_iLastSecondsToGo, FIELD_INTEGER ),
-#endif
 
 END_PREDICTION_DATA()
+#endif
 
 bool IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot );
 void respawn( CBaseEntity *pEdict, bool fCopyCorpse );
@@ -298,9 +296,8 @@ void CBaseTFPlayer::UpdateOnRemove( void )
 {
 	if ( m_hSelectedOrder )
 	{
-#ifdef IMPLEMENT_ME
 		GetTFTeam()->RemoveOrdersToPlayer( this );
-#endif
+
 		Assert( !m_hSelectedOrder.Get() );
 	}
 
@@ -390,11 +387,9 @@ void CBaseTFPlayer::Spawn( void )
 		// Make sure they're not deployed
 		FinishUnDeploying();
 
-#ifdef IMPLEMENT_ME
 		// Remove my personal orders
 		if ( GetTFTeam() )
 			GetTFTeam()->RemoveOrdersToPlayer( this );
-#endif
 
 		RemoveAllDecals();
 	}
@@ -514,18 +509,12 @@ void CBaseTFPlayer::InitialSpawn( void )
 	m_bFirstTeamSpawn = true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::Precache( void )
 {
 	//!! hack for radar
 	BaseClass::Precache();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::UpdateClientData( void )
 {
 	CTeam *pTeam = GetTeam();
@@ -563,9 +552,6 @@ void CBaseTFPlayer::InputRespawn( inputdata_t &inputdata )
 	ForceRespawn();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::InitHUD( void )
 {
 	CSingleUserRecipientFilter user( this );
@@ -644,7 +630,6 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::PlacePlayerInTeam( void )
 {
-#ifdef IMPLEMENT_ME
 	CTFTeam *pTargetTeam = NULL;
 
 	// Find the team with the least players in it
@@ -662,7 +647,6 @@ void CBaseTFPlayer::PlacePlayerInTeam( void )
 	}
 
 	ChangeTeam( pTargetTeam->GetTeamNumber() );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -676,9 +660,6 @@ bool CBaseTFPlayer::IsClassAvailable( TFClass iClass )
 	return HasNamedTechnology( str );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::ChangeClass( TFClass iClass )
 {
 	// If they've got a playerclass, kill it
@@ -697,11 +678,9 @@ void CBaseTFPlayer::ChangeClass( TFClass iClass )
 	// Make sure client .dll can find out about it.
 	SetPlayerClass( iClass );
 
-#ifdef IMPLEMENT_ME
 	// Clear out current vote....
 	CTFTeam *pTFTeam = GetTFTeam();
 	SetPreferredTechnology( pTFTeam->m_pTechnologyTree, -1 );
-#endif
 
 	// Force a respawn if they're alive
 	if ( IsAlive() )
@@ -755,15 +734,12 @@ void CBaseTFPlayer::SetPlayerModel( void )
 		UTIL_SetSize(this, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX);
 	else
 		UTIL_SetSize(this, VEC_HULL_MIN, VEC_HULL_MAX);
+
 #ifdef IMPLEMENT_ME // ?
 	Relink();
 #endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::PlayerRespawn( void )
 {
 	m_nButtons = 0;
@@ -823,14 +799,12 @@ void CBaseTFPlayer::ItemPostFrame()
 			return;
 	}
 
-#ifdef IMPLEMENT_ME
 	// If we're attaching a sapper, handle player use only
 	if ( m_TFLocal.m_bAttachingSapper )
 	{
 		PlayerUse();
 		return;
 	}
-#endif
 
 	BaseClass::ItemPostFrame();
 
@@ -838,16 +812,10 @@ void CBaseTFPlayer::ItemPostFrame()
 		GetPlayerClass()->ItemPostFrame();	// Let the player class handle it.
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::Jump( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::PreThink(void)
 {
 	CheckBuffs();
@@ -922,7 +890,7 @@ void CBaseTFPlayer::PostThink()
 #endif
 
 	// Tell the client if our damage is boosted so it can do a smurfy effect on the weapon.
-	if ( GetAttackDamageScale() == 1 )
+	if ( GetAttackDamageScale(this) == 1 )
 		m_TFPlayerFlags &= ~TF_PLAYER_DAMAGE_BOOST;
 	else
 		m_TFPlayerFlags |= TF_PLAYER_DAMAGE_BOOST;
@@ -966,22 +934,21 @@ CBaseEntity *CBaseTFPlayer::EntSelectSpawnPoint( void )
 	// If we're in a team, ask the team for a spawnpoint
 	if ( GetTeam() )
 	{
-#ifdef IMPLEMENT_ME
 		CBaseEntity *entity = NULL;
 		if ( GetPlayerClass()  )
 		{
 			// Let individual player classes override the respawn point
 			entity = GetPlayerClass()->SelectSpawnPoint();
 			if ( entity )
-			{
 				return entity;
-			}
 
 			// Do we have a selected spawn point (from a respawn station)?
 			entity = m_hSpawnPoint;
 			if (entity && (entity->GetTeam() == GetTeam()))
 			{
+#ifdef IMPLEMENT_ME
 				PlayRespawnEffect( entity );
+#endif
 				return entity;
 			}
 		}
@@ -989,7 +956,6 @@ CBaseEntity *CBaseTFPlayer::EntSelectSpawnPoint( void )
 		entity = GetTeam()->SpawnPlayer( this );
 		if ( entity )
 			return entity;
-#endif
 	}
 
 	// If we're not in a team, or the team didn't have a spawnpoint for us,
@@ -1354,24 +1320,17 @@ void CBaseTFPlayer::SetAnimation( PLAYER_ANIM playerAnim )
 	SetCycle( useStoredCycle ? RetrieveCycle() : 0 );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::CheatImpulseCommands( int iImpulse )
 {
 	switch(iImpulse)
 	{
 		case 101:
-#ifdef IMPLEMENT_ME
 			if ( GetPlayerClass() )
 				GetPlayerClass()->ResupplyAmmo( 1.0f, RESUPPLY_ALL_FROM_STATION );
-#endif
 			break;
 		case 150:
-#ifdef IMPLEMENT_ME
 			if ( GetTFTeam() )
 				GetTFTeam()->PostMessage( TEAMMSG_REINFORCEMENTS_ARRIVED );
-#endif
 			break;
 		default:
 			BaseClass::CheatImpulseCommands(iImpulse);
@@ -1379,9 +1338,6 @@ void CBaseTFPlayer::CheatImpulseCommands( int iImpulse )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::SetRespawnStation( CBaseEntity* pRespawnStation )
 {
 	// This can happen because the object may get killed and its index reused
@@ -1409,7 +1365,7 @@ CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void )
 {
 	if ( !GetTFTeam() )
 		return NULL;
-#ifdef IMPLEMENT_ME
+
 	CBaseEntity *pFirstStation = NULL;
 
 	// Cycle through all the respawn stations on my team
@@ -1420,20 +1376,17 @@ CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void )
 		{
 			// Store off the first station we find
 			if ( !pFirstStation )
-			{
 				pFirstStation = pObject;
-			}
 
+#ifdef IMPLEMENT_ME
 			// Map specified initial spawnpoint?
 			if ( ((CObjectRespawnStation*)pObject)->IsInitialSpawnPoint() )
 				return pObject;
+#endif
 		}
 	}
 
 	return pFirstStation;
-#else
-	return NULL;
-#endif
 }
 
 CBaseEntity *FindEntityForward( CBasePlayer *pMe, bool fHull );
@@ -1444,10 +1397,8 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 
 	if( HasClass() )
 	{
-#ifdef IMPLEMENT_ME
 		if ( GetPlayerClass()->ClientCommand(cmd) )
 			return true;
-#endif
 
 		if ( FStrEq( cmd, "emp" ) )
 		{
@@ -1689,10 +1640,8 @@ void CBaseTFPlayer::ApplyDamageForce( const CTakeDamageInfo &info, int nDamageTo
 	if ( GetFlags() & FL_DUCKING )
 		return;
 
-#ifdef IMPLEMENT_ME
 	if (!GetPlayerClass() || !GetPlayerClass()->ShouldApplyDamageForce( info ))
 		return;
-#endif
 
 	Vector vecDir;
 	// If the inflictor isn't moving, use the delta between it & me. If it's moving, use it's velocity.
@@ -1791,11 +1740,9 @@ int CBaseTFPlayer::OnTakeDamage( const CTakeDamageInfo &info )
 
 	CTakeDamageInfo subInfo = info;
 
-#ifdef IMPLEMENT_ME
 	// Let the playerclass at it
 	if ( GetPlayerClass()  )
 		subInfo.SetDamage( GetPlayerClass()->OnTakeDamage( subInfo ) );
-#endif
 
 	if ( !subInfo.GetDamage() )
 		return 0;
@@ -2200,9 +2147,6 @@ void CBaseTFPlayer::StartDeploying( void )
 	EmitSound( "BaseTFPlayer.StartDeploying" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::StartUnDeploying( void )
 {
 	if ( !GetPlayerClass()  )
@@ -2210,9 +2154,7 @@ void CBaseTFPlayer::StartUnDeploying( void )
 
 	m_bUnDeploying = true;
 	SetCantMove( true );
-#ifdef IMPLEMENT_ME
 	m_flFinishedDeploying = gpGlobals->curtime + GetPlayerClass()->GetDeployTime();
-#endif
 	SetAnimation( PLAYER_LEAVE_AIMING );
 
 	EmitSound( "BaseTFPlayer.StartUnDeploying" );
@@ -2323,9 +2265,6 @@ void CBaseTFPlayer::OnVehicleEnd( Vector &playerDestPosition )
 		weapon->Deploy();
 }
 
-//--------------------------------------------------------------------------------------------------------------
-// Purpose:
-//--------------------------------------------------------------------------------------------------------------
 bool CBaseTFPlayer::CanGetInVehicle( void )
 {
 	// Class-specific?
@@ -2478,9 +2417,7 @@ void CBaseTFPlayer::PowerupEnd( int iPowerup )
 	{
 	case POWERUP_EMP:
 		{
-#ifdef IMPLEMENT_ME
 			GetPlayerClass()->PowerupEnd(iPowerup);
-#endif
 		}
 		break;
 
@@ -2532,28 +2469,14 @@ int CBaseTFPlayer::GetNumObjects( int iObjectType )
 	return iCount;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int	CBaseTFPlayer::GetObjectCount( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_aObjects.Count();
-#else
-	return 0;
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseObject	*CBaseTFPlayer::GetObject( int index )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_aObjects[index].Get();
-#else
-	return NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2626,10 +2549,8 @@ void CBaseTFPlayer::OwnedObjectChangeTeam( CBaseObject *pObject, CBaseTFPlayer *
 		pObject->GetClassname(),
 		STRING( pNewOwner->pl.netname ) ) );
 
-#ifdef IMPLEMENT_ME
 	if ( pNewOwner && pNewOwner->GetPlayerClass() )
 		pNewOwner->GetPlayerClass()->OwnedObjectChangeFromTeam( pObject, this );
-#endif
 
 	// Remove from my list of objects
 	RemoveObject( pObject );
@@ -2725,9 +2646,6 @@ void CBaseTFPlayer::RemoveAllObjects( bool bForceAll, int iClass, bool bReturnRe
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::StopPlacement( void )
 {
 #ifdef IMPLEMENT_ME
@@ -2797,29 +2715,21 @@ void CBaseTFPlayer::AddObject( CBaseObject *pObject )
 	CHandle<CBaseObject> hObject;
 	hObject = pObject;
 
-#ifdef IMPLEMENT_ME
 	// Make sure it's not in the list already
 	bool alreadyInList = (m_TFLocal.m_aObjects.Find( hObject ) != -1);
 	Assert( !alreadyInList );
 	if ( !alreadyInList )
 		m_TFLocal.m_aObjects.AddToTail( hObject );
-#endif
 
 	// Stop it deterioating, if it is
 	pObject->StopDeteriorating();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::SetWeaponBuilder( CWeaponBuilder *pBuilder )
 {
 	m_hWeaponBuilder = pBuilder;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CWeaponBuilder *CBaseTFPlayer::GetWeaponBuilder( void )
 {
 	return m_hWeaponBuilder;
@@ -2833,16 +2743,14 @@ CWeaponBuilder *CBaseTFPlayer::GetWeaponBuilder( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::KnockDownPlayer( const Vector& sourceDir, float magnitude, float duration )
 {
-#ifdef IMPLEMENT_ME
 	// Already knocked down
 	if ( m_TFLocal.m_bKnockedDown )
 		return;
-#endif
+
 	// In a vehicle
 	if ( IsInAVehicle() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	m_TFLocal.m_bKnockedDown = true;
 
 	// Randomize it a bit
@@ -2882,7 +2790,6 @@ void CBaseTFPlayer::KnockDownPlayer( const Vector& sourceDir, float magnitude, f
 		// And a bit to the side the hit came from
 		m_TFLocal.m_vecKnockDownDir.SetZ( dotRight * 20.0f );
 	}
-#endif
 
 	m_flKnockdownEndTime = gpGlobals->curtime + duration;
 
@@ -2909,10 +2816,8 @@ void CBaseTFPlayer::ResetKnockdown( void )
 		if ( !ClearClientRagdoll( true ) )
 			return;
 
-#ifdef IMPLEMENT_ME
 	m_TFLocal.m_bKnockedDown = false;
 	m_TFLocal.m_vecKnockDownDir.Init();
-#endif
 	m_flKnockdownEndTime = 0.0f;
 }
 
@@ -2922,11 +2827,7 @@ void CBaseTFPlayer::ResetKnockdown( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsKnockedDown( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_bKnockedDown;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2934,10 +2835,8 @@ bool CBaseTFPlayer::IsKnockedDown( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::CheckKnockdown( void )
 {
-#ifdef IMPLEMENT_ME
 	if ( !m_TFLocal.m_bKnockedDown )
 		return;
-#endif
 
 	if ( gpGlobals->curtime < m_flKnockdownEndTime )
 		return;
@@ -2979,26 +2878,19 @@ bool CBaseTFPlayer::CanSpeak( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsUsingThermalVision( void )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_bThermalVision;
-#else
-	return false;
-#endif
 }
 
 void CBaseTFPlayer::SetIDEnt( CBaseEntity *pEntity )
 {
-#ifdef IMPLEMENT_ME
 	if ( pEntity )
 		m_TFLocal.m_iIDEntIndex = pEntity->entindex();
 	else
 		m_TFLocal.m_iIDEntIndex = 0;
-#endif
 }
 
 void CBaseTFPlayer::SetUsingThermalVision( bool thermal )
 {
-#ifdef IMPLEMENT_ME
 	// Play sounds if we're changing
 	if ( m_TFLocal.m_bThermalVision != thermal )
 	{
@@ -3009,7 +2901,6 @@ void CBaseTFPlayer::SetUsingThermalVision( bool thermal )
 	}
 
 	m_TFLocal.m_bThermalVision = thermal;
-#endif
 }
 
 
@@ -3060,12 +2951,10 @@ bool CBaseTFPlayer::AddResourceChunks( int iChunks, bool bProcessed )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::RemoveResourceChunks( int iChunks, bool bProcessed )
 {
-#ifdef IMPLEMENT_ME
 	// Remove the amount
 	m_TFLocal.m_iResourceAmmo.Set( bProcessed, max( 0, m_TFLocal.m_iResourceAmmo[ bProcessed ] - iChunks ) );
 	int iIndex = GetAmmoDef()->Index("ResourceChunks");
 	SetAmmoCount( GetTotalResourceChunks(), iIndex );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3073,11 +2962,7 @@ void CBaseTFPlayer::RemoveResourceChunks( int iChunks, bool bProcessed )
 //-----------------------------------------------------------------------------
 int CBaseTFPlayer::GetResourceChunkCount( bool bProcessed )
 {
-#ifdef IMPLEMENT_ME
 	return m_TFLocal.m_iResourceAmmo[ bProcessed ];
-#else
-	return 0;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3086,10 +2971,8 @@ int CBaseTFPlayer::GetResourceChunkCount( bool bProcessed )
 int CBaseTFPlayer::GetTotalResourceChunks( void )
 {
 	int iCurrentCount = 0;
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < RESOURCE_TYPES; i++ )
 		iCurrentCount += m_TFLocal.m_iResourceAmmo[i];
-#endif
 
 	return iCurrentCount;
 }
@@ -3123,18 +3006,17 @@ int CBaseTFPlayer::GetBankResources( void )
 	return m_TFLocal.ResourceCount();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::SetBankResources( int iAmount )
 {
-#ifdef IMPLEMENT_ME
 	int nOldAmount = m_TFLocal.ResourceCount();
 
+#ifdef IMPLEMENT_ME
 	TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_RESOURCES_ACQUIRED, iAmount - nOldAmount );
+#endif
 
 	m_TFLocal.SetResources( iAmount );
 
+#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
