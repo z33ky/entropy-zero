@@ -14,7 +14,6 @@
 class CTFPlayerLocalData
 {
 public:
-	DECLARE_PREDICTABLE();
 	DECLARE_CLASS_NOBASE( CTFPlayerLocalData );
 	DECLARE_EMBEDDED_NETWORKVAR();
 

@@ -986,12 +986,8 @@ int CTFTeam::GetNumRespawnStationsCoveringPosition( const Vector &vPos )
 		CBaseObject *pObj = m_aObjects[i];
 
 		if ( pObj->GetType() == OBJ_RESPAWN_STATION )
-		{
 			if ( vPos.DistTo( pObj->GetAbsOrigin() ) < OBJECT_COVERED_DIST )
-			{
 				++count;
-			}
-		}
 	}
 
 	return count;
@@ -1011,9 +1007,7 @@ void CTFTeam::AddObject( CBaseObject *pObject )
 	bool alreadyInList = IsObjectOnTeam( pObject );
 	Assert( !alreadyInList );
 	if ( !alreadyInList )
-	{
 		m_aObjects.AddToTail( pObject );
-	}
 }
 
 //-----------------------------------------------------------------------------

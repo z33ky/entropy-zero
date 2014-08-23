@@ -61,7 +61,7 @@ END_SEND_TABLE()
 
 CTFPlayerLocalData::CTFPlayerLocalData()
 {
-	m_nInTacticalView = 0;
+	m_nInTacticalView = false;
 	m_pPlayer = NULL;
 
 	m_bKnockedDown = false;

@@ -72,16 +72,10 @@ void CIntroMenu::Reset( void )
 	Update();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CIntroMenu::Update( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CIntroMenu::OnCommand( const char *command )
 {
 	if ( !Q_strcmp( command, "skip" ) )
@@ -93,9 +87,6 @@ void CIntroMenu::OnCommand( const char *command )
 	BaseClass::OnCommand( command );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CIntroMenu::ShowPanel( bool bShow )
 {
 	if ( BaseClass::IsVisible() == bShow )

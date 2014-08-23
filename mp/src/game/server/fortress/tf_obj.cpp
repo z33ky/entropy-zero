@@ -2669,7 +2669,7 @@ void CBaseObject::SetPowerPack( CObjectPowerPack *pPack )
 		// Lose power in a second, to give any nearby powerpacks time to connect to me and replace the power
 		if ( bHadPower )
 		{
-			SetContextThink( LostPowerThink, gpGlobals->curtime + 1.0, OBJ_LOSTPOWER_THINK_CONTEXT );
+			SetContextThink( &CBaseObject::LostPowerThink, gpGlobals->curtime + 1.0, OBJ_LOSTPOWER_THINK_CONTEXT );
 			if ( GetTFTeam() )
 			{
 				// Dirty hack to make powerpack think I need power

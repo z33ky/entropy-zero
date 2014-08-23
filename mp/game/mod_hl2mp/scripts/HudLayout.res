@@ -160,6 +160,25 @@
 		"digit_xpos" "50"
 		"digit_ypos" "2"
 	}
+	
+	HudVehicleHealth
+	{
+		"fieldName"		"HudVehicleHealth"
+		"xpos"	"140"
+		"ypos"	"432"
+		"wide"	"108"
+		"tall"  "36"
+		"visible" "1"
+		"enabled" "1"
+
+		"PaintBackgroundType"	"2"
+
+		
+		"text_xpos" "8"
+		"text_ypos" "20"
+		"digit_xpos" "50"
+		"digit_ypos" "2"
+	}
 
 	HudAmmoPrimary
 	{

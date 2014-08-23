@@ -1663,9 +1663,7 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 	// FIXME: We need to emulate this same behavior on the client as well -- jdw
 	// Also ignore a vehicle we're a passenger in
 	if ( MyCombatCharacterPointer() != NULL && MyCombatCharacterPointer()->IsInAVehicle() )
-	{
 		traceFilter.AddEntityToIgnore( MyCombatCharacterPointer()->GetVehicleEntity() );
-	}
 #endif // SERVER_DLL
 
 	bool bUnderwaterBullets = ShouldDrawUnderwaterBulletBubbles();
@@ -1678,9 +1676,7 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 	// Prediction is only usable on players
 	int iSeed = 0;
 	if ( IsPlayer() )
-	{
 		iSeed = CBaseEntity::GetPredictionRandomSeed() & 255;
-	}
 
 #if defined( HL2MP ) && defined( GAME_DLL )
 	int iEffectSeed = iSeed;
@@ -1702,9 +1698,7 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 
 		// Prediction is only usable on players
 		if ( IsPlayer() )
-		{
 			RandomSeed( iSeed );	// init random system with this seed
-		}
 
 		// If we're firing multiple shots, and the first shot has to be bang on target, ignore spread
 		if ( iShot == 0 && info.m_iShots > 1 && (info.m_nFlags & FIRE_BULLETS_FIRST_SHOT_ACCURATE) )
@@ -1720,26 +1714,10 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 
 		vecEnd = info.m_vecSrc + vecDir * info.m_flDistance;
 
-#ifdef PORTAL
-		CProp_Portal *pShootThroughPortal = NULL;
-		float fPortalFraction = 2.0f;
-#endif
-
-
 		if( IsPlayer() && info.m_iShots > 1 && iShot % 2 )
 		{
 			// Half of the shotgun pellets are hulls that make it easier to hit targets with the shotgun.
-#ifdef PORTAL
-			Ray_t rayBullet;
-			rayBullet.Init( info.m_vecSrc, vecEnd );
-			pShootThroughPortal = UTIL_Portal_FirstAlongRay( rayBullet, fPortalFraction );
-			if ( !UTIL_Portal_TraceRay_Bullets( pShootThroughPortal, rayBullet, MASK_SHOT, &traceFilter, &tr ) )
-			{
-				pShootThroughPortal = NULL;
-			}
-#else
 			AI_TraceHull( info.m_vecSrc, vecEnd, Vector( -3, -3, -3 ), Vector( 3, 3, 3 ), MASK_SHOT, &traceFilter, &tr );
-#endif //#ifdef PORTAL
 		}
 		else
 		{
@@ -1777,15 +1755,6 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 			tr.endpos = tr.startpos;
 			tr.fraction = 0.0f;
 		}
-
-	// bullet's final direction can be changed by passing through a portal
-#ifdef PORTAL
-		if ( !tr.startsolid )
-		{
-			vecDir = tr.endpos - tr.startpos;
-			VectorNormalize( vecDir );
-		}
-#endif
 
 #ifdef GAME_DLL
 		if ( ai_debug_shoot_positions.GetBool() )

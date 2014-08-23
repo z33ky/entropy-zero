@@ -261,7 +261,7 @@ CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this )
 	m_bWasMoving = false;
 
 	m_iLastSecondsToGo = -1;
-	m_TFLocal.m_nInTacticalView = 0;
+	m_TFLocal.m_nInTacticalView = false;
 	m_TFLocal.m_pPlayer = this;
 	m_bSwitchingView = false;
 	ClearActiveWeapon();
@@ -434,7 +434,7 @@ void CBaseTFPlayer::Spawn( void )
 
 	SetCantMove( false );
 
-	m_TFLocal.m_nInTacticalView = 0;
+	m_TFLocal.m_nInTacticalView = false;
 	m_flLastTimeDamagedByEnemy = -1000;
 
 	// Purge resource chunks
@@ -557,10 +557,12 @@ void CBaseTFPlayer::InitHUD( void )
 	CSingleUserRecipientFilter user( this );
 	user.MakeReliable();
 
+#if 0	// Not needed afaik. ~hogsy
 	// set the teamplay mode
 	UserMessageBegin( user, "GameMode" );
 		WRITE_BYTE( 1 );  // game mode teamplay
 	MessageEnd();
+#endif
 
 #ifdef IMPLEMENT_ME
 	// If we're in an act, tell it to update the client
@@ -1853,9 +1855,6 @@ void CBaseTFPlayer::MenuDisplay( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseTFPlayer::MenuInput( int iInput )
 {
 #ifdef IMPLEMENT_ME
@@ -1866,9 +1865,6 @@ bool CBaseTFPlayer::MenuInput( int iInput )
 	return false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::MenuReset( void )
 {
 	CSingleUserRecipientFilter user( this );
@@ -1899,7 +1895,7 @@ void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 
 	m_bSwitchingView	= true;
 
-	m_TFLocal.m_nInTacticalView = bTactical ? 1 : 0;
+	m_TFLocal.m_nInTacticalView = bTactical ? true : false;
 }
 
 //-----------------------------------------------------------------------------
@@ -3008,9 +3004,9 @@ int CBaseTFPlayer::GetBankResources( void )
 
 void CBaseTFPlayer::SetBankResources( int iAmount )
 {
+#ifdef IMPLEMENT_ME
 	int nOldAmount = m_TFLocal.ResourceCount();
 
-#ifdef IMPLEMENT_ME
 	TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_RESOURCES_ACQUIRED, iAmount - nOldAmount );
 #endif
 
