@@ -17,9 +17,6 @@ ipch
 *.sdf
 *.opensdf
 *.idb
-*.vcxproj
-*.vcxproj.filters
-*.sln
 [Dd]ebug*/
 [Rr]elease*/
 

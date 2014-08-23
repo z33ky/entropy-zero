@@ -367,7 +367,7 @@ void CPlayerClassCommando::ClassThink( void )
 		Vector vecSrc	 = m_pPlayer->Weapon_ShootPosition( );
 		Vector vecDir	 = m_pPlayer->BodyDirection2D( );
 		Vector vecTarget = vecSrc + (vecDir * 48);
-		for ( CEntitySphereQuery sphere( vecTarget, 16 ); pEntity = sphere.GetCurrentEntity(); sphere.NextEntity() )
+		for ( CEntitySphereQuery sphere( vecTarget, 16 ); (pEntity = sphere.GetCurrentEntity()) != NULL; sphere.NextEntity() )
 		{
 			if ( pEntity->IsPlayer() && (pEntity != m_pPlayer) )
 			{
