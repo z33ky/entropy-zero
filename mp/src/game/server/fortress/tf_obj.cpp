@@ -219,9 +219,11 @@ void CBaseObject::UpdateOnRemove( void )
 	if ( GetTeam() )
 		((CTFTeam*)GetTeam())->RemoveObject( this );
 
+#ifdef IMPLEMENT_ME
 	// Make sure the object isn't in either team's list of objects...
 	Assert( !GetGlobalTFTeam(1)->IsObjectOnTeam( this ) );
 	Assert( !GetGlobalTFTeam(2)->IsObjectOnTeam( this ) );
+#endif
 
 	// Chain at end to mimic destructor unwind order
 	BaseClass::UpdateOnRemove();

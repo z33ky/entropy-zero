@@ -3573,17 +3573,11 @@ int CBaseEntity::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 	int fFlags = DispatchUpdateTransmitState();
 
 	if ( fFlags & FL_EDICT_PVSCHECK )
-	{
 		return FL_EDICT_PVSCHECK;
-	}
 	else if ( fFlags & FL_EDICT_ALWAYS )
-	{
 		return FL_EDICT_ALWAYS;
-	}
 	else if ( fFlags & FL_EDICT_DONTSEND )
-	{
 		return FL_EDICT_DONTSEND;
-	}
 
 //	if ( IsToolRecording() )
 //	{
@@ -3604,14 +3598,6 @@ int CBaseEntity::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 		if ( pRecipientPlayer->GetTeam()->ShouldTransmitToPlayer( pRecipientPlayer, this ))
 			return FL_EDICT_ALWAYS;
 	}
-	
-
-/*#ifdef INVASION_DLL
-	// Check test network vis distance stuff. Eventually network LOD will do this.
-	float flTestDistSqr = pRecipientEntity->GetAbsOrigin().DistToSqr( WorldSpaceCenter() );
-	if ( flTestDistSqr > sv_netvisdist.GetFloat() * sv_netvisdist.GetFloat() )
-		return TRANSMIT_NO;	// TODO doesn't work with HLTV
-#endif*/
 
 	// by default do a PVS check
 

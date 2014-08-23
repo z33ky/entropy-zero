@@ -1588,7 +1588,6 @@ void CClientLeafSystem::CollateRenderablesInLeaf( int leaf, int worldListLeafInd
 				continue;
 		}
 
-#ifdef INVASION_CLIENT_DLL
 		if (info.m_flRenderDistSq != 0.0f)
 		{
 			Vector mins, maxs;
@@ -1605,7 +1604,6 @@ void CClientLeafSystem::CollateRenderablesInLeaf( int leaf, int worldListLeafInd
 					continue;
 			}
 		}
-#endif
 
 		if( renderable.m_RenderGroup != RENDER_GROUP_TRANSLUCENT_ENTITY )
 		{

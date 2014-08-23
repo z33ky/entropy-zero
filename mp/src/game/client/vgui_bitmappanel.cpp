@@ -12,9 +12,7 @@
 #include "panelmetaclassmgr.h"
 #include "vgui_bitmapimage.h"
 
-#ifdef INVASION_CLIENT_DLL
 #include "hud_commander_statuspanel.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -146,32 +144,16 @@ void CBitmapPanel::Paint( void )
 	m_pImage->DoPaint( GetVPanel() );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBitmapPanel::OnCursorEntered()
 {
-#ifdef INVASION_CLIENT_DLL
 	if ( m_szMouseOverText[ 0 ] )
-	{
 		StatusPrint( TYPE_HINT, "%s", m_szMouseOverText );
-	}
-#endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBitmapPanel::OnCursorExited()
 {
-#ifdef INVASION_CLIENT_DLL
 	if ( m_szMouseOverText[ 0 ] )
-	{
 		StatusClear();
-	}
-#endif
 }
 
 
@@ -196,9 +178,7 @@ void CBitmapPanel::SetImage( BitmapImage *pImage )
 
 	// Get the color from the image
 	if ( m_pImage )
-	{
 		m_pImage->GetColor( m_r, m_g, m_b, m_a );
-	}
 }
 
 //-----------------------------------------------------------------------------

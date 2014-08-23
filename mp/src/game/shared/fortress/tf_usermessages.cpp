@@ -35,15 +35,12 @@ void RegisterUserMessages( void )
 	usermessages->Register( "VoiceMask", VOICE_MAX_PLAYERS_DW*4 * 2 + 1 );
 	usermessages->Register( "RequestState", 0 );
 
-#if 0
 	// TF User messages
 	usermessages->Register( "Damage", 13 );
 	usermessages->Register( "Accuracy", 2 );
 	usermessages->Register( "ZoneState", 1 );
 	usermessages->Register( "Technology", -1 );
 	usermessages->Register( "MinimapPulse", -1 );
-#endif
-
 	usermessages->Register( "ActBegin", -1 );
 	usermessages->Register( "ActEnd", -1 );
 	usermessages->Register( "PickupRes", 1 );

@@ -27,18 +27,10 @@ void Host_Say( edict_t *pEdict, bool teamonly );
 extern CBaseEntity *FindPickerEntity( CBasePlayer *pPlayer );
 void InitializeMenus( void );
 void DestroyMenus( void );
-#ifdef IMPLEMENT_ME
-void Bot_RunAll( void );
-#endif
 
 extern bool			g_fGameOver;
 
-/*
-===========
-ClientPutInServer
-
-called each time a player is spawned into the game
-============
+/*	Called each time a player is spawned into the game
 */
 void ClientPutInServer( edict_t *pEdict, const char *playername )
 {
@@ -49,12 +41,7 @@ void ClientPutInServer( edict_t *pEdict, const char *playername )
 	pPlayer->Spawn();
 }
 
-/*
-===============
-const char *GetGameDescription()
-
-Returns the descriptive name of this .dll.  E.g., Half-Life, or Team Fortress 2
-===============
+/*	Returns the descriptive name of this .dll.  E.g., Half-Life, or Team Fortress 2
 */
 const char *GetGameDescription()
 {

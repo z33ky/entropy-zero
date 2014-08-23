@@ -131,7 +131,6 @@ private:
 
 
 //-----------------------
-#ifdef INVASION_CLIENT_DLL
 public:
 	virtual void	Release( void );
 	virtual void	SetDormant( bool bDormant );
@@ -155,8 +154,6 @@ public:
 public:
 	int				m_iPowerups;
 	int				m_iPrevPowerups;
-#endif
-
 };
 
 inline C_BaseCombatCharacter *ToBaseCombatCharacter( C_BaseEntity *pEntity )

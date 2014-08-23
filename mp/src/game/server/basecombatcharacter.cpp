@@ -77,12 +77,10 @@ ConVar ai_use_visibility_cache( "ai_use_visibility_cache", "1" );
 
 BEGIN_DATADESC( CBaseCombatCharacter )
 
-#ifdef INVASION_DLL
 	DEFINE_FIELD( m_iPowerups, FIELD_INTEGER ),
 	DEFINE_ARRAY( m_flPowerupAttemptTimes, FIELD_TIME, MAX_POWERUPS ),
 	DEFINE_ARRAY( m_flPowerupEndTimes, FIELD_TIME, MAX_POWERUPS ),
 	DEFINE_FIELD( m_flFractionalBoost, FIELD_FLOAT ),
-#endif
 
 	DEFINE_FIELD( m_flNextAttack, FIELD_TIME ),
 	DEFINE_FIELD( m_eHull, FIELD_INTEGER ),
@@ -160,9 +158,7 @@ void *SendProxy_SendBaseCombatCharacterLocalDataTable( const SendProp *pProp, co
 	if ( pBCC != NULL)
 	{
 		if ( pBCC->IsPlayer() )
-		{
 			pRecipients->SetOnly( pBCC->entindex() - 1 );
-		}
 		else
 		{
 			// If it's a vehicle, send to "driver" (e.g., operator of tf2 manned guns)
@@ -199,9 +195,7 @@ IMPLEMENT_SERVERCLASS_ST(CBaseCombatCharacter, DT_BaseCombatCharacter)
 	SendPropEHandle( SENDINFO( m_hActiveWeapon ) ),
 	SendPropArray3( SENDINFO_ARRAY3(m_hMyWeapons), SendPropEHandle( SENDINFO_ARRAY(m_hMyWeapons) ) ),
 
-#ifdef INVASION_DLL
-	SendPropInt( SENDINFO(m_iPowerups), MAX_POWERUPS, SPROP_UNSIGNED ), 
-#endif
+	SendPropInt( SENDINFO(m_iPowerups), MAX_POWERUPS, SPROP_UNSIGNED ),
 
 END_SEND_TABLE()
 

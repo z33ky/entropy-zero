@@ -268,14 +268,7 @@ void C_BaseExplosionEffect::CreateCore( void )
 			{
 				pParticle->m_flLifetime = 0.0f;
 
-	#ifdef INVASION_CLIENT_DLL
 				pParticle->m_flDieTime	= random->RandomFloat( 0.5f, 1.0f );
-	#endif
-	#ifdef _XBOX
-				pParticle->m_flDieTime	= 1.0f;
-	#else
-				pParticle->m_flDieTime	= random->RandomFloat( 2.0f, 3.0f );
-	#endif
 
 				pParticle->m_vecVelocity.Random( -spread, spread );
 				pParticle->m_vecVelocity += ( m_vecDirection * random->RandomFloat( 1.0f, 6.0f ) );
@@ -326,12 +319,7 @@ void C_BaseExplosionEffect::CreateCore( void )
 			if ( pParticle != NULL )
 			{
 				pParticle->m_flLifetime = 0.0f;
-
-	#ifdef INVASION_CLIENT_DLL
 				pParticle->m_flDieTime	= random->RandomFloat( 0.5f, 1.0f );
-	#else
-				pParticle->m_flDieTime	= random->RandomFloat( 0.5f, 1.0f );
-	#endif
 
 				pParticle->m_vecVelocity.Random( -spread, spread );
 				pParticle->m_vecVelocity += ( m_vecDirection * random->RandomFloat( 1.0f, 6.0f ) );
@@ -365,71 +353,6 @@ void C_BaseExplosionEffect::CreateCore( void )
 			}
 		}
 #endif // !_XBOX
-
-		//
-		// Ground ring
-		//
-
-		Vector	vRight, vUp;
-		VectorVectors( m_vecDirection, vRight, vUp );
-
-		Vector	forward;
-
-#ifndef INVASION_CLIENT_DLL
-
-#ifndef _XBOX 
-		int	numRingSprites = 32;
-#else
-		int	numRingSprites = 8;
-#endif
-
-		float flIncr = (2*M_PI) / (float) numRingSprites; // Radians
-		float flYaw = 0.0f;
-
-		for ( i = 0; i < numRingSprites; i++ )
-		{
-			flYaw += flIncr;
-			SinCos( flYaw, &forward.y, &forward.x );
-			forward.z = 0.0f;
-
-			offset = ( RandomVector( -4.0f, 4.0f ) + m_vecOrigin ) + ( forward * random->RandomFloat( 8.0f, 16.0f ) );
-
-			pParticle = (SimpleParticle *) pSimple->AddParticle( sizeof( SimpleParticle ), m_Material_Smoke, offset );
-
-			if ( pParticle != NULL )
-			{
-				pParticle->m_flLifetime = 0.0f;
-				pParticle->m_flDieTime	= random->RandomFloat( 0.5f, 1.5f );
-
-				pParticle->m_vecVelocity = forward;
-			
-				float	fForce = random->RandomFloat( 500, 2000 ) * force;
-
-				//Scale the force down as we fall away from our main direction
-				ScaleForceByDeviation( pParticle->m_vecVelocity, pParticle->m_vecVelocity, spread, &fForce );
-
-				pParticle->m_vecVelocity *= fForce;
-				
-				#if __EXPLOSION_DEBUG
-				debugoverlay->AddLineOverlay( m_vecOrigin, m_vecOrigin + pParticle->m_vecVelocity, 255, 0, 0, false, 3 );
-				#endif
-
-				int nColor = random->RandomInt( luminosity*0.5f, luminosity );
-				pParticle->m_uchColor[0] = ( worldLight[0] * nColor );
-				pParticle->m_uchColor[1] = ( worldLight[1] * nColor );
-				pParticle->m_uchColor[2] = ( worldLight[2] * nColor );
-
-				pParticle->m_uchStartSize	= random->RandomInt( 16, 32 );
-				pParticle->m_uchEndSize		= pParticle->m_uchStartSize * 4;
-
-				pParticle->m_uchStartAlpha	= random->RandomFloat( 16, 32 );
-				pParticle->m_uchEndAlpha	= 0;
-				
-				pParticle->m_flRoll			= random->RandomInt( 0, 360 );
-				pParticle->m_flRollDelta	= random->RandomFloat( -8.0f, 8.0f );
-			}
-		}
-#endif
 	}
 
 #ifndef _XBOX
@@ -1112,12 +1035,7 @@ void C_WaterExplosionEffect::CreateDebris( void )
 		if ( pParticle != NULL )
 		{
 			pParticle->m_flLifetime = 0.0f;
-
-#ifdef INVASION_CLIENT_DLL
 			pParticle->m_flDieTime	= random->RandomFloat( 0.5f, 1.0f );
-#else
-			pParticle->m_flDieTime	= random->RandomFloat( 2.0f, 3.0f );
-#endif
 
 			pParticle->m_vecVelocity.Random( -spread, spread );
 			pParticle->m_vecVelocity += ( m_vecDirection * random->RandomFloat( 1.0f, 6.0f ) );

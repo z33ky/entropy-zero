@@ -95,13 +95,8 @@ void CBaseViewModel::Spawn( void )
 #define VGUI_CONTROL_PANELS
 #endif
 
-#ifdef INVASION_DLL
 #define VGUI_CONTROL_PANELS
-#endif
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseViewModel::SetControlPanelsActive( bool bState )
 {
 #if defined( VGUI_CONTROL_PANELS )
@@ -130,9 +125,7 @@ void CBaseViewModel::SpawnControlPanels()
 	CBaseCombatWeapon *weapon = m_hWeapon.Get();
 
 	if ( weapon == NULL )
-	{
 		return;
-	}
 
 	MDLCACHE_CRITICAL_SECTION();
 
@@ -224,10 +217,7 @@ void CBaseViewModel::SpawnControlPanels()
 		pScreen->SetActualSize( flWidth, flHeight );
 		pScreen->SetActive( false );
 		pScreen->MakeVisibleOnlyToTeammates( false );
-	
-#ifdef INVASION_DLL
 		pScreen->SetOverlayMaterial( SCREEN_OVERLAY_MATERIAL );
-#endif
 		pScreen->SetAttachedToViewModel( true );
 		int nScreen = m_hScreens.AddToTail( );
 		m_hScreens[nScreen].Set( pScreen );

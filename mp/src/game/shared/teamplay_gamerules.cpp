@@ -48,9 +48,6 @@ CTeamplayRules::CTeamplayRules()
 	RecountTeams();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTeamplayRules::Precache( void )
 {
 	// Call the Team Manager's precaches
@@ -61,9 +58,6 @@ void CTeamplayRules::Precache( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTeamplayRules::Think ( void )
 {
 	BaseClass::Think();
