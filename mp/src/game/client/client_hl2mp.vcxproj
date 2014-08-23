@@ -912,6 +912,7 @@ exit 1
     <ClCompile Include="fortress\clientmode_tfbase.cpp" />
     <ClCompile Include="fortress\clientmode_tfnormal.cpp" />
     <ClCompile Include="fortress\CommanderOverlay.cpp" />
+    <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\c_baseobject.cpp" />
     <ClCompile Include="fortress\c_basetfplayer.cpp" />
     <ClCompile Include="fortress\c_info_act.cpp" />

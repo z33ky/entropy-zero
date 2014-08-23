@@ -57,9 +57,7 @@ int	C_BaseCombatCharacter::GetAmmoCount( char *szName ) const
 }
 */
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
+#if 0
 void C_BaseCombatCharacter::OnPreDataChanged( DataUpdateType_t updateType )
 {
 	BaseClass::OnPreDataChanged( updateType );
@@ -69,9 +67,6 @@ void C_BaseCombatCharacter::OnPreDataChanged( DataUpdateType_t updateType )
 #endif // GLOWS_ENABLE
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseCombatCharacter::OnDataChanged( DataUpdateType_t updateType )
 {
 	BaseClass::OnDataChanged( updateType );
@@ -83,6 +78,7 @@ void C_BaseCombatCharacter::OnDataChanged( DataUpdateType_t updateType )
 	}
 #endif // GLOWS_ENABLE
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Overload our muzzle flash and send it to any actively held weapon

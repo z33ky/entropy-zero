@@ -134,8 +134,6 @@ private:
 public:
 	virtual void	Release( void );
 	virtual void	SetDormant( bool bDormant );
-	virtual void	OnPreDataChanged( DataUpdateType_t updateType );
-	virtual void	OnDataChanged( DataUpdateType_t updateType );
 	virtual void	ClientThink( void );
 
 	// TF2 Powerups

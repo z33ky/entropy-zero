@@ -498,9 +498,13 @@ END_NETWORK_TABLE()
 			g_flNextReinforcementTime += REINFORCEMENT_TIME;
 		}
 
+#ifdef IMPLEMENT_ME
 		// Tell each Team to think
 		for ( int i = 1; i <= GetNumberOfTeams(); i++ )
 			GetGlobalTeam( i )->Think();
+#else
+		GetGlobalTeam(1)->Think();
+#endif
 	}
 
 	//-----------------------------------------------------------------------------

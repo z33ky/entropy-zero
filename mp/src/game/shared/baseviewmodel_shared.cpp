@@ -91,11 +91,7 @@ void CBaseViewModel::Spawn( void )
 #define VGUI_CONTROL_PANELS
 #endif
 
-#if defined ( TF_DLL )
-#define VGUI_CONTROL_PANELS
-#endif
-
-#define VGUI_CONTROL_PANELS
+//#define VGUI_CONTROL_PANELS
 
 void CBaseViewModel::SetControlPanelsActive( bool bState )
 {

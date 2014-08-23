@@ -3391,6 +3391,9 @@
     <ClCompile Include="..\shared\fortress\tf_gamemovement_commando.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
