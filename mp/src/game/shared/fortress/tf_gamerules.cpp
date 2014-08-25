@@ -498,13 +498,9 @@ END_NETWORK_TABLE()
 			g_flNextReinforcementTime += REINFORCEMENT_TIME;
 		}
 
-#ifdef IMPLEMENT_ME
 		// Tell each Team to think
-		for ( int i = 1; i <= GetNumberOfTeams(); i++ )
+		for ( int i = 0; i < GetNumberOfTeams(); i++ )
 			GetGlobalTeam( i )->Think();
-#else
-		GetGlobalTeam(1)->Think();
-#endif
 	}
 
 	//-----------------------------------------------------------------------------
@@ -1551,9 +1547,11 @@ void CTeamFortress::WeaponTraceLine( const Vector& src, const Vector& end, unsig
 	// Iterate over all shields on the same team, disable them so
 	// we don't intersect with them...
 	CShield::ActivateShields( false, pShooter->GetTeamNumber() );
+#endif
 
 	UTIL_TraceLine(src, end, mask, pShooter, TFCOLLISION_GROUP_WEAPON, pTrace);
 
+#ifdef IMPLEMENT_ME
 //	NDebugOverlay::Line( src, pTrace->endpos, 255,255,255, true, 5.0 );
 //	NDebugOverlay::Box( pTrace->endpos, Vector(-2,-2,-2), Vector(2,2,2), 255,255,255, true, 5.0 );
 

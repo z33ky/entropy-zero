@@ -17,9 +17,7 @@
 #include "tf_playerclass.h"
 #include "iservernetworkable.h"
 #include "iscorer.h"
-#ifdef IMPLEMENT_ME
 #include "tf_playeranimstate.h"
-#endif
 
 #include "vphysics/player_controller.h"
 
@@ -252,9 +250,7 @@ public:
 	bool	HasNamedTechnology( const char *name );
 	void	SetPreferredTechnology( CTechnologyTree *pTechnologyTree, int iTechIndex );
 	int		GetPreferredTechnology( void );
-#ifdef IMPLEMENT_ME
 	tfplayertech_t &AvailableTech( int i ) { return m_rgClientTechAvail[i]; }
-#endif
 
 	// Powerups
 	virtual void	PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier );
@@ -551,9 +547,7 @@ private:
 	// This times how long each class is active.
 	CFastTimer					m_Timer;
 
-#ifdef IMPLEMENT_ME
 	tfplayertech_t	m_rgClientTechAvail[ MAX_TECHNOLOGIES ];
-#endif
 
 	CHandle< CRagdollShadow >	m_hRagdollShadow;
 	Vector						m_vecLastGoodRagdollPos;
@@ -562,9 +556,7 @@ private:
 	//  with text every frame )
 	int							m_iLastSecondsToGo;
 
-#ifdef IMPLEMENT_ME
 	CPlayerAnimState			m_PlayerAnimState;
-#endif
 
 	// Fractional boost amount
 	float		m_flFractionalBoost;

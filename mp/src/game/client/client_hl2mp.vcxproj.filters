@@ -1964,6 +1964,12 @@
     <ClInclude Include="..\shared\fortress\tf_gamemovement_commando.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_func_resource.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_playeranimstate.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3393,6 +3399,21 @@
     </ClCompile>
     <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_powerpack.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_resource_chunk.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_func_resource.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\techtree.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\techtree_parse.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

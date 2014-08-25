@@ -489,13 +489,7 @@ bool IsLocalPlayerInTactical( void )
 	return !!pPlayer->m_TFLocal.m_nInTacticalView;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-C_BaseTFPlayer::C_BaseTFPlayer() : m_PlayerClasses( this )
-#ifdef IMPLEMENT_ME
-, m_PlayerAnimState( this )
-#endif
+C_BaseTFPlayer::C_BaseTFPlayer() : m_PlayerClasses( this ), m_PlayerAnimState( this )
 {
 	Clear();
 }
@@ -993,10 +987,8 @@ int C_BaseTFPlayer::DrawModel( int flags )
 	}
 	else
 	{
-#ifdef IMPLEMENT_ME
 		angleschanged = true;
 		SetLocalAngles( m_PlayerAnimState.GetRenderAngles() );
-#endif
 	}
 
 	drawn = BaseClass::DrawModel(flags);
@@ -2035,9 +2027,7 @@ void C_BaseTFPlayer::AddEntity( void )
 	// Zero out model pitch, blending takes care of all of it.
 	SetLocalAnglesDim( X_INDEX, 0 );
 
-#ifdef IMPLEMENT_ME
 	m_PlayerAnimState.Update();
-#endif
 }
 
 //-----------------------------------------------------------------------------

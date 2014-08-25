@@ -429,11 +429,9 @@ void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 	Assert( !AreObjectInfosLoaded() );
 
 	KeyValues *pValues = new KeyValues( "Object descriptions" );
-	if ( !pValues->LoadFromFile( pFileSystem, pFilename, "MOD" ) )
+	if ( !pValues->LoadFromFile( pFileSystem, pFilename, "GAME" ) )
 	{
-#ifdef IMPLEMENT_ME	// Left out for now, just for quick debugging.
 		Error( "Can't open %s for object info.", pFilename );
-#endif
 		pValues->deleteThis();
 		return;
 	}

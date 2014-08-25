@@ -26,10 +26,8 @@
 #include "orders.h"
 #endif
 #include "decals.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
 #include "resource_chunk.h"
-#endif
 #include "team_messages.h"
 #include "tier0/dbg.h"
 #ifdef IMPLEMENT_ME
@@ -244,10 +242,7 @@ void StatusPrintf( bool clear, int destination, char *pFormat, ... )
 //=====================================================================
 // PLAYER HANDLING
 //=====================================================================
-CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this )
-#ifdef IMPLEMENT_ME
-	, m_PlayerAnimState( this )
-#endif
+CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this ), m_PlayerAnimState( this )
 {
 	// HACK because player's have pev set in baseclass constructor
 	// which triggers an assert that we want to keep.
@@ -266,13 +261,9 @@ CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this )
 	m_bSwitchingView = false;
 	ClearActiveWeapon();
 	
-#ifdef IMPLEMENT_ME	// For now just set us up as a commander for easy testing :)
 	m_iPlayerClass = TFCLASS_UNDECIDED;
 	SetPlayerClass( TFCLASS_UNDECIDED );
-#else
-	m_iPlayerClass = TFCLASS_COMMANDO;
-	SetPlayerClass(TFCLASS_COMMANDO);
-#endif
+
 	m_pCurrentMenu = NULL;
 	m_TFPlayerFlags = 0;
 	m_bDeploying = false;
@@ -415,9 +406,13 @@ void CBaseTFPlayer::Spawn( void )
 		{
 			if ( tf_autoteam.GetFloat() )
 			{
+#else
+				SetPlayerClass(TFCLASS_COMMANDO);
+#endif
 				// Autoteam the player
 				PlacePlayerInTeam();
 				ForceRespawn();
+#ifdef IMPLEMENT_ME
 			}
 			else
 				// Let players choose their team
@@ -455,9 +450,6 @@ void CBaseTFPlayer::Spawn( void )
 	g_pGameRules->GetPlayerSpawnSpot( this );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::CleanupOnActStart( void )
 {
 #ifdef IMPLEMENT_ME
@@ -468,9 +460,6 @@ void CBaseTFPlayer::CleanupOnActStart( void )
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::RecalculateSpeed( void )
 {
 	if ( GetPlayerClass()  )
@@ -597,11 +586,9 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 			RemoveAllObjects( false );
 	}
 
-#ifdef IMPLEMENT_ME
 	// Force full tech tree update
 	for ( int i = 0 ; i < MAX_TECHNOLOGIES; i++ )
 		m_rgClientTechAvail[ i ].m_nAvailable = -1;
-#endif
 
 	BaseClass::ChangeTeam( iTeamNum );
 
@@ -635,7 +622,7 @@ void CBaseTFPlayer::PlacePlayerInTeam( void )
 	CTFTeam *pTargetTeam = NULL;
 
 	// Find the team with the least players in it
-	for ( int i = 1; i <= MAX_TF_TEAMS; i++ )
+	for ( int i = 0; i < MAX_TF_TEAMS; i++ )
 	{
 		CTFTeam *pTeam = GetGlobalTFTeam(i);
 
@@ -897,9 +884,8 @@ void CBaseTFPlayer::PostThink()
 	else
 		m_TFPlayerFlags |= TF_PLAYER_DAMAGE_BOOST;
 
-#ifdef IMPLEMENT_ME
 	m_PlayerAnimState.Update();
-#endif
+
 //	SetLocalAngles( m_PlayerAnimState.GetRenderAngles() );
 
 	float flTimeSinceAttacked = gpGlobals->curtime - LastTimeDamagedByEnemy();
@@ -1273,10 +1259,8 @@ void CBaseTFPlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 			// Allow shield to override
 			idealActivity = ShieldTranslateActivity( idealActivity );
-#ifdef IMPLEMENT_ME
 			// Allow body yaw to override for standing and turning in place
 			idealActivity = m_PlayerAnimState.BodyYawTranslateActivity( idealActivity );
-#endif
 		}
 		break;
 
@@ -1799,8 +1783,8 @@ void CBaseTFPlayer::ShowPersonalShieldEffect(
 	VectorNormalize( vNormalized );
 	
 #ifdef IMPLEMENT_ME
-	CEntityMessageFilter filter( this, "CBaseTFPlayer" );
-	MessageBegin( filter, 0 );
+	EntityMessageBegin( this );
+		WRITE_BYTE( PLAYER_MSG_PERSONAL_SHIELD );
 		WRITE_VEC3COORD( vOffsetFromEnt );
 		WRITE_VEC3NORMAL( vNormalized );
 		WRITE_SHORT( (short)flDamage );
@@ -2029,14 +2013,10 @@ int CBaseTFPlayer::GetPreferredTechnology( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::HasNamedTechnology( const char *name )
 {
-#ifdef IMPLEMENT_ME
 	if ( GetTFTeam() == NULL )
 		return false;
 
 	return GetTFTeam()->HasNamedTechnology( name );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2109,10 +2089,8 @@ int CBaseTFPlayer::GetNumResourceZoneOrders()
 
 void CBaseTFPlayer::KillResourceZoneOrders()
 {
-#ifdef IMPLEMENT_ME
 	if( GetNumResourceZoneOrders() )
 		GetTFTeam()->RemoveOrdersToPlayer( this );
-#endif
 }
 
 
@@ -2372,19 +2350,17 @@ void CBaseTFPlayer::PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAt
 			// Power up their shield
 			if ( GetCombatShield() )
 				GetCombatShield()->AddShieldHealth( 0.06 ); 
+#endif
 
 			// Let their playerclass know
 			GetPlayerClass()->PowerupStart( iPowerup, flAmount, pAttacker, pDamageModifier );
-#endif
 		}
 		break;
 
 	case POWERUP_EMP:
 		{
-#ifdef IMPLEMENT_ME
 			// Let the playerclass know about it
 			GetPlayerClass()->PowerupStart( iPowerup, flAmount, pAttacker, pDamageModifier );
-#endif
 		}
 		break;
 
@@ -2523,13 +2499,11 @@ void CBaseTFPlayer::RemoveObject( CBaseObject *pObject )
 		pObject->GetClassname(),
 		STRING( pl.netname ) ) );
 
-#ifdef IMPLEMENT_ME
 	Assert( pObject );
 	for (int i = m_TFLocal.m_aObjects.Count(); --i >= 0; )
 		// Also, while we're at it, remove all other bogus ones too...
 		if ((!m_TFLocal.m_aObjects[i].Get()) || (m_TFLocal.m_aObjects[i] == pObject))
 			m_TFLocal.m_aObjects.FastRemove(i);
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2905,7 +2879,6 @@ void CBaseTFPlayer::SetUsingThermalVision( bool thermal )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::AddResourceChunks( int iChunks, bool bProcessed )
 {
-#ifdef IMPLEMENT_ME
 	// Am I allowed to carry any more chunks?
 	int iCurrentCount = GetTotalResourceChunks();
 	// Somewhat hacky
@@ -2937,9 +2910,6 @@ bool CBaseTFPlayer::AddResourceChunks( int iChunks, bool bProcessed )
 	CPASAttenuationFilter filter( this,"BaseTFPlayer.PickupResources" );
 	EmitSound( filter, entindex(),"BaseTFPlayer.PickupResources" );
 	return true;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2979,16 +2949,16 @@ int CBaseTFPlayer::GetTotalResourceChunks( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::DropAllResourceChunks( void )
 {
-#ifdef IMPLEMENT_ME
 	Vector vecOrigin = GetAbsOrigin() + Vector(0,0,32);
 
+#ifdef IMPLEMENT_ME
 	TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_DROPPED, resource_chunk_value.GetFloat() );
+#endif
 
 	// Drop a resource chunk
 	Vector vecVelocity = Vector( random->RandomFloat( -250,250 ), random->RandomFloat( -250,250 ), random->RandomFloat( 200,450 ) );
 	CResourceChunk *pChunk = CResourceChunk::Create( FALSE, vecOrigin, vecVelocity );
 	pChunk->ChangeTeam( GetTeamNumber() );
-#endif
 }
 
 
@@ -3479,9 +3449,6 @@ public:
 
 static CPhysicsTFPlayerCallback TFPlayerCallback;
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::InitVCollision( void )
 {
 	if ( GetPlayerClass() )

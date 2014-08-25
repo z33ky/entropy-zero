@@ -1,9 +1,6 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: Base Object built by players
-//
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 #include "tf_player.h"
 #include "tf_team.h"
@@ -14,9 +11,7 @@
 #include "rope.h"
 #include "rope_shared.h"
 #include "bone_setup.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
-#endif
 #include "ndebugoverlay.h"
 #include "rope_helpers.h"
 #include "IEffects.h"
@@ -31,13 +26,11 @@
 #include "engine/IEngineSound.h"
 #ifdef IMPLEMENT_ME
 #include "tf_obj_sentrygun.h"
-#include "tf_obj_powerpack.h"
 #endif
+#include "tf_obj_powerpack.h"
 #include "tf_shareddefs.h"
 #include "VGuiScreen.h"
-#ifdef IMPLEMENT_ME
 #include "resource_chunk.h"
-#endif
 #include "hierarchy.h"
 #ifdef IMPLEMENT_ME
 #include "tf_func_construction_yard.h"
@@ -49,9 +42,9 @@
 #include "info_act.h"
 #endif
 #include "info_vehicle_bay.h"
-#ifdef IMPLEMENT_ME
 #include "ihasbuildpoints.h"
 #include "tf_obj_buff_station.h"
+#ifdef IMPLEMENT_ME
 #include "info_buildpoint.h"
 #endif
 #include "utldict.h"
@@ -132,9 +125,7 @@ IMPLEMENT_SERVERCLASS_ST(CBaseObject, DT_BaseObject)
 	SendPropEHandle(SENDINFO(m_hBuiltOnEntity)),
 	SendPropInt( SENDINFO( m_takedamage ), 2, SPROP_UNSIGNED ),
 	SendPropInt( SENDINFO( m_bDisabled ), 1, SPROP_UNSIGNED ),
-#ifdef IMPLEMENT_ME
 	SendPropEHandle( SENDINFO( m_hBuilder ) ),
-#endif
 END_SEND_TABLE();
 
 
@@ -207,12 +198,10 @@ void CBaseObject::UpdateOnRemove( void )
 {
 	m_bDying = true;
 
-#ifdef IMPLEMENT_ME
 	// Remove anything left on me
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
 	if ( pBPInterface && pBPInterface->GetNumObjectsOnMe() )
 		pBPInterface->RemoveAllObjects();
-#endif
 
 	DestroyObject();
 	
@@ -679,19 +668,15 @@ void CBaseObject::DestroyObject( void )
 	{
 		GetBuilder()->OwnedObjectDestroyed( this );
 	}
+#endif
 
 	// Tell my powerpack that I'm gone
 	if ( m_hPowerPack != NULL )
-	{
 		m_hPowerPack->UnPowerObject( this );
-	}
 
 	// Tell my power up source that I have been destroyed.
 	if ( GetBuffStation() )
-	{
 		GetBuffStation()->DeBuffObject( this );
-	}
-#endif
 
 	// Detach all my ropes
 	int i;
@@ -811,7 +796,6 @@ void CBaseObject::StopPlacement( void )
 //-----------------------------------------------------------------------------
 bool CBaseObject::FindNearestBuildPoint( CBaseEntity *pEntity, Vector vecBuildOrigin, float &flNearestPoint, Vector &vecNearestBuildPoint )
 {
-#ifdef IMPLEMENT_ME
 	bool bFoundPoint = false;
 
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(pEntity);
@@ -846,9 +830,6 @@ bool CBaseObject::FindNearestBuildPoint( CBaseEntity *pEntity, Vector vecBuildOr
 	}
 
 	return bFoundPoint;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1228,7 +1209,6 @@ void CBaseObject::AlignToGround( Vector vecOrigin )
 //-----------------------------------------------------------------------------
 void CBaseObject::GetExitPoint( CBaseEntity *pPlayer, int nBuildPoint, Vector *pAbsPosition, QAngle *pAbsAngles )
 {
-#ifdef IMPLEMENT_ME
 	// Deal with hierarchy...
 	IHasBuildPoints *pMount = dynamic_cast<IHasBuildPoints*>(GetMoveParent());
 	if (pMount)
@@ -1240,7 +1220,6 @@ void CBaseObject::GetExitPoint( CBaseEntity *pPlayer, int nBuildPoint, Vector *p
 			return;
 		}
 	}
-#endif
 
 	// FIXME: In future, we may well want to use specific exit attachments here...
 	GetBuildPoint( nBuildPoint, *pAbsPosition, *pAbsAngles );
@@ -1275,7 +1254,6 @@ void CBaseObject::AttemptToFindPower( void )
 	if ( !CanPowerupEver( POWERUP_POWER ) )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// If I have a powerpack, see if I'm unable to keep power, or not needed.
 	// This is done before checking to see if the object needs power, because it may
 	// have once needed power, but doesn't anymore (i.e. snapped to an attachment point)
@@ -1285,7 +1263,6 @@ void CBaseObject::AttemptToFindPower( void )
 	// If I don't have a powerpack, or I just moved too far from it, look for a powerpack
 	if ( !m_hPowerPack )
 		GetTFTeam()->UpdatePowerpacks( NULL, this );
-#endif
 }
 
 void CBaseObject::AttemptToFindBuffStation( void )
@@ -1294,14 +1271,12 @@ void CBaseObject::AttemptToFindBuffStation( void )
 	if ( !CanBeHookedToBuffStation() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// We have already found a buff station, we want to use - check distances.
 	if ( GetBuffStation() )
 		GetBuffStation()->CheckBuffConnection( this );
 	// Look for a buff station to use.
 	else
 		GetTFTeam()->UpdateBuffStations( NULL, this, true );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1410,11 +1385,9 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 	// Tell the object we've been built on that we exist
 	if ( IsBuiltOnAttachment() && ShouldAttachToParent() )
 	{
-#ifdef IMPLEMENT_ME
 		IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>((CBaseEntity*)m_hBuiltOnEntity.Get());
 		Assert( pBPInterface );
 		pBPInterface->SetObjectOnBuildPoint( m_iBuiltOnPoint, this );
-#endif
 	}
 
 	// Start the build animations
@@ -1441,11 +1414,10 @@ void CBaseObject::AttemptToActivateBuffStation( void )
 {
 	if ( !GetBuffStation() )
 		return;
-#ifdef IMPLEMENT_ME
+
 	if ( GetBuffStation()->IsPlacing() || GetBuffStation()->IsBuilding() ||
 		 !GetBuffStation()->IsPowered() )
 		return;
-#endif
 
 	if ( m_bBuffActivated )
 		return;
@@ -1584,9 +1556,7 @@ void CBaseObject::PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAtta
 		break;
 	}
 
-#ifdef IMPLEMENT_ME
 	BaseClass::PowerupStart( iPowerup, flAmount, pAttacker, pDamageModifier );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1607,9 +1577,7 @@ void CBaseObject::PowerupEnd( int iPowerup )
 		break;
 	}
 
-#ifdef IMPLEMENT_ME
 	BaseClass::PowerupEnd( iPowerup );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1765,7 +1733,6 @@ void ReportDamage( const char* szInflictor, const char* szVictim, float fAmount,
 //-----------------------------------------------------------------------------
 bool CBaseObject::PassDamageOntoChildren( const CTakeDamageInfo &info, float *flDamageLeftOver )
 {
-#ifdef IMPLEMENT_ME
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
 	Assert( pBPInterface );
 
@@ -1774,9 +1741,7 @@ bool CBaseObject::PassDamageOntoChildren( const CTakeDamageInfo &info, float *fl
 	// Double the amount of damage done (and get around the child damage modifier)
 	flDamage *= 2;
 	if ( obj_child_damage_factor.GetFloat() )
-	{
 		flDamage *= (1 / obj_child_damage_factor.GetFloat());
-	}
 
 	// Remove blast damage because child objects (well specifically upgrades)
 	// want to ignore direct blast damage but still take damage from parent
@@ -1810,9 +1775,6 @@ bool CBaseObject::PassDamageOntoChildren( const CTakeDamageInfo &info, float *fl
 
 	*flDamageLeftOver = flDamage;
 	return false;
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1839,9 +1801,7 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 		if ( InSameTeam(info.GetAttacker()) )
 			return 0;
 
-#ifdef IMPLEMENT_ME
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
-#endif
 
 	float flDamage = info.GetDamage();
 
@@ -1864,10 +1824,8 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 	bool bShouldBeDisabled = false;
 	if ( m_flMinDisableHealth != 0 && ( m_flHealth - flDamage ) < m_flMinDisableHealth )
 		bShouldBeDisabled = true;
-#ifdef IMPLEMENT_ME
 	else if ( pBPInterface && pBPInterface->GetNumObjectsOnMe() && (( m_flHealth - flDamage ) < 1) )
 		bShouldBeDisabled = true;
-#endif
 
 	// Make sure we're disabled if we're supposed to be
 	if ( bShouldBeDisabled )
@@ -1951,9 +1909,7 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 					WRITE_VEC3COORD( vecPosition );
 				MessageEnd();
 
-#ifdef IMPLEMENT_ME
 				GetTFTeam()->PostMessage( TEAMMSG_CUSTOM_SOUND, NULL, (char*)STRING(m_iszUnderAttackSound) );
-#endif
 			}
 		}
 	}
@@ -2076,12 +2032,12 @@ void CBaseObject::Killed( void )
 	if ( gpGlobals->curtime > (m_flLastRealDamage + MAX_DROP_TIME_AFTER_DAMAGE) )
 		bDropResources = false;
 
-#ifdef IMPLEMENT_ME
 	// Drop resources based upon our base cost
 	int iCost = CalculateObjectCost( GetType(), 0, GetTeamNumber() );
 	iCost *= 0.5;
 	if ( bDropResources && iCost )
 	{
+#ifdef IMPLEMENT_ME
 		// Convert value to chunks.
 		int nProcessedChunks = 0;
 		int nNormalChunks = 0;
@@ -2089,9 +2045,7 @@ void CBaseObject::Killed( void )
 
 		// Make everything drop at least 1 chunk
 		if ( !nProcessedChunks && !nNormalChunks )
-		{
 			nNormalChunks++;
-		}
 
 		// Drop processed chunks.
 		int iChunk;
@@ -2116,9 +2070,11 @@ void CBaseObject::Killed( void )
 			pChunk->ChangeTeam( GetTeamNumber() );
 		}
 
+#ifdef IMPLEMENT_ME
 		TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_DROPPED, (resource_chunk_processed_value.GetFloat() * nProcessedChunks) + (resource_chunk_value.GetFloat() * nNormalChunks) );
-	}
 #endif
+#endif
+	}
 
 	DetachObjectFromObject();
 
@@ -2220,10 +2176,8 @@ void CBaseObject::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 				{
 					if ( GetBuilder() == pActivator )
 					{
-#ifdef IMPLEMENT_ME
 						if ( GetBuilder()->GetPlayerClass()->ResupplyAmmoType( 1, m_szAmmoName ) )
 							PickupObject();
-#endif
 
 						return;
 					}
@@ -2661,12 +2615,10 @@ void CBaseObject::SetPowerPack( CObjectPowerPack *pPack )
 
 	m_hPowerPack = pPack;
 
-#ifdef IMPLEMENT_ME
 	// If it's placing, I don't get power yet
 	if ( m_hPowerPack && !m_hPowerPack->IsPlacing() )
 		SetPowerup( POWERUP_POWER, true );
 	else
-#endif
 	{
 		// Lose power in a second, to give any nearby powerpacks time to connect to me and replace the power
 		if ( bHadPower )
@@ -2821,7 +2773,6 @@ void CBaseObject::AttachObjectToObject( const CBaseEntity *pEntity, int iPoint, 
 	m_hBuiltOnEntity = pEntity;
 	m_iBuiltOnPoint = iPoint;
 
-#ifdef IMPLEMENT_ME
 	if ( m_hBuiltOnEntity.Get() )
 	{
 		// Parent ourselves to the object
@@ -2846,6 +2797,7 @@ void CBaseObject::AttachObjectToObject( const CBaseEntity *pEntity, int iPoint, 
 		}
 	}
 
+#ifdef IMPLEMENT_ME
 	Assert( m_hBuiltOnEntity == GetMoveParent() );
 #endif
 }
@@ -2858,12 +2810,10 @@ void CBaseObject::DetachObjectFromObject( void )
 	if ( !GetParentObject() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// Clear the build point
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(GetParentObject() );
 	Assert( pBPInterface );
 	pBPInterface->SetObjectOnBuildPoint( m_iBuiltOnPoint, NULL );
-#endif
 
 	SetParent( NULL );
 	m_hBuiltOnEntity = NULL;
@@ -2905,11 +2855,9 @@ void CBaseObject::SpawnEntityOnBuildPoint( const char *pEntityName, int iAttachm
 	pObject->m_fObjectFlags |= OF_CANNOT_BE_DISMANTLED;
 	pObject->AttemptToFindPower();
 
-#ifdef IMPLEMENT_ME
 	IHasBuildPoints *pBPInterface = dynamic_cast<IHasBuildPoints*>(this);
 	Assert( pBPInterface );
 	pBPInterface->SetObjectOnBuildPoint( iPoint, pObject );
-#endif
 }
 
 
@@ -3120,14 +3068,12 @@ void CBaseObject::SetBuffStation( CObjectBuffStation *pBuffStation, bool bPlacin
 
 bool CBaseObject::IsHookedAndBuffed( void )												
 { 
-#ifdef IMPLEMENT_ME
 	if ( GetBuffStation() && HasPowerup( POWERUP_BOOST ) )
 	{
 		if ( GetBuffStation()->IsPowered() && !GetBuffStation()->IsPlacing() &&
 			 !GetBuffStation()->IsBuilding() )
 			return true;
 	}
-#endif
 
 	return false;
 }

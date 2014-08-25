@@ -7,9 +7,7 @@
 #include "cbase.h"
 #include "team.h"
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
-#endif
 #include "tf_player.h"
 #include "techtree.h"
 #include "tf_obj.h"
@@ -20,16 +18,14 @@
 #include "entitylist.h"
 #include "team_spawnpoint.h"
 #include "team_messages.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_powerpack.h"
-#endif
 #include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
 #ifdef IMPLEMENT_ME
 #include "vstdlib/strtools.h"
 #include "tf_stats.h"
-#include "tf_obj_buff_station.h"
 #endif
+#include "tf_obj_buff_station.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -325,7 +321,6 @@ void CTFTeam::AddResourceZone( CResourceZone *pResource )
 	TRACE_OBJECT( UTIL_VarArgs( "%0.2f CTFTeam::AddResourceZone adding res zone %p to team %s\n", gpGlobals->curtime, 
 		pResource, GetName() ) );
 
-#ifdef IMPLEMENT_ME
 	// If this resource is already owned by another team, remove it from them
 	CTFTeam *pOwners = pResource->GetOwningTeam();
 	if ( pOwners )
@@ -334,7 +329,7 @@ void CTFTeam::AddResourceZone( CResourceZone *pResource )
 	pResource->SetOwningTeam( GetTeamNumber() );
 
 	m_aResourcesBeingCollected.AddToTail( pResource );
-#endif
+
 	m_bHaveZone = true;
 
 	// Tell all the team's members
@@ -453,24 +448,28 @@ CTechnologyTree *CTFTeam::GetTechnologyTree( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 {
-#ifdef IMPLEMENT_ME
 	CTeamFortress *rules = TFGameRules();
 	if ( rules )
 		// Disable autoswitching if we are getting a weapon
 		rules->SetAllowWeaponSwitch( false );
 
+#ifdef IMPLEMENT_ME
 	// Set the technology's resources to the costs
 	// Needed because technologies can be enabled through other means than resource spending
 	technology->ForceComplete();
 
 	// Apply technology to team first.
 	technology->AddTechnologyToTeam( this );
+#endif
 
 	// Iterate though players
 	for (int i = 0; i < m_aPlayers.Count(); i++ )
 	{
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)m_aPlayers[i];
+
+#ifdef IMPLEMENT_ME
 		technology->AddTechnologyToPlayer( pPlayer );
+#endif
 
 		CSingleUserRecipientFilter filter( pPlayer );
 		filter.MakeReliable();
@@ -480,6 +479,7 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 			CBaseEntity::EmitSound( filter, pPlayer->entindex(), "TFTeam.ObtainStolenTechnology" );
 		else
 		{
+#ifdef IMPLEMENT_ME
 			if ( technology->GetSoundFile(0) && technology->GetSoundFile(0)[0] )
 			{
 				EmitSound_t ep;
@@ -488,8 +488,10 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 
 				CBaseEntity::EmitSound( filter, pPlayer->entindex(), ep );
 			}
+#endif
 		}
 
+#ifdef IMPLEMENT_ME
 		// Remove all the player's votes on this technology
 		CBaseTechnology *pPreferredTech = m_pTechnologyTree->GetTechnology( pPlayer->GetPreferredTechnology() );
 		if ( pPreferredTech && pPreferredTech == technology )
@@ -500,6 +502,7 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 
 			pPlayer->SetPreferredTechnology( m_pTechnologyTree, -1 );
 		}
+#endif
 	}
 
 	// Let the team see if it wants to do anything with this specific technology
@@ -508,7 +511,6 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 	// Reenable autoswitching
 	if ( rules )
 		rules->SetAllowWeaponSwitch( true );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -606,7 +608,6 @@ void CTFTeam::RecomputePurchases( void )
 {
 	RecomputeTeamResources();
 
-#ifdef IMPLEMENT_ME
 	// Cycle through all players, and spend their resources on the technologies they're voting for
 	for ( int iPlayer = 0; iPlayer < m_aPlayers.Count(); iPlayer++ )
 	{
@@ -619,6 +620,7 @@ void CTFTeam::RecomputePurchases( void )
 		// Has he got a preffered tech?
 		if ( pPlayer->GetPreferredTechnology() != -1 )
 		{
+#ifdef IMPLEMENT_ME
 			// Get the player's voted-for technology
 			CBaseTechnology *pPreferredTech = m_pTechnologyTree->GetTechnology( pPlayer->GetPreferredTechnology() );
 			if ( pPreferredTech && pPreferredTech->GetAvailable() == false )
@@ -637,13 +639,11 @@ void CTFTeam::RecomputePurchases( void )
 
 				// Reduce the player's bank
 				if ( iResourcesSpent )
-				{
 					pPlayer->RemoveBankResources( iResourcesSpent );
-				}
 			}
+#endif
 		}
 	}
-#endif
 }
 
 
@@ -777,19 +777,18 @@ int CTFTeam::AddTeamResources( float fAmount, int nStat )
 
 	// Divvy the resources out to the players
 	int iAmountPerPlayer = Ceil2Int( fAmount / GetNumPlayers() );	// Yes, this does create some resources in the roundoff.
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < GetNumPlayers(); i++ )
 	{
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer*)GetPlayer(i);
 		pPlayer->AddBankResources( iAmountPerPlayer );
+
+#ifdef IMPLEMENT_ME
 		TFStats()->IncrementPlayerStat( pPlayer, TF_PLAYER_STAT_RESOURCES_ACQUIRED, fAmount );
 
 		if (nStat >= 0)
-		{
 			TFStats()->IncrementPlayerStat( pPlayer, (TFPlayerStatId_t)nStat, fAmount );
-		}
-	}
 #endif
+	}
 
 	ResourceLoadDeposited();
 
@@ -1346,7 +1345,6 @@ void CTFTeam::UpdateMessages( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::UpdatePowerpacks( CObjectPowerPack *pPackToIgnore, CBaseObject *pObjectToTarget )
 {
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < GetNumObjects(); i++ )
 	{
 		CBaseObject *pObject = GetObject(i);
@@ -1360,7 +1358,6 @@ void CTFTeam::UpdatePowerpacks( CObjectPowerPack *pPackToIgnore, CBaseObject *pO
 		if ( pObjectToTarget && pObjectToTarget->IsPowered() )
 			break;
 	}
-#endif
 }
 
 
@@ -1379,13 +1376,11 @@ void CTFTeam::UpdateBuffStations( CObjectBuffStation *pBuffStationToIgnore, CBas
 		if ( pObject->GetType() != OBJ_BUFF_STATION )
 			continue;
 
-#ifdef IMPLEMENT_ME
 		CObjectBuffStation *pBuffStation = static_cast<CObjectBuffStation*>( pObject );
 		if ( pBuffStation == pBuffStationToIgnore )
 			continue;
 
 		pBuffStation->BuffNearbyObjects( pObjectToTarget, bPlacing );
-#endif
 
 		// Quit as soon as we've powered the specified one, if there is one.
 		if ( pObjectToTarget && pObjectToTarget->IsHookedAndBuffed() )
@@ -1397,10 +1392,6 @@ void CTFTeam::UpdateBuffStations( CObjectBuffStation *pBuffStationToIgnore, CBas
 // UTILITY FUNCS
 //-----------------------------------------------------------------------------
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CTFTeam* CTFTeam::GetEnemyTeam()
 {
 	// Look for nearby enemy objects we can capture.

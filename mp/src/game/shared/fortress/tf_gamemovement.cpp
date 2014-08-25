@@ -1407,18 +1407,12 @@ void CTFGameMovement::CollisionResponseNone( const trace_t &trace )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::CollisionResponseStuck( void )
 {
 	mv->m_vecVelocity.Init();
 	//DevMsg( 1, "CollisionResponseStuck: %s is stuck (%s).\n", player->GetClassname(), player->IsServer() ? "sv" : "cl" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::CollisionResponseGeneric( const trace_t &trace, int &nBlocked )
 {
 	// Check for any movement.
@@ -1652,9 +1646,6 @@ int CTFGameMovement::TryPlayerMove( void )
 	return blocked;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 int CTFGameMovement::TryPlayerMove2( void )
 {
 	VPROF( "CTFGameMovement::TryPlayerMove2" );

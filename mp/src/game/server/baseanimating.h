@@ -441,9 +441,8 @@ inline CStudioHdr *CBaseAnimating::GetModelPtr( void )
 	AssertOnce( pModelCache->IsFrameLocking() );
 #endif
 	if ( !m_pStudioHdr && GetModel() )
-	{
 		LockStudioHdr();
-	}
+
 	return ( m_pStudioHdr && m_pStudioHdr->IsValid() ) ? m_pStudioHdr : NULL;
 }
 

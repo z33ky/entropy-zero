@@ -376,7 +376,6 @@ static ConVar tf2_feetyawrunscale( "tf2_feetyawrunscale", "2", FCVAR_REPLICATED,
 static ConVar tf2_ik( "tf2_ik", "1", FCVAR_REPLICATED, "Use IK on in-place turns." );
 extern ConVar sv_backspeed;
 
-#ifdef IMPLEMENT_ME
 CPlayerAnimState::CPlayerAnimState( CBaseTFPlayer *outer )
 	: m_pOuter( outer )
 {
@@ -830,5 +829,3 @@ void CPlayerAnimState::GetOuterAbsVelocity( Vector& vel )
 	vel = GetOuter()->GetAbsVelocity();
 #endif
 }
-
-#endif

@@ -91,9 +91,6 @@ CObjectBuffStation::CObjectBuffStation()
 	UseClientSideAnimation();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: Spawn
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::Spawn()
 {
 	// This must be set before calling the base class spawn.
@@ -184,9 +181,6 @@ void CObjectBuffStation::DestroyObject( void )
 	BaseClass::DestroyObject();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::OnGoInactive( void )
 {
 	BaseClass::OnGoInactive();
@@ -196,18 +190,14 @@ void CObjectBuffStation::OnGoInactive( void )
 	{
 		CBaseTFPlayer *pPlayer = m_hPlayers[iPlayer].Get();
 		if ( pPlayer )
-		{
 			ClientPrint( pPlayer, HUD_PRINTCENTER, "Lost power to Buff Station!" );
-		}
 
 		DetachPlayerByIndex( iPlayer );
 	}
 
 	// Detach all objects.
 	for ( int iObject = m_nObjectCount - 1; iObject >= 0; --iObject )
-	{
 		DetachObjectByIndex( iObject );
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -247,9 +237,6 @@ bool CObjectBuffStation::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd
 	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::InitAttachmentData( void )
 {
 	// Initialize the attachment data.
@@ -407,9 +394,7 @@ void CObjectBuffStation::AttachPlayer( CBaseTFPlayer *pPlayer )
 
 	// Update think.
 	if ( GetNextThink(BUFF_STATION_BOOST_PLAYER_THINK_CONTEXT) > gpGlobals->curtime + BUFF_STATION_BOOST_PLAYER_THINK_INTERVAL )
-	{
 		SetNextThink( gpGlobals->curtime + BUFF_STATION_BOOST_PLAYER_THINK_INTERVAL, BUFF_STATION_BOOST_PLAYER_THINK_CONTEXT );
-	}
 
 	// Update network state.
 	NetworkStateChanged();
@@ -568,9 +553,6 @@ void CObjectBuffStation::DetachObjectByIndex( int nIndex )
 	NetworkStateChanged( );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::UpdatePlayerAttachment( CBaseTFPlayer *pPlayer )
 {
 	// Valid player?
@@ -584,19 +566,12 @@ void CObjectBuffStation::UpdatePlayerAttachment( CBaseTFPlayer *pPlayer )
 	{
 		// Check for power, do not attach to unpowered generator.
 		if ( !IsPowered() )
-		{
 			ClientPrint( pPlayer, HUD_PRINTCENTER, "No power source for the Buff Station!" );
-		}
 		else
-		{
 			AttachPlayer( pPlayer );
-		}
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::SwapObjectAttachment( int nIndex )
 {
 	bool bModifierActive = m_aObjectAttachInfo[m_nObjectCount].m_DamageModifier.GetCharacter() != NULL;
@@ -606,9 +581,7 @@ void CObjectBuffStation::SwapObjectAttachment( int nIndex )
 	m_aObjectAttachInfo[nIndex] = m_aObjectAttachInfo[m_nObjectCount];
 
 	if ( bModifierActive )
-	{
 		m_aObjectAttachInfo[nIndex].m_DamageModifier.AddModifierToEntity( m_hObjects[nIndex].Get() );
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -620,9 +593,7 @@ void CObjectBuffStation::InputPlayerSpawned( inputdata_t &inputdata )
 	{
 		CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer*>( inputdata.pActivator );
 		if ( IsPlayerAttached( pPlayer ) )
-		{
 			DetachPlayer( pPlayer );
-		}
 	}
 }
 
@@ -635,9 +606,7 @@ void CObjectBuffStation::InputPlayerAttachedToGenerator( inputdata_t &inputdata 
 	{
 		CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer*>( inputdata.pActivator );
 		if ( IsPlayerAttached( pPlayer ) )
-		{
 			DetachPlayer( pPlayer );
-		}
 	}
 }
 
@@ -680,26 +649,17 @@ void CObjectBuffStation::BoostPlayerThink( void )
 		}
 
 		if ( !bBoosted )
-		{
 			m_aPlayerAttachInfo[iPlayer].m_DamageModifier.RemoveModifier();
-		}
 	}
 
 	// Set next think time.
 	if ( m_nPlayerCount > 0 )
-	{
 		SetNextThink( gpGlobals->curtime + BUFF_STATION_BOOST_PLAYER_THINK_INTERVAL, 
 			          BUFF_STATION_BOOST_PLAYER_THINK_CONTEXT );
-	}
 	else
-	{
 		SetNextThink( gpGlobals->curtime + 1.0f, BUFF_STATION_BOOST_PLAYER_THINK_CONTEXT );
-	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CObjectBuffStation::BoostObjectThink( void )
 {
 	// Set next boost object think time.

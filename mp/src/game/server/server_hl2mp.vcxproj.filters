@@ -1655,6 +1655,18 @@
     <ClInclude Include="fortress\team_messages.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_obj_powerpack.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_func_resource.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\resource_chunk.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\ihasbuildpoints.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3054,6 +3066,21 @@
     </ClCompile>
     <ClCompile Include="fortress\tf_playerlocaldata.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_powerpack.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_func_resource.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\resource_chunk.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\techtree.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\techtree_parse.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

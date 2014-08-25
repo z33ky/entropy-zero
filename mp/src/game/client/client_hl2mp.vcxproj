@@ -398,6 +398,7 @@ exit 1
     <ClInclude Include="..\shared\fortress\tf_gamerules.h" />
     <ClInclude Include="..\shared\fortress\tf_hints.h" />
     <ClInclude Include="..\shared\fortress\tf_movedata.h" />
+    <ClInclude Include="..\shared\fortress\tf_playeranimstate.h" />
     <ClInclude Include="..\shared\fortress\tf_shareddefs.h" />
     <ClInclude Include="..\shared\fortress\tf_vehicleshared.h" />
     <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
@@ -408,6 +409,7 @@ exit 1
     <ClInclude Include="fortress\CommanderOverlay.h" />
     <ClInclude Include="fortress\c_baseobject.h" />
     <ClInclude Include="fortress\c_basetfplayer.h" />
+    <ClInclude Include="fortress\c_func_resource.h" />
     <ClInclude Include="fortress\c_info_act.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
@@ -900,6 +902,8 @@ exit 1
     <ClCompile Include="..\shared\fortress\baseobject_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
+    <ClCompile Include="..\shared\fortress\techtree.cpp" />
+    <ClCompile Include="..\shared\fortress\techtree_parse.cpp" />
     <ClCompile Include="..\shared\fortress\tfclassdata_shared.cpp" />
     <ClCompile Include="..\shared\fortress\tf_gamemovement.cpp" />
     <ClCompile Include="..\shared\fortress\tf_gamemovement_chooser.cpp" />
@@ -915,8 +919,11 @@ exit 1
     <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\c_baseobject.cpp" />
     <ClCompile Include="fortress\c_basetfplayer.cpp" />
+    <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_info_act.cpp" />
     <ClCompile Include="fortress\c_obj_buff_station.cpp" />
+    <ClCompile Include="fortress\c_obj_powerpack.cpp" />
+    <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_tf2rootpanel.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
     <ClCompile Include="fortress\c_tf_basecombatweapon.cpp" />

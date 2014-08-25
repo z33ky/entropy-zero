@@ -12,10 +12,8 @@
 #endif
 
 #include "baseentity.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
 #include "ihasbuildpoints.h"
-#endif
 #include "baseobject_shared.h"
 #include "info_vehicle_bay.h"
 
@@ -65,10 +63,7 @@ public:
 // ------------------------------------------------------------------------ //
 // Resupply object that's built by the player
 // ------------------------------------------------------------------------ //
-class CBaseObject : public CBaseCombatCharacter
-#ifdef IMPLEMENT_ME
-	, public IHasBuildPoints
-#endif
+class CBaseObject : public CBaseCombatCharacter, public IHasBuildPoints
 {
 	DECLARE_CLASS( CBaseObject, CBaseCombatCharacter );
 public:
@@ -233,9 +228,9 @@ public:
 	// Returns the object flags
 	int				GetObjectFlags() const { return m_fObjectFlags; }
 	void			SetObjectFlags( int flags ) { m_fObjectFlags = flags; }
-#ifdef IMPLEMENT_ME
+
 	CResourceZone	*GetResourceZone() { return m_hResourceZone.Get(); }
-#endif
+
 	int				RopeCount() const { return m_aRopes.Count(); }
 
 	// Power handling (Human objects need power to operate)
@@ -371,10 +366,8 @@ protected:
 	CNetworkVar( int, m_fObjectFlags );
 	CNetworkHandle( CBaseTFPlayer,	m_hBuilder );
 
-#ifdef IMPLEMENT_ME
 	// Zone we're in (valid only for objects that sit in zones)
 	CNetworkHandle( CResourceZone, m_hResourceZone );
-#endif
 
 	// Combat Objects
 	char	*m_szAmmoName;		// Ammo used by players to build me

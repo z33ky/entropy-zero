@@ -269,6 +269,7 @@ exit 1
     <ClInclude Include="..\shared\fortress\baseobject_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfcombatweapon_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h" />
+    <ClInclude Include="..\shared\fortress\ihasbuildpoints.h" />
     <ClInclude Include="..\shared\fortress\techtree.h" />
     <ClInclude Include="..\shared\fortress\tfclassdata_shared.h" />
     <ClInclude Include="..\shared\fortress\tf_gamemovement.h" />
@@ -339,11 +340,14 @@ exit 1
     <ClInclude Include="fortress\info_vehicle_bay.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="fortress\resource_chunk.h" />
     <ClInclude Include="fortress\team_messages.h" />
     <ClInclude Include="fortress\tf_class_commando.h" />
+    <ClInclude Include="fortress\tf_func_resource.h" />
     <ClInclude Include="fortress\tf_hintmanager.h" />
     <ClInclude Include="fortress\tf_obj.h" />
     <ClInclude Include="fortress\tf_obj_buff_station.h" />
+    <ClInclude Include="fortress\tf_obj_powerpack.h" />
     <ClInclude Include="fortress\tf_player.h" />
     <ClInclude Include="fortress\tf_playerclass.h" />
     <ClInclude Include="fortress\tf_playerlocaldata.h" />
@@ -800,6 +804,8 @@ exit 1
     <ClCompile Include="..\shared\fortress\baseobject_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
+    <ClCompile Include="..\shared\fortress\techtree.cpp" />
+    <ClCompile Include="..\shared\fortress\techtree_parse.cpp" />
     <ClCompile Include="..\shared\fortress\tfclassdata_shared.cpp" />
     <ClCompile Include="..\shared\fortress\tf_gamemovement.cpp" />
     <ClCompile Include="..\shared\fortress\tf_gamemovement_chooser.cpp" />
@@ -813,17 +819,20 @@ exit 1
     <ClCompile Include="fortress\info_vehicle_bay.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="fortress\resource_chunk.cpp" />
     <ClCompile Include="fortress\tf2_eventlog.cpp" />
     <ClCompile Include="fortress\tf_class_commando.cpp" />
     <ClCompile Include="fortress\tf_client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="fortress\tf_func_resource.cpp" />
     <ClCompile Include="fortress\tf_gameinterface.cpp" />
     <ClCompile Include="fortress\tf_hintmanager.cpp" />
     <ClCompile Include="fortress\tf_obj.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="fortress\tf_obj_buff_station.cpp" />
+    <ClCompile Include="fortress\tf_obj_powerpack.cpp" />
     <ClCompile Include="fortress\tf_player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>

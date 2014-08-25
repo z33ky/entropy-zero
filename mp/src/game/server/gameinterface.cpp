@@ -1016,13 +1016,9 @@ bool CServerGameDLL::LevelInit( const char *pMapName, char const *pMapEntities, 
 	else
 	{
 		if ( background )
-		{
 			gpGlobals->eLoadType = MapLoad_Background;
-		}
 		else
-		{
 			gpGlobals->eLoadType = MapLoad_NewGame;
-		}
 
 		// Clear out entity references, and parse the entities into it.
 		g_MapEntityRefs.Purge();

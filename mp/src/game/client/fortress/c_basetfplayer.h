@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
-
 #if !defined( C_BASETFPLAYER_H )
 #define C_BASETFPLAYER_H
 #ifdef _WIN32
@@ -20,9 +13,7 @@
 #include "particlemgr.h"
 #include "particle_prototype.h"
 #include "particle_util.h"
-#ifdef IMPLEMENT_ME
 #include "tf_playeranimstate.h"
-#endif
 
 class C_VehicleTeleportStation;
 class CViewSetup;
@@ -325,9 +316,7 @@ private:
 	bool				m_bKnockdownOverrideAngles;
 	float				m_flKnockdownViewheightAdjust;
 
-#ifdef IMPLEMENT_ME
 	CPlayerAnimState	m_PlayerAnimState;
-#endif
 
 	// For sniper hiding
 	float				m_flLastMoveTime;

@@ -16,9 +16,7 @@
 #include "particle_prototype.h"
 #include "particle_util.h"
 #include "c_basecombatcharacter.h"
-#ifdef IMPLEMENT_ME
 #include "ihasbuildpoints.h"
-#endif
 
 class C_BaseTFPlayer;
 
@@ -28,10 +26,7 @@ class C_BaseTFPlayer;
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-class C_BaseObject : public C_BaseCombatCharacter
-#ifdef IMPLEMENT_ME
-	, public IHasBuildPoints
-#endif
+class C_BaseObject : public C_BaseCombatCharacter, public IHasBuildPoints
 {
 	DECLARE_CLASS( C_BaseObject, C_BaseCombatCharacter );
 public:

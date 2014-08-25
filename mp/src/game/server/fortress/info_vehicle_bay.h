@@ -4,18 +4,13 @@
 #pragma once
 #endif
 
-#ifdef IMPLEMENT_ME
 #include "ihasbuildpoints.h"
-#endif
 #include "vguiscreen.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: Entity that provides a place to build a vehicle
 //-----------------------------------------------------------------------------
-class CInfoVehicleBay : public CBaseEntity
-#ifdef IMPLEMENT_ME
-	, public IHasBuildPoints
-#endif
+class CInfoVehicleBay : public CBaseEntity, public IHasBuildPoints
 {
 	DECLARE_CLASS( CInfoVehicleBay, CBaseEntity );
 public:

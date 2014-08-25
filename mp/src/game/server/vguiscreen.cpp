@@ -371,17 +371,12 @@ void CVGuiScreen::SetActualSize( float flWidth, float flHeight )
 	UTIL_SetSize( this, mins, maxs );
 }
 
-//-----------------------------------------------------------------------------
-// 
-//-----------------------------------------------------------------------------
 void CVGuiScreen::SetPlayerOwner( CBasePlayer *pPlayer, bool bOwnerOnlyInput /* = false */ )
 {
 	m_hPlayerOwner = pPlayer;
 
 	if ( bOwnerOnlyInput )
-	{
 		m_fScreenFlags.Set( VGUI_SCREEN_ONLY_USABLE_BY_OWNER );
-	}
 }
 
 

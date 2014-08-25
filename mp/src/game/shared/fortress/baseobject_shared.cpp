@@ -181,13 +181,9 @@ int CBaseObject::GetBuildPointAttachmentIndex( int iPoint ) const
 	Assert( iPoint >= 0 && iPoint <= GetNumBuildPoints() );
 
 	if ( m_BuildPoints[iPoint].m_bPutInAttachmentSpace )
-	{
 		return m_BuildPoints[iPoint].m_iAttachmentNum;
-	}
 	else
-	{
 		return 0;
-	}
 }
 
 void CBaseObject::SetObjectOnBuildPoint( int iPoint, CBaseObject *pObject )
@@ -201,14 +197,10 @@ float CBaseObject::GetMaxSnapDistance( int iPoint )
 	Assert( iPoint >= 0 && iPoint <= GetNumBuildPoints() );
 
 	if ( m_BuildPoints[iPoint].m_iAttachmentNum == -1 )
-	{
 		// Virtual build points need some more space since they represent an upgrade to the whole object.
 		return 128;
-	}
 	else
-	{
 		return 128;
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -249,10 +241,6 @@ int CBaseObject::FindObjectOnBuildPoint( CBaseObject *pObject )
 	return -1;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CBaseObject *CBaseObject::GetObjectOfTypeOnMe( int iObjectType )
 {
 	for ( int iObject = 0; iObject < GetNumObjectsOnMe(); ++iObject )
@@ -266,9 +254,6 @@ CBaseObject *CBaseObject::GetObjectOfTypeOnMe( int iObjectType )
 	return NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseObject::RemoveAllObjects( void )
 {
 	for ( int i = 0; i < GetNumBuildPoints(); i++ )
@@ -377,20 +362,13 @@ bool CBaseObject::IsPowered( void )
 	if ( !CanPowerupEver( POWERUP_POWER ) )
 		return true;
 
-#ifdef IMPLEMENT_ME
 #ifdef CLIENT_DLL
 	return ( HasPowerup(POWERUP_POWER) );
 #else
 	return ( HasPowerup(POWERUP_POWER) || m_hPowerPack );
 #endif
-#else
-	return false;
-#endif
 };
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 float CBaseObject::GetSapperAttachTime( void )
 {
 	return GetObjectInfo( GetType() )->m_flSapperAttachTime;
@@ -423,11 +401,9 @@ bool CBaseObject::ShouldBeActive( void )
 	if ( IsPlacing() || IsBuilding() )
 		return false;
 
-#ifdef IMPLEMENT_ME
 	// Powered? Or don't need it
 	if ( CanPowerupEver(POWERUP_POWER) && !HasPowerup( POWERUP_POWER ) )
 		return false;
-#endif
 
 	return true;
 }
