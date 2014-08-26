@@ -1,9 +1,6 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: Team management class. Contains all the details for a specific team
-//
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 #include "team.h"
 #include "tf_team.h"
@@ -122,11 +119,9 @@ CTFTeam::~CTFTeam( void )
 
 void CTFTeam::Precache( void )
 {
-#ifdef IMPLEMENT_ME
 	// Precache all the technologies in the techtree
 	for ( int i = 0; i < m_pTechnologyTree->GetNumberTechnologies(); i++ )
 		PrecacheTechnology( m_pTechnologyTree->GetTechnology(i) );
-#endif
 
 	// Cache sounds
 	enginesound->PrecacheSound( "vox/captured-alpha-resource.wav" );
@@ -189,7 +184,6 @@ void CTFTeam::UpdateClientData( CBasePlayer *pPlayer )
 	// If we're initialising the hud, update all technologies
 	if ( pTFPlayer->HUDNeedsRestart() )
 	{
-#ifdef IMPLEMENT_ME
 		// Check all the technologies and resend any that differ from this client's representation
 		for ( int i = 0; i < m_pTechnologyTree->GetNumberTechnologies(); i++ )
 		{
@@ -222,7 +216,6 @@ void CTFTeam::UpdateClientData( CBasePlayer *pPlayer )
 				}
 			}
 		}
-#endif
 	}
 }
 
@@ -231,7 +224,6 @@ void CTFTeam::UpdateClientData( CBasePlayer *pPlayer )
 //-----------------------------------------------------------------------------
 void CTFTeam::UpdateClientTechnology( int iTechID, CBaseTFPlayer *pPlayer )
 {
-#ifdef IMPLEMENT_ME
 	CBaseTechnology *pTechnology = m_pTechnologyTree->GetTechnology( iTechID );
 	if ( !pTechnology )
 		return;
@@ -256,7 +248,6 @@ void CTFTeam::UpdateClientTechnology( int iTechID, CBaseTFPlayer *pPlayer )
 	pPlayer->AvailableTech(iTechID).m_nAvailable = pTechnology->GetAvailable();
 	pPlayer->AvailableTech(iTechID).m_nUserCount = pcount;
 	pPlayer->AvailableTech(iTechID).m_nResourceLevel = pTechnology->GetResourceLevel();
-#endif
 
 	/*
 	Msg( "Sent %s(%d) to %s:\n", pTechnology->GetName(), iTechID, STRING(pPlayer->pl->netname) );
@@ -271,7 +262,6 @@ void CTFTeam::UpdateClientTechnology( int iTechID, CBaseTFPlayer *pPlayer )
 //-----------------------------------------------------------------------------
 void CTFTeam::UpdateTechnologyData( void )
 {
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < m_pTechnologyTree->GetNumberTechnologies(); i++ )
 	{
 		// Update all technologies
@@ -288,7 +278,6 @@ void CTFTeam::UpdateTechnologyData( void )
 			pTechnology->SetDirty( false );
 		}
 	}
-#endif
 }
 
 bool CTFTeam::ShouldTransmitToPlayer( CBasePlayer* pRecipient, CBaseEntity* pEntity )
@@ -301,13 +290,9 @@ bool CTFTeam::ShouldTransmitToPlayer( CBasePlayer* pRecipient, CBaseEntity* pEnt
 //-----------------------------------------------------------------------------
 bool CTFTeam::IsEntityVisibleToTactical( CBaseEntity *pEntity )
 {
-#ifdef IMPLEMENT_ME
 	return ::IsEntityVisibleToTactical( GetTeamNumber(), GetNumPlayers(), 
 		GetNumObjects(), pEntity->entindex(), (char*)STRING(pEntity->m_iClassname), 
 		pEntity->GetTeamNumber(), pEntity->GetAbsOrigin() );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -417,7 +402,6 @@ void CTFTeam::SetRecentBankSet( float flResources )
 //-----------------------------------------------------------------------------
 void CTFTeam::InitializeTechTree( void )
 {
-#ifdef IMPLEMENT_ME
 	m_pTechnologyTree = new CTechnologyTree( filesystem, GetTeamNumber() );
 
 	// Now iterate through added techs and automatically make level 0 techs available
@@ -428,11 +412,8 @@ void CTFTeam::InitializeTechTree( void )
 			continue;
 
 		if ( tech->GetLevel() == 0 )
-		{
 			EnableTechnology( tech );
-		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -453,23 +434,19 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 		// Disable autoswitching if we are getting a weapon
 		rules->SetAllowWeaponSwitch( false );
 
-#ifdef IMPLEMENT_ME
 	// Set the technology's resources to the costs
 	// Needed because technologies can be enabled through other means than resource spending
 	technology->ForceComplete();
 
 	// Apply technology to team first.
 	technology->AddTechnologyToTeam( this );
-#endif
 
 	// Iterate though players
 	for (int i = 0; i < m_aPlayers.Count(); i++ )
 	{
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)m_aPlayers[i];
 
-#ifdef IMPLEMENT_ME
 		technology->AddTechnologyToPlayer( pPlayer );
-#endif
 
 		CSingleUserRecipientFilter filter( pPlayer );
 		filter.MakeReliable();
@@ -479,7 +456,6 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 			CBaseEntity::EmitSound( filter, pPlayer->entindex(), "TFTeam.ObtainStolenTechnology" );
 		else
 		{
-#ifdef IMPLEMENT_ME
 			if ( technology->GetSoundFile(0) && technology->GetSoundFile(0)[0] )
 			{
 				EmitSound_t ep;
@@ -488,10 +464,8 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 
 				CBaseEntity::EmitSound( filter, pPlayer->entindex(), ep );
 			}
-#endif
 		}
 
-#ifdef IMPLEMENT_ME
 		// Remove all the player's votes on this technology
 		CBaseTechnology *pPreferredTech = m_pTechnologyTree->GetTechnology( pPlayer->GetPreferredTechnology() );
 		if ( pPreferredTech && pPreferredTech == technology )
@@ -502,7 +476,6 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 
 			pPlayer->SetPreferredTechnology( m_pTechnologyTree, -1 );
 		}
-#endif
 	}
 
 	// Let the team see if it wants to do anything with this specific technology
@@ -518,7 +491,6 @@ void CTFTeam::EnableTechnology( CBaseTechnology *technology, bool bStolen )
 //-----------------------------------------------------------------------------
 void CTFTeam::EnableAllTechnologies()
 {
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < m_pTechnologyTree->GetNumberTechnologies(); i++ )
 	{
 		CBaseTechnology *technology = m_pTechnologyTree->GetTechnology(i);
@@ -527,7 +499,6 @@ void CTFTeam::EnableAllTechnologies()
 
 		EnableTechnology( technology );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -535,7 +506,6 @@ void CTFTeam::EnableAllTechnologies()
 //-----------------------------------------------------------------------------
 void CTFTeam::RecomputePreferences( void )
 {
-#ifdef IMPLEMENT_ME
 	// Zero total counters
 	m_pTechnologyTree->ClearPreferenceCount();
 
@@ -582,7 +552,6 @@ void CTFTeam::RecomputePreferences( void )
 		// Add one vote to totals
 		m_pTechnologyTree->IncrementPreferences();
 	}
-#endif
 
 	// Any time preferences are changed/set, see if we should make any purchases immediately.
 	RecomputePurchases();
@@ -620,7 +589,6 @@ void CTFTeam::RecomputePurchases( void )
 		// Has he got a preffered tech?
 		if ( pPlayer->GetPreferredTechnology() != -1 )
 		{
-#ifdef IMPLEMENT_ME
 			// Get the player's voted-for technology
 			CBaseTechnology *pPreferredTech = m_pTechnologyTree->GetTechnology( pPlayer->GetPreferredTechnology() );
 			if ( pPreferredTech && pPreferredTech->GetAvailable() == false )
@@ -641,7 +609,6 @@ void CTFTeam::RecomputePurchases( void )
 				if ( iResourcesSpent )
 					pPlayer->RemoveBankResources( iResourcesSpent );
 			}
-#endif
 		}
 	}
 }
@@ -652,7 +619,6 @@ void CTFTeam::RecomputePurchases( void )
 //-----------------------------------------------------------------------------
 bool CTFTeam::HasNamedTechnology( const char *name )
 {
-#ifdef IMPLEMENT_ME
 	// Look it up
 	// FIXME:  This could be too slow, consider using #define'd/indexed names?
 	CBaseTechnology *tech = m_pTechnologyTree->GetTechnology( name ); 
@@ -660,7 +626,7 @@ bool CTFTeam::HasNamedTechnology( const char *name )
 		return false;
 	if ( !tech->GetAvailable() )
 		return false;
-#endif
+
 	return true;
 }
 
@@ -692,7 +658,6 @@ void CTFTeam::AddPlayer( CBasePlayer *pPlayer )
 {
 	BaseClass::AddPlayer( pPlayer );
 	
-#ifdef IMPLEMENT_ME
 	// Give the player this team's technology
 	for ( int i = 0; i < m_pTechnologyTree->GetNumberTechnologies(); i++ )
 	{
@@ -710,7 +675,6 @@ void CTFTeam::AddPlayer( CBasePlayer *pPlayer )
 		// Add it.
 		technology->AddTechnologyToPlayer( (CBaseTFPlayer*)pPlayer );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1275,7 +1239,6 @@ int CTFTeam::CountOrdersOwnedByPlayer( CBaseTFPlayer *pPlayer )
 //-----------------------------------------------------------------------------
 void CTFTeam::ClearMessages( void )
 {
-#ifdef IMPLEMENT_ME
 	int iSize = m_aMessages.Count();
 	for (int i = iSize-1; i >= 0; i--)
 	{
@@ -1285,7 +1248,6 @@ void CTFTeam::ClearMessages( void )
 	}
 
 	m_aMessages.Purge();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1293,7 +1255,6 @@ void CTFTeam::ClearMessages( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::PostMessage( int iMessageID, CBaseEntity *pEntity, char *sData )
 {
-#ifdef IMPLEMENT_ME
 	// First see if we've got this message in the queue already
 	for ( int i = 0; i < m_aMessages.Count(); i++ )
 	{
@@ -1314,26 +1275,20 @@ void CTFTeam::PostMessage( int iMessageID, CBaseEntity *pEntity, char *sData )
 
 	// Tell the message to fire
 	pMessage->FireMessage();
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFTeam::UpdateMessages( void )
 {
 	// Go through my messages and kill any that have reached their TTL
 	int iSize = m_aMessages.Count();
 	for (int i = iSize-1; i >= 0; i--)
 	{
-#ifdef IMPLEMENT_ME
 		CTeamMessage *pMessage = m_aMessages[i];
 		if ( gpGlobals->curtime > pMessage->GetTTL() )
 		{
 			m_aMessages.Remove( i );
 			delete pMessage;
 		}
-#endif
 	}
 }
 

@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-//=============================================================================
-
 #ifndef TF_PLAYERANIMSTATE_H
 #define TF_PLAYERANIMSTATE_H
 #ifdef _WIN32

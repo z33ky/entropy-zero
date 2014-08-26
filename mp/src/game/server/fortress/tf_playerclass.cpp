@@ -326,7 +326,6 @@ void CPlayerClass::AddWeaponTechAssociations( void )
 {
 	ClearAllWeaponTechAssoc();
 
-#ifdef IMPLEMENT_ME
 	// Iterate tech tree for this class and find
 	Assert( m_pPlayer );
 	CTechnologyTree *tree = m_pPlayer->GetTechTree();
@@ -346,7 +345,6 @@ void CPlayerClass::AddWeaponTechAssociations( void )
 		// Associate weapon tech name with class
 		AddWeaponTechAssoc( (char *)tech->GetName() );
 	}
-#endif
 }
 
 void CPlayerClass::NetworkStateChanged()
@@ -381,7 +379,6 @@ void CPlayerClass::SetupSizeData( void )
 
 void CPlayerClass::CreateClass( void )
 { 
-#ifdef IMPLEMENT_ME
 	// Give them a full loadout on the initial spawn
 	ResupplyAmmo( 100.0f, RESUPPLY_ALL_FROM_STATION );
 
@@ -438,12 +435,14 @@ void CPlayerClass::CreateClass( void )
 			if ( !tf_fastbuild.GetBool() && bHaveYard && IsObjectADefensiveBuilding(iClassObject) )
 				continue;
 
+#ifdef IMPLEMENT_ME
 			m_pPlayer->GetWeaponBuilder()->AddBuildableObject( iClassObject );
 
 			// Give the player a fake weapon to select this object with
 			CWeaponObjectSelection *pSelection = (CWeaponObjectSelection *)m_pPlayer->GiveNamedItem( "weapon_objectselection", iClassObject  );
 			if ( pSelection )
 				pSelection->SetType( iClassObject );
+#endif
 		}
 	}
 
@@ -470,7 +469,6 @@ void CPlayerClass::CreateClass( void )
 			}
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------

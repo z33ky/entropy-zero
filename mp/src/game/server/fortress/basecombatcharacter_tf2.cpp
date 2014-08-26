@@ -1,8 +1,6 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: TF2 specific CBaseCombatCharacter code.
-//
-//=============================================================================
+
 #include "cbase.h"
 #include "basecombatcharacter.h"
 #include "engine/IEngineSound.h"

@@ -1,9 +1,6 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: Shared stuff for the Tactical map
-//
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 
 // Unfortunate hack.
@@ -65,7 +62,6 @@ static inline bool IsPlayerVisible( int iEntIndex )
 
 static inline bool IsEntityAnObject( int iEntIndex )
 {
-#ifdef IMPLEMENT_ME
 	CBaseEntity* pEnt = CBaseEntity::Instance( engine->PEntityOfEntIndex( iEntIndex ) );
 	CBaseObject *pObject = dynamic_cast<CBaseObject*>(pEnt);
 	if (!pObject)
@@ -73,9 +69,6 @@ static inline bool IsEntityAnObject( int iEntIndex )
 
 	// Don't bother with boring ones... they're boring!
 	return ((pObject->GetObjectFlags( ) & OF_SUPPRESS_VISIBLE_TO_TACTICAL) == 0);
-#else
-	return false;
-#endif
 }
 
 #endif

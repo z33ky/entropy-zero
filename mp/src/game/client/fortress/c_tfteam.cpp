@@ -1,9 +1,6 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: Client side C_TFTeam class
-//
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 #ifdef IMPLEMENT_ME
 #include "parsemsg.h"

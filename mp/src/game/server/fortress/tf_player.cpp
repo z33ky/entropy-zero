@@ -452,12 +452,10 @@ void CBaseTFPlayer::Spawn( void )
 
 void CBaseTFPlayer::CleanupOnActStart( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell all our weapons
 	for ( int i = 0; i < WeaponCount(); i++ ) 
 		if ( GetWeapon(i) ) 
 			((CBaseTFCombatWeapon*)GetWeapon(i))->CleanupOnActStart();
-#endif
 }
 
 void CBaseTFPlayer::RecalculateSpeed( void )
@@ -1397,9 +1395,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			return true;
 		}
 
-#ifdef IMPLEMENT_ME
 		if ( FStrEq( cmd, "emp_target" ) )
 		{
+#ifdef IMPLEMENT_ME
 			CBaseEntity *pEntity = FindEntityForward( this );
 			if ( pEntity && pEntity->CanBePoweredUp() )
 			{
@@ -1409,9 +1407,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 
 				pEntity->AttemptToPowerup( POWERUP_EMP, flTime );
 			}
+#endif
 			return true;
 		}
-#endif
 
 		if ( FStrEq( cmd, "dmg_target" ) )
 		{
@@ -1932,11 +1930,9 @@ int CBaseTFPlayer::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 
 CTechnologyTree *CBaseTFPlayer::GetTechTree( void )
 {
-#ifdef IMPLEMENT_ME
 	CTFTeam *pTeam = GetTFTeam();
 	if ( pTeam )
 		return pTeam->m_pTechnologyTree;
-#endif
 
 	return NULL;
 }
@@ -1951,11 +1947,6 @@ CPlayerClass *CBaseTFPlayer::GetPlayerClass()
 	return m_PlayerClasses.GetPlayerClass( PlayerClass() );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *name - 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::SetPreferredTechnology( CTechnologyTree *pTechnologyTree, int iTechIndex )
 {
 	Assert( pTechnologyTree );
@@ -1967,7 +1958,6 @@ void CBaseTFPlayer::SetPreferredTechnology( CTechnologyTree *pTechnologyTree, in
 
 	if ( iTechIndex == -1 )
 		m_nPreferredTechnology = -1;
-#ifdef IMPLEMENT_ME
 	else
 	{
 		if ( iTechIndex < 0 || iTechIndex >= pTechnologyTree->GetNumberTechnologies() )
@@ -1994,7 +1984,6 @@ void CBaseTFPlayer::SetPreferredTechnology( CTechnologyTree *pTechnologyTree, in
 	}
 
 	pTeam->RecomputePreferences();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2112,9 +2101,8 @@ void CBaseTFPlayer::StartDeploying( void )
 	m_vecDeployedAngles.SetZ( 0 );
 
 	SetCantMove( true );
-#ifdef IMPLEMENT_ME
+
 	m_flFinishedDeploying = gpGlobals->curtime + GetPlayerClass()->GetDeployTime();
-#endif
 
 	SetAnimation( PLAYER_START_AIMING );
 
@@ -2222,7 +2210,6 @@ void CBaseTFPlayer::OnVehicleEnd( Vector &playerDestPosition )
 	if (GetPlayerClass())
 		GetPlayerClass()->OnVehicleEnd();
 
-#ifdef IMPLEMENT_ME
 	Vector vNewPos;
 	if ( !EntityPlacementTest( this, playerDestPosition, vNewPos, true) )
 	{
@@ -2232,7 +2219,6 @@ void CBaseTFPlayer::OnVehicleEnd( Vector &playerDestPosition )
 
 	// Move the player up a bit to be safe
 	playerDestPosition = vNewPos + Vector(0,0,16);
-#endif
 
 	CBaseCombatWeapon *weapon = GetActiveWeapon();
 	if ( weapon )

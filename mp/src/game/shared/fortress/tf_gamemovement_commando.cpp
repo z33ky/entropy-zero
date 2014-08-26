@@ -217,12 +217,11 @@ void CTFGameMovementCommando::SetupSpeed( void )
 	if ( player->GetMoveType() == COMMANDO_MOVETYPE_BULLRUSH )
 	{
 		mv->m_flMaxSpeed = sv_maxspeed.GetFloat();
-
-#ifdef IMPLEMENT_ME
+		
+		surfacedata_t *m_pSurfaceData = player->GetSurfaceData();
 		// Slow down by the speed factor
 		if (m_pSurfaceData)
-			mv->m_flMaxSpeed *= m_pSurfaceData->maxSpeedFactor;
-#endif
+			mv->m_flMaxSpeed *= m_pSurfaceData->game.maxSpeedFactor;
 
 		mv->m_flForwardMove = TFMove()->m_flClientMaxSpeed * 4.0f;
 		mv->m_flUpMove = 0.0f;

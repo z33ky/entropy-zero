@@ -216,13 +216,9 @@ void CBuffStationControlPanel::OnTick()
 	char buf[256];
 	int nSocketsLeft = pStation->PlayerSocketsLeft();
 	if (nSocketsLeft > 0)
-	{
 		Q_snprintf( buf, 256, "%d sockets left", pStation->PlayerSocketsLeft() );
-	}
 	else
-	{
 		Q_snprintf( buf, 256, "No sockets left" );
-	}
 
 	m_pSocketsLabel->SetText( buf );
 

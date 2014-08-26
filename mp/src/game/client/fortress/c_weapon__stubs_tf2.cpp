@@ -1,7 +1,5 @@
 #include "cbase.h"
-#ifdef IMPLEMENT_ME
 #include "c_tf_basecombatweapon.h"
-#endif
 #include "c_weapon__stubs.h"
 #include "weapon_basecombatobject.h"
 
@@ -16,7 +14,6 @@ STUB_WEAPON_CLASS( foo_weapon_basebludgeonweapon, BaseBludgeonWeapon, C_BaseComb
 
 STUB_WEAPON_CLASS( cycler_weapon, WeaponCycler, C_BaseCombatWeapon );
  
-#ifdef IMPLEMENT_ME
 STUB_WEAPON_CLASS( weapon_assault_rifle, WeaponAssaultRifle, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_laserdesignator, WeaponLaserDesignator, C_BaseTFCombatWeapon );
 STUB_WEAPON_CLASS( weapon_laserrifle, WeaponLaserRifle, C_BaseTFCombatWeapon );
@@ -26,4 +23,3 @@ STUB_WEAPON_CLASS( weapon_plasmarifle, WeaponPlasmaRifle, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_shotgun, WeaponShotgun, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_sapper_shotgun, WeaponSapperShotgun, C_WeaponShotgun );
 STUB_WEAPON_CLASS( weapon_cubemap, WeaponCubemap, C_BaseCombatWeapon );
-#endif

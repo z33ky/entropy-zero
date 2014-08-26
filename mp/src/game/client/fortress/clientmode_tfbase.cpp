@@ -7,11 +7,11 @@
 #include "cbase.h"
 #include "clientmode_tfbase.h"
 #include "hud.h"
-#ifdef IMPLEMENT_ME
 #include "c_tf_basecombatweapon.h"
+#ifdef IMPLEMENT_ME
 #include "keydefs.h"
-#include "c_tf_hintmanager.h"
 #else
+#include "c_tf_hintmanager.h"
 #include "tf_shareddefs.h"
 #include "ienginevgui.h"
 #include "hud_element_helper.h"
@@ -65,9 +65,7 @@ extern ConVar r_DrawDetailProps;
 void ClientModeTFBase::Init()
 {
 	BaseClass::Init();
-#ifdef IMPLEMENT_ME
 	C_BaseTFCombatWeapon::CreateCrosshairPanels();
-#endif
 
 	// Turn lighting into a mode where we use better computation for the ambient
 	// cube on static props, and a cheap one for dynamic entities.
@@ -85,60 +83,39 @@ void ClientModeTFBase::Init()
 	LoadObjectInfos( ::filesystem );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::Shutdown()
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFCombatWeapon::DestroyCrosshairPanels();
-#endif
 	BaseClass::Shutdown();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::Enable( void )
 {
 	BaseClass::Enable();
 
-#ifdef IMPLEMENT_ME
 	// Hook the minimap traces into the minimap
 	if ( GetMinimap() )
 		GetMinimap()->Activate();
-#endif
 }
 
 void ClientModeTFBase::LevelInit( const char *newmap )
 {
 	BaseClass::LevelInit( newmap );
 
-#ifdef IMPLEMENT_ME
 	// Tell the radar to load the radar's overlay map
 	//g_Radar.LoadMap( newmap );
 	if ( GetMinimap() )
 		GetMinimap()->LevelInit( newmap );
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::LevelShutdown( void )
 {
 	BaseClass::LevelShutdown();
 
-#ifdef IMPLEMENT_ME
 	if ( GetMinimap() )
 		GetMinimap()->LevelShutdown();
-#endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pSetup - 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::PreRender( CViewSetup *pSetup )
 {
 	Initialize();
@@ -154,16 +131,11 @@ void ClientModeTFBase::PreRender( CViewSetup *pSetup )
 	m_pCVDrawFullSkybox->SetValue( 1 );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::PostRender( void )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pl = C_BaseTFPlayer::GetLocalPlayer();
 	if ( pl )
 		pl->UpdateTargetReticles();
-#endif
 
 	if ( !m_pCVDrawFullSkybox )
 	{
@@ -174,9 +146,6 @@ void ClientModeTFBase::PostRender( void )
 	m_pCVDrawFullSkybox->SetValue( m_flOldDrawFullSkybox );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::Initialize( void )
 {
 	if ( m_bInitialized )
@@ -186,16 +155,11 @@ void ClientModeTFBase::Initialize( void )
 	m_pCVDrawFullSkybox = (ConVar *)cvar->FindVar( "r_drawfullskybox" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFBase::Update( void )
 {
 	BaseClass::Update();
 	
-#ifdef IMPLEMENT_ME
 	MapData().Update();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -205,11 +169,9 @@ int	ClientModeTFBase::KeyInput( int down, ButtonCode_t keynum, const char *pszCu
 {
 	if ( engine->Con_IsVisible() == false )
 	{
-#ifdef IMPLEMENT_ME
 		// Let hint system snag first escape key release
 		if ( down && ( keynum == KEY_ENTER ) && HintSystemEscapeKey() )
 			return 0;
-#endif
 
 		// Has the player hit one of his Order keys?
 		if ( pszCurrentBinding && strncmp( pszCurrentBinding, "order", 5 ) == 0 )

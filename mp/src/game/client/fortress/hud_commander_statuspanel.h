@@ -20,9 +20,7 @@ namespace vgui
 	class LineBorder;
 }
 
-#ifdef IMPLEMENT_ME
 class CBaseTechnology;
-#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: The status line appears along the bottom of the screen and shows
@@ -47,9 +45,7 @@ public:
 
 	// Set status text
 	virtual void			SetText( STATUSTYPE type, const char *fmt, ... );
-#ifdef IMPLEMENT_ME
 	virtual void			SetTechnology( CBaseTechnology *technology );
-#endif
 	virtual void			Clear();
 
 	virtual void			SetLeftBottom( int l, int b );
@@ -76,9 +72,7 @@ private:
 	STATUSTYPE				m_Type;
 	char					m_szText[ MAX_STATUS_TEXT ];
 	bool					m_bShowTechnology;
-#ifdef IMPLEMENT_ME
 	CBaseTechnology			*m_pTechnology;
-#endif
 };
 
 void StatusCreate( vgui::Panel *parent, int treetoprow );
@@ -86,9 +80,7 @@ void StatusDestroy( void );
 void StatusSetTopRow( int treetoprow );
 
 void StatusPrint( STATUSTYPE type, const char *fmt, ... );
-#ifdef IMPLEMENT_ME
 void StatusTechnology( CBaseTechnology *technology );
-#endif
 void StatusClear( void );
 
 #endif // COMMANDER_STATUSPANEL_H

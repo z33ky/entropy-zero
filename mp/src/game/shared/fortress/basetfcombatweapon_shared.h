@@ -67,10 +67,8 @@ public:
 
 	virtual void	BulletWasFired( const Vector &vecStart, const Vector &vecEnd ) { return; };
 
-#ifdef IMPLEMENT_ME
 	// Technology handling
 	virtual void	GainedNewTechnology( CBaseTechnology *pTechnology ) { return; };
-#endif
 
 	/*
 	// All predicted weapons need to implement and return true

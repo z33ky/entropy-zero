@@ -1,15 +1,6 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "particles_simple.h"
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 class C_ResourceChunk : public C_BaseAnimating
 {
 	DECLARE_CLASS( C_ResourceChunk, C_BaseAnimating );

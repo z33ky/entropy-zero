@@ -3082,6 +3082,12 @@
     <ClCompile Include="..\shared\fortress\techtree_parse.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\shared\fortress\team_messages.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

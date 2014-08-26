@@ -7,16 +7,12 @@
 #include "playeroverlay.h"
 #endif
 #include "iclientmode.h"
-#ifdef IMPLEMENT_ME
 #include "hud_technologytreedoc.h"
-#endif
 #include "C_World.h"
 #include "c_basetfplayer.h"
 #include "c_team.h"
 #include "c_tfteam.h"
-#ifdef IMPLEMENT_ME
 #include "c_func_resource.h"
-#endif
 #include "vgui_BitmapImage.h"
 #ifdef IMPLEMENT_ME
 #include "C_Shield.h"
@@ -54,10 +50,8 @@ void CMapData::UserCmd_ForceMapReload( void )
 	{
 		LevelInit( m_szMap );
 
-#ifdef IMPLEMENT_ME
 		// Force other data to reinit itself
 		GetTechnologyTreeDoc().Init();
-#endif
 		
 		// Force any needed viewport fixups
 		g_pClientMode->Disable();

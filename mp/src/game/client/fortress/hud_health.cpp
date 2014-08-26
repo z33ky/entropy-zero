@@ -1,8 +1,8 @@
 #include "cbase.h"
 #include "hud.h"
 #include "hud_numeric.h"
-#ifdef IMPLEMENT_ME
 #include "c_basetfplayer.h"
+#ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
 #endif
 #include <vgui_controls/AnimationController.h>
@@ -39,9 +39,6 @@ DECLARE_HUDELEMENT( CHudHealth );
 
 using namespace vgui;
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudHealth::CHudHealth( const char *pElementName ) :
 	CHudNumeric( pElementName, "HudHealth" )
 {
@@ -49,17 +46,12 @@ CHudHealth::CHudHealth( const char *pElementName ) :
 
 bool CHudHealth::GetHealth( int& value )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if ( !pPlayer )
 		return false;
-#else
-	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
-	if(!pPlayer)
-		return false;
-#endif
 
 	value = pPlayer->GetHealth();
+
 	return true;
 }
 
@@ -140,11 +132,7 @@ CHudVehicleHealth::CHudVehicleHealth( const char *pElementName ) :
 
 bool CHudVehicleHealth::GetHealth( int& value )
 {
-#ifdef IMPLEMENT_ME
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
-#else
-	C_BasePlayer *pPlayer = CBasePlayer::GetLocalPlayer();
-#endif
 	if ( pPlayer )
 	{
 		// Draw the vehicle health:
@@ -196,9 +184,7 @@ bool CHudVehicleHealth::GetValue( char *val, int maxlen )
 	int value = 0;
 	bool show = GetHealth( value );
 	if ( !show )
-	{
 		return false;
-	}
 
 	Q_snprintf( val, maxlen,  "%i", value );
 	return true;

@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//
-//=============================================================================//
 #include "cbase.h"
 #include "hud.h"
 #include "hud_macros.h"
@@ -16,11 +9,11 @@
 #include "ivmodemanager.h"
 #ifdef IMPLEMENT_ME
 #include "hud_timer.h"
+#endif
 #include "hud_technologytreedoc.h"
 #include "CommanderOverlay.h"
 #include "c_tf2rootpanel.h"
 #include "c_info_act.h"
-#endif
 
 // default FOV for TF2
 ConVar default_fov( "default_fov", "90", FCVAR_CHEAT );
@@ -72,16 +65,16 @@ void CTFModeManager::Init( void )
 #endif
 	g_pClientMode = GetClientModeNormal();
 
-#ifdef IMPLEMENT_ME
 	// These define the panels that can be used by the engine
 	PanelMetaClassMgr()->LoadMetaClassDefinitionFile( MINIMAP_FILE );
 	PanelMetaClassMgr()->LoadMetaClassDefinitionFile( SCREEN_FILE );
 
 	// FIXME: Turn these into client systems
 	HudCommanderOverlayMgr()->GameInit();
+#ifdef IMPLEMENT_ME
 	MapData().Init();
-	GetTechnologyTreeDoc().Init();
 #endif
+	GetTechnologyTreeDoc().Init();
 
 	HOOK_MESSAGE( ActBegin );
 	HOOK_MESSAGE( ActEnd );
@@ -148,10 +141,10 @@ void CTFModeManager::SwitchMode( bool commander, bool force )
 //-----------------------------------------------------------------------------
 void CTFModeManager::LevelInit( const char *newmap )
 {
-#ifdef IMPLEMENT_ME
 	GetTechnologyTreeDoc().LevelInit();
 	g_pTF2RootPanel->LevelInit();
 
+#ifdef IMPLEMENT_ME
 	CHudTimer *timer = GET_HUDELEMENT( CHudTimer );
 	if ( timer )
 		timer->Init();
@@ -162,18 +155,15 @@ void CTFModeManager::LevelInit( const char *newmap )
 	GetClientModeNormal()->LevelInit( newmap );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFModeManager::LevelShutdown( void )
 {
 	GetClientModeNormal()->LevelShutdown();
 #ifdef IMPLEMENT_ME
 	ClientModeCommander()->LevelShutdown();
+#endif
 
 	g_pTF2RootPanel->LevelShutdown();
 	GetTechnologyTreeDoc().LevelShutdown();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -181,12 +171,10 @@ void CTFModeManager::LevelShutdown( void )
 //-----------------------------------------------------------------------------
 void __MsgFunc_ActBegin(bf_read &msg)
 {
-#ifdef IMPLEMENT_ME
 	int iActNumber = (char)msg.ReadByte();
 	float flStartTime = msg.ReadFloat();
 
 	StartAct( iActNumber, flStartTime );
-#endif
 }
 
 //-----------------------------------------------------------------------------

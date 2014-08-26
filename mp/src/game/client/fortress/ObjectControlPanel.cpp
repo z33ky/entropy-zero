@@ -203,14 +203,12 @@ vgui::Panel* CObjectControlPanel::TickCurrentPanel()
 
 		OnTickUnpowered(pObj, pLocalPlayer);
 	}
-#ifdef IMPLEMENT_ME
 	else if (pObj->HasPowerup(POWERUP_EMP))
 	{
 		m_pCurrentPanel = GetEMPPanel();
 
 		OnTickEMP(pObj, pLocalPlayer);
 	}
-#endif
 	else
 	{
 		m_pCurrentPanel = GetActivePanel();

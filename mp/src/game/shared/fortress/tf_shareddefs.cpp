@@ -489,7 +489,6 @@ bool ClassCanBuild( int iClass, int iObjectType )
 {
 	for ( int i = 0; i < OBJ_LAST; i++ )
 	{
-#ifdef IMPLEMENT_ME
 		// Hit the end?
 		if ( g_TFClassInfos[iClass].m_pClassObjects[i] == OBJ_LAST )
 			return false;
@@ -497,7 +496,6 @@ bool ClassCanBuild( int iClass, int iObjectType )
 		// Found it?
 		if ( g_TFClassInfos[iClass].m_pClassObjects[i] == iObjectType )
 			return true;
-#endif
 	}
 
 	return false;

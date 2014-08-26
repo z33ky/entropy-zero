@@ -1614,8 +1614,10 @@ void Cmd_DamageDump_f(void)
 {	
 	CUtlDict<bool,int> g_UniqueColumns;
 
+	int idx;
+
 	// Build the unique columns:
-	for( int idx = g_DamageMap.First(); idx != g_DamageMap.InvalidIndex(); idx = g_DamageMap.Next(idx) )
+	for( idx = g_DamageMap.First(); idx != g_DamageMap.InvalidIndex(); idx = g_DamageMap.Next(idx) )
 	{
 		char* szColumnName = strchr(g_DamageMap.GetElementName(idx),',') + 1;
 
@@ -1629,17 +1631,14 @@ void Cmd_DamageDump_f(void)
 
 	// Dump the column names:
 	FileHandle_t f = filesystem->Open("damage.txt","wt+");
-#ifdef IMPLEMENT_ME
 	for( idx = g_UniqueColumns.First(); idx != g_UniqueColumns.InvalidIndex(); idx = g_UniqueColumns.Next(idx) )
 		filesystem->FPrintf(f,"\t%s",g_UniqueColumns.GetElementName(idx));
-#endif
 
 	filesystem->FPrintf(f,"\n");
 
  
 	CUtlDict<bool,int> g_CompletedRows;
 
-#ifdef IMPLEMENT_ME
 	// Dump each row:
 	bool bDidRow;
 
@@ -1696,7 +1695,6 @@ void Cmd_DamageDump_f(void)
 		// Grab the row name:
 
 	} while(bDidRow);
-#endif
 
 	// close the file:
 	filesystem->Close(f);
@@ -1846,7 +1844,6 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 		}
 	}
 
-#ifdef IMPLEMENT_ME
 	// If I have objects on me, I can't be destroyed until they're gone. Ditto if I can't be killed.
 	bool bWillDieButCant = (m_bCantDie || pBPInterface->GetNumObjectsOnMe()) && (( m_flHealth - flDamage ) < 1);
 	if ( bWillDieButCant )
@@ -1869,7 +1866,6 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 			// Reduce health
 			SetHealth( m_flHealth - flDamage );
 	}
-#endif
 
 	m_OnDamaged.FireOutput(info.GetAttacker(), this);
 
@@ -2037,7 +2033,6 @@ void CBaseObject::Killed( void )
 	iCost *= 0.5;
 	if ( bDropResources && iCost )
 	{
-#ifdef IMPLEMENT_ME
 		// Convert value to chunks.
 		int nProcessedChunks = 0;
 		int nNormalChunks = 0;
@@ -2072,7 +2067,6 @@ void CBaseObject::Killed( void )
 
 #ifdef IMPLEMENT_ME
 		TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_DROPPED, (resource_chunk_processed_value.GetFloat() * nProcessedChunks) + (resource_chunk_value.GetFloat() * nNormalChunks) );
-#endif
 #endif
 	}
 
@@ -2477,13 +2471,9 @@ void CBaseObject::GiveNamedTechnology( CBaseTFPlayer *pRecipient, const char *te
 	if ( !team )
 		return;
 
-#ifdef IMPLEMENT_ME
 	CBaseTechnology *tech = team->m_pTechnologyTree->GetTechnology( techname );
 	if ( tech )
-	{
 		team->EnableTechnology( tech, true );
-	}
-#endif
 }
 
 

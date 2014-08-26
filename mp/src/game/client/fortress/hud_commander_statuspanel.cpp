@@ -1,9 +1,7 @@
 #include "cbase.h"
 #include <stdarg.h>
 #include "hud_commander_statuspanel.h"
-#ifdef IMPLEMENT_ME
 #include "techtree.h"
-#endif
 #include <vgui/IVGui.h>
 #include "vguimatsurface/imatsystemsurface.h"
 #include <vgui_controls/Controls.h>
@@ -18,9 +16,6 @@ static CCommanderStatusPanel *g_pCommanderStatusPanel = NULL;
 #define ALPHA_ADJUST_TIME 0.1f
 #define MAX_FILLED_INFO_ALPHA 127.0f
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CCommanderStatusPanel::CCommanderStatusPanel( void ) : 
 	BaseClass( NULL, "CCommanderStatusPanel" )
 {
@@ -39,9 +34,6 @@ CCommanderStatusPanel::CCommanderStatusPanel( void ) :
 	InternalClear();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CCommanderStatusPanel::~CCommanderStatusPanel( void )
 {
 //	delete m_pBorder;
@@ -60,10 +52,6 @@ void CCommanderStatusPanel::ApplySchemeSettings(vgui::IScheme *pScheme)
 	// FIXME:  Outline, weight 700
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CCommanderStatusPanel::OnTick()
 {
 	// Simulate alpha
@@ -88,9 +76,6 @@ void CCommanderStatusPanel::OnTick()
 		m_flCurrentAlpha -= moverequested;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CCommanderStatusPanel::Paint()
 {
 	if ( m_flCurrentAlpha <= 0.0f )
@@ -121,7 +106,6 @@ void CCommanderStatusPanel::Paint()
 		// Start after title
 		g_pMatSystemSurface->DrawColoredTextRect( m_hFontText, x, y, wide, tall, 255, 255, 255, alpha, &m_szText[ m_nTitlePos + 1 ] );
 
-#ifdef IMPLEMENT_ME
 		if ( m_bShowTechnology && m_pTechnology )
 		{
 			int x = 0;
@@ -189,7 +173,6 @@ void CCommanderStatusPanel::Paint()
 				}
 			}
 		}
-#endif
 	}
 	else
 	{
@@ -269,22 +252,18 @@ void CCommanderStatusPanel::SetText( STATUSTYPE type, const char *fmt, ... )
 	m_flCurrentAlpha	= max( m_flCurrentAlpha, 0.01f );
 	m_flGoalAlpha		= 1.0f;
 	m_bShowTechnology	= false;
-#ifdef IMPLEMENT_ME
 	m_pTechnology		= NULL;
-#endif
 
 #ifdef IMPLEMENT_ME	// ?
 	RecomputeBounds();
 #endif
 }
 
-#ifdef IMPLEMENT_ME
 void CCommanderStatusPanel::SetTechnology( CBaseTechnology *technology )
 {
 	m_bShowTechnology = true;
 	m_pTechnology = technology;
 }
-#endif
 
 void CCommanderStatusPanel::InternalClear( void )
 {
@@ -296,9 +275,7 @@ void CCommanderStatusPanel::InternalClear( void )
 	m_flGoalAlpha		= 0.0f;
 
 	m_bShowTechnology	= false;
-#ifdef IMPLEMENT_ME
 	m_pTechnology		= NULL;
-#endif
 
 	SetVisible( false );
 	SetPaintBackgroundEnabled( false );
@@ -373,10 +350,8 @@ void StatusClear( void )
 		g_pCommanderStatusPanel->Clear();
 }
 
-#ifdef IMPLEMENT_ME
 void StatusTechnology( CBaseTechnology *technology )
 {
 	if ( g_pCommanderStatusPanel )
 		g_pCommanderStatusPanel->SetTechnology(technology );
 }
-#endif

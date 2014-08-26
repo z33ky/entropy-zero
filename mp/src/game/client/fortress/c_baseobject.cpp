@@ -7,9 +7,7 @@
 #include "particles_simple.h"
 #include "FunctionProxy.h"
 #include "ieffects.h"
-#ifdef IMPLEMENT_ME
 #include "c_hint_events.h"
-#endif
 #include "model_types.h"
 #include "particlemgr.h"
 #include "particle_collision.h"
@@ -235,10 +233,8 @@ int C_BaseObject::DrawModel( int flags )
 
 			if ( !m_bPlacing && !m_bBuilding )
 			{
-#ifdef IMPLEMENT_ME
 				if ( !HasPowerup( POWERUP_EMP ) )
 					DrawRunningEffects();
-#endif
 
 				if ( GetHealth() < GetMaxHealth() )
 					DrawDamageEffects();

@@ -57,11 +57,7 @@ bool CBaseTFCombatWeapon::IsOwnerEMPed()
 	if ((!pPlayer) || (!pPlayer->GetPlayerClass()))
 		return false;
 
-#ifdef IMPLEMENT_ME
 	return ( pPlayer->HasPowerup(POWERUP_EMP) );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -346,7 +342,6 @@ bool CBaseTFCombatWeapon::OnFireEvent( C_BaseViewModel *pViewModel, const Vector
 			{
 				//int iType = atoi( options );
 
-#ifdef IMPLEMENT_ME
 				// Is our owner boosted?
 				CBasePlayer *pPlayer = ToBaseTFPlayer( GetOwner() );
 				if ( pPlayer && pPlayer->HasPowerup(POWERUP_BOOST) )
@@ -358,7 +353,6 @@ bool CBaseTFCombatWeapon::OnFireEvent( C_BaseViewModel *pViewModel, const Vector
 					FX_MuzzleEffect( attachOrigin, attachAngles, 1.0, entindex(), &color[0] );
 				}
 				else
-#endif
 					FX_MuzzleEffect( attachOrigin, attachAngles, 1.0, entindex() );
 
 				return true;
@@ -418,10 +412,8 @@ void CPlayerBoostedProxy::OnBind( void *pRenderable )
 	// Find him?
 	if ( pPlayer )
 	{
-#ifdef IMPLEMENT_ME
 		float flBoosted = (int)pPlayer->HasPowerup( POWERUP_BOOST );
 		SetFloatResult( flBoosted * m_Factor.GetFloat() );
-#endif
 	}
 }
 

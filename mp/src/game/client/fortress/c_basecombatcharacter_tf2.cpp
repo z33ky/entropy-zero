@@ -1,8 +1,6 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: TF2 Specific C_BaseCombatCharacter code.
-//
-//=============================================================================
+
 #include "cbase.h"
 #include "c_basecombatcharacter.h"
 #include "tf_shareddefs.h"

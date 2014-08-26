@@ -1,11 +1,7 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: Shared interface to the tech tree & individual technologies
-//
-// $NoKeywords: $
-//=============================================================================
-#include "cbase.h"
 
+// Purpose: Shared interface to the tech tree & individual technologies
+
+#include "cbase.h"
 #ifndef CLIENT_DLL
 #include "tf_player.h"
 #include "tf_team.h"

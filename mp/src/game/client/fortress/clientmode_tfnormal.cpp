@@ -111,15 +111,11 @@ vgui::Panel *ClientModeTFNormal::GetMinimapParent( void )
 	return GetViewport();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFNormal::Update()
 {
 	BaseClass::Update();
-#ifdef IMPLEMENT_ME
+
 	HudCommanderOverlayMgr()->Tick( );
-#endif
 }
 
 //-----------------------------------------------------------------------------

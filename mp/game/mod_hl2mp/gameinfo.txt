@@ -2,7 +2,6 @@
 {
 	game		"Fortress"
 	title		"Fortress"
-	title2		"Source"
 	type 		multiplayer_only
 	icon		"icon"
 	nomodels 	0

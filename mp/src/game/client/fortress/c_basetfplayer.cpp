@@ -27,8 +27,8 @@
 #include "c_vehicle_teleport_station.h"
 #include "weapon_combatshield.h"
 #include "hud_vehicle_role.h"
-#include "hud_technologytreedoc.h"
 #endif
+#include "hud_technologytreedoc.h"
 #include "iclientmode.h"
 #include "weapon_selection.h"
 #include "collisionutils.h"
@@ -570,7 +570,6 @@ void C_BaseTFPlayer::SetDormant( bool bDormant )
 //-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::HasNamedTechnology( const char *name )
 {
-#ifdef IMPLEMENT_ME
 	CTechnologyTree *pTree = GetTechnologyTreeDoc().GetTechnologyTree();
 	if ( !pTree )
 		return false;
@@ -581,9 +580,6 @@ bool C_BaseTFPlayer::HasNamedTechnology( const char *name )
 		return true;
 
 	return pItem->GetActive();
-#else
-	return false;
-#endif
 }
 
 bool C_BaseTFPlayer::ShouldDraw()
@@ -638,11 +634,9 @@ ShadowType_t C_BaseTFPlayer::ShadowCastType()
 //-----------------------------------------------------------------------------
 void C_BaseTFPlayer::UpdateTargetReticles( void )
 {
-#ifdef IMPLEMENT_ME
 	// Update all the target reticles
 	for ( int i = 0; i < m_aTargetReticles.Size(); i++ )
 		m_aTargetReticles[i]->Update();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1243,12 +1237,10 @@ C_BaseObject *C_BaseTFPlayer::GetSelectedObject( void )
 //-----------------------------------------------------------------------------
 void C_BaseTFPlayer::Add_Target( C_BaseEntity *pTarget, const char *sName )
 {
-#ifdef IMPLEMENT_ME
 	CTargetReticle *pTargetReticle = new CTargetReticle();
 	pTargetReticle->Init( pTarget, sName );
 
 	m_aTargetReticles.AddToTail( pTargetReticle );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1256,7 +1248,6 @@ void C_BaseTFPlayer::Add_Target( C_BaseEntity *pTarget, const char *sName )
 //-----------------------------------------------------------------------------
 void C_BaseTFPlayer::Remove_Target( C_BaseEntity *pTarget )
 {
-#ifdef IMPLEMENT_ME
 	for (int i = 0; i < m_aTargetReticles.Size(); i++ )
 	{
 		CTargetReticle *pTargetReticle = m_aTargetReticles[i];
@@ -1266,7 +1257,6 @@ void C_BaseTFPlayer::Remove_Target( C_BaseEntity *pTarget )
 			return;
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1405,12 +1395,10 @@ void C_BaseTFPlayer::TeamChange( int iNewTeam )
 {
 	BaseClass::TeamChange( iNewTeam );
 
-#ifdef IMPLEMENT_ME
 	// Did we change team? or did we just join our first team?
 	if ( iNewTeam != GetTeamNumber() )
 		// Tell the tech tree to reload itself
 		GetTechnologyTreeDoc().ReloadTechTree();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1584,11 +1572,7 @@ bool C_BaseTFPlayer::IsOverridingViewmodel( void )
 	if ( PlayerClass() == TFCLASS_MEDIC )
 		return BaseClass::IsOverridingViewmodel();
 
-#ifdef IMPLEMENT_ME
 	if ( IsDamageBoosted() || IsCamouflaged() || HasPowerup(POWERUP_EMP) )
-#else
-	if(IsDamageBoosted() || IsCamouflaged())
-#endif
 		return true;
 
 	return BaseClass::IsOverridingViewmodel();
@@ -1611,11 +1595,7 @@ int	C_BaseTFPlayer::DrawOverriddenViewmodel( C_BaseViewModel *pViewmodel, int fl
 		}
 	}
 
-#ifdef IMPLEMENT_ME
 	if ( IsDamageBoosted() || HasPowerup(POWERUP_EMP) )
-#else
-	if(IsDamageBoosted())
-#endif
 	{
 
 		// First draw the model once normally.
@@ -1670,10 +1650,8 @@ int	C_BaseTFPlayer::DrawOverriddenViewmodel( C_BaseViewModel *pViewmodel, int fl
 //-----------------------------------------------------------------------------
 float C_BaseTFPlayer::GetDefaultAnimSpeed( void )
 {
-#ifdef IMPLEMENT_ME
 	if ( HasPowerup( POWERUP_RUSH ) )
 		return ADRENALIN_ANIM_SPEED;
-#endif
 
 	// Weapons may modify animation times
 	if ( GetActiveWeapon() )
@@ -1992,34 +1970,23 @@ int C_BaseTFPlayer::GetNumObjects( int iObjectType )
 		if ( !GetObject(i) )
 			continue;
 
-#ifdef IMPLEMENT_ME
 		if ( GetObject(i)->GetType() == iObjectType )
 			iCount++;
-#endif
 	}
 
 	return iCount;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int	C_BaseTFPlayer::GetObjectCount( void )
 {
 	return m_TFLocal.m_aObjects.Count();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_BaseObject *C_BaseTFPlayer::GetObject( int index )
 {
 	return m_TFLocal.m_aObjects[index].Get();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::AddEntity( void )
 {
 	BaseClass::AddEntity();
@@ -2506,9 +2473,8 @@ void C_BaseTFPlayer::PowerupStart( int iPowerup, bool bInitial )
 	default:
 		break;
 	}
-#ifdef IMPLEMENT_ME
+
 	BaseClass::PowerupStart( iPowerup, bInitial );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2539,7 +2505,6 @@ void C_BaseTFPlayer::PowerupEnd( int iPowerup )
 	default:
 		break;
 	}
-#ifdef IMPLEMENT_ME
+
 	BaseClass::PowerupEnd( iPowerup );
-#endif
 }

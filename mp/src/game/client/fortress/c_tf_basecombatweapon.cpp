@@ -1,21 +1,14 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: Client's CBaseTFCombatWeapon
-//
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 #include "c_tf_basecombatweapon.h"
 #include "hud.h"
 #include "iclientmode.h"
 #include "tf_hints.h"
-#ifdef IMPLEMENT_ME
 #include "itfhintitem.h"
-#endif
 #include "c_tf_basehint.h"
-#ifdef IMPLEMENT_ME
-#include "hud_technologytreedoc.h"  
-#endif
+#include "hud_technologytreedoc.h" 
 #include "c_tf_hintmanager.h"
 #include "hud_ammo.h"
 #include "c_weapon__stubs.h"
@@ -226,7 +219,6 @@ void C_BaseTFCombatWeapon::OnDataChanged( DataUpdateType_t updateType )
 	if ( !ShouldShowUsageHint() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// See if the weapon is given as an associated weapon of a technology that
 	//  is of level 1 or greater
 	CTechnologyTree *tree = GetTechnologyTreeDoc().GetTechnologyTree();
@@ -280,7 +272,6 @@ void C_BaseTFCombatWeapon::OnDataChanged( DataUpdateType_t updateType )
 			break;
 		}
 	}
-#endif
 }
 
 int	C_BaseTFCombatWeapon ::GetSecondaryAmmo( void )

@@ -1,8 +1,5 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: A blood spray effect to expose successful hits.
-//
-//=============================================================================
 
 #include "cbase.h"
 #include "ClientEffectPrecacheSystem.h"
@@ -26,12 +23,6 @@ CLIENTEFFECT_MATERIAL( "effects/blood_drop" )
 CLIENTEFFECT_MATERIAL( "effects/blood_puff" )
 CLIENTEFFECT_REGISTER_END()
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : origin - 
-//			normal - 
-//			scale - 
-//-----------------------------------------------------------------------------
 void FX_TF2_BloodSpray( const Vector &origin, const Vector &normal, float scale, unsigned char r, unsigned char g, unsigned char b, int flags )
 {
 #ifdef IMPLEMENT_ME

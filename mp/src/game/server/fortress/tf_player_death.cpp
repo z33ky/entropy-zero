@@ -1,16 +1,6 @@
-//=========== (C) Copyright 1999 Valve, L.L.C. All rights reserved. ===========
-//
-// The copyright to the contents herein is the property of Valve, L.L.C.
-// The contents may be used and/or copied only with the written permission of
-// Valve, L.L.C., or in accordance with the terms and conditions stipulated in
-// the agreement/contract under which the contents have been supplied.
-//
+
 // Purpose: CBaseTFPlayer functions dealing with death and reinforcement
-//
-// $Workfile:     $
-// $Date:         $
-// $NoKeywords: $
-//=============================================================================
+
 #include "cbase.h"
 #include "player.h"
 #include "tf_player.h"
@@ -18,9 +8,7 @@
 #include "basecombatweapon.h"
 #include "EntityList.h"
 #include "tf_shareddefs.h"
-#ifdef IMPLEMENT_ME
 #include "tf_team.h"
-#endif
 #include "baseviewmodel.h"
 #ifdef IMPLEMENT_ME
 #include "tf_class_infiltrator.h"
@@ -110,11 +98,9 @@ void CBaseTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 
 	SetPowerup(POWERUP_EMP,false);
 
-#ifdef IMPLEMENT_ME
 	// Tell the playerclass that the player died
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->PlayerDied( info.GetAttacker() );
-#endif
 
 	// Tell the attacker's playerclass that he killed someone
 	if ( info.GetAttacker() && info.GetAttacker()->IsPlayer() )

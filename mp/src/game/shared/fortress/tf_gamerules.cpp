@@ -209,7 +209,6 @@ END_NETWORK_TABLE()
 				// Freeze the bot.
 				pBotBaseEnt->AddEFlags( EFL_BOT_FROZEN );
 
-#ifdef IMPLEMENT_ME
 				// Remove orders to both of them..
 				CTFTeam *pTeam = pPlayer->GetTFTeam();
 				if ( pTeam )
@@ -217,7 +216,6 @@ END_NETWORK_TABLE()
 					pTeam->RemoveOrdersToPlayer( (CBaseTFPlayer*)pPlayerBaseEnt );
 					pTeam->RemoveOrdersToPlayer( (CBaseTFPlayer*)pBotBaseEnt );
 				}
-#endif
 			}
 		}
 #endif
@@ -539,7 +537,6 @@ END_NETWORK_TABLE()
 			if ( args.ArgC() < 3 )
 				return true;
 
-#ifdef IMPLEMENT_ME
 			int entindex = atoi( args[1] );
 			edict_t* pEdict = INDEXENT(entindex);
 			if (pEdict)
@@ -558,11 +555,12 @@ END_NETWORK_TABLE()
 	//				float flDistSq = pObject->GetAbsOrigin().DistToSqr( pPlayer->GetAbsOrigin() );
 	//				if (flDistSq <= (MAX_OBJECT_COMMAND_DISTANCE * MAX_OBJECT_COMMAND_DISTANCE))
 					{
+#ifdef IMPLEMENT_ME
 						pObject->ClientCommand( pPlayer, args[2], &g_ObjCommandArgs );
+#endif
 					}
 				}
 			}
-#endif
 
 			return true;
 		}
@@ -641,13 +639,11 @@ END_NETWORK_TABLE()
 
 			if ( args.ArgC() == 2 )
 			{
-#ifdef IMPLEMENT_ME
 				const char *name = args[1];
 
 				CBaseTechnology *tech = pTFTeam->m_pTechnologyTree->GetTechnology( name );
 				if ( tech )
 					pTFTeam->EnableTechnology( tech );
-#endif
 			}
 			else
 				Msg( "usage:  tech <name>\n" );
@@ -683,14 +679,13 @@ END_NETWORK_TABLE()
 			if ( !pTFTeam )
 				return true;
 
-#ifdef IMPLEMENT_ME
 			if ( args.ArgC() == 2 )
 			{
 				int iPrefTechIndex = atoi( args[1] );
 
 				pPlayer->SetPreferredTechnology( pTFTeam->m_pTechnologyTree, iPrefTechIndex );		
 			}
-#endif
+
 			return true;
 		}
 #ifdef IMPLEMENT_ME	// Sadly the Source Engine doesn't support this anymore as far as I'm aware. Shame. ~hogsy
@@ -1061,9 +1056,7 @@ END_NETWORK_TABLE()
 				// Copy initial values out of the info
 				CTakeDamageInfo subInfo = info;
 				if ( !subInfo.GetAttacker() )
-				{
 					subInfo.SetAttacker( subInfo.GetInflictor() );
-				}
 
 				// Don't bother with hitboxes on this test
 				vecSpot = pEntity->WorldSpaceCenter( );
@@ -1408,7 +1401,7 @@ END_NETWORK_TABLE()
 	const char *CTeamFortress::SetDefaultPlayerTeam( CBasePlayer *pPlayer )
 	{
 		Assert( pPlayer );
-#ifdef IMPLEMENT_ME
+#ifdef IMPLEMENT_ME	// ?
 		int clientIndex = pPlayer->entindex();
 		engine->SetClientKeyValue( clientIndex, engine->GetInfoKeyBuffer( pPlayer->edict() ), "model", "" );
 #endif
@@ -1478,7 +1471,6 @@ void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity,
 	{
 		if ( bHurt )
 		{
-#ifdef IMPLEMENT_ME
 			Assert( pEntity );
 			bool bHitHandheldShield = (pEntity->IsPlayer() && ((CBaseTFPlayer*)pEntity)->IsHittingShield( vecDir, NULL ));
 			if ( bHitHandheldShield )
@@ -1494,7 +1486,6 @@ void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity,
 				UTIL_ImpactTrace( tr, iDamageType, "Impact" );
 #endif
 			}
-#endif
 		}
 		else
 			UTIL_ImpactTrace( tr, iDamageType, "ImpactUnhurt" );
@@ -1635,7 +1626,6 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 								const Vector &vecSpread, float flDistance, int iAmmoType, 
 								int iTracerFreq, int firingEntID, int attachmentID, const char *sCustomTracer )
 {
-#ifdef IMPLEMENT_ME
 	static int tracerCount;
 	bool tracer;
 	trace_t	tr;
@@ -1646,9 +1636,7 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 
 	// Default attacker is the inflictor
 	if ( subInfo.GetAttacker() == NULL )
-	{
 		subInfo.SetAttacker( subInfo.GetInflictor() );
-	}
 
 	// --------------------------------------------------
 	//  Get direction vectors for spread
@@ -1662,7 +1650,9 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 	ClearMultiDamage();
 #endif
 
+#ifdef IMPLEMENT_ME
 	int seed = 0;
+#endif
 
 	for (int iShot = 0; iShot < cShots; iShot++)
 	{
@@ -1727,13 +1717,9 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 				tracer = true;
 
 			if ( sCustomTracer )
-			{
 				UTIL_Tracer( vecTracerSrc, tr.endpos, subInfo.GetInflictor()->entindex(), TRACER_DONT_USE_ATTACHMENT, 0, false, (char*)sCustomTracer );
-			}
 			else
-			{
 				UTIL_Tracer( vecTracerSrc, tr.endpos, subInfo.GetInflictor()->entindex() );
-			}
 		}
 
 		// do damage, paint decals
@@ -1762,12 +1748,9 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 				WeaponImpact( &tr, vecDir, bTargetCouldBeHurt, pEntity, subInfo.GetDamageType() );
 		}
 
-#ifdef IMPLEMENT_ME
 		if ( pWeapon )
 			pWeapon->BulletWasFired( vecSrc, tr.endpos );
-#endif
 	}
-#endif
 
 	// Apply any damage we've stacked up
 #ifndef CLIENT_DLL

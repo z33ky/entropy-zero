@@ -291,10 +291,8 @@ void CPlayerClassCommando::GainedNewTechnology( CBaseTechnology *pTechnology )
 //-----------------------------------------------------------------------------
 void CPlayerClassCommando::PreBullRush( void )
 {
-#ifdef IMPLEMENT_ME
 	// Set the touch function to look for collisions!
 	SetClassTouch( m_pPlayer, &CPlayerClassCommando::BullRushTouch );
-#endif
 
 	// Clear the player hit list.
 	m_aHitPlayers.RemoveAll();
@@ -323,9 +321,9 @@ void CPlayerClassCommando::PreBullRush( void )
 //-----------------------------------------------------------------------------
 void CPlayerClassCommando::PostBullRush( void )
 {
-#ifdef IMPLEMENT_ME
 	SetClassTouch( m_pPlayer, NULL );
 
+#ifdef IMPLEMENT_ME
 	// Force the shield down, if it is up.
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>( m_pPlayer->GetActiveWeapon() );
 	if ( pContainer )

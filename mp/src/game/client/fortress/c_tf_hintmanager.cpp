@@ -152,7 +152,6 @@ C_TFBaseHint *C_TFHintManager::AddHint( int hintID, const char *subsection, int 
 	if ( count > maxduplicates )
 		return NULL;
 
-#ifdef IMPLEMENT_ME
 	C_TFBaseHint *hint = C_TFBaseHint::CreateHint( hintID, subsection, entityIndex );
 	if ( hint )
 	{
@@ -165,9 +164,6 @@ C_TFBaseHint *C_TFHintManager::AddHint( int hintID, const char *subsection, int 
 	}
 
 	return hint;
-#else
-	return NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
