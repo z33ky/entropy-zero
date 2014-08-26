@@ -5,9 +5,7 @@
 #include "gamerules.h"
 #include "trains.h"
 #include "entitylist.h"
-#ifdef IMPLEMENT_ME
 #include "menu_base.h"
-#endif
 #include "basecombatweapon.h"
 #ifdef IMPLEMENT_ME
 #include "controlzone.h"
@@ -406,13 +404,9 @@ void CBaseTFPlayer::Spawn( void )
 		{
 			if ( tf_autoteam.GetFloat() )
 			{
-#else
-				SetPlayerClass(TFCLASS_COMMANDO);
-#endif
 				// Autoteam the player
 				PlacePlayerInTeam();
 				ForceRespawn();
-#ifdef IMPLEMENT_ME
 			}
 			else
 				// Let players choose their team
@@ -420,6 +414,10 @@ void CBaseTFPlayer::Spawn( void )
 		}
 		else // Bring up the Class Menu
 			m_pCurrentMenu = gMenus[MENU_CLASS];
+#else	// For quick and easy testing. ~hogsy
+		PlacePlayerInTeam();
+		ChangeClass(TFCLASS_COMMANDO);
+		ForceRespawn();
 #endif
 
 		m_MenuRefreshTime = gpGlobals->curtime;
@@ -511,9 +509,6 @@ void CBaseTFPlayer::UpdateClientData( void )
 	BaseClass::UpdateClientData();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFPlayer::ForceClientDllUpdate( void )
 {
 	BaseClass::ForceClientDllUpdate();
@@ -1381,7 +1376,7 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 
 	if( HasClass() )
 	{
-		if ( GetPlayerClass()->ClientCommand(cmd) )
+		if ( GetPlayerClass()->ClientCommand( args ) )
 			return true;
 
 		if ( FStrEq( cmd, "emp" ) )
@@ -1389,7 +1384,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			Msg( "Self-inflicted EMP:  testing\n" );
 			float flTime = 10;
 			if ( args.ArgC() == 2 )
+			{
 				flTime = atof( args[ 1 ] );
+			}
 
 			AttemptToPowerup( POWERUP_EMP, flTime );
 			return true;
@@ -1398,13 +1395,14 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 		if ( FStrEq( cmd, "emp_target" ) )
 		{
 #ifdef IMPLEMENT_ME
-			CBaseEntity *pEntity = FindEntityForward( this );
+			CBaseEntity *pEntity = FindEntityForward( this, true );
 			if ( pEntity && pEntity->CanBePoweredUp() )
 			{
 				float flTime = 10;
 				if ( args.ArgC() == 2 )
+				{
 					flTime = atof( args[ 1 ] );
-
+				}
 				pEntity->AttemptToPowerup( POWERUP_EMP, flTime );
 			}
 #endif
@@ -1418,11 +1416,14 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			{
 				float flDamage = 1;
 				if ( args.ArgC() == 2 )
+				{
 					flDamage = atof( args[ 1 ] );
-
+				}
 				CBaseEntity *world = CBaseEntity::Instance( engine->PEntityOfEntIndex( 0 ) );
 				if ( world )
+				{
 					pEntity->OnTakeDamage( CTakeDamageInfo( world, world, flDamage, DMG_GENERIC ) );
+				}
 			}
 			return true;
 		}
@@ -1437,10 +1438,13 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			force.y = random->RandomFloat( 0.5, 1.0 );
 
 			if ( random->RandomFloat( 0, 1 ) > 0.5 )
+			{
 				force.x *= -1.0f;
+			}
 			if ( random->RandomFloat( 0, 1 ) > 0.5 )
+			{
 				force.y *= -1.0f;
-
+			}
 			force.z = random->RandomFloat( 0.5, 1.0 );
 		}
 		else
@@ -1450,13 +1454,21 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			AngleVectors( GetAbsAngles(), &fwd, &right, NULL );
 
 			if ( !stricmp( args[ 1 ], "f" ) )
+			{
 				force = fwd * -1.0f;
+			}
 			else if ( !stricmp( args[ 1 ], "b" ) )
+			{
 				force = fwd;
+			}
 			else if ( !stricmp( args[ 1 ], "r" ) )
-				force = right * -1.0f;			
+			{
+				force = right * -1.0f;
+			}			
 			else if ( !stricmp( args[ 1 ], "l" ) )
+			{
 				force = right;
+			}
 			else if ( !stricmp( args[ 1 ], "fr" ) )
 			{
 				force = fwd * -1.0f;
@@ -1492,7 +1504,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 
 		CBaseEntity *world = CBaseEntity::Instance( engine->PEntityOfEntIndex( 0 ) );
 		if ( world )
+		{
 			OnTakeDamage( CTakeDamageInfo( world, world, (float)ouch, DMG_GENERIC ) );
+		}
 
 		return true;
 	}
@@ -1502,7 +1516,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 		bool on = true;
 		
 		if ( args.ArgC() >= 2 )
+		{
 			on = atoi( args[ 1 ] ) ? true : false;
+		}
 
 		if ( on )
 		{
@@ -1513,8 +1529,9 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 			BecomeRagdollOnClient( force );
 		}
 		else
+		{
 			ClearClientRagdoll( true );
-
+		}
 		return true;
 	}
 
@@ -1831,18 +1848,14 @@ void CBaseTFPlayer::MenuDisplay( void )
 
 	m_MenuRefreshTime = gpGlobals->curtime + MENU_UPDATETIME;
 
-#ifdef IMPLEMENT_ME
 	if ( m_pCurrentMenu )
 		m_pCurrentMenu->Display( this );
-#endif
 }
 
 bool CBaseTFPlayer::MenuInput( int iInput )
 {
-#ifdef IMPLEMENT_ME
 	if ( m_pCurrentMenu )
 		return m_pCurrentMenu->Input( this, iInput );
-#endif
 
 	return false;
 }

@@ -14,8 +14,8 @@
 #ifdef IMPLEMENT_ME
 #include "env_objecteffects.h"
 #include "basetfvehicle.h"
-#include "c_weapon_builder.h"
 #endif
+#include "c_weapon_builder.h"
 #include "IVRenderView.h"
 #include "ObjectControlPanel.h"
 #include "engine/ivmodelinfo.h"
@@ -247,9 +247,6 @@ int C_BaseObject::DrawModel( int flags )
 	return drawn;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseObject::HighlightBuildPoints( int flags )
 {
 	C_BaseTFPlayer *pLocal = C_BaseTFPlayer::GetLocalPlayer();
@@ -259,7 +256,6 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 	if ( !GetNumBuildPoints() || !InLocalTeam() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *pBuilderWpn = dynamic_cast< C_WeaponBuilder * >( pLocal->GetActiveWeaponForSelection() );
 	if ( !pBuilderWpn )
 		return;
@@ -319,7 +315,6 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 						pPlacementObj->GetModel(),
 						vecBPOrigin,
 						vecBPAngles,
-						pPlacementObj->GetSequence(), // only used for clipping.  Remove
 						pPlacementObj->m_nSkin,
 						pPlacementObj->m_nBody,
 						pPlacementObj->m_nHitboxSet );
@@ -339,7 +334,6 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 			render->SetBlend( orgBlend );
 		}
 	}
-#endif
 }
 
 
@@ -441,10 +435,8 @@ void C_BaseObject::PostDataUpdate( DataUpdateType_t updateType )
 	// Notify the hint system of the object being built.
 	if ( bNewEntity && GetOwner() && ( GetOwner() == C_BasePlayer::GetLocalPlayer() ) )
 	{
-#ifdef IMPLEMENT_ME
 		C_HintEvent_ObjectBuiltByLocalPlayer event( this );
 		GlobalHintEvent( &event );
-#endif
 	}
 }
 

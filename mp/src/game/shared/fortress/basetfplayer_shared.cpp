@@ -9,17 +9,15 @@
 #include "basetfplayer_shared.h"
 #ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
+#endif
 #include "weapon_objectselection.h"
+#ifdef IMPLEMENT_ME
 #include "weapon_twohandedcontainer.h"
 #endif
 #ifdef CLIENT_DLL
-#ifdef IMPLEMENT_ME
 #include "c_weapon_builder.h"
-#endif
 #else
-#ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
-#endif
 #include "basegrenade_shared.h"
 #ifdef IMPLEMENT_ME
 #include "grenade_objectsapper.h"
@@ -160,7 +158,6 @@ void CBaseTFPlayer::PainSound( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::Weapon_ShouldSetLast( CBaseCombatWeapon *pOldWeapon, CBaseCombatWeapon *pNewWeapon )
 {
-#ifdef IMPLEMENT_ME
 	// Don't record last weapons when switching to an object
 	if ( dynamic_cast< CWeaponObjectSelection* >( pNewWeapon ) )
 	{
@@ -177,11 +174,13 @@ bool CBaseTFPlayer::Weapon_ShouldSetLast( CBaseCombatWeapon *pOldWeapon, CBaseCo
 		return false;
 	}
 
+#ifdef IMPLEMENT_ME
 	// Don't record last weapons when switching from the builder
 	// If the old weapon is a twohanded container, check the left weapon
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast< CWeaponTwoHandedContainer * >( pOldWeapon );
 	if ( pContainer )
 		pOldWeapon = dynamic_cast< CBaseTFCombatWeapon  * >( pContainer->GetLeftWeapon() );
+#endif
 
 #ifdef CLIENT_DLL
 	if ( dynamic_cast< C_WeaponBuilder* >( pOldWeapon ) )
@@ -189,7 +188,6 @@ bool CBaseTFPlayer::Weapon_ShouldSetLast( CBaseCombatWeapon *pOldWeapon, CBaseCo
 #else
 	if ( dynamic_cast< CWeaponBuilder* >( pOldWeapon ) )
 		return false;
-#endif
 #endif
 
 	return BaseClass::Weapon_ShouldSetLast( pOldWeapon, pNewWeapon );
@@ -575,17 +573,13 @@ void CPlayerAnimState::ComputePoseParam_BodyYaw( void )
 	GetOuter()->SetPoseParameter( iYaw, flYaw );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerAnimState::ComputePoseParam_BodyPitch( void )
 {
 	// Get pitch from v_angle
 	float flPitch = GetOuter()->GetLocalAngles()[ PITCH ];
 	if ( flPitch > 180.0f )
-	{
 		flPitch -= 360.0f;
-	}
+
 	flPitch = clamp( flPitch, -90, 90 );
 
 	QAngle absangles = GetOuter()->GetAbsAngles();
@@ -659,9 +653,7 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 	// See if we even have a blender for pitch
 	int upper_body_yaw = GetOuter()->LookupPoseParameter( "body_yaw" );
 	if ( upper_body_yaw < 0 )
-	{
 		return;
-	}
 
 	// Assume upper and lower bodies are aligned and that we're not turning
 	float flGoalTorsoYaw = 0.0f;

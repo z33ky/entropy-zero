@@ -1667,6 +1667,21 @@
     <ClInclude Include="..\shared\fortress\ihasbuildpoints.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\menu_base.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_builder.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_basecombatweapon.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_objectselection.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3086,6 +3101,18 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\menu_base.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_builder.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
   </ItemGroup>

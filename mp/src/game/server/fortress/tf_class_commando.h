@@ -53,7 +53,7 @@ public:
 	virtual int		CanBuild( int iObjectType );
 	virtual void	FinishedObject( CBaseObject *pObject );
 
-	virtual bool	ClientCommand( const char *pcmd );
+	virtual bool	ClientCommand( const CCommand &args );
 	virtual void	GainedNewTechnology( CBaseTechnology *pTechnology );
 
 	// Adrenalin Rush

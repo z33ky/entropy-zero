@@ -3,8 +3,8 @@
 #include <vgui_controls/Controls.h>
 #include <vgui/IVgui.h>
 #include "paneleffect.h"
-#ifdef IMPLEMENT_ME
 #include "itfhintitem.h"
+#ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
 #include "commanderoverlaypanel.h"
 #endif
@@ -50,11 +50,11 @@ void C_TF2RootPanel::RenderPanelEffects( void )
 	{
 		CPanelEffect *e = m_Effects[ i ];
 		Assert( e );
-#ifdef IMPLEMENT_ME
+
 		ITFHintItem *owner = e->GetOwner();
 		if ( owner && !owner->ShouldRenderPanelEffects() )
 			continue;
-#endif
+
 		if ( e->GetVisible() )
 			e->doPaint( this );
 	}
@@ -119,12 +119,8 @@ void C_TF2RootPanel::ClearAllEffects( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_TF2RootPanel::OnTick( void )
 {
-#ifdef IMPLEMENT_ME
 	// Go backards
 	for ( int i = m_Effects.Size() - 1; i >= 0; i-- )
 	{
@@ -141,7 +137,6 @@ void C_TF2RootPanel::OnTick( void )
 			delete e;
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------

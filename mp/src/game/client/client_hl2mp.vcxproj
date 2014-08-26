@@ -390,6 +390,7 @@ exit 1
     <ClInclude Include="..\shared\fortress\baseobject_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfcombatweapon_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h" />
+    <ClInclude Include="..\shared\fortress\ihasbuildpoints.h" />
     <ClInclude Include="..\shared\fortress\techtree.h" />
     <ClInclude Include="..\shared\fortress\tfclassdata_shared.h" />
     <ClInclude Include="..\shared\fortress\tf_gamemovement.h" />
@@ -404,6 +405,8 @@ exit 1
     <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h" />
+    <ClInclude Include="..\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="fortress\clientmode_tfbase.h" />
     <ClInclude Include="fortress\clientmode_tfnormal.h" />
     <ClInclude Include="fortress\CommanderOverlay.h" />
@@ -421,6 +424,7 @@ exit 1
     <ClInclude Include="fortress\c_tf_hintmanager.h" />
     <ClInclude Include="fortress\c_tf_hints.h" />
     <ClInclude Include="fortress\c_tf_playerclass.h" />
+    <ClInclude Include="fortress\c_weapon_builder.h" />
     <ClInclude Include="fortress\hintitembase.h" />
     <ClInclude Include="fortress\hintitemobjectbase.h" />
     <ClInclude Include="fortress\hintitemorderbase.h" />
@@ -921,6 +925,8 @@ exit 1
     <ClCompile Include="..\shared\fortress\tf_tacticalmap.cpp" />
     <ClCompile Include="..\shared\fortress\tf_usermessages.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\shared\weapon_parse_default.cpp" />
     <ClCompile Include="fortress\clientmode_tfbase.cpp" />
     <ClCompile Include="fortress\clientmode_tfnormal.cpp" />
@@ -942,6 +948,7 @@ exit 1
     <ClCompile Include="fortress\c_tf_hintmanager.cpp" />
     <ClCompile Include="fortress\c_tf_hints.cpp" />
     <ClCompile Include="fortress\c_tf_playerclass.cpp" />
+    <ClCompile Include="fortress\c_weapon_builder.cpp" />
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
     <ClCompile Include="fortress\fx_tf2_blood.cpp" />
     <ClCompile Include="fortress\fx_tf2_buildeffects.cpp" />
@@ -965,6 +972,7 @@ exit 1
     <ClCompile Include="fortress\tf_prediction.cpp" />
     <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp" />
     <ClCompile Include="fortress\vgui_rotation_slider.cpp" />
+    <ClCompile Include="fx_tf2_tracers.cpp" />
     <ClCompile Include="hud_chat.cpp" />
     <ClCompile Include="mp3player.cpp" />
     <ClCompile Include="replay\cdll_replay.cpp" />

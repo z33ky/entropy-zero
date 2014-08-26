@@ -19,9 +19,6 @@ CBaseTFCombatWeapon::CBaseTFCombatWeapon ( void )
 	m_bReflectViewModelAnimations = false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFCombatWeapon::Precache( void )
 {
 	BaseClass::Precache();
@@ -81,9 +78,7 @@ float CBaseTFCombatWeapon::SequenceDuration( int iSequence )
 	float flDuration = BaseClass::SequenceDuration( iSequence );
 	CBaseTFPlayer *pOwner = (CBaseTFPlayer *)GetOwner();
 	if ( pOwner )
-	{
 		flDuration /= pOwner->GetDefaultAnimSpeed();
-	}
 
 	return flDuration;
 }

@@ -22,9 +22,7 @@
 	#include "game.h"
 	#include "gamerules.h"
 	#include "teamplay_gamerules.h"
-#ifdef IMPLEMENT_ME
 	#include "menu_base.h"
-#endif
 	#include "ammodef.h"
 	#include "techtree.h"
 	#include "tf_team.h"
@@ -594,7 +592,7 @@ END_NETWORK_TABLE()
 				return true;
 			if ( args.ArgC() < 2 )
 				return true;
-#ifdef IMPLEMENT_ME
+
 			int slot = atoi( args[1] );
 			// select the item from the current menu
 			if ( pPlayer->m_pCurrentMenu->Input( pPlayer, slot ) == false )
@@ -603,23 +601,19 @@ END_NETWORK_TABLE()
 				pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
 				pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
 			}
-#endif
+
 			return true;
 		}
 		else if ( FStrEq( pcmd, "changeclass" ) )
 		{
-#ifdef IMPLEMENT_ME
 			pPlayer->m_pCurrentMenu = gMenus[MENU_CLASS];
-#endif
 			pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
 			pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
 			return true;
 		}
 		else if ( FStrEq( pcmd, "changeteam" ) )
 		{
-#ifdef IMPLEMENT_ME
 			pPlayer->m_pCurrentMenu = gMenus[MENU_TEAM];
-#endif
 			pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
 			pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
 			return true;
@@ -688,85 +682,6 @@ END_NETWORK_TABLE()
 
 			return true;
 		}
-#ifdef IMPLEMENT_ME	// Sadly the Source Engine doesn't support this anymore as far as I'm aware. Shame. ~hogsy
-		else if( FStrEq( pcmd, "terrainmod" ) )
-		{
-			CTerrainModParams params;
-			
-			if( args.ArgC() >= 2 )
-			{
-				int type = atoi( args[1] );
-
-				switch ( type )
-				{
-				case TMod_Sphere:
-					{
-						CTerrainModParams params;
-						
-						params.m_vCenter = pPlayer->WorldSpaceCenter();
-						params.m_flRadius = 500;
-						params.m_Flags = 0;
-						
-						if( args.ArgC() >= 3 )
-						{
-							params.m_flRadius = atof( args[2] );
-						}
-						
-						TerrainMod_Add( (TerrainModType)type, params );
-					}
-				case TMod_Suck:
-					{
-						CTerrainModParams params;
-						Vector vForward;
-						
-						AngleVectors( pPlayer->GetLocalAngles(), &vForward, 0, 0 );
-						
-						params.m_vCenter = pPlayer->WorldSpaceCenter() + vForward;
-						params.m_flRadius = 200;
-						params.m_flStrength = 400;
-						params.m_Flags = 0;
-						
-						// Optional parameters.
-						if( args.ArgC() >= 3 )
-						{
-							params.m_flRadius = atof( args[2] );
-							
-							if( args.ArgC() >= 4 )
-								params.m_flStrength = atof( engine->Cmd_Argv(3) );
-						}
-						
-						TerrainMod_Add( (TerrainModType)type, params );
-					}
-				case TMod_AABB:
-					{
-						CTerrainModParams params;
-						Vector vForward;
-						
-						AngleVectors( pPlayer->GetLocalAngles(), &vForward, 0, 0 );
-						
-						params.m_vCenter = pPlayer->WorldSpaceCenter() + vForward;
-						params.m_vCenter.z -= 36.0f;
-						params.m_flRadius = 75.0f;
-						params.m_flStrength = 400.0f;
-						params.m_Flags = 0.0f;
-						
-						// Optional parameters.
-						if( args.ArgC() >= 3 )
-						{
-							params.m_flRadius = atof( args[2] );
-							
-							if( args.ArgC() >= 4 )
-								params.m_flStrength = atof( engine->Cmd_Argv(3) );
-						}
-						
-						TerrainMod_Add( (TerrainModType)type, params );
-					}
-				}
-			}
-
-			return true;
-		}
-#endif
 		else if( FStrEq( pcmd, "decaltest" ) )
 		{
 			trace_t trace;

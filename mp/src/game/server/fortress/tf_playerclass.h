@@ -68,7 +68,7 @@ public:
 
 	virtual bool		CanSeePlayerOnRadar( CBaseTFPlayer *pl );
 	virtual void		ItemPostFrame( void );
-	virtual bool		ClientCommand(const char *cmd);
+	virtual bool		ClientCommand( const CCommand& args );
 
 	// Class abilities
 	virtual void		ClassThink( void );

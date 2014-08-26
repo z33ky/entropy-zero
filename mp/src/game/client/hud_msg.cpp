@@ -32,16 +32,13 @@ void CHud::ResetHUD()
 	g_pClientMode->GetViewportAnimationController()->CancelAllAnimations();
 
 	for ( int i = 0; i < m_HudList.Size(); i++ )
-	{
 		m_HudList[i]->Reset();
-	}
 
 	g_pClientMode->GetViewportAnimationController()->RunAllAnimationsToCompletion();
-#ifndef _XBOX
+
 	// reset sensitivity
 	m_flMouseSensitivity = 0;
 	m_flMouseSensitivityFactor = 0;
-#endif
 }
 
 void CHud::MsgFunc_SendAudio( bf_read &msg )

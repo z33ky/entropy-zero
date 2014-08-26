@@ -10,14 +10,11 @@
 #include "basecombatweapon.h"
 #include "tf_player.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
-#else
 #include "tfclassdata_shared.h"
-#endif
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_resource.h"
+#ifdef IMPLEMENT_ME
 #include "orders.h"
 #include "order_repair.h"
 #endif
@@ -25,9 +22,7 @@
 #include "tier1/strtools.h"
 #include "textstatsmgr.h"
 #include "ammodef.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_objectselection.h"
-#endif
 #include "vcollide_parse.h"
 #ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
@@ -435,14 +430,12 @@ void CPlayerClass::CreateClass( void )
 			if ( !tf_fastbuild.GetBool() && bHaveYard && IsObjectADefensiveBuilding(iClassObject) )
 				continue;
 
-#ifdef IMPLEMENT_ME
 			m_pPlayer->GetWeaponBuilder()->AddBuildableObject( iClassObject );
 
 			// Give the player a fake weapon to select this object with
 			CWeaponObjectSelection *pSelection = (CWeaponObjectSelection *)m_pPlayer->GiveNamedItem( "weapon_objectselection", iClassObject  );
 			if ( pSelection )
 				pSelection->SetType( iClassObject );
-#endif
 		}
 	}
 
@@ -645,12 +638,11 @@ TFClass CPlayerClass::GetTFClass( void )
 //-----------------------------------------------------------------------------
 // Purpose: Handle custom commands for this playerclass
 //-----------------------------------------------------------------------------
-bool CPlayerClass::ClientCommand( const char *cmd )
+bool CPlayerClass::ClientCommand( const CCommand& args )
 {
-	if ( FStrEq( cmd, "builder_select_obj" ) )
+	if ( FStrEq( args[0], "builder_select_obj" ) )
 	{
-#ifdef IMPLEMENT_ME
-		if ( engine->Cmd_Argc() < 2 )
+		if ( args.ArgC() < 2 )
 			return true;
 
 		// This is a total hack. Eventually this should come in via usercmds.
@@ -660,17 +652,15 @@ bool CPlayerClass::ClientCommand( const char *cmd )
 			return true;
 
 		// Select a state for the builder weapon
-		m_pPlayer->GetWeaponBuilder()->SetCurrentObject( atoi( engine->Cmd_Argv(1) ) );
+		m_pPlayer->GetWeaponBuilder()->SetCurrentObject( atoi( args[1] ) );
 		m_pPlayer->GetWeaponBuilder()->SetCurrentState( BS_PLACING );
 		m_pPlayer->GetWeaponBuilder()->StartPlacement(); 
 		m_pPlayer->GetWeaponBuilder()->m_flNextPrimaryAttack = gpGlobals->curtime + 0.35f;
 		return true;
-#endif
 	}
-	else if ( FStrEq( cmd, "builder_select_mode" ) )
+	else if ( FStrEq( args[0], "builder_select_mode" ) )
 	{
-#ifdef IMPLEMENT_ME
-		if ( engine->Cmd_Argc() < 2 )
+		if ( args.ArgC() < 2 )
 			return true;
 
 		// Get our builder weapon
@@ -678,10 +668,9 @@ bool CPlayerClass::ClientCommand( const char *cmd )
 			return true;
 
 		// Select a state for the builder weapon
-		m_pPlayer->GetWeaponBuilder()->SetCurrentState( atoi( engine->Cmd_Argv(1) ) );
+		m_pPlayer->GetWeaponBuilder()->SetCurrentState( atoi( args[1] ) );
 		m_pPlayer->GetWeaponBuilder()->m_flNextPrimaryAttack = gpGlobals->curtime + 0.35f;
 		return true;
-#endif
 	}
 
 	return false;
@@ -745,12 +734,10 @@ void CPlayerClass::GainedNewTechnology( CBaseTechnology *pTechnology )
 {
 	int i;
 
-#ifdef IMPLEMENT_ME
 	// Tell the player's weapons that this player's gained new technology
 	for ( i = 0; i < m_pPlayer->WeaponCount(); i++ ) 
 		if ( m_pPlayer->GetWeapon(i) ) 
 			((CBaseTFCombatWeapon*)m_pPlayer->GetWeapon(i))->GainedNewTechnology( pTechnology );
-#endif
 
 	// Tell the player's objects that this player's gained new technology
 	for ( i = 0; i < m_pPlayer->GetObjectCount(); i++ )

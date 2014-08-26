@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
-
 #ifndef BASETFCOMBATWEAPON_SHARED_H
 #define BASETFCOMBATWEAPON_SHARED_H
 #ifdef _WIN32

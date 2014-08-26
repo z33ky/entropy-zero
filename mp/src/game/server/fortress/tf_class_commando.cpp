@@ -451,9 +451,9 @@ void CPlayerClassCommando::Boot( CBaseTFPlayer *pTarget )
 //-----------------------------------------------------------------------------
 // Purpose: Handle custom commands for this playerclass
 //-----------------------------------------------------------------------------
-bool CPlayerClassCommando::ClientCommand( const char *pcmd )
+bool CPlayerClassCommando::ClientCommand( const CCommand &args )
 {
-	return BaseClass::ClientCommand( pcmd );
+	return BaseClass::ClientCommand( args );
 }
 
 void CPlayerClassCommando::SetPlayerHull( void )

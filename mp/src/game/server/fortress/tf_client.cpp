@@ -10,9 +10,7 @@
 #include "ai_node.h"
 #include "ai_hull.h"
 #include "tf_player.h"
-#ifdef IMPLEMENT_ME
 #include "menu_base.h"
-#endif
 #include "shake.h"
 #include "player_resource.h"
 #include "engine/IEngineSound.h"
@@ -112,9 +110,7 @@ void GameStartFrame( void )
 //=========================================================
 void InstallGameRules()
 {
-#ifdef IMPLEMENT_ME
 	InitializeMenus();
-#endif
 
 	// teamplay
 	CreateGameRulesObject( "CTeamFortress" );

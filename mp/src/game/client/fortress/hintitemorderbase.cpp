@@ -1,18 +1,7 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "hintitemorderbase.h"
 #include "paneleffect.h"
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *parent - 
-//			*panelName - 
-//-----------------------------------------------------------------------------
 CHintItemOrderBase::CHintItemOrderBase( vgui::Panel *parent, const char *panelName )
 : BaseClass( parent, panelName )
 {
@@ -23,9 +12,6 @@ CHintItemOrderBase::CHintItemOrderBase( vgui::Panel *parent, const char *panelNa
 	DrawAxialLineToOrder();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHintItemOrderBase::DrawAxialLineToOrder( void )
 {
 	// Derived class already set up effects
@@ -42,10 +28,6 @@ void CHintItemOrderBase::DrawAxialLineToOrder( void )
 	m_LineEffect = CreateAxialLineEffect( this, GetParent(), NULL );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *panel - 
-//-----------------------------------------------------------------------------
 void CHintItemOrderBase::SetHintTarget( vgui::Panel *panel )
 {
 	BaseClass::SetHintTarget( panel );
@@ -59,13 +41,9 @@ void CHintItemOrderBase::SetHintTarget( vgui::Panel *panel )
 	
 	CPanelEffect *e = g_pTF2RootPanel->FindEffect( m_LineEffect );
 	if ( e )
-	{
 		e->SetPanelOther( panel );
-	}
 	
 	e = g_pTF2RootPanel->FindEffect( m_FlashEffect );
 	if ( e )
-	{
 		e->SetPanel( panel );
-	}
 }

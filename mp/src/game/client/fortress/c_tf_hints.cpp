@@ -16,9 +16,7 @@
 #include "c_basetfplayer.h"
 #include "weapon_selection.h"
 #include <KeyValues.h>
-#ifdef IMPLEMENT_ME
 #include "c_weapon_builder.h"
-#endif
 #include "vguimatsurface/IMatSystemSurface.h"
 #include "c_tf_hints.h"
 #include "c_hint_events.h"

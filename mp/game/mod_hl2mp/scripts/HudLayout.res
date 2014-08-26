@@ -20,6 +20,24 @@
 		"digit_ypos" "2"
 	}
 	
+	HudWeaponFlashHelper
+	{
+		"fieldName"	"HudWeaponFlashHelper"
+		"visible"	"0"
+		"enabled" "1"
+		"xpos"	"r120"
+		"ypos"	"r340"
+		"wide"	"100"
+		"tall"	"200"
+		"text_xpos"	"8"
+		"text_ypos"	"8"
+		"text_xgap"	"8"
+		"text_ygap"	"8"
+		"TextColor"	"255 170 0 220"
+
+		"PaintBackgroundType"	"2"
+	}
+	
 	HudResourcesPickup
 	{
 		"fieldName"		"HudResourcesPickup"

@@ -7,9 +7,7 @@
 #include "cbase.h"
 #include "c_tf_basehint.h"
 #include "tf_hints.h"
-#ifdef IMPLEMENT_ME
 #include "itfhintitem.h"
-#endif
 #include <vgui_controls/Controls.h>
 #include <vgui/IVgui.h>
 #include <vgui/Cursor.h>
@@ -17,9 +15,7 @@
 #include <vgui/ISurface.h>
 #include <vgui/IScheme.h>
 #include "vgui_int.h"
-#ifdef IMPLEMENT_ME
 #include "hintitembase.h"
-#endif
 #include <KeyValues.h>
 
 HINTCOMPLETIONFUNCTION LookupCompletionFunction( const char *name );
@@ -129,16 +125,13 @@ void C_TFBaseHint::ParseFromData( KeyValues *pkv )
 	if ( title )
 		SetTitle( title );
 
-#ifdef IMPLEMENT_ME
 	const char *completionfunction = pkv->GetString( "completionfunction" );
 	if ( completionfunction && strlen( completionfunction ) > 0 )
 		SetCompletionFunction( LookupCompletionFunction( completionfunction ) );
-#endif
 
 	KeyValues *items = pkv->FindKey( "items" );
 	if ( items )
 	{
-#ifdef IMPLEMENT_ME
 		KeyValues *pkvItem = items->GetFirstSubKey();
 		for( ; pkvItem ; pkvItem = pkvItem->GetNextKey() )
 		{
@@ -157,7 +150,6 @@ void C_TFBaseHint::ParseFromData( KeyValues *pkv )
 				Msg( "C_TFBaseHint::ParseFromData:  Failed to create hint item %s\n", pkvItem->GetName() );
 			}
 		}
-#endif
 	}
 }
 
@@ -230,15 +222,12 @@ void C_TFBaseHint::PerformLayout()
 	int x, y, w, h;
 	GetClientArea( x, y, w, h );
 
-#ifdef IMPLEMENT_ME
 	int itemh;
-#endif
 
 	int needY = 4;
 
 	for ( int i = 0; i < GetNumHintItems(); i++ )
 	{
-#ifdef IMPLEMENT_ME
 		ITFHintItem *item = GetHintItem( i );
 		if ( item )
 		{
@@ -257,7 +246,6 @@ void C_TFBaseHint::PerformLayout()
 				item->SetVisible( false );
 			}
 		}
-#endif
 	}
 
 	needY += 8;
@@ -311,13 +299,11 @@ void C_TFBaseHint::OnTick()
 	CheckForCompletion();
 
 	int numactive = 0;
-#ifdef IMPLEMENT_ME
 	bool setactive = false;
 	// Remove obsolete items
 	int i;
 	for ( i = m_Hints.Size() - 1; i >= 0; i-- )
 	{
-#ifdef IMPLEMENT_ME
 		ITFHintItem *item = m_Hints[ i ];
 		if ( !item )
 			continue;
@@ -330,14 +316,12 @@ void C_TFBaseHint::OnTick()
 		{
 			numactive++;
 		}
-#endif
 	}
 
 	// Mark first one as active
 	// Perform think
 	for ( i = 0; i < m_Hints.Size(); i++ )
 	{
-#ifdef IMPLEMENT_ME
 		ITFHintItem *item = m_Hints[ i ];
 		if ( !item )
 			continue;
@@ -357,9 +341,7 @@ void C_TFBaseHint::OnTick()
 		{
 			item->Think();
 		}
-#endif
 	}
-#endif
 
 	// No more active items
 	if ( !numactive )
@@ -464,13 +446,8 @@ void C_TFBaseHint::AddHintItem( ITFHintItem *item )
 	InvalidateLayout();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : index - 
-//-----------------------------------------------------------------------------
 void C_TFBaseHint::RemoveHintItem( int index )
 {
-#ifdef IMPLEMENT_ME
 	ITFHintItem *item = GetHintItem( index );
 	if ( item )
 	{
@@ -478,7 +455,6 @@ void C_TFBaseHint::RemoveHintItem( int index )
 		item->DeleteThis();
 		InvalidateLayout();
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -496,7 +472,6 @@ int C_TFBaseHint::GetNumHintItems( void )
 //-----------------------------------------------------------------------------
 void C_TFBaseHint::RemoveAllHintItems( bool deleteitems )
 {
-#ifdef IMPLEMENT_ME
 	while ( m_Hints.Size() > 0 )
 	{
 		ITFHintItem *item = m_Hints[ 0 ];
@@ -504,7 +479,6 @@ void C_TFBaseHint::RemoveAllHintItems( bool deleteitems )
 		if ( deleteitems )
 			item->DeleteThis();
 	}
-#endif
 
 	InvalidateLayout();
 }
@@ -657,12 +631,10 @@ void C_TFBaseHint::SetHintTarget( vgui::Panel *panel )
 	else
 		PositionHintNoTarget( this );
 
-#ifdef IMPLEMENT_ME
 	// Tell hint items that there is a new target
 	for ( int i = 0 ; i < GetNumHintItems(); i++ )
 	{
 		ITFHintItem *item = GetHintItem( i );
 		item->SetHintTarget( panel );
 	}
-#endif
 }

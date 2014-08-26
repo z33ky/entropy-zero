@@ -23,3 +23,6 @@ STUB_WEAPON_CLASS( weapon_plasmarifle, WeaponPlasmaRifle, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_shotgun, WeaponShotgun, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_sapper_shotgun, WeaponSapperShotgun, C_WeaponShotgun );
 STUB_WEAPON_CLASS( weapon_cubemap, WeaponCubemap, C_BaseCombatWeapon );
+
+// Added in for quick testing ~hogsy
+//STUB_WEAPON_CLASS(weapon_builder,WeaponBuilder,C_BaseCombatWeapon);

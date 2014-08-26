@@ -283,6 +283,9 @@ exit 1
     <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_builder.h" />
+    <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h" />
+    <ClInclude Include="..\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="base_transmit_proxy.h" />
     <ClInclude Include="..\..\public\basehandle.h" />
     <ClInclude Include="basetempentity.h" />
@@ -340,8 +343,10 @@ exit 1
     <ClInclude Include="fortress\info_vehicle_bay.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="fortress\menu_base.h" />
     <ClInclude Include="fortress\resource_chunk.h" />
     <ClInclude Include="fortress\team_messages.h" />
+    <ClInclude Include="fortress\tf_basecombatweapon.h" />
     <ClInclude Include="fortress\tf_class_commando.h" />
     <ClInclude Include="fortress\tf_func_resource.h" />
     <ClInclude Include="fortress\tf_hintmanager.h" />
@@ -816,11 +821,15 @@ exit 1
     <ClCompile Include="..\shared\fortress\tf_tacticalmap.cpp" />
     <ClCompile Include="..\shared\fortress\tf_usermessages.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_builder.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\shared\weapon_parse_default.cpp" />
     <ClCompile Include="fortress\basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\info_vehicle_bay.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="fortress\menu_base.cpp" />
     <ClCompile Include="fortress\resource_chunk.cpp" />
     <ClCompile Include="fortress\tf2_eventlog.cpp" />
     <ClCompile Include="fortress\tf_class_commando.cpp" />
