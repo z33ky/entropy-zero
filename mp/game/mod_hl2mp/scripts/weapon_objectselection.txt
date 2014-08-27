@@ -1,15 +1,15 @@
 WeaponData
 {
 	// Weapon data is loaded by both the Game and Client DLLs.
-	"printname"		"Builder"
+	"printname"		"Object Selector"
 	"viewmodel"		"models/weapons/v_slam.mdl"
 	"playermodel"		"models/weapons/placeholders/w_smg.mdl"
 	"anim_prefix"		"python"
-	"bucket"		0
-	"bucket_position"	1
+	"bucket"		"0"
+	"bucket_position"	"0"
 
-	"clip_size"		0
-	"default_clip"		0
+	"clip_size"		"6"
+	"default_clip"		"6"
 	"primary_ammo"		"None"
 	"secondary_ammo"	"None"
 

@@ -65,3 +65,6 @@ config.cfg
 /mp/tools/SSbump_Generator_5_3
 /mp/src/vgui2/vgui_controls/generated_proto
 /sp/src
+/mp/game/mod_hl2mp/stats.txt
+/mp/game/mod_hl2mp/class_stats.txt
+/mp/game/mod_hl2mp/class_stats_detailed.txt

@@ -177,19 +177,11 @@ void CTFGameMovement::HandleLadder( void )
 void CTFGameMovement::SpeedCrop( void )
 {
 	// Verify speed hasn't been cropped already (shouldn't have!!!).
-#if 0
-	if ( m_bSpeedCropped )
-#else	// Would this be the valid alt? ~hogsy
-	if(player->m_flConstraintSpeedFactor)
-#endif
+	if ( m_iSpeedCropped )
 		return;
 
 	// Set the speed cropped flag.
-#if 0
-	m_bSpeedCropped = true;
-#else	// Valid alt? ~hogsy
-	player->m_flConstraintSpeedFactor = ComputeConstraintSpeedFactor();
-#endif
+	m_iSpeedCropped |= SPEED_CROPPED_DUCK;
 
 	// If the "walking" key is pressed -- crop speed.
 	if ( mv->m_nButtons & IN_SPEED )

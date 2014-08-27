@@ -16,8 +16,8 @@
 #include "view_shared.h"
 #ifdef IMPLEMENT_ME
 #include "hud_orders.h"
-#include "weapon_twohandedcontainer.h"
 #endif
+#include "weapon_twohandedcontainer.h"
 #include "particles_simple.h"
 #include "playerandobjectenumerator.h"
 #include "IClientVehicle.h"
@@ -2068,11 +2068,9 @@ void C_BaseTFPlayer::UpdateIDTarget( void )
 //-----------------------------------------------------------------------------
 C_BaseCombatWeapon *C_BaseTFPlayer::GetActiveWeaponForSelection( void )
 {
-#ifdef IMPLEMENT_ME
 	C_WeaponTwoHandedContainer *pTwoHandedWeapon = dynamic_cast<C_WeaponTwoHandedContainer*>( GetActiveWeapon() );
 	if ( pTwoHandedWeapon )
 		return pTwoHandedWeapon->m_hLeftWeapon;
-#endif
 
 	return BaseClass::GetActiveWeaponForSelection();
 }
@@ -2396,13 +2394,12 @@ C_BaseAnimating* C_BaseTFPlayer::GetRenderedWeaponModel()
 		C_BaseCombatWeapon *pWeapon = GetActiveWeapon();
 		if ( !pWeapon )
 			return NULL;
-#ifdef IMPLEMENT_ME
+
 		// If this a two-handed container (shield + weapon), return the left weapon.
 		C_WeaponTwoHandedContainer *pContainer = dynamic_cast< C_WeaponTwoHandedContainer* >( pWeapon );
 		if ( pContainer )
 			return pContainer->GetLeftWeapon();
 		else
-#endif
 			return pWeapon;
 	}
 	else

@@ -4,9 +4,7 @@
 #include "cbase.h"
 #include "tf_func_resource.h"
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "tf_basecombatweapon.h"
-#endif
 #include "tf_obj.h"
 #include "resource_chunk.h"
 #include "vstdlib/random.h"

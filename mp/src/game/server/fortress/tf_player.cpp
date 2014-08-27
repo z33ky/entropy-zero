@@ -19,8 +19,8 @@
 #include "baseviewmodel.h"
 #include "tf_gamerules.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
+#ifdef IMPLEMENT_ME
 #include "orders.h"
 #endif
 #include "decals.h"
@@ -52,8 +52,8 @@
 #include "bone_setup.h"
 #ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#include "weapon_twohandedcontainer.h"
 #endif
+#include "weapon_twohandedcontainer.h"
 #include "NDebugOverlay.h"
 #include "tier1/strtools.h"
 #include "IEffects.h"
@@ -489,6 +489,7 @@ void CBaseTFPlayer::KilledPlayer( CBaseTFPlayer *pVictim )
 void CBaseTFPlayer::InitialSpawn( void )
 {
 	BaseClass::InitialSpawn();
+
 	SetWeaponBuilder( NULL );
 
 	m_bFirstTeamSpawn = true;
@@ -615,7 +616,7 @@ void CBaseTFPlayer::PlacePlayerInTeam( void )
 	CTFTeam *pTargetTeam = NULL;
 
 	// Find the team with the least players in it
-	for ( int i = 0; i < MAX_TF_TEAMS; i++ )
+	for ( int i = 2; i < MAX_TF_TEAMS; i++ )
 	{
 		CTFTeam *pTeam = GetGlobalTFTeam(i);
 
@@ -1030,11 +1031,11 @@ void CBaseTFPlayer::PickShieldAnimation( Activity& activity, int& overlayindex, 
 
 Activity CBaseTFPlayer::ShieldTranslateActivity( Activity activity )
 {
-#ifdef IMPLEMENT_ME
 	CWeaponTwoHandedContainer *container = dynamic_cast< CWeaponTwoHandedContainer * >( GetActiveWeapon() );
 	if ( !container )
 		return activity;
 
+#ifdef IMPLEMENT_ME
 	CWeaponCombatShield *pShield = dynamic_cast< CWeaponCombatShield * >( container->GetLeftWeapon() );
 	if ( !pShield )
 	{
@@ -2455,11 +2456,9 @@ CBaseObject	*CBaseTFPlayer::GetObject( int index )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsBuilding( void )
 {
-#ifdef IMPLEMENT_ME
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		return pBuilder->IsBuilding();
-#endif
 
 	return false;
 }
@@ -2479,12 +2478,10 @@ void CBaseTFPlayer::OwnedObjectDestroyed( CBaseObject *pObject )
 
 	RemoveObject( pObject );
 
-#ifdef IMPLEMENT_ME
 	// Tell our builder weapon so it recalculates the state of the build icons
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->GainedNewTechnology( NULL );
-#endif
 }
 
 
@@ -2617,12 +2614,10 @@ void CBaseTFPlayer::RemoveAllObjects( bool bForceAll, int iClass, bool bReturnRe
 
 void CBaseTFPlayer::StopPlacement( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell our builder weapon
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->StopPlacement();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2646,12 +2641,10 @@ void CBaseTFPlayer::StoppedBuilding( int iObjectType )
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->StoppedBuilding( iObjectType );
 
-#ifdef IMPLEMENT_ME
 	// Tell our builder weapon
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->StoppedBuilding( iObjectType );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2665,12 +2658,10 @@ void CBaseTFPlayer::FinishedObject( CBaseObject *pObject )
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->FinishedObject( pObject );
 
-#ifdef IMPLEMENT_ME
 	// Tell our builder weapon
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->FinishedObject();
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2981,12 +2972,10 @@ void CBaseTFPlayer::SetBankResources( int iAmount )
 
 	m_TFLocal.SetResources( iAmount );
 
-#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->GainedNewTechnology( NULL );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2996,12 +2985,10 @@ void CBaseTFPlayer::AddBankResources( int iAmount )
 {
 	m_TFLocal.AddResources( iAmount );
 
-#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->GainedNewTechnology( NULL );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3011,12 +2998,12 @@ void CBaseTFPlayer::RemoveBankResources( int iAmount, bool bSpent )
 {
 	m_TFLocal.RemoveResources( iAmount );
 
-#ifdef IMPLEMENT_ME
 	// Tell the player's builder weapon to update
 	CWeaponBuilder *pBuilder = GetWeaponBuilder();
 	if ( pBuilder )
 		pBuilder->GainedNewTechnology( NULL );
 
+#ifdef IMPLEMENT_ME
 	if (bSpent)
 		TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_RESOURCES_SPENT, iAmount );
 #endif

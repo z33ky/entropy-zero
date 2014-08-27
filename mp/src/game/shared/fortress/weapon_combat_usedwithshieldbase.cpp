@@ -3,8 +3,8 @@
 #include "weapon_combat_usedwithshieldbase.h"
 #ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#include "weapon_twohandedcontainer.h"
 #endif
+#include "weapon_twohandedcontainer.h"
 
 //-----------------------------------------------------------------------------
 // Purpose: Make sure we're not switching directly to this weapon, since this 
@@ -16,7 +16,6 @@ bool CWeaponCombatUsedWithShieldBase::CanDeploy( void )
 	if (!pPlayer)
 		return false;
 
-#ifdef IMPLEMENT_ME
 	// Make sure the current weapon is a twohanded weapon container
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>(pPlayer->GetActiveWeapon());
 	if ( !pContainer )
@@ -33,7 +32,6 @@ bool CWeaponCombatUsedWithShieldBase::CanDeploy( void )
 		pContainer->SetWeapons( this, pContainer->GetRightWeapon() );
 		return false;
 	}
-#endif
 
 	return BaseClass::CanDeploy();
 }
@@ -80,7 +78,6 @@ int CWeaponCombatUsedWithShieldBase::UpdateClientData( CBasePlayer *pPlayer )
 	if ( !pPlayer )
 		return BaseClass::UpdateClientData( pPlayer );
 
-#ifdef IMPLEMENT_ME
 	CWeaponTwoHandedContainer *pContainer = ( CWeaponTwoHandedContainer * )pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
 	if ( !pContainer || pContainer != pPlayer->GetActiveWeapon() )
 		return BaseClass::UpdateClientData( pPlayer );
@@ -92,9 +89,6 @@ int CWeaponCombatUsedWithShieldBase::UpdateClientData( CBasePlayer *pPlayer )
 	int retval = pContainer->UpdateClientData( pPlayer );
 	m_iState =  pContainer->m_iState;
 	return retval;
-#else
-	return 0;
-#endif
 }
 
 LINK_ENTITY_TO_CLASS( weapon_combat_usedwithshieldbase, CWeaponCombatUsedWithShieldBase );

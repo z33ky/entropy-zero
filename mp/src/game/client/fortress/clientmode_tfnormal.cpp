@@ -13,11 +13,8 @@
 #include "hud.h"
 #include "iinput.h"
 #include "c_basetfplayer.h"
-#ifdef IMPLEMENT_ME
 #include "hud_timer.h"
-#else
 #include "ienginevgui.h"
-#endif
 #include "usercmd.h"
 #include "in_buttons.h"
 #include "c_tf_playerclass.h"

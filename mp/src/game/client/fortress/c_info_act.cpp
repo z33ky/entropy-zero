@@ -6,9 +6,7 @@
 #include "cbase.h"
 #include "tf_shareddefs.h"
 #include "c_info_act.h"
-#ifdef IMPLEMENT_ME
 #include "hud_timer.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -84,11 +82,9 @@ void C_InfoAct::OnDataChanged( DataUpdateType_t updateType )
 	{
 		if ( m_flPreviousTimeLimit != m_flActTimeLimit )
 		{
-#ifdef IMPLEMENT_ME
 			CHudTimer *timer = GET_HUDELEMENT( CHudTimer );
 			if ( timer )
 				timer->SetFixedTimer( m_flStartTime, m_flActTimeLimit );
-#endif
 		}
 	}
 }
@@ -101,11 +97,9 @@ void C_InfoAct::StartAct( float flStartTime )
 	g_hCurrentAct = this;
 	m_flStartTime = flStartTime;
 
-#ifdef IMPLEMENT_ME
 	CHudTimer *timer = GET_HUDELEMENT( CHudTimer );
 	if ( timer )
 		timer->SetFixedTimer( m_flStartTime, m_flActTimeLimit );
-#endif
 }
 
 //-----------------------------------------------------------------------------

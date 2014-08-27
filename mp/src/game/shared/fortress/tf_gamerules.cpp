@@ -34,7 +34,6 @@
 	#include "basecombatweapon.h"
 	#include "voice_gamemgr.h"
 #ifdef IMPLEMENT_ME
-	#include "terrainmodmgr.h"
 	#include "tf_class_infiltrator.h"
 #endif
 	#include "team_messages.h"
@@ -50,10 +49,8 @@
 	#include "filesystem.h"
 	#include "info_vehicle_bay.h"
 	#include "IserverVehicle.h"
-#ifdef IMPLEMENT_ME
 	#include "weapon_builder.h"
 	#include "weapon_objectselection.h"
-#endif
 
 #endif
 
@@ -120,7 +117,8 @@ END_NETWORK_TABLE()
 
 	char *sTeamNames[] =
 	{
-		"",
+		"Unassigned",
+		"Spectator",
 		"Human",
 		"Alien",
 	};
@@ -426,7 +424,7 @@ END_NETWORK_TABLE()
 		m_bAllowWeaponSwitch = true;
 
 		// Create the team managers
-		for ( int i = 1; i <= MAX_TF_TEAMS; i++ )
+		for ( int i = 0; i < MAX_TF_TEAMS; i++ )
 		{
 			CTFTeam *pTeam = (CTFTeam*)CreateEntityByName( "tf_team_manager" );
 			pTeam->Init( sTeamNames[i], i );
@@ -1279,13 +1277,11 @@ END_NETWORK_TABLE()
 		if ( !GetAllowWeaponSwitch() )
 			return false;
 
-#ifdef IMPLEMENT_ME
 		// Never auto switch to object placement
 		if ( dynamic_cast<CWeaponBuilder*>(pWeapon) ) 
 			return false;
 		if ( dynamic_cast<CWeaponObjectSelection*>(pWeapon) ) 
 			return false;
-#endif
 
 		return BaseClass::FShouldSwitchWeapon( pPlayer, pWeapon );
 	}

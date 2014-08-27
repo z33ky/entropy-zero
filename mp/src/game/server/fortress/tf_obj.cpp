@@ -5,9 +5,7 @@
 #include "tf_player.h"
 #include "tf_team.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "tf_basecombatweapon.h"
-#endif
 #include "rope.h"
 #include "rope_shared.h"
 #include "bone_setup.h"
@@ -44,17 +42,12 @@
 #include "info_vehicle_bay.h"
 #include "ihasbuildpoints.h"
 #include "tf_obj_buff_station.h"
-#ifdef IMPLEMENT_ME
 #include "info_buildpoint.h"
-#endif
 #include "utldict.h"
 #include "filesystem.h"
 #include "npcevent.h"
 #include "tf_shareddefs.h"
 #include "animation.h"
-#ifdef IMPLEMENT_ME
-#include "terrainmodmgr.h"
-#endif
 
 // Control panels
 #define SCREEN_OVERLAY_MATERIAL "vgui/screens/vgui_overlay"
@@ -208,11 +201,9 @@ void CBaseObject::UpdateOnRemove( void )
 	if ( GetTeam() )
 		((CTFTeam*)GetTeam())->RemoveObject( this );
 
-#ifdef IMPLEMENT_ME
 	// Make sure the object isn't in either team's list of objects...
-	Assert( !GetGlobalTFTeam(1)->IsObjectOnTeam( this ) );
-	Assert( !GetGlobalTFTeam(2)->IsObjectOnTeam( this ) );
-#endif
+	Assert( !GetGlobalTFTeam(TEAM_HUMANS)->IsObjectOnTeam( this ) );
+	Assert( !GetGlobalTFTeam(TEAM_ALIENS)->IsObjectOnTeam( this ) );
 
 	// Chain at end to mimic destructor unwind order
 	BaseClass::UpdateOnRemove();
@@ -639,10 +630,8 @@ int	CBaseObject::ObjectType( ) const
 
 void CBaseObject::SetObjectCollisionBox( void )
 {
-#ifdef IMPLEMENT_ME	// ?
-	if ( !pev )
+	if ( !edict() )
 		return;
-#endif
 
 	// Objects never rotate from their original position, so don't compute a box big enough to hold rotation (i.e. pitch)
 	Vector vecWorldMins, vecWorldMaxs;
@@ -663,12 +652,10 @@ void CBaseObject::DestroyObject( void )
 #ifdef IMPLEMENT_ME
 	COrderEvent_ObjectDestroyed order( this );
 	GlobalOrderEvent( &order );
+#endif
 
 	if ( GetBuilder() )
-	{
 		GetBuilder()->OwnedObjectDestroyed( this );
-	}
-#endif
 
 	// Tell my powerpack that I'm gone
 	if ( m_hPowerPack != NULL )
@@ -897,10 +884,9 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		}
 	}
 
-#ifdef IMPLEMENT_ME
 	// See if there's any mapdefined build points near me
 	int iCount = g_MapDefinedBuildPoints.Count();
-	for ( i = 0; i < iCount; i++ )
+	for ( int i = 0; i < iCount; i++ )
 	{
 		if ( !InSameTeam(g_MapDefinedBuildPoints[i]) )
 			continue;
@@ -908,7 +894,6 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		if ( FindNearestBuildPoint( g_MapDefinedBuildPoints[i], vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
 			bSnappedToPoint = true;
 	}
-#endif
 
 	// Upgrades become invisible if the player's not attaching them to a snap pint
 	if ( IsAnUpgrade() )
@@ -2380,14 +2365,12 @@ void CBaseObject::ChangeBuilder( CBaseTFPlayer *pNewBuilder, bool moveobjects )
 			if ( !FClassnameIs( player->GetWeapon( j ), classname ) )
 				continue;
 
-#ifdef IMPLEMENT_ME
 			// Add to this player
 			if ( player == pNewBuilder )
 				( ( CBaseTFCombatWeapon * )player->GetWeapon( j ))->AddAssociatedObject( this );
 			// Remove from any other
 			else
 				( ( CBaseTFCombatWeapon * )player->GetWeapon( j ))->RemoveAssociatedObject( this );
-#endif
 		}
 	}
 }
@@ -2526,7 +2509,7 @@ CRopeKeyframe *CBaseObject::ConnectCableTo( CBaseObject *pObject, int iLocalAtta
 	// tricky, so we make a proxy here to control it.
 	if ( IsPlacing() || pObject->IsPlacing() )
 	{
-#ifdef IMPLEMENT_ME
+#ifdef IMPLEMENT_ME	// This doesn't seem to be supported in this form anymore... Ugh ~hogsy
 		CObjectRopeTransmitProxy *pProxy = new CObjectRopeTransmitProxy( pRope );
 		pProxy->m_hObj1 = this;
 		pProxy->m_hObj2 = pObject;

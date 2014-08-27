@@ -5,9 +5,7 @@
 #ifndef CLIENT_DLL
 #include "tf_player.h"
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "info_customtech.h"
-#endif
 #endif
 #include "techtree.h"
 
@@ -862,9 +860,7 @@ void CBaseTechnology::AddTechnologyToTeam( CTFTeam *pTeam )
 void CBaseTechnology::RegisterWatcher( CInfoCustomTechnology *pWatcher )
 {
 	m_aWatchers.AddToTail( pWatcher );
-#ifdef IMPLEMENT_ME
 	pWatcher->UpdateTechPercentage( 0 );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -872,11 +868,9 @@ void CBaseTechnology::RegisterWatcher( CInfoCustomTechnology *pWatcher )
 //-----------------------------------------------------------------------------
 void CBaseTechnology::UpdateWatchers( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell all my watchers
 	for (int i = 0; i < m_aWatchers.Size(); i++ )
 		m_aWatchers[i]->UpdateTechPercentage( GetOverallLevel() );
-#endif
 }
 #else
 //-----------------------------------------------------------------------------

@@ -19,7 +19,6 @@
 #include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
 #ifdef IMPLEMENT_ME
-#include "vstdlib/strtools.h"
 #include "tf_stats.h"
 #endif
 #include "tf_obj_buff_station.h"

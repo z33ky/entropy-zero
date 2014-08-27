@@ -7,9 +7,7 @@
 #include "clientmode_commander.h"
 #endif
 #include "ivmodemanager.h"
-#ifdef IMPLEMENT_ME
 #include "hud_timer.h"
-#endif
 #include "hud_technologytreedoc.h"
 #include "CommanderOverlay.h"
 #include "c_tf2rootpanel.h"
@@ -144,11 +142,11 @@ void CTFModeManager::LevelInit( const char *newmap )
 	GetTechnologyTreeDoc().LevelInit();
 	g_pTF2RootPanel->LevelInit();
 
-#ifdef IMPLEMENT_ME
 	CHudTimer *timer = GET_HUDELEMENT( CHudTimer );
 	if ( timer )
 		timer->Init();
 
+#ifdef IMPLEMENT_ME
 	// Tell all modes about the map change
 	ClientModeCommander()->LevelInit( newmap );
 #endif
@@ -182,9 +180,7 @@ void __MsgFunc_ActBegin(bf_read &msg)
 //-----------------------------------------------------------------------------
 void __MsgFunc_ActEnd(bf_read &msg)
 {
-#ifdef IMPLEMENT_ME
 	CHudTimer *timer = GET_HUDELEMENT( CHudTimer );
 	if ( timer )
 		timer->SetNoFixedTimer( 0.0f );
-#endif
 }

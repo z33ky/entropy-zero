@@ -407,6 +407,7 @@ exit 1
     </ClInclude>
     <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h" />
     <ClInclude Include="..\shared\fortress\weapon_objectselection.h" />
+    <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h" />
     <ClInclude Include="fortress\clientmode_tfbase.h" />
     <ClInclude Include="fortress\clientmode_tfnormal.h" />
     <ClInclude Include="fortress\CommanderOverlay.h" />
@@ -434,6 +435,7 @@ exit 1
     <ClInclude Include="fortress\hud_numeric.h" />
     <ClInclude Include="fortress\hud_targetreticle.h" />
     <ClInclude Include="fortress\hud_technologytreedoc.h" />
+    <ClInclude Include="fortress\hud_timer.h" />
     <ClInclude Include="fortress\itfhintitem.h" />
     <ClInclude Include="fortress\mapdata.h" />
     <ClInclude Include="fortress\maxplayers.h" />
@@ -927,6 +929,7 @@ exit 1
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_twohandedcontainer.cpp" />
     <ClCompile Include="..\shared\weapon_parse_default.cpp" />
     <ClCompile Include="fortress\clientmode_tfbase.cpp" />
     <ClCompile Include="fortress\clientmode_tfnormal.cpp" />
@@ -937,8 +940,10 @@ exit 1
     <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_hint_events.cpp" />
     <ClCompile Include="fortress\c_info_act.cpp" />
+    <ClCompile Include="fortress\c_info_customtech.cpp" />
     <ClCompile Include="fortress\c_obj_buff_station.cpp" />
     <ClCompile Include="fortress\c_obj_powerpack.cpp" />
+    <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_tf2rootpanel.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
@@ -949,6 +954,7 @@ exit 1
     <ClCompile Include="fortress\c_tf_hints.cpp" />
     <ClCompile Include="fortress\c_tf_playerclass.cpp" />
     <ClCompile Include="fortress\c_weapon_builder.cpp" />
+    <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp" />
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
     <ClCompile Include="fortress\fx_tf2_blood.cpp" />
     <ClCompile Include="fortress\fx_tf2_buildeffects.cpp" />
@@ -962,6 +968,7 @@ exit 1
     <ClCompile Include="fortress\hud_numeric.cpp" />
     <ClCompile Include="fortress\hud_resources.cpp" />
     <ClCompile Include="fortress\hud_technologytreedoc.cpp" />
+    <ClCompile Include="fortress\hud_timer.cpp" />
     <ClCompile Include="fortress\hud_weaponselection.cpp" />
     <ClCompile Include="fortress\mapdata.cpp" />
     <ClCompile Include="fortress\ObjectControlPanel.cpp" />

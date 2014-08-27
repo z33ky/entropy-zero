@@ -1,9 +1,7 @@
 #include "cbase.h"
 #include "basetfplayer_shared.h"
 #include "basetfcombatweapon_shared.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_twohandedcontainer.h"
-#endif
 
 #if !defined( CLIENT_DLL )
 #include "soundent.h"
@@ -136,7 +134,6 @@ bool CBaseTFCombatWeapon::SendWeaponAnim( int iActivity )
 
 	CBaseTFCombatWeapon *pOther = NULL;
 
-#ifdef IMPLEMENT_ME
 	// See if we are wielding multiple weapons
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast< CWeaponTwoHandedContainer * >( pPlayer->GetActiveWeapon() );
 	if ( pContainer )
@@ -145,11 +142,11 @@ bool CBaseTFCombatWeapon::SendWeaponAnim( int iActivity )
 		CBaseTFCombatWeapon  *left = static_cast< CBaseTFCombatWeapon  * >( pContainer->GetLeftWeapon() );
 		CBaseTFCombatWeapon  *right = static_cast< CBaseTFCombatWeapon  * >( pContainer->GetRightWeapon() );
 		if ( !left || !right )
-			return;
+			return false;
 
 		// Make sure one of them is this!!!
 		if ( left != this && right != this )
-			return;
+			return false;
 
 		// Get pointer to other one
 		pOther = left;
@@ -163,9 +160,8 @@ bool CBaseTFCombatWeapon::SendWeaponAnim( int iActivity )
 		// Now ask our other weapon if it would like to stomp my animation attempt
 		iActivity = pOther->ReplaceOtherWeaponsActivity( iActivity );
 		if ( iActivity == -1 )
-			return;
+			return false;
 	}
-#endif
 
 	// Always pass through to base
 	BaseClass::SendWeaponAnim( iActivity );
@@ -173,11 +169,9 @@ bool CBaseTFCombatWeapon::SendWeaponAnim( int iActivity )
 	if ( !IsReflectingAnimations() )
 		return false;
 
-#ifdef IMPLEMENT_ME
 	// See if we are wielding multiple weapons
 	if ( !pContainer )
 		return false;
-#endif
 
 	Assert(pOther);
 	// Send our other weapon the activity code

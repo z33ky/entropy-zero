@@ -69,6 +69,13 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel( "models/player/alien_escort.mdl" );
 	CBaseEntity::PrecacheModel( "models/player/defender.mdl" );
 	CBaseEntity::PrecacheModel( "models/player/technician.mdl" );
+
+	// Precache team message sounds
+	enginesound->PrecacheSound( "vox/reinforcement.wav" );
+	enginesound->PrecacheSound( "vox/harvester-attack.wav" );
+	enginesound->PrecacheSound( "vox/harvester-destroyed.wav" );
+	enginesound->PrecacheSound( "vox/new-tech-level.wav" );
+	enginesound->PrecacheSound( "vox/resource-zone-emptied.wav" );
 }
 
 
@@ -118,6 +125,7 @@ void InstallGameRules()
 
 void FinishClientPutInServer( CBaseTFPlayer *pPlayer )
 {
+#if 0
 	pPlayer->InitialSpawn();
 	pPlayer->Spawn();
 
@@ -126,6 +134,7 @@ void FinishClientPutInServer( CBaseTFPlayer *pPlayer )
 	pPlayer->AddEffects( EF_NODRAW );
 	pPlayer->ChangeTeam( TEAM_UNASSIGNED );
 	pPlayer->SetThink( NULL );
+#endif
 
 	char sName[128];
 	Q_strncpy( sName, pPlayer->GetPlayerName(), sizeof( sName ) );

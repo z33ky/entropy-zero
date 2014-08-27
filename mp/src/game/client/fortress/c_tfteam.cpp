@@ -2,9 +2,6 @@
 // Purpose: Client side C_TFTeam class
 
 #include "cbase.h"
-#ifdef IMPLEMENT_ME
-#include "parsemsg.h"
-#endif
 #include "c_tfteam.h"
 #include "c_basetfplayer.h"
 #include "engine/IEngineSound.h"

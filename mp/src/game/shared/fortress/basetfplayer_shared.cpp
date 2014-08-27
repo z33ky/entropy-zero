@@ -11,9 +11,7 @@
 #include "weapon_combatshield.h"
 #endif
 #include "weapon_objectselection.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_twohandedcontainer.h"
-#endif
 #ifdef CLIENT_DLL
 #include "c_weapon_builder.h"
 #else
@@ -174,13 +172,11 @@ bool CBaseTFPlayer::Weapon_ShouldSetLast( CBaseCombatWeapon *pOldWeapon, CBaseCo
 		return false;
 	}
 
-#ifdef IMPLEMENT_ME
 	// Don't record last weapons when switching from the builder
 	// If the old weapon is a twohanded container, check the left weapon
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast< CWeaponTwoHandedContainer * >( pOldWeapon );
 	if ( pContainer )
 		pOldWeapon = dynamic_cast< CBaseTFCombatWeapon  * >( pContainer->GetLeftWeapon() );
-#endif
 
 #ifdef CLIENT_DLL
 	if ( dynamic_cast< C_WeaponBuilder* >( pOldWeapon ) )
@@ -199,12 +195,11 @@ bool CBaseTFPlayer::Weapon_ShouldSetLast( CBaseCombatWeapon *pOldWeapon, CBaseCo
 bool CBaseTFPlayer::Weapon_ShouldSelectItem( CBaseCombatWeapon *pWeapon )
 {
 	CBaseCombatWeapon *pActiveWeapon = GetActiveWeapon();
-#ifdef IMPLEMENT_ME
+
 	// If the old weapon is a twohanded container, check the left weapon
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast< CWeaponTwoHandedContainer * >( pActiveWeapon );
 	if ( pContainer )
 		pActiveWeapon = pContainer->GetLeftWeapon();
-#endif
 
 	return ( pWeapon != pActiveWeapon );
 }

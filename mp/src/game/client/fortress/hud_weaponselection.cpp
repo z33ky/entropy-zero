@@ -8,9 +8,7 @@
 #include "weapon_selection.h"
 #include "iclientmode.h"
 #include "basetfcombatweapon_shared.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_objectselection.h"
-#endif
 #include <KeyValues.h>
 #include <vgui/IScheme.h>
 #include <vgui/ISurface.h>
@@ -23,14 +21,12 @@
 
 #include <vgui/IVGui.h>
 
-#ifdef IMPLEMENT_ME
 #include "weapon_twohandedcontainer.h"
 #ifdef CLIENT_DLL
 #include "c_weapon_builder.h"
 #include "iinput.h"
 #else
 #include "weapon_builder.h"
-#endif
 #endif
 
 using namespace vgui;
@@ -168,10 +164,8 @@ private:
 	void TranslateColor( float percent, Color& clr );
 	void DrawBox( bool isbuildmenu, int x, int y, int wide, int tall, bool isactive, bool isvalid, float normalizedAlpha, int number );
 	int GetTeamIndex();
-#ifdef IMPLEMENT_ME
 	void OnWeaponSelectionDrawn( CHudWeaponSelection *selection, C_WeaponObjectSelection *weapon, bool bCurrentlySelected, 
 		int wide, int tall, Color& clr );
-#endif
 };
 
 //-----------------------------------------------------------------------------
@@ -411,7 +405,6 @@ void CHudWeaponSelection::RebuildMenus()
 		item.weapon = pWeapon;
 		item.isvalidmenuitem = true;
 
-#ifdef IMPLEMENT_ME
 		if ( dynamic_cast< C_WeaponObjectSelection * >( pWeapon ) )
 		{
 			// HACK
@@ -421,7 +414,6 @@ void CHudWeaponSelection::RebuildMenus()
 			m_BuildObjects[ whichBuildMenu ].items.Insert( item );
 		}
 		else
-#endif
 			m_Weapons.items.Insert( item );
 	}
 
@@ -1030,16 +1022,14 @@ void CHudWeaponSelection::SwitchToLastWeapon( void )
 	if ( !pPlayer )
 		return;
 
-#ifdef IMPLEMENT_ME
 	// If we're currently using the builder weapon, switch to the weapon we were
 	// using before we started using it.
 	C_BaseCombatWeapon *pActiveWeapon = pPlayer->GetActiveWeapon();
+
 	// Handle the twohanded weapon container
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast< CWeaponTwoHandedContainer * >( pActiveWeapon );
 	if ( pContainer )
-	{
 		pActiveWeapon = pContainer->GetLeftWeapon();
-	}
 
 	if ( dynamic_cast< C_WeaponBuilder* >( pActiveWeapon ) )
 	{
@@ -1049,7 +1039,6 @@ void CHudWeaponSelection::SwitchToLastWeapon( void )
 
 	// Switch to previous weapon normally
 	::input->MakeWeaponSelection( pPlayer->GetLastWeapon() );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1471,17 +1460,12 @@ void CHudWeaponItemPanel::Paint()
 	// Let the weapon draw stuff too
 	if ( info.weapon )
 	{
-#ifdef IMPLEMENT_ME
 		C_WeaponObjectSelection *selectionWeapon = dynamic_cast< C_WeaponObjectSelection * >( info.weapon.Get() );
 		if ( selectionWeapon )
-		{
 			OnWeaponSelectionDrawn( selection, selectionWeapon, isactive, wide, tall, textColor );
-		}
-#endif
 	}
 }
 
-#ifdef IMPLEMENT_ME
 //-----------------------------------------------------------------------------
 // Purpose: We've just been drawn in the weapon selection
 //-----------------------------------------------------------------------------
@@ -1518,7 +1502,6 @@ void CHudWeaponItemPanel::OnWeaponSelectionDrawn( CHudWeaponSelection *selection
 		vgui::surface()->DrawUnicodeChar(*pch);
 	}
 }
-#endif
 
 void CHudWeaponItemPanel::TranslateColor( float percent, Color& clr )
 {
@@ -1645,7 +1628,7 @@ void CHudWeaponItemPanel::SetupIcons()
 			Q_snprintf( sz, sizeof( sz ), "%s_weapon_%s_%s_%i",
 				teamtype, menutypestr, slottype, m_nSlotNumber + 1 );
 
-			m_BackgroundIcons[ team ][ type ] = gHUD.GetIcon( sz );;
+			m_BackgroundIcons[ team ][ type ] = gHUD.GetIcon( sz );
 		}
 	}
 }

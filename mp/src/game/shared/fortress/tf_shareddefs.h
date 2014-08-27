@@ -5,7 +5,7 @@
 #pragma once
 #endif
 
-#define MAX_TF_TEAMS		2
+#define MAX_TF_TEAMS	4
 
 extern ConVar	inv_demo;
 extern ConVar	lod_effect_distance;
@@ -14,8 +14,8 @@ extern ConVar	lod_effect_distance;
 
 //--------------------------------------------------------------------------
 // Teams
-#define TEAM_HUMANS		1
-#define TEAM_ALIENS		2
+#define TEAM_HUMANS		2
+#define TEAM_ALIENS		3
 
 //--------------------------------------------------------------------------
 // TF player flags.

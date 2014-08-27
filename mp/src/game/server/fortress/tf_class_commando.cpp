@@ -6,9 +6,7 @@
 #endif
 #include "EntityList.h"
 #include "basecombatweapon.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_builder.h"
-#endif
 #include "tf_obj.h"
 #ifdef IMPLEMENT_ME
 #include "tf_obj_rallyflag.h"
@@ -18,8 +16,8 @@
 #include "order_assist.h"
 #endif
 #include "engine/IEngineSound.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_twohandedcontainer.h"
+#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
 #endif
 
@@ -57,7 +55,7 @@ const char *CPlayerClassCommando::GetClassModelString( int nTeam )
 
 CPlayerClassCommando::CPlayerClassCommando( CBaseTFPlayer *pPlayer, TFClass iClass ) : CPlayerClass( pPlayer, iClass )
 {
-	for (int i = 1; i <= MAX_TF_TEAMS; ++i)
+	for (int i = 0; i < MAX_TF_TEAMS; i++)
 		SetClassModel( MAKE_STRING(GetClassModelString(i)), i ); 
 }
 
@@ -302,18 +300,16 @@ void CPlayerClassCommando::PreBullRush( void )
 	filter.MakeReliable();
 	CBaseEntity::EmitSound( filter, m_pPlayer->entindex(), "Commando.BullRushScream" );
 
-#ifdef IMPLEMENT_ME
 	// Force the shield down, if it is up.
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>( m_pPlayer->GetActiveWeapon() );
 	if ( pContainer )
 	{
+#ifdef IMPLEMENT_ME
 		CWeaponCombatShield *pShield = dynamic_cast<CWeaponCombatShield*>( pContainer->GetRightWeapon() );
 		if ( pShield )
-		{
 			pShield->SetShieldUsable( false );
-		}
-	}
 #endif
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -323,18 +319,18 @@ void CPlayerClassCommando::PostBullRush( void )
 {
 	SetClassTouch( m_pPlayer, NULL );
 
-#ifdef IMPLEMENT_ME
 	// Force the shield down, if it is up.
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>( m_pPlayer->GetActiveWeapon() );
 	if ( pContainer )
 	{
+#ifdef IMPLEMENT_ME
 		CWeaponCombatShield *pShield = dynamic_cast<CWeaponCombatShield*>( pContainer->GetRightWeapon() );
 		if ( pShield )
 		{
 			pShield->SetShieldUsable( true );
 		}
-	}
 #endif
+	}
 }
 
 //-----------------------------------------------------------------------------

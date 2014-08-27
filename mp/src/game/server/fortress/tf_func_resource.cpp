@@ -7,9 +7,7 @@
 #include "tf_player.h"
 #include "tf_func_resource.h"
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "tf_basecombatweapon.h"
-#endif
 #include "gamerules.h"
 #include "ammodef.h"
 #include "tf_obj.h"

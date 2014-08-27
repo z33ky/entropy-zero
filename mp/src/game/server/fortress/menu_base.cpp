@@ -13,7 +13,6 @@
 #include "tf_gamerules.h"
 #ifdef IMPLEMENT_ME
 #include "tf_class_infiltrator.h"
-#include "vstdlib/strtools.h"
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!

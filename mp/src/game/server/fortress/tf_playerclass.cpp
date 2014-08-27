@@ -291,7 +291,7 @@ CPlayerClass::CPlayerClass( CBaseTFPlayer *pPlayer, TFClass iClass )
 {
 	m_pPlayer = pPlayer;
 	
-	for (int i = 0; i <= MAX_TF_TEAMS; ++i)
+	for (int i = 0; i < MAX_TF_TEAMS; i++)
 		m_sClassModel[i] = NULL_STRING;
 
 	m_iNumWeaponTechAssociations = 0;
@@ -588,9 +588,13 @@ void CPlayerClass::SetMaxSpeed( float flMaxSpeed )
 //-----------------------------------------------------------------------------
 int CPlayerClass::GetMaxHealthCVarValue()
 {
+#ifdef IMPLEMENT_ME
 	int val = GetTFClassInfo( GetTFClass() )->m_pMaxHealthCVar->GetInt();
 	Assert( val > 0 );	// If you hit this assert, then you probably didn't add an entry to skill?.cfg
 	return val;
+#else	// Currently classes don't assign their own max health, so we can't fix this right now... ~hogsy
+	return 100;
+#endif
 }
 
 //-----------------------------------------------------------------------------

@@ -26,9 +26,6 @@
 #include "filesystem.h"
 #include "imessagechars.h"
 #include "hud_macros.h"
-#ifdef IMPLEMENT_ME
-#include "parsemsg.h"
-#endif
 #include "c_tfteam.h"
 #include "c_info_act.h"
 #include "engine/IEngineSound.h"
