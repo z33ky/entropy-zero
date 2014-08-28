@@ -1694,6 +1694,21 @@
     <ClInclude Include="fortress\info_buildpoint.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_shield.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_shield_flat.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_shieldshared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combatshield.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_respawn_station.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3140,6 +3155,27 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\info_buildpoint.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\sensor_tf_team.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_shield.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_shield_flat.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_shield_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_shield_mobile_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_respawn_station.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>

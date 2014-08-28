@@ -28,8 +28,8 @@
 #include "resource_chunk.h"
 #include "team_messages.h"
 #include "tier0/dbg.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_respawn_station.h"
+#ifdef IMPLEMENT_ME
 #include "tf_obj_resourcepump.h"
 #endif
 #include "tf_class_commando.h"
@@ -50,9 +50,7 @@
 #include "vstdlib/random.h"
 #include "engine/IEngineSound.h"
 #include "bone_setup.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#endif
 #include "weapon_twohandedcontainer.h"
 #include "NDebugOverlay.h"
 #include "tier1/strtools.h"
@@ -928,9 +926,7 @@ CBaseEntity *CBaseTFPlayer::EntSelectSpawnPoint( void )
 			entity = m_hSpawnPoint;
 			if (entity && (entity->GetTeam() == GetTeam()))
 			{
-#ifdef IMPLEMENT_ME
 				PlayRespawnEffect( entity );
-#endif
 				return entity;
 			}
 		}
@@ -1035,7 +1031,6 @@ Activity CBaseTFPlayer::ShieldTranslateActivity( Activity activity )
 	if ( !container )
 		return activity;
 
-#ifdef IMPLEMENT_ME
 	CWeaponCombatShield *pShield = dynamic_cast< CWeaponCombatShield * >( container->GetLeftWeapon() );
 	if ( !pShield )
 	{
@@ -1101,7 +1096,6 @@ Activity CBaseTFPlayer::ShieldTranslateActivity( Activity activity )
 	switch ( shieldState )
 	{
 	default:
-#ifdef IMPLEMENT_ME
 	case SS_DOWN:
 	case SS_UNAVAILABLE:
 		RemoveShieldOverlays();
@@ -1135,7 +1129,6 @@ Activity CBaseTFPlayer::ShieldTranslateActivity( Activity activity )
 				ACT_OVERLAY_SHIELD_ATTACK, ACT_CROUCHING_SHIELD_ATTACK, ACT_SHIELD_ATTACK,
 				true, 0.1f, 0.1f );
 		}
-#endif
 		break;
 	}
 
@@ -1160,7 +1153,7 @@ Activity CBaseTFPlayer::ShieldTranslateActivity( Activity activity )
 
 	// Remember previous state
 	m_bWasMoving = isMoving;
-#endif
+
 	// Return translated activity
 	return activity;
 }
@@ -1358,11 +1351,9 @@ CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void )
 			if ( !pFirstStation )
 				pFirstStation = pObject;
 
-#ifdef IMPLEMENT_ME
 			// Map specified initial spawnpoint?
 			if ( ((CObjectRespawnStation*)pObject)->IsInitialSpawnPoint() )
 				return pObject;
-#endif
 		}
 	}
 
@@ -2346,11 +2337,9 @@ void CBaseTFPlayer::PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAt
 		{
 			m_hLastBoostEntity = pAttacker;
 
-#ifdef IMPLEMENT_ME
 			// Power up their shield
 			if ( GetCombatShield() )
 				GetCombatShield()->AddShieldHealth( 0.06 ); 
-#endif
 
 			// Let their playerclass know
 			GetPlayerClass()->PowerupStart( iPowerup, flAmount, pAttacker, pDamageModifier );

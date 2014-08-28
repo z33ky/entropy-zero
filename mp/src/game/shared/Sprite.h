@@ -228,13 +228,10 @@ public:
 	virtual float	GlowBlend( CEngineSprite *psprite, const Vector& entorigin, int rendermode, int renderfx, int alpha, float *scale );
 	virtual void	GetToolRecordingState( KeyValues *msg );
 
-// Only supported in TF2 right now
-#if defined( INVASION_CLIENT_DLL )
 	virtual bool	ShouldPredict( void )
 	{
 		return true;
 	}
-#endif
 
 	virtual void	ClientThink( void );
 	virtual void	OnDataChanged( DataUpdateType_t updateType );
@@ -245,10 +242,6 @@ public:
 	CNetworkVar( int, m_nAttachment );
 	CNetworkVar( float, m_flSpriteFramerate );
 	CNetworkVar( float, m_flFrame );
-#ifdef PORTAL
-	CNetworkVar( bool, m_bDrawInMainRender );
-	CNetworkVar( bool, m_bDrawInPortalRender );
-#endif
 
 	float		m_flDieTime;
 

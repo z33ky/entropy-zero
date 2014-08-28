@@ -11,6 +11,7 @@
 #include "baseentity.h"
 #include "info_buildpoint.h"
 #include "tf_gamerules.h"
+#include "tf_obj.h"
 
 // Spawnflags
 const int SF_BUILDPOINT_ALLOW_ALL_GUNS		= 0x01;	// Allow all manned guns to be built on this point
@@ -152,10 +153,8 @@ CBaseEntity	*CInfoBuildPoint::GetFirstObjectOnMe( void )
 CBaseObject *CInfoBuildPoint::GetObjectOfTypeOnMe( int iObjectType )
 {
 	if ( m_hObjectBuiltOnMe )
-	{
 		if ( m_hObjectBuiltOnMe->ObjectType() == iObjectType )
 			return m_hObjectBuiltOnMe;
-	}
 
 	return NULL;
 }

@@ -66,18 +66,18 @@ Scheme
 	// controls use these to determine their settings
 	BaseSettings
 	{
-		FgColor			        "ControlText"
-		BgColor			        "ControlBG"
-		LabelBgColor		    "0 0 0 0" // labels have no background color
-		SubPanelBgColor	        "ControlBG"
-		DisabledFgColor1		"DisabledText1" 
-		DisabledFgColor2		"DisabledText2"		// set this to the BgColor if you don't want it to draw
-		TitleBarFgColor			"TitleText"
-		TitleBarDisabledFgColor	"TitleDimText"
-		TitleBarBgColor			"TitleBG"
-		TitleBarDisabledBgColor	"TitleDimBG"
-		TitleBarIcon			"steam/games/icon_tfc"
-		TitleBarDisabledIcon	"steam/games/icon_tfc"
+		FgColor			        	"ControlText"
+		BgColor			        	"ControlBG"
+		LabelBgColor		    	"Blank" 			// labels have no background color
+		SubPanelBgColor	        	"ControlBG"
+		DisabledFgColor1			"DisabledText1" 
+		DisabledFgColor2			"DisabledText2"		// set this to the BgColor if you don't want it to draw
+		TitleBarFgColor				"TitleText"
+		TitleBarDisabledFgColor		"TitleDimText"
+		TitleBarBgColor				"TitleBG"
+		TitleBarDisabledBgColor		"TitleDimBG"
+		TitleBarIcon				"steam/games/icon_tfc"
+		TitleBarDisabledIcon		"steam/games/icon_tfc"
 		TitleButtonFgColor			"BorderBright"
 		TitleButtonBgColor			"ControlBG"
 		TitleButtonDisabledFgColor	"TitleDimText"
@@ -86,7 +86,7 @@ Scheme
 		URLTextColor				"BrightBaseText"		// color that URL's show up in chat window
 		
 		Frame.BgColor				"ControlBG"	
-		Frame.AutoSnapRange	"0"
+		Frame.AutoSnapRange			"0"
 		
 		Menu
 		{
@@ -122,10 +122,10 @@ Scheme
 
 		ScrollBarSlider
 		{
-			BgColor			"ControlBG"		// this isn't really used
-			ScrollBarSliderFgColor		"ControlBG"		// handle with which the slider is grabbed
-			ScrollBarSliderBgColor		"ControlDarkBG"		// area behind handle
-			ButtonFgColor		"DimBaseText"	// color of arrows
+			BgColor					"ControlBG"		// this isn't really used
+			ScrollBarSliderFgColor	"ControlBG"		// handle with which the slider is grabbed
+			ScrollBarSliderBgColor	"ControlDarkBG"		// area behind handle
+			ButtonFgColor			"DimBaseText"	// color of arrows
 		}
 
 		// text edit windows
@@ -169,20 +169,20 @@ Scheme
 		
 		InGameDesktop
 		{
-			MenuColor		"200 200 200 255"
-			ArmedMenuColor	"255 255 255 255"
-			DepressedMenuColor "192 186 80 255"
-			WidescreenBarColor "0 0 0 0"
-			MenuItemVisibilityRate "0.03"  // time it takes for one menu item to appear
-			MenuItemHeight	"28"
-			GameMenuInset		"32"
+			MenuColor				"200 200 200 255"
+			ArmedMenuColor			"255 255 255 255"
+			DepressedMenuColor 		"192 186 80 255"
+			WidescreenBarColor 		"0 0 0 0"
+			MenuItemVisibilityRate 	"0.03"  // time it takes for one menu item to appear
+			MenuItemHeight			"28"
+			GameMenuInset			"32"
 		}
 
 		SectionTextColor		"BrightControlText"		// text color for IN-GAME, ONLINE, OFFLINE sections of buddy list
 		SectionDividerColor	"BorderDark"		// color of line that runs under section name in buddy list
 		// TF2 HUD
-		HudStatusBgColor			"0 0 0 64"
-		HudStatusSelectedBgColor	"0 0 0 192"
+//		HudStatusBgColor			"0 0 0 64"
+//		HudStatusSelectedBgColor	"0 0 0 192"
 		// MENU FIX
 		MainMenu.TextColor			"White"
 		MainMenu.ArmedTextColor		"200 200 200 255"
@@ -232,6 +232,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"16"
 				"weight"	"500"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -243,6 +244,7 @@ Scheme
 				"tall"		"16"
 				"weight"	"500"
 				"underline" "1"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -253,6 +255,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"13"
 				"weight"	"0"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -263,6 +266,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"12"
 				"weight"	"0"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -274,6 +278,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"18"
 				"weight"	"0"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -297,6 +302,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"13"
 				"weight"	"500"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -310,6 +316,7 @@ Scheme
 				"tall"		"14"
 				"weight"	"0"
 				"symbol"	"1"
+				"antialias" "1"
 				"range"		"0x0000 0x007F"	//	Basic Latin
 			}
 		}
@@ -321,6 +328,7 @@ Scheme
 				"name"		"Trebuchet MS"
 				"tall"		"24"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x007F"	//	Basic Latin
 			}
 		}
@@ -333,6 +341,7 @@ Scheme
 				"name"		"Trebuchet MS"
 				"tall"		"20"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x007F"	//	Basic Latin
 			}
 		}
@@ -344,6 +353,7 @@ Scheme
 				"name"		"Trebuchet MS"
 				"tall"		"18"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x007F"	//	Basic Latin
 			}
 		}
@@ -414,18 +424,11 @@ Scheme
 		{
 			"1"
 			{
-				"name"		"Lucida Console"
-				"tall"		"10"
+				"name"		"FixedSys"
+				"tall"		"20"
 				"weight"	"0"
 				"range"		"0x0000 0x007F" //	Basic Latin
 			}
-//			"1"
-//			{
-//				"name"		"FixedSys"
-//				"tall"		"20"
-//				"weight"	"0"
-//				"range"		"0x0000 0x007F" //	Basic Latin
-//			}
 		}
 
 		"CloseCaption_Normal"
@@ -436,6 +439,7 @@ Scheme
 				"tall"		"16"
 				"weight"	"500"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				"antialias" "1"
 			}
 		}
 		"CloseCaption_Italic"
@@ -446,6 +450,7 @@ Scheme
 				"tall"		"16"
 				"weight"	"500"
 				"italic"	"1"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -456,6 +461,7 @@ Scheme
 				"name"		"Tahoma"
 				"tall"		"16"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -467,6 +473,7 @@ Scheme
 				"tall"		"16"
 				"weight"	"900"
 				"italic"	"1"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -639,7 +646,7 @@ Scheme
 
 		ScrollBarButtonBorder
 		{
-			"inset" "2 2 0 0"
+			"inset" "0 0 1 1"
 			Left
 			{
 				"1"
@@ -679,7 +686,7 @@ Scheme
 		
 		ScrollBarButtonDepressedBorder
 		{
-			"inset" "2 2 0 0"
+			"inset" "0 0 1 1"
 			Left
 			{
 				"1"

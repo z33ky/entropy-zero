@@ -174,7 +174,6 @@ protected:
 	CAllocator m_Memory;
 	int m_Size;
 
-#ifndef _X360
 	// For easier access to the elements through the debugger
 	// it's in release builds so this can be used in libraries correctly
 	T *m_pElements;
@@ -183,9 +182,6 @@ protected:
 	{
 		m_pElements = Base();
 	}
-#else
-	inline void ResetDbgInfo() {}
-#endif
 
 private:
 	// Can't copy this unless we explicitly do it!

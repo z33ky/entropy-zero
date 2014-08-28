@@ -1,0 +1,17 @@
+"Humans.Death"
+{
+	"channel"	"CHAN_VOICE"
+	"volume"	"1"
+	"soundlevel"  	"SNDLVL_60dB"
+
+	"wave"	"player/suit_denydevice.wav"
+}
+
+"Humans.Pain"
+{
+	"channel"	"CHAN_VOICE"
+	"volume"	"1"
+	"soundlevel"  	"SNDLVL_60dB"
+
+	"wave"	"player/suit_denydevice.wav"
+}

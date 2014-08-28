@@ -5096,10 +5096,8 @@ void CBasePlayer::Precache( void )
 
 	m_iUpdateTime = 5;  // won't update for 1/2 a second
 
-#ifdef IMPLEMENT_ME
 	if ( gInitHUD )
 		m_fInitHUD = true;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -6742,13 +6740,17 @@ void CBasePlayer::UpdateClientData( void )
 			m_fGameHUDInitialized = true;
 			if ( g_pGameRules->IsMultiplayer() )
 			{
+#ifdef IMPLEMENT_ME
 				variant_t value;
 				g_EventQueue.AddEvent( "game_player_manager", "OnPlayerJoin", value, 0, this, this );
+#endif
 			}
 		}
 
+#ifdef IMPLEMENT_ME
 		variant_t value;
 		g_EventQueue.AddEvent( "game_player_manager", "OnPlayerSpawn", value, 0, this, this );
+#endif
 	}
 
 	// HACKHACK -- send the message to display the game title

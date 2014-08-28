@@ -1,0 +1,549 @@
+//======= Copyright © 2008-2010, The Axel Project, all rights reserved ======//
+//
+// Purpose: TAP Team Fortress 2 game definition file (.fgd) 
+// Author: Lucas Zadrozny (lucas93)
+//
+//===========================================================================//
+
+@include "base.fgd"
+
+//-------------------------------------------------------------------------
+//
+// UNTESTED
+//
+//-------------------------------------------------------------------------
+// BRUSH
+@SolidClass base(Trigger) = trigger_controlzone : "A contestable position in the map."
+[
+	LockAfterChange(choices) : "Lock after capture?" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	UncontestedTime(integer) : "Time to capture point" : 5
+	ContestedTime(integer) : "Time to revert point" : 10
+	ZoneNumber(integer) : "Zone number" : 1
+	
+	input SetTeam(void) : "Set the controlling team"
+	input LockTeam(void) : "Lock the point from capture"
+	
+	output ControllingTeam(void) : ""
+]
+
+@SolidClass base(Trigger) = func_construction_yard : "Area where specific objects can be built."
+[
+	input SetActive(void) : "Enable the construction yard"
+	input SetInactive(void) : "Disable the construction yard"
+	input ToggleActive(void) : "Toggle the construction yard's state"
+]
+
+@SolidClass base(Trigger) = func_mass_teleport : "Mass teleport."
+[
+	MCV(choices) : "MCV?" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	
+	input DoTeleport(void) : "Begin the teleport"
+	
+	output OnTeleport(void) : "Fired upon teleport"
+	output OnActive(void) : "Fired when enabled"
+	output OnInactive(void) : "Fired when disabled"
+]
+
+@SolidClass base(Trigger) = func_no_build : "Area where no objects can be built."
+[
+	OnlyPreventTowers(choices) : "Only prevent towers?" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	
+	input SetActive(void) : "Prevent building of objects"
+	input SetInactive(void) : "Allow building of objects"
+	input ToggleActive(void) : "Toggle state of area"
+]
+
+@SolidClass base(Targetname, Angles, Origin) = func_door_weldable : "func_door that can be welded shut."
+[
+	weldpoints(string) : "Name of weldpoints"
+]
+
+@SolidClass base(Trigger) = trigger_fall : "Used at the bottom of maps where objects fall to infinity."
+[
+	output OnFallingObject(void) : "Fired when triggered."
+]
+
+@SolidClass base(Trigger) = trigger_skybox2world : "Used to transition objects between the skybox and world."
+[
+]
+
+// POINT
+@PointClass base(Targetname, Angles, Origin) = env_fallingrocks : "Falling rock spawner."
+[
+	FallSpeed(integer) : "Fall speed" : 200
+	RotationSpeed(integer) : "Rotation speed" : 25
+	MinSpawnTime(integer) : "Soonest a rock can spawn" : 2
+	MaxSpawnTime(integer) : "Latest a rock can spawn" : 5
+	
+	input SpawnRock(void) : "Spawn a rock"
+	
+	output OnRockSpawned(void) : "Fired when a rock is spawned"
+]
+
+@PointClass base(Targetname, Angles, Origin) = env_meteorspawner : "Meteor spawner."
+[
+	MeteorType(integer) : "Meteor type" : 1
+	SpawnInSkybox(integer) : "Spawn in skybox?" : 1
+	SpawnIntervalMin(integer) : "Soonest a meteor can spawn" : 5
+	SpawnIntervalMax(integer) : "Latest a meteor can spawn" : 15
+	SpawnCountMin(integer) : "Spawn count minimum" : 5
+	SpawnCountMax(integer) : "Spawn count maximum" : 15
+	MeteorSpeedMin(integer) : "Slowest a meteor can travel" : 128
+	MeteorSpeedMax(integer) : "Fastest a meteor can travel" : 256
+	MeteorDamageRadius(integer) : "Damage radius of meteor impact" : 512
+	StartDisabled(choices) : "Start disabled?" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	
+	input Enable(void) : "Enable the spawner"
+	input Disable(void) : "Disable the spawner"
+]
+
+@PointClass base(Origin) = env_meteortarget : "Target for meteors to hit."
+[
+	EffectRadius(integer) : "Radius of impact" : 512
+]
+
+@PointClass base(Targetname) = info_act : "TF2 act manager."
+[
+	ActNumber(integer) : "Number of acts" : 3
+	ActTimeLimit(integer) : "Act time limit (seconds)" : 900
+	IntermissionCamera(string) : "Intermission camera"
+	
+	// not sure what these are
+	Respawn1Team1Time(integer) : "Respawn1Team1Time" : 30
+	Respawn2Team1Time(integer) : "Respawn2Team1Time" : 45
+	Respawn1Team2Time(integer) : "Respawn1Team2Time" : 30
+	Respawn2Team2Time(integer) : "Respawn2Team2Time" : 45
+	RespawnTeam1InitialDelay(integer) : "RespawnTeam1InitialDelay" : 15
+	RespawnTeam2InitialDelay(integer) : "RespawnTeam2InitialDelay" : 15
+	
+	input Start(void) : "Start the act"
+	input FinishWinNone(void) : "End the act (both teams lose)"
+	input FinishWin1(void) : "End the act (Humans win)"
+	input FinishWin2(void) : "End the act (Aliens win)"
+	input AddTime(integer) : "Add time to the current act"
+	
+	output OnStarted(void) : "Fired when the act has started"
+	output OnFinishedWinNone(void) : "Fired when act has finished (both teams lose)"
+	output OnFinishedWin1(void) : "Fired when act has finished (Humans win)"
+	output OnFinishedWin2(void) : "Fired when act has finished (Aliens win)"
+	output OnTimerExpired(void) : "Fired when timer reaches 0"
+	
+	output OnRespawn1Team1_90sec(void) : "OnRespawn1Team1_90sec"
+	output OnRespawn1Team1_60sec(void) : "OnRespawn1Team1_60sec"
+	output OnRespawn1Team1_45sec(void) : "OnRespawn1Team1_45sec"
+	output OnRespawn1Team1_30sec(void) : "OnRespawn1Team1_30sec"
+	output OnRespawn1Team1_10sec(void) : "OnRespawn1Team1_10sec"
+	output Respawn1Team1TimeRemaining(void) : "Respawn1Team1TimeRemaining"
+	
+	output OnRespawn2Team1_90sec(void) : "OnRespawn2Team1_90sec"
+	output OnRespawn2Team1_60sec(void) : "OnRespawn2Team1_60sec"
+	output OnRespawn2Team1_45sec(void) : "OnRespawn2Team1_45sec"
+	output OnRespawn2Team1_30sec(void) : "OnRespawn2Team1_30sec"
+	output OnRespawn2Team1_10sec(void) : "OnRespawn2Team1_10sec"
+	output Respawn2Team1TimeRemaining(void) : "Respawn2Team1TimeRemaining"
+	
+	output OnRespawn1Team2_90sec(void) : "OnRespawn1Team2_90sec"
+	output OnRespawn1Team2_60sec(void) : "OnRespawn1Team2_60sec"
+	output OnRespawn1Team2_45sec(void) : "OnRespawn1Team2_45sec"
+	output OnRespawn1Team2_30sec(void) : "OnRespawn1Team2_30sec"
+	output OnRespawn1Team2_10sec(void) : "OnRespawn1Team2_10sec"
+	output Respawn1Team2TimeRemaining(void) : "Respawn1Team2TimeRemaining"
+	
+	output OnRespawn2Team2_90sec(void) : "OnRespawn2Team2_90sec"
+	output OnRespawn2Team2_60sec(void) : "OnRespawn2Team2_60sec"
+	output OnRespawn2Team2_45sec(void) : "OnRespawn2Team2_45sec"
+	output OnRespawn2Team2_30sec(void) : "OnRespawn2Team2_30sec"
+	output OnRespawn2Team2_10sec(void) : "OnRespawn2Team2_10sec"
+	output Respawn2Team2TimeRemaining(void) : "Respawn2Team2TimeRemaining"
+	
+	output OnTeam1RespawnDelayDone(void) : "OnTeam1RespawnDelayDone"
+	output OnTeam2RespawnDelayDone(void) : "OnTeam2RespawnDelayDone"
+]
+
+@PointClass base(Targetname) = info_add_resources : "Entity that gives resources to players passed into it."
+[
+	ResourceAmount(integer) : "Resources to give players" : 100
+	
+	input Player(ehandle) : "Player to give resources"
+	
+	output OnAdded(void) : "Fired when resources are given"
+]
+
+@PointClass base(Targetname, Angles, Origin) = info_customtech : "Entity which adds custom technology to the techtree."
+[
+	TechToWatch(string) : "Name of the custom technology" : "new_tech"
+	NewTechFile(string) : "Name of the custom technology file" : "customtech.txt"
+	
+	output TechPercentage(void) : "TechPercentage"
+]
+
+@PointClass base(Targetname) = info_input_playsound : "Entity that plays sound to select people."
+[
+	Sound(sound) : "Path/filename of WAV"
+	Volume(integer) : "Volume of sound" : 10
+	Attenuation(integer) : "Attenuation of sound" : 5
+	TestVolume(string) : "Associated trigger"
+	
+	input SetSound(string) : "Change the WAV"
+	input PlaySoundToAll(void) : "Make the sound play to everyone"
+	input PlaySoundToTeam1(void) : "Make the sound play to Humans"
+	input PlaySoundToTeam2(void) : "Make the sound play to Aliens"
+	input PlaySoundToPlayer(void) : "Make the sound play to a specific player"
+]
+
+@PointClass base(Targetname) = info_input_resetbanks : "Entity that resets resource banks."
+[
+	ResetAmount(integer) : "Amount to set in bank" : 500
+	
+	input SetResetAmount(integer) : "Set the amount to reset"
+	input ResetAll(void) : "Reset banks for all teams/players"
+	input ResetTeam1(void) : "Reset bank for Humans"
+	input ResetTeam2(void) : "Reset bank for Aliens"
+	input ResetPlayer(void) : "Reset bank for specific player"
+]
+
+@PointClass base(Targetname) = info_input_resetobjects : "Entity that removes built objects."
+[
+	input ResetAll(void) : "Remove all objects"
+	input ResetTeam1(void) : "Remove all Human objects"
+	input ResetTeam2(void) : "Remove all Alien objects"
+	input ResetPlayer(void) : "Remove a specific player's objects"
+]
+
+@PointClass base(Targetname) = info_input_respawnplayers : "Entity that respawns players."
+[
+	input RespawnAll(void) : "Respawns all players"
+	input RespawnTeam1(void) : "Respawns all Human players"
+	input RespawnTeam2(void) : "Respawns all Alien players"
+	input RespawnPlayer(void) : "Respawns a specific player"
+]
+
+@PointClass base(Targetname) = info_minimappulse : "Entity that forces a minimap pulse."
+[
+	input PulseForAll(void) : "Pulses minimap for all players"
+	input PulseForTeam1(void) : "Pulses minimap for Human players"
+	input PulseForTeam2(void) : "Pulses minimap for Alien players"
+	input PulseForPlayer(void) : "Pulses minimap for a specific player"	
+]
+
+@PointClass base(Targetname) = info_output_team : "Entity that fires its output with all the players in a team."
+[
+	input Fire(void) : "Who knows?"
+	
+	output Player(void) : "Who knows?"
+]
+
+@PointClass base(Targetname) = info_vehicle_bay : "Entity that allows vehicles to be build upon it."
+[	
+]
+
+@PointClass base(Targetname, Angles, Origin, vgui_screen_base) = vgui_screen_vehicle_bay : "Entity with VGUI screen that allows for vehicles to be constructed."
+[
+	output OnStartedBuild(void) : "Fired when a vehicle starts building"
+	output OnFinishedBuild(void) : "Fired when a vehicle finishes building"
+	output OnReadyToBuildAgain(void) : "Fired when the bay is ready to build again"
+]
+
+@PointClass base(Targetname) = sensor_tf_team : "Detects team states."
+[
+	team(choices) : "Team" : 1 =
+	[
+		1 : "Humans"
+		2 : "Aliens"
+	]
+	
+	output OnRespawnCountChanged(void) : "Fired when the respawn count is changed"
+	output OnResourceCountChanged(void) : "Fired when the resource count is changed"
+	output OnMemberCountChanged(void) : "Fired when the number of team members is changed"
+	output OnRespawnCountChangedDelta(void) : "OnRespawnCountChangedDelta"
+	output OnResourceCountChangedDelta(void) : "OnResourceCountChangedDelta"
+	output OnMemberCountChangedDelta(void) : "OnMemberCountChangedDelta"
+]
+
+@PointClass base(Targetname, Angles, Origin) = info_weldpoint : "Weld point for func_weldable_door."
+[
+]
+
+//-------------------------------------------------------------------------
+//
+// Brush entities
+//
+//-------------------------------------------------------------------------
+@SolidClass base(Trigger) = trigger_resourcezone : "Resource collection point."
+[
+	//targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	
+	ResourceAmount(integer) : "Resource Amount" : 10000
+	ResourceChunks(integer) : "Resource Chunks" : 5
+	ResourceRate(integer) : "Resource Rate" : 10
+	ChunkValueMin(integer) : "Minimum Chunk Value" : 20
+	ChunkValueMax(integer) : "Maximum Chunk Value" : 60
+
+	input SetAmount(integer) : "Set the resources available in the resource zone"
+	input ResetAmount(void) : "Reset the amount of resources in this zone"
+	input SetActive(void) : ""
+	input SetInactive(void) : ""
+	input ToggleActive(void) : ""
+	
+	output OnEmpty(void) : "Fired when there are no resources available in this resource zone"
+]
+
+//-------------------------------------------------------------------------
+//
+// Point Classes
+//
+//-------------------------------------------------------------------------
+@PointClass base(Angles) iconsprite("editor/info_target.vmt") = info_buildpoint : "Entity that allows certain objects to be built upon it."
+[
+	AllowedObject(string) : "Object Allowed" : "obj_resourcepump"
+]
+
+@PointClass base(Targetname, Origin, Angles) studio("models/objects/obj_respawn_station.mdl") = obj_respawn_station : "Spawn station"
+[
+
+	InitialSpawn(choices) : "Initial team spawn point?" : 1 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	
+	Team(choices) : "Team" : 1 =
+	[
+		1 : "Human"
+		2 : "Alien"
+	]
+]
+
+
+//-------------------------------------------------------------------------
+//
+// NPCs
+//
+//-------------------------------------------------------------------------
+@BaseClass base(BaseNPC) = TalkNPC
+[
+	UseSentence(string) : "Use Sentence"
+	UnUseSentence(string) : "Un-Use Sentence"
+]
+
+
+@PointClass base(Targetname, Angles) studio( "models/npcs/bugs/bug_builder.mdl" ) = npc_bug_builder : "Bug Builder"
+[
+	idledelay(float) : "Idle Delay" : 0
+]
+
+@PointClass base(Targetname, Angles) studio( "models/npcs/bugs/bug_warrior.mdl" ) = npc_bug_warrior : "Bug Warrior"
+[
+	idledelay(float) : "Idle Delay" : 0
+]
+
+@PointClass base(Targetname, Angles) studio( "models/npcs/bugs/bug_hole.mdl" ) = npc_bughole : "Bug Hole"
+[
+	idledelay(float) : "Idle Delay" : 0
+]
+
+@PointClass base(Targetname, Parentname) size(-4 -4 -4, 4 4 4) color(0 180 0) = env_terrainmorph : 
+	"Morphs terrain by pulling vertices along a normal.\n\n" +
+	"Place this entity the desired distance from a terrain surface and set ANGLES " +
+	"to the normal along which you want to pull the surface's vertices. If you set the INSTANT spawnflag, " +
+	"the morph will take place instantly instead of over time.\n"
+[
+	startradius( integer ) : "Start Radius" : 500 : "Radius of the effect when morphing begins. Only this value is used" +
+													"if the effect is flagged to occur instantly."
+	goalradius( integer ) : "Goal Radius" : 100 : "Radius of the effect at the end of morphing. The radius of this effect will change from "+
+												  "Start Radius to Goal Radius over the duration of this effect. This value is ignored if the effect is flagged to occur instantly."
+
+	duration( integer ) : "Duration" : 3 : "The morph will take place over this period of time (seconds). Ignored if flagged to occur instantly"
+
+	fraction( integer ) : "Displacement Fraction" : 1 : "If set to 1, the terrain surface will be pulled exactly to this entity's position." +
+														" If set to 0.5, the surface will be pulled exactly half way to this entity's position. " +
+														"If set to 2, the surface will be pulled to an imaginary point twice as far away as this entity. " +
+														"(Any Displacement Fraction greater than 1.0 will result in clipping. The surface cannot be pulled beyond " +
+														"This entity's position and any vertices attemping will clip to this entity's position. You may use this feature to create mesas.)"
+
+	// Inputs
+	input BeginMorph(void) : "Begin Morph"
+
+	spawnflags(flags) =
+	[
+		1: "Instant" : 0 
+	]
+]
+
+
+//-------------------------------------------------------------------------
+//
+// Camera/monitor entities
+//
+//-------------------------------------------------------------------------
+@PointClass base(Parentname, Angles) studioprop("models/editor/camera.mdl") = point_camera : "Camera"
+[
+	spawnflags(Flags) =
+	[
+		1 : "Start Off" : 0 
+	]
+
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	FOV(float) : "FOV" : 90 : "Field of view in degrees"
+//	resolution(float) : "resolution" : 256 : "width/height of the render target for the camera"
+
+	input ChangeFOV(string) : "Changes camera's FOV over time"
+	input SetOnAndTurnOthersOff(void) : "Turn the camera on, and turn all other cameras off."
+	input SetOn(void) : "Turn the camera on."
+	input SetOff(void) : "Turn the camera off."
+]
+
+@SolidClass base(func_brush) = func_monitor :
+	"A monitor that renders the view from a given point_camera entity."
+[
+	target(target_destination) : "Camera name"
+	
+	// Inputs
+	input Toggle(void)		: "Toggle - If on, turn off, if off, turn on."
+	input Enable(void)		: "Enable."
+	input Disable(void)		: "Disable."
+	input SetCamera(string) : "Sets the camera to use for this monitor. Takes the name of a point_camera entity in the map."
+]
+
+
+//-------------------------------------------------------------------------
+//
+// Vehicles.
+//
+//-------------------------------------------------------------------------
+@BaseClass base(Targetname, Origin, Global, prop_static_base) = BaseVehicle
+[
+	vehiclescript(string) : "Vehicle Script File" : "scripts/vehicles/jeep_test.txt"
+	actionScale(float) : "Scale of action input / framerate" : "1"
+
+	input Action(float) : "Set the speed of the action animation"
+
+	input TurnOn(void)	: "Turn on: Start engine & enable throttle"
+	input TurnOff(void)	: "Turn off: Stop engine, disable throttle, engage brakes."
+
+	input Lock(void)	: "Prevent the player from entering or exiting the vehicle."
+	input Unlock(void)	: "Re-allow the player to enter or exit the vehicle."
+]
+
+
+@BaseClass base(BaseVehicle) = BaseDriveableVehicle
+[
+	output PlayerOn(void) : "Player entered the vehicle"
+	output PlayerOff(void) : "Player exited the vehicle"
+	
+	output PressedAttack(void) : "Player Pressed attack key"
+	output PressedAttack2(void) : "Player Pressed attack2 key"
+
+	output AttackAxis(string) : "State of attack button [0,1]"
+	output Attack2Axis(string) : "State of attack2 button [0,1]"
+]
+
+
+@PointClass base(BaseVehicle) studioprop() = prop_vehicle :
+	"Studiomodel vehicle that can be driven via inputs."
+[
+	input Steer(float) : "Steer the vehicle +/-1"
+	input Throttle(float) : "Throttle +/-1"
+]
+
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_driveable :
+	"Generic driveable studiomodel vehicle."
+[
+]
+
+@PointClass base(Targetname, Angles) studio() = point_apc_controller : "APC Controller"
+[
+	spawnflags(flags) =
+	[
+		1 : "Active" : 0
+	]
+
+	yawrate(string) : "Yaw rate" : "30"
+	yawtolerance(string) : "Yaw tolerance" : "15"
+	pitchrate(string) : "Pitch rate" : "0"
+	pitchtolerance(string) : "Pitch tolerance" : "20"
+	rotatestartsound(sound) : "Rotate Start Sound" : ""
+	rotatesound(sound) : "Rotate Loop Sound" : ""
+	rotatestopsound(sound) : "Rotate Stop Sound" : ""
+	minRange(string) : "Minmum target range" : "0"
+	maxRange(string) : "Maximum target range" : "0"
+	targetentityname(string) : "Name of entity I should follow/attack" : ""
+
+	// input
+	input Activate(void)				: "Turn the APC rockets on"
+	input Deactivate(void)				: "Turn the APC rockets off (go dormant)"
+
+	output OnFireAtTarget(void)			: "Fires when a valid target is found and the APC should shoot rockets"
+]
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_apc :
+	"Driveable studiomodel APC with mounted gun."
+[
+	spawnflags(flags) =
+	[
+		1 : "Drone Mode" : 0
+	]
+
+	input FireRockets(void)				: "Fire APC's rockets"
+]
+
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_jeep :
+	"Driveable studiomodel jeep."
+[
+]
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_jetski :
+	"Driveable studiomodel jetski."
+[
+]
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_airboat :
+	"Driveable studiomodel airboat."
+[
+]
+
+@PointClass base(BaseDriveableVehicle) studioprop() = prop_vehicle_crane :
+	"Driveable studiomodel crane."
+[
+	magnetname(target_destination) : "Magnet entity" : ""
+]
+
+//-------------------------------------------------------------------------
+// Water LOD control
+//-------------------------------------------------------------------------
+
+@PointClass base(Targetname) size(-8 -8 -8, 8 8 8) = water_lod_control : "Water LOD control entity"
+[
+	cheapwaterstartdistance(float) : "Start transition to cheap water" : 1000 : "This is the distance from the camera that water will start transitioning to cheap water in inches."
+	cheapwaterenddistance(float) : "End transition to cheap water" : 2000 : "This is the distance from the camera that water will finish transitioning to cheap water in inches."
+
+	input SetCheapWaterStartDistance(float) : "Changes the distance that water starts transitioning to cheap water."
+	input SetCheapWaterEndDistance(float) : "Changes the distance that water finishes transitioning to cheap water."
+]
+
+
+@PointClass base(Targetname) = phys_constraintsystem : "Used to manage a group of interacting constraints and keep them stable."
+[
+]
+
+@PointClass base(BaseSpeaker) iconsprite("editor/ambient_generic.vmt") = env_speaker : "Announcement Speaker"
+[
+]

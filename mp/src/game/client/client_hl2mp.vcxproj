@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Client (HL2MP)</ProjectName>
+    <ProjectName>Client</ProjectName>
     <ProjectGuid>{17BCE59A-9037-EC8D-433E-F81339E2F1BA}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -401,10 +401,12 @@ exit 1
     <ClInclude Include="..\shared\fortress\tf_movedata.h" />
     <ClInclude Include="..\shared\fortress\tf_playeranimstate.h" />
     <ClInclude Include="..\shared\fortress\tf_shareddefs.h" />
+    <ClInclude Include="..\shared\fortress\tf_shieldshared.h" />
     <ClInclude Include="..\shared\fortress\tf_vehicleshared.h" />
     <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combatshield.h" />
     <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h" />
     <ClInclude Include="..\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h" />
@@ -416,6 +418,8 @@ exit 1
     <ClInclude Include="fortress\c_func_resource.h" />
     <ClInclude Include="fortress\c_hint_events.h" />
     <ClInclude Include="fortress\c_info_act.h" />
+    <ClInclude Include="fortress\c_obj_respawn_station.h" />
+    <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
     <ClInclude Include="fortress\c_tfteam.h" />
@@ -924,9 +928,12 @@ exit 1
     <ClCompile Include="..\shared\fortress\tf_gamemovement_commando.cpp" />
     <ClCompile Include="..\shared\fortress\tf_gamerules.cpp" />
     <ClCompile Include="..\shared\fortress\tf_shareddefs.cpp" />
+    <ClCompile Include="..\shared\fortress\tf_shield_mobile_shared.cpp" />
+    <ClCompile Include="..\shared\fortress\tf_shield_shared.cpp" />
     <ClCompile Include="..\shared\fortress\tf_tacticalmap.cpp" />
     <ClCompile Include="..\shared\fortress\tf_usermessages.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_twohandedcontainer.cpp" />
@@ -944,7 +951,10 @@ exit 1
     <ClCompile Include="fortress\c_obj_buff_station.cpp" />
     <ClCompile Include="fortress\c_obj_powerpack.cpp" />
     <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
+    <ClCompile Include="fortress\c_obj_respawn_station.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
+    <ClCompile Include="fortress\c_shield.cpp" />
+    <ClCompile Include="fortress\c_shield_flat.cpp" />
     <ClCompile Include="fortress\c_tf2rootpanel.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
     <ClCompile Include="fortress\c_tf_basecombatweapon.cpp" />
@@ -958,6 +968,7 @@ exit 1
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
     <ClCompile Include="fortress\fx_tf2_blood.cpp" />
     <ClCompile Include="fortress\fx_tf2_buildeffects.cpp" />
+    <ClCompile Include="fortress\fx_tf2_impacts.cpp" />
     <ClCompile Include="fortress\hintitembase.cpp" />
     <ClCompile Include="fortress\hintitemobjectbase.cpp" />
     <ClCompile Include="fortress\hintitemorderbase.cpp" />
@@ -1513,8 +1524,6 @@ exit 1
     <ClCompile Include="..\..\public\tools\bonelist.cpp" />
     <ClCompile Include="entity_client_tools.cpp" />
     <ClCompile Include="toolframework_client.cpp" />
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\public\tier0\pointeroverride.asm">

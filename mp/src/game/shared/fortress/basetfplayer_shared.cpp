@@ -7,9 +7,7 @@
 
 #include "cbase.h"
 #include "basetfplayer_shared.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#endif
 #include "weapon_objectselection.h"
 #include "weapon_twohandedcontainer.h"
 #ifdef CLIENT_DLL
@@ -38,19 +36,10 @@ bool CBaseTFPlayer::IsClass( TFClass iClass )
 	return ( PlayerClass() == iClass );
 }
 
-#ifdef IMPLEMENT_ME
 CWeaponCombatShield *CBaseTFPlayer::GetCombatShield( void )
-#else	// Temporary workaround until we get the right headers added. ~hogsy
-#ifndef CLIENT_DLL
-CWeaponCombatShield *CBaseTFPlayer::GetCombatShield(void)
-#else
-C_WeaponCombatShield *CBaseTFPlayer::GetCombatShield(void)
-#endif
-#endif
 {
 	if ( !m_hWeaponCombatShield )
 	{
-#ifdef IMPLEMENT_ME
 		if ( GetTeamNumber() == TEAM_ALIENS )
 		{
 			m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( Weapon_OwnsThisType( "weapon_combat_shield_alien" ) );
@@ -67,7 +56,6 @@ C_WeaponCombatShield *CBaseTFPlayer::GetCombatShield(void)
 				m_hWeaponCombatShield = static_cast< CWeaponCombatShield * >( GiveNamedItem( "weapon_combat_shield" ) );
 #endif
 		}
-#endif
 	}
 
 	return m_hWeaponCombatShield;
@@ -94,7 +82,6 @@ bool CBaseTFPlayer::IsHittingShield( const Vector &vecVelocity, float *flDamage 
 	// This gives us a little more than a 90 degree protection angle
 	if (flDot < -0.67f)
 	{
-#ifdef IMPLEMENT_ME
 		// We've hit the players handheld shield, see if the shield can do anything about it
 		if ( flDamage && GetCombatShield() )
 		{
@@ -102,7 +89,6 @@ bool CBaseTFPlayer::IsHittingShield( const Vector &vecVelocity, float *flDamage 
 			*flDamage = GetCombatShield()->AttemptToBlock( *flDamage );
 			return ( !(*flDamage) );
 		}
-#endif
 		
 		return true;
 	}

@@ -2009,6 +2009,18 @@
     <ClInclude Include="fortress\hud_timer.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_shieldshared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combatshield.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_shield.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_obj_respawn_station.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3505,8 +3517,27 @@
     <ClCompile Include="fortress\hud_timer.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="fortress\fx_tf2_impacts.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_shield_mobile_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_shield_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_shield.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_respawn_station.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_shield_flat.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\public\tier0\pointeroverride.asm">

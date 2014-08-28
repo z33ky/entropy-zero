@@ -439,6 +439,9 @@ enum PLAYER_ANIM
 // TODO: keep this up to date so all the mod-specific flags don't overlap anything.
 #define DMG_LASTGENERICFLAG	DMG_BUCKSHOT
 
+// Fortress Specific
+#define	DMG_EMP		DMG_PLASMA
+#define	DMG_PROBE	DMG_AIRBOAT
 
 
 // settings for m_takedamage

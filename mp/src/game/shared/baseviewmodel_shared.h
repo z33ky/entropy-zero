@@ -88,14 +88,11 @@ public:
 
 	Vector					m_vecLastFacing;
 
-	// Only support prediction in TF2 for now
-#if defined( INVASION_DLL ) || defined( INVASION_CLIENT_DLL )
 	// All predicted weapons need to implement and return true
 	virtual bool			IsPredicted( void ) const
 	{ 
 		return true;
 	}
-#endif
 
 #if !defined( CLIENT_DLL )
 	virtual int				UpdateTransmitState( void );
@@ -105,9 +102,6 @@ public:
 
 	virtual RenderGroup_t	GetRenderGroup();
 
-// Only supported in TF2 right now
-#if defined( INVASION_CLIENT_DLL )
-
 	virtual bool ShouldPredict( void )
 	{
 		if ( GetOwner() && GetOwner() == C_BasePlayer::GetLocalPlayer() )
@@ -115,9 +109,6 @@ public:
 
 		return BaseClass::ShouldPredict();
 	}
-
-#endif
-
 
 	virtual void			FireEvent( const Vector& origin, const QAngle& angles, int event, const char *options );
 

@@ -1,5 +1,21 @@
 "Resource/HudLayout.res"
 {
+	HudTimer
+	{
+		"fieldName"				"HudTimer"
+		"visible"				"1"
+		"enabled" 				"1"
+		"xpos"					"16"
+		"ypos"					"346"
+		"wide"					"136"
+		"tall"					"38"
+		"text_xpos"				"8"
+		"text_ypos"				"8"
+		"text_ygap" 			"14"
+		"TextColor"				"255 170 0 220"
+		"PaintBackgroundType"	"2"
+	}
+
 	HudHealth
 	{
 		"fieldName"		"HudHealth"
