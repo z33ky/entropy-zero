@@ -1,20 +1,18 @@
 "VGUI_Screens"
 {
-	// This name here can be referenced from within a 
-	// vgui_screen entity to select this vgui panel
-	"screen_human_pda"
+	screen_human_pda
 	{
-		// The type indicates which type of panel to create
-		// Coders will add new types as time goes by. 
-		// "vgui_screen_panel" is a generic panel type which can
-		// read in .res files that have been built by VGUI's build mode dialog.
-		"type"		"human_pda"
+		type		"human_pda"
+		pixelswide	300
+		pixelshigh	400
+		resfile		"scripts/screens/human_pda.res"
+	}
 
-		// These describe the dimensions of the screen *in pixels*
-		"pixelswide"	300
-		"pixelshigh"	400
-
-		// This is the name of the .res file to load up and apply to the vgui panel
-		"resfile"	"scripts/screens/screen_human_pda.res"
+	screen_obj_power_pack
+	{
+		type		"powerpack_control_panel"
+		pixelswide	400
+		pixelshigh	400
+		resfile		"scripts/screens/powerpack_control_panel.res"
 	}
 }

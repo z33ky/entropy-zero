@@ -126,13 +126,15 @@ void CResourceChunk::ChunkTouch( CBaseEntity *pOther )
 
 		pOther->EmitSound( "ResourceChunk.Pickup" );
 
-#ifdef IMPLEMENT_ME
 		// Tell the player
 		CSingleUserRecipientFilter user( (CBasePlayer*)pOther );
 		UserMessageBegin( user, "PickupRes" );
+#ifdef IMPLEMENT_ME
 			WRITE_BYTE( iAmountPerPlayer ); 
-		MessageEnd();
+#else	// Until TFStats is in. ~hogsy
+			WRITE_BYTE(100);
 #endif
+		MessageEnd();
 
 		// Tell our zone to remove this chunk from it's list
 		if ( m_hZone )

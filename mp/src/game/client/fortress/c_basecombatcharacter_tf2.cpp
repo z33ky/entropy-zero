@@ -7,9 +7,7 @@
 #include "particles_simple.h"
 #include "FunctionProxy.h"
 #include "ieffects.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#endif
 
 void C_BaseCombatCharacter::Release( void )
 {
@@ -248,9 +246,5 @@ C_WeaponCombatShield *C_BaseCombatCharacter::GetShield( void )
 	if ( !pWeapon )
 		return NULL;
 
-#ifdef IMPLEMENT_ME
 	return ( CWeaponCombatShield* )pWeapon;
-#else
-	return NULL;
-#endif
 }

@@ -55,9 +55,7 @@
 #include "NDebugOverlay.h"
 #include "tier1/strtools.h"
 #include "IEffects.h"
-#ifdef IMPLEMENT_ME
 #include "info_act.h"
-#endif
 #include "ai_basehumanoid.h"
 #ifdef IMPLEMENT_ME
 #include "tf_stats.h"
@@ -538,18 +536,14 @@ void CBaseTFPlayer::InitHUD( void )
 	CSingleUserRecipientFilter user( this );
 	user.MakeReliable();
 
-#if 0	// Not needed afaik. ~hogsy
 	// set the teamplay mode
 	UserMessageBegin( user, "GameMode" );
 		WRITE_BYTE( 1 );  // game mode teamplay
 	MessageEnd();
-#endif
 
-#ifdef IMPLEMENT_ME
 	// If we're in an act, tell it to update the client
 	if ( g_hCurrentAct )
 		g_hCurrentAct->UpdateClient( this );
-#endif
 }
 
 //-----------------------------------------------------------------------------

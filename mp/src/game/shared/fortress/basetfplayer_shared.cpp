@@ -646,7 +646,6 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 	GetOuterAbsVelocity( vel );
 
 	bool isMoving = ( vel.Length() > 0.0f ) ? true : false;
-
 	if ( !isMoving )
 	{
 		// Just stopped moving, try and clamp feet

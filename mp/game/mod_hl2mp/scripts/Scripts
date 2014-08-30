@@ -1,0 +1,50 @@
+<NotepadPlus>
+    <Project name="Scripts">
+        <File name="ChapterBackgrounds.txt" />
+        <File name="game.txt" />
+        <File name="launcher.txt" />
+        <File name="mod_textures.txt" />
+        <File name="objects.txt" />
+        <File name="technologytree.txt" />
+        <Folder name="VGUI">
+            <Folder name="Screens">
+                <File name="screens\human_pda.res" />
+                <File name="screens\powerpack_control_panel.res" />
+                <File name="screens\vgui_overlay.res" />
+                <File name="vgui_screens.txt" />
+            </Folder>
+            <File name="LauncherScheme.res" />
+            <Folder name="Overlays">
+                <File name="minimap_overlays.txt" />
+                <File name="commander_overlays.txt" />
+            </Folder>
+        </Folder>
+        <Folder name="HUD">
+            <File name="HudLayout.res" />
+            <File name="HudAnimations.txt" />
+        </Folder>
+        <Folder name="Sounds">
+            <File name="game_sounds_fortress.txt" />
+            <File name="game_sounds_manifest.txt" />
+            <File name="soundscapes_manifest.txt" />
+            <File name="soundscapes_labs.txt" />
+            <File name="soundscapes_streetwar.txt" />
+            <File name="soundscapes_strike.txt" />
+        </Folder>
+        <Folder name="Weapons">
+            <File name="weapon_builder.txt" />
+            <File name="weapon_combat_shield.txt" />
+            <File name="weapon_combat_shield_alien.txt" />
+            <File name="weapon_objectselection.txt" />
+            <File name="weapon_twohandedcontainer.txt" />
+        </Folder>
+        <Folder name="Languages">
+            <File name="fortress_english.txt" />
+        </Folder>
+        <Folder name="Input">
+            <File name="kb_act.lst" />
+            <File name="kb_def.lst" />
+            <File name="kb_keys.lst" />
+        </Folder>
+    </Project>
+</NotepadPlus>

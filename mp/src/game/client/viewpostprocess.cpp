@@ -2233,10 +2233,6 @@ void DoEnginePostProcessing( int x, int y, int w, int h, bool bFlashlightIsOn, b
 		DumpTGAofRenderTarget( w, h, "BackBuffer" );
 	}
 
-#if defined( _X360 )
-	pRenderContext->PushVertexShaderGPRAllocation( 16 ); //max out pixel shader threads
-#endif
-
 	if ( r_queued_post_processing.GetInt() )
 	{
 		ICallQueue *pCallQueue = pRenderContext->GetCallQueue();
@@ -2627,10 +2623,6 @@ void DoEnginePostProcessing( int x, int y, int w, int h, bool bFlashlightIsOn, b
 			break;
 		}
 	}
-
-#if defined( _X360 )
-	pRenderContext->PopVertexShaderGPRAllocation();
-#endif
 }
 
 // Motion Blur Material Proxy =========================================================================================
@@ -2691,7 +2683,7 @@ EXPOSE_INTERFACE( CMotionBlurMaterialProxy, IMaterialProxy, "MotionBlur" IMATERI
 // Image-space Motion Blur ============================================================================================
 //=====================================================================================================================
 ConVar mat_motion_blur_enabled( "mat_motion_blur_enabled", "1", FCVAR_ARCHIVE );
-ConVar mat_motion_blur_forward_enabled( "mat_motion_blur_forward_enabled", "0" );
+ConVar mat_motion_blur_forward_enabled( "mat_motion_blur_forward_enabled", "1" );
 ConVar mat_motion_blur_falling_min( "mat_motion_blur_falling_min", "10.0" );
 ConVar mat_motion_blur_falling_max( "mat_motion_blur_falling_max", "20.0" );
 ConVar mat_motion_blur_falling_intensity( "mat_motion_blur_falling_intensity", "1.0" );

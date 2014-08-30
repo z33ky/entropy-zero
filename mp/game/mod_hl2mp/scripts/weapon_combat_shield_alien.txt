@@ -1,12 +1,12 @@
 WeaponData
 {
 	// Weapon data is loaded by both the Game and Client DLLs.
-	"printname"			"Two handed container"
-	"viewmodel"			"models/weapons/v_slam.mdl"
+	"printname"		"Combat Shield"
+	"viewmodel"		"models/weapons/v_slam.mdl"
 	"playermodel"		"models/weapons/placeholders/w_smg.mdl"
 	"anim_prefix"		"python"
-	"bucket"			0
-	"bucket_position"	2
+	"bucket"		0
+	"bucket_position"	3
 
 	"clip_size"		0
 	"default_clip"		0

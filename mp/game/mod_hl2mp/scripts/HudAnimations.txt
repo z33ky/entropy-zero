@@ -1,44 +1,3 @@
-// sample animation script
-//
-//
-// commands:
-//	Animate <panel name> <variable> <target value> <interpolator> <start time> <duration>
-//		variables:
-//			FgColor
-//			BgColor
-//			Position
-//			Size
-//			Blur		(hud panels only)
-//			TextColor	(hud panels only)
-//			Ammo2Color	(hud panels only)
-//			Alpha		(hud weapon selection only)
-//			SelectionAlpha  (hud weapon selection only)
-//			TextScan	(hud weapon selection only)
-//
-//		interpolator:
-//			Linear
-//			Accel - starts moving slow, ends fast
-//			Deaccel - starts moving fast, ends slow
-//
-//	RunEvent <event name> <start time>
-//		starts another even running at the specified time
-//
-//	StopEvent <event name> <start time>
-//		stops another event that is current running at the specified time
-//
-//	StopAnimation <panel name> <variable> <start time>
-//		stops all animations refering to the specified variable in the specified panel
-//
-//	StopPanelAnimations <panel name> <start time>
-//		stops all active animations operating on the specified panel
-//
-//
-// Useful game console commands:
-//	cl_Animationinfo <hudelement name> or <panelname> 
-//		displays all the animatable variables for the hud element
-//
-
-
 event LevelInit
 {
 }
@@ -637,4 +596,463 @@ event PoisonPulse
 event PoisonLoop
 {
 	RunEvent PoisonPulse 0.0
+}
+
+// Fortress
+
+event WeaponOpenBuildSubMenu
+{
+	Animate HudWeaponSelection GrowFraction "1" Linear 0 0.1
+}
+
+event WeaponCloseBuildSubMenu
+{
+	Animate HudWeaponSelection GrowFraction "1" Linear 0 0.1
+}
+
+event WeaponHiliteWeaponMenu1
+{
+	StopEvent WeaponHiliteWeaponMenu2 0
+	StopEvent WeaponHiliteWeaponMenu3 0
+	StopEvent WeaponHiliteWeaponMenu4 0
+	StopEvent WeaponHiliteWeaponMenu5 0
+	StopEvent WeaponHiliteWeaponMenu6 0
+	
+	Animate WeaponMenu1	XPos "0"	Deaccel 0 0
+	Animate WeaponMenu2	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu3	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu4	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu5	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu6	XPos "-3"	Deaccel 0 0.11
+
+	Animate HudResources	Alpha "150"	Linear  0 0
+}
+
+event WeaponHiliteWeaponMenu2
+{
+	StopEvent WeaponHiliteWeaponMenu1 0
+	StopEvent WeaponHiliteWeaponMenu3 0
+	StopEvent WeaponHiliteWeaponMenu4 0
+	StopEvent WeaponHiliteWeaponMenu5 0
+	StopEvent WeaponHiliteWeaponMenu6 0
+	
+	Animate WeaponMenu1	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu2	XPos "0"	Deaccel 0 0
+	Animate WeaponMenu3	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu4	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu5	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu6	XPos "-3"	Deaccel 0 0.11
+	
+	Animate HudResources	Alpha "150"	Linear  0 0
+}
+
+event WeaponHiliteWeaponMenu3
+{
+	StopEvent WeaponHiliteWeaponMenu1 0
+	StopEvent WeaponHiliteWeaponMenu2 0
+	StopEvent WeaponHiliteWeaponMenu4 0
+	StopEvent WeaponHiliteWeaponMenu5 0
+	StopEvent WeaponHiliteWeaponMenu6 0
+	
+	Animate WeaponMenu1	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu2	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu3	XPos "0"	Deaccel 0 0
+	Animate WeaponMenu4	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu5	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu6	XPos "-3"	Deaccel 0 0.11
+
+	Animate HudResources	Alpha "150"	Linear  0 0
+}
+
+event WeaponHiliteWeaponMenu4
+{
+	StopEvent WeaponHiliteWeaponMenu1 0
+	StopEvent WeaponHiliteWeaponMenu2 0
+	StopEvent WeaponHiliteWeaponMenu3 0
+	StopEvent WeaponHiliteWeaponMenu5 0
+	StopEvent WeaponHiliteWeaponMenu6 0
+	
+	Animate WeaponMenu1	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu2	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu3	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu4	XPos "0"	Deaccel 0 0
+	Animate WeaponMenu5	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu6	XPos "-3"	Deaccel 0 0.11
+	
+	Animate HudResources	Alpha "255"	Linear  0 0		
+//	Animate HudResources	Blur "0"	Linear	.1 .1
+	
+}
+
+event WeaponHiliteWeaponMenu5
+{
+	StopEvent WeaponHiliteWeaponMenu1 0
+	StopEvent WeaponHiliteWeaponMenu2 0
+	StopEvent WeaponHiliteWeaponMenu3 0
+	StopEvent WeaponHiliteWeaponMenu4 0
+	StopEvent WeaponHiliteWeaponMenu6 0
+	
+	Animate WeaponMenu1	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu2	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu3	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu4	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu5	XPos "0"	Deaccel 0 0
+	Animate WeaponMenu6	XPos "-3"	Deaccel 0 0.11
+	
+	Animate HudResources	Alpha "255"	Linear  0 0	
+}
+
+event WeaponHiliteWeaponMenu6
+{
+	StopEvent WeaponHiliteWeaponMenu1 0
+	StopEvent WeaponHiliteWeaponMenu2 0
+	StopEvent WeaponHiliteWeaponMenu3 0
+	StopEvent WeaponHiliteWeaponMenu4 0
+	StopEvent WeaponHiliteWeaponMenu5 0
+	
+	Animate WeaponMenu1	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu2	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu3	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu4	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu5	XPos "-3"	Deaccel 0 0.11
+	Animate WeaponMenu6	XPos "0"	Deaccel 0 0
+
+	Animate HudResources	Alpha "255"	Linear  0 0	
+}
+
+event WeaponOpenBuildOffensive
+{
+	StopEvent WeaponOpenBuildDefensive 0
+	StopEvent WeaponOpenBuildGeneral 0
+
+	Animate BuildMenu1	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+	Animate BuildMenu2	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+	Animate BuildMenu3	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+	Animate BuildMenu4	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+	Animate BuildMenu5	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+	Animate BuildMenu6	YPos "(south:WeaponMenu4)-45"	Spline 0 0
+}
+
+event WeaponOpenBuildDefensive
+{
+	StopEvent WeaponOpenBuildOffensive 0
+	StopEvent WeaponOpenBuildGeneral 0
+
+	Animate BuildMenu1	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+	Animate BuildMenu2	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+	Animate BuildMenu3	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+	Animate BuildMenu4	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+	Animate BuildMenu5	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+	Animate BuildMenu6	YPos "(south:WeaponMenu5)-45"	Spline 0 0
+}
+
+event WeaponHiliteBuildMenu1
+{
+	StopEvent WeaponHiliteBuildMenu1 0
+	StopEvent WeaponHiliteBuildMenu2 0
+	StopEvent WeaponHiliteBuildMenu3 0
+	StopEvent WeaponHiliteBuildMenu4 0
+	StopEvent WeaponHiliteBuildMenu6 0
+	
+//	Animate BuildMenu1	YPos "-4"	Deaccel 0 0.11
+//	Animate BuildMenu2	YPos "-4"	Deaccel 0 0.11
+//	Animate BuildMenu3	YPos "-4"	Deaccel 0 0.11
+//	Animate BuildMenu4	YPos "-4"	Deaccel 0 0.11
+//	Animate BuildMenu5	YPos "0"	Deaccel 0 0
+//	Animate BuildMenu6	YPos "-4"	Deaccel 0 0.11
+}
+event WeaponHiliteBuildMenu2
+{
+}
+event WeaponHiliteBuildMenu3
+{
+}
+event WeaponHiliteBuildMenu4
+{
+}
+event WeaponHiliteBuildMenu5
+{
+}
+event WeaponHiliteBuildMenu6
+{
+}
+
+event WeaponCloseWeaponMenu
+{
+	Animate HudWeaponSelection GrowFraction "0"		Linear 0	0
+//	Animate HudWeaponSelection Position "-200 -150" Spline 0	.3
+
+	Animate HudWeaponSelection XPos "-80"			Accel 	0 0.0
+	
+	Animate HudResources	Alpha "150"	Linear  0 0	
+}
+
+event WeaponOpenWeaponMenu
+{
+//	Animate HudWeaponSelection GrowFraction "0"		Linear 0.0	0.00
+	Animate HudWeaponSelection GrowFraction "1"		Linear 0.0 0.0
+
+	Animate HudWeaponSelection XPos "-80"		Accel 	0 0.0
+	Animate HudWeaponSelection Xpos "4"		Spline 0 0.1
+	Animate HudWeaponSelection Xpos "0"		Spline 0.1 0.1
+
+	// make the display visible
+//	Animate HudWeaponSelection Alpha 		"255" Linear 0.0 0.01
+//	Animate HudWeaponSelection SelectionAlpha 	"255" Linear 0.0 0.01
+//	Animate HudWeaponSelection FgColor		"0 0 0 0" Linear 0.0 0.01
+//	Animate HudWeaponSelection TextColor		"SelectionTextFg" Linear 0.0 0.01
+
+	// draw the weapon icon once the area has fully grown
+//	Animate HudWeaponSelection FgColor		"FgColor" Linear 0.1 0.1
+//	Animate HudWeaponSelection TextColor		"SelectionTextFg" Linear 0.1 0.1
+}
+
+event MenuOpen
+{
+	StopEvent	MenuClose 0.0 
+	// make the display visible
+
+
+	Animate HudMenu	Alpha 			"0" 		Linear 0.0 0.01
+	Animate HudMenu SelectionAlpha 		"0" 		Linear 0.0 0.01
+	Animate HudMenu FgColor			"0 0 0 0" 	Linear 0.0 0.01
+	Animate HudMenu MenuColor		"0 0 0 0" 	Linear 0.0 0.01
+	Animate HudMenu ItemColor		"0 0 0 0" 	Linear 0.0 0.01
+	Animate HudMenu TextScan		"0" 		Linear 0.0 0.01
+
+	// draw the weapon icon once the area has fully grown
+	Animate HudMenu	Alpha 		"255"		Linear 0.1 0.4
+	Animate HudMenu SelectionAlpha 	"255"		Linear 0.1 0.4
+	Animate HudMenu FgColor		"FgColor"	Linear 0.1 0.4
+	Animate HudMenu MenuColor	"MenuColor"	Linear  0.1 0.4
+	Animate HudMenu ItemColor	"ItemColor"	Linear 0.1 0.4
+	Animate HudMenu TextScan	"1"		Linear 0.02 0.4
+
+// Undo any blur
+	Animate HudMenu		Blur		"1"			Linear	0.0		0.01
+}
+
+event MenuClose
+{
+
+//	Animate HudWeaponSelection Position "-80 30"		Accel 	0 0.0
+	
+	// Hide it
+	Animate HudMenu	Alpha 		"0" Linear 0.0 1
+	Animate HudMenu SelectionAlpha 	"0" Linear 0.0 1
+	Animate HudMenu FgColor		"0 0 0 0" Linear 0.0 1
+	Animate HudMenu MenuColor		"0 0 0 0" Linear 0.0 1
+	Animate HudMenu ItemColor		"0 0 0 0" Linear 0.0 1
+}
+
+event MenuPulse
+{
+	Animate HudMenu		Blur		"7"			Linear	0.0		0.1
+	Animate HudMenu		Blur		"2"			Deaccel	0.1		0.1
+	Animate HudMenu		Blur		"7"			Linear	0.2		0.1
+	Animate HudMenu		Blur		"2"			Deaccel	0.3		0.1
+	Animate HudMenu		Blur		"7"			Linear	0.4		0.1
+	Animate HudMenu		Blur		"2"			Deaccel	0.5		0.1
+	Animate	HudMenu		Blur		"1"			Deaccel	0.6		0.4
+}
+
+event HealthIncrement
+{
+	Animate HudHealth		Blur		"3"			Linear	0.0		0.1
+	Animate HudHealth		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudHealth		Blur		"1"			Deaccel	1.1		1.5
+}
+
+event HealthDecrement
+{
+	Animate HudHealth		Blur		"7"			Linear	0.0		0.1
+	Animate HudHealth		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudHealth		Blur		"1"			Deaccel	1.1		1.5
+}
+
+event ResourceIncrement
+{
+	Animate HudResources		Blur			"3"			Linear	0.0	0.0
+	Animate HudResources		PulseAmount		"0"			Linear	0.0	0.01
+	Animate HudResources		Blur			"1"			Deaccel	0.1	1.5
+	Animate HudResources		PulseAmount		"1"			Linear	0.1	2
+
+	Animate HudResources		PulseAmount		"0"			Linear	2	2
+}
+
+event ResourceDecrement
+{
+	Animate HudResources		Blur			"7"			Linear	0.0	0.0
+	Animate HudResources		PulseAmount		"0"			Linear	0.0	0.01
+	Animate HudResources		Blur			"1"			Deaccel	0.1	1.5
+	Animate HudResources		PulseAmount		"1"			Linear	0.1	2
+
+	Animate HudResources		PulseAmount		"0"			Linear	2	2
+}
+
+event ResourcePickup
+{
+	Animate HudResourcesPickup	Alpha			"255"			Linear	0	0
+	Animate HudResourcesPickup	Position		"80 r40"		Linear	0	0
+	Animate HudResourcesPickup	Position		"80 r120"		Deaccel	0	1
+	Animate HudResourcesPickup	Blur			"7"			Deaccel 0	0.2
+	Animate HudResourcesPickup	Alpha			"0"			Deaccel	.8	0.2
+	Animate	HudResourcesPickup	Blur		"1"			Deaccel	0.2	0.3
+}
+
+event PrimaryAmmoIncrement
+{
+//	Animate HudAmmoPrimary		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoPrimary		Blur		"2"			Deaccel	0.1		0.4
+	Animate	HudAmmoPrimary		Blur		"1"			Deaccel	1.5		0.2
+}
+
+event PrimaryAmmoDecrement
+{
+	Animate HudAmmoPrimary		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoPrimary		Blur		"2"			Deaccel	0.1		0.4
+	Animate	HudAmmoPrimary		Blur		"1"			Deaccel	1.5		0.2
+
+
+// change value
+//	SetFont HudAmmoPrimary		LabelFont	"Trebuchet20"	1
+//	SetFont HudAmmoPrimary		TextFont	"Trebuchet20"	1
+//	SetFont HudAmmoPrimary		TextFontPulsing	"Trebuchet20"	1
+// change back
+//	SetFont HudAmmoPrimary		LabelFont	"HudNumbersLabelFont"	2.5
+}
+
+event PrimaryAmmoClipIncrement
+{
+//	Animate HudAmmoPrimaryClip		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoPrimaryClip		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudAmmoPrimaryClip		Blur		"1"			Deaccel	1.1		1.5
+}
+
+event PrimaryAmmoClipDecrement
+{
+	Animate HudAmmoPrimaryClip		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoPrimaryClip		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudAmmoPrimaryClip		Blur		"1"			Deaccel	1.1		1.5
+}
+
+
+event SecondaryAmmoIncrement
+{
+//	Animate HudAmmoSecondary		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoSecondary		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudAmmoSecondary		Blur		"1"			Deaccel	1.1		1.5
+}
+
+event SecondaryAmmoDecrement
+{
+	Animate HudAmmoSecondary		Blur		"4"			Linear	0.0	0.1
+	Animate HudAmmoSecondary		Blur		"2"			Deaccel	0.1		0.8
+	Animate	HudAmmoSecondary		Blur		"1"			Deaccel	1.1		1.5
+}
+
+event ShowPrimaryAmmoClipShowSecondaryAmmo
+{
+	// Turn on secondary
+	Animate HudAmmoSecondary		Alpha		"255"	Linear	0.0		0.4
+	// Turn on secondary
+	Animate HudAmmoPrimaryClip		Alpha		"255"	Linear	0.0		0.4
+
+	// Move primary to left
+//	Animate HudAmmoPrimary			Position	"r125 400"	Deaccel	0.0		0.4
+//	Animate HudAmmoPrimaryClip		Position	"r55 400"	Deaccel	0.0		0.4
+
+}
+
+event ShowPrimaryAmmoClipHideSecondaryAmmo
+{
+	// Turn off secondary
+	Animate HudAmmoSecondary		Alpha		"0"	Linear	0.0		0.4
+	// Turn on secondary
+	Animate HudAmmoPrimaryClip		Alpha		"255"	Linear	0.0		0.4
+
+	// Move primary to left
+//	Animate HudAmmoPrimary			Position	"r100 400"	Deaccel	0.0		0.4
+//	Animate HudAmmoPrimaryClip		Position	"r30 400"	Deaccel	0.0		0.4
+}
+
+event HidePrimaryAmmoClipShowSecondaryAmmo
+{
+	// Turn on secondary
+	Animate HudAmmoSecondary		Alpha		"255"	Linear	0.0		0.4
+	// Turn off secondary
+	Animate HudAmmoPrimaryClip		Alpha		"0"	Linear	0.0		0.4
+
+	// Move primary to left
+//	Animate HudAmmoPrimary			Position	"100 400"	Deaccel	0.0		0.4
+//	Animate HudAmmoPrimaryClip		Position	"r30 400"	Deaccel	0.0		0.4
+}
+
+event HidePrimaryAmmoClipHideSecondaryAmmo
+{
+	// Turn off secondary
+	Animate HudAmmoSecondary		Alpha		"0"	Linear	0.0		0.4
+	// Turn off secondary
+	Animate HudAmmoPrimaryClip		Alpha		"0"	Linear	0.0		0.4
+
+	// Move primary to left
+//	Animate HudAmmoPrimary			Position	"r70 400"	Deaccel	0.0		0.4
+//	Animate HudAmmoPrimaryClip		Position	"r30 400"	Deaccel	0.0		0.4
+}
+
+event MinimapActChanged
+{
+	// Just go full screen
+	StopPanelAnimations HudMinimap 0.0
+	RunEvent MinimapZoomToFullScreen 0.01
+}
+
+event MinimapZoomToFullScreen
+{
+	StopEvent MinimapZoomToCorner 0
+
+	Animate HudMinimap		CenterOnPlayer		"0"			Linear	0.0		0.4
+
+	Animate HudMinimap		ExpansionFrac		"1"			Linear	0.0		0.4
+	Animate HudMinimap		DetailsAlpha		"255"		Linear	0.3		0.1
+
+	Animate HudMinimap		Position			"r450 10"	Spline	0.0		0.4
+	Animate HudMinimap		Size				"440 440"	Spline	0.1		0.4
+
+	Animate HudMinimap		ZoomAmount			"1"			Linear	0.0		0.4
+
+	Animate HudMinimapTextHelpPanel	Size				"175 210"	Spline	0.0		0.4
+	Animate HudMinimapTextHelpPanel	Position			"10 240"	Spline	0.0		0.4
+}
+
+event MinimapZoomToCorner
+{
+	StopEvent MinimapZoomToFullScreen 0
+
+	Animate HudMinimap		CenterOnPlayer		"1"			Linear	0.0		0.4
+
+	Animate HudMinimap		ExpansionFrac		"0"			Linear	0.0		0.4
+	Animate HudMinimap		DetailsAlpha		"0"			Linear	0.0		0.1
+
+	Animate HudMinimap		Size				"160 160"	Spline	0.0		0.4
+	Animate HudMinimap		Position			"r170 10"	Spline	0.1		0.4
+
+	Animate HudMinimap		ZoomAmount			"1"			Linear	0.0		0.4
+
+	Animate HudMinimapTextHelpPanel	Size				"175 210"		Spline	0.0		0.4
+	Animate HudMinimapTextHelpPanel	Position			"-185 240"		Spline	0.0		0.4
+}
+
+// Corner view, not really too zoomed
+event MinimapZoomLevel0
+{
+	Animate HudMinimap		CenterOnPlayer		"1"			Linear	0.0		0.4
+	Animate HudMinimap		ZoomAmount			"1"			Linear	0.0		0.4
+}
+
+// Corner view, pretty much zoomed
+event MinimapZoomLevel1
+{
+	Animate HudMinimap		CenterOnPlayer		"1"			Linear	0.0		0.4
+	Animate HudMinimap		ZoomAmount			"2.5"		Linear	0.0		0.4
 }

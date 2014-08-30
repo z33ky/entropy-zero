@@ -517,10 +517,8 @@ void CTFGameMovement::PlayStepSound( surfacedata_t *psurface, float fvol, bool f
 	if (!force && !ShouldPlayStepSound( psurface, fvol ))
 		return;
 
-#ifdef IMPLEMENT_ME
 	// TODO:  See note above, should this be hooked up?
 	PlantFootprint( psurface );
-#endif
 
 	unsigned short stepSoundName = player->m_Local.m_nStepside ? psurface->sounds.stepleft : psurface->sounds.stepright;
 	player->m_Local.m_nStepside = !player->m_Local.m_nStepside;

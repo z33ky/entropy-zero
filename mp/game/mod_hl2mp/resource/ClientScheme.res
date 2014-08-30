@@ -1,39 +1,20 @@
-///////////////////////////////////////////////////////////
-// Tracker scheme resource file
-//
-// sections:
-//		Colors			- all the colors used by the scheme
-//		BaseSettings	- contains settings for app to use to draw controls
-//		Fonts			- list of all the fonts used by app
-//		Borders			- description of all the borders
-//
-///////////////////////////////////////////////////////////
 Scheme
 {
-	//////////////////////// COLORS ///////////////////////////
-	//////////////////////// COLORS ///////////////////////////
 	Colors
 	{
-		// base colors
-		"Orange"			"255 176 0 255"
-		"OrangeDim"			"255 176 0 120"
-		"LightOrange"		"188 112 0 128"
-		
-		"Red"				"192 28 0 140"
-		"Black"				"0 0 0 196"
-		"TransparentBlack"	"0 0 0 196"
+		"Orange"				"255 176 0 255"
+		"OrangeDim"				"255 176 0 120"
+		"LightOrange"			"188 112 0 128"
+		"Red"					"192 28 0 140"
+		"Black"					"0 0 0 196"
+		"TransparentBlack"		"0 0 0 196"
 		"TransparentLightBlack"	"0 0 0 90"
-
-		"Blank"				"0 0 0 0"
-		"ForTesting"		"255 0 0 32"
+		"Blank"					"0 0 0 0"
+		"ForTesting"			"255 0 0 32"
 		"ForTesting_Magenta"	"255 0 255 255"
 		"ForTesting_MagentaDim"	"255 0 255 120"
 	}
-	
-	///////////////////// BASE SETTINGS ////////////////////////
-	//
-	// default settings for all panels
-	// controls use these to determine their settings
+
 	BaseSettings
 	{
 		"FgColor"			"255 220 0 100"
@@ -63,25 +44,22 @@ Scheme
 		"Caution"			"255 48 0 255"
 
 		// Top-left corner of the "Half-Life 2" on the main screen
-		"Main.Title1.X"		"76"
-		"Main.Title1.Y"		"184"
-		"Main.Title1.Color"	"255 255 255 255"
+		Main.Title1.X		"22"
+		Main.Title1.Y		"402"
+		Main.Title1.Color	"0 0 0 255"
 		
 		// Top-left corner of the "DEATHMATCH" on the main screen
-		"Main.Title2.X"		"315"
-		"Main.Title2.Y"		"222"
-		"Main.Title2.Color"	"255 255 255 180"
+		Main.Title2.X		"20"
+		Main.Title2.Y		"400"
+		Main.Title2.Color	"192 28 0 255"
 
 		// Top-left corner of the menu on the main screen
-		"Main.Menu.X"		"76"
-		"Main.Menu.Y"		"240"
+		Main.Menu.X		"32"
+		Main.Menu.Y		"248"
 
 		// Blank space to leave beneath the menu on the main screen
 		"Main.BottomBorder"	"32"
 
-
-///HERE
-				// vgui_controls color specifications
 		Border.Bright					"LightOrange"		// the lit side of a control
 		Border.Dark						"LightOrange"		// the dark/unlit side of a control
 		Border.Selection				"Blank"				// the additional border color for displaying the default/selected button
@@ -169,7 +147,7 @@ Scheme
 		RichText.SelectedTextColor		"Orange"
 		RichText.SelectedBgColor		"Blank"
 
-				ScrollBarButton.FgColor				"Orange"
+		ScrollBarButton.FgColor				"Orange"
 		ScrollBarButton.BgColor				"Blank"
 		ScrollBarButton.ArmedFgColor		"Orange"
 		ScrollBarButton.ArmedBgColor		"Blank"
@@ -225,8 +203,6 @@ Scheme
 		"team2"			"153 204 255 255" // T's
 
 		"MapDescriptionText"	"Orange" // the text used in the map description window
-		"CT_Blue"			"153 204 255 255"
-		"T_Red"				"255 64 64 255"
 		"Hostage_Yellow"	"Panel.FgColor"
 		"HudIcon_Green"		"0 160 0 255"
 		"HudIcon_Red"		"160 0 0 255"
@@ -248,30 +224,7 @@ Scheme
 		"HintMessageBg" 		"0 0 0 60"
 
 		"ProgressBarFg"			"255 30 13 255"
-
-		// Top-left corner of the "Counter-Strike" on the main screen
-		"Main.Title1.X"		"32"
-		"Main.Title1.Y"		"180"
-		"Main.Title1.Color"	"255 255 255 255"
-
-		// Top-left corner of the "SOURCE" on the main screen
-		"Main.Title2.X"		"380"	
-		"Main.Title2.Y"		"205"
-		"Main.Title2.Color"	"255 255 255 80"
-
-		// Top-left corner of the "BETA" on the main screen
-		"Main.Title3.X"		"460"
-		"Main.Title3.Y"		"-10"
-		"Main.Title3.Color"	"255 255 0 255"
-
-		// Top-left corner of the menu on the main screen
-		"Main.Menu.X"		"32"
-		"Main.Menu.Y"		"248"
-
-		// Blank space to leave beneath the menu on the main screen
-		"Main.BottomBorder"	"32"
 		
-		// Fortress
 		NumericText			"255 255 255 255"
 		NumericTextWarning	"OrangeDim"
 		NumericTextCritical	"255 0 0 255"
@@ -305,8 +258,7 @@ Scheme
 				"antialias" "1"
 			}
 		}
-		// fonts listed later in the order will only be used if they fulfill a range not already filled
-		// if a font fails to load then the subsequent fonts will replace
+
 		Default
 		{
 			"1"
@@ -351,6 +303,7 @@ Scheme
 				"additive"	"1"
 			}
 		}
+		
 		"DefaultSmall"
 		{
 			"1"
@@ -464,15 +417,17 @@ Scheme
 				"weight"		"0"
 			}
 		}
-		"MenuTitle"
+		
+		MenuTitle
 		{
-			"1"
+			1
 			{
 				"name"		"Verdana Bold"
 				"tall"		"18"
 				"weight"	"500"
 			}
 		}
+		
 		WeaponIcons
 		{
 			"1"
@@ -530,7 +485,7 @@ Scheme
 		{
 			"1"
 			{
-				"name"		"HalfLife2"
+				"name"		"Arial"
 				"tall"		"32"
 				"weight"	"0"
 				"antialias" "1"
@@ -542,7 +497,7 @@ Scheme
 		{
 			"1"
 			{
-				"name"		"HalfLife2"
+				"name"		"Arial"
 				"tall"		"32"
 				"weight"	"0"
 				"blur"		"4"
@@ -552,19 +507,7 @@ Scheme
 				"custom"	"1"
 			}
 		}
-		HudNumbersSmall
-		{
-			"1"
-			{
-				"name"		"HalfLife2" [!$OSX]
-				"name"		"Helvetica Bold" [$OSX]
-				"tall"		"16"
-				"weight"	"1000"
-				"additive"	"1"
-				"antialias" "1"
-				"custom"	"1"
-			}
-		}
+
 		HudSelectionNumbers
 		{
 			"1"
@@ -758,17 +701,19 @@ Scheme
 				"weight"	"900"
 			}
 		}
+		
 		ClientTitleFont
 		{
-			"1"
+			1
 			{
-				"name"  "Arial"
-				"tall"  "46"
-				"weight" "0"
-				"additive" "0"
-				"antialias" "1"
+				name  		"Squada One"
+				tall  		"70"
+				weight 		"0"
+				additive 	"0"
+				antialias	"1"
 			}
 		}
+		
 		CreditsLogo
 		{
 			"1"
@@ -882,18 +827,7 @@ Scheme
 				"additive"	"0"
 			}
 		}
-		"HL2MPTypeDeath"
-		{
-		   "1"
-		   {
-				"name"  "HL2MP" // csd.ttf
-				"tall"  "32"
-				"weight" "0"
-				"additive" "1"
-				"antialias" "1"
-				"custom" "1" [$OSX]
-		   }
-		}	
+
 		// Used by scoreboard and spectator UI for names which don't map in the normal fashion
 		"DefaultVerySmallFallBack"
 		{
@@ -925,12 +859,46 @@ Scheme
 				"antialias"	"1"
 			}
 		}
-
+		
+		// Fortress
+		
+		HudNumbersLabelFont
+		{
+			1
+			{
+				name		"Verdana"
+				tall		"16"
+				weight		"0"
+				antialias	"1"
+			}
+		}
+		
+		HudNumbersSmall
+		{
+			1
+			{
+				name		"Verdana"
+				tall		"10"
+				weight		"0"
+				additive	"1"
+				antialias 	"1"
+			}
+		}
+		
+		HudNumbersSmallGlow
+		{
+			1
+			{
+				name		"Verdana"
+				tall		"10"
+				weight		"0"
+				additive	"1"
+				antialias 	"1"
+				blur		"4"
+			}
+		}
 	}
 
-		//////////////////// BORDERS //////////////////////////////
-	//
-	// describes all the border types
 	Borders
 	{
 		BaseBorder
@@ -1331,8 +1299,7 @@ Scheme
 				}
 			}
 		}
-
-
+		
 		ToolTipBorder
 		{
 			"inset" "0 0 1 0"
@@ -1574,15 +1541,10 @@ Scheme
 		}
 	}
 
-	
-	//////////////////////// CUSTOM FONT FILES /////////////////////////////
-	//
-	// specifies all the custom (non-system) font files that need to be loaded to service the above described fonts
 	CustomFontFiles
 	{
-		"1"		"resource/HALFLIFE2.ttf"
-		"1"		"resource/HL2MP.ttf"
-		"2"		"resource/HL2crosshairs.ttf"
+		"1"	"resource/HALFLIFE2.ttf"
+		"2"	"resource/HL2crosshairs.ttf"
+		"3"	"resource/fonts/Squada_One/SquadaOne-Regular.ttf"
 	}
-
 }

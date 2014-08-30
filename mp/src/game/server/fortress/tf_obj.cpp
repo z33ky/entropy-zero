@@ -36,9 +36,7 @@
 #endif
 #include <KeyValues.h>
 #include "team_messages.h"
-#ifdef IMPLEMENT_ME
 #include "info_act.h"
-#endif
 #include "info_vehicle_bay.h"
 #include "ihasbuildpoints.h"
 #include "tf_obj_buff_station.h"
@@ -1760,22 +1758,21 @@ bool CBaseObject::PassDamageOntoChildren( const CTakeDamageInfo &info, float *fl
 	return false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 {
-#ifdef IMPLEMENT_ME
 	// Prevent damage if the game hasn't started yet
 	if ( CurrentActIsAWaitingAct() )
 		return 0;
-#endif
+
 	if ( !IsAlive() )
 		return info.GetDamage();
+
 	if (m_bInvulnerable)
 		return 0;
+
 	if ( m_takedamage == DAMAGE_NO )
 		return 0;
+
 	if ( IsPlacing() )
 		return 0;
 

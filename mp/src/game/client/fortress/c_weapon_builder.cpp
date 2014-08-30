@@ -148,13 +148,10 @@ void C_WeaponBuilder::Redraw()
 {
 	BaseClass::Redraw();
 
-#ifdef IMPLEMENT_ME
 	// Don't draw if we're hiding the weapons, or the player's dead
-	if ( gHUD.IsHidden( HIDEHUD_WEAPONS | HIDEHUD_PLAYERDEAD ) )
-#else
-	if(gHUD.IsHidden(HIDEHUD_PLAYERDEAD))
-#endif
+	if ( gHUD.IsHidden( HIDEHUD_WEAPONSELECTION | HIDEHUD_PLAYERDEAD ) )
 		return;
+
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if (!pPlayer)
 		return;

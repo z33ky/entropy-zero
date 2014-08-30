@@ -8,18 +8,14 @@
 #include "basecombatweapon.h"
 #include "weapon_builder.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_rallyflag.h"
-#endif
 #include "tf_team.h"
 #ifdef IMPLEMENT_ME
 #include "order_assist.h"
 #endif
 #include "engine/IEngineSound.h"
 #include "weapon_twohandedcontainer.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#endif
 
 ConVar tf_knockdowntime( "tf_knockdowntime", "3", FCVAR_NONE, "Length of time knocked-down players remain on the ground." );
 
@@ -98,22 +94,18 @@ void CPlayerClassCommando::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
-#ifdef IMPLEMENT_ME
 	// Create our two handed weapon layout
 	m_hWpnShield = m_pPlayer->GetCombatShield();
 
 	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * )m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
 	if ( !p )
-	{
 		p = static_cast< CWeaponTwoHandedContainer * >( m_pPlayer->GiveNamedItem( "weapon_twohandedcontainer" ) );
-	}
 
 	if ( p && m_hWpnShield.Get() )
 	{
 		m_hWpnShield->SetReflectViewModelAnimations( true );
 		p->SetWeapons( NULL, m_hWpnShield );
 	}
-#endif
 }
 
 void CPlayerClassCommando::RespawnClass( void )
@@ -304,11 +296,9 @@ void CPlayerClassCommando::PreBullRush( void )
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>( m_pPlayer->GetActiveWeapon() );
 	if ( pContainer )
 	{
-#ifdef IMPLEMENT_ME
 		CWeaponCombatShield *pShield = dynamic_cast<CWeaponCombatShield*>( pContainer->GetRightWeapon() );
 		if ( pShield )
 			pShield->SetShieldUsable( false );
-#endif
 	}
 }
 
@@ -323,13 +313,9 @@ void CPlayerClassCommando::PostBullRush( void )
 	CWeaponTwoHandedContainer *pContainer = dynamic_cast<CWeaponTwoHandedContainer*>( m_pPlayer->GetActiveWeapon() );
 	if ( pContainer )
 	{
-#ifdef IMPLEMENT_ME
 		CWeaponCombatShield *pShield = dynamic_cast<CWeaponCombatShield*>( pContainer->GetRightWeapon() );
 		if ( pShield )
-		{
 			pShield->SetShieldUsable( true );
-		}
-#endif
 	}
 }
 

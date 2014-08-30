@@ -54,11 +54,6 @@
 #if defined( HL2_CLIENT_DLL ) || defined( CSTRIKE_DLL )
 #define USE_MONITORS
 #endif
-
-#ifdef PORTAL
-#include "c_prop_portal.h" //portal surface rendering functions
-#endif
-
 	
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -311,15 +306,6 @@ void CViewRender::Init( void )
 	QAngle angles;
 	engine->GetViewAngles( angles );
 	AngleVectors( angles, &m_vecLastFacing );
-
-#if defined( REPLAY_ENABLED )
-	m_pReplayScreenshotTaker = NULL;
-#endif
-
-#if defined( CSTRIKE_DLL )
-	m_flLastFOV = default_fov.GetFloat();
-#endif
-
 }
 
 //-----------------------------------------------------------------------------

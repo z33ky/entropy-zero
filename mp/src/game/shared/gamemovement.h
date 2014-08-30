@@ -112,6 +112,9 @@ protected:
 	// Try to keep a walking player on the ground when running down slopes etc
 	void			StayOnGround( void );
 
+	bool			IsWet() const;
+	void			PlantFootprint( surfacedata_t *psurface );
+
 	// Handle MOVETYPE_WALK.
 	virtual void	FullWalkMove();
 

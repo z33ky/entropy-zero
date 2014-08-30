@@ -24,8 +24,8 @@
 #include "ammodef.h"
 #include "weapon_objectselection.h"
 #include "vcollide_parse.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
+#ifdef IMPLEMENT_ME
 #include "tf_vehicle_tank.h"
 #include "tf_obj_manned_plasmagun.h"
 #include "tf_obj_manned_missilelauncher.h"
@@ -522,11 +522,9 @@ bool CPlayerClass::ResupplyAmmo( float flPercentage, ResupplyReason_t reason )
 {
 	bool bGiven = false;
 
-#ifdef IMPLEMENT_ME
 	// Fully resupply shield energy everytime
 	if ( m_pPlayer->GetCombatShield() )
-		m_pPlayer->GetCombatShield()->AddShieldHealth( 1.0 ); 
-#endif
+		m_pPlayer->GetCombatShield()->AddShieldHealth( 1.0 );
 
 	if ((reason == RESUPPLY_RESPAWN) || (reason == RESUPPLY_ALL_FROM_STATION) || (reason == RESUPPLY_AMMO_FROM_STATION))
 		if (ResupplyAmmoType( 1, "Sappers" ))
@@ -593,7 +591,7 @@ int CPlayerClass::GetMaxHealthCVarValue()
 	Assert( val > 0 );	// If you hit this assert, then you probably didn't add an entry to skill?.cfg
 	return val;
 #else	// Currently classes don't assign their own max health, so we can't fix this right now... ~hogsy
-	return 100;
+	return 200;
 #endif
 }
 

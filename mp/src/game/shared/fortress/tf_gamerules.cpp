@@ -5,17 +5,11 @@
 #include "basetfcombatweapon_shared.h"
 
 #ifdef CLIENT_DLL
-#ifdef IMPLEMENT_ME
 	#include "c_shield.h"
-#endif
 	#include "c_te_effect_dispatch.h"
-#ifdef IMPLEMENT_ME
 	#define CShield C_Shield
-#endif
 #else
-#ifdef IMPLEMENT_ME
 	#include "tf_shield.h"
-#endif
 	#include "te_effect_dispatch.h"
 	#include "player.h"
 	#include "tf_player.h"
@@ -26,9 +20,7 @@
 	#include "ammodef.h"
 	#include "techtree.h"
 	#include "tf_team.h"
-#ifdef IMPLEMENT_ME
 	#include "tf_shield.h"
-#endif
 	#include "mathlib/mathlib.h"
 	#include "entitylist.h"
 	#include "basecombatweapon.h"
@@ -42,9 +34,7 @@
 	#include "bot_base.h"
 #endif
 	#include "vstdlib/random.h"
-#ifdef IMPLEMENT_ME
 	#include "info_act.h"
-#endif
 	#include "igamesystem.h"
 	#include "filesystem.h"
 	#include "info_vehicle_bay.h"
@@ -772,7 +762,6 @@ END_NETWORK_TABLE()
 	//-----------------------------------------------------------------------------
 	bool CTeamFortress::IsBlockedByEnemyShields( const Vector& src, const Vector& end, int nFriendlyTeam )
 	{
-#ifdef IMPLEMENT_ME
 		// Iterate over all shields on the same team, disable them so
 		// we don't intersect with them...
 		CShield::ActivateShields( false, nFriendlyTeam );
@@ -782,9 +771,6 @@ END_NETWORK_TABLE()
 		CShield::ActivateShields( true, nFriendlyTeam );
 
 		return bBlocked;
-#else
-		return false;
-#endif
 	}
 
 
@@ -794,13 +780,11 @@ END_NETWORK_TABLE()
 	float CTeamFortress::WeaponTraceEntity( CBaseEntity *pEntity, 
 		const Vector &src, const Vector &end, unsigned int mask, trace_t *pTrace )
 	{
-#ifdef IMPLEMENT_ME
 		int damageType = pEntity->GetDamageType();
 
 		// Iterate over all shields on the same team, disable them so
 		// we don't intersect with them...
 		CShield::ActivateShields( false, pEntity->GetTeamNumber() );
-#endif
 
 		// Trace it baby...
 		float damage = 1.0f;
@@ -815,7 +799,6 @@ END_NETWORK_TABLE()
 			// Shield check...
 			if (pTrace->fraction != 1.0)
 			{
-#ifdef IMPLEMENT_ME
 				CBaseEntity *pCollidedEntity = pTrace->m_pEnt;
 
 				// Did we hit a shield?
@@ -845,7 +828,6 @@ END_NETWORK_TABLE()
 						done = false;
 					}
 				}
-#endif
 			}
 		}
 		while (!done);
@@ -857,10 +839,9 @@ END_NETWORK_TABLE()
 		if (damage != 0.0)
 			pEntity->SetDamage(pEntity->GetDamage() * damage);
 
-#ifdef IMPLEMENT_ME
 		// Reactivate all shields
 		CShield::ActivateShields( true );
-#endif
+
 		return damage;
 	}
 
@@ -869,11 +850,9 @@ END_NETWORK_TABLE()
 	//-----------------------------------------------------------------------------
 	bool CTeamFortress::IsTraceBlockedByWorldOrShield( const Vector& src, const Vector& end, CBaseEntity *pShooter, int damageType, trace_t* pTrace )
 	{
-#ifdef IMPLEMENT_ME
 		// Iterate over all shields on the same team, disable them so
 		// we don't intersect with them...
 		CShield::ActivateShields( false, pShooter->GetTeamNumber() );
-#endif
 
 		//NDebugOverlay::Line( src, pTrace->endpos, 255,255,255, true, 5.0 );
 		//NDebugOverlay::Box( pTrace->endpos, Vector(-2,-2,-2), Vector(2,2,2), 255,255,255, true, 5.0 );
@@ -906,7 +885,6 @@ END_NETWORK_TABLE()
 		CShieldWorldFilter shieldworldFilter( pShooter );
 		UTIL_TraceLine( src, end, MASK_SOLID, &shieldworldFilter, pTrace );
 
-#ifdef IMPLEMENT_ME
 		// Shield check...
 		if (pTrace->fraction != 1.0)
 		{
@@ -924,7 +902,7 @@ END_NETWORK_TABLE()
 
 		// Reactivate all shields
 		CShield::ActivateShields( true );
-#endif
+
 		return ( pTrace->fraction < 1.0 );
 	}
 
@@ -1331,9 +1309,8 @@ END_NETWORK_TABLE()
 	void CTeamFortress::LevelShutdown( void )
 	{
 		g_flNextReinforcementTime = 0.0f;
-#ifdef IMPLEMENT_ME
 		g_hCurrentAct = NULL;
-#endif
+
 		BaseClass::LevelShutdown();
 	}
 
@@ -1359,7 +1336,6 @@ void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity,
 	{
 		if ( bHurt )
 		{
-#ifdef IMPLEMENT_ME
 			Assert( pEntity );
 			bool bHitHandheldShield = (pEntity->IsPlayer() && ((CBaseTFPlayer*)pEntity)->IsHittingShield( vecDir, NULL ));
 			if ( bHitHandheldShield )
@@ -1373,7 +1349,6 @@ void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity,
 				UTIL_ImpactTrace( tr, iDamageType, "PlasmaHurt" );
 #endif
 			}
-#endif
 		}
 		else
 			UTIL_ImpactTrace( tr, iDamageType, "PlasmaUnhurt" );
@@ -1445,15 +1420,12 @@ static bool CheckCollisionGroupPlayerMovement( int collisionGroup0, int collisio
 
 void CTeamFortress::WeaponTraceLine( const Vector& src, const Vector& end, unsigned int mask, CBaseEntity *pShooter, int damageType, trace_t* pTrace )
 {
-#ifdef IMPLEMENT_ME
 	// Iterate over all shields on the same team, disable them so
 	// we don't intersect with them...
 	CShield::ActivateShields( false, pShooter->GetTeamNumber() );
-#endif
 
 	UTIL_TraceLine(src, end, mask, pShooter, TFCOLLISION_GROUP_WEAPON, pTrace);
 
-#ifdef IMPLEMENT_ME
 //	NDebugOverlay::Line( src, pTrace->endpos, 255,255,255, true, 5.0 );
 //	NDebugOverlay::Box( pTrace->endpos, Vector(-2,-2,-2), Vector(2,2,2), 255,255,255, true, 5.0 );
 
@@ -1474,7 +1446,6 @@ void CTeamFortress::WeaponTraceLine( const Vector& src, const Vector& end, unsig
 
 	// Reactivate all shields
 	CShield::ActivateShields( true );
-#endif
 }
 
 
@@ -1561,9 +1532,7 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 	ClearMultiDamage();
 #endif
 
-#ifdef IMPLEMENT_ME
 	int seed = 0;
-#endif
 
 	for (int iShot = 0; iShot < cShots; iShot++)
 	{
@@ -1577,16 +1546,14 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 			// Note the additional seed because otherwise we get the same set of random #'s and will get stuck
 			//  in an infinite loop here potentially
 			// FIXME:  Can we use a gaussian random # function instead?  ywb
-#ifdef IMPLEMENT_ME
 			if ( CBaseEntity::GetPredictionRandomSeed() != -1 )
 			{
-				x1 = SHARED_RANDOMFLOAT_SEED( -0.5, 0.5, ++seed );
-				x2 = SHARED_RANDOMFLOAT_SEED( -0.5, 0.5, ++seed );
-				y1 = SHARED_RANDOMFLOAT_SEED( -0.5, 0.5, ++seed );
-				y2 = SHARED_RANDOMFLOAT_SEED( -0.5, 0.5, ++seed );
+				x1 = SharedRandomFloat("randshot", -0.5f, 0.5f, ++seed );
+				x2 = SharedRandomFloat("randshot", -0.5f, 0.5f, ++seed );
+				y1 = SharedRandomFloat("randshot", -0.5f, 0.5f, ++seed );
+				y2 = SharedRandomFloat("randshot", -0.5f, 0.5f, ++seed );
 			}
 			else
-#endif
 			{
 				x1 = RandomFloat( -0.5, 0.5 );
 				x2 = RandomFloat( -0.5, 0.5 );

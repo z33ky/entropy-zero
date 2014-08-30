@@ -1,9 +1,7 @@
 #include "cbase.h"
 #include "basetfplayer_shared.h"
 #include "weapon_combat_usedwithshieldbase.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_combatshield.h"
-#endif
 #include "weapon_twohandedcontainer.h"
 
 //-----------------------------------------------------------------------------
@@ -42,18 +40,15 @@ void CWeaponCombatUsedWithShieldBase::AllowShieldPostFrame( bool allow )
 	if (!pOwner)
 		return;
 
-#ifdef IMPLEMENT_ME
 	CWeaponCombatShield *shield = static_cast< CWeaponCombatShield * >( pOwner->Weapon_OwnsThisType( "weapon_combat_shield" ) );
 	if ( !shield )
 		return;
 
 	shield->SetAllowPostFrame( allow );
-#endif
 }
 
 int CWeaponCombatUsedWithShieldBase::GetShieldState( void )
-{	
-#ifdef IMPLEMENT_ME
+{
 	CBaseTFPlayer *pOwner = ToBaseTFPlayer( GetOwner() );
 	if ( !pOwner )
 		return SS_DOWN;
@@ -63,9 +58,6 @@ int CWeaponCombatUsedWithShieldBase::GetShieldState( void )
 		return SS_DOWN;
 
 	return pShield->GetShieldState();
-#else
-	return 0;
-#endif
 }
 
 //-----------------------------------------------------------------------------

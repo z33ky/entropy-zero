@@ -343,6 +343,7 @@ exit 1
     <ClInclude Include="..\..\game\shared\GameEventListener.h" />
     <ClInclude Include="..\..\game\shared\gamerules_register.h" />
     <ClInclude Include="..\..\public\gametrace.h" />
+    <ClInclude Include="fortress\info_act.h" />
     <ClInclude Include="fortress\info_buildpoint.h" />
     <ClInclude Include="fortress\info_customtech.h" />
     <ClInclude Include="fortress\info_vehicle_bay.h">
@@ -840,6 +841,7 @@ exit 1
     <ClCompile Include="..\shared\weapon_parse_default.cpp" />
     <ClCompile Include="fortress\basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\bot_base.cpp" />
+    <ClCompile Include="fortress\info_act.cpp" />
     <ClCompile Include="fortress\info_buildpoint.cpp" />
     <ClCompile Include="fortress\info_customtech.cpp" />
     <ClCompile Include="fortress\info_vehicle_bay.cpp">

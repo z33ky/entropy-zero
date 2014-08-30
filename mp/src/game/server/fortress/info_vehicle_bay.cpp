@@ -4,9 +4,7 @@
 #include "tf_obj.h"
 #include "info_vehicle_bay.h"
 #include "tf_player.h"
-#ifdef IMPLEMENT_ME
 #include "info_act.h"
-#endif
 
 extern ConVar tf_fastbuild;
 
@@ -138,14 +136,12 @@ void CVGuiScreenVehicleBay::BuildVehicle( CBaseTFPlayer *pPlayer, int iObjectTyp
 		return;
 	Assert( m_vecBuildPointOrigin != vec3_origin );
 
-#ifdef IMPLEMENT_ME
 	// Can't build if the game hasn't started
 	if ( !tf_fastbuild.GetInt() && CurrentActIsAWaitingAct() )
 	{
 		ClientPrint( pPlayer, HUD_PRINTCENTER, "Can't build until the game's started.\n" );
 		return;
 	}
-#endif
 
 	// Try and spawn the object
 	CBaseEntity *pEntity = CreateEntityByName( GetObjectInfo(iObjectType)->m_pClassName );

@@ -1,10 +1,11 @@
 "GameInfo"
 {
 	game		"Fortress"
-	title		"Fortress"
+	title		"FORTRESS"
+	title2		"FORTRESS"
 	type 		multiplayer_only
 	icon		"icon"
-	nomodels 	0
+	nomodels 	1
 	nohimodel 	1
 	nocrosshair 	1
 	hidden_maps
@@ -12,8 +13,6 @@
 		"test_speakers"		1
 		"test_hardware"		1
 	}
-	supportsvr	1
-
 
 	FileSystem
 	{

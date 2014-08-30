@@ -5,9 +5,6 @@
 #include "ivmodemanager.h"
 #include "shake.h"
 #include "ivieweffects.h"
-#ifdef IMPLEMENT_ME
-#include "parsemsg.h"
-#endif
 #include "c_tfteam.h"
 #include "view.h"
 #include "UserCmd.h"
@@ -25,7 +22,9 @@
 #ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
 #include "c_vehicle_teleport_station.h"
+#endif
 #include "weapon_combatshield.h"
+#ifdef IMPLEMENT_ME
 #include "hud_vehicle_role.h"
 #endif
 #include "hud_technologytreedoc.h"

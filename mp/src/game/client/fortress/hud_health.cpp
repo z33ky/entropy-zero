@@ -84,6 +84,7 @@ Color CHudHealth::GetBoxColor()
 	int value = 0;
 	if ( !GetHealth( value ) || value > 25  )
 		return m_BoxColor;
+
 	return m_BoxColorCritical;
 }
 

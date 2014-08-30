@@ -107,9 +107,6 @@ void C_ObjectPowerPack::OnGoInactive( void )
 	RemoveGlows();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_ObjectPowerPack::RemoveGlows( void )
 {
 	for ( int i = 0; i < NUM_POWERPACK_GLOWS; i++ )
@@ -130,9 +127,6 @@ void C_ObjectPowerPack::RemoveGlows( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_ObjectPowerPack::ClientThink( void )
 {
 	// Create the jacob's ladder

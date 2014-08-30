@@ -796,11 +796,14 @@ CBaseHandle CGameMovement::TestPlayerPosition( const Vector& pos, int collisionG
 	}
 }
 
-#ifdef IMPLEMENT_ME	// I want to get this back in at some point... ~hogsy
 // FIXME FIXME:  Does this need to be hooked up?
 bool CGameMovement::IsWet() const
 {
-	return ((pev->flags & FL_INRAIN) != 0) || (m_WetTime >= gpGlobals->time);
+#ifdef IMPLEMENT_ME
+	return ((player->GetFlags() & FL_INRAIN) != 0) || (m_WetTime >= gpGlobals->time);
+#else
+	return ((player->GetFlags() & FL_INRAIN) != 0);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -808,11 +811,13 @@ bool CGameMovement::IsWet() const
 //-----------------------------------------------------------------------------
 
 #define PLAYER_HALFWIDTH 12
+
 void CGameMovement::PlantFootprint( surfacedata_t *psurface )
 {
 	// Can't plant footprints on fake materials (ladders, wading)
 	if ( psurface->game.material != 'X' )
 	{
+#ifdef IMPLEMENT_ME
 		int footprintDecal = -1;
 
 		// Figure out which footprint type to plant...
@@ -834,12 +839,12 @@ void CGameMovement::PlantFootprint( surfacedata_t *psurface )
 		if (footprintDecal != -1)
 		{
 			Vector right;
-			AngleVectors( pev->angles, 0, &right, 0 );
+			AngleVectors(player->GetLocalAngles, 0, &right, 0 );
 
 			// Figure out where the top of the stepping leg is 
 			trace_t tr;
 			Vector hipOrigin;
-			VectorMA( pev->origin, 
+			VectorMA( player->GetLocalOrigin, 
 				m_IsFootprintOnLeft ? -PLAYER_HALFWIDTH : PLAYER_HALFWIDTH,
 				right, hipOrigin );
 
@@ -855,15 +860,19 @@ void CGameMovement::PlantFootprint( surfacedata_t *psurface )
 							   gDecals[footprintDecal].index, mType );
 
 		}
+#endif
 	}
 
+#ifdef IMPLEMENT_ME
 	// Switch feet for next time
 	m_IsFootprintOnLeft = !m_IsFootprintOnLeft;
+#endif
 }
 
 #define WET_TIME	5.f		// how many seconds till we're completely wet/dry
 #define DRY_TIME	20.f	// how many seconds till we're completely wet/dry
 
+#ifdef IMPLEMENT_ME
 void CBasePlayer::UpdateWetness()
 {
 	// BRJ 1/7/01

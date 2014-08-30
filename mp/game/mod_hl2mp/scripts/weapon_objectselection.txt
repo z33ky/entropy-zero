@@ -45,8 +45,11 @@ WeaponData
 		}
 		"crosshair"
 		{
-				"font"		"Crosshairs"
-				"character"	"Q"
+			file	"sprites/crosshairs"
+			x		48
+			y		48
+			width	24
+			height	24
 		}
 		"autoaim"
 		{

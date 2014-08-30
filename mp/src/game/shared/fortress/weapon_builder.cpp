@@ -21,9 +21,7 @@
 #include "tf_obj.h"
 #include "sendproxy.h"
 #include "weapon_objectselection.h"
-#ifdef IMPLEMENT_ME
 #include "info_act.h"
-#endif
 #include "vguiscreen.h"
 
 extern ConVar tf2_object_hard_limits;
@@ -262,14 +260,12 @@ void CWeaponBuilder::PrimaryAttack( void )
 				{
 					int iFlags = m_hObjectBeingBuilt->GetObjectFlags();
 
-#ifdef IMPLEMENT_ME
 					// Can't build if the game hasn't started
 					if ( !tf_fastbuild.GetInt() && CurrentActIsAWaitingAct() )
 					{
 						ClientPrint( pOwner, HUD_PRINTCENTER, "Can't build until the game's started.\n" );
 						return;
 					}
-#endif
 
 					StartBuilding();
 

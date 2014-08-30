@@ -6,6 +6,7 @@
 #ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
 #endif
+#include "mapdata.h"
 #include "ivmodemanager.h"
 #include "hud_timer.h"
 #include "hud_technologytreedoc.h"
@@ -69,9 +70,7 @@ void CTFModeManager::Init( void )
 
 	// FIXME: Turn these into client systems
 	HudCommanderOverlayMgr()->GameInit();
-#ifdef IMPLEMENT_ME
 	MapData().Init();
-#endif
 	GetTechnologyTreeDoc().Init();
 
 	HOOK_MESSAGE( ActBegin );
@@ -126,9 +125,11 @@ void CTFModeManager::SwitchMode( bool commander, bool force )
 	}
 	else if ( !commander && ( ( g_pClientMode != GetClientModeNormal() ) || force ) )
 	{
+#endif
 		g_pClientMode->Disable();
 		g_pClientMode = GetClientModeNormal();
 		g_pClientMode->Enable();
+#ifdef IMPLEMENT_ME
 	}
 #endif
 }

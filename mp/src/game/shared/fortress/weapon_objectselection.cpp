@@ -36,7 +36,6 @@ END_NETWORK_TABLE()
 
 CWeaponObjectSelection::CWeaponObjectSelection()
 {
-
 #if defined( CLIENT_DLL )
 	m_bNeedSpriteSetup = true;
 #endif

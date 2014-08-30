@@ -124,7 +124,6 @@ $hbox 0 "LeftFoot"	    -4.85   -3.74   -4.29     8.84    6.38    3.82
 $hbox 0 "LeftThigh_helper"	    -3.43   -4.78   -5.78     5.98    0.94    3.33
 
 $attachment "0" "w_combat_plasmarifle" 0.00 0.00 0.00 rotate -0.00 -0.00 0.00
-
 $attachment "1" "w_combat_shield" -0.00 -0.00 -0.00 rotate 0.00 0.00 -0.00
 
 $attachment "buffcablepoint" "w_combat_plasmarifle" 0.00 0.00 0.00 rotate -0.00 -0.00 0.00
