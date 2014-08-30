@@ -78,12 +78,10 @@ HudLayout
 	
 	HudMinimap
 	{
-		"fieldName"	"HudMinimap"
-		"xpos"		"0"
-		"ypos"		"0"
-		"wide"		"512"
-		"tall"  	"512"
-		"visible" 	"1"
-		"enabled" 	"1"
+		fieldName	"HudMinimap"
+		xpos		"0"
+		ypos		"0"
+		visible 	"1"
+		enabled 	"1"
 	}
 }

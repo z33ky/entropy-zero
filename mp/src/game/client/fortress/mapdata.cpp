@@ -14,10 +14,8 @@
 #include "c_tfteam.h"
 #include "c_func_resource.h"
 #include "vgui_BitmapImage.h"
-#ifdef IMPLEMENT_ME
 #include "C_Shield.h"
 #include "c_obj_respawn_station.h"
-#endif
 
 bool IsEntityVisibleToTactical( int iLocalTeamNumber, int iLocalTeamPlayers, 
 	int iLocalTeamObjects, int iEntIndex, const char *pEntName, int pEntTeamNumber, const Vector &pEntOrigin );

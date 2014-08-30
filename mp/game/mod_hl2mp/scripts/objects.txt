@@ -649,7 +649,7 @@ objects
 	OBJ_SANDBAG_BUNKER
 	{
 		ClassName				obj_sandbag_bunker
-		StatusName				"SandbagBunker"
+		StatusName				"Sandbag Bunker"
 		BuilderWeaponName		"Sandbag Bunker"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0

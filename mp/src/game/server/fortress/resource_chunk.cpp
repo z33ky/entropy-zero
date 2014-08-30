@@ -122,6 +122,8 @@ void CResourceChunk::ChunkTouch( CBaseEntity *pOther )
 		// Give the team the resources
 		int iAmountPerPlayer = ((CTFTeam *)pOther->GetTeam())->AddTeamResources( GetResourceValue(), TF_PLAYER_STAT_RESOURCES_ACQUIRED_FROM_CHUNKS );
 		TFStats()->IncrementTeamStat( pOther->GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_COLLECTED, GetResourceValue() );
+#else
+		int iAmountPerPlayer = ((CTFTeam *)pOther->GetTeam())->AddTeamResources( GetResourceValue(), 0 );
 #endif
 
 		pOther->EmitSound( "ResourceChunk.Pickup" );
@@ -129,11 +131,7 @@ void CResourceChunk::ChunkTouch( CBaseEntity *pOther )
 		// Tell the player
 		CSingleUserRecipientFilter user( (CBasePlayer*)pOther );
 		UserMessageBegin( user, "PickupRes" );
-#ifdef IMPLEMENT_ME
 			WRITE_BYTE( iAmountPerPlayer ); 
-#else	// Until TFStats is in. ~hogsy
-			WRITE_BYTE(100);
-#endif
 		MessageEnd();
 
 		// Tell our zone to remove this chunk from it's list
