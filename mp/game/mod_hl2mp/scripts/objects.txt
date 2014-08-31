@@ -6,10 +6,10 @@ objects
 		StatusName				"Powerpack"
 		BuilderWeaponName		"Powerpack"
 		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
+		SolidToPlayerMovement	1
 		Icon					"placeholder"
 		BuildTime				10
-		MaxObjects				1
+		MaxObjects				5
 		Cost					100
 		CostMultiplier			1
 		UpgradeCost				0
@@ -231,14 +231,14 @@ objects
 	OBJ_BUFF_STATION
 	{
 		ClassName				obj_buff_station
-		StatusName				"BuffStation"
+		StatusName				"Buff Station"
 		BuilderWeaponName		"Buff Station"
 		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
+		SolidToPlayerMovement	1
 		Icon					"placeholder"
-		BuildTime				10
+		BuildTime				5
 		MaxObjects				1
-		Cost					100
+		Cost					50
 		CostMultiplier			1
 		UpgradeCost				0
 		MaxUpgradeLevel			0
@@ -364,9 +364,9 @@ objects
 	OBJ_VEHICLE_BOOST
 	{
 		ClassName				obj_vehicle_boost
-		StatusName				"VehicleBoost"
+		StatusName				"Vehicle Boost"
 		BuilderWeaponName		"Vehicle Boost"
-		BuilderPlacementString	"Place on ground"
+		BuilderPlacementString	"Place on vehicle"
 		SolidToPlayerMovement	0
 		Icon					"placeholder"
 		BuildTime				10
@@ -404,7 +404,7 @@ objects
 		ClassName		obj_buff_station
 		StatusName		"Buffstation"
 		BuilderWeaponName	"Buff Station"
-		BuilderPlacementString	"Place on ground"
+		BuilderPlacementString	"Place on vehicle"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
 		BuildTime		10

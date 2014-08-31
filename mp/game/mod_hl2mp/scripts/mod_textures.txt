@@ -2,14 +2,42 @@
 {
 	TextureData
 	{
-		"human_weapon_selection_background_1"
+		human_weapon_selection_background_1
 		{
-			"file"		"sprites/640hud1"
-			"x"		"192"
-			"y"		"224"
-			"width"		"32"
-			"height"	"16"
+			file	"sprites/640hud1"
+			x		"192"
+			y		"224"
+			width	"32"
+			height	"16"
 		}
+		
+		weapon_selection_offensive
+		{
+			file	"hud/iconmap"
+			x		0
+			y		0
+			width	156
+			height	216
+		}
+		
+		weapon_selection_defensive
+		{
+			file	"hud/iconmap"
+			x		0
+			y		0
+			width	156
+			height	216
+		}
+		
+		weapon_selection_general
+		{
+			file	"hud/iconmap"
+			x		0
+			y		0
+			width	156
+			height	216
+		}
+		
 		"d_skull"
 		{
 				"file"		"sprites/640hud1"

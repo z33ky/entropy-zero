@@ -24,18 +24,26 @@ enum
 
 char    *va(char *format, ...);
 
+#if 0
 void CTFGameMovement::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 {
 	BaseClass::ProcessMovement( pPlayer, pMove );
 }
-
-void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
+#else	
+/*	Basically, in the original code-base the above would call up the base class' ProcessMovement func
+	which would then set the SpeedCrop flag as false, then redirect to _ProcessMovement.
+	Since that was dumb, and isn't necessary anymore, we just throw ourselves to this directly instead
+	and update the flag ourselves. ~hogsy
+*/
+void CTFGameMovement::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 {
 	mv	= pMove;
 	player = pPlayer;
 
 	Assert( mv );
 	Assert( player );
+
+	m_iSpeedCropped = SPEED_CROPPED_RESET;
 
 	// bisect time interval for very long commands
 	if (gpGlobals->frametime > 0.05f)
@@ -46,7 +54,7 @@ void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 
 		gpGlobals->frametime = t;
 		
-		_ProcessMovement( player, mv );
+		ProcessMovement( player, mv );
 
 		// NOTE:  Only fire impulse on first time through
 		mv->m_nImpulseCommand = 0;
@@ -54,7 +62,7 @@ void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 		// Make sure frametime is valid
 		gpGlobals->frametime = t;
 
-		_ProcessMovement( player, mv );
+		ProcessMovement( player, mv );
 
 		// Reset frametime so other functionas after this aren't hosed
 		gpGlobals->frametime = savet;
@@ -69,6 +77,7 @@ void CTFGameMovement::_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 
 	FinishMove();
 }
+#endif
 
 void CTFGameMovement::CategorizePosition( void )
 {
@@ -599,10 +608,6 @@ bool CTFGameMovement::PrePlayerMove( void )
 	return true;
 }
 
-void CTFGameMovement::PostPlayerMove( void )
-{
-}
-
 void CTFGameMovement::HandlePlayerMove( void )
 {
 	// Handle movement.
@@ -671,9 +676,6 @@ void CTFGameMovement::PlayerMove( void )
 
 	// Handle Movement
 	HandlePlayerMove();
-
-	// Clean-up and updates post-player movement.
-	PostPlayerMove();
 }
 
 //-----------------------------------------------------------------------------
@@ -844,9 +846,6 @@ void CTFGameMovement::AirMove( void )
 	TryStanding();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::WalkMove( void )
 {
 	_WalkMove();

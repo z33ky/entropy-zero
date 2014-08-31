@@ -2021,6 +2021,9 @@
     <ClInclude Include="fortress\c_obj_respawn_station.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_tfplayerresource.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3536,6 +3539,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_shield_flat.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tfplayerresource.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>

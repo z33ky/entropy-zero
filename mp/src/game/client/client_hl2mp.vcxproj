@@ -422,6 +422,7 @@ exit 1
     <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
+    <ClInclude Include="fortress\c_tfplayerresource.h" />
     <ClInclude Include="fortress\c_tfteam.h" />
     <ClInclude Include="fortress\c_tf_basecombatweapon.h" />
     <ClInclude Include="fortress\c_tf_basehint.h" />
@@ -956,6 +957,7 @@ exit 1
     <ClCompile Include="fortress\c_shield.cpp" />
     <ClCompile Include="fortress\c_shield_flat.cpp" />
     <ClCompile Include="fortress\c_tf2rootpanel.cpp" />
+    <ClCompile Include="fortress\c_tfplayerresource.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
     <ClCompile Include="fortress\c_tf_basecombatweapon.cpp" />
     <ClCompile Include="fortress\c_tf_basehint.cpp" />

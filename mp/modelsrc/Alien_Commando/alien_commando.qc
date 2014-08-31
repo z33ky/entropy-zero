@@ -84,44 +84,51 @@ $hbox 0 "LeftFoot"   -4.21   -5.34   -2.56     2.84   -5.34    6.67
 $hbox 1 "w_combat_shield"  -15.00   -5.00   -1.00    -5.00   -5.00    1.00
 
 $attachment "0" "w_combat_plasmarifle" -0.00 -0.00 0.00 rotate -0.00 -0.00 0.00
-
 $attachment "1" "w_combat_shield" -0.00 -0.00 -0.00 rotate -0.00 0.00 -0.00
-
 $attachment "buffcablepoint" "w_combat_plasmarifle" -0.00 -0.00 0.00 rotate -0.00 -0.00 0.00
 
 $poseparameter move_yaw -180.00 180.00 loop 360.00 wrap
 $poseparameter body_yaw -90.00 90.00 loop 0.00
 $poseparameter body_pitch -90.00 90.00 loop 0.00
 
+$ikchain ltfoot LeftFoot
+$ikchain rtfoot RightFoot
+$ikchain lhand LeftHand
+$ikchain rhand RightHand
+$ikchain larm LeftForearm
+$ikchain rarm RightForearm
+
 $include "alien_commando_weightlists.qci"
 
-$animation "a_body_L_0_0" "a_body_L_0_0.smd" fps 30.00 post weightlist body_look_yaw_weightlist 
-$animation "a_body_M_1_0" "a_body_M_1_0.smd" fps 30.00 post weightlist body_look_yaw_weightlist 
-$animation "a_body_R_2_0" "a_body_R_2_0.smd" fps 30.00 post weightlist body_look_yaw_weightlist 
-$sequence "body_look_yaw" {
-	a_body_L_0_0
-	a_body_M_1_0
-	a_body_R_2_0
-	fps 30.00 post delta autoplay 
-	blendwidth 3
-	blend "body_yaw" 90.00 -90.00
-
-}
-
-$animation "a_body_U_0_0" "a_body_U_0_0.smd" fps 30.00 post weightlist body_pitch_weightlist 
-$animation "a_body_D_2_0" "a_body_D_2_0.smd" fps 30.00 post weightlist body_pitch_weightlist 
-$sequence "body_pitch" {
-	a_body_U_0_0
-	a_body_M_1_0
-	a_body_D_2_0
-	fps 30.00 post delta autoplay 
-	blendwidth 3
-	blend "body_pitch" -90.00 90.00
-
+$sequence "Idle" "@Idle.smd" fps 30.00 loop ACT_IDLE 1  {
+	ikrule ltfoot footstep range 0.00 0.00 1.00 1.00 target 0 height 0.00 floor 0.00 radius 0.00 contact 0.00 fakeorigin 8.17 6.87 0.00 fakerotate -0.00 0.00 0.00
+	ikrule rtfoot footstep range 0.00 0.00 1.00 1.00 target 1 height 0.00 floor 0.00 radius 0.00 contact 0.00 fakeorigin -5.43 -3.51 0.00 fakerotate -0.00 0.00 0.00
 }
 
 $sequence "Run" "@Run.smd" fps 30.00 loop  walkframe 20 LX ACT_xxxRUN 1  {
 }
+
+$sequence "Walk" "@Walk.smd" fps 30.00 loop  walkframe 20 LX ACT_xxxWALK 1  {
+}
+
+$sequence "CrouchIdle" "@CrouchIdle.smd" fps 30.00 loop  walkframe 100 LX ACT_CROUCHIDLE 1  {
+}
+
+$sequence "CrouchRun" "@CrouchRun.smd" fps 30.00 loop  walkframe 20 LX ACT_CROUCH 1  {
+}
+
+$sequence "ShieldUp" "@ShieldUp.smd" fps 30.00 ACT_SHIELD_UP 1  {
+}
+
+$sequence "ShieldDown" "@ShieldDown.smd" fps 30.00 ACT_SHIELD_DOWN 1  {
+}
+
+$sequence "ShieldUpIdle" "@ShieldUpIdle.smd" fps 30.00 loop ACT_SHIELD_UP_IDLE 1  {
+}
+
+$sequence "ragdoll" "@ragdoll.smd" fps 30.00 ACT_DIERAGDOLL 1  {
+}
+
 /*
 $collisionjoints "alien_commando_phy.smd" {
 	$mass "100.000000"
@@ -185,5 +192,4 @@ $collisionjoints "alien_commando_phy.smd" {
 	$jointconstrain "LeftHand" x limit 0.000000 70.000000 1.000000
 	$jointconstrain "LeftHand" y limit -21.000000 21.000000 1.000000
 	$jointconstrain "LeftHand" z limit -10.000000 10.000000 1.000000
-}
-*/
+}*/

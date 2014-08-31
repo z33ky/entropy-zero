@@ -64,6 +64,7 @@
 #ifdef IMPLEMENT_ME
 #include "tf_vehicle_teleport_station.h"
 #endif
+#include "datacache/imdlcache.h"
 #include "globals.h"
 
 /*
@@ -123,7 +124,7 @@ BEGIN_DATADESC( CBaseTFPlayer )
 
 END_DATADESC()
 
-#ifdef IMPLEMENT_ME	// Move over to client. ~hogsy
+#if 0	// Obsolete, this is now all done on the client. ~hogsy
 BEGIN_PREDICTION_DATA_NO_BASE( CTFPlayerLocalData )
 
 	DEFINE_FIELD( m_nInTacticalView, FIELD_INTEGER ),
@@ -335,6 +336,9 @@ void CBaseTFPlayer::Spawn( void )
 	// Must be done before baseclass spawn, so it's correct for when we find a spawnpoint
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->SetPlayerHull();
+
+	// Added to resolve assert issue on spawn. ~hogsy
+	MDLCACHE_CRITICAL_SECTION();
 
 	// Use human commando model until we know our class
 	SetModel( "models/player/human_commando.mdl" );

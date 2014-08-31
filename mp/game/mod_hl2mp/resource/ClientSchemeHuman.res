@@ -14,27 +14,40 @@ Scheme
 {
 	Colors
 	{
-		White	"255 255 255 255"
-		Orange	"255 176 0 255"
-		Red		"255 0 0 255"
+		White		"255 255 255 255"
+		Orange		"255 176 0 255"
+		Red			"255 0 0 255"
+		Black		"0 0 0 255"
+		Invisible	"0 0 0 0"
 	}
 
 	BaseSettings
 	{
+		Black						"Black"
+		FgColor						"Red"
 		HudStatusBgColor			"0 0 0 64"
 		HudStatusSelectedBgColor	"0 0 0 192"		
-		
 		NumericText					"White"
 		NumericTextWarning			"Orange"
 		NumericTextCritical			"Red"
-		NumericBox					"255 0 0 125"
+		NumericBox					"Red"	//"255 0 0 165"
+		NumericCharFg				"Orange"
 		NumericCharBg				"0 255 0 255"
 		NumericCharBgBorder			"0 0 255 255"
+		SelectionTextFg				"White"
+		InvalidSlotFg				"0 0 0 100"
+		InvalidSlotText				"Red"
+		InvalidActiveSlotFg			"0 0 0 128"
+		InvalidActiveSlotText		"Red"
+		AmmoNormal					"White"
+		AmmoCaution					"Red"
+		OtherSlotFg					"Black"
+		OtherSlotText				"White"
 	}
 
 	Fonts
 	{
-		HudNumbersLabelFont
+		HudSelectionNumbers
 		{
 			1
 			{
@@ -45,13 +58,46 @@ Scheme
 			}
 		}
 		
+		HudSelectionText
+		{
+			1
+			{
+				name		"Michroma"
+				tall		"16"
+				weight		"0"
+				antialias	"1"
+			}
+		}
+		
+		HudSelectionTextSmall
+		{
+			1
+			{
+				name		"Michroma"
+				tall		"13"
+				weight		"0"
+				antialias	"1"
+			}
+		}
+		
+		HudNumbersLabelFont
+		{
+			1
+			{
+				name		"Michroma"
+				tall		"16"
+				weight		"100"
+				antialias	"1"
+			}
+		}
+		
 		HudNumbersSmall
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Michroma"
 				tall		"13"
-				weight		"1000"
+				weight		"0"
 				additive	"1"
 				antialias 	"1"
 			}
@@ -61,12 +107,12 @@ Scheme
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Michroma"
 				tall		"13"
-				weight		"1000"
+				weight		"0"
 				additive	"1"
 				antialias 	"1"
-				blur		"3"
+				blur		"2"
 			}
 		}
 	}
@@ -730,5 +776,11 @@ Scheme
 				}
 			}
 		}
+	}
+	
+	CustomFontFiles
+	{
+		1	"resource/fonts/michroma/michroma.ttf"
+		2	"resource/fonts/electr.ttf"
 	}
 }

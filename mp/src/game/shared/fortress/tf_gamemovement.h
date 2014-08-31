@@ -33,13 +33,9 @@ public:
 
 protected:
 
-	// CGameMovement protected overrides.
-	virtual void	_ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove );
-
 	// Player movement functions.
 	virtual bool	PrePlayerMove( void );
 	virtual void	HandlePlayerMove( void );
-	virtual void	PostPlayerMove( void );
 
 	// Player pre-movement functions.
 	virtual int		CheckStuck( void );

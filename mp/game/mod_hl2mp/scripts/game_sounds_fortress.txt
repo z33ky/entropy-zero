@@ -2,7 +2,7 @@
 {
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"
-	"soundlevel"  	"SNDLVL_60dB"
+	"soundlevel"  	"SNDLVL_TALKING"
 
 	"wave"	"player/suit_denydevice.wav"
 }
@@ -11,7 +11,31 @@
 {
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"
-	"soundlevel"  	"SNDLVL_60dB"
+	"soundlevel"  	"SNDLVL_TALKING"
 
 	"wave"	"player/suit_denydevice.wav"
+}
+
+ResourceChunk.Pickup
+{
+	volume		0.7
+	soundlevel	SNDLVL_NORM
+	pitch		90,115
+	wave		resources/resource_pickup.wav
+}
+
+ObjectPortablePowerGenerator.Startup
+{
+	channel		"CHAN_STATIC"
+	volume		"0.85"
+	soundlevel	"SNDLVL_95db"
+	wave		"vehicles/apc/apc_start_loop3.wav"
+}
+
+ObjectPortablePowerGenerator.Shutdown
+{
+	channel		"CHAN_STATIC"
+	volume		"0.85"
+	soundlevel	"SNDLVL_95db"
+	wave		"vehicles/apc/apc_shutdown.wav"
 }

@@ -12,6 +12,7 @@
                 <File name="screens\powerpack_control_panel.res" />
                 <File name="screens\vgui_overlay.res" />
                 <File name="vgui_screens.txt" />
+                <File name="screens\buffstation_control_panel.res" />
             </Folder>
             <File name="LauncherScheme.res" />
             <Folder name="Overlays">
@@ -45,6 +46,14 @@
             <File name="kb_act.lst" />
             <File name="kb_def.lst" />
             <File name="kb_keys.lst" />
+        </Folder>
+        <Folder name="Schemes">
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\clientscheme.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ClientSchemeAlien.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ClientSchemeHuman.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ObjectControlPanelScheme.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\PDAControlPanelScheme.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\SourceScheme.res" />
         </Folder>
     </Project>
 </NotepadPlus>

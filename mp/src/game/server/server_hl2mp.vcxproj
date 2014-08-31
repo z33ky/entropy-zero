@@ -364,6 +364,7 @@ exit 1
     <ClInclude Include="fortress\tf_player.h" />
     <ClInclude Include="fortress\tf_playerclass.h" />
     <ClInclude Include="fortress\tf_playerlocaldata.h" />
+    <ClInclude Include="fortress\tf_player_resource.h" />
     <ClInclude Include="fortress\tf_shield.h" />
     <ClInclude Include="fortress\tf_shield_flat.h" />
     <ClInclude Include="fortress\tf_team.h" />
@@ -872,6 +873,7 @@ exit 1
     <ClCompile Include="fortress\tf_playerlocaldata.cpp" />
     <ClCompile Include="fortress\tf_playermove.cpp" />
     <ClCompile Include="fortress\tf_player_death.cpp" />
+    <ClCompile Include="fortress\tf_player_resource.cpp" />
     <ClCompile Include="fortress\tf_shield.cpp" />
     <ClCompile Include="fortress\tf_shield_flat.cpp" />
     <ClCompile Include="fortress\tf_team.cpp" />

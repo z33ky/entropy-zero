@@ -76,6 +76,9 @@ void ClientGamePrecache( void )
 	enginesound->PrecacheSound( "vox/harvester-destroyed.wav" );
 	enginesound->PrecacheSound( "vox/new-tech-level.wav" );
 	enginesound->PrecacheSound( "vox/resource-zone-emptied.wav" );
+
+	// Additions that were otherwise missing... ~hogsy
+	CBaseEntity::PrecacheScriptSound("ResourceChunk.Pickup");
 }
 
 
@@ -118,6 +121,9 @@ void GameStartFrame( void )
 void InstallGameRules()
 {
 	InitializeMenus();
+
+	// Create the player resource
+	g_pPlayerResource = (CPlayerResource*)CBaseEntity::Create( "tf_player_manager", vec3_origin, vec3_angle );
 
 	// teamplay
 	CreateGameRulesObject( "CTeamFortress" );

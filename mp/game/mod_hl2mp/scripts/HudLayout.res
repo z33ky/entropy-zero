@@ -18,6 +18,15 @@ HudLayout
 		tall	 	"480"
 	}
 	
+	HudWeapon
+	{
+		fieldName 	"HudWeapon"
+		visible		"1"
+		enabled 	"1"
+		wide	 	"640"
+		tall	 	"480"
+	}
+	
 	HudWeaponSelection
 	{
 		fieldName			"HudWeaponSelection"
@@ -36,7 +45,7 @@ HudLayout
 		fieldName			"HudHealth"
 		xpos				"16"
 		ypos				"432"
-		wide				"102"
+		wide				"95"
 		tall  				"36"
 		visible 			"1"
 		enabled 			"1"		
@@ -52,7 +61,7 @@ HudLayout
 		fieldName			"HudResources"
 		xpos				"16"
 		ypos				"380"
-		wide				"102"
+		wide				"95"
 		tall  				"36"
 		visible 			"1"
 		enabled 			"1"
@@ -74,6 +83,7 @@ HudLayout
 		enabled 			"1"
 		value_xpos_right 	"0"
 		value_ypos 			"0"
+		PaintBackgroundType	"0"
 	}
 	
 	HudMinimap
@@ -81,6 +91,8 @@ HudLayout
 		fieldName	"HudMinimap"
 		xpos		"0"
 		ypos		"0"
+		wide		"320"
+		tall		"320"
 		visible 	"1"
 		enabled 	"1"
 	}

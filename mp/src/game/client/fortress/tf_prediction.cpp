@@ -135,9 +135,6 @@ void CTFPrediction::SetupMoveCommando( CUserCmd *ucmd, C_BaseTFPlayer *pTFPlayer
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFPrediction::FinishMove( C_BasePlayer *player, CUserCmd *ucmd, CMoveData *move )
 {
 	// Call the default FinishMove code.
@@ -208,9 +205,6 @@ void CTFPrediction::FinishMoveRecon( CTFMoveData *pTFMove, C_BaseTFPlayer *pTFPl
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFPrediction::FinishMoveCommando( CTFMoveData *pTFMove, C_BaseTFPlayer *pTFPlayer )
 {
 	C_PlayerClassCommando *pCommando = static_cast<C_PlayerClassCommando*>( pTFPlayer->GetPlayerClass() );
