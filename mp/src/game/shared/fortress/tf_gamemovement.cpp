@@ -749,8 +749,8 @@ void CTFGameMovement::FullWalkMove( const bool bOnLadder )
 
 		if (player->GetGroundEntity() != NULL)
 		{
-//			WalkMove();
-			WalkMove2();
+			WalkMove();
+			//WalkMove2();
 		}
 		else
  			AirMove();  // Take into account movement when in air.
