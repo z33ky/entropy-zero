@@ -59,7 +59,6 @@ protected:
 	// Specific movement functions.
 	virtual void	FullWalkMove( bool bOnLadder );
 	virtual void	WalkMove( void );
-	virtual void	_WalkMove( void );
 	void			WalkMove2( void );
 	void			AirMove( void );
 	virtual int		TryPlayerMove( void );

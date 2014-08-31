@@ -846,19 +846,17 @@ void CTFGameMovement::AirMove( void )
 	TryStanding();
 }
 
-void CTFGameMovement::WalkMove( void )
-{
-	_WalkMove();
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: This is here until the new movement code is complete.  I needed
 //          to override hl2's walk move so that "floors" are identified 
 //          differently.
 //-----------------------------------------------------------------------------
-void CTFGameMovement::_WalkMove( void )
+void CTFGameMovement::WalkMove( void )
 {
 	VPROF( "CTFGameMovement::_WalkMove" );
+
+	BaseClass::WalkMove();
+	return;
 
 	int clip;
 	int i;
