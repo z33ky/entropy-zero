@@ -270,6 +270,8 @@ exit 1
     <ClInclude Include="..\shared\fortress\basetfcombatweapon_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h" />
     <ClInclude Include="..\shared\fortress\ihasbuildpoints.h" />
+    <ClInclude Include="..\shared\fortress\plasmaprojectile.h" />
+    <ClInclude Include="..\shared\fortress\plasmaprojectile_shared.h" />
     <ClInclude Include="..\shared\fortress\techtree.h" />
     <ClInclude Include="..\shared\fortress\tfclassdata_shared.h" />
     <ClInclude Include="..\shared\fortress\tf_gamemovement.h" />
@@ -820,6 +822,8 @@ exit 1
     <ClCompile Include="..\shared\fortress\baseobject_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
+    <ClCompile Include="..\shared\fortress\plasmaprojectile.cpp" />
+    <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp" />
     <ClCompile Include="..\shared\fortress\team_messages.cpp" />
     <ClCompile Include="..\shared\fortress\techtree.cpp" />
     <ClCompile Include="..\shared\fortress\techtree_parse.cpp" />
@@ -836,6 +840,8 @@ exit 1
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_builder.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp" />
+    <ClCompile Include="..\shared\fortress\weapon_combat_plasmarifle.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\shared\fortress\weapon_twohandedcontainer.cpp" />

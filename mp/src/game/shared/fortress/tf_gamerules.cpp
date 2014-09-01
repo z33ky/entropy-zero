@@ -1650,7 +1650,7 @@ CAmmoDef *GetAmmoDef()
 	{
 		bInitted = true;
 		
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	0,	0);
+		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	100,	0);
 		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				0,	0);
 		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				0,	0);
 		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);

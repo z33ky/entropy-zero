@@ -1715,6 +1715,12 @@
     <ClInclude Include="fortress\tf_player_resource.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="..\shared\fortress\plasmaprojectile.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\plasmaprojectile_shared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3189,6 +3195,18 @@
     </ClCompile>
     <ClCompile Include="fortress\tf_player_resource.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\plasmaprojectile.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_plasmarifle.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

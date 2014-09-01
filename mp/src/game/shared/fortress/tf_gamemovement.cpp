@@ -853,10 +853,11 @@ void CTFGameMovement::AirMove( void )
 //-----------------------------------------------------------------------------
 void CTFGameMovement::WalkMove( void )
 {
-	VPROF( "CTFGameMovement::_WalkMove" );
-
+#if 1
 	BaseClass::WalkMove();
 	return;
+#else
+	VPROF( "CTFGameMovement::WalkMove" );
 
 	int clip;
 	int i;
@@ -1020,6 +1021,7 @@ usedown:
 	float stepDist = mv->GetAbsOrigin().z - original.z;
 	if ( stepDist > 0 )
 		mv->m_outStepHeight += stepDist;
+#endif
 }
 
 //-----------------------------------------------------------------------------
