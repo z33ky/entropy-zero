@@ -1721,6 +1721,9 @@
     <ClInclude Include="..\shared\fortress\plasmaprojectile_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\bot_base.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">

@@ -1,5 +1,79 @@
 TechTreeDataFile
 {
-	team	0
-
+	class_recon
+	{
+	}
+	
+	class_commando
+	{
+		printname		"Commando"
+		buttonname		"test"
+		description		"Commando Class"
+		texture			"commando"
+		level			0
+		goal			0
+		hidden			0
+		resourcecost	0
+		
+		associated_weapons
+		{
+			weapon_combat_burstrifle
+			weapon_combat_plasmarifle
+		}
+		
+		technologies
+		{
+			com_obj_rallyflag
+			{
+			}
+			
+			com_adrenalin_rush
+			{
+			}
+			
+			com_adrenalin_battlecry
+			{
+			}
+			
+			com_adrenalin_rampage
+			{
+			}
+			
+			com_comboshield_parry
+			{
+			}
+		}
+	}
+	
+	class_medic
+	{
+	}
+	
+	class_defender
+	{
+	}
+	
+	class_sniper
+	{
+	}
+	
+	class_support
+	{
+	}
+	
+	class_escort
+	{
+	}
+	
+	class_sapper
+	{
+	}
+	
+	class_infiltrator
+	{
+	}
+	
+	class_pyro
+	{
+	}
 }

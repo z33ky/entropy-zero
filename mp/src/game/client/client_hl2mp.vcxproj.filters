@@ -3562,6 +3562,9 @@
     <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\hud_damageindicator.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\public\tier0\pointeroverride.asm">

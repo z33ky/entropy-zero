@@ -142,11 +142,9 @@ bool CTFGameMovementCommando::PrePlayerMove( void )
 
 	// Calculate the player's movement speed (has to happen after categorize position)
 	SetupSpeed();
-
-#ifdef IMPLEMENT_ME
+	
 	// Update our stepping sound (based on the player's location).
-	UpdateStepSound();
-#endif
+	player->UpdateStepSound(player->GetSurfaceData(),mv->GetAbsOrigin(),mv->m_vecVelocity);
 
 	return true;
 }
@@ -328,7 +326,7 @@ void CTFGameMovementCommando::BullRushMove( void )
 	CheckVelocity();
 
 	if (player->GetGroundEntity() != NULL)
-		WalkMove2();
+		WalkMove();
 	else
 		AirMove();  // Take into account movement when in air.
 

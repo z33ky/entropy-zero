@@ -649,7 +649,7 @@ bool CBasePlasmaProjectile::SimulateAndRender(Particle *pInParticle, ParticleDra
 #else	// Revised ~hogsy
 void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 {
-	const SimpleParticle *pInParticle = (const SimpleParticle*)pIterator->GetFirst();
+	const Particle *pInParticle = (const Particle*)pIterator->GetFirst();
 	while ( pInParticle )
 	{
 		Vector tPos;
@@ -663,7 +663,7 @@ void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 			frac = 1.0f - clamp( frac, 0.0f, 1.0f );
 			Vector scaledOffset;
 			VectorScale( m_vecGunOriginOffset, frac, scaledOffset );
-			//pInParticle->m_Pos += scaledOffset;
+//			pInParticle->m_Pos += scaledOffset;
 		}
 
 		float timeDelta = pIterator->GetParticleDraw()->GetTimeDelta();
@@ -765,12 +765,12 @@ void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 
 void CBasePlasmaProjectile::SimulateParticles(CParticleSimulateIterator *pIterator)
 {
-	SimpleParticle	*pParticle = (SimpleParticle*)pIterator->GetFirst();
+	Particle	*pParticle = (Particle*)pIterator->GetFirst();
 	while(pParticle)
 	{
 		pParticle->m_Pos = GetAbsOrigin();
 
-		pParticle = (SimpleParticle*)pIterator->GetNext();
+		pParticle = (Particle*)pIterator->GetNext();
 	}
 }
 #endif

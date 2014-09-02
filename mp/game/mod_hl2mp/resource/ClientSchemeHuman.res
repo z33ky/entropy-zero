@@ -1,36 +1,30 @@
-///////////////////////////////////////////////////////////
-// Tracker scheme resource file
-//
-// sections:
-//		Colors			- all the colors used by the scheme
-//		BaseSettings	- contains settings for app to use to draw controls
-//		Fonts			- list of all the fonts used by app
-//		Borders			- description of all the borders
-//
-// hit ctrl-alt-shift-R in the app to reload this file
-//
-///////////////////////////////////////////////////////////
 Scheme
 {
 	Colors
 	{
 		White		"255 255 255 255"
 		Orange		"255 176 0 255"
+		Yellow		"255 255 0 255"
 		Red			"255 0 0 255"
+		Green		"0 255 0 255"
 		Black		"0 0 0 255"
+		LightBlack	"0 0 0 125"
 		Invisible	"0 0 0 0"
+		
+		// Team Colours
+		Colour0	"255 0 0 100"
 	}
 
 	BaseSettings
 	{
 		Black						"Black"
-		FgColor						"Red"
-		HudStatusBgColor			"0 0 0 64"
-		HudStatusSelectedBgColor	"0 0 0 192"		
-		NumericText					"White"
+		FgColor						"Orange"
+		HudStatusBgColor			"LightBlack"
+		HudStatusSelectedBgColor	"Black"
+		NumericText					"Yellow"
 		NumericTextWarning			"Orange"
 		NumericTextCritical			"Red"
-		NumericBox					"Red"	//"255 0 0 165"
+		NumericBox					"Colour0"
 		NumericCharFg				"Orange"
 		NumericCharBg				"0 255 0 255"
 		NumericCharBgBorder			"0 0 255 255"
@@ -51,7 +45,7 @@ Scheme
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Electrofied"
 				tall		"16"
 				weight		"1000"
 				antialias	"1"
@@ -86,7 +80,7 @@ Scheme
 			{
 				name		"Michroma"
 				tall		"16"
-				weight		"100"
+				weight		"0"
 				antialias	"1"
 			}
 		}
@@ -97,7 +91,7 @@ Scheme
 			{
 				name		"Michroma"
 				tall		"13"
-				weight		"0"
+				weight		"100"
 				additive	"1"
 				antialias 	"1"
 			}
@@ -109,8 +103,9 @@ Scheme
 			{
 				name		"Michroma"
 				tall		"13"
-				weight		"0"
+				weight		"100"
 				additive	"1"
+				scanlines	"2"
 				antialias 	"1"
 				blur		"2"
 			}

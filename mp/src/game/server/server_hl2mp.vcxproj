@@ -345,6 +345,7 @@ exit 1
     <ClInclude Include="..\..\game\shared\GameEventListener.h" />
     <ClInclude Include="..\..\game\shared\gamerules_register.h" />
     <ClInclude Include="..\..\public\gametrace.h" />
+    <ClInclude Include="fortress\bot_base.h" />
     <ClInclude Include="fortress\info_act.h" />
     <ClInclude Include="fortress\info_buildpoint.h" />
     <ClInclude Include="fortress\info_customtech.h" />

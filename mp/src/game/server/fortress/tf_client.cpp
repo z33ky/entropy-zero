@@ -26,6 +26,8 @@ extern CBaseEntity *FindPickerEntity( CBasePlayer *pPlayer );
 void InitializeMenus( void );
 void DestroyMenus( void );
 
+void Bot_RunAll( void );
+
 extern bool			g_fGameOver;
 
 /*	Called each time a player is spawned into the game
@@ -110,9 +112,7 @@ void GameStartFrame( void )
 
 	gpGlobals->teamplay = teamplay.GetInt() ? true : false;
 
-#ifdef IMPLEMENT_ME
 	Bot_RunAll();
-#endif
 }
 
 //=========================================================

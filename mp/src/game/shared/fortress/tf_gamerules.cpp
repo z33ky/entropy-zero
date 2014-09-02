@@ -30,9 +30,7 @@
 #endif
 	#include "team_messages.h"
 	#include "ndebugoverlay.h"
-#ifdef IMPLEMENT_ME
 	#include "bot_base.h"
-#endif
 	#include "vstdlib/random.h"
 	#include "info_act.h"
 	#include "igamesystem.h"
@@ -211,7 +209,6 @@ END_NETWORK_TABLE()
 	// Handler for the "bot" command.
 	void Bot_f()
 	{
-#ifdef IMPLEMENT_ME
 		CBaseTFPlayer *pPlayer = CBaseTFPlayer::Instance( UTIL_GetCommandClientIndex() );
 
 		// The bot command uses switches like command-line switches.
@@ -249,7 +246,6 @@ END_NETWORK_TABLE()
 		// Ok, spawn all the bots.
 		while ( --count >= 0 )
 			BotPutInServer( bFrozen, iTeam, iClass );
-#endif
 	}
 
 
@@ -542,7 +538,8 @@ END_NETWORK_TABLE()
 	//				if (flDistSq <= (MAX_OBJECT_COMMAND_DISTANCE * MAX_OBJECT_COMMAND_DISTANCE))
 					{
 #ifdef IMPLEMENT_ME
-						pObject->ClientCommand( pPlayer, args[2], &g_ObjCommandArgs );
+						CCommand objectArgs( args.ArgC() - 2, &args.ArgV()[2]);
+						pObject->ClientCommand( pPlayer, objectArgs );
 #endif
 					}
 				}
@@ -1650,7 +1647,11 @@ CAmmoDef *GetAmmoDef()
 	{
 		bInitted = true;
 		
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	100,	0);
+#if 0
+		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	0,	0);
+#else	// Added some basic physics force ~hogsy
+		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	10,	0);
+#endif
 		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				0,	0);
 		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				0,	0);
 		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);

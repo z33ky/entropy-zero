@@ -982,6 +982,7 @@ exit 1
     <ClCompile Include="fortress\hintitemorderbase.cpp" />
     <ClCompile Include="fortress\hud_ammo.cpp" />
     <ClCompile Include="fortress\hud_commander_statuspanel.cpp" />
+    <ClCompile Include="fortress\hud_damageindicator.cpp" />
     <ClCompile Include="fortress\hud_health.cpp" />
     <ClCompile Include="fortress\hud_minimap.cpp" />
     <ClCompile Include="fortress\hud_numeric.cpp" />

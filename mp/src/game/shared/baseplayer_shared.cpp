@@ -580,11 +580,7 @@ void CBasePlayer::UpdateStepSound( surfacedata_t *psurface, const Vector &vecOri
 
 		SetStepSoundTime( STEPSOUNDTIME_ON_LADDER, bWalking );
 	}
-#ifdef CSTRIKE_DLL
-	else if ( enginetrace->GetPointContents( knee ) & MASK_WATER )  // we want to use the knee for Cstrike, not the waist
-#else
 	else if ( GetWaterLevel() == WL_Waist )
-#endif // CSTRIKE_DLL
 	{
 		static int iSkipStep = 0;
 

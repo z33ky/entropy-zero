@@ -47,7 +47,6 @@ protected:
 	virtual void	SetupSpeed( void );
 	void			SpeedCrop( void );
 	void			Accelerate( Vector& wishdir, float wishspeed, float accel);
-	void			AccelerateWithoutMomentum( Vector& wishdir, float wishspeed, float accel);
 	float			CalcGravityAdjustment( const Vector &wishdir );
 	void			HandleLadder( void );
 	virtual void	CategorizePosition( void );
@@ -57,11 +56,10 @@ protected:
 	virtual bool	ShouldPlayStepSound( surfacedata_t *psurface, float fvol );
 
 	// Specific movement functions.
-	virtual void	FullWalkMove( bool bOnLadder );
+	virtual void	FullWalkMove( );
 	virtual void	WalkMove( void );
-	void			WalkMove2( void );
 	void			AirMove( void );
-	virtual int		TryPlayerMove( void );
+	virtual int		TryPlayerMove( Vector *pFirstDest=NULL, trace_t *pFirstTrace=NULL );
 	int				TryPlayerMove2( void );
 	void			ResolveStanding( void );
 	void			TryStanding( void );

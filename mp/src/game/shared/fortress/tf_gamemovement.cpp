@@ -24,13 +24,7 @@ enum
 
 char    *va(char *format, ...);
 
-#if 0
-void CTFGameMovement::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
-{
-	BaseClass::ProcessMovement( pPlayer, pMove );
-}
-#else	
-/*	Basically, in the original code-base the above would call up the base class' ProcessMovement func
+/*	Basically, in the original code-base the following would call up the base class' ProcessMovement func
 	which would then set the SpeedCrop flag as false, then redirect to _ProcessMovement.
 	Since that was dumb, and isn't necessary anymore, we just throw ourselves to this directly instead
 	and update the flag ourselves. ~hogsy
@@ -77,7 +71,6 @@ void CTFGameMovement::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMove )
 
 	FinishMove();
 }
-#endif
 
 void CTFGameMovement::CategorizePosition( void )
 {
@@ -603,7 +596,7 @@ bool CTFGameMovement::PrePlayerMove( void )
 	SetupSpeed();
 
 	// Update our stepping sound (based on the player's location).
-	player->UpdateStepSound( player->m_pSurfaceData, mv->GetAbsOrigin(), mv->m_vecVelocity );
+	player->UpdateStepSound(player->m_pSurfaceData,mv->GetAbsOrigin(),mv->m_vecVelocity);
 
 	return true;
 }
@@ -637,7 +630,7 @@ void CTFGameMovement::HandlePlayerMove( void )
 				// This should be moved elsewhere!!!  Just get it going for now.
 				CTFMoveData *pTFMove = TFMove();
 				Vector vecPlayerOrigin( mv->GetAbsOrigin().x, mv->GetAbsOrigin().y, mv->GetAbsOrigin().z );
-				FullWalkMove( false ); // the below never equated to anything but false!!
+				FullWalkMove(); // the below never equated to anything but false!!
 				Vector vecPlayerDelta;
 				VectorSubtract( mv->GetAbsOrigin(), vecPlayerOrigin, vecPlayerDelta );
 
@@ -646,7 +639,6 @@ void CTFGameMovement::HandlePlayerMove( void )
 					 ( fabs( vecPlayerDelta.z ) > 0.0001f ) )
 					VectorCopy( vecPlayerDelta, pTFMove->m_vecPosDelta );
 
-//				FullWalkMove( (ladder != INVALID_ENTITY_HANDLE) );
 				break;
 			}
 
@@ -654,7 +646,7 @@ void CTFGameMovement::HandlePlayerMove( void )
 			{
 				//IsometricMove();
 				// Could also try:  FullTossMove();
-				FullWalkMove( false );
+				FullWalkMove();
 				break;
 			}
 
@@ -678,11 +670,7 @@ void CTFGameMovement::PlayerMove( void )
 	HandlePlayerMove();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : bOnLadder - 
-//-----------------------------------------------------------------------------
-void CTFGameMovement::FullWalkMove( const bool bOnLadder )
+void CTFGameMovement::FullWalkMove()
 {
 	VPROF( "CTFGameMovement::FullWalkMove" );
 
@@ -729,10 +717,7 @@ void CTFGameMovement::FullWalkMove( const bool bOnLadder )
 	{
 		// Was jump button pressed?
 		if (mv->m_nButtons & IN_JUMP)
-		{
-			if (!bOnLadder)
-				CheckJumpButton();
-		}
+			CheckJumpButton();
 		else
 			mv->m_nOldButtons &= ~IN_JUMP;
 
@@ -748,10 +733,7 @@ void CTFGameMovement::FullWalkMove( const bool bOnLadder )
 		CheckVelocity();
 
 		if (player->GetGroundEntity() != NULL)
-		{
 			WalkMove();
-			//WalkMove2();
-		}
 		else
  			AirMove();  // Take into account movement when in air.
 
@@ -781,69 +763,10 @@ void CTFGameMovement::FullWalkMove( const bool bOnLadder )
 		PlaySwimSound();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::AirMove( void )
 {
-	VPROF( "CTFGameMovement::AirMove" );
-
-	// NOTE: This was causing some additional problems with walking on physics
-	//       objects.  The movement system needs to be cleaned up!  Keep the old
-	//       code until the system has been fixed.s
+	// Reduced to this, as it was practically unchanged anyway. ~hogsy
 	BaseClass::AirMove();
-	return;
-
-
-	int			i;
-	Vector		wishvel;
-	float		fmove, smove;
-	Vector		wishdir;
-	float		wishspeed;
-	Vector forward, right, up;
-
-	// Initialize the movement stack.
-	VectorCopy( mv->GetAbsOrigin(), m_aMovementStack[0].m_vecPosition );
-	VectorCopy( m_vecGroundNormal, m_aMovementStack[0].m_vecImpactNormal );
-	m_nMovementStackSize = 1;
-
-	AngleVectors (mv->m_vecViewAngles, &forward, &right, &up);  // Determine movement angles
-	
-	// Copy movement amounts
-	fmove = mv->m_flForwardMove;
-	smove = mv->m_flSideMove;
-	
-	// Zero out z components of movement vectors
-	forward[2] = 0;
-	right[2]   = 0;
-	VectorNormalize(forward);  // Normalize remainder of vectors
-	VectorNormalize(right);    // 
-
-	for (i=0 ; i<2 ; i++)       // Determine x and y parts of velocity
-		wishvel[i] = forward[i]*fmove + right[i]*smove;
-	wishvel[2] = 0;             // Zero out z part of velocity
-
-	VectorCopy (wishvel, wishdir);   // Determine maginitude of speed of move
-	wishspeed = VectorNormalize(wishdir);
-
-	//
-	// clamp to server defined max speed
-	//
-	if (wishspeed > mv->m_flMaxSpeed)
-	{
-		VectorScale (wishvel, mv->m_flMaxSpeed/wishspeed, wishvel);
-		wishspeed = mv->m_flMaxSpeed;
-	}
-	
-	AirAccelerate( wishdir, wishspeed, sv_airaccelerate.GetFloat() );
-
-	// Add in any base velocity to the current velocity.
-	VectorAdd(mv->m_vecVelocity, player->GetBaseVelocity(), mv->m_vecVelocity );
-
-	TryPlayerMove2();
-
-	// Try to stand up.
-	TryStanding();
 }
 
 //-----------------------------------------------------------------------------
@@ -853,10 +776,6 @@ void CTFGameMovement::AirMove( void )
 //-----------------------------------------------------------------------------
 void CTFGameMovement::WalkMove( void )
 {
-#if 1
-	BaseClass::WalkMove();
-	return;
-#else
 	VPROF( "CTFGameMovement::WalkMove" );
 
 	int clip;
@@ -1021,39 +940,6 @@ usedown:
 	float stepDist = mv->GetAbsOrigin().z - original.z;
 	if ( stepDist > 0 )
 		mv->m_outStepHeight += stepDist;
-#endif
-}
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
-void CTFGameMovement::AccelerateWithoutMomentum( Vector &wishdir, float wishspeed, float accel )
-{
-	// No acceleration if the player is water-jumping or dead.
-	if ( player->pl.deadflag || player->m_flWaterJumpTime )
-		return;
-
-	// See if we are changing direction a bit
-//	float flCurrentSpeed = mv->m_vecVelocity.Dot( wishdir );
-	float flCurrentSpeed = mv->m_vecVelocity.Length();
-
-	// Reduce wishspeed by the amount of veer.
-	float flAddSpeed = wishspeed - flCurrentSpeed;
-
-	// If not going to add any speed, done.
-	if ( flAddSpeed <= 0.0f )
-		return;
-
-	// Determine amount of accleration.
-	float flAccelSpeed = accel * gpGlobals->frametime * wishspeed * player->m_surfaceFriction;
-
-	// Cap at addspeed
-	if ( flAccelSpeed > flAddSpeed )
-		flAccelSpeed = flAddSpeed;
-
-	// Adjust velocity.
-	for ( int iAxis = 0; iAxis < 3; iAxis++ )
-		mv->m_vecVelocity[iAxis] += flAccelSpeed * wishdir[iAxis];
 }
 
 void CTFGameMovement::Accelerate( Vector &wishdir, float wishspeed, float accel )
@@ -1245,9 +1131,6 @@ inline void CGameMovement::TracePlayerBBox( const Vector &start, const Vector &e
 	UTIL_TraceRay( ray, fMask, mv->m_nPlayerHandle.Get(), collisionGroup, &pm );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 inline int CTFGameMovement::BlockerType( const Vector &vImpactNormal )
 {
 	// If the impact plane has a high z component in the normal, then
@@ -1264,9 +1147,6 @@ inline int CTFGameMovement::BlockerType( const Vector &vImpactNormal )
 	return 0;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::RedirectGroundVelocity( const trace_t &trace )
 {
 	// Check for max planes.
@@ -1336,9 +1216,6 @@ bool CTFGameMovement::RedirectGroundVelocity( const trace_t &trace )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 bool CTFGameMovement::RedirectAirVelocity( const trace_t &trace )
 {
 	// Check for max planes.
@@ -1377,9 +1254,6 @@ bool CTFGameMovement::RedirectAirVelocity( const trace_t &trace )
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::CollisionResponseNone( const trace_t &trace )
 {
 	// Move the player to the trace's ending position.
@@ -1440,7 +1314,7 @@ bool CTFGameMovement::CollisionResponseGeneric( const trace_t &trace, int &nBloc
 //-----------------------------------------------------------------------------
 // Purpose: See comment _WalkMove
 //-----------------------------------------------------------------------------
-int CTFGameMovement::TryPlayerMove( void )
+int CTFGameMovement::TryPlayerMove( Vector *pFirstDest, trace_t *pFirstTrace )
 {
 	VPROF( "CTFGameMovement::TryPlayerMove" );
 
@@ -1742,9 +1616,6 @@ int CTFGameMovement::TryPlayerMove2( void )
 	return nBlocked;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::TryStanding( void )
 {
 	VPROF( "CTFGameMovement::TryStanding" );
@@ -1778,9 +1649,6 @@ void CTFGameMovement::TryStanding( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovement::ResolveStanding( void )
 {
 	VPROF( "CTFGameMovement::ResolveStanding" );
@@ -1834,44 +1702,6 @@ void CTFGameMovement::ResolveStanding( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
-void CTFGameMovement::WalkMove2( void )
-{
-	VPROF( "CTFGameMovement::WalkMove2" );
-
-	// Initialize the movement stack.
-	VectorCopy( mv->GetAbsOrigin(), m_aMovementStack[0].m_vecPosition );
-	VectorCopy( m_vecGroundNormal, m_aMovementStack[0].m_vecImpactNormal );
-	m_nMovementStackSize = 1;
-
-	// Calculate the wish velocity and position.  The function returns false if 
-	// the velocity is zero, it returns true otherwise.
-	Vector vWishPos, vWishDir;
-	float flWishSpeed;
-	if ( !CalcWishVelocityAndPosition( vWishPos, vWishDir, flWishSpeed ) )
-		return;
-
-	// For physics player shadow.
-	mv->m_outWishVel += vWishDir * flWishSpeed;
-
-	// Lift up the players feet (bring the minimum z componenet up by the step
-	// size) and sweep.
-	TryPlayerMove2();
-
-	// Try to stand up at movement's end.
-	ResolveStanding();
-
-	// For physics player shadow.
-	float flStepHeight = mv->GetAbsOrigin().z - m_aMovementStack[0].m_vecPosition.z;
-	if ( flStepHeight > 0.0f )
-		mv->m_outStepHeight += flStepHeight;
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFGameMovement::SetMomentumList( float flValue )
 {
 	// Get the TF movement data.
@@ -1885,9 +1715,6 @@ void CTFGameMovement::SetMomentumList( float flValue )
 		pTFMove->m_aMomentum[iMomentum] = flValue;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFGameMovement::AddToMomentumList( float flValue )
 {
 	// Get the TF movement data.
@@ -1900,9 +1727,6 @@ void CTFGameMovement::AddToMomentumList( float flValue )
 	pTFMove->m_iMomentumHead = ( pTFMove->m_iMomentumHead + 1 ) % CTFMoveData::MOMENTUM_MAXSIZE;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 float CTFGameMovement::GetMomentum( void )
 {
 	// Get the TF movement data.

@@ -51,7 +51,7 @@ Scheme
 		// Top-left corner of the "DEATHMATCH" on the main screen
 		Main.Title2.X		"20"
 		Main.Title2.Y		"400"
-		Main.Title2.Color	"192 28 0 255"
+		Main.Title2.Color	"255 0 0 255"
 
 		// Top-left corner of the menu on the main screen
 		Main.Menu.X		"32"
