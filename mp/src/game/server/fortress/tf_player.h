@@ -18,6 +18,7 @@
 #include "iservernetworkable.h"
 #include "iscorer.h"
 #include "tf_playeranimstate.h"
+#include "decals.h"
 
 #include "vphysics/player_controller.h"
 
@@ -387,6 +388,11 @@ public:
 	CHandle< CGrenadeObjectSapper >	m_hSapper;
 #endif
 	CHandle< CBaseObject >			m_hSappedObject;
+
+protected:
+	bool	IsWet() const;
+	void	PlantFootprint( surfacedata_t *psurface, const char *cMaterialStep );
+	void	UpdateWetness(void);
 
 private:
 	// Medic Buffs

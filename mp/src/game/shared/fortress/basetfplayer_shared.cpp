@@ -343,6 +343,132 @@ void CBaseTFPlayer::FinishAttaching( void )
 }
 #endif
 
+//-----------------------------------------------------------------------------
+// Plants player footprint decals
+//-----------------------------------------------------------------------------
+
+// FIXME FIXME:  Does this need to be hooked up?
+bool CBaseTFPlayer::IsWet() const
+{
+#ifdef IMPLEMENT_ME
+	return ((GetFlags() & FL_INRAIN) != 0) || (m_WetTime >= gpGlobals->curtime);
+#else
+	return ((GetFlags() & FL_INRAIN) != 0);
+#endif
+}
+
+#define PLAYER_HALFWIDTH 12
+
+#include "decals.h"
+
+/*	Brought over from gamemovement. ~hogsy
+	DUMB DUMB DUMB DUMB DUMB
+*/
+void CBaseTFPlayer::PlantFootprint( surfacedata_t *psurface, const char *cMaterialStep )
+{
+	// Can't plant footprints on fake materials (ladders, wading)
+	if ( psurface->game.material != 'X' )
+	{
+#if 0
+
+		else
+		{
+			// FIXME: Activate this once we decide to pull the trigger on it.
+			// NOTE: We could add in snow, mud, others here
+			switch(psurface->game.material)
+			{
+			case CHAR_TEX_DIRT:
+				Q_snprintf( cDecal, sizeof(cDecal), "Footprint.Dirt"  );
+				break;
+			default:
+				Q_snprintf( cDecal, sizeof(cDecal), "Footprint.Default"  );
+			}
+		}
+#endif
+		// Only support dirt for now, ugh... ~hogsy
+		if(psurface->game.material != CHAR_TEX_DIRT)
+			return;
+
+		char	cDecal[256];
+
+		// Figure out which footprint type to plant...
+		// Use the wet footprint if we're wet...
+		if (IsWet())
+			Q_snprintf(cDecal,sizeof(cDecal),"Footprint.Wet");
+		else
+			Q_snprintf(cDecal,sizeof(cDecal),"Footprint.%s",cMaterialStep);
+
+		Vector right;
+		AngleVectors(GetLocalAngles(), 0, &right, 0 );
+		
+		// Figure out where the top of the stepping leg is 
+		trace_t tr;
+		Vector hipOrigin;
+		VectorMA( GetLocalOrigin(), 
+			// Reversed this, since it was the wrong way round. ~hogsy
+			m_Local.m_nStepside ? PLAYER_HALFWIDTH : -PLAYER_HALFWIDTH,
+			right, hipOrigin );
+
+		// Find where that leg hits the ground
+		UTIL_TraceLine( hipOrigin, hipOrigin + Vector(0, 0, -COORD_EXTENT * 1.74), 
+						MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
+		
+		// Splat a decal
+		CPVSFilter filter( tr.endpos );
+		
+		te->FootprintDecal(filter,0.0f,&tr.endpos,&right,tr.m_pEnt->entindex(),decalsystem->GetDecalIndexForName(cDecal),psurface->game.material);
+	}
+}
+
+#define WET_TIME	5.f		// how many seconds till we're completely wet/dry
+#define DRY_TIME	20.f	// how many seconds till we're completely wet/dry
+
+void CBaseTFPlayer::UpdateWetness(void)
+{
+	// BRJ 1/7/01
+	// Check for whether we're in a rainy area....
+	// Do this by tracing a line straight down with a size guaranteed to
+	// be larger than the map
+	// Update wetness based on whether we're in rain or not...
+#ifdef IMPLEMENT_ME
+	trace_t tr;
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector(0, 0, -COORD_EXTENT * 1.74), 
+					MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
+	if (tr.surface.flags & SURF_WET)
+	{
+		if (! (GetFlags() & FL_INRAIN) )
+		{
+			// Transition...
+			// Figure out how wet we are now (we were drying off...)
+			float wetness = (m_WetTime - gpGlobals->curtime) / DRY_TIME;
+			if (wetness < 0.0f)
+				wetness = 0.0f;
+
+			// Here, wet time represents the time at which we get totally wet
+			m_WetTime = gpGlobals->curtime + (1.0 - wetness) * WET_TIME; 
+
+			AddFlag(FL_INRAIN);
+		}
+	}
+	else
+	{
+		if ((GetFlags() & FL_INRAIN) != 0)
+		{
+			// Transition...
+			// Figure out how wet we are now (we were getting more wet...)
+			float wetness = 1.0f + (gpGlobals->curtime - m_WetTime) / WET_TIME;
+			if (wetness > 1.0f)
+				wetness = 1.0f;
+
+			// Here, wet time represents the time at which we get totally dry
+			m_WetTime = gpGlobals->curtime + wetness * DRY_TIME; 
+
+			RemoveFlag(FL_INRAIN);
+		}
+	}
+#endif
+}
+
 bool CBaseTFPlayer::ShouldPlayStepSound( surfacedata_t *psurface, Vector &vecOrigin )
 {
 	if ( !GetLadderSurface(vecOrigin) && Vector2DLength( GetAbsVelocity().AsVector2D() ) <= 100 )
@@ -366,26 +492,25 @@ void CBaseTFPlayer::PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, f
 	if (!force && !ShouldPlayStepSound( psurface, vecOrigin ))
 		return;
 
-#ifdef IMPLEMENT_ME
-	// TODO:  See note above, should this be hooked up?
-	PlantFootprint( psurface );
-#endif
-
 	unsigned short stepSoundName = m_Local.m_nStepside ? psurface->sounds.stepleft : psurface->sounds.stepright;
 	m_Local.m_nStepside = !m_Local.m_nStepside;
 
+	IPhysicsSurfaceProps *physprops = MoveHelper( )->GetSurfaceProps();
+	const char *pSoundName = physprops->GetString( stepSoundName );
+	char szSound[256];
+
 	if ( !stepSoundName )
 		return;
+
+	// TODO:  See note above, should this be hooked up?
+	// Moved down here, since we can check our step side above ~hogsy
+	PlantFootprint( psurface, pSoundName );
 
 #if defined( CLIENT_DLL )
 	// during prediction play footstep sounds only once
 	if ( prediction->InPrediction() && !prediction->IsFirstTimePredicted() )
 		return;
 #endif
-	
-	IPhysicsSurfaceProps *physprops = MoveHelper( )->GetSurfaceProps();
-	const char *pSoundName = physprops->GetString( stepSoundName );
-	char szSound[256];
 
 	// Prepend our team's footsteps
 	if ( GetTeamNumber() == TEAM_HUMANS )

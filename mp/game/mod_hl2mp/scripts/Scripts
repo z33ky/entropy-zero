@@ -55,5 +55,8 @@
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\PDAControlPanelScheme.res" />
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\SourceScheme.res" />
         </Folder>
+        <Folder name="Config">
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\cfg\mapcycle.txt" />
+        </Folder>
     </Project>
 </NotepadPlus>

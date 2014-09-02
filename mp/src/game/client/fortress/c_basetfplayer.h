@@ -249,6 +249,11 @@ public:
 	CHealthBarPanel					*m_pSapperAttachmentStatus;
 #endif
 
+protected:
+	bool	IsWet() const;
+	void	PlantFootprint( surfacedata_t *psurface, const char *cMaterialStep );
+	void	UpdateWetness(void);
+
 private:
 	C_BaseTFPlayer( const C_BaseTFPlayer & );
 
