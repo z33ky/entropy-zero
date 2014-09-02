@@ -12,6 +12,7 @@
 #include "weapon_twohandedcontainer.h"
 #ifdef CLIENT_DLL
 #include "c_weapon_builder.h"
+#include "prediction.h"
 #else
 #include "weapon_builder.h"
 #include "basegrenade_shared.h"
@@ -341,6 +342,65 @@ void CBaseTFPlayer::FinishAttaching( void )
 #endif
 }
 #endif
+
+bool CBaseTFPlayer::ShouldPlayStepSound( surfacedata_t *psurface, Vector &vecOrigin )
+{
+	if ( !GetLadderSurface(vecOrigin) && Vector2DLength( GetAbsVelocity().AsVector2D() ) <= 100 )
+		return false;
+
+	return true;
+}
+
+extern ConVar	sv_footsteps;
+
+/*	Pulled over from tf_gamemovement. ~hogsy
+*/
+void CBaseTFPlayer::PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, float fvol, bool force )
+{
+	if ( gpGlobals->maxClients > 1 && !sv_footsteps.GetFloat() )
+		return;
+
+	if ( !psurface )
+		return;
+
+	if (!force && !ShouldPlayStepSound( psurface, vecOrigin ))
+		return;
+
+#ifdef IMPLEMENT_ME
+	// TODO:  See note above, should this be hooked up?
+	PlantFootprint( psurface );
+#endif
+
+	unsigned short stepSoundName = m_Local.m_nStepside ? psurface->sounds.stepleft : psurface->sounds.stepright;
+	m_Local.m_nStepside = !m_Local.m_nStepside;
+
+	if ( !stepSoundName )
+		return;
+
+#if defined( CLIENT_DLL )
+	// during prediction play footstep sounds only once
+	if ( prediction->InPrediction() && !prediction->IsFirstTimePredicted() )
+		return;
+#endif
+	
+	IPhysicsSurfaceProps *physprops = MoveHelper( )->GetSurfaceProps();
+	const char *pSoundName = physprops->GetString( stepSoundName );
+	char szSound[256];
+
+	// Prepend our team's footsteps
+	if ( GetTeamNumber() == TEAM_HUMANS )
+		Q_snprintf( szSound, sizeof(szSound), "Human.%s", pSoundName );
+	else if ( GetTeamNumber() == TEAM_ALIENS )
+		Q_snprintf( szSound, sizeof(szSound), "Alien.%s", pSoundName );
+	else
+		return;
+
+	CSoundParameters params;
+	if ( !CBaseEntity::GetParametersForSound( szSound, params, NULL ) )
+		return;
+
+	MoveHelper( )->StartSound( vecOrigin, CHAN_BODY, params.soundname, fvol, params.soundlevel, 0, params.pitch );
+}	
 
 // Below this many degrees, slow down turning rate linearly
 #define FADE_TURN_DEGREES	45.0f

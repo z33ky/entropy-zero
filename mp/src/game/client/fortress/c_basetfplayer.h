@@ -91,6 +91,9 @@ public:
 	virtual bool		CreateMove( float flInputSampleTime, CUserCmd *pCmd );
 	virtual float		GetDefaultAnimSpeed( void );
 
+	bool				ShouldPlayStepSound( surfacedata_t *psurface, Vector &vecOrigin );
+	virtual void		PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, float fvol, bool force );
+
 	int					GetClass( void );
 
 	// Called when not in tactical mode. Allows view to be overriden for things like driving a tank.

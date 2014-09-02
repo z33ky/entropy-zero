@@ -225,7 +225,6 @@ void CTFPrediction::FinishMoveCommando( CTFMoveData *pTFMove, C_BaseTFPlayer *pT
 }
 
 // Expose interface to engine
-// Expose interface to engine
 static CTFPrediction g_Prediction;
 
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR( CTFPrediction, IPrediction, VCLIENT_PREDICTION_INTERFACE_VERSION, g_Prediction );

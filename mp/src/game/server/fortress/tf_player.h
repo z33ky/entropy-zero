@@ -358,6 +358,9 @@ public:
 	void	FinishAttaching( void );
 	void	CheckSapperAttaching( void );
 
+	bool			ShouldPlayStepSound( surfacedata_t *psurface, Vector &vecOrigin );
+	virtual void	PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, float fvol, bool force );
+
 // IScorer
 public:
 	// Return the entity that should receive the score

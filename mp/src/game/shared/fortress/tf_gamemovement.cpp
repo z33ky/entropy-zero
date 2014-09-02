@@ -498,58 +498,6 @@ void CTFGameMovement::UpdateTimers( void )
 	BaseClass::DecayPunchAngle();
 }
 
-/*	Should the step sound play?
-*/
-bool CTFGameMovement::ShouldPlayStepSound( surfacedata_t *psurface, float fvol )
-{
-	if ( !m_nOnLadder && Vector2DLength( mv->m_vecVelocity.AsVector2D() ) <= 100 )
-		return false;
-
-	return true;
-}
-
-void CTFGameMovement::PlayStepSound( surfacedata_t *psurface, float fvol, bool force )
-{
-	if ( gpGlobals->maxClients > 1 && !sv_footsteps.GetFloat() )
-		return;
-
-	if ( !psurface )
-		return;
-
-	if (!force && !ShouldPlayStepSound( psurface, fvol ))
-		return;
-
-	// TODO:  See note above, should this be hooked up?
-	PlantFootprint( psurface );
-
-	unsigned short stepSoundName = player->m_Local.m_nStepside ? psurface->sounds.stepleft : psurface->sounds.stepright;
-	player->m_Local.m_nStepside = !player->m_Local.m_nStepside;
-
-	if ( !stepSoundName )
-		return;
-
-	if ( !mv->m_bFirstRunOfFunctions )
-		return;
-
-	IPhysicsSurfaceProps *physprops = MoveHelper( )->GetSurfaceProps();
-	const char *pSoundName = physprops->GetString( stepSoundName );
-	char szSound[256];
-
-	// Prepend our team's footsteps
-	if ( player->GetTeamNumber() == TEAM_HUMANS )
-		Q_snprintf( szSound, sizeof(szSound), "Human.%s", pSoundName );
-	else if ( player->GetTeamNumber() == TEAM_ALIENS )
-		Q_snprintf( szSound, sizeof(szSound), "Alien.%s", pSoundName );
-	else
-		return;
-
-	CSoundParameters params;
-	if ( !CBaseEntity::GetParametersForSound( szSound, params, NULL ) )
-		return;
-
-	MoveHelper( )->StartSound( mv->GetAbsOrigin(), CHAN_BODY, params.soundname, fvol, params.soundlevel, 0, params.pitch );
-}	
-
 int CTFGameMovement::CheckStuck( void )
 {
 	VPROF( "CTFGameMovement::CheckStuck" );

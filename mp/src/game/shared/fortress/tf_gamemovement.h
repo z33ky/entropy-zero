@@ -50,10 +50,6 @@ protected:
 	float			CalcGravityAdjustment( const Vector &wishdir );
 	void			HandleLadder( void );
 	virtual void	CategorizePosition( void );
-	
-	virtual void	PlayStepSound( surfacedata_t *psurface, float fvol, bool force );
-	// Should the step sound play?
-	virtual bool	ShouldPlayStepSound( surfacedata_t *psurface, float fvol );
 
 	// Specific movement functions.
 	virtual void	FullWalkMove( );
