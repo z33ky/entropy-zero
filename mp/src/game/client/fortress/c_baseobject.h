@@ -7,9 +7,7 @@
 #include "baseobject_shared.h"
 #include <vgui_controls/Panel.h>
 #include <vgui_controls/Label.h>
-#ifdef IMPLEMENT_ME
 #include "vgui_healthbar.h"
-#endif
 #include "commanderoverlay.h"
 #include "hud_minimap.h"
 #include "particlemgr.h"
@@ -202,9 +200,7 @@ private:
 	float			m_flPercentageConstructed;
 	EHANDLE			m_hBuiltOnEntity;
 
-#ifdef IMPLEMENT_ME
 	CHealthBarPanel	*m_pHealthBar;
-#endif
 	vgui::Label		*m_pNameLabel;
 	float			m_flDamageFlash;		// Used to flash the panel when the object takes damage
 	int				m_iFlashes;

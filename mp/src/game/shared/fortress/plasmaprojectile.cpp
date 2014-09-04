@@ -23,10 +23,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-/*	IMPLEMENT_ME
-	This needs heavy revision! Client and server-side crap need to be split up ~hogsy
-*/
-
+//	IMPLEMENT_ME : This needs heavy revision! Client and server-side crap need to be split up ~hogsy
 
 extern ConVar tf_knockdowntime;
 

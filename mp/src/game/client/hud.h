@@ -79,9 +79,6 @@ public:
 
 	// Original bounds
 	wrect_t		rc;
-	
-public:
-	bool	m_bTeamplay;
 };
 
 #include "hudtexturehandle.h"
@@ -168,10 +165,8 @@ public:
 public:
 
 	int							m_iKeyBits;
-#ifndef _XBOX
 	float						m_flMouseSensitivity;
 	float						m_flMouseSensitivityFactor;
-#endif
 	float						m_flFOVSensitivityAdjust;
 
 	Color						m_clrNormal;
@@ -179,6 +174,8 @@ public:
 	Color						m_clrYellowish;
 
 	CUtlVector< CHudElement * >	m_HudList;
+	
+	bool						m_bTeamplay;
 
 private:
 	void						InitFonts();

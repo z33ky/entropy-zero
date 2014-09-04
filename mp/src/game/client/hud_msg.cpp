@@ -52,7 +52,5 @@ void CHud::MsgFunc_SendAudio( bf_read &msg )
 
 void CHud::MsgFunc_GameMode( bf_read &msg )
 {
-#ifdef IMPLEMENT_ME
 	m_bTeamplay = msg.ReadByte() ? true : false;
-#endif
 }

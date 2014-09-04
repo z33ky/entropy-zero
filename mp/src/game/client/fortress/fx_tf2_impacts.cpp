@@ -1,8 +1,6 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
-//
+
 // Purpose: Game-specific impact effect hooks
-//
-//=============================================================================//
+
 #include "cbase.h"
 #include "fx_impact.h"
 #include "decals.h"
@@ -15,9 +13,6 @@
 
 void ImpactCreateHurtShards( Vector &vecOrigin, trace_t &tr, Vector &shotDir, int iMaterial, bool bLarge, bool bBlood );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void MakeHurt( const CEffectData &data, bool bBlood )
 {
 	trace_t tr;
@@ -116,9 +111,6 @@ void ImpactShieldCallback( const CEffectData &data )
 
 DECLARE_CLIENT_EFFECT( "ImpactShield", ImpactShieldCallback );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void MakePlasmaHurt( const CEffectData &data, bool bBlood )
 {
 	trace_t tr;
@@ -395,7 +387,6 @@ void ImpactCreateHurtShards( Vector &vecOrigin, trace_t &tr, Vector &shotDir, in
 			data.m_hEntity = ClientEntityList().EntIndexToHandle( tr.m_pEnt->entindex() );
 			DispatchEffect( "tf2blood", data );
 			return;
-			break;
 		/*
 		case CHAR_TEX_CONCRETE:
 		default:
@@ -405,8 +396,10 @@ void ImpactCreateHurtShards( Vector &vecOrigin, trace_t &tr, Vector &shotDir, in
 		}
 		Assert( pModel );			
 
+#if 0
 		// ROBIN: Removed until optimized
 		return;
+#endif
 
 		// Throw it out
 		tempents->SpawnTempModel( pModel, vecSpawnOrigin, vecAngles, vecForceDir, random->RandomFloat(0.5,1.5), iFlags );

@@ -81,10 +81,10 @@ void C_BaseObject::OnDataChanged( DataUpdateType_t updateType )
 {
 	if (updateType == DATA_UPDATE_CREATED)
 	{
-#ifdef IMPLEMENT_ME
 		if ( !IS_MINIMAP_PANEL_DEFINED( ) && !(m_fObjectFlags & OF_SUPPRESS_APPEAR_ON_MINIMAP) )
+		{
 			CONSTRUCT_MINIMAP_PANEL( "minimap_object", MINIMAP_OBJECTS );
-#endif
+		}
 
 		CreateBuildPoints();
 	}

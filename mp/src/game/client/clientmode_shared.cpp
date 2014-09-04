@@ -267,9 +267,6 @@ static void __MsgFunc_VGUIMenu( bf_read &msg )
 	gViewPortInterface->ShowPanel( viewport, bShow );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 ClientModeShared::ClientModeShared()
 {
 	m_pViewport = NULL;
@@ -284,9 +281,6 @@ ClientModeShared::ClientModeShared()
 #endif
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 ClientModeShared::~ClientModeShared()
 {
 	delete m_pViewport; 
@@ -799,10 +793,6 @@ void ClientModeShared::StartMessageMode( int iMessageModeType )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *newmap - 
-//-----------------------------------------------------------------------------
 void ClientModeShared::LevelInit( const char *newmap )
 {
 	m_pViewport->GetAnimationController()->StartAnimationSequence("LevelInit");

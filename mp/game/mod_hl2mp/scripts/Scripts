@@ -38,6 +38,8 @@
             <File name="weapon_combat_shield_alien.txt" />
             <File name="weapon_objectselection.txt" />
             <File name="weapon_twohandedcontainer.txt" />
+            <File name="weapon_combat_burstrifle.txt" />
+            <File name="weapon_combat_plasmarifle.txt" />
         </Folder>
         <Folder name="Languages">
             <File name="fortress_english.txt" />
@@ -58,5 +60,7 @@
         <Folder name="Config">
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\cfg\mapcycle.txt" />
         </Folder>
+        <File name="decals_subrect.txt" />
+        <File name="C:\Users\hogsy\Documents\Fortress\mp\tf2.fgd" />
     </Project>
 </NotepadPlus>

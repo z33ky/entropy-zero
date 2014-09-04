@@ -5,10 +5,8 @@
 #include "techtree.h"
 #include "iclientmode.h"
 #include "hud_commander_statuspanel.h"
-#ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
 #include "commanderoverlaypanel.h"
-#endif
 #include "tf_hints.h"
 #include "c_tf_hintmanager.h"
 

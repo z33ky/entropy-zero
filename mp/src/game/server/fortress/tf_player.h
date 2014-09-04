@@ -351,9 +351,7 @@ public:
 	// Sapper attaching
 	bool	IsAttachingSapper( void );
 	float	GetSapperAttachmentTime( void );
-#ifdef IMPLEMENT_ME
 	void	StartAttachingSapper( CBaseObject *pObject, CGrenadeObjectSapper *pSapper );
-#endif
 	void	CleanupAfterAttaching( void );
 	void	StopAttaching( void );
 	void	FinishAttaching( void );
@@ -384,9 +382,7 @@ public:
 	// Object sapper placement handling
 	float							m_flSapperAttachmentFinishTime;
 	float							m_flSapperAttachmentStartTime;
-#ifdef IMPLEMENT_ME
 	CHandle< CGrenadeObjectSapper >	m_hSapper;
-#endif
 	CHandle< CBaseObject >			m_hSappedObject;
 
 protected:

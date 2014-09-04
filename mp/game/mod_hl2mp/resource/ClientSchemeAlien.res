@@ -1,481 +1,117 @@
-///////////////////////////////////////////////////////////
-// Tracker scheme resource file
-//
-// sections:
-//		Colors			- all the colors used by the scheme
-//		BaseSettings	- contains settings for app to use to draw controls
-//		Fonts			- list of all the fonts used by app
-//		Borders			- description of all the borders
-//
-// hit ctrl-alt-shift-R in the app to reload this file
-//
-///////////////////////////////////////////////////////////
 Scheme
 {
-	//////////////////////// COLORS ///////////////////////////
-	// color details
-	// this is a list of all the colors used by the scheme
 	Colors
 	{
-		"White"				"255 255 255 255"
-		"OffWhite"			"216 216 216 255"
-		"DullWhite"			"142 142 142 255"
-		"Orange"			"255 155 0 255"
-		"TransparentBlack"		"0 0 0 128"
-		"Black"				"0 0 0 255"
-		"Blank"				"0 0 0 0"
-		// base colors
-		"BaseText"		"216 222 211 255"		// used in text windows, lists
-		"BrightBaseText" "255 255 255 255"	// brightest text
-		"DimBaseText"	"150 159 142 255"		// dim base text
-		"SelectedText"		"255 255 255 255"	// selected text
-		"LabelDimText"	"160 170 149 255"		// slight modification on above, used for info text
-												// could be just removed and use DimBaseText?
-		"ControlText"	"216 222 211 255"		// used in all text controls
-		"BrightControlText"	"196 181 80 255"	// use for selected controls
-		"DisabledText1"	"117 128 111 255"		// disabled text
-		"DisabledText2"	"30 30 30 255"		// overlay color for disabled text (to give that inset look)
-		"DimListText"		"117 134 102 255"	// offline friends, unsubscribed games, etc.
-		// background colors
-		"ControlBG"		"76 88 68 255"		// background color of controls
-		"ControlDarkBG" "90 106 80 255"		// darker background color; used for background of scrollbars
-		"WindowBG"		"62 70 55 255"		// background color of text edit panes (chat, text entries, etc.)
-		"SelectionBG"	"149 136 49 255"		// background color of any selected text or menu item
-		"SelectionBG2"		"40 46 34 255"		// selection background in window w/o focus
-		"ListBG"			"62 70 55 255"		// background of server browser, buddy list, etc.
-
-		// title colors
-		"TitleText"		"255 255 255 255"
-		"TitleDimText"	"120 132 114 255"
-		"TitleBG"		"76 88 68 0"
-		"TitleDimBG"	"76 88 68 0"
-
-		// slider tick colors
-		"SliderTickColor"	"127 140 127 255"
-		"SliderTrackColor"	"31 31 31 255"
-
-		// border colors
-		"BorderBright"	"136 145 128 255"		// the lit side of a control
-		"BorderDark"	"45 49 40 255"		// the dark/unlit side of a control
-		"BorderSelection"	"0 0 0 255"		// the additional border color for displaying the default/selected button
+		White		"255 255 255 255"
+		Orange		"255 176 0 255"
+		Yellow		"255 255 0 255"
+		Red			"255 0 0 255"
+		Green		"0 255 0 255"
+		Black		"0 0 0 255"
+		LightBlack	"0 0 0 125"
+		Invisible	"0 0 0 0"
+		
+		// Team Colours
+		Colour0	"0 0 255 100"
 	}
 
-	///////////////////// BASE SETTINGS ////////////////////////
-	//
-	// default settings for all panels
-	// controls use these to determine their settings
 	BaseSettings
 	{
-		FgColor			        "ControlText"
-		BgColor			        "ControlBG"
-		LabelBgColor		    "0 0 0 0" // labels have no background color
-		SubPanelBgColor	        "ControlBG"
-		DisabledFgColor1		"DisabledText1" 
-		DisabledFgColor2		"DisabledText2"		// set this to the BgColor if you don't want it to draw
-		TitleBarFgColor			"TitleText"
-		TitleBarDisabledFgColor	"TitleDimText"
-		TitleBarBgColor			"TitleBG"
-		TitleBarDisabledBgColor	"TitleDimBG"
-		TitleBarIcon			"steam/games/icon_tfc"
-		TitleBarDisabledIcon	"steam/games/icon_tfc"
-		TitleButtonFgColor			"BorderBright"
-		TitleButtonBgColor			"ControlBG"
-		TitleButtonDisabledFgColor	"TitleDimText"
-		TitleButtonDisabledBgColor	"TitleDimBG"
-		TextCursorColor			    "BaseText"		// color of the blinking text cursor in text entries
-		URLTextColor				"BrightBaseText"		// color that URL's show up in chat window
-		
-		Frame.BgColor				"ControlBG"	
-		Frame.AutoSnapRange	"0"
-		
-		Menu
-		{
-			"FgColor"			"DimBaseText"
-			"BgColor"			"ControlBG"
-			"ArmedFgColor"		"BrightBaseText"
-			"ArmedBgColor"		"SelectionBG"
-			"DividerColor"		"BorderDark"
-			"TextInset"			"6"
-		}
-		
-		MenuButton	  // the little arrow on the side of boxes that triggers drop down menus
-		{
-			ButtonArrowColor	"DimBaseText"	// color of arrows
-		   	ButtonBgColor		"WindowBG"	// bg color of button. same as background color of text edit panes 
-			ArmedArrowColor		"BrightBaseText" // color of arrow when mouse is over button
-			ArmedBgColor		"DimBaseText"  // bg color of button when mouse is over button
-		}
-		
-		Slider
-		{
-			SliderFgColor				"ControlBG"		// handle with which the slider is grabbed
-			SliderBgColor			"ControlDarkBG"		// area behind handle
-			SliderTickColor			"127 140 127 255"	// slider tick's color
-			SliderTickLabelColor	"127 140 127 255"	// color of labels at the ends of the slider tick
-		}
-		
-		Slider.NobColor					"108 108 108 255"
-		Slider.TextColor					"180 180 180 255"
-		Slider.TrackColor				"31 31 31 255"
-		Slider.DisabledTextColor1	"117 117 117 255"
-		Slider.DisabledTextColor2	"30 30 30 255"
-
-		ScrollBarSlider
-		{
-			BgColor			"ControlBG"		// this isn't really used
-			ScrollBarSliderFgColor		"ControlBG"		// handle with which the slider is grabbed
-			ScrollBarSliderBgColor		"ControlDarkBG"		// area behind handle
-			ButtonFgColor		"DimBaseText"	// color of arrows
-		}
-
-		// text edit windows
-		WindowFgColor				"BaseText"		// off-white
-		WindowBgColor				"WindowBG"
-		WindowDisabledFgColor		"DimBaseText"
-		WindowDisabledBgColor	"66 80 60 255"		// background of chat conversation
-		SelectionFgColor			"255 255 255 255"		// fg color of selected text
-		SelectionBgColor			"SelectionBG"
-		ListSelectionFgColor	"255 255 255 255"			// 
-		ListBgColor				"62 70 55 255"	// background of server browser control, etc
-		BuddyListBgColor			"62 70 55 255"	// background of buddy list pane
-		// App-specific stuff
-		ChatBgColor				"WindowBgColor"
-		// status selection
-		StatusSelectFgColor		"BrightBaseText"
-		StatusSelectFgColor2		"BrightControlText"		// this is the color of the friends status
-		// checkboxes
-		CheckButtonBorder1   		"BorderDark" 		// the left checkbutton border
-		CheckButtonBorder2   		"BorderBright"		// the right checkbutton border
-		CheckButtonCheck			"0 0 0 255"				// color of the check itself
-		CheckBgColor				"158 168 150 255"
-
-		// buddy buttons
-		BuddyButton
-		{
-			FgColor1		"ControlText"
-			FgColor2		"117 134 102 255"
-
-			ArmedFgColor1	"BrightBaseText"
-			ArmedFgColor2	"BrightBaseText"
-			ArmedBgColor	"SelectionBG"
-		}
-
-		Chat
-		{
-			TextColor			"BrightControlText"
-			SelfTextColor			"BaseText"
-			SeperatorTextColor	"DimBaseText"
-		}
-		
-		InGameDesktop
-		{
-			MenuColor		"200 200 200 255"
-			ArmedMenuColor	"255 255 255 255"
-			DepressedMenuColor "192 186 80 255"
-			WidescreenBarColor "0 0 0 0"
-			MenuItemVisibilityRate "0.03"  // time it takes for one menu item to appear
-			MenuItemHeight	"28"
-			GameMenuInset		"32"
-		}
-
-		SectionTextColor		"BrightControlText"		// text color for IN-GAME, ONLINE, OFFLINE sections of buddy list
-		SectionDividerColor	"BorderDark"		// color of line that runs under section name in buddy list
-		// TF2 HUD
-		HudStatusBgColor			"0 0 0 64"
-		HudStatusSelectedBgColor	"0 0 0 192"
-		// MENU FIX
-		MainMenu.TextColor			"White"
-		MainMenu.ArmedTextColor		"200 200 200 255"
-		MainMenu.DepressedTextColor	"192 186 80 255"
-		MainMenu.MenuItemHeight		"30"
-		MainMenu.Inset				"32"
-		MainMenu.Backdrop			"0 0 0 156"
+		Black						"Black"
+		FgColor						"Orange"
+		HudStatusBgColor			"LightBlack"
+		HudStatusSelectedBgColor	"Black"
+		NumericText					"Yellow"
+		NumericTextWarning			"Orange"
+		NumericTextCritical			"Red"
+		NumericBox					"Colour0"
+		NumericCharFg				"Orange"
+		NumericCharBg				"0 255 0 255"
+		NumericCharBgBorder			"0 0 255 255"
+		SelectionTextFg				"White"
+		InvalidSlotFg				"0 0 0 100"
+		InvalidSlotText				"Red"
+		InvalidActiveSlotFg			"0 0 0 128"
+		InvalidActiveSlotText		"Red"
+		AmmoNormal					"White"
+		AmmoCaution					"Red"
+		OtherSlotFg					"Black"
+		OtherSlotText				"White"
 	}
 
-	//
-	//////////////////////// FONTS /////////////////////////////
-	//
-	// describes all the fonts
 	Fonts
 	{
-		// fonts are used in order that they are listed
-		// fonts listed later in the order will only be used if they fulfill a range not already filled
-		// if a font fails to load then the subsequent fonts will replace
-		// fonts are used in order that they are listed
-		"DebugFixed"
+		HudSelectionNumbers
 		{
-			"1"
+			1
 			{
-				"name"		"Courier New"
-				"tall"		"10"
-				"weight"	"500"
-				"antialias" "1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Electrofied"
+				tall		"16"
+				weight		"1000"
+				antialias	"1"
 			}
 		}
-		// fonts are used in order that they are listed
-		"DebugFixedSmall"
+		
+		HudSelectionText
 		{
-			"1"
+			1
 			{
-				"name"		"Courier New"
-				"tall"		"7"
-				"weight"	"500"
-				"antialias" "1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Michroma"
+				tall		"16"
+				weight		"0"
+				antialias	"1"
 			}
 		}
-		"Default"
+		
+		HudSelectionTextSmall
 		{
-			"1"
+			1
 			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"500"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Michroma"
+				tall		"13"
+				weight		"0"
+				antialias	"1"
 			}
 		}
-		"DefaultUnderline"
+		
+		HudNumbersLabelFont
 		{
-			"1"
+			1
 			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"500"
-				"underline" "1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Michroma"
+				tall		"16"
+				weight		"0"
+				antialias	"1"
 			}
 		}
-		"DefaultSmall"
+		
+		HudNumbersSmall
 		{
-			"1"
+			1
 			{
-				"name"		"Tahoma"
-				"tall"		"13"
-				"weight"	"0"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Michroma"
+				tall		"13"
+				weight		"100"
+				additive	"1"
+				antialias 	"1"
 			}
 		}
-		"DefaultVerySmall"
+		
+		HudNumbersSmallGlow
 		{
-			"1"
+			1
 			{
-				"name"		"Tahoma"
-				"tall"		"12"
-				"weight"	"0"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-
-		"DefaultLarge"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"18"
-				"weight"	"0"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-
-		"MenuLarge"
-		{
-			"1"
-			{
-				"name"		"Verdana"
-				"tall"		"14"
-				"weight"	"900"
-				"antialias" "1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-
-		"ConsoleText"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"13"
-				"weight"	"500"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-
-		// this is the symbol font
-		"Marlett"
-		{
-			"1"
-			{
-				"name"		"Marlett"
-				"tall"		"14"
-				"weight"	"0"
-				"symbol"	"1"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-
-		"Trebuchet24"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"24"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-
-
-		"Trebuchet20"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"20"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-
-		"Trebuchet18"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"18"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-
-		// HUD numbers
-		// We use multiple fonts to 'pulse' them in the HUD, hence the need for many of near size
-		"HUDNumber"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"40"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"HUDNumber1"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"41"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"HUDNumber2"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"42"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"HUDNumber3"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"43"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"HUDNumber4"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"44"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"HUDNumber5"
-		{
-			"1"
-			{
-				"name"		"Trebuchet MS"
-				"tall"		"45"
-				"weight"	"900"
-				"range"		"0x0000 0x007F"	//	Basic Latin
-			}
-		}
-		"DefaultFixed"
-		{
-			"1"
-			{
-				"name"		"Lucida Console"
-				"tall"		"10"
-				"weight"	"0"
-				"range"		"0x0000 0x007F" //	Basic Latin
-			}
-//			"1"
-//			{
-//				"name"		"FixedSys"
-//				"tall"		"20"
-//				"weight"	"0"
-//				"range"		"0x0000 0x007F" //	Basic Latin
-//			}
-		}
-
-		"CloseCaption_Normal"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"500"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-		"CloseCaption_Italic"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"500"
-				"italic"	"1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-		"CloseCaption_Bold"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"900"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
-			}
-		}
-		"CloseCaption_BoldItalic"
-		{
-			"1"
-			{
-				"name"		"Tahoma"
-				"tall"		"16"
-				"weight"	"900"
-				"italic"	"1"
-				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
+				name		"Michroma"
+				tall		"13"
+				weight		"100"
+				additive	"1"
+				scanlines	"2"
+				antialias 	"1"
+				blur		"2"
 			}
 		}
 	}
 
-	//
-	//////////////////// BORDERS //////////////////////////////
-	//
-	// describes all the border types
 	Borders
 	{
 		BaseBorder
@@ -1135,5 +771,11 @@ Scheme
 				}
 			}
 		}
+	}
+	
+	CustomFontFiles
+	{
+		1	"resource/fonts/michroma/michroma.ttf"
+		2	"resource/fonts/electr.ttf"
 	}
 }

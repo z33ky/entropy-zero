@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-//=============================================================================
-
 #include "cbase.h"
 #include "weapon_selection.h"
 #include "iclientmode.h"
@@ -15,10 +9,6 @@
 #include <vgui/ISystem.h>
 #include <vgui_controls/AnimationController.h>
 #include <vgui_controls/Panel.h>
-#ifdef IMPLEMENT_ME
-#include "keydefs.h"
-#endif
-
 #include <vgui/IVGui.h>
 
 #include "weapon_twohandedcontainer.h"

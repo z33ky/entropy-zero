@@ -3,9 +3,7 @@
 #include "hud_macros.h"
 #include "clientmode_tfnormal.h"
 #include "clientmode.h"
-#ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
-#endif
 #include "mapdata.h"
 #include "ivmodemanager.h"
 #include "hud_timer.h"
@@ -59,9 +57,7 @@ void __MsgFunc_ActEnd(bf_read &msg);
 //-----------------------------------------------------------------------------
 void CTFModeManager::Init( void )
 {
-#ifdef IMPLEMENT_ME
 	g_pClientMode = ClientModeCommander();
-#endif
 	g_pClientMode = GetClientModeNormal();
 
 	// These define the panels that can be used by the engine
@@ -116,7 +112,6 @@ void CTFModeManager::UserCmd_Normal( void )
 //-----------------------------------------------------------------------------
 void CTFModeManager::SwitchMode( bool commander, bool force )
 {
-#ifdef IMPLEMENT_ME
 	if ( commander && ( ( g_pClientMode != ClientModeCommander() ) || force ) )
 	{
 		g_pClientMode->Disable();
@@ -125,13 +120,10 @@ void CTFModeManager::SwitchMode( bool commander, bool force )
 	}
 	else if ( !commander && ( ( g_pClientMode != GetClientModeNormal() ) || force ) )
 	{
-#endif
 		g_pClientMode->Disable();
 		g_pClientMode = GetClientModeNormal();
 		g_pClientMode->Enable();
-#ifdef IMPLEMENT_ME
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -147,19 +139,15 @@ void CTFModeManager::LevelInit( const char *newmap )
 	if ( timer )
 		timer->Init();
 
-#ifdef IMPLEMENT_ME
 	// Tell all modes about the map change
 	ClientModeCommander()->LevelInit( newmap );
-#endif
 	GetClientModeNormal()->LevelInit( newmap );
 }
 
 void CTFModeManager::LevelShutdown( void )
 {
 	GetClientModeNormal()->LevelShutdown();
-#ifdef IMPLEMENT_ME
 	ClientModeCommander()->LevelShutdown();
-#endif
 
 	g_pTF2RootPanel->LevelShutdown();
 	GetTechnologyTreeDoc().LevelShutdown();

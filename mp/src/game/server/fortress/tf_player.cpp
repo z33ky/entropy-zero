@@ -29,9 +29,7 @@
 #include "team_messages.h"
 #include "tier0/dbg.h"
 #include "tf_obj_respawn_station.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_resourcepump.h"
-#endif
 #include "tf_class_commando.h"
 #ifdef IMPLEMENT_ME
 #include "tf_class_defender.h"
@@ -44,9 +42,7 @@
 #include "tf_class_sapper.h"
 #endif
 #include "sendproxy.h"
-#ifdef IMPLEMENT_ME
 #include "ragdoll_shadow.h"
-#endif
 #include "vstdlib/random.h"
 #include "engine/IEngineSound.h"
 #include "bone_setup.h"
@@ -2531,13 +2527,11 @@ int CBaseTFPlayer::NumPumpsOnResourceZone( CResourceZone *pZone )
 
 		if( pObj->GetType() == OBJ_RESOURCEPUMP )
 		{
-#ifdef IMPLEMENT_ME
 			CObjectResourcePump *pPump = (CObjectResourcePump*)pObj;
 
 			// Ok, this guy already has a pump here.
 			if( pPump->GetResourceZone() == pZone )
 				++ret;
-#endif
 		}
 	}
 
@@ -2743,14 +2737,12 @@ void CBaseTFPlayer::KnockDownPlayer( const Vector& sourceDir, float magnitude, f
 	// Play some kind of knockdown sound
 	EmitSound( "BaseTFPlayer.KnockedDown" );
 
-#ifdef IMPLEMENT_ME
 	if ( BecomeRagdollOnClient( force ) )
 	{
 		// We we are using ragdoll flight, then don't change underlying player
 		//  velocity
 		ApplyAbsVelocityImpulse( -force );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3165,7 +3157,6 @@ void CBaseTFPlayer::ResetViewOffset( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::FollowClientRagdoll( void )
 {
-#ifdef IMPLEMENT_ME
 	if (( m_hRagdollShadow == NULL ) || ( GetPlayerClass() == NULL ))
 		return;
 
@@ -3191,7 +3182,6 @@ void CBaseTFPlayer::FollowClientRagdoll( void )
 		UTIL_SetOrigin( this, tr.endpos );
 		VectorCopy( tr.endpos, m_vecLastGoodRagdollPos );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3250,11 +3240,10 @@ bool CBaseTFPlayer::ClearClientRagdoll( bool moveplayertofinalspot )
 				}
 			}
 		}
-#ifdef IMPLEMENT_ME
+
 		// Kill the shadow object
 		UTIL_Remove( m_hRagdollShadow );
 		m_hRagdollShadow = NULL;
-#endif
 	}
 
 	return true;
@@ -3267,7 +3256,6 @@ bool CBaseTFPlayer::CheckRagdollToStand( trace_t &trace )
 
 	GetPlayerClass()->GetPlayerHull( ( ( GetFlags() & FL_DUCKING ) == 1 ), vecMin, vecMax );
 
-#ifdef IMPLEMENT_ME
 	// Write this better -- this is just a test to get things started.
 	UTIL_TraceHull( 
 		m_vecLastGoodRagdollPos + Vector( 0, 0, 18 ),
@@ -3278,7 +3266,6 @@ bool CBaseTFPlayer::CheckRagdollToStand( trace_t &trace )
 		m_hRagdollShadow, 
 		COLLISION_GROUP_NONE, 
 		&trace );
-#endif
 
 	if ( !trace.allsolid )
 		return true;
@@ -3313,10 +3300,8 @@ bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force )
 	// Clear any old shadow object ( should never occur )
 	ClearClientRagdoll( false );
 
-#ifdef IMPLEMENT_ME
 	// Create new shadow object
 	m_hRagdollShadow = CRagdollShadow::Create( this, force );
-#endif
 
 	return bret;
 }

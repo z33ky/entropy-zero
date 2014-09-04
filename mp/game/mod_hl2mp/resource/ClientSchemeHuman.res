@@ -18,6 +18,8 @@ Scheme
 	BaseSettings
 	{
 		Black						"Black"
+		White						"White"
+		BrightFg					"Yellow"
 		FgColor						"Orange"
 		HudStatusBgColor			"LightBlack"
 		HudStatusSelectedBgColor	"Black"

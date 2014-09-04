@@ -153,13 +153,13 @@ void CPersonalShieldEffect::Render()
 	if ( !m_hEnt.Get() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	Vector vCenter = m_hEnt->WorldSpaceCenter( );
 
 	const Vector vBasePos = vCenter + m_vOffsetFromEnt;
 	IMaterial *pMat = materials->FindMaterial( "sprites/physbeam", 0, 0 );
+	CMatRenderContextPtr pRenderContext(materials);
 
-	CBeamSeg seg;
+	BeamSeg_t seg;
 
 	// Get redder as their health goes down.
 	float flColor = (float)m_hEnt->GetHealth() / m_hEnt->GetMaxHealth();
@@ -177,7 +177,7 @@ void CPersonalShieldEffect::Render()
 		static int nSegs = 5;
 
 		CBeamSegDraw beamDraw;
-		beamDraw.Start( nSegs, pMat );
+		beamDraw.Start(pRenderContext, nSegs, pMat );
 		
 		for ( int iSeg=0; iSeg < nSegs; iSeg++ )
 		{
@@ -193,7 +193,6 @@ void CPersonalShieldEffect::Render()
 		
 		beamDraw.End();
 	}
-#endif
 
 /*
 	Vector vEggBounds[2];
@@ -506,9 +505,7 @@ void C_BaseTFPlayer::Clear()
 	m_iIDEntIndex = 0;
 	m_bStoreRagdollInfo	= true;
 	m_flNextUseCheck = 0;
-#ifdef IMPLEMENT_ME
 	m_pSapperAttachmentStatus = NULL;
-#endif
 	
 	int i;
 	for ( i=0; i < ARRAYSIZE( m_BoostModelAngles ); i++ )
@@ -549,10 +546,8 @@ C_BaseTFPlayer::~C_BaseTFPlayer()
 
 	m_PersonalShieldEffects.PurgeAndDeleteElements();
 
-#ifdef IMPLEMENT_ME
 	if ( m_pSapperAttachmentStatus )
 		delete m_pSapperAttachmentStatus;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -816,7 +811,6 @@ void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 	// Only care about this stuff for the local player
 	if ( IsLocalPlayer() )
 	{
-#ifdef IMPLEMENT_ME
 		// Sapper attachment
 		if ( m_bOldAttachingSapper != m_TFLocal.m_bAttachingSapper || m_TFLocal.m_bAttachingSapper )
 		{
@@ -837,7 +831,6 @@ void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 			if ( m_TFLocal.m_bAttachingSapper )
 				m_pSapperAttachmentStatus->SetHealth( m_TFLocal.m_flSapperAttachmentFrac );
 		}
-#endif
 	}
 }
 

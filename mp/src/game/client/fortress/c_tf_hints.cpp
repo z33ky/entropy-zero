@@ -3,9 +3,7 @@
 #include "tf_hints.h"
 #include "hintitemorderbase.h"
 #include "iclientmode.h"
-#ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
-#endif
 #include "hud_technologytreedoc.h"
 #include "paneleffect.h"
 #include "techtree.h"
@@ -72,10 +70,8 @@ void CHintChangeToCommander::Think( void )
 {
 	BaseClass::Think();
 
-#ifdef IMPLEMENT_ME
 	if ( g_pClientMode == ClientModeCommander() )
 		m_bCompleted = true;
-#endif
 }
 
 class CHintGotoObject : public CHintItemObjectBase
@@ -121,7 +117,6 @@ void CHintGotoObject::Think( void )
 {
 	BaseClass::Think();
 	
-#ifdef IMPLEMENT_ME
 	ClientModeTFBase *basemode = ( ClientModeTFBase * )g_pClientMode;
 	CMinimapPanel *minimap = basemode->GetMinimap();
 	
@@ -183,7 +178,6 @@ void CHintGotoObject::Think( void )
 		}
 #endif
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -408,11 +402,9 @@ void CHintStartPlacing::Think( void )
 {
 	BaseClass::Think();
 	
-#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *builder = dynamic_cast< C_WeaponBuilder * >( GetActiveWeapon() );
 	if ( builder && builder->IsPlacingObject() )
 		m_bCompleted = true;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -440,11 +432,9 @@ void CHintStartBuilding::Think( void )
 {
 	BaseClass::Think();
 	
-#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *builder = dynamic_cast< C_WeaponBuilder * >( GetActiveWeapon() );
 	if ( builder && builder->IsBuildingObject() )
 		m_bCompleted = true;
-#endif
 }
 
 #define CHECK_FOR_BUILDING_INTERVAL	1.0f
@@ -621,7 +611,6 @@ void CHintBuilderSelection::Think( void )
 	if ( !player )
 		return;
 	
-#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *builder = dynamic_cast< C_WeaponBuilder * >( GetActiveWeapon() );
 	if ( !builder )
 		return;
@@ -632,7 +621,6 @@ void CHintBuilderSelection::Think( void )
 
 	if ( !stricmp( selection, GetSelection() ) )
 		m_bCompleted = true;
-#endif
 }
 
 class CHintBuilderStartAction : public CHintItemOrderBase
@@ -728,11 +716,9 @@ void CHintBuilderStartAction::Think( void )
 	if ( !player )
 		return;
 	
-#ifdef IMPLEMENT_ME
 	C_WeaponBuilder *builder = dynamic_cast< C_WeaponBuilder * >( GetActiveWeapon() );
 	if ( !builder )
 		return;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -826,10 +812,8 @@ void CHudWeaponFlashHelper::Paint()
 		return;
 	}
 
-#ifdef IMPLEMENT_ME
 	if ( g_pClientMode == ClientModeCommander() )
 		return;
-#endif
 
 	C_BaseCombatWeapon *w = ( C_BaseCombatWeapon * )( (C_BaseEntity *)m_hWeapon );
 	if ( !w )
@@ -1060,7 +1044,6 @@ void CHintHudWeaponFlash::Think( void )
 	if ( m_pWeaponFlashHelper->IsWeaponSelectionActive() )
 		m_bCompleted = true;
 
-#ifdef IMPLEMENT_ME
 	bool incommander = ( g_pClientMode == ClientModeCommander() );
 
 	CPanelEffect *effect = g_pTF2RootPanel->FindEffect( m_hLineEffect );
@@ -1080,7 +1063,6 @@ void CHintHudWeaponFlash::Think( void )
 			effect->SetTargetRect( x, y, wide, tall );
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------

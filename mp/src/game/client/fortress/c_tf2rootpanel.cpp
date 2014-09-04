@@ -4,10 +4,8 @@
 #include <vgui/IVgui.h>
 #include "paneleffect.h"
 #include "itfhintitem.h"
-#ifdef IMPLEMENT_ME
 #include "clientmode_commander.h"
 #include "commanderoverlaypanel.h"
-#endif
 
 C_TF2RootPanel::C_TF2RootPanel( vgui::VPANEL parent )
 	: BaseClass( NULL, "TF2 Root Panel" )

@@ -496,9 +496,6 @@ void CMinimapPanel::LevelInit( const char *mapname )
 	HOOK_MESSAGE( MinimapPulse );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::LevelShutdown( void )
 {
 }

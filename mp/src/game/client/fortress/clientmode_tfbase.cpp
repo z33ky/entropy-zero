@@ -8,14 +8,10 @@
 #include "clientmode_tfbase.h"
 #include "hud.h"
 #include "c_tf_basecombatweapon.h"
-#ifdef IMPLEMENT_ME
-#include "keydefs.h"
-#else
 #include "c_tf_hintmanager.h"
 #include "tf_shareddefs.h"
 #include "ienginevgui.h"
 #include "hud_element_helper.h"
-#endif
 #include <vgui_controls/Controls.h>
 #include <vgui/IScheme.h>
 #include "filesystem.h"
@@ -53,23 +49,10 @@ CMinimapPanel *ClientModeTFBase::GetMinimap( void )
 	return m_pMinimap;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-
-// FIXME: Remove if this ever becomes true for HL2 (I expect it will)
-ConVar 	r_radiosity		( "r_radiosity", "2" );		// do full radiosity calc?
-// FIXME: Remove when we reactivate detail props
-extern ConVar r_DrawDetailProps;
-
 void ClientModeTFBase::Init()
 {
 	BaseClass::Init();
 	C_BaseTFCombatWeapon::CreateCrosshairPanels();
-
-	// Turn lighting into a mode where we use better computation for the ambient
-	// cube on static props, and a cheap one for dynamic entities.
- 	r_radiosity.SetValue("3");
 
 	if ( !m_pMinimap )
 		m_pMinimap = GET_HUDELEMENT( CMinimapPanel );

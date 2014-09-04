@@ -1,4 +1,15 @@
-Humans.Death
+// Weapons
+Weapon_BurstRifle.Single
+{
+	channel		CHAN_WEAPON
+	volume		0.8
+	soundlevel	SNDLVL_GUNFIRE
+	pitch		85,115
+	wave		weapons/burstrifle/single.wav
+}
+
+// Humans
+Human.Death
 {
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"
@@ -7,7 +18,7 @@ Humans.Death
 	"wave"	"player/suit_denydevice.wav"
 }
 
-Humans.Pain
+Human.Pain
 {
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"
@@ -16,7 +27,7 @@ Humans.Pain
 	"wave"	"player/suit_denydevice.wav"
 }
 
-Humans.default.stepright
+Human.default.stepright
 {
 	soundlevel		"SNDLVL_75dB"
 	pitch			"PITCH_NORM"
@@ -28,7 +39,7 @@ Humans.default.stepright
 	}
 }
 
-Humans.default.stepleft
+Human.default.stepleft
 {
 	soundlevel		"SNDLVL_75dB"
 	pitch			"PITCH_NORM"
@@ -40,6 +51,7 @@ Humans.default.stepleft
 	}
 }
 
+// Other
 ResourceChunk.Pickup
 {
 	volume		0.7

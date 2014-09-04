@@ -1,9 +1,5 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
+
 // Purpose: TF2's player object, code shared between client & server.
-//
-// $NoKeywords: $
-//=============================================================================
 
 #include "cbase.h"
 #include "basetfplayer_shared.h"
@@ -16,14 +12,9 @@
 #else
 #include "weapon_builder.h"
 #include "basegrenade_shared.h"
-#ifdef IMPLEMENT_ME
 #include "grenade_objectsapper.h"
 #endif
-#endif
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsClass( TFClass iClass )
 {
 	if ( !GetPlayerClass()  )
@@ -194,26 +185,16 @@ bool CBaseTFPlayer::Weapon_ShouldSelectItem( CBaseCombatWeapon *pWeapon )
 #ifndef CLIENT_DLL
 // Sapper handling is all here because it'll soon be shared Client / Server
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CBaseTFPlayer::IsAttachingSapper( void )
 {
 	return ( m_TFLocal.m_bAttachingSapper );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 float CBaseTFPlayer::GetSapperAttachmentTime( void )
 {
 	return (gpGlobals->curtime - m_flSapperAttachmentStartTime);
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-#ifdef IMPLEMENT_ME
 void CBaseTFPlayer::StartAttachingSapper( CBaseObject *pObject, CGrenadeObjectSapper *pSapper )
 {
 	Assert( pSapper );
@@ -234,7 +215,6 @@ void CBaseTFPlayer::StartAttachingSapper( CBaseObject *pObject, CGrenadeObjectSa
 	if ( GetActiveWeapon() )
 		GetActiveWeapon()->Holster();
 }
-#endif
 
 void CBaseTFPlayer::CheckSapperAttaching( void )
 {
@@ -254,14 +234,12 @@ void CBaseTFPlayer::CheckSapperAttaching( void )
 		return;
 	}
 
-#ifdef IMPLEMENT_ME
 	// Sapper gone?
 	if ( m_hSapper == NULL )
 	{
 		StopAttaching();
 		return;
 	}
-#endif
 
 	// Make sure I'm still looking at the target
 	trace_t tr;
@@ -269,17 +247,12 @@ void CBaseTFPlayer::CheckSapperAttaching( void )
 	Vector vecSrc = EyePosition();
 	EyeVectors( &vecAiming );
 	UTIL_TraceLine( vecSrc, vecSrc + (vecAiming * 128), MASK_SOLID, this, TFCOLLISION_GROUP_WEAPON, &tr );
-#ifdef IMPLEMENT_ME
 	if ( tr.fraction == 1.0 || tr.m_pEnt != m_hSappedObject )
-#else
-	if(tr.fraction == 1.0f)
-#endif
 	{
 		StopAttaching();
 		return;
 	}
 
-#ifdef IMPLEMENT_ME
 	// Finished?
 	if ( m_flSapperAttachmentFinishTime >= gpGlobals->curtime )
 	{
@@ -294,7 +267,6 @@ void CBaseTFPlayer::CheckSapperAttaching( void )
 
 		return;
 	}
-#endif
 
 	FinishAttaching();
 }
@@ -317,7 +289,6 @@ void CBaseTFPlayer::StopAttaching( void )
 {
 	CleanupAfterAttaching();	
 
-#ifdef IMPLEMENT_ME
 	if ( m_hSapper != NULL )
 	{
 		CPASAttenuationFilter filter( m_hSapper, "WeaponObjectSapper.AttachFail" );
@@ -326,20 +297,17 @@ void CBaseTFPlayer::StopAttaching( void )
 		m_hSapper->SetTargetObject( NULL );
 		m_hSapper->Remove( );
 	}
-#endif
 }
 
 void CBaseTFPlayer::FinishAttaching( void )
 {
 	CleanupAfterAttaching();
 
-#ifdef IMPLEMENT_ME
 	if ( m_hSapper != NULL )
 	{
 		m_hSapper->SetTargetObject( m_hSappedObject );
 		m_hSapper->SetArmed( true );
 	}
-#endif
 }
 #endif
 

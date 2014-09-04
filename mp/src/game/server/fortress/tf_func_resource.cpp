@@ -412,9 +412,10 @@ bool CResourceZone::ShouldSpawnChunk( void )
 
 void CResourceZone::SpawnChunk( const Vector &vecOrigin )
 {
+#if 0
 	// ROBIN: Disabled for now
 	return;
-
+#else
 #ifdef IMPLEMENT_ME
 	TFStats()->IncrementStat( TF_STAT_RESOURCE_CHUNKS_SPAWNED, 1 );
 #endif
@@ -429,6 +430,7 @@ void CResourceZone::SpawnChunk( const Vector &vecOrigin )
 
 	// Remove it's value from the zone
 	RemoveResources( pChunk->GetResourceValue() );
+#endif
 }
 
 void CResourceZone::RecomputeClientResources( )

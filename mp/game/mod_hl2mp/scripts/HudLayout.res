@@ -30,14 +30,8 @@ HudLayout
 	HudWeaponSelection
 	{
 		fieldName			"HudWeaponSelection"
-		ypos 				"16"
 		visible 			"1"
 		enabled 			"1"
-		SelectionNumberXPos	"4"
-		SelectionNumberYPos	"4"
-		IconXPos 			"8"
-		IconYPos 			"8"
-		TextYPos 			"48"
 	}
 	
 	HudHealth
@@ -143,6 +137,9 @@ HudLayout
 	
 	DamageIndicator
 	{
+		fieldName	"DamageIndicator"
+		visible 	"1"
+		enabled 	"1"
 	}
 	
 	HudChat

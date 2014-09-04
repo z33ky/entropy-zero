@@ -245,9 +245,7 @@ public:
 	//float							m_flSapperAttachmentStartTime;
 	//CHandle< CGrenadeObjectSapper >	m_hSapper;
 	//CHandle< CBaseObject >			m_hSappedObject;
-#ifdef IMPLEMENT_ME
 	CHealthBarPanel					*m_pSapperAttachmentStatus;
-#endif
 
 protected:
 	bool	IsWet() const;

@@ -1,5 +1,8 @@
-"Sprite"
+"UnlitGeneric"
 {
 	"$basetexture" "sprites/blueflare2"
 	"$additive" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
 }
+

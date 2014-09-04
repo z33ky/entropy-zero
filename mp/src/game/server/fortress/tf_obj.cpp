@@ -759,7 +759,7 @@ void CBaseObject::StartPlacement( CBaseTFPlayer *pPlayer )
 #ifdef IMPLEMENT_ME // ?
 	Relink();
 #endif
-
+	
 	// Set my build size
 	CollisionProp()->WorldSpaceAABB( &m_vecBuildMins, &m_vecBuildMaxs );
 	m_vecBuildMins -= Vector( 4,4,0 );

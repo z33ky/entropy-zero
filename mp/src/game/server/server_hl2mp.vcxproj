@@ -269,6 +269,7 @@ exit 1
     <ClInclude Include="..\shared\fortress\baseobject_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfcombatweapon_shared.h" />
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h" />
+    <ClInclude Include="..\shared\fortress\grenade_objectsapper.h" />
     <ClInclude Include="..\shared\fortress\ihasbuildpoints.h" />
     <ClInclude Include="..\shared\fortress\plasmaprojectile.h" />
     <ClInclude Include="..\shared\fortress\plasmaprojectile_shared.h" />
@@ -353,17 +354,21 @@ exit 1
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="fortress\menu_base.h" />
+    <ClInclude Include="fortress\ragdoll_shadow.h" />
     <ClInclude Include="fortress\resource_chunk.h" />
     <ClInclude Include="fortress\team_messages.h" />
     <ClInclude Include="fortress\tf_basecombatweapon.h" />
     <ClInclude Include="fortress\tf_class_commando.h" />
+    <ClInclude Include="fortress\tf_func_no_build.h" />
     <ClInclude Include="fortress\tf_func_resource.h" />
     <ClInclude Include="fortress\tf_hintmanager.h" />
     <ClInclude Include="fortress\tf_obj.h" />
     <ClInclude Include="fortress\tf_obj_buff_station.h" />
     <ClInclude Include="fortress\tf_obj_powerpack.h" />
     <ClInclude Include="fortress\tf_obj_rallyflag.h" />
+    <ClInclude Include="fortress\tf_obj_resourcepump.h" />
     <ClInclude Include="fortress\tf_obj_respawn_station.h" />
+    <ClInclude Include="fortress\tf_obj_sandbag_bunker.h" />
     <ClInclude Include="fortress\tf_player.h" />
     <ClInclude Include="fortress\tf_playerclass.h" />
     <ClInclude Include="fortress\tf_playerlocaldata.h" />
@@ -823,6 +828,7 @@ exit 1
     <ClCompile Include="..\shared\fortress\baseobject_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
+    <ClCompile Include="..\shared\fortress\grenade_objectsapper.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp" />
     <ClCompile Include="..\shared\fortress\team_messages.cpp" />
@@ -852,10 +858,12 @@ exit 1
     <ClCompile Include="fortress\info_act.cpp" />
     <ClCompile Include="fortress\info_buildpoint.cpp" />
     <ClCompile Include="fortress\info_customtech.cpp" />
+    <ClCompile Include="fortress\info_input_respawnplayers.cpp" />
     <ClCompile Include="fortress\info_vehicle_bay.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="fortress\menu_base.cpp" />
+    <ClCompile Include="fortress\ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\resource_chunk.cpp" />
     <ClCompile Include="fortress\sensor_tf_team.cpp" />
     <ClCompile Include="fortress\tf2_eventlog.cpp" />
@@ -863,6 +871,7 @@ exit 1
     <ClCompile Include="fortress\tf_client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="fortress\tf_func_no_build.cpp" />
     <ClCompile Include="fortress\tf_func_resource.cpp" />
     <ClCompile Include="fortress\tf_gameinterface.cpp" />
     <ClCompile Include="fortress\tf_hintmanager.cpp" />
@@ -872,7 +881,9 @@ exit 1
     <ClCompile Include="fortress\tf_obj_buff_station.cpp" />
     <ClCompile Include="fortress\tf_obj_powerpack.cpp" />
     <ClCompile Include="fortress\tf_obj_rallyflag.cpp" />
+    <ClCompile Include="fortress\tf_obj_resourcepump.cpp" />
     <ClCompile Include="fortress\tf_obj_respawn_station.cpp" />
+    <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp" />
     <ClCompile Include="fortress\tf_player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -1152,6 +1163,7 @@ exit 1
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="mapdata_server.cpp" />
     <ClCompile Include="mapentities.cpp" />
     <ClCompile Include="..\..\game\shared\mapentities_shared.cpp" />
     <ClCompile Include="maprules.cpp" />

@@ -1,79 +1,92 @@
 TechTreeDataFile
-{
-	class_recon
+{	
+	HumanBaseWeapons
 	{
-	}
-	
-	class_commando
-	{
-		printname		"Commando"
-		buttonname		"test"
-		description		"Commando Class"
-		texture			"commando"
-		level			0
-		goal			0
-		hidden			0
-		resourcecost	0
+		hidden		1
+		
+		class_results
+		{
+			all
+			{
+				associateweapons	1
+			}
+		}
 		
 		associated_weapons
 		{
-			weapon_combat_burstrifle
-			weapon_combat_plasmarifle
-		}
-		
-		technologies
-		{
-			com_obj_rallyflag
-			{
-			}
-			
-			com_adrenalin_rush
-			{
-			}
-			
-			com_adrenalin_battlecry
-			{
-			}
-			
-			com_adrenalin_rampage
-			{
-			}
-			
-			com_comboshield_parry
-			{
-			}
+			0	"weapon_combat_burstrifle"
 		}
 	}
 	
-	class_medic
+	com_obj_rallyflag
 	{
 	}
 	
-	class_defender
+	com_adrenalin_rush
 	{
 	}
 	
-	class_sniper
+	com_adrenalin_battlecry
 	{
 	}
 	
-	class_support
+	com_adrenalin_rampage
 	{
 	}
 	
-	class_escort
+	com_comboshield_parry
 	{
 	}
 	
-	class_sapper
+	sentrygun_two
 	{
 	}
 	
-	class_infiltrator
+	sentrygun_three
 	{
 	}
 	
-	class_pyro
+	sentrygun_ai
+	{
+	}
+	
+	sentrygun_sensors
+	{
+	}
+	
+	sentrygun_rocket
+	{
+	}
+	
+	inf_consume_corpse
+	{
+	}
+	
+	obj_autorepair
+	{
+	}
+	
+	rec_b_radar_scanners
+	{
+	}
+	
+	emp1
+	{
+	}
+	
+	emp3
+	{
+	}
+	
+	emp4
+	{
+	}
+	
+	emp5
+	{
+	}
+	
+	sniper_deploy_stealth
 	{
 	}
 }

@@ -6,11 +6,11 @@ objects
 		StatusName				"Powerpack"
 		BuilderWeaponName		"Powerpack"
 		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	1
+		SolidToPlayerMovement	0
 		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				5
-		Cost					100
+		BuildTime				5
+		MaxObjects				2
+		Cost					40
 		CostMultiplier			1
 		UpgradeCost				0
 		MaxUpgradeLevel			0
@@ -97,21 +97,21 @@ objects
 	
 	OBJ_RESOURCEPUMP
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
-		BuilderPlacementString	"Place on ground"
+		ClassName				obj_resourcepump
+		StatusName				"Resource Pump"
+		BuilderWeaponName		"Resource Pump"
+		BuilderPlacementString	"Place on zone"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
-		CostMultiplier		1
-		UpgradeCost		0
-		MaxUpgradeLevel		0
-		SelectionSlot		0
-		SelectionPosition	0
-		SapperAttachTime	1
+		Icon					"placeholder"
+		BuildTime				10
+		MaxObjects				1
+		Cost					100
+		CostMultiplier			1
+		UpgradeCost				0
+		MaxUpgradeLevel			0
+		SelectionSlot			0
+		SelectionPosition		0
+		SapperAttachTime		1
 	}
 	
 	OBJ_RESPAWN_STATION
