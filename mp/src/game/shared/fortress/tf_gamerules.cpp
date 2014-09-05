@@ -402,9 +402,6 @@ END_NETWORK_TABLE()
 		return pSpawnSpot;
 	}
 
-	//-----------------------------------------------------------------------------
-	// Purpose: 
-	//-----------------------------------------------------------------------------
 	CTeamFortress::CTeamFortress()
 	{
 		m_bAllowWeaponSwitch = true;
@@ -1309,6 +1306,11 @@ END_NETWORK_TABLE()
 		g_hCurrentAct = NULL;
 
 		BaseClass::LevelShutdown();
+	}
+
+	bool CTeamFortress::IsConnectedUserInfoChangeAllowed( CBasePlayer *pPlayer )
+	{
+		return true;
 	}
 
 	void InitBodyQue(void)

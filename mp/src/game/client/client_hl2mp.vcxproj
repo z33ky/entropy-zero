@@ -425,6 +425,7 @@ exit 1
     <ClInclude Include="fortress\c_info_act.h" />
     <ClInclude Include="fortress\c_obj_resourcepump.h" />
     <ClInclude Include="fortress\c_obj_respawn_station.h" />
+    <ClInclude Include="fortress\c_order.h" />
     <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
@@ -444,6 +445,7 @@ exit 1
     <ClInclude Include="fortress\hud_commander_statuspanel.h" />
     <ClInclude Include="fortress\hud_minimap.h" />
     <ClInclude Include="fortress\hud_numeric.h" />
+    <ClInclude Include="fortress\hud_orders.h" />
     <ClInclude Include="fortress\hud_targetreticle.h" />
     <ClInclude Include="fortress\hud_technologytreedoc.h" />
     <ClInclude Include="fortress\hud_timer.h" />
@@ -969,7 +971,9 @@ exit 1
     <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
     <ClCompile Include="fortress\c_obj_resourcepump.cpp" />
     <ClCompile Include="fortress\c_obj_respawn_station.cpp" />
+    <ClCompile Include="fortress\c_obj_resupply.cpp" />
     <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp" />
+    <ClCompile Include="fortress\c_order.cpp" />
     <ClCompile Include="fortress\c_ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_shield.cpp" />
@@ -998,6 +1002,7 @@ exit 1
     <ClCompile Include="fortress\hud_health.cpp" />
     <ClCompile Include="fortress\hud_minimap.cpp" />
     <ClCompile Include="fortress\hud_numeric.cpp" />
+    <ClCompile Include="fortress\hud_orders.cpp" />
     <ClCompile Include="fortress\hud_resources.cpp" />
     <ClCompile Include="fortress\hud_technologytreedoc.cpp" />
     <ClCompile Include="fortress\hud_timer.cpp" />

@@ -1,0 +1,9 @@
+CommanderOverlays
+{
+	test2
+	{
+		type		resourcezone
+		pixelswide	64
+		pixelshigh	64
+	}
+}

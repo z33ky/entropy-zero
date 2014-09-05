@@ -73,33 +73,19 @@ void CTFModeManager::Init( void )
 	HOOK_MESSAGE( ActEnd );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : 
-//-----------------------------------------------------------------------------
 CTFModeManager::CTFModeManager( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : 
-//-----------------------------------------------------------------------------
 CTFModeManager::~CTFModeManager( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFModeManager::UserCmd_Commander( void )
 {
 	engine->ServerCmd( "tactical 1\n" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFModeManager::UserCmd_Normal( void )
 {
 	engine->ServerCmd( "tactical 0\n" );
@@ -126,10 +112,6 @@ void CTFModeManager::SwitchMode( bool commander, bool force )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *newmap - 
-//-----------------------------------------------------------------------------
 void CTFModeManager::LevelInit( const char *newmap )
 {
 	GetTechnologyTreeDoc().LevelInit();

@@ -8,10 +8,8 @@
 #include "tf_player.h"
 #include "techtree.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_resupply.h"
 #include "orders.h"
-#endif
 #include "entitylist.h"
 #include "team_spawnpoint.h"
 #include "team_messages.h"
@@ -926,14 +924,12 @@ int CTFTeam::GetNumResuppliesCoveringPosition( const Vector &vPos )
 {
 	int count = 0;
 
-#ifdef IMPLEMENT_ME
 	for ( int i=0; i < m_aResupplyBeacons.Count(); i++ )
 	{
 		CBaseObject *pObj = m_aResupplyBeacons[i];
 		if ( vPos.DistTo( pObj->GetAbsOrigin() ) < RESUPPLY_COVER_DIST )
 			++count;
 	}
-#endif
 
 	return count;
 }
@@ -1033,12 +1029,11 @@ COrder* CTFTeam::AddOrder(
 	// The new system requires order class to be passed in.
 	Assert( pNewOrder );
 
-#ifdef IMPLEMENT_ME
 	// All the order create functions should just use new to create the order class,
 	// then we'll attach the edict in here. There's no reason to use LINK_ENTITY_TO_CLASS
 	// and CreateEntityByName.
-	Assert( !pNewOrder->pev );
-	pNewOrder->AttachEdict();
+	Assert( !pNewOrder->edict() );
+	pNewOrder->NetworkProp()->AttachEdict();
 	
 	pNewOrder->ChangeTeam( GetTeamNumber() );
 	OrderHandle hOrder;
@@ -1065,14 +1060,10 @@ COrder* CTFTeam::AddOrder(
 	// Debug check.. it should never create an order with its termination conditions
 	// already met.	
 	Assert( !pNewOrder->Update() );
-#endif
 
 	return pNewOrder;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFTeam::RemoveOrder( COrder *pOrder )
 {
 	OrderHandle hOrder;
@@ -1092,7 +1083,6 @@ void CTFTeam::RecalcOrders( void )
 
 void CTFTeam::UpdateOrders( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell all our current orders to update themselves. Walk backwards because we may remove them.
 	int iSize = m_aOrders.Count();
 	for (int i = iSize-1; i >= 0; i--)
@@ -1109,14 +1099,12 @@ void CTFTeam::UpdateOrders( void )
 			UTIL_Remove( pOrder );
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: An event has just occurred that affects orders. Tell all our orders that
 //			have the specified entity as a target.
 //-----------------------------------------------------------------------------
-#ifdef IMPLEMENT_ME
 void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 {
 	// Tell all our current orders to update themselves. Walk backwards because we may remove them.
@@ -1132,7 +1120,6 @@ void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 		}
 	}
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Create personal orders for all the team's members
@@ -1160,13 +1147,8 @@ void CTFTeam::CreatePersonalOrder( CBaseTFPlayer *pPlayer )
 		pPlayer->GetPlayerClass()->CreatePersonalOrder();
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTFTeam::RemoveOrdersToPlayer( CBaseTFPlayer *pPlayer )
 {
-#ifdef IMPLEMENT_ME
 	// Walk backwards because we're removing them.
 	int iSize = m_aOrders.Count();
 	for (int i = iSize-1; i >= 0; i--)
@@ -1188,7 +1170,6 @@ void CTFTeam::RemoveOrdersToPlayer( CBaseTFPlayer *pPlayer )
 			m_aOrders.Remove( i );
 		}
 	}
-#endif
 
 	pPlayer->SetOrder( NULL );
 }
@@ -1200,7 +1181,7 @@ void CTFTeam::RemoveOrdersToPlayer( CBaseTFPlayer *pPlayer )
 int CTFTeam::CountOrders( int flags, int iOrderType, CBaseEntity *pTarget, CBaseTFPlayer *pOwner )
 {
 	int iOrderCount = 0;
-#ifdef IMPLEMENT_ME
+
 	// Count the number of global orders
 	for ( int i = 0; i < m_aOrders.Count(); i++ )
 	{
@@ -1221,7 +1202,6 @@ int CTFTeam::CountOrders( int flags, int iOrderType, CBaseEntity *pTarget, CBase
 		// Ok, this order matches the criteria.
 		iOrderCount++;
 	}
-#endif
 
 	return iOrderCount;
 }

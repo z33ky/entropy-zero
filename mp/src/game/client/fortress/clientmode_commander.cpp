@@ -46,10 +46,6 @@ IClientMode *ClientModeCommander()
 	return &g_ClientModeCommander;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *commander - 
-//-----------------------------------------------------------------------------
 void CCommanderViewportPanel::SetCommanderView( CClientModeCommander *commander )
 {
 	m_pCommanderView = commander;
@@ -60,18 +56,11 @@ void CCommanderViewportPanel::SetCommanderView( CClientModeCommander *commander 
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : CCommanderOverlayPanel
-//-----------------------------------------------------------------------------
 CCommanderOverlayPanel *CCommanderViewportPanel::GetCommanderOverlayPanel( void )
 {
 	return m_pOverlayPanel;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CCommanderViewportPanel::CCommanderViewportPanel( void ) :
 	m_CursorCommander( vgui::dc_arrow ),
 	m_CursorRightMouseMove(vgui::dc_hand)
@@ -88,6 +77,7 @@ CCommanderViewportPanel::CCommanderViewportPanel( void ) :
 
 CCommanderViewportPanel::~CCommanderViewportPanel( void )
 {
+	m_pOverlayPanel->DeletePanel();
 }
 
 //-----------------------------------------------------------------------------
@@ -120,9 +110,6 @@ void CCommanderViewportPanel::Enable()
 	SetVisible( true );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CCommanderViewportPanel::Disable()
 {
 	if ( m_pOverlayPanel )
@@ -146,9 +133,6 @@ void CCommanderViewportPanel::MinimapClicked( const Vector& clickWorldPos )
 	m_pOverlayPanel->TacticalOrigin() = actualOrigin;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CClientModeCommander::CClientModeCommander() : BaseClass()
 {
 	m_pClear = NULL;
@@ -160,9 +144,6 @@ CClientModeCommander::CClientModeCommander() : BaseClass()
 	GetCommanderViewport()->SetCommanderView( this );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CClientModeCommander::~CClientModeCommander()
 {
 
@@ -183,10 +164,6 @@ void CClientModeCommander::Init( void )
 	GetCommanderViewport()->RequestFocus();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : vgui::Panel
-//-----------------------------------------------------------------------------
 vgui::Panel *CClientModeCommander::GetMinimapParent( void )
 {
 	return GetCommanderOverlayPanel();
@@ -230,9 +207,6 @@ void CClientModeCommander::Enable()
 	BaseClass::Enable();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CClientModeCommander::Disable()
 {
 	BaseClass::Disable();
@@ -241,10 +215,6 @@ void CClientModeCommander::Disable()
 	
 	HudCommanderOverlayMgr()->Enable( false );
 }
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 
 void CClientModeCommander::Update()
 {
@@ -264,9 +234,6 @@ void CClientModeCommander::Update()
 	HudCommanderOverlayMgr()->Tick( );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CClientModeCommander::Layout()
 {
 	BaseClass::Layout();
@@ -284,7 +251,6 @@ bool CClientModeCommander::ShouldDrawFog( void )
 	return false;
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Checks map bounds and determines ideal height for tactical view
 // Input  : fov - 
@@ -297,7 +263,6 @@ float CClientModeCommander::GetHeightForMap( float zoom )
 	MapData().GetMapBounds( mins, maxs );
 	return maxs.z + TACTICAL_ZOFFSET; 
 }
-
 
 bool CClientModeCommander::GetOrthoParameters(CViewSetup *pSetup)
 {
@@ -314,11 +279,6 @@ bool CClientModeCommander::GetOrthoParameters(CViewSetup *pSetup)
 	return true;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *angles - 
-//-----------------------------------------------------------------------------
 void CClientModeCommander::OverrideView( CViewSetup *pSetup )
 {
 	// Turn off vis when in commander mode

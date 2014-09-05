@@ -34,6 +34,9 @@
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{3232c668-f9fc-412e-b896-057f9e2604e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shared">
+      <UniqueIdentifier>{fb216a71-d66a-4ef6-b0c3-790e57e695d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\choreoobjects.lib">
@@ -1739,6 +1742,15 @@
     <ClInclude Include="..\shared\fortress\grenade_objectsapper.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\order_events.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_resupply.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\orders.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3246,6 +3258,15 @@
     </ClCompile>
     <ClCompile Include="..\shared\fortress\grenade_objectsapper.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_events.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_resupply.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\orders.cpp">
+      <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

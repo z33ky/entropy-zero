@@ -32,8 +32,8 @@
 #include "hierarchy.h"
 #ifdef IMPLEMENT_ME
 #include "tf_func_construction_yard.h"
-#include "tf_func_no_build.h"
 #endif
+#include "tf_func_no_build.h"
 #include <KeyValues.h>
 #include "team_messages.h"
 #include "info_act.h"
@@ -265,9 +265,6 @@ void CBaseObject::Spawn( void )
 
 	SetContextThink( &CBaseObject::BaseObjectThink, gpGlobals->curtime + 0.1, OBJ_BASE_THINK_CONTEXT );
 	m_szAmmoName = NULL;
-#ifdef IMPLEMENT_ME // ?
-	NetworkStateManualMode( true );
-#endif
 
 	AddFlag( FL_OBJECT ); // So NPCs will notice it
 	SetViewOffset( WorldSpaceCenter() - GetAbsOrigin() );
@@ -953,11 +950,9 @@ bool CBaseObject::CheckBuildPoint( Vector vecPoint, Vector &vecTrace, Vector *ve
 	bool bClear = true;
 	Vector vecEnd;
 
-#ifdef IMPLEMENT_ME
 	// Ensure that this point isn't in a no-build zone:
 	if( !tf_fastbuild.GetInt() && NoBuildPreventsBuild(this, vecPoint ) )
 		bClear = false;
-#endif
 
 	// If the point isn't in solid, trace down until we find the ground
 	if ( enginetrace->GetPointContents( vecPoint ) == CONTENTS_EMPTY )
@@ -1020,10 +1015,10 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 		// First, find the ground (ie: where the bottom of the box goes).
 		trace_t tr;
 		float bottomZ = 0;
-		int nIterations = 6;
+		int nIterations = 6, iIteration;
 		float topZ = flBoxTopZ;
 		float topZInc = (flBoxBottomZ - flBoxTopZ) / (nIterations-1);
-		for ( int iIteration = 0; iIteration < nIterations; iIteration++ )
+		for ( iIteration = 0; iIteration < nIterations; iIteration++ )
 		{
 			UTIL_TraceHull( 
 				Vector( m_vecBuildOrigin.x, m_vecBuildOrigin.y, topZ ), 
@@ -1047,13 +1042,11 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 			topZ += topZInc;
 		}
 		
-#ifdef IMPLEMENT_ME
 		if ( iIteration == nIterations )
 		{
 			m_vecBuildOrigin = vErrorOrigin;
 			return false;
 		}
-#endif
 
 		// Now see if the range we've got leaves us room for our box.
 		if ( topZ - bottomZ < vBuildDims.z )
@@ -1280,29 +1273,6 @@ bool CBaseObject::UpdatePlacement( CBaseTFPlayer *pPlayer )
 
 bool CBaseObject::PreStartBuilding()
 {
-#if 0
-	// This was part of the morph test.  We aren't currently doing anything
-	// with it, but we may at some point.  
-
-	// Morph the terrain underneath the object.
-	CTerrainModParams morphParams;
-
-	Vector vecCenter = GetAbsOrigin();
-	morphParams.m_vCenter = vecCenter;
-
-	Vector vecMorphMin, vecMorphMax;
-	if ( VPhysicsGetObject() )
-		physcollision->CollideGetAABB( vecMorphMin, vecMorphMax, VPhysicsGetObject()->GetCollide(), GetAbsOrigin(), GetAbsAngles() );
-
-	vecMorphMin -= Vector( 75.0f, 75.0f, 300.0f );
-	vecMorphMax += Vector( 75.0f, 75.0f, 0.0f );
-	morphParams.m_vecMin = vecMorphMin;
-	morphParams.m_vecMax = vecMorphMax;
-
-	// Apply the TMod_AABB					
-	TerrainMod_Apply( TMod_AABB, morphParams );
-#endif
-
 	return true;
 }
 

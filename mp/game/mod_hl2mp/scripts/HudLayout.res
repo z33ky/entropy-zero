@@ -27,11 +27,52 @@ HudLayout
 		tall	 	"480"
 	}
 	
+	WeaponMenu1
+	{
+		fieldName			"WeaponMenu1"
+		xpos				"16"
+		ypos				"16"
+		visible 			"1"
+		enabled 			"1"
+		wide				"64"
+		tall				"64"
+		IconWidth			"32"
+		IconHeight			"32"
+		TextXPos			"10"
+		TextYPos			"48"
+		PaintBackgroundType	"2"
+	}
+	
+	BuildMenu1
+	{
+		fieldName			"BuildMenu1"
+		xpos				"16"
+		ypos				"16"
+		visible 			"1"
+		enabled 			"1"
+		wide				"64"
+		tall				"64"
+		IconWidth			"32"
+		IconHeight			"32"
+		TextXPos			"10"
+		TextYPos			"48"
+		PaintBackgroundType	"2"
+	}
+	
 	HudWeaponSelection
 	{
 		fieldName			"HudWeaponSelection"
+		xpos				"16"
+		ypos				"16"
 		visible 			"1"
 		enabled 			"1"
+		wide				"64"
+		tall				"64"
+		IconWidth			"32"
+		IconHeight			"32"
+		TextXPos			"10"
+		TextYPos			"48"
+		PaintBackgroundType	"2"
 	}
 	
 	HudHealth

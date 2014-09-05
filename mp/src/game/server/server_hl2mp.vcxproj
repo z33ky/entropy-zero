@@ -354,6 +354,8 @@ exit 1
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="fortress\menu_base.h" />
+    <ClInclude Include="fortress\orders.h" />
+    <ClInclude Include="fortress\order_events.h" />
     <ClInclude Include="fortress\ragdoll_shadow.h" />
     <ClInclude Include="fortress\resource_chunk.h" />
     <ClInclude Include="fortress\team_messages.h" />
@@ -368,6 +370,7 @@ exit 1
     <ClInclude Include="fortress\tf_obj_rallyflag.h" />
     <ClInclude Include="fortress\tf_obj_resourcepump.h" />
     <ClInclude Include="fortress\tf_obj_respawn_station.h" />
+    <ClInclude Include="fortress\tf_obj_resupply.h" />
     <ClInclude Include="fortress\tf_obj_sandbag_bunker.h" />
     <ClInclude Include="fortress\tf_player.h" />
     <ClInclude Include="fortress\tf_playerclass.h" />
@@ -863,6 +866,8 @@ exit 1
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="fortress\menu_base.cpp" />
+    <ClCompile Include="fortress\orders.cpp" />
+    <ClCompile Include="fortress\order_events.cpp" />
     <ClCompile Include="fortress\ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\resource_chunk.cpp" />
     <ClCompile Include="fortress\sensor_tf_team.cpp" />
@@ -883,6 +888,7 @@ exit 1
     <ClCompile Include="fortress\tf_obj_rallyflag.cpp" />
     <ClCompile Include="fortress\tf_obj_resourcepump.cpp" />
     <ClCompile Include="fortress\tf_obj_respawn_station.cpp" />
+    <ClCompile Include="fortress\tf_obj_resupply.cpp" />
     <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp" />
     <ClCompile Include="fortress\tf_player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

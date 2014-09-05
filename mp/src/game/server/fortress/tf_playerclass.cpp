@@ -14,8 +14,8 @@
 #include "tfclassdata_shared.h"
 #include "tf_team.h"
 #include "tf_func_resource.h"
-#ifdef IMPLEMENT_ME
 #include "orders.h"
+#ifdef IMPLEMENT_ME
 #include "order_repair.h"
 #endif
 #include "engine/IEngineSound.h"

@@ -1,3 +1,9 @@
 MinimapOverlays
 {
+	test
+	{
+		type		resourcezone
+		pixelswide	64
+		pixelshigh	64
+	}
 }

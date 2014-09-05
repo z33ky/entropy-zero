@@ -23,7 +23,6 @@ public:
 	DECLARE_CLASS( CTeamFortress, CTeamplayRules );
 
 #ifndef CLIENT_DLL
-	//DECLARE_NETWORKCLASS();
 	DECLARE_SERVERCLASS_NOBASE();
 #else
 	DECLARE_CLIENTCLASS_NOBASE();
@@ -39,11 +38,7 @@ public:
 		const Vector &vecSpread, float flDistance, int iBulletType, int iTracerFreq, int firingEntID, 
 		int attachmentID, const char *sCustomTracer = NULL );
 
-
-#ifdef CLIENT_DLL
-
-
-#else
+#ifdef GAME_DLL
 
 	CTeamFortress();
 	virtual ~CTeamFortress();
@@ -83,7 +78,7 @@ public:
 	virtual bool PlayerCanHearChat( CBasePlayer *pListener, CBasePlayer *pSpeaker );
 	virtual void			InitDefaultAIRelationships( void );
 
-	virtual const char *GetGameDescription( void ) { return "TeamFortress 2"; }  // this is the game name that gets seen in the server browser
+	virtual const char *GetGameDescription( void ) { return "Fortress"; }  // this is the game name that gets seen in the server browser
 	virtual const char *AIClassText(int classType);
 
 	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBaseCombatWeapon *pWeapon );
@@ -92,6 +87,8 @@ public:
 
 	// Is the ray blocked by enemy shields?
 	bool IsBlockedByEnemyShields( const Vector& src, const Vector& end, int nFriendlyTeam );
+
+	virtual bool IsConnectedUserInfoChangeAllowed( CBasePlayer *pPlayer );
 
 public:
 
@@ -123,9 +120,7 @@ inline CTeamFortress* TFGameRules()
 void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity, int iDamageType );
 
 
-#ifdef CLIENT_DLL
-
-#else
+#ifndef CLIENT_DLL
 
 	//-----------------------------------------------------------------------------
 	// Purpose: Useful utility functions

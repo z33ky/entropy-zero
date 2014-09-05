@@ -653,18 +653,6 @@ void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 		TransformParticle(m_pParticleMgr->GetModelView(), pInParticle->m_Pos, tPos);
 		float sortKey = tPos.z;
 
-		// Add our blended offset
-		if ( gpGlobals->curtime < m_Shared.GetSpawnTime() + REMAP_BLEND_TIME )
-		{
-			float frac = ( gpGlobals->curtime - m_Shared.GetSpawnTime() ) / REMAP_BLEND_TIME;
-			frac = 1.0f - clamp( frac, 0.0f, 1.0f );
-			Vector scaledOffset;
-			VectorScale( m_vecGunOriginOffset, frac, scaledOffset );
-#ifdef IMPLEMENT_ME
-			pInParticle->m_Pos += scaledOffset;
-#endif
-		}
-
 		float timeDelta = pIterator->GetParticleDraw()->GetTimeDelta();
 
 		// Render the head particle
@@ -768,6 +756,16 @@ void CBasePlasmaProjectile::SimulateParticles(CParticleSimulateIterator *pIterat
 	while(pParticle)
 	{
 		pParticle->m_Pos = GetAbsOrigin();
+
+		// Add our blended offset
+		if ( gpGlobals->curtime < m_Shared.GetSpawnTime() + REMAP_BLEND_TIME )
+		{
+			float frac = ( gpGlobals->curtime - m_Shared.GetSpawnTime() ) / REMAP_BLEND_TIME;
+			frac = 1.0f - clamp( frac, 0.0f, 1.0f );
+			Vector scaledOffset;
+			VectorScale( m_vecGunOriginOffset, frac, scaledOffset );
+			pParticle->m_Pos += scaledOffset;
+		}
 
 		pParticle = (Particle*)pIterator->GetNext();
 	}

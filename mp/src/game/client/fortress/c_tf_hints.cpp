@@ -8,9 +8,7 @@
 #include "paneleffect.h"
 #include "techtree.h"
 #include "hintitemobjectbase.h"
-#ifdef IMPLEMENT_ME
 #include "c_order.h"
-#endif
 #include "c_basetfplayer.h"
 #include "weapon_selection.h"
 #include <KeyValues.h>
@@ -144,7 +142,6 @@ void CHintGotoObject::Think( void )
 	C_TFBaseHint *hint = static_cast< C_TFBaseHint * >( GetParent() );
 	if ( hint )
 	{
-#ifdef IMPLEMENT_ME
 		C_Order *order = dynamic_cast< C_Order * >( ClientEntityList().GetEnt( hint->GetEntity() ) );
 		if ( order )
 		{
@@ -176,7 +173,6 @@ void CHintGotoObject::Think( void )
 				}
 			}
 		}
-#endif
 	}
 }
 
@@ -324,10 +320,6 @@ const char *CHintDeployWeapon::GetKeyName( void )
 	return keyname;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pKeyValues - 
-//-----------------------------------------------------------------------------
 void CHintDeployWeapon::ParseItem( KeyValues *pKeyValues )
 {
 	BaseClass::ParseItem( pKeyValues );
@@ -345,9 +337,6 @@ void CHintDeployWeapon::ParseItem( KeyValues *pKeyValues )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHintDeployWeapon::Think( void )
 {
 	BaseClass::Think();
@@ -372,9 +361,6 @@ void CHintDeployWeapon::Think( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 class CHintStartPlacing : public CHintItemOrderBase
 {
 	DECLARE_CLASS( CHintStartPlacing, CHintItemOrderBase );
@@ -511,9 +497,6 @@ void CHintWaitBuilding::Think( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 class CHintBuilderSelection : public CHintItemOrderBase
 {
 	DECLARE_CLASS( CHintBuilderSelection, CHintItemOrderBase );
@@ -540,24 +523,12 @@ private:
 
 DECLARE_HINTITEMFACTORY( CHintBuilderSelection )
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *parent - 
-//			*panelName - 
-//-----------------------------------------------------------------------------
 CHintBuilderSelection::CHintBuilderSelection( vgui::Panel *parent, const char *panelName ) 
 	: BaseClass( parent, panelName )
 {
 	SetSelection( "" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *instring - 
-//			keylength - 
-//			**ppOutstring - 
-// Output : Returns true on success, false on failure.
-//-----------------------------------------------------------------------------
 bool CHintBuilderSelection::CheckKeyAndValue( const char *instring, int* keylength, const char **ppOutstring )
 {
 	if ( !Q_strnicmp( instring, "selection", strlen( "selection" ) ) )

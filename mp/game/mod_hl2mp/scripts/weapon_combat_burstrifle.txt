@@ -6,8 +6,8 @@ WeaponData
 	anim_prefix		"smg2"
 	bucket			0
 	bucket_position	4
-	clip_size		15
-	default_clip	15
+	clip_size		30
+	default_clip	30
 	primary_ammo	"Bullets"
 	secondary_ammo	"None"
 	weight			"7"

@@ -20,9 +20,7 @@
 #include "tf_gamerules.h"
 #include "tf_obj.h"
 #include "weapon_builder.h"
-#ifdef IMPLEMENT_ME
 #include "orders.h"
-#endif
 #include "decals.h"
 #include "tf_func_resource.h"
 #include "resource_chunk.h"
@@ -1684,13 +1682,12 @@ int CBaseTFPlayer::OnTakeDamage( const CTakeDamageInfo &info )
 
 	//if ( GetFlags() & FL_GODMODE )
 		//return 0;
-#ifdef IMPLEMENT_ME
+
 	// Generate a global order event.
 	COrderEvent_PlayerDamaged event;
 	event.m_pPlayerDamaged = this;
 	event.m_TakeDamageInfo = info;
 	GlobalOrderEvent( &event );	
-#endif
 
 	// Don't do damage if the player's in a vehicle, in a non-damagable spot.
 	if ( IsInAVehicle() && m_hVehicle.Get() )
@@ -2053,12 +2050,11 @@ void CBaseTFPlayer::SetupVisibility( CBaseEntity *pViewEntity, unsigned char *pv
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::SetOrder( COrder *pOrder )
 {
-#ifdef IMPLEMENT_ME
 	if ( m_hSelectedOrder.Get() && m_hSelectedOrder != pOrder )
 	{
 		m_hSelectedOrder->SetOwner( NULL );	
 	}
-#endif
+
 	m_hSelectedOrder = pOrder;
 }
 

@@ -1,0 +1,32 @@
+Invasion Notes
+
+This is a set of notes to stop myself looking into things thinking they're a bug
+and finding out shortly after that they're instead by design. Invasion worked very
+differently to the final TF2 so I really need to teach myself to keep out of that
+mindset. I suppose these will also help anyone else curious as to why certain things
+seem to do what they do...
+
+Q.	Were there meant to be multiple resource types?
+
+Q.	Why is the minimap covering half the screen on spawn?
+
+--------------------------
+
+Q. 	I've set object limits but can keep on creating objects anyway...
+A. 	This is by design, players aren't limited by the number of objects but by
+	their resource count instead, by default. There's a console variable however
+	that will change how this works; tf2_object_hard_limits, which by default is
+	obviously false.
+	
+Q.	I've given an object a resource cost of 100 only to find that it's using 80
+	in-game.
+A.	This'll only occur when on the Human team as they automatically get an 8%
+	discount on their objects.
+	
+Q.	I died but didn't lose any resources?
+A.	Resources are held by the team, not individual players.
+
+Q.	Why aren't there any sparks when I hit something?
+A.	To put it simply, they probably weren't implemented when Invasion was being
+	developed. It seems that Invasion used physical models to produce such impact
+	effects (which were also disabled due to perf concerns).

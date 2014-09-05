@@ -1,15 +1,3 @@
-//======== (C) Copyright 1999, 2000 Valve, L.L.C. All rights reserved. ========
-//
-// The copyright to the contents herein is the property of Valve, L.L.C.
-// The contents may be used and/or copied only with the written permission of
-// Valve, L.L.C., or in accordance with the terms and conditions stipulated in
-// the agreement/contract under which the contents have been supplied.
-//
-// Purpose: 
-//
-// $Workfile:     $
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "hud_minimap.h"
 #include <vgui_controls/Controls.h>
@@ -130,9 +118,6 @@ CTextHelpPanel::CTextHelpPanel()
 	m_pImage = NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTextHelpPanel::PaintBackground()
 {
 	// Get alpha from image
@@ -148,9 +133,6 @@ void CTextHelpPanel::PaintBackground()
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CTextHelpPanel::Paint()
 {
 	BaseClass::Paint();
@@ -169,14 +151,6 @@ void CTextHelpPanel::Paint()
 	surface()->DrawOutlinedRect( 1, 1, w-1, h-1 );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *image - 
-//			x - 
-//			y - 
-//			w - 
-//			h - 
-//-----------------------------------------------------------------------------
 void CTextHelpPanel::SetImage( BitmapImage *image )
 {
 	m_pImage = image;
@@ -314,11 +288,6 @@ void CMinimapPanel::Activate()
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : w - 
-//			h - 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::OnSizeChanged( int w, int h )
 {
 	BaseClass::OnSizeChanged( w, h );

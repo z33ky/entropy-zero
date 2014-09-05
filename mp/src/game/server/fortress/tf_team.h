@@ -17,9 +17,7 @@
 #include "tf_shareddefs.h"
 #include "techtree.h"
 #include "team.h"
-#ifdef IMPLEMENT_ME
 #include "order_events.h"
-#endif
 
 class CBaseTFPlayer;
 class CResourceZone;
@@ -155,9 +153,7 @@ public:
 	void	RemoveOrder( COrder *pOrder );
 	void	RecalcOrders( void );
 	void	UpdateOrders( void );
-#ifdef IMPLEMENT_ME
 	void	UpdateOrdersOnEvent( COrderEvent_Base *pEvent );
-#endif
 	
 	// Flags is a combination of COUNTORDERS_ flags telling which fields to check.
 	int		CountOrders( int flags, int iOrderType, CBaseEntity *pTarget=0, CBaseTFPlayer *pOwner=0 );

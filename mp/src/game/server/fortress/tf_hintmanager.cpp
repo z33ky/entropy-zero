@@ -9,14 +9,8 @@ END_SEND_TABLE()
 
 LINK_ENTITY_TO_CLASS( tf_hintmanager, CTFHintManager );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CTFHintManager::CTFHintManager( void )
 {
-#ifdef IMPLEMENT_ME // ?
-	NetworkStateManualMode( true );
-#endif
 }
 
 void CTFHintManager::Spawn( void )
