@@ -77,7 +77,6 @@ CCommanderViewportPanel::CCommanderViewportPanel( void ) :
 
 CCommanderViewportPanel::~CCommanderViewportPanel( void )
 {
-	m_pOverlayPanel->DeletePanel();
 }
 
 //-----------------------------------------------------------------------------
