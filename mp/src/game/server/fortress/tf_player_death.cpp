@@ -111,11 +111,9 @@ void CBaseTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 
 	DropAllResourceChunks();
 
-#ifdef IMPLEMENT_ME
 	// Tell all teams to update their orders
 	COrderEvent_PlayerKilled order( this );
 	GlobalOrderEvent( &order );
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -214,11 +212,9 @@ bool CBaseTFPlayer::IsReadyToReinforce( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::Reinforce( void )
 {
-#ifdef IMPLEMENT_ME
 	// Tell all teams to update their orders
 	COrderEvent_PlayerRespawned order( this );
 	GlobalOrderEvent( &order );
-#endif
 
 	StopAnimation();
 	AddEffects( EF_NOINTERP );

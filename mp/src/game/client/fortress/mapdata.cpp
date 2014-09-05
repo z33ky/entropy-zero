@@ -3,9 +3,7 @@
 #include "hud.h"
 #include "hud_macros.h"
 #include <KeyValues.h>
-#ifdef IMPLEMENT_ME
 #include "playeroverlay.h"
-#endif
 #include "iclientmode.h"
 #include "hud_technologytreedoc.h"
 #include "C_World.h"

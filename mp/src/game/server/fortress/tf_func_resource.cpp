@@ -15,9 +15,7 @@
 #include "vstdlib/random.h"
 #include "engine/IEngineSound.h"
 #include "team_messages.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 
 LINK_ENTITY_TO_CLASS( trigger_resourcezone, CResourceZone);
 
@@ -416,9 +414,7 @@ void CResourceZone::SpawnChunk( const Vector &vecOrigin )
 	// ROBIN: Disabled for now
 	return;
 #else
-#ifdef IMPLEMENT_ME
 	TFStats()->IncrementStat( TF_STAT_RESOURCE_CHUNKS_SPAWNED, 1 );
-#endif
 
 	// Create a resource chunk and add it to our list
 	Vector vecVelocity = Vector( random->RandomFloat( -100,100 ), random->RandomFloat( -100,100 ), random->RandomFloat( 300,600 ));
@@ -440,10 +436,8 @@ void CResourceZone::RecomputeClientResources( )
 
 void CResourceZone::RemoveChunk( CResourceChunk *pChunk, bool bReturn )
 {
-#ifdef IMPLEMENT_ME
 	if (bReturn)
 		TFStats()->IncrementStat( TF_STAT_RESOURCE_CHUNKS_RETIRED, 1 );
-#endif
 
 	m_aChunks.FindAndRemove( pChunk );
 

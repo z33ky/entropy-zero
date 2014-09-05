@@ -11,9 +11,7 @@
 #include "techtree.h"
 #include "sendproxy.h"
 #include "vstdlib/random.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 #include "VGuiScreen.h"
 #include "engine/IEngineSound.h"
 
@@ -218,9 +216,7 @@ void CObjectResourcePump::ResourcePumpThink( void )
 
 		// Give out resources to the team
 		GetTFTeam()->AddTeamResources( iPumpedResources * GetTFTeam()->GetNumPlayers() );
-#ifdef IMPLEMENT_ME
 		TFStats()->IncrementTeamStat( GetTFTeam()->GetTeamNumber(), TF_TEAM_STAT_RESOURCES_HARVESTED, iPumpedResources );
-#endif
 	}
 
 	// If we've just run out of resources in the zone, shut down

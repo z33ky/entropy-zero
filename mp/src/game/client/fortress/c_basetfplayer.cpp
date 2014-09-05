@@ -11,9 +11,7 @@
 #include "ivrenderview.h"
 #include "model_types.h"
 #include "view_shared.h"
-#ifdef IMPLEMENT_ME
 #include "hud_orders.h"
-#endif
 #include "weapon_twohandedcontainer.h"
 #include "particles_simple.h"
 #include "playerandobjectenumerator.h"
@@ -1141,7 +1139,6 @@ void C_BaseTFPlayer::SetPersonalOrder( C_Order *pOrder )
 	// Do we have an order already?
 	RemoveOrderTarget();
 
-#ifdef IMPLEMENT_ME
 	m_hPersonalOrder = pOrder;
 	m_iPersonalTarget = pOrder->GetTarget();
 
@@ -1160,7 +1157,6 @@ void C_BaseTFPlayer::SetPersonalOrder( C_Order *pOrder )
 			}
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------

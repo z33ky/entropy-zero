@@ -124,14 +124,8 @@ bool CInfoAct::ShouldTransmit( const edict_t *recipient, const void *pvs, int cl
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CInfoAct::Spawn( void )
 {
-#ifdef IMPLEMENT_ME // ?
-	NetworkStateManualMode( true );
-#endif
 	m_flActStartedAt = 0;
 	m_iWinners = 0;
 }

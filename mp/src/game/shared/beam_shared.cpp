@@ -691,20 +691,6 @@ void CBeam::RelinkBeam( void )
 	Vector vecAbsExtra1, vecAbsExtra2;
 	bool bUseExtraPoints = false;
 
-#ifdef PORTAL
-	CBaseEntity *pStartEntity = GetStartEntityPtr();
-	
-	CTraceFilterSkipClassname traceFilter( pStartEntity, "prop_energy_ball", COLLISION_GROUP_NONE );
-	
-	ITraceFilter *pEntityBeamTraceFilter = NULL;
-	if ( pStartEntity )
-		pEntityBeamTraceFilter = pStartEntity->GetBeamTraceFilter();
-
-	CTraceFilterChain traceFilterChain( &traceFilter, pEntityBeamTraceFilter );
-
-	bUseExtraPoints = UTIL_Portal_Trace_Beam( this, startPos, endPos, vecAbsExtra1, vecAbsExtra2, &traceFilterChain );
-#endif
-
 	// UNDONE: Should we do this to make the boxes smaller?
 	//SetAbsOrigin( startPos );
 

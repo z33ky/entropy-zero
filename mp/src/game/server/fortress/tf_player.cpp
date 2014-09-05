@@ -51,9 +51,7 @@
 #include "IEffects.h"
 #include "info_act.h"
 #include "ai_basehumanoid.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 #include "iservervehicle.h"
 #ifdef IMPLEMENT_ME
 #include "tf_vehicle_teleport_station.h"
@@ -461,10 +459,8 @@ void CBaseTFPlayer::RecalculateSpeed( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::KilledPlayer( CBaseTFPlayer *pVictim )
 {
-#ifdef IMPLEMENT_ME
 	TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_KILL_COUNT, 1 );
 	TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_KILL_COUNT, 1 );
-#endif
 
 	// Am I in a rampage?
 	if ( HasPowerup( POWERUP_RUSH ) && IsInRampage() )
@@ -2061,13 +2057,9 @@ void CBaseTFPlayer::SetOrder( COrder *pOrder )
 
 int CBaseTFPlayer::GetNumResourceZoneOrders()
 {
-#ifdef IMPLEMENT_ME
 	return GetTFTeam()->CountOrders( COUNTORDERS_TYPE | COUNTORDERS_OWNER, ORDER_ATTACK, 0, this ) +
 		GetTFTeam()->CountOrders( COUNTORDERS_TYPE | COUNTORDERS_OWNER, ORDER_DEFEND, 0, this ) +
 		GetTFTeam()->CountOrders( COUNTORDERS_TYPE | COUNTORDERS_OWNER, ORDER_CAPTURE, 0, this );
-#else
-	return 0;
-#endif
 }
 
 
@@ -2916,9 +2908,7 @@ void CBaseTFPlayer::DropAllResourceChunks( void )
 {
 	Vector vecOrigin = GetAbsOrigin() + Vector(0,0,32);
 
-#ifdef IMPLEMENT_ME
 	TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_DROPPED, resource_chunk_value.GetFloat() );
-#endif
 
 	// Drop a resource chunk
 	Vector vecVelocity = Vector( random->RandomFloat( -250,250 ), random->RandomFloat( -250,250 ), random->RandomFloat( 200,450 ) );
@@ -2939,11 +2929,9 @@ int CBaseTFPlayer::GetBankResources( void )
 
 void CBaseTFPlayer::SetBankResources( int iAmount )
 {
-#ifdef IMPLEMENT_ME
 	int nOldAmount = m_TFLocal.ResourceCount();
 
 	TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_RESOURCES_ACQUIRED, iAmount - nOldAmount );
-#endif
 
 	m_TFLocal.SetResources( iAmount );
 
@@ -2978,10 +2966,8 @@ void CBaseTFPlayer::RemoveBankResources( int iAmount, bool bSpent )
 	if ( pBuilder )
 		pBuilder->GainedNewTechnology( NULL );
 
-#ifdef IMPLEMENT_ME
 	if (bSpent)
 		TFStats()->IncrementPlayerStat( this, TF_PLAYER_STAT_RESOURCES_SPENT, iAmount );
-#endif
 }
 
 //-----------------------------------------------------------------------------

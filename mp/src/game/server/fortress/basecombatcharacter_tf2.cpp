@@ -5,9 +5,7 @@
 #include "basecombatcharacter.h"
 #include "engine/IEngineSound.h"
 #include "tf_player.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 
 extern char *g_pszEMPPulseStart;
 
@@ -184,9 +182,7 @@ void CBaseCombatCharacter::PowerupStart( int iPowerup, float flAmount, CBaseEnti
 					else
 						TakeHealth( nHealthAdded, DMG_GENERIC );
 
-#ifdef IMPLEMENT_ME
 					TFStats()->IncrementPlayerStat( pAttacker, TF_PLAYER_STAT_HEALTH_GIVEN, nHealthAdded );
-#endif
 				}
 			}
 		}

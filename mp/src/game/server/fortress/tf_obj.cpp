@@ -16,10 +16,8 @@
 #include "vstdlib/random.h"
 #include "tier1/strtools.h"
 #include "basegrenade_shared.h"
-#ifdef IMPLEMENT_ME
 #include "grenade_objectsapper.h"
 #include "tf_stats.h"
-#endif
 #include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
 #ifdef IMPLEMENT_ME
@@ -644,10 +642,8 @@ void CBaseObject::DestroyObject( void )
 {
 	TRACE_OBJECT( UTIL_VarArgs( "%0.2f CBaseObject::DestroyObject %p:%s\n", gpGlobals->curtime, this, GetClassname() ) );
 
-#ifdef IMPLEMENT_ME
 	COrderEvent_ObjectDestroyed order( this );
 	GlobalOrderEvent( &order );
-#endif
 
 	if ( GetBuilder() )
 		GetBuilder()->OwnedObjectDestroyed( this );
@@ -1399,10 +1395,8 @@ void CBaseObject::FinishedBuilding( void )
 	AttemptToGoActive();
 	AttemptToActivateBuffStation();
 
-#ifdef IMPLEMENT_ME
 	// We're done building, add in the stat...
 	TFStats()->IncrementStat( (TFStatId_t)(TF_STAT_FIRST_OBJECT_BUILT + ObjectType()), 1 );
-#endif
 
 	// Spawn any objects on this one
 	SpawnObjectPoints();
@@ -1827,13 +1821,11 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 
 	if ( GetHealth() <= 0 )
 	{
-#ifdef IMPLEMENT_ME
 		if ( info.GetAttacker() )
 		{
 			TFStats()->IncrementTeamStat( info.GetAttacker()->GetTeamNumber(), TF_TEAM_STAT_DESTROYED_OBJECT_COUNT, 1 );
 			TFStats()->IncrementPlayerStat( info.GetAttacker(), TF_PLAYER_STAT_DESTROYED_OBJECT_COUNT, 1 );
 		}
-#endif
 
 		m_lifeState = LIFE_DEAD;
 		m_OnDestroyed.FireOutput( info.GetAttacker(), this);
@@ -2017,9 +2009,7 @@ void CBaseObject::Killed( void )
 			pChunk->ChangeTeam( GetTeamNumber() );
 		}
 
-#ifdef IMPLEMENT_ME
 		TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_DROPPED, (resource_chunk_processed_value.GetFloat() * nProcessedChunks) + (resource_chunk_value.GetFloat() * nNormalChunks) );
-#endif
 	}
 
 	DetachObjectFromObject();
@@ -2163,10 +2153,8 @@ void CBaseObject::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 				UTIL_TraceLine( vecStart, vecStart + (vecAiming * 256), MASK_SOLID, pPlayer, COLLISION_GROUP_NONE, &tr );
 				if ( tr.fraction < 1.0 && tr.m_pEnt == this )
 				{
-#ifdef IMPLEMENT_ME
 					CGrenadeObjectSapper *sapper = CGrenadeObjectSapper::Create( tr.endpos, vecAiming, pPlayer, this );
 					pPlayer->StartAttachingSapper( this, sapper );
-#endif
 				}
 			}
 		}

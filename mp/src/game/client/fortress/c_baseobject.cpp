@@ -11,8 +11,8 @@
 #include "model_types.h"
 #include "particlemgr.h"
 #include "particle_collision.h"
-#ifdef IMPLEMENT_ME
 #include "env_objecteffects.h"
+#ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
 #endif
 #include "c_weapon_builder.h"
@@ -627,7 +627,6 @@ void C_BaseObject::DrawRunningEffects( void )
 		float r, g, b;
 		r = g = b = random->RandomFloat( 16, 92 );
 
-#ifdef IMPLEMENT_ME
 		// Smoke
 		CSmartPtr<CObjectSmokeParticles> pSmokeEmitter = CObjectSmokeParticles::Create( "DrawRunningEffects 1" );
 		pSmokeEmitter->SetSortOrigin( vecSmoke );
@@ -652,7 +651,6 @@ void C_BaseObject::DrawRunningEffects( void )
 			pParticle->m_uchColor[2] = b;
 			pParticle->m_vecAcceleration = Vector(0,0,10);
 		}
-#endif
 	}
 
 	// Sparks
@@ -745,7 +743,6 @@ void C_BaseObject::DrawDamageEffects( void )
 	// If we're really hurt, start burning
 	if ( flDamaged > 0.25 )
 	{
-#ifdef IMPLEMENT_ME
 		CSmartPtr<CObjectFireParticles> pFireEmitter = CObjectFireParticles::Create( "DrawDamageEffects 1" );
 		pFireEmitter->SetSortOrigin( vecFire );
 		PMaterialHandle	hSphereMaterial = pFireEmitter->GetPMaterial( "sprites/floorflame" );
@@ -765,7 +762,6 @@ void C_BaseObject::DrawDamageEffects( void )
 			pParticle->m_flRoll	= 0;
 			pParticle->m_flRollDelta = 0;
 		}
-#endif
 	}
 
 	// Sparks

@@ -44,9 +44,7 @@ void CWeaponBaseCombatObject::PrimaryAttack( void )
 	QAngle angPlaceAngles;
 	if ( GetPlacePosition( pPlayer, &vecPlaceOrigin, &angPlaceAngles ) == false )
 	{
-#ifdef IMPLEMENT_ME
-		WeaponSound( DOUBLE );
-#endif
+		WeaponSound( WPN_DOUBLE );
 		return;
 	}
 

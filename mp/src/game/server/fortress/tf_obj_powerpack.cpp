@@ -11,9 +11,7 @@
 #include "techtree.h"
 #include "sendproxy.h"
 #include "vstdlib/random.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 #include "rope.h"
 #include "tf_shareddefs.h"
 #include "VGuiScreen.h"

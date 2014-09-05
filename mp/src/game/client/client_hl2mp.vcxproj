@@ -438,6 +438,7 @@ exit 1
     <ClInclude Include="fortress\c_tf_hints.h" />
     <ClInclude Include="fortress\c_tf_playerclass.h" />
     <ClInclude Include="fortress\c_weapon_builder.h" />
+    <ClInclude Include="fortress\env_objecteffects.h" />
     <ClInclude Include="fortress\hintitembase.h" />
     <ClInclude Include="fortress\hintitemobjectbase.h" />
     <ClInclude Include="fortress\hintitemorderbase.h" />
@@ -456,6 +457,11 @@ exit 1
     <ClInclude Include="fortress\ObjectControlPanel.h" />
     <ClInclude Include="fortress\paneleffect.h" />
     <ClInclude Include="fortress\playeroverlay.h" />
+    <ClInclude Include="fortress\playeroverlayclass.h" />
+    <ClInclude Include="fortress\playeroverlayhealth.h" />
+    <ClInclude Include="fortress\playeroverlayname.h" />
+    <ClInclude Include="fortress\playeroverlayselected.h" />
+    <ClInclude Include="fortress\playeroverlaysquad.h" />
     <ClInclude Include="fortress\vgui_healthbar.h" />
     <ClInclude Include="fortress\vgui_rotation_slider.h" />
     <ClInclude Include="game_controls\baseviewport.h" />
@@ -991,6 +997,7 @@ exit 1
     <ClCompile Include="fortress\c_weapon_builder.cpp" />
     <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp" />
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
+    <ClCompile Include="fortress\env_objecteffects.cpp" />
     <ClCompile Include="fortress\fx_tf2_blood.cpp" />
     <ClCompile Include="fortress\fx_tf2_buildeffects.cpp" />
     <ClCompile Include="fortress\fx_tf2_impacts.cpp" />
@@ -1015,6 +1022,12 @@ exit 1
     <ClCompile Include="fortress\ObjectControlPanel.cpp" />
     <ClCompile Include="fortress\paneleffect.cpp" />
     <ClCompile Include="fortress\panel_effects.cpp" />
+    <ClCompile Include="fortress\playeroverlay.cpp" />
+    <ClCompile Include="fortress\playeroverlayclass.cpp" />
+    <ClCompile Include="fortress\playeroverlayhealth.cpp" />
+    <ClCompile Include="fortress\playeroverlayname.cpp" />
+    <ClCompile Include="fortress\playeroverlayselected.cpp" />
+    <ClCompile Include="fortress\playeroverlaysquad.cpp" />
     <ClCompile Include="fortress\resourcezoneoverlay.cpp" />
     <ClCompile Include="fortress\tf_clientmode.cpp" />
     <ClCompile Include="fortress\tf_in_main.cpp" />

@@ -23,10 +23,6 @@ CRagdollShadow::CRagdollShadow( void )
 {
 	m_pPlayer = NULL;
 	m_nPlayer = 0;
-
-#ifdef IMPLEMENT_ME // ?
-	NetworkStateManualMode( true );
-#endif
 }
 
 //-----------------------------------------------------------------------------

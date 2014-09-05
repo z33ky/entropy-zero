@@ -378,6 +378,7 @@ exit 1
     <ClInclude Include="fortress\tf_player_resource.h" />
     <ClInclude Include="fortress\tf_shield.h" />
     <ClInclude Include="fortress\tf_shield_flat.h" />
+    <ClInclude Include="fortress\tf_stats.h" />
     <ClInclude Include="fortress\tf_team.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="..\..\public\globalvars_base.h" />
@@ -900,6 +901,7 @@ exit 1
     <ClCompile Include="fortress\tf_player_resource.cpp" />
     <ClCompile Include="fortress\tf_shield.cpp" />
     <ClCompile Include="fortress\tf_shield_flat.cpp" />
+    <ClCompile Include="fortress\tf_stats.cpp" />
     <ClCompile Include="fortress\tf_team.cpp" />
     <ClCompile Include="gamedll_replay.cpp" />
     <ClCompile Include="..\..\game\shared\achievement_saverestore.cpp" />

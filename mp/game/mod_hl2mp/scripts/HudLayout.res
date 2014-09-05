@@ -133,6 +133,13 @@ HudLayout
 		PaintBackgroundType	"2"
 	}
 	
+	HudOrderList
+	{
+		fieldName	"HudOrderList"
+		visible		"1"
+		enabled		"1"
+	}
+	
 	HudMinimap
 	{
 		fieldName		"HudMinimap"

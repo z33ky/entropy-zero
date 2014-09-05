@@ -82,11 +82,10 @@ void CShieldFlat::SetObjectCollisionBox( void )
 	{
 #ifdef IMPLEMENT_ME
 		ComputeSurroundingBox();
+#endif
 
 		Vector bloat( 1, 1, 1 );
-		SetAbsMins( GetAbsMins() - bloat );
-		SetAbsMaxs( GetAbsMaxs() + bloat );
-#endif
+		SetCollisionBounds(CollisionProp()->OBBMins() - bloat,CollisionProp()->OBBMaxs() + bloat);
 	}
 }
 

@@ -1751,6 +1751,9 @@
     <ClInclude Include="fortress\orders.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_stats.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3266,6 +3269,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\orders.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_stats.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>

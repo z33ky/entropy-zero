@@ -23,9 +23,6 @@
 CMinimapPanel *ClientModeTFBase::m_pMinimap = NULL;
 vgui::HScheme g_hVGuiObjectScheme = 0;
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 ClientModeTFBase::ClientModeTFBase( void )
 {
 	m_bInitialized = false;
@@ -33,17 +30,10 @@ ClientModeTFBase::ClientModeTFBase( void )
 	m_pCVDrawFullSkybox = NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 ClientModeTFBase::~ClientModeTFBase( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : CMinimapPanel
-//-----------------------------------------------------------------------------
 CMinimapPanel *ClientModeTFBase::GetMinimap( void )
 {
 	return m_pMinimap;

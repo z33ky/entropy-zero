@@ -8,8 +8,6 @@ seem to do what they do...
 
 Q.	Were there meant to be multiple resource types?
 
-Q.	Why is the minimap covering half the screen on spawn?
-
 --------------------------
 
 Q. 	I've set object limits but can keep on creating objects anyway...

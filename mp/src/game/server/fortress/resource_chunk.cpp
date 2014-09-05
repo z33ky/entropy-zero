@@ -8,9 +8,7 @@
 #include "tf_obj.h"
 #include "resource_chunk.h"
 #include "vstdlib/random.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 #include "engine/IEngineSound.h"
 
 ConVar	resource_chunk_value( "resource_chunk_value","20", FCVAR_NONE, "Resource value of a single resource chunk." );
@@ -118,13 +116,9 @@ void CResourceChunk::ChunkTouch( CBaseEntity *pOther )
 {
 	if ( pOther->IsPlayer() || pOther->GetServerVehicle() )
 	{
-#ifdef IMPLEMENT_ME
 		// Give the team the resources
 		int iAmountPerPlayer = ((CTFTeam *)pOther->GetTeam())->AddTeamResources( GetResourceValue(), TF_PLAYER_STAT_RESOURCES_ACQUIRED_FROM_CHUNKS );
 		TFStats()->IncrementTeamStat( pOther->GetTeamNumber(), TF_TEAM_STAT_RESOURCE_CHUNKS_COLLECTED, GetResourceValue() );
-#else
-		int iAmountPerPlayer = ((CTFTeam *)pOther->GetTeam())->AddTeamResources( GetResourceValue(), 0 );
-#endif
 
 		pOther->EmitSound( "ResourceChunk.Pickup" );
 

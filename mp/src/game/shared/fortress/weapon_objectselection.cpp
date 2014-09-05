@@ -39,10 +39,6 @@ CWeaponObjectSelection::CWeaponObjectSelection()
 #if defined( CLIENT_DLL )
 	m_bNeedSpriteSetup = true;
 #endif
-
-#ifdef IMPLEMENT_ME	// ?
-	NetworkStateManualMode( true );
-#endif
 }
 
 //-----------------------------------------------------------------------------

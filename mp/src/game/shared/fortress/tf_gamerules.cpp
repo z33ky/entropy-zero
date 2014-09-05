@@ -488,11 +488,9 @@ END_NETWORK_TABLE()
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)CBaseEntity::Instance( pClient );
 		if ( pPlayer )
 		{
-#ifdef IMPLEMENT_ME
 			// Tell all orders that this player's left
 			COrderEvent_PlayerDisconnected order( pPlayer );
 			GlobalOrderEvent( &order );
-#endif
 
 			// Delete this player's playerclass
 			pPlayer->ClearPlayerClass();

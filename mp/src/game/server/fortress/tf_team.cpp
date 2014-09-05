@@ -16,9 +16,7 @@
 #include "tf_obj_powerpack.h"
 #include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
-#ifdef IMPLEMENT_ME
 #include "tf_stats.h"
-#endif
 #include "tf_obj_buff_station.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -732,9 +730,7 @@ int CTFTeam::AddTeamResources( float fAmount, int nStat )
 
 	m_flTotalResourcesSoFar += fAmount;
 
-#ifdef IMPLEMENT_ME
 	TFStats()->IncrementTeamStat( GetTeamNumber(), TF_TEAM_STAT_RESOURCES_COLLECTED, fAmount );
-#endif
 
 	// Divvy the resources out to the players
 	int iAmountPerPlayer = Ceil2Int( fAmount / GetNumPlayers() );	// Yes, this does create some resources in the roundoff.
@@ -743,12 +739,10 @@ int CTFTeam::AddTeamResources( float fAmount, int nStat )
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer*)GetPlayer(i);
 		pPlayer->AddBankResources( iAmountPerPlayer );
 
-#ifdef IMPLEMENT_ME
 		TFStats()->IncrementPlayerStat( pPlayer, TF_PLAYER_STAT_RESOURCES_ACQUIRED, fAmount );
 
 		if (nStat >= 0)
 			TFStats()->IncrementPlayerStat( pPlayer, (TFPlayerStatId_t)nStat, fAmount );
-#endif
 	}
 
 	ResourceLoadDeposited();
@@ -1107,6 +1101,7 @@ void CTFTeam::UpdateOrders( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 {
+#ifdef IMPLEMENT_ME	// Currently causes crash ~hogsy
 	// Tell all our current orders to update themselves. Walk backwards because we may remove them.
 	int iSize = m_aOrders.Count();
 	for (int i = iSize-1; i >= 0; i--)
@@ -1119,6 +1114,7 @@ void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 			UTIL_Remove( pOrder );
 		}
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------

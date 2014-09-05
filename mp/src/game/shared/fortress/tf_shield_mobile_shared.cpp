@@ -466,9 +466,6 @@ void CShieldMobile::ComputeBoundingBox( void )
 	m_ShieldEffect.ComputeBounds(mins, maxs); 
 #ifdef CLIENT_DLL
 	SetCollisionBounds( mins, maxs );
-#ifdef IMPLEMENT_ME // ?
-	Relink();
-#endif
 #else
 	UTIL_SetSize( this, mins, maxs );
 #endif

@@ -11,8 +11,7 @@ Scheme
 		LightBlack	"0 0 0 125"
 		Invisible	"0 0 0 0"
 		
-		// Team Colours
-		Colour0	"255 0 0 100"
+		TeamColour	"255 0 0 100"
 	}
 
 	BaseSettings
@@ -26,7 +25,7 @@ Scheme
 		NumericText					"Yellow"
 		NumericTextWarning			"Orange"
 		NumericTextCritical			"Red"
-		NumericBox					"Colour0"
+		NumericBox					"TeamColour"
 		NumericCharFg				"Orange"
 		NumericCharBg				"0 255 0 255"
 		NumericCharBgBorder			"0 0 255 255"
