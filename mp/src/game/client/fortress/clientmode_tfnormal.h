@@ -34,6 +34,10 @@ private:
 		virtual void	OnThink();
 		void			ReloadScheme();
 
+#if 0
+		virtual void Start( IGameUIFuncs *pGameUIFuncs, IGameEventManager2 * pGameEventManager );
+#endif
+
 		virtual void ApplySchemeSettings( vgui::IScheme *pScheme )
 		{
 			BaseClass::ApplySchemeSettings( pScheme );

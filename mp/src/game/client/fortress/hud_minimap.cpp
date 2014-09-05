@@ -250,10 +250,6 @@ CMinimapPanel::~CMinimapPanel( void )
 	ShutdownOverlays();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *scheme - 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::ApplySchemeSettings( IScheme *scheme )
 {
 	BaseClass::ApplySchemeSettings( scheme );
@@ -298,43 +294,22 @@ void CMinimapPanel::OnSizeChanged( int w, int h )
 	InvokeOnTickOnChildren( this );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float CMinimapPanel::GetAdjustedZoom( void )
 {
 	return m_flZoomAmount * m_flZoomAdjust;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : float
-//-----------------------------------------------------------------------------
 float CMinimapPanel::GetTrueZoom()
 {
 	return m_flZoomAmount;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : center - 
-//			scale - 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::GetMapOriginAndScale( Vector& origin, float& scale )
 {
 	origin	= m_vecCurrentOrigin;
 	scale	= GetAdjustedZoom();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : clip - 
-//			pos - 
-//			outx - 
-//			outy - 
-// Output : Returns true on success, false on failure.
-//-----------------------------------------------------------------------------
 bool CMinimapPanel::WorldToMinimap( MinimapPosType_t posType, const Vector& pos, float& outx, float& outy )
 {
 	Vector origin;
@@ -345,11 +320,6 @@ bool CMinimapPanel::WorldToMinimap( MinimapPosType_t posType, const Vector& pos,
 	return InternalWorldToMinimap( posType, pos, origin, zoomscale, outx, outy );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : x - 
-//			y - 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::AdjustNormalizedPositionForAspectRatio( float& x, float& y )
 {
 	x = m_flNormalizedXOffset + x * m_flNormalizedXScale;
@@ -668,9 +638,6 @@ void CMinimapPanel::PaintActOverlays( int teamIndex, int alpha )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::OnThink()
 {
 	BaseClass::OnThink();
@@ -695,9 +662,6 @@ void CMinimapPanel::OnThink()
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CMinimapPanel::Paint()
 {
 	if ( gHUD.IsHidden( HIDEHUD_MISCSTATUS ) )

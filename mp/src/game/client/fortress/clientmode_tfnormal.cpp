@@ -43,6 +43,13 @@ ClientModeTFNormal::ClientModeTFNormal()
 	m_pViewport->Start( gameuifuncs, gameeventmanager );
 }
 
+#if 0
+void ClientModeTFNormal::Viewport::Start( IGameUIFuncs *pGameUIFuncs, IGameEventManager2 * pGameEventManager )
+{
+	BaseClass::Start( pGameUIFuncs, pGameEventManager );
+}
+#endif
+
 ClientModeTFNormal::Viewport::Viewport()
 {
 	// use a custom scheme for the hud

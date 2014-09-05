@@ -135,13 +135,13 @@ HudLayout
 	
 	HudMinimap
 	{
-		fieldName	"HudMinimap"
-		xpos		"144"
-		ypos		"16"
-		wide		"320"
-		tall		"320"
-		visible 	"1"
-		enabled 	"1"
+		fieldName		"HudMinimap"
+		xpos			"r170"
+		ypos			"10"
+		wide			"160"
+		tall			"160"
+		visible 		"1"
+		enabled 		"1"
 	}
 	
 	DamageIndicator

@@ -2054,6 +2054,9 @@
     <ClInclude Include="fortress\hud_orders.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\playeroverlay.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">

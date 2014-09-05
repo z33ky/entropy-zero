@@ -337,10 +337,6 @@ void ClientModeShared::Init()
 	ListenForGameEvent( "teamplay_broadcast_audio" );
 	ListenForGameEvent( "achievement_earned" );
 
-#if defined( TF_CLIENT_DLL )
-	ListenForGameEvent( "item_found" );
-#endif 
-
 #if defined( REPLAY_ENABLED )
 	ListenForGameEvent( "replay_startrecord" );
 	ListenForGameEvent( "replay_endrecord" );
@@ -349,11 +345,9 @@ void ClientModeShared::Init()
 	ListenForGameEvent( "game_newmap" );
 #endif
 
-#ifndef _XBOX
 	HLTVCamera()->Init();
 #if defined( REPLAY_ENABLED )
 	ReplayCamera()->Init();
-#endif
 #endif
 
 	m_CursorNone = vgui::dc_none;

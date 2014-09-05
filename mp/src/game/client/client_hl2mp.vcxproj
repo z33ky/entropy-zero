@@ -455,6 +455,7 @@ exit 1
     <ClInclude Include="fortress\minimap_trace.h" />
     <ClInclude Include="fortress\ObjectControlPanel.h" />
     <ClInclude Include="fortress\paneleffect.h" />
+    <ClInclude Include="fortress\playeroverlay.h" />
     <ClInclude Include="fortress\vgui_healthbar.h" />
     <ClInclude Include="fortress\vgui_rotation_slider.h" />
     <ClInclude Include="game_controls\baseviewport.h" />
