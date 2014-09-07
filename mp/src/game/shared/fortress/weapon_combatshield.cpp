@@ -684,9 +684,7 @@ float CWeaponCombatShield::GetLoweringTime( void )
 //-----------------------------------------------------------------------------
 void CWeaponCombatShield::DrawAmmo( void )
 {
-	// ROBIN: Removed this now that the shield colors itself to show health level
-	return;
-
+#if 0	// ROBIN: Removed this now that the shield colors itself to show health level
 	int r, g, b, a;
 	int x, y;
 
@@ -719,6 +717,7 @@ void CWeaponCombatShield::DrawAmmo( void )
 	// draw the powerered portion of the bar
 	vgui::surface()->DrawSetColor( Color( r, g * flPowerLevel, b * flPowerLevel, 190 ) );
 	vgui::surface()->DrawFilledRect( x, y + iHeight * flInverseFactor, x + iWidth, y + iHeight * flInverseFactor + iHeight * flPowerLevel);
+#endif
 }
 
 //-----------------------------------------------------------------------------

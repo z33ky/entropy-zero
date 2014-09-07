@@ -9,7 +9,8 @@
 void GlobalOrderEvent( COrderEvent_Base *pOrder )
 {
 	// Loop through the teams
-	for ( int i = 1; i <= GetNumberOfTeams(); i++ )
+	// Updated so this starts off with the human team. ~hogsy
+	for ( int i = TEAM_HUMANS; i < MAX_TF_TEAMS; i++ )
 	{
 		CTFTeam *pTeam = GetGlobalTFTeam( i );
 		pTeam->UpdateOrdersOnEvent( pOrder );

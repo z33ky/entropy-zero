@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Shared">
       <UniqueIdentifier>{fb216a71-d66a-4ef6-b0c3-790e57e695d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Orders">
+      <UniqueIdentifier>{d599f2ac-db0f-4703-adcf-ed9a69670cb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\choreoobjects.lib">
@@ -1742,17 +1745,32 @@
     <ClInclude Include="..\shared\fortress\grenade_objectsapper.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\order_events.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_obj_resupply.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\orders.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_stats.h">
       <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\orders.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_player.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_helpers.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_events.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_assist.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_heal.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_resourcepump.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3262,17 +3280,29 @@
     <ClCompile Include="..\shared\fortress\grenade_objectsapper.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\order_events.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_obj_resupply.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\orders.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_stats.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\orders.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_player.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_helpers.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_assist.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_events.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_heal.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

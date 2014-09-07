@@ -146,26 +146,25 @@ void CTFTeam::Think( void )
 	UpdateOrders();
 	UpdateMessages();
 
-	// FIXME: Try this out?
-	/*
+#if 0	// FIXME: Try this out?
 	// Give resources to the team at regular intervals
 	if (gpGlobals->curtime >= m_flNextResourceTime)
 	{
 		AddTeamResources( RESOURCE_GIVE_AMOUNT );
 		m_flNextResourceTime = gpGlobals->curtime + RESOURCE_GIVE_TIME;
 	}
-	*/
+#endif
 
 	UpdateTechnologies();
 		    
-	/* FIXME: Re-enable once we figure out what the correct orders should be
+#if 1	// FIXME: Re-enable once we figure out what the correct orders should be
 	// Create new personal orders
 	if ( m_flPersonalOrderUpdateTime < gpGlobals->curtime )
 	{
 		CreatePersonalOrders();
 		m_flPersonalOrderUpdateTime = gpGlobals->curtime + PERSONAL_ORDER_UPDATE_TIME;
 	}
-	*/
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -998,8 +997,7 @@ void CTFTeam::RemoveObject( CBaseObject *pObject )
 //------------------------------------------------------------------------------------------------------------------
 // ORDERS
 //-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
+
 void CTFTeam::InitializeOrders( void )
 {
 	m_flPersonalOrderUpdateTime = 0;
@@ -1078,8 +1076,7 @@ void CTFTeam::RecalcOrders( void )
 void CTFTeam::UpdateOrders( void )
 {
 	// Tell all our current orders to update themselves. Walk backwards because we may remove them.
-	int iSize = m_aOrders.Count();
-	for (int i = iSize-1; i >= 0; i--)
+	for (int i = m_aOrders.Count()-1; i >= 0; i--)
 	{
 		// Orders without owners should be removed
 		bool bShouldRemove = ( 
@@ -1101,10 +1098,8 @@ void CTFTeam::UpdateOrders( void )
 //-----------------------------------------------------------------------------
 void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 {
-#ifdef IMPLEMENT_ME	// Currently causes crash ~hogsy
 	// Tell all our current orders to update themselves. Walk backwards because we may remove them.
-	int iSize = m_aOrders.Count();
-	for (int i = iSize-1; i >= 0; i--)
+	for (int i = m_aOrders.Count()-1; i >= 0; i--)
 	{
 		bool bShouldRemove = m_aOrders[i]->UpdateOnEvent( pOrder );
 		if ( bShouldRemove )
@@ -1114,7 +1109,6 @@ void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 			UTIL_Remove( pOrder );
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1146,8 +1140,7 @@ void CTFTeam::CreatePersonalOrder( CBaseTFPlayer *pPlayer )
 void CTFTeam::RemoveOrdersToPlayer( CBaseTFPlayer *pPlayer )
 {
 	// Walk backwards because we're removing them.
-	int iSize = m_aOrders.Count();
-	for (int i = iSize-1; i >= 0; i--)
+	for (int i = m_aOrders.Count()-1; i >= 0; i--)
 	{
 		// Orders without owners should be removed
 		if ( m_aOrders[i].Get() )

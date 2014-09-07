@@ -10,9 +10,7 @@
 #include "tf_obj.h"
 #include "tf_obj_rallyflag.h"
 #include "tf_team.h"
-#ifdef IMPLEMENT_ME
 #include "order_assist.h"
-#endif
 #include "engine/IEngineSound.h"
 #include "weapon_twohandedcontainer.h"
 #include "weapon_combatshield.h"
@@ -465,10 +463,8 @@ void CPlayerClassCommando::CreatePersonalOrder( void )
 	if ( CreateInitialOrder() )
 		return;
 
-#ifdef IMPLEMENT_ME
 	if ( COrderAssist::CreateOrder( this ) )
 		return;
-#endif
 
 	BaseClass::CreatePersonalOrder();
 }

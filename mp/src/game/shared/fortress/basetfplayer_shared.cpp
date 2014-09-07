@@ -945,7 +945,6 @@ const QAngle& CPlayerAnimState::GetRenderAngles()
 	return m_angRender;
 }
 
-
 void CPlayerAnimState::GetOuterAbsVelocity( Vector& vel )
 {
 #if defined( CLIENT_DLL )

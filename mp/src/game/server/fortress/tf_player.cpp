@@ -602,7 +602,7 @@ void CBaseTFPlayer::PlacePlayerInTeam( void )
 	CTFTeam *pTargetTeam = NULL;
 
 	// Find the team with the least players in it
-	for ( int i = 2; i < MAX_TF_TEAMS; i++ )
+	for ( int i = TEAM_HUMANS; i < MAX_TF_TEAMS; i++ )
 	{
 		CTFTeam *pTeam = GetGlobalTFTeam(i);
 

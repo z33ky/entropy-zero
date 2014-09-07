@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{e210d735-e96e-46b0-bf77-3b3b558821e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Orders">
+      <UniqueIdentifier>{639eb75f-5741-442d-8e98-a32f89d6160c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\bitmap.lib">
@@ -2048,9 +2051,6 @@
     <ClInclude Include="fortress\minimap_trace.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\c_order.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\hud_orders.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -2074,6 +2074,18 @@
     </ClInclude>
     <ClInclude Include="fortress\env_objecteffects.h">
       <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_player.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_assist.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_heal.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3655,9 +3667,6 @@
     <ClCompile Include="fortress\c_obj_resupply.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_order.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\hud_orders.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3681,6 +3690,18 @@
     </ClCompile>
     <ClCompile Include="fortress\env_objecteffects.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_player.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_assist.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_heal.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

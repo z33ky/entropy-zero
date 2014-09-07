@@ -129,11 +129,10 @@ void C_BaseTFCombatWeapon::DrawAmmo()
 		Clip2(), 
 		GetMaxClip2() );
 
-	// ROBIN: Disabled mini ammo count for now
-	/*
+#if 0	// ROBIN: Disabled mini ammo count for now
 	InitializeCrosshairPanels();
 	DrawMiniAmmo();
-	*/
+#endif
 
 	// HACK: Draw technician's drain level
 	if ( IsLocalPlayerClass( TFCLASS_SAPPER ) )

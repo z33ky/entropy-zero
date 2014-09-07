@@ -642,9 +642,6 @@ void CBaseObject::DestroyObject( void )
 {
 	TRACE_OBJECT( UTIL_VarArgs( "%0.2f CBaseObject::DestroyObject %p:%s\n", gpGlobals->curtime, this, GetClassname() ) );
 
-	COrderEvent_ObjectDestroyed order( this );
-	GlobalOrderEvent( &order );
-
 	if ( GetBuilder() )
 		GetBuilder()->OwnedObjectDestroyed( this );
 
@@ -831,7 +828,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 
 	bool bSnappedToPoint = false;
 	bool bShouldAttachToParent = false;
-
+	
 	// See if there are any nearby build positions to snap to
 	Vector vecNearestBuildPoint = vec3_origin;
 	float flNearestPoint = 9999;
@@ -1061,6 +1058,10 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 			m_vecBuildOrigin = vErrorOrigin;
 			return false;
 		}
+
+		// Don't let us build on anything other than solid ground! ~hogsy
+		if(tr.m_pEnt && (tr.m_pEnt->GetSolid() != SOLID_BSP))
+			return false;
 
 		// Ok, now we know the Z range where this box can fit.
 		Vector vBottomLeft = m_vecBuildOrigin - vHalfBuildDims;
@@ -1947,6 +1948,9 @@ void CBaseObject::Killed( void )
 {
 	m_bDying = true;
 
+	COrderEvent_ObjectDestroyed order( this );
+	GlobalOrderEvent( &order );
+
 	// Do an explosion.
 	CPASFilter filter( GetAbsOrigin() );
 	te->Explosion( 
@@ -2345,16 +2349,16 @@ bool CBaseObject::HasSapper( void )
 //-----------------------------------------------------------------------------
 bool CBaseObject::HasSapperFromPlayer( CBaseTFPlayer *pPlayer )
 {
-#ifdef IMPLEMENT_ME
 	for ( int i = 0; i < m_hSappers.Size(); i++ )
 	{
 		if ( m_hSappers[i] == NULL )
 			continue;
 
+#ifdef IMPLEMENT_ME
 		if ( m_hSappers[i]->GetOwner() == pPlayer )
 			return true;
-	}
 #endif
+	}
 
 	return false;
 }
@@ -2376,12 +2380,10 @@ void CBaseObject::AddSapper( CGrenadeObjectSapper *pSapper )
 //-----------------------------------------------------------------------------
 void CBaseObject::RemoveAllSappers( CBaseEntity *pRemovingEntity )
 {
-#ifdef IMPLEMENT_ME
 	// Loop through all the sappers and fire a +use on them (backwards because list will change)
 	int iSize = m_hSappers.Size();
 	for (int i = iSize-1; i >= 0; i--)
 		m_hSappers[i]->Use( pRemovingEntity, pRemovingEntity, USE_TOGGLE, 0 );
-#endif
 }
 
 //-----------------------------------------------------------------------------

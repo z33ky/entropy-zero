@@ -426,6 +426,9 @@ exit 1
     <ClInclude Include="fortress\c_obj_resourcepump.h" />
     <ClInclude Include="fortress\c_obj_respawn_station.h" />
     <ClInclude Include="fortress\c_order.h" />
+    <ClInclude Include="fortress\c_order_assist.h" />
+    <ClInclude Include="fortress\c_order_heal.h" />
+    <ClInclude Include="fortress\c_order_player.h" />
     <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
@@ -981,6 +984,9 @@ exit 1
     <ClCompile Include="fortress\c_obj_resupply.cpp" />
     <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp" />
     <ClCompile Include="fortress\c_order.cpp" />
+    <ClCompile Include="fortress\c_order_assist.cpp" />
+    <ClCompile Include="fortress\c_order_heal.cpp" />
+    <ClCompile Include="fortress\c_order_player.cpp" />
     <ClCompile Include="fortress\c_ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_shield.cpp" />

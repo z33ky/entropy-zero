@@ -717,9 +717,7 @@ void CObjectBuffStation::DeBuffObject( CBaseObject *pObject )
 //-----------------------------------------------------------------------------
 void CObjectBuffStation::BuffNearbyObjects( CBaseObject *pObjectToTarget, bool bPlacing )
 {
-	// ROBIN: Disabled object buffing for now
-	return;
-
+#if 0	// ROBIN: Disabled object buffing for now
 	// Check for a team.
 	if ( !GetTFTeam() )
 		return;
@@ -765,6 +763,7 @@ void CObjectBuffStation::BuffNearbyObjects( CBaseObject *pObjectToTarget, bool b
 			}
 		}
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------
