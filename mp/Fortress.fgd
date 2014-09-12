@@ -1,1 +1,66 @@
 @include "base.fgd"
+
+@BaseClass = FObject
+[
+	input	SetHealth(integer)				:	"Sets the health of the object."
+	input	AddHealth(integer)				:	"Adds health to the object."
+	input	RemoveHealth(integer)			:	"Removes health from the object."
+	input	SetMinDisabledHealth(integer)	:	""
+	input	SetSolidToPlayer(integer)		:	"Sets the object to be solid to the player."
+	
+	TeamNum(choices) : "Team" : 2 : "Team" =
+	[
+		2 : "Human"
+		3 : "Alien"
+	]
+	
+	Invulnerable(integer)		:	"Invulnerable?"		:	0	:	"Sets the object as invulnerable."
+	CantDie(integer)			:	"Can't die?"		:	1	:	"If true, the object can't be killed."
+	DisabledModel(string)		:	"Disabled model"	:	""	:	"Model to show when object is disabled."
+	SolidToPlayer(integer)		:	"Solid to player?"	:	0	:	"If enabled, the object is solid to the player."
+	MinDisabledHealth(float)	:	"Disabled health"	:	10	:	"Minimum health before object becomes disabled."
+]
+
+@SolidClass base(Trigger) = trigger_controlzone: 
+	"Control Zone"
+[
+	output	ControllingTeam(integer)	:	"Returns the current controlling team."
+
+	input	SetTeam(void)	:	"Sets the team of the zone."
+	input	LockTeam(void)	:	"Locks the zone to the current controlling team."
+
+	LockAfterChange(integer)	:	"Lock after change?"	:	0	:	"Sets the control zone to lock after being captured."
+	ZoneNumber(integer)			:	"Number"				:	0	:	"Sets the unique zone ID for the control zone."
+	ContestedTime(float)		:	"Time until contested"	:	10	:	"Sets the time before the zone becomes contested after a team enters the area."
+	UncontestedTime(float)		:	"Time until capture"	:	5	:	"Sets the length of time it takes to capture the zone."
+]
+
+@SolidClass base(Trigger) = trigger_resourcezone: 
+	"Resource Zone"
+[
+	ResourceAmount(integer)	:	"Amount"	:	10000	:	""
+	ResourceChunks(integer)	:	"Chunks"	:	5		:	""
+	ResourceRate(float)		:	"Rate"		:	0		:	""
+	ChunkValueMin(float)	:	"Min Value"	:	20		:	""
+	ChunkValueMax(float)	:	"Max Value"	:	60		:	""
+	
+	input	SetAmount(integer)
+	input	ResetAmount(void)
+	input	SetActive(void)
+	input	SetInactive(void)
+	input	ToggleActive(void)
+	
+	output	OnEmpty(void)
+]
+
+@PointClass base(FObject) = obj_respawn_station :
+	"Respawn Station"
+[
+	InitialSpawn(integer)	:	"Initial spawn?"	:	1	:	"Returns true if this spawnpoint is the map specified initial spawnpoint for its team."
+]
+
+@PointClass = env_resourcespawner :
+	"Resource Spawner"
+[
+	target(string)	:	"Target"
+]

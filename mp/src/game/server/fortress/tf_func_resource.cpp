@@ -499,6 +499,9 @@ void CResourceSpawner::Precache( void )
 //-----------------------------------------------------------------------------
 void CResourceSpawner::Activate( void )
 {
+	// Added to resolve an assert ~hogsy
+	BaseClass::Activate();
+
 	if ( m_target != NULL_STRING )
 	{
 		// Find my resource zone

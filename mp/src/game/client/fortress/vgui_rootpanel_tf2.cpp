@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "vgui_int.h"
 #include "ienginevgui.h"
@@ -14,17 +8,11 @@
 
 C_TF2RootPanel *g_pTF2RootPanel = NULL;
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void VGUI_CreateClientDLLRootPanel( void )
 {
 	g_pTF2RootPanel = new C_TF2RootPanel( enginevgui->GetPanel( PANEL_CLIENTDLL ) );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void VGUI_DestroyClientDLLRootPanel( void )
 {
 	delete g_pTF2RootPanel;

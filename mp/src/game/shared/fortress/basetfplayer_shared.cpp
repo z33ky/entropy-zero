@@ -338,7 +338,6 @@ void CBaseTFPlayer::PlantFootprint( surfacedata_t *psurface, const char *cMateri
 	if ( psurface->game.material != 'X' )
 	{
 #if 0
-
 		else
 		{
 			// FIXME: Activate this once we decide to pull the trigger on it.
@@ -376,10 +375,14 @@ void CBaseTFPlayer::PlantFootprint( surfacedata_t *psurface, const char *cMateri
 			// Reversed this, since it was the wrong way round. ~hogsy
 			m_Local.m_nStepside ? PLAYER_HALFWIDTH : -PLAYER_HALFWIDTH,
 			right, hipOrigin );
-
+		
 		// Find where that leg hits the ground
-		UTIL_TraceLine( hipOrigin, hipOrigin + Vector(0, 0, -COORD_EXTENT * 1.74), 
+		// Use the step size... Just happens to be the right sort of size... ~hogsy
+		UTIL_TraceLine( hipOrigin, hipOrigin + Vector(0, 0, -PLAYERCLASS_STEPSIZE), 
 						MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
+		// Return if we're not hitting anything ~hogsy
+		if(!tr.m_pEnt)
+			return;
 		
 		// Splat a decal
 		CPVSFilter filter( tr.endpos );

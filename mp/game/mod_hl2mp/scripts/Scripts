@@ -3,7 +3,6 @@
         <File name="ChapterBackgrounds.txt" />
         <File name="game.txt" />
         <File name="launcher.txt" />
-        <File name="mod_textures.txt" />
         <File name="objects.txt" />
         <File name="technologytree.txt" />
         <Folder name="VGUI">
@@ -14,15 +13,15 @@
                 <File name="vgui_screens.txt" />
                 <File name="screens\buffstation_control_panel.res" />
             </Folder>
-            <File name="LauncherScheme.res" />
             <Folder name="Overlays">
                 <File name="minimap_overlays.txt" />
                 <File name="commander_overlays.txt" />
             </Folder>
-        </Folder>
-        <Folder name="HUD">
-            <File name="HudLayout.res" />
-            <File name="HudAnimations.txt" />
+            <Folder name="HUD">
+                <File name="HudLayout.res" />
+                <File name="HudAnimations.txt" />
+                <File name="mod_textures.txt" />
+            </Folder>
         </Folder>
         <Folder name="Sounds">
             <File name="game_sounds_fortress.txt" />
@@ -61,7 +60,7 @@
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\cfg\mapcycle.txt" />
         </Folder>
         <File name="decals_subrect.txt" />
-        <File name="C:\Users\hogsy\Documents\Fortress\mp\tf2.fgd" />
         <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\notes.txt" />
+        <File name="C:\Users\hogsy\Documents\Fortress\mp\Fortress.fgd" />
     </Project>
 </NotepadPlus>

@@ -360,20 +360,16 @@ void ImpactCreateHurtShards( Vector &vecOrigin, trace_t &tr, Vector &shotDir, in
 			iFlags |= FTENT_ROTATE;
 			pModel = ImpactHurtShards_Wood_Small[ random->RandomInt(0,WOOD_SHARDS-1) ];
 			break;
-
 		case CHAR_TEX_FOLIAGE:
 			pModel = ImpactHurtShards_Foliage_Small[ random->RandomInt(0,FOLIAGE_SHARDS-1) ];
 			break;
-
 		case CHAR_TEX_METAL:
 		case CHAR_TEX_VENT:
 		case CHAR_TEX_GRATE:
-
 		case CHAR_TEX_CONCRETE:
-			default:
+		default:
 			pModel = ImpactHurtShards_Metal_Small[ random->RandomInt(0,METAL_SHARDS-1) ];
 			break;
-
 		case CHAR_TEX_FLESH:
 			// Spray some blood out
 			if ( !bBlood )

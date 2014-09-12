@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Fortress\Orders">
       <UniqueIdentifier>{639eb75f-5741-442d-8e98-a32f89d6160c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Objects">
+      <UniqueIdentifier>{826dc8b7-5e64-4c78-a18c-daa0dbd0cdbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Classes">
+      <UniqueIdentifier>{bf2af359-6b87-46cd-b8f9-a5db5c23ad70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\bitmap.lib">
@@ -1880,9 +1886,6 @@
     <ClInclude Include="fortress\c_tf_playerclass.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_commando.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -2021,9 +2024,6 @@
     <ClInclude Include="fortress\c_shield.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\c_obj_respawn_station.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\c_tfplayerresource.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -2033,13 +2033,7 @@
     <ClInclude Include="..\shared\fortress\plasmaprojectile.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\c_obj_resourcepump.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\vgui_healthbar.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="commanderoverlaypanel.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\clientmode_commander.h">
@@ -2086,6 +2080,27 @@
     </ClInclude>
     <ClInclude Include="fortress\c_order_heal.h">
       <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_obj_respawn_station.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_obj_resourcepump.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_demo_entities.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_commando.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_medic.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_resourcepump.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_controlzone.h">
+      <Filter>Source Files\Fortress</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3412,9 +3427,6 @@
     <ClCompile Include="fortress\c_tf_playerclass.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_commando.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3487,9 +3499,6 @@
     <ClCompile Include="fortress\hud_weaponselection.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_obj_buff_station.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\ObjectControlPanel.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3515,9 +3524,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_powerpack.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_resource_chunk.cpp">
@@ -3577,9 +3583,6 @@
     <ClCompile Include="fortress\c_info_customtech.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_obj_rallyflag.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\hud_timer.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3596,9 +3599,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_shield.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_respawn_station.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_shield_flat.cpp">
@@ -3620,12 +3620,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="fortress\hud_damageindicator.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_resourcepump.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\vgui_healthbar.cpp">
@@ -3664,9 +3658,6 @@
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_obj_resupply.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\hud_orders.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3702,6 +3693,54 @@
     </ClCompile>
     <ClCompile Include="fortress\c_order_heal.cpp">
       <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_buff_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_powerpack.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_rallyflag.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_resupply.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_respawn_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_resourcepump.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_target_id.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\objectbuildalphaproxy.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\overlay_orders.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\proxy_shield.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_demo_entities.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_commando.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_medic.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_resourcepump.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_controlzone.cpp">
+      <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1772,6 +1772,9 @@
     <ClInclude Include="fortress\order_resourcepump.h">
       <Filter>Source Files\Fortress\Orders</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\controlzone.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gamedll_replay.cpp">
@@ -3303,6 +3306,9 @@
     </ClCompile>
     <ClCompile Include="fortress\order_heal.cpp">
       <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\controlzone.cpp">
+      <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

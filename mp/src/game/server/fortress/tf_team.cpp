@@ -156,7 +156,7 @@ void CTFTeam::Think( void )
 #endif
 
 	UpdateTechnologies();
-		    
+	
 #if 1	// FIXME: Re-enable once we figure out what the correct orders should be
 	// Create new personal orders
 	if ( m_flPersonalOrderUpdateTime < gpGlobals->curtime )
@@ -242,13 +242,13 @@ void CTFTeam::UpdateClientTechnology( int iTechID, CBaseTFPlayer *pPlayer )
 	pPlayer->AvailableTech(iTechID).m_nAvailable = pTechnology->GetAvailable();
 	pPlayer->AvailableTech(iTechID).m_nUserCount = pcount;
 	pPlayer->AvailableTech(iTechID).m_nResourceLevel = pTechnology->GetResourceLevel();
-
-	/*
-	Msg( "Sent %s(%d) to %s:\n", pTechnology->GetName(), iTechID, STRING(pPlayer->pl->netname) );
+	
+#ifdef DEBUG
+	Msg( "Sent %s(%d) to %s:\n", pTechnology->GetName(), iTechID, pPlayer->GetPlayerName() );
 	Msg( "   Available: %d\n", pTechnology->GetAvailable() );
 	Msg( "   PrefCount: %d\n", pTechnology->GetPreferenceCount() );
 	Msg( "   Level    : %0.2f\n", pTechnology->GetResourceLevel() );
-	*/
+#endif
 }
 
 //-----------------------------------------------------------------------------

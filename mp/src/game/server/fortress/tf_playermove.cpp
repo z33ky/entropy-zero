@@ -13,10 +13,6 @@
 #include "tf_class_commando.h"
 #include "ipredictionsystem.h"
 
-ConVar jetpack_infinite("jetpack_infinite", "0");
-extern float g_JetpackDepleteRate;		// How fast the jetpack depletes.
-extern float g_JetpackNegSnap;			// When the jetpack is fully depleted, it snaps to this so the pilot sputters.
-
 static CTFMoveData g_TFMoveData;
 CMoveData *g_pMoveData = &g_TFMoveData;
 

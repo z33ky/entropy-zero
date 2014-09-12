@@ -126,10 +126,6 @@ void CObjectRespawnStation::PerformRespawnEffect()
 	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CObjectRespawnStation* CObjectRespawnStation::Create(const Vector &vOrigin, const QAngle &vAngles )
 {
 	CObjectRespawnStation *pRet = (CObjectRespawnStation*)CreateEntityByName("obj_respawn_station");
@@ -142,7 +138,6 @@ CObjectRespawnStation* CObjectRespawnStation::Create(const Vector &vOrigin, cons
 	
 	return pRet;
 }
-
 
 //-----------------------------------------------------------------------------
 // Plays a respawn effect on a respawn station...

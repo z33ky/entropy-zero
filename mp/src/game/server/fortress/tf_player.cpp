@@ -390,7 +390,7 @@ void CBaseTFPlayer::Spawn( void )
 
 		SetModel( "models/player/human_commando.mdl" );
 
-#ifdef IMPLEMENT_ME
+#if 0
 		// If they're not in a team, bring up the Team Menu
 		if ( !IsInAnyTeam() )
 		{
@@ -3272,11 +3272,12 @@ bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force )
 
 	bool bret = BaseClass::BecomeRagdollOnClient( force );
 
+#if 1
 	// ROBIN: Disabled ragdoll shadows for now.
 	//		  We'll re-enable them if we need to know the end position again
 	//		  If we re-enable them, we need to fix the ragdoll shadow not having the correct mass
 	return bret;
-
+#else
 	AddSolidFlags( FSOLID_NOT_SOLID );
 
 	// Clear any old shadow object ( should never occur )
@@ -3286,6 +3287,7 @@ bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force )
 	m_hRagdollShadow = CRagdollShadow::Create( this, force );
 
 	return bret;
+#endif
 }
 
 //=========================================================

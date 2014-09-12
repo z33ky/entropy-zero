@@ -254,9 +254,7 @@ void CCommanderStatusPanel::SetText( STATUSTYPE type, const char *fmt, ... )
 	m_bShowTechnology	= false;
 	m_pTechnology		= NULL;
 
-#ifdef IMPLEMENT_ME	// ?
 	RecomputeBounds();
-#endif
 }
 
 void CCommanderStatusPanel::SetTechnology( CBaseTechnology *technology )

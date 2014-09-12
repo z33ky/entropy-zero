@@ -14,11 +14,11 @@
 #include "iinput.h"
 #include "c_basetfplayer.h"
 #include "hud_timer.h"
-#include "ienginevgui.h"
 #include "usercmd.h"
 #include "in_buttons.h"
 #include "c_tf_playerclass.h"
 #include "engine/IEngineSound.h"
+#include "ienginevgui.h"
 #include <vgui/IInput.h>
 #include <vgui/IPanel.h>
 #include <vgui_controls/AnimationController.h>
@@ -43,13 +43,6 @@ ClientModeTFNormal::ClientModeTFNormal()
 	m_pViewport->Start( gameuifuncs, gameeventmanager );
 }
 
-#if 0
-void ClientModeTFNormal::Viewport::Start( IGameUIFuncs *pGameUIFuncs, IGameEventManager2 * pGameEventManager )
-{
-	BaseClass::Start( pGameUIFuncs, pGameEventManager );
-}
-#endif
-
 ClientModeTFNormal::Viewport::Viewport()
 {
 	// use a custom scheme for the hud
@@ -72,7 +65,9 @@ void ClientModeTFNormal::Viewport::OnThink()
 
 	bool human = ( team == TEAM_HUMANS ) ? true : false;
 	if ( human != m_bHumanScheme )
+	{
 		ReloadScheme();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -115,10 +110,12 @@ vgui::Panel *ClientModeTFNormal::GetMinimapParent( void )
 	return GetViewport();
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void ClientModeTFNormal::Update()
 {
 	BaseClass::Update();
-
 	HudCommanderOverlayMgr()->Tick( );
 }
 
@@ -132,7 +129,7 @@ bool ClientModeTFNormal::CreateMove( float flInputSampleTime, CUserCmd *cmd )
 	// Let the player override the view.
 	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
 	if(!pPlayer)
-		return false;
+		return true;
 
 	// Let the player at it
 	pPlayer->CreateMove( flInputSampleTime, cmd );

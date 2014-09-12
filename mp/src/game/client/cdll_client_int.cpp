@@ -112,12 +112,6 @@
 #include "matsys_controls/matsyscontrols.h"
 #include "gamestats.h"
 #include "particle_parse.h"
-#if defined( TF_CLIENT_DLL )
-#include "rtime.h"
-#include "tf_hud_disconnect_prompt.h"
-#include "../engine/audio/public/sound.h"
-#include "tf_shared_content_manager.h"
-#endif
 #include "clientsteamcontext.h"
 #include "renamed_recvtable_compat.h"
 #include "mouthinfo.h"
@@ -131,17 +125,9 @@
 #include "haptics/haptic_utils.h"
 #include "haptics/haptic_msgs.h"
 
-#if defined( TF_CLIENT_DLL )
-#include "abuse_report.h"
-#endif
-
 #ifdef USES_ECON_ITEMS
 #include "econ_item_system.h"
 #endif // USES_ECON_ITEMS
-
-#if defined( TF_CLIENT_DLL )
-#include "econ/tool_items/custom_texture_cache.h"
-#endif
 
 #ifdef WORKSHOP_IMPORT_ENABLED
 #include "fbxsystem/fbxsystem.h"
@@ -159,15 +145,6 @@ extern vgui::IInputInternal *g_InputInternal;
 //=============================================================================
 // HPE_END
 //=============================================================================
-
-
-#ifdef PORTAL
-#include "PortalRender.h"
-#endif
-
-#ifdef SIXENSE
-#include "sixense/in_sixense.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -924,10 +901,8 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 		return false;
 	if ( IsX360() && (matchmaking = (IMatchmaking *)appSystemFactory( VENGINE_MATCHMAKING_VERSION, NULL )) == NULL )
 		return false;
-#ifndef _XBOX
 	if ( ( gamestatsuploader = (IUploadGameStats *)appSystemFactory( INTERFACEVERSION_UPLOADGAMESTATS, NULL )) == NULL )
 		return false;
-#endif
 
 #if defined( REPLAY_ENABLED )
 	if ( IsPC() && (g_pEngineReplay = (IEngineReplay *)appSystemFactory( ENGINE_REPLAY_INTERFACE_VERSION, NULL )) == NULL )
@@ -1009,18 +984,6 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 	IGameSystem::Add( ClientSoundscapeSystem() );
 	IGameSystem::Add( PerfVisualBenchmark() );
 	IGameSystem::Add( MumbleSystem() );
-	
-	#if defined( TF_CLIENT_DLL )
-	IGameSystem::Add( CustomTextureToolCacheGameSystem() );
-	IGameSystem::Add( TFSharedContentManager() );
-	#endif
-
-#if defined( TF_CLIENT_DLL )
-	if ( g_AbuseReportMgr != NULL )
-	{
-		IGameSystem::Add( g_AbuseReportMgr );
-	}
-#endif
 
 #if defined( CLIENT_DLL ) && defined( COPY_CHECK_STRESSTEST )
 	IGameSystem::Add( GetPredictionCopyTester() );
@@ -1130,28 +1093,7 @@ void CHLClient::PostInit()
 {
 	IGameSystem::PostInitAllSystems();
 
-#ifdef SIXENSE
-	// allow sixnese input to perform post-init operations
-	g_pSixenseInput->PostInit();
-#endif
-
 	g_ClientVirtualReality.StartupComplete();
-
-#ifdef HL1MP_CLIENT_DLL
-	if ( s_cl_load_hl1_content.GetBool() && steamapicontext && steamapicontext->SteamApps() )
-	{
-		char szPath[ MAX_PATH*2 ];
-		int ccFolder= steamapicontext->SteamApps()->GetAppInstallDir( 280, szPath, sizeof(szPath) );
-		if ( ccFolder > 0 )
-		{
-			V_AppendSlash( szPath, sizeof(szPath) );
-			V_strncat( szPath, "hl1", sizeof( szPath ) );
-
-			g_pFullFileSystem->AddSearchPath( szPath, "HL1" );
-			g_pFullFileSystem->AddSearchPath( szPath, "GAME" );
-		}
-	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1163,12 +1105,6 @@ void CHLClient::Shutdown( void )
     {
         g_pAchievementsAndStatsInterface->ReleasePanel();
     }
-
-#ifdef SIXENSE
-	g_pSixenseInput->Shutdown();
-	delete g_pSixenseInput;
-	g_pSixenseInput = NULL;
-#endif
 
 	C_BaseAnimating::ShutdownBoneSetupThreadPool();
 	ClientWorldFactoryShutdown();
@@ -1280,14 +1216,6 @@ void CHLClient::HudUpdate( bool bActive )
 	// I don't think this is necessary any longer, but I will leave it until
 	// I can check into this further.
 	C_BaseTempEntity::CheckDynamicTempEnts();
-
-#ifdef SIXENSE
-	// If we're not connected, update sixense so we can move the mouse cursor when in the menus
-	if( !engine->IsConnected() || engine->IsPaused() )
-	{
-		g_pSixenseInput->SixenseFrame( 0, NULL ); 
-	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1427,10 +1355,6 @@ void CHLClient::IN_SetSampleTime( float frametime )
 {
 	input->Joystick_SetSampleTime( frametime );
 	input->IN_SetSampleTime( frametime );
-
-#ifdef SIXENSE
-	g_pSixenseInput->ResetFrameTime( frametime );
-#endif
 }
 //-----------------------------------------------------------------------------
 // Purpose: Fills in usercmd_s structure based on current view angles and key/controller inputs
@@ -1659,11 +1583,6 @@ void CHLClient::ResetStringTablePointers()
 	g_pStringTableInfoPanel = NULL;
 	g_pStringTableClientSideChoreoScenes = NULL;
 	g_pStringTableServerMapCycle = NULL;
-
-#ifdef TF_CLIENT_DLL
-	g_pStringTableServerPopFiles = NULL;
-	g_pStringTableServerMapCycleMvM = NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1723,10 +1642,6 @@ void CHLClient::LevelShutdown( void )
 	g_pParticleSystemMgr->UncacheAllParticleSystems();
 #endif
 	UncacheAllMaterials();
-
-#ifdef _XBOX
-	ReleaseRenderTargets();
-#endif
 
 	// string tables are cleared on disconnect from a server, so reset our global pointers to NULL
 	ResetStringTablePointers();
@@ -1890,16 +1805,6 @@ void CHLClient::InstallStringTableCallback( const char *tableName )
 	{
 		g_pStringTableServerMapCycle = networkstringtable->FindTable( tableName );
 	}
-#ifdef TF_CLIENT_DLL
-	else if ( !Q_strcasecmp( tableName, "ServerPopFiles" ) )
-	{
-		g_pStringTableServerPopFiles = networkstringtable->FindTable( tableName );
-	}
-	else if ( !Q_strcasecmp( tableName, "ServerMapCycleMvM" ) )
-	{
-		g_pStringTableServerMapCycleMvM = networkstringtable->FindTable( tableName );
-	}
-#endif
 
 	InstallStringTableCallback_GameRules();
 }
@@ -2543,44 +2448,6 @@ void CHLClient::FileReceived( const char * fileName, unsigned int transferID )
 
 void CHLClient::ClientAdjustStartSoundParams( StartSoundParams_t& params )
 {
-#ifdef TF_CLIENT_DLL
-	CBaseEntity *pEntity = ClientEntityList().GetEnt( params.soundsource );
-
-	// A player speaking
-	if ( params.entchannel == CHAN_VOICE && GameRules() && pEntity && pEntity->IsPlayer() )
-	{
-		// Use high-pitched voices for other players if the local player has an item that allows them to hear it (Pyro Goggles)
-		if ( !GameRules()->IsLocalPlayer( params.soundsource ) && IsLocalPlayerUsingVisionFilterFlags( TF_VISION_FILTER_PYRO ) )
-		{
-			params.pitch *= 1.3f;
-		}
-		// Halloween voice futzery?
-		else
-		{
-			float flHeadScale = 1.f;
-			CALL_ATTRIB_HOOK_FLOAT_ON_OTHER( pEntity, flHeadScale, head_scale );
-
-			int iHalloweenVoiceSpell = 0;
-			CALL_ATTRIB_HOOK_INT_ON_OTHER( pEntity, iHalloweenVoiceSpell, halloween_voice_modulation );
-			if ( iHalloweenVoiceSpell > 0 )
-			{
-				params.pitch *= 0.8f;
-			}
-			else if( flHeadScale != 1.f )
-			{
-				// Big head, deep voice
-				if( flHeadScale > 1.f )
-				{
-					params.pitch *= 0.8f;
-				}
-				else	// Small head, high voice
-				{
-					params.pitch *= 1.3f;
-				}
-			}
-		}
-	}
-#endif
 }
 
 const char* CHLClient::TranslateEffectForVisionFilter( const char *pchEffectType, const char *pchEffectName )
@@ -2593,13 +2460,7 @@ const char* CHLClient::TranslateEffectForVisionFilter( const char *pchEffectType
 
 bool CHLClient::DisconnectAttempt( void )
 {
-	bool bRet = false;
-
-#if defined( TF_CLIENT_DLL )
-	bRet = HandleDisconnectAttempt();
-#endif
-
-	return bRet;
+	return false;
 }
 
 bool CHLClient::IsConnectedUserInfoChangeAllowed( IConVar *pCvar )

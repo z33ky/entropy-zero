@@ -200,15 +200,11 @@ void CCommanderOverlayPanel::Enable()
 	vgui::ivgui()->AddTickSignal( GetVPanel() );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CCommanderOverlayPanel::Disable()
 {
 	SetVisible( false );
-	// FIXME: Need a removeTickSignal!
-//	vgui::ivgui()->removeTickSignal( GetVPanel() );
+
+	vgui::ivgui()->RemoveTickSignal(GetVPanel());
 }
 
 

@@ -412,7 +412,6 @@ exit 1
     <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h" />
     <ClInclude Include="..\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h" />
-    <ClInclude Include="commanderoverlaypanel.h" />
     <ClInclude Include="fortress\clientmode_commander.h" />
     <ClInclude Include="fortress\clientmode_tfbase.h" />
     <ClInclude Include="fortress\clientmode_tfnormal.h" />
@@ -420,6 +419,8 @@ exit 1
     <ClInclude Include="fortress\commanderoverlaypanel.h" />
     <ClInclude Include="fortress\c_baseobject.h" />
     <ClInclude Include="fortress\c_basetfplayer.h" />
+    <ClInclude Include="fortress\c_controlzone.h" />
+    <ClInclude Include="fortress\c_demo_entities.h" />
     <ClInclude Include="fortress\c_func_resource.h" />
     <ClInclude Include="fortress\c_hint_events.h" />
     <ClInclude Include="fortress\c_info_act.h" />
@@ -429,6 +430,7 @@ exit 1
     <ClInclude Include="fortress\c_order_assist.h" />
     <ClInclude Include="fortress\c_order_heal.h" />
     <ClInclude Include="fortress\c_order_player.h" />
+    <ClInclude Include="fortress\c_order_resourcepump.h" />
     <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
@@ -437,6 +439,7 @@ exit 1
     <ClInclude Include="fortress\c_tf_basecombatweapon.h" />
     <ClInclude Include="fortress\c_tf_basehint.h" />
     <ClInclude Include="fortress\c_tf_class_commando.h" />
+    <ClInclude Include="fortress\c_tf_class_medic.h" />
     <ClInclude Include="fortress\c_tf_hintmanager.h" />
     <ClInclude Include="fortress\c_tf_hints.h" />
     <ClInclude Include="fortress\c_tf_playerclass.h" />
@@ -971,6 +974,8 @@ exit 1
     <ClCompile Include="fortress\c_basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\c_baseobject.cpp" />
     <ClCompile Include="fortress\c_basetfplayer.cpp" />
+    <ClCompile Include="fortress\c_controlzone.cpp" />
+    <ClCompile Include="fortress\c_demo_entities.cpp" />
     <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp" />
     <ClCompile Include="fortress\c_hint_events.cpp" />
@@ -987,6 +992,7 @@ exit 1
     <ClCompile Include="fortress\c_order_assist.cpp" />
     <ClCompile Include="fortress\c_order_heal.cpp" />
     <ClCompile Include="fortress\c_order_player.cpp" />
+    <ClCompile Include="fortress\c_order_resourcepump.cpp" />
     <ClCompile Include="fortress\c_ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_shield.cpp" />
@@ -997,6 +1003,7 @@ exit 1
     <ClCompile Include="fortress\c_tf_basecombatweapon.cpp" />
     <ClCompile Include="fortress\c_tf_basehint.cpp" />
     <ClCompile Include="fortress\c_tf_class_commando.cpp" />
+    <ClCompile Include="fortress\c_tf_class_medic.cpp" />
     <ClCompile Include="fortress\c_tf_hintmanager.cpp" />
     <ClCompile Include="fortress\c_tf_hints.cpp" />
     <ClCompile Include="fortress\c_tf_playerclass.cpp" />
@@ -1018,6 +1025,7 @@ exit 1
     <ClCompile Include="fortress\hud_numeric.cpp" />
     <ClCompile Include="fortress\hud_orders.cpp" />
     <ClCompile Include="fortress\hud_resources.cpp" />
+    <ClCompile Include="fortress\hud_target_id.cpp" />
     <ClCompile Include="fortress\hud_technologytreedoc.cpp" />
     <ClCompile Include="fortress\hud_timer.cpp" />
     <ClCompile Include="fortress\hud_weaponselection.cpp" />
@@ -1025,7 +1033,9 @@ exit 1
     <ClCompile Include="fortress\minimap_players.cpp" />
     <ClCompile Include="fortress\minimap_resourcezone.cpp" />
     <ClCompile Include="fortress\minimap_trace.cpp" />
+    <ClCompile Include="fortress\objectbuildalphaproxy.cpp" />
     <ClCompile Include="fortress\ObjectControlPanel.cpp" />
+    <ClCompile Include="fortress\overlay_orders.cpp" />
     <ClCompile Include="fortress\paneleffect.cpp" />
     <ClCompile Include="fortress\panel_effects.cpp" />
     <ClCompile Include="fortress\playeroverlay.cpp" />
@@ -1034,6 +1044,7 @@ exit 1
     <ClCompile Include="fortress\playeroverlayname.cpp" />
     <ClCompile Include="fortress\playeroverlayselected.cpp" />
     <ClCompile Include="fortress\playeroverlaysquad.cpp" />
+    <ClCompile Include="fortress\proxy_shield.cpp" />
     <ClCompile Include="fortress\resourcezoneoverlay.cpp" />
     <ClCompile Include="fortress\tf_clientmode.cpp" />
     <ClCompile Include="fortress\tf_in_main.cpp" />

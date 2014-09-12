@@ -138,7 +138,7 @@ public:
 
 	void	Spawn( void );
 	void	Precache( void );
-	void	Activate( void );
+	virtual	void	Activate( void );
 	void	SetActive( bool bActive );
 
 	void	SpawnChunkThink( void );
