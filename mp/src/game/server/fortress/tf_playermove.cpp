@@ -5,10 +5,8 @@
 #include "tf_shareddefs.h"
 #include "in_buttons.h"
 #include "tf_movedata.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_recon.h"
 #include "tf_reconvars.h"
-#endif
 #include "IserverVehicle.h"
 #include "tf_class_commando.h"
 #include "ipredictionsystem.h"
@@ -122,7 +120,6 @@ void CTFPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, IMoveHelper *pHelper, 
 								    CTFMoveData *pTFMove )
 {
-#ifdef IMPLEMENT_ME
 	CPlayerClassRecon *pRecon = static_cast<CPlayerClassRecon*>( pTFPlayer->GetPlayerClass() );
 	if ( pRecon )
 	{
@@ -139,7 +136,6 @@ void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, I
 			pTFMove->ReconData().m_vecUnstickVelocity = pReconData->m_vecUnstickVelocity;
 		}
 	}
-#endif
 }
 
 void CTFPlayerMove::SetupMoveCommando( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, IMoveHelper *pHelper, 
@@ -233,7 +229,6 @@ void CTFPlayerMove::FinishMove( CBasePlayer *player, CUserCmd *ucmd, CMoveData *
 void CTFPlayerMove::FinishMoveRecon( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFMove, 
 									 CUserCmd *ucmd )
 {
-#ifdef IMPLEMENT_ME
 	CPlayerClassRecon *pRecon = static_cast<CPlayerClassRecon*>( pTFPlayer->GetPlayerClass() );
 	if ( pRecon )
 	{
@@ -250,7 +245,6 @@ void CTFPlayerMove::FinishMoveRecon( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFM
 			pReconData->m_vecUnstickVelocity = pTFMove->ReconData().m_vecUnstickVelocity;
 		}
 	}
-#endif
 }
 
 void CTFPlayerMove::FinishMoveCommando( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFMove, 

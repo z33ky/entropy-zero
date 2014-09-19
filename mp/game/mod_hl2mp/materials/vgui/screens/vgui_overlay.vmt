@@ -1,11 +1,9 @@
 "UnlitTwoTexture"
 {
- 	"$basetexture" 	"vgui/screens/vgui_overlay"
-	"$texture2"	"effects/tvscreen_noise001b"
-	"$texture2scale" 0
-	"$additive" 1
-//	"$ignorez" 1
-//	"$nofog" 1
+ 	$basetexture 		"vgui/screens/vgui_overlay"
+	$texture2			"effects/tvscreen_noise001b"
+	$texture2scale 		0
+	$additive 			1
 
 	"$one"		1
 	"$zero"		0
@@ -14,6 +12,7 @@
 	"$texscale"	1
 	"$tex2offset"	"[0 0]"
 	"$tex2scale"	0
+	$alpha_bias			0.5
 
 	"$a_b_halfwidth" 	0.005
 	"$a_b_noise"		0
@@ -23,10 +22,6 @@
 
 	"$a_t_halfwidth" 	0.00
 	"$a_threshold"		0.02
-
-	"$alpha_bias"		0.05
-
-//
 	"$j_b_halfwidth" 	0
 	"$j_b_noise"		0
 
@@ -37,8 +32,6 @@
 	"$j_threshold"		1
 
 	"$j_basescale"		1
-
-//
 	"$xo_b_halfwidth" 	0
 	"$xo_b_noise"		0
 
@@ -47,9 +40,6 @@
 
 	"$xo_t_halfwidth" 	0
 	"$xo_threshold"		0
-
-
-
 
 	"Proxies"
 	{

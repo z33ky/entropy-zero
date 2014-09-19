@@ -380,6 +380,7 @@ END_NETWORK_TABLE()
 	{
 		CBaseEntity *pSpawnSpot = pPlayer->EntSelectSpawnPoint();
 
+#if 0
 		// Make sure the spawn spot isn't blocked...
 		Vector vecTestOrg = pSpawnSpot->GetAbsOrigin();
 
@@ -389,9 +390,8 @@ END_NETWORK_TABLE()
 		
 		// Move the player to the place it said.
 		pPlayer->Teleport( &origin, NULL, NULL );
-
-#ifdef IMPLEMENT_ME // ?
-		UTIL_Relink( pPlayer );
+#else
+		pPlayer->SetLocalOrigin(MaybeDropToGround(pPlayer,true,pSpawnSpot->GetAbsOrigin(),VEC_HULL_MIN,VEC_HULL_MAX));
 #endif
 
 		pPlayer->SetAbsVelocity( vec3_origin );

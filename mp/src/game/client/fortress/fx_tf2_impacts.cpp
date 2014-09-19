@@ -319,7 +319,10 @@ void PrecacheImpactShards(void *pUser)
 		ImpactHurtShards_Metal_Small[i] = (model_t *)engine->LoadModel( sFile );
 	}
 }
+
+#if 0	// These aren't used right now, so don't bother ~hogsy
 PRECACHE_REGISTER_FN(PrecacheImpactShards);
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Throw out shards from the impact point to show we can hurt the target

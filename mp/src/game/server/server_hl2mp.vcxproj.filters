@@ -34,11 +34,32 @@
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{3232c668-f9fc-412e-b896-057f9e2604e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Shared">
-      <UniqueIdentifier>{fb216a71-d66a-4ef6-b0c3-790e57e695d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Fortress\Orders">
       <UniqueIdentifier>{d599f2ac-db0f-4703-adcf-ed9a69670cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Half-Life 2">
+      <UniqueIdentifier>{bc6eff32-7805-4141-b73b-6089f74e7b90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Func">
+      <UniqueIdentifier>{75331354-ab69-4636-b99d-559dfb3b9f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Info">
+      <UniqueIdentifier>{4f86633f-7de7-4454-912b-cbe77976f2d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Objects">
+      <UniqueIdentifier>{857bb02f-43ed-43e8-aac6-80b5ffa685f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Shared\Weapons">
+      <UniqueIdentifier>{e792699f-fa47-4a6b-b46b-c1451a8f0c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Classes">
+      <UniqueIdentifier>{3c46b7a6-3da4-4f73-a49f-4f265e7ecf26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Shared\Objects">
+      <UniqueIdentifier>{9cc6ceef-8ea7-45d5-95d2-74e913460b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Shared\Movement">
+      <UniqueIdentifier>{9ff59c11-c2a7-43df-9d0d-2641639beb9a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1601,15 +1622,6 @@
     <ClInclude Include="..\shared\fortress\tfclassdata_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\tf_obj.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\info_vehicle_bay.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\fortress\basetfplayer_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -1619,12 +1631,6 @@
     <ClInclude Include="..\shared\fortress\tf_gamerules.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\fortress\tf_gamemovement.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\tf_gamemovement_chooser.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_hintmanager.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1632,15 +1638,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_team.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_buff_station.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\tf_gamemovement_commando.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_class_commando.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_playerclass.h">
@@ -1661,9 +1658,6 @@
     <ClInclude Include="fortress\team_messages.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\tf_obj_powerpack.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_func_resource.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1676,28 +1670,7 @@
     <ClInclude Include="fortress\menu_base.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_builder.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_basecombatweapon.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_objectselection.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\info_customtech.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_rallyflag.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\info_buildpoint.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_shield.h">
@@ -1708,15 +1681,6 @@
     </ClInclude>
     <ClInclude Include="..\shared\fortress\tf_shieldshared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\fortress\weapon_combatshield.h">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_respawn_station.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\info_act.h">
-      <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_player_resource.h">
       <Filter>Source Files\Fortress</Filter>
@@ -1730,12 +1694,6 @@
     <ClInclude Include="fortress\bot_base.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\tf_obj_sandbag_bunker.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_resourcepump.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\ragdoll_shadow.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1744,9 +1702,6 @@
     </ClInclude>
     <ClInclude Include="..\shared\fortress\grenade_objectsapper.h">
       <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_resupply.h">
-      <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_stats.h">
       <Filter>Source Files\Fortress</Filter>
@@ -1774,6 +1729,105 @@
     </ClInclude>
     <ClInclude Include="fortress\controlzone.h">
       <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\info_buildpoint.h">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\info_vehicle_bay.h">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\info_customtech.h">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\info_act.h">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_sandbag_bunker.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_resupply.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_respawn_station.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_resourcepump.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_rallyflag.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_powerpack.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_buff_station.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_objectselection.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combatshield.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_basecombatobject.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_builder.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\weapon_combat_usedwithshieldbase.h">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_repair.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_commando.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_defender.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\basetfvehicle.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_obj_baseupgrade_shared.h">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_obj_basedrivergun_shared.h">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_commando.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_chooser.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_defender.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_medic.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_sniper.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_recon.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_reconvars.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_recon.h">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3103,12 +3157,6 @@
     <ClCompile Include="..\shared\fortress\tfclassdata_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\tf_obj.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\info_vehicle_bay.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\basecombatcharacter_tf2.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3124,19 +3172,10 @@
     <ClCompile Include="..\shared\fortress\tf_gamerules.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\tf_gamemovement.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\tf_gamemovement_chooser.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_gameinterface.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\fortress\tf_usermessages.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\weapon_parse_default.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf2_eventlog.cpp">
@@ -3154,16 +3193,7 @@
     <ClCompile Include="fortress\tf_team.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\tf_obj_buff_station.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\tf_gamemovement_commando.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_playerclass.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_class_commando.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_player_death.cpp">
@@ -3173,9 +3203,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_playerlocaldata.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_powerpack.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_func_resource.cpp">
@@ -3193,34 +3220,10 @@
     <ClCompile Include="..\shared\fortress\team_messages.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\menu_base.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_builder.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_twohandedcontainer.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\info_customtech.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_rallyflag.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\bot_base.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\info_buildpoint.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\sensor_tf_team.cpp">
@@ -3238,15 +3241,6 @@
     <ClCompile Include="..\shared\fortress\tf_shield_mobile_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_respawn_station.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\info_act.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_player_resource.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3256,35 +3250,14 @@
     <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_combat_plasmarifle.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp">
-      <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_resourcepump.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="mapdata_server.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\ragdoll_shadow.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\info_input_respawnplayers.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_func_no_build.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="..\shared\fortress\grenade_objectsapper.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_resupply.cpp">
-      <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_stats.cpp">
       <Filter>Source Files\Fortress</Filter>
@@ -3309,6 +3282,123 @@
     </ClCompile>
     <ClCompile Include="fortress\controlzone.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="hl2\env_speaker.cpp">
+      <Filter>Source Files\Half-Life 2</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_func_no_build.cpp">
+      <Filter>Source Files\Fortress\Func</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\info_buildpoint.cpp">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\info_vehicle_bay.cpp">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\info_input_respawnplayers.cpp">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\info_customtech.cpp">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\info_act.cpp">
+      <Filter>Source Files\Fortress\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_resupply.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_respawn_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_resourcepump.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_rallyflag.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_powerpack.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_buff_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_twohandedcontainer.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\weapon_parse_default.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_builder.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_plasmarifle.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combat_usedwithshieldbase.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_combatshield.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\weapon_objectselection.cpp">
+      <Filter>Source Files\Fortress\Shared\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_repair.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_commando.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_defender.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\basetfvehicle.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_obj_baseupgrade_shared.cpp">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_obj_basedrivergun_shared.cpp">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_commando.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_chooser.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_defender.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_medic.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_sniper.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_recon.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_reconvars.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_recon.cpp">
+      <Filter>Source Files\Fortress\Shared\Movement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

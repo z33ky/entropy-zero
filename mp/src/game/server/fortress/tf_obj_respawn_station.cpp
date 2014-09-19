@@ -1,9 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: Medic's resupply beacon
-//
-// $NoKeywords: $
-//=============================================================================
 #include "cbase.h"
 #include "tf_obj.h"
 #include "tf_player.h"

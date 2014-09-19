@@ -7,14 +7,12 @@
 #include "UtlVector.h"
 #include "IGameMovement.h"
 #include "tf_gamemovement.h"
-#ifdef IMPLEMENT_ME
 #include "tf_gamemovement_recon.h"
-#endif
 #include "tf_gamemovement_commando.h"
-#ifdef IMPLEMENT_ME
 #include "tf_gamemovement_medic.h"
 #include "tf_gamemovement_defender.h"
 #include "tf_gamemovement_sniper.h"
+#ifdef IMPLEMENT_ME
 #include "tf_gamemovement_support.h"
 #include "tf_gamemovement_escort.h"
 #include "tf_gamemovement_sapper.h"
@@ -45,20 +43,18 @@ protected:
 	// Cache the current class id.
 	int								m_nClassID;
 
-#ifdef IMPLEMENT_ME
 	// Create the class specific movement singletons.
 	CTFGameMovementRecon			m_ReconMovement;
 	CTFGameMovementCommando			m_CommandoMovement;
 	CTFGameMovementMedic			m_MedicMovement;
 	CTFGameMovementDefender			m_DefenderMovement;
 	CTFGameMovementSniper			m_SniperMovement;
+#ifdef IMPLEMENT_ME
 	CTFGameMovementSupport			m_SupportMovement;
 	CTFGameMovementEscort			m_EscortMovement;
 	CTFGameMovementSapper			m_SapperMovement;
 	CTFGameMovementInfiltrator		m_InfiltratorMovement;
 	CTFGameMovementPyro				m_PyroMovement;
-#else
-	CTFGameMovementCommando			m_CommandoMovement;
 #endif
 
 	// Vector of class specific movements (for quick addressing).

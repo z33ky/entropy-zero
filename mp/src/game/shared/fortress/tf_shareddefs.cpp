@@ -13,12 +13,14 @@
 #ifndef CLIENT_DLL
 	#include "tf_team.h"
 	#include "tf_class_commando.h"
-#ifdef IMPLEMENT_ME
 	#include "tf_class_defender.h"
+#ifdef IMPLEMENT_ME
 	#include "tf_class_escort.h"
 	#include "tf_class_infiltrator.h"
 	#include "tf_class_medic.h"
+#endif
 	#include "tf_class_recon.h"
+#ifdef IMPLEMENT_ME
 	#include "tf_class_sniper.h"
 	#include "tf_class_support.h"
 	#include "tf_class_sapper.h"
@@ -27,7 +29,6 @@
 #else
 	#include "c_tfteam.h"
 	#include "c_tf_class_commando.h"
-#ifdef IMPLEMENT_ME
 	#include "c_tf_class_defender.h"
 	#include "c_tf_class_escort.h"
 	#include "c_tf_class_infiltrator.h"
@@ -37,7 +38,6 @@
 	#include "c_tf_class_support.h"
 	#include "c_tf_class_sapper.h"
 	#include "c_tf_class_pyro.h"
-#endif
 
 #define CTFTeam C_TFTeam
 #endif
@@ -202,7 +202,6 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 
 	BEGIN_RECV_TABLE_NOBASE( C_AllPlayerClasses, DT_AllPlayerClasses )
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_COMMANDO]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassCommandoData ),		DataTableRecvProxy_PointerDataTable ),
-#ifdef IMPLEMENT_ME
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_DEFENDER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassDefenderData ),		DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_ESCORT]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassEscortData ),			DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_INFILTRATOR]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassInfiltratorData ), DataTableRecvProxy_PointerDataTable ),
@@ -211,7 +210,6 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SNIPER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSniperData ),			DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SUPPORT]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSupportData ),			DataTableRecvProxy_PointerDataTable ),
 		RecvPropDataTable( RECVINFO_DT(m_pClasses[TFCLASS_SAPPER]), 0, &REFERENCE_RECV_TABLE( DT_PlayerClassSapperData ),			DataTableRecvProxy_PointerDataTable )
-#endif
 	END_RECV_TABLE()
 
 #else		
@@ -285,38 +283,39 @@ PLAYER_CLASS_TYPE* CAllPlayerClasses::GetPlayerClass( int iClass )
 	return m_pClasses[iClass];
 }
 
-#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Recon,		TFCLASS_RECON );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Commando,		TFCLASS_COMMANDO );
+#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Medic,		TFCLASS_MEDIC );
+#endif
 DEFINE_PLAYERCLASS_ALLOC_FNS( Defender,		TFCLASS_DEFENDER );
+#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sniper,		TFCLASS_SNIPER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Support,		TFCLASS_SUPPORT );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Escort,		TFCLASS_ESCORT );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sapper,		TFCLASS_SAPPER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Infiltrator,	TFCLASS_INFILTRATOR );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
-#else
-DEFINE_PLAYERCLASS_ALLOC_FNS( Commando,		TFCLASS_COMMANDO );
 #endif
 
 CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 {
-	{ "Undecided",	g_iClassInfo_Undecided,		false, NULL, NULL, NULL },
+	{ "Undecided",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
+	{ "Recon",			g_iClassInfo_Recon,			false,	GENERATE_PLAYERCLASS_INFO( Recon )			},
+	{ "Commando",		g_iClassInfo_Commando,		true,	GENERATE_PLAYERCLASS_INFO( Commando )		},
 #ifdef IMPLEMENT_ME
-	{ "Recon",		g_iClassInfo_Recon,			false, GENERATE_PLAYERCLASS_INFO( Recon ) },
-	{ "Commando",	g_iClassInfo_Commando,		true, GENERATE_PLAYERCLASS_INFO( Commando ) },
-	{ "Medic",		g_iClassInfo_Medic,			true, GENERATE_PLAYERCLASS_INFO( Medic ) },
-	{ "Defender",	g_iClassInfo_Defender,		true, GENERATE_PLAYERCLASS_INFO( Defender ) },
-	{ "Sniper",		g_iClassInfo_Sniper,		false, GENERATE_PLAYERCLASS_INFO( Sniper ) },
-	{ "Support",	g_iClassInfo_Support,		false, GENERATE_PLAYERCLASS_INFO( Support ) },
-	{ "Escort",		g_iClassInfo_Escort,		true, GENERATE_PLAYERCLASS_INFO( Escort ) },
-	{ "Sapper",		g_iClassInfo_Sapper,		true, GENERATE_PLAYERCLASS_INFO( Sapper ) },
-	{ "Infiltrator",g_iClassInfo_Infiltrator,	false, GENERATE_PLAYERCLASS_INFO( Infiltrator ) },
-	{ "Pyro",		g_iClassInfo_Pyro,			false, GENERATE_PLAYERCLASS_INFO( Pyro ) }
+	{ "Medic",			g_iClassInfo_Medic,			true,	GENERATE_PLAYERCLASS_INFO( Medic )			},
 #else
-	{ "Dummy",		g_iClassInfo_Undecided,			false, NULL, NULL, NULL },	// Dummy class to make Commando accesible. ~hogsy
-	{ "Commando",	g_iClassInfo_Commando,		true, GENERATE_PLAYERCLASS_INFO( Commando ) },
+	{	"dummy",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
+#endif
+	{ "Defender",		g_iClassInfo_Defender,		true,	GENERATE_PLAYERCLASS_INFO( Defender )		},
+#ifdef IMPLEMENT_ME
+	{ "Sniper",			g_iClassInfo_Sniper,		false,	GENERATE_PLAYERCLASS_INFO( Sniper )			},
+	{ "Support",		g_iClassInfo_Support,		false,	GENERATE_PLAYERCLASS_INFO( Support )		},
+	{ "Escort",			g_iClassInfo_Escort,		true,	GENERATE_PLAYERCLASS_INFO( Escort )			},
+	{ "Sapper",			g_iClassInfo_Sapper,		true,	GENERATE_PLAYERCLASS_INFO( Sapper )			},
+	{ "Infiltrator",	g_iClassInfo_Infiltrator,	false,	GENERATE_PLAYERCLASS_INFO( Infiltrator )	},
+	{ "Pyro",			g_iClassInfo_Pyro,			false,	GENERATE_PLAYERCLASS_INFO( Pyro )			}
 #endif
 };
 

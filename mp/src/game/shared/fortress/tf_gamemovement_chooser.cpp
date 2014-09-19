@@ -10,19 +10,19 @@ CTFGameMovementChooser::CTFGameMovementChooser()
 	// Allocate memory for a movement type for each class (0 = undecided)
 	m_Movements.SetSize( TFCLASS_CLASS_COUNT );
 
-#ifdef IMPLEMENT_ME
 	// NOTE: the order here matches the enum order in tf_shareddefs.h
-	m_Movements[TFCLASS_RECON] = &m_ReconMovement;
-	m_Movements[TFCLASS_MEDIC] = &m_MedicMovement;
-	m_Movements[TFCLASS_DEFENDER] = &m_DefenderMovement;
-	m_Movements[TFCLASS_SNIPER] = &m_SniperMovement;
+	m_Movements[TFCLASS_RECON]			= &m_ReconMovement;
+	m_Movements[TFCLASS_MEDIC]			= &m_MedicMovement;
+	m_Movements[TFCLASS_DEFENDER]		= &m_DefenderMovement;
+	m_Movements[TFCLASS_SNIPER]			= &m_SniperMovement;
+#ifdef IMPLEMENT_ME
 	m_Movements[TFCLASS_SUPPORT] = &m_SupportMovement;
 	m_Movements[TFCLASS_ESCORT] = &m_EscortMovement;
 	m_Movements[TFCLASS_SAPPER] = &m_SapperMovement;
-	m_Movements[TFCLASS_INFILTRATOR] = &m_InfiltratorMovement;
+	m_Movements[TFCLASS_INFILTRATOR]	= &m_InfiltratorMovement;
 	m_Movements[TFCLASS_PYRO] = &m_PyroMovement;
 #else
-	m_Movements[TFCLASS_COMMANDO] = &m_CommandoMovement;
+	m_Movements[TFCLASS_COMMANDO]		= &m_CommandoMovement;
 #endif
 }
 

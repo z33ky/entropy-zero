@@ -652,7 +652,7 @@ objects
 		StatusName				"Sandbag Bunker"
 		BuilderWeaponName		"Sandbag Bunker"
 		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
+		SolidToPlayerMovement	1
 		Icon					"placeholder"
 		BuildTime				10
 		MaxObjects				1
@@ -671,7 +671,7 @@ objects
 		StatusName				"Bunker"
 		BuilderWeaponName		"Bunker"
 		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
+		SolidToPlayerMovement	1
 		Icon					"placeholder"
 		BuildTime				10
 		MaxObjects				1

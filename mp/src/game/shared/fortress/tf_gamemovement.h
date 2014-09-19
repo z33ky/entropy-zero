@@ -36,6 +36,7 @@ protected:
 	// Player movement functions.
 	virtual bool	PrePlayerMove( void );
 	virtual void	HandlePlayerMove( void );
+	virtual void	PostPlayerMove( void );
 
 	// Player pre-movement functions.
 	virtual int		CheckStuck( void );

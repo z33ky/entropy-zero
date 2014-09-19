@@ -8,8 +8,27 @@ Weapon_BurstRifle.Single
 	wave		weapons/burstrifle/single.wav
 }
 
+// Minimap
+Minimap.ZoomIn
+{
+	channel		CHAN_STATIC
+	pitch		PITCH_NORM
+	soundlevel	SNDLVL_NONE
+	volume		0.8
+	wave		minimap/zoom.wav
+}
+
+Minimap.ZoomOut
+{
+	channel		CHAN_STATIC
+	pitch		75
+	soundlevel	SNDLVL_NONE
+	volume		0.8
+	wave		minimap/zoom.wav
+}
+
 // Humans
-Human.Death
+Humans.Death
 {
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"

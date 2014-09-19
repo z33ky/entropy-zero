@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "hud/minimap/player_icon"
+	"$translucent" 1
+}

@@ -1,4 +1,4 @@
-TechTreeDataFile
+TechnologyTree
 {	
 	HumanBaseWeapons
 	{
@@ -87,6 +87,18 @@ TechTreeDataFile
 	}
 	
 	sniper_deploy_stealth
+	{
+	}
+	
+	mortar_ammo_smoke
+	{
+	}
+	
+	mortar_ammo_cluster
+	{
+	}
+	
+	mortar_ammo_starburst
 	{
 	}
 }

@@ -6,6 +6,8 @@ differently to the final TF2 so I really need to teach myself to keep out of tha
 mindset. I suppose these will also help anyone else curious as to why certain things
 seem to do what they do...
 
+Q.	I can collide with capture points, resource areas and so on. Is this intended?
+
 --------------------------
 
 Q.	Where did resources come from?
@@ -13,9 +15,9 @@ A.	Right now as far as I understand it, the aliens are responsible for the resou
 	that exists in the Invasion phase of Team Fortress 2. There are two things that
 	somewhat tell me this; concept art produced by Chuck Jones that shows an alien
 	that spits out a large blob, with other elements included along-side this reflecting
-	a style that can be seen with the Alien Commando model (circles). 
-	Additionally along with the fact that there's an entity called the Resource Spawner 
-	that is set up to use an animated model.
+	a style that can be seen with the Alien Commando model (circles). Additionally to support
+	this it's worth pointing out that an entity called the Resource Spawner is set up to use an 
+	animated model.
 	
 Q.	Were there meant to be multiple resource types?
 A.	It looks like this was intended but never implemented.

@@ -1,4 +1,4 @@
-"VGUI_Screens"
+Screens
 {
 	screen_human_pda
 	{

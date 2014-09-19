@@ -616,6 +616,13 @@ void CTFGameMovement::PlayerMove( void )
 
 	// Handle Movement
 	HandlePlayerMove();
+
+	// Clean-up and updates post-player movement.
+	PostPlayerMove();
+}
+
+void CTFGameMovement::PostPlayerMove( void )
+{
 }
 
 void CTFGameMovement::FullWalkMove()

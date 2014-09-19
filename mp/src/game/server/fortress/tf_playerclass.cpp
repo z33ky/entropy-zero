@@ -15,9 +15,7 @@
 #include "tf_team.h"
 #include "tf_func_resource.h"
 #include "orders.h"
-#ifdef IMPLEMENT_ME
 #include "order_repair.h"
-#endif
 #include "engine/IEngineSound.h"
 #include "tier1/strtools.h"
 #include "textstatsmgr.h"
@@ -112,18 +110,18 @@ void AddPlayerClassTime( int classnum, float seconds )
 
 int GetStatGroupFor( CBaseTFPlayer *pPlayer )
 {
-#ifdef IMPLEMENT_ME
 	// In a vehicle?
 	if ( pPlayer->IsInAVehicle() )
 	{
+#ifdef IMPLEMENT_ME
 		if ( dynamic_cast<CVehicleTank*>( pPlayer->GetVehicle() ) )
 			return STATS_TANK;
 		if ( dynamic_cast<CObjectMannedMissileLauncher*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_ROCKET;
 		if ( dynamic_cast<CObjectMannedPlasmagun*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_PLASMA;
-	}
 #endif
+	}
 
 	// Otherwise, use the playerclass
 	return pPlayer->GetPlayerClass()->GetTFClass();
@@ -864,11 +862,9 @@ void CPlayerClass::CreatePersonalOrder()
 	if( CreateInitialOrder() )
 		return;			   
 
-#ifdef IMPLEMENT_ME
 	// Make an order to fix any objects we own.
 	if ( COrderRepair::CreateOrder_RepairOwnObjects( this ) )
 		return;
-#endif
 }
 
 

@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Fortress\Classes">
       <UniqueIdentifier>{bf2af359-6b87-46cd-b8f9-a5db5c23ad70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\HUD">
+      <UniqueIdentifier>{54f1f3d6-e4a3-4a9e-8b97-9de7c0962d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Shared\Objects">
+      <UniqueIdentifier>{783d7444-a051-4705-ba71-59bd972570e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\bitmap.lib">
@@ -1859,15 +1865,6 @@
     <ClInclude Include="toolframework_client.h">
       <Filter>Tool Framework</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\hud_commander_statuspanel.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_ammo.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_numeric.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\fortress\tf_shareddefs.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -1890,9 +1887,6 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_basetfplayer.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_targetreticle.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_tfteam.h">
@@ -1952,9 +1946,6 @@
     <ClInclude Include="fortress\vgui_rotation_slider.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\hud_minimap.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\mapdata.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1994,9 +1985,6 @@
     <ClInclude Include="fortress\c_hint_events.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\hud_technologytreedoc.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\fortress\ihasbuildpoints.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -2011,9 +1999,6 @@
     </ClInclude>
     <ClInclude Include="..\shared\fortress\weapon_twohandedcontainer.h">
       <Filter>Source Files\Fortress\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_timer.h">
-      <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="..\shared\fortress\tf_shieldshared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
@@ -2043,9 +2028,6 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\minimap_trace.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_orders.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\playeroverlay.h">
@@ -2101,6 +2083,81 @@
     </ClInclude>
     <ClInclude Include="fortress\c_controlzone.h">
       <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_defender.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_medic.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_recon.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_gamemovement_sniper.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_recon.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_defender.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_escort.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_infiltrator.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_sniper.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_support.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_sapper.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_pyro.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\basetfvehicle.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_vehicle_role.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_repair.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_obj_baseupgrade_shared.h">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shared\fortress\tf_obj_basedrivergun_shared.h">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_timer.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_technologytreedoc.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_targetreticle.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_orders.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_numeric.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_minimap.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_commander_statuspanel.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_ammo.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3391,21 +3448,6 @@
     <ClCompile Include="toolframework_client.cpp">
       <Filter>Tool Framework</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\hud_commander_statuspanel.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_ammo.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_numeric.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_health.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_resources.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\fx_tf2_blood.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3493,12 +3535,6 @@
     <ClCompile Include="fortress\c_tfteam.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="hud_chat.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_weaponselection.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\ObjectControlPanel.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3509,9 +3545,6 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\CommanderOverlay.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_minimap.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_info_act.cpp">
@@ -3538,9 +3571,6 @@
     <ClCompile Include="..\shared\fortress\techtree_parse.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\shared\fortress\hud_targetreticle.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="..\shared\fortress\weapon_basecombatobject.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3551,9 +3581,6 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_hint_events.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_technologytreedoc.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\hintitembase.cpp">
@@ -3581,9 +3608,6 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_info_customtech.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_timer.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\fx_tf2_impacts.cpp">
@@ -3619,9 +3643,6 @@
     <ClCompile Include="..\shared\fortress\weapon_combat_burstrifle.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\hud_damageindicator.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\vgui_healthbar.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3656,9 +3677,6 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_orders.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\playeroverlay.cpp">
@@ -3715,9 +3733,6 @@
     <ClCompile Include="fortress\c_obj_resourcepump.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\hud_target_id.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\objectbuildalphaproxy.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
@@ -3741,6 +3756,99 @@
     </ClCompile>
     <ClCompile Include="fortress\c_controlzone.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_defender.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_medic.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_recon.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_gamemovement_sniper.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_recon.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_defender.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_escort.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_infiltrator.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_sniper.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_support.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_sapper.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_pyro.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\basetfvehicle.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_vehicle_role.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_repair.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_obj_baseupgrade_shared.cpp">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\tf_obj_basedrivergun_shared.cpp">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_weaponselection.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_timer.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_technologytreedoc.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\hud_targetreticle.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_target_id.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_resources.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_orders.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_numeric.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_health.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_minimap.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_damageindicator.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_commander_statuspanel.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_ammo.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="hud_chat.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

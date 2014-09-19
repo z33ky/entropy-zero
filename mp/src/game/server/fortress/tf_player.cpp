@@ -29,12 +29,14 @@
 #include "tf_obj_respawn_station.h"
 #include "tf_obj_resourcepump.h"
 #include "tf_class_commando.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_defender.h"
+#ifdef IMPLEMENT_ME
 #include "tf_class_escort.h"
 #include "tf_class_infiltrator.h"
 #include "tf_class_medic.h"
+#endif
 #include "tf_class_recon.h"
+#ifdef IMPLEMENT_ME
 #include "tf_class_sniper.h"
 #include "tf_class_support.h"
 #include "tf_class_sapper.h"
@@ -407,9 +409,13 @@ void CBaseTFPlayer::Spawn( void )
 		else // Bring up the Class Menu
 			m_pCurrentMenu = gMenus[MENU_CLASS];
 #else	// For quick and easy testing. ~hogsy
-		PlacePlayerInTeam();
-		ChangeClass(TFCLASS_COMMANDO);
-		ForceRespawn();
+		if(GetTeamNumber() == TEAM_UNASSIGNED)
+		{
+			PlacePlayerInTeam();
+			ForceRespawn();
+		}
+		else
+			ChangeClass(TFCLASS_COMMANDO);
 #endif
 
 		m_MenuRefreshTime = gpGlobals->curtime;

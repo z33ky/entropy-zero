@@ -1,9 +1,127 @@
 MinimapOverlays
 {
-	test
+	minimap_object
 	{
-		type		resourcezone
-		pixelswide	64
-		pixelshigh	64
+		type		minimap_image_panel
+		offset		"0 0"
+		size		"8 8"
+		material	hud/minimap/object_icon
+		//detail		1 (eventually change this to detail since they can quickly clutter!)
+	}
+	
+	minimap_player
+	{
+		type				minimap_player_panel
+		offset				"0 0"
+		size				"8 8"
+		
+		localaliveimage
+		{
+			Team0		
+			{
+				material	"placeholder/placeholder"
+			}
+				
+			Team1		
+			{
+				material	"placeholder"
+				color		"0 255 0 255"
+			}
+			
+			Team2	
+			{
+				material	"placeholder"
+				color		"255 0 0 255"
+			}
+		}
+		
+		aliveimage
+		{
+			Team0		
+			{
+				"material"	"placeholder/placeholder"
+				color		"0 0 0 255"
+			}
+				
+			Team1		
+			{
+				material	placeholder/placeholder
+				color		"0 255 0 255"
+			}
+			
+			Team2	
+			{
+				material	placeholder/placeholder
+				color		"255 0 0 255"
+			}
+		}
+		
+		arrowimage
+		{
+			Team0		
+			{
+				material	placeholder/placeholder
+				color		"0 0 0 255"
+			}
+				
+			Team1		
+			{
+				material	placeholder/placeholder
+				color		"0 255 0 255"
+			}
+			
+			Team2	
+			{
+				material	placeholder/placeholder
+				color		"255 0 0 255"
+			}
+		}
+		
+		deadimage
+		{
+			Team0		
+			{
+				material	placeholder/placeholder
+				color		"0 0 0 255"
+			}
+				
+			Team1		
+			{
+				material	placeholder/placeholder
+				color		"0 255 0 255"
+			}
+			
+			Team2	
+			{
+				material	placeholder/placeholder
+				color		"255 0 0 255"
+			}
+		}
+		
+		voiceimage
+		{
+			material	placeholder/placeholder
+		}
+		
+		localplayeroffset	"0 0"
+		localplayersize		"16 16"
+		voiceoffset			"0 0"
+		voicesize			"16 16"
+	}
+	
+	minimap_resource_zone
+	{
+		type		minimap_resource_zone_panel
+		offset		0 0
+		size		64 64
+		material	placeholder/placeholder
+	}
+	
+	minimap_order
+	{
+		type		minimap_order_panel
+		offset		"0 0"
+		size		"16 16"
+		material	placeholder/placeholder
 	}
 }
