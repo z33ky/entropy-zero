@@ -1,5 +1,16 @@
 HudLayout
 {
+	TargetID
+	{
+		fieldName	TargetID
+		visible		1
+		enabled		1
+		xpos		"c-126"
+		ypos		250
+		wide	 	252
+		tall	 	35
+	}
+
 	HudMenu
 	{
 		fieldName	"HudMenu"

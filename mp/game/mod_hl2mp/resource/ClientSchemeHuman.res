@@ -1,4 +1,4 @@
-Scheme
+HudScheme
 {
 	Colors
 	{

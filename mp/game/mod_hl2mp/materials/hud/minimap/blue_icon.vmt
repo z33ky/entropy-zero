@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "hud/minimap/blue_icon"
+	"$translucent" 1
+}

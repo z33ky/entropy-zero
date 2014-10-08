@@ -505,43 +505,6 @@ void CBaseViewport::Start( IGameUIFuncs *pGameUIFuncs, IGameEventManager2 * pGam
 	m_bInitialized = true;
 }
 
-/*
-
-//-----------------------------------------------------------------------------
-// Purpose: Updates the spectator panel with new player info
-//-----------------------------------------------------------------------------
-void CBaseViewport::UpdateSpectatorPanel()
-{
-	char bottomText[128];
-	int player = -1;
-	const char *name;
-	Q_snprintf(bottomText,sizeof( bottomText ), "#Spec_Mode%d", m_pClientDllInterface->SpectatorMode() );
-
-	m_pClientDllInterface->CheckSettings();
-	// check if we're locked onto a target, show the player's name
-	if ( (m_pClientDllInterface->SpectatorTarget() > 0) && (m_pClientDllInterface->SpectatorTarget() <= m_pClientDllInterface->GetMaxPlayers()) && (m_pClientDllInterface->SpectatorMode() != OBS_ROAMING) )
-	{
-		player = m_pClientDllInterface->SpectatorTarget();
-	}
-
-		// special case in free map and inset off, don't show names
-	if ( ((m_pClientDllInterface->SpectatorMode() == OBS_MAP_FREE) && !m_pClientDllInterface->PipInsetOff()) || player == -1 )
-		name = NULL;
-	else
-		name = m_pClientDllInterface->GetPlayerInfo(player).name;
-
-	// create player & health string
-	if ( player && name )
-	{
-		Q_strncpy( bottomText, name, sizeof( bottomText ) );
-	}
-	char szMapName[64];
-	Q_FileBase( const_cast<char *>(m_pClientDllInterface->GetLevelName()), szMapName );
-
-	m_pSpectatorGUI->Update(bottomText, player, m_pClientDllInterface->SpectatorMode(), m_pClientDllInterface->IsSpectateOnly(), m_pClientDllInterface->SpectatorNumber(), szMapName );
-	m_pSpectatorGUI->UpdateSpectatorPlayerList();
-}  */
-
 // Return TRUE if the HUD's allowed to print text messages
 bool CBaseViewport::AllowedToPrintText( void )
 {

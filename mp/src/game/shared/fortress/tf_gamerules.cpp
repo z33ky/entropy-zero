@@ -393,7 +393,6 @@ END_NETWORK_TABLE()
 #else
 		pPlayer->SetLocalOrigin(MaybeDropToGround(pPlayer,true,pSpawnSpot->GetAbsOrigin(),VEC_HULL_MIN,VEC_HULL_MAX));
 #endif
-
 		pPlayer->SetAbsVelocity( vec3_origin );
 		pPlayer->SetLocalAngles( pSpawnSpot->GetLocalAngles() );
 		pPlayer->m_Local.m_vecPunchAngle = vec3_angle;

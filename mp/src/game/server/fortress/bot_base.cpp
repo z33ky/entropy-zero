@@ -61,7 +61,7 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	}
 
 	// Allocate a CBasePlayer for the bot, and call spawn
-	ClientPutInServer( pEdict, botname );
+	//ClientPutInServer( pEdict, botname );
 	CBaseTFPlayer *pPlayer = ((CBaseTFPlayer *)CBaseEntity::Instance( pEdict ));
 	pPlayer->ClearFlags();
 	pPlayer->AddFlag( FL_CLIENT | FL_FAKECLIENT );

@@ -2037,7 +2037,6 @@ void C_BaseTFPlayer::UpdateIDTarget( void )
 	UTIL_TraceLine( vecStart, vecEnd, MASK_SOLID, NULL, COLLISION_GROUP_NONE, &tr );
 	if ( tr.DidHitNonWorldEntity() )
 	{
-#ifdef IMPLEMENT_ME
 		C_BaseEntity *pEntity = tr.m_pEnt;
 		IClientVehicle *vehicle = GetVehicle();
 		C_BaseEntity *pVehicleEntity = vehicle ? vehicle->GetVehicleEnt() : NULL;
@@ -2046,7 +2045,6 @@ void C_BaseTFPlayer::UpdateIDTarget( void )
 			// Make sure it's not an object
 			if ( !dynamic_cast<C_BaseObject*>( pEntity ) )
 				m_iIDEntIndex = pEntity->entindex();
-#endif
 	}
 }
 

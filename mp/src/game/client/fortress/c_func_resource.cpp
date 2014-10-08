@@ -27,12 +27,10 @@ IMPLEMENT_CLIENTCLASS_DT(C_ResourceZone, DT_ResourceZone, CResourceZone)
 END_RECV_TABLE()
 
 LINK_ENTITY_TO_CLASS( trigger_resourcezone, C_ResourceZone );
+
 BEGIN_PREDICTION_DATA( C_ResourceZone )
 END_PREDICTION_DATA();
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_ResourceZone::C_ResourceZone()
 {
 	CONSTRUCT_MINIMAP_PANEL( "minimap_resource_zone", MINIMAP_RESOURCE_ZONES );
@@ -47,10 +45,6 @@ void C_ResourceZone::SetDormant( bool bDormant )
 	ENTITY_PANEL_ACTIVATE( "resourcezone", (!bDormant && m_flClientResources > 0) );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_ResourceZone::OnDataChanged( DataUpdateType_t updateType )
 {
 	BaseClass::OnDataChanged( updateType );
@@ -68,10 +62,6 @@ void C_ResourceZone::OnDataChanged( DataUpdateType_t updateType )
 	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 const char *C_ResourceZone::GetTargetDescription( void ) const
 {
 	return "Resource Zone";
@@ -85,16 +75,10 @@ IMPLEMENT_CLIENTCLASS_DT(C_ResourceSpawner, DT_ResourceSpawner, CResourceSpawner
 	RecvPropInt(RECVINFO(m_bActive)),
 END_RECV_TABLE()
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_ResourceSpawner::C_ResourceSpawner( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_ResourceSpawner::OnDataChanged( DataUpdateType_t updateType )
 {
 	BaseClass::OnDataChanged( updateType );
@@ -114,9 +98,6 @@ void C_ResourceSpawner::ReceiveMessage( const char *msgname, int length, void *d
 	SpawnEffect( true );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_ResourceSpawner::ClientThink( void )
 {
 	SetNextClientThink( gpGlobals->curtime + random->RandomFloat( 2.0, 10.0 ) );

@@ -19,19 +19,30 @@ MinimapOverlays
 		{
 			Team0		
 			{
-				material	"placeholder/placeholder"
+				material	"hud/minimap/player_icon"
 			}
 				
 			Team1		
 			{
-				material	"placeholder"
-				color		"0 255 0 255"
+				material	"hud/minimap/player_icon"
 			}
 			
 			Team2	
 			{
-				material	"placeholder"
-				color		"255 0 0 255"
+				material	"hud/minimap/red_icon"
+				color		"255 0 0 100"
+			}
+			
+			Team3
+			{
+				material	"hud/minimap/blue_icon"
+				color		"0 0 255 100"
+			}
+			
+			Team4
+			{
+				material	"hud/minimap/player_icon"
+				color		"255 255 255 100"
 			}
 		}
 		
@@ -39,20 +50,30 @@ MinimapOverlays
 		{
 			Team0		
 			{
-				"material"	"placeholder/placeholder"
-				color		"0 0 0 255"
+				material	"hud/minimap/player_icon"
 			}
 				
 			Team1		
 			{
-				material	placeholder/placeholder
-				color		"0 255 0 255"
+				material	"hud/minimap/player_icon"
 			}
 			
 			Team2	
 			{
-				material	placeholder/placeholder
-				color		"255 0 0 255"
+				material	"hud/minimap/red_icon"
+				color		"255 0 0 100"
+			}
+			
+			Team3
+			{
+				material	"hud/minimap/blue_icon"
+				color		"0 0 255 100"
+			}
+			
+			Team4
+			{
+				material	"hud/minimap/player_icon"
+				color		"255 255 255 100"
 			}
 		}
 		
@@ -60,19 +81,30 @@ MinimapOverlays
 		{
 			Team0		
 			{
-				material	placeholder/placeholder
-				color		"0 0 0 255"
+				material	"hud/minimap/arrow_icon"
 			}
 				
 			Team1		
 			{
-				material	placeholder/placeholder
+				material	"hud/minimap/arrow_icon"
 				color		"0 255 0 255"
 			}
 			
 			Team2	
 			{
-				material	placeholder/placeholder
+				material	"hud/minimap/arrow_icon"
+				color		"255 0 0 255"
+			}
+			
+			Team3
+			{
+				material	"hud/minimap/arrow_icon"
+				color		"255 0 0 255"
+			}
+			
+			Team4
+			{
+				material	"hud/minimap/arrow_icon"
 				color		"255 0 0 255"
 			}
 		}
@@ -81,19 +113,30 @@ MinimapOverlays
 		{
 			Team0		
 			{
-				material	placeholder/placeholder
-				color		"0 0 0 255"
+				material	"placeholder/placeholder"
 			}
 				
 			Team1		
 			{
-				material	placeholder/placeholder
+				material	"placeholder/placeholder"
 				color		"0 255 0 255"
 			}
 			
 			Team2	
 			{
-				material	placeholder/placeholder
+				material	"placeholder/placeholder"
+				color		"255 0 0 255"
+			}
+			
+			Team3
+			{
+				material	"placeholder/placeholder"
+				color		"255 0 0 255"
+			}
+			
+			Team4
+			{
+				material	"placeholder/placeholder"
 				color		"255 0 0 255"
 			}
 		}
@@ -112,8 +155,8 @@ MinimapOverlays
 	minimap_resource_zone
 	{
 		type		minimap_resource_zone_panel
-		offset		0 0
-		size		64 64
+		offset		"0 0"
+		size		"64 64"
 		material	placeholder/placeholder
 	}
 	

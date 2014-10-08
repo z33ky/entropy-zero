@@ -355,6 +355,7 @@ exit 1
     <ClInclude Include="..\..\public\gametrace.h" />
     <ClInclude Include="fortress\bot_base.h" />
     <ClInclude Include="fortress\controlzone.h" />
+    <ClInclude Include="fortress\env_meteor.h" />
     <ClInclude Include="fortress\info_act.h" />
     <ClInclude Include="fortress\info_buildpoint.h" />
     <ClInclude Include="fortress\info_customtech.h" />
@@ -850,6 +851,7 @@ exit 1
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfvehicle.cpp" />
+    <ClCompile Include="..\shared\fortress\env_meteor_shared.cpp" />
     <ClCompile Include="..\shared\fortress\grenade_objectsapper.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp" />
@@ -884,6 +886,7 @@ exit 1
     <ClCompile Include="fortress\basecombatcharacter_tf2.cpp" />
     <ClCompile Include="fortress\bot_base.cpp" />
     <ClCompile Include="fortress\controlzone.cpp" />
+    <ClCompile Include="fortress\env_meteor.cpp" />
     <ClCompile Include="fortress\info_act.cpp" />
     <ClCompile Include="fortress\info_buildpoint.cpp" />
     <ClCompile Include="fortress\info_customtech.cpp" />

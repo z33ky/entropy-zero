@@ -85,3 +85,13 @@
 [
 	target(string)	:	"Target"
 ]
+
+@PointClass = env_meteortarget :
+	"Meteor Target"
+[
+]
+
+@PointClass = env_meteorspawner :
+	"Meteor Spawner"
+[
+]

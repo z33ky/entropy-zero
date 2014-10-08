@@ -1,10 +1,3 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
-//
-// Purpose: Client's CObjectSentrygun
-//
-// $NoKeywords: $
-//=============================================================================
-
 #ifndef C_FUNC_RESOURCE_H
 #define C_FUNC_RESOURCE_H
 

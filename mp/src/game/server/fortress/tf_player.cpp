@@ -605,23 +605,16 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::PlacePlayerInTeam( void )
 {
-	CTFTeam *pTargetTeam = NULL;
+	// Rewrote this ~hogsy
+	CTFTeam *pHumanTeam = GetGlobalTFTeam(TEAM_HUMANS);
+	CTFTeam *pAlienTeam = GetGlobalTFTeam(TEAM_ALIENS);
 
-	// Find the team with the least players in it
-	for ( int i = TEAM_HUMANS; i < MAX_TF_TEAMS; i++ )
-	{
-		CTFTeam *pTeam = GetGlobalTFTeam(i);
-
-		if ( pTargetTeam )
-		{
-			if ( pTeam->GetNumPlayers() < pTargetTeam->GetNumPlayers() )
-				pTargetTeam = pTeam;
-		}
-		else
-			pTargetTeam = pTeam;
-	}
-
-	ChangeTeam( pTargetTeam->GetTeamNumber() );
+	if(pAlienTeam->GetNumPlayers() > pHumanTeam->GetNumPlayers())
+		ChangeTeam(TEAM_HUMANS);
+	else if(pHumanTeam->GetNumPlayers() > pAlienTeam->GetNumPlayers())
+		ChangeTeam(TEAM_ALIENS);
+	else
+		ChangeTeam(random->RandomInt(TEAM_HUMANS,TEAM_ALIENS));
 }
 
 //-----------------------------------------------------------------------------

@@ -54,6 +54,8 @@ bool CTeamBitmapImage::Init( vgui::Panel *pParent, KeyValues* pInitData, C_BaseE
 		"Team0",
 		"Team1",
 		"Team2",
+		"Team3",
+		"Team4",
 	};
 
 	m_pEntity = pEntity;

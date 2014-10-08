@@ -2159,6 +2159,12 @@
     <ClInclude Include="fortress\hud_ammo.h">
       <Filter>Source Files\Fortress\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_env_meteor.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_effect_shootingstar.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3849,6 +3855,15 @@
     </ClCompile>
     <ClCompile Include="hud_chat.cpp">
       <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shared\fortress\env_meteor_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_env_meteor.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_effect_shootingstar.cpp">
+      <Filter>Source Files\Fortress</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

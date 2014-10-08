@@ -54,10 +54,6 @@ CResourceZone::CResourceZone()
 	m_vecGatherPoint.Init();
 	m_angGatherPoint.Init();
 #endif
-
-#if 0
-	NetworkStateManualMode( true );
-#endif
 }
 
 //-----------------------------------------------------------------------------

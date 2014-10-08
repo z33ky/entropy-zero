@@ -1,9 +1,9 @@
 CommanderOverlays
 {
-	test2
+	resourcezone
 	{
 		type		resourcezone
-		pixelswide	64
-		pixelshigh	64
+		color		"255 255 255 255"
+		material	hud/minimap/object_icon
 	}
 }

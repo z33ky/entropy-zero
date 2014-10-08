@@ -428,6 +428,8 @@ exit 1
     <ClInclude Include="fortress\c_basetfplayer.h" />
     <ClInclude Include="fortress\c_controlzone.h" />
     <ClInclude Include="fortress\c_demo_entities.h" />
+    <ClInclude Include="fortress\c_effect_shootingstar.h" />
+    <ClInclude Include="fortress\c_env_meteor.h" />
     <ClInclude Include="fortress\c_func_resource.h" />
     <ClInclude Include="fortress\c_hint_events.h" />
     <ClInclude Include="fortress\c_info_act.h" />
@@ -961,6 +963,7 @@ exit 1
     <ClCompile Include="..\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfplayer_shared.cpp" />
     <ClCompile Include="..\shared\fortress\basetfvehicle.cpp" />
+    <ClCompile Include="..\shared\fortress\env_meteor_shared.cpp" />
     <ClCompile Include="..\shared\fortress\hud_targetreticle.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile.cpp" />
     <ClCompile Include="..\shared\fortress\plasmaprojectile_shared.cpp" />
@@ -1000,6 +1003,8 @@ exit 1
     <ClCompile Include="fortress\c_basetfplayer.cpp" />
     <ClCompile Include="fortress\c_controlzone.cpp" />
     <ClCompile Include="fortress\c_demo_entities.cpp" />
+    <ClCompile Include="fortress\c_effect_shootingstar.cpp" />
+    <ClCompile Include="fortress\c_env_meteor.cpp" />
     <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp" />
     <ClCompile Include="fortress\c_hint_events.cpp" />
