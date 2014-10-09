@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Fortress\Shared\Objects">
       <UniqueIdentifier>{783d7444-a051-4705-ba71-59bd972570e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\VGUI">
+      <UniqueIdentifier>{57a3e74d-f610-4d54-a256-bc479e5e174d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\bitmap.lib">
@@ -2165,6 +2168,9 @@
     <ClInclude Include="fortress\c_effect_shootingstar.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\vgui_teammenu.h">
+      <Filter>Source Files\Fortress\VGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3864,6 +3870,9 @@
     </ClCompile>
     <ClCompile Include="fortress\c_effect_shootingstar.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_teammenu.cpp">
+      <Filter>Source Files\Fortress\VGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

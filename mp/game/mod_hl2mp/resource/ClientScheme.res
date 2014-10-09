@@ -10,6 +10,8 @@ Scheme
 		"TransparentBlack"		"0 0 0 196"
 		"TransparentLightBlack"	"0 0 0 90"
 		"Blank"					"0 0 0 0"
+		White					"255 255 255 255"
+		LightWhite				"255 255 255 90"
 		"ForTesting"			"255 0 0 32"
 		"ForTesting_Magenta"	"255 0 255 255"
 		"ForTesting_MagentaDim"	"255 0 255 120"
@@ -17,17 +19,12 @@ Scheme
 
 	BaseSettings
 	{
-		"FgColor"			"255 220 0 100"
-		"BgColor"			"0 0 0 76"
-
-		"Panel.FgColor"			"255 220 0 100"
-		"Panel.BgColor"			"0 0 0 76"
-		
-		"BrightFg"		"255 220 0 255"
-
-		"DamagedBg"			"180 0 0 200"
-		"DamagedFg"			"180 0 0 230"
-		"BrightDamagedFg"		"255 0 0 255"
+		FgColor			"255 220 0 100"
+		BgColor			"0 0 0 255"
+		BrightFg		"255 220 0 255"
+		DamagedBg		"180 0 0 200"
+		DamagedFg		"180 0 0 230"
+		BrightDamagedFg	"255 0 0 255"
 
 		// weapon selection colors
 		"SelectionNumberFg"		"255 220 0 255"
@@ -37,6 +34,9 @@ Scheme
 		"SelectionSelectedBoxBg" "0 0 0 80"
 		
 		"ZoomReticleColor"	"255 220 0 255"
+
+		Panel.FgColor	"255 220 0 100"
+		Panel.BgColor	Blank
 
 		// HL1-style HUD colors
 		"Yellowish"			"255 160 0 255"
@@ -64,12 +64,12 @@ Scheme
 		Border.Dark						"LightOrange"		// the dark/unlit side of a control
 		Border.Selection				"Blank"				// the additional border color for displaying the default/selected button
 
-		Button.TextColor				"Orange"
-		Button.BgColor					"Blank"
-		Button.ArmedTextColor			"Orange"
-		Button.ArmedBgColor				"Red"
-		Button.DepressedTextColor		"Orange"
-		Button.DepressedBgColor			"Red"
+		Button.TextColor				Orange
+		Button.BgColor					TransparentBlack
+		Button.ArmedTextColor			Orange
+		Button.ArmedBgColor				Red
+		Button.DepressedTextColor		Orange
+		Button.DepressedBgColor			Red
 
 		CheckButton.TextColor			"Orange"
 		CheckButton.SelectedTextColor	"Orange"
@@ -83,25 +83,25 @@ Scheme
 		ComboBoxButton.BgColor			"TransparentBlack"
 		ComboBoxButton.DisabledBgColor	"Blank"
 
-		Frame.BgColor					"TransparentBlack"
-		Frame.OutOfFocusBgColor			"TransparentBlack"
-		Frame.FocusTransitionEffectTime	"0.0"	// time it takes for a window to fade in/out on focus/out of focus
-		Frame.TransitionEffectTime		"0.0"	// time it takes for a window to fade in/out on open/close
-		Frame.AutoSnapRange				"0"
-		FrameGrip.Color1				"Blank"
-		FrameGrip.Color2				"Blank"
-		FrameTitleButton.FgColor		"Blank"
-		FrameTitleButton.BgColor		"Blank"
-		FrameTitleButton.DisabledFgColor	"Blank"
+		Frame.BgColor						TransparentBlack
+		Frame.OutOfFocusBgColor				TransparentBlack
+		Frame.FocusTransitionEffectTime		"0.0"	// time it takes for a window to fade in/out on focus/out of focus
+		Frame.TransitionEffectTime			"0.0"	// time it takes for a window to fade in/out on open/close
+		Frame.AutoSnapRange					"0"
+		FrameGrip.Color1					"Blank"
+		FrameGrip.Color2					"Blank"
+		FrameTitleButton.FgColor			LightWhite
+		FrameTitleButton.BgColor			"Blank"
+		FrameTitleButton.DisabledFgColor	LightWhite
 		FrameTitleButton.DisabledBgColor	"Blank"
-		FrameSystemButton.FgColor		"Blank"
-		FrameSystemButton.BgColor		"Blank"
-		FrameSystemButton.Icon			""
-		FrameSystemButton.DisabledIcon	""
-		FrameTitleBar.TextColor			"Orange"
-		FrameTitleBar.BgColor			"Blank"
-		FrameTitleBar.DisabledTextColor	"Orange"
-		FrameTitleBar.DisabledBgColor	"Blank"
+		FrameSystemButton.FgColor			"Blank"
+		FrameSystemButton.BgColor			"Blank"
+		FrameSystemButton.Icon				""
+		FrameSystemButton.DisabledIcon		""
+		FrameTitleBar.TextColor				"Orange"
+		FrameTitleBar.BgColor				"Blank"
+		FrameTitleBar.DisabledTextColor		"Orange"
+		FrameTitleBar.DisabledBgColor		"Blank"
 
 		GraphPanel.FgColor				"Orange"
 		GraphPanel.BgColor				"TransparentBlack"
@@ -129,9 +129,6 @@ Scheme
 
 		Chat.TypingText					"Orange"
 
-		Panel.FgColor					"OrangeDim"
-		Panel.BgColor					"blank"
-
 		ProgressBar.FgColor				"Orange"
 		ProgressBar.BgColor				"TransparentBlack"
 
@@ -142,10 +139,10 @@ Scheme
 		RadioButton.TextColor			"Orange"
 		RadioButton.SelectedTextColor	"Orange"
 
-		RichText.TextColor				"Orange"
-		RichText.BgColor				"Blank"
-		RichText.SelectedTextColor		"Orange"
-		RichText.SelectedBgColor		"Blank"
+		RichText.TextColor				White
+		RichText.BgColor				Blank
+		RichText.SelectedTextColor		Black
+		RichText.SelectedBgColor		White
 
 		ScrollBarButton.FgColor				"Orange"
 		ScrollBarButton.BgColor				"Blank"
@@ -1182,42 +1179,7 @@ Scheme
 
 		FrameBorder
 		{
-			"inset" "0 0 1 1"
-			Left
-			{
-				"1"
-				{
-					"color" "ControlBG"
-					"offset" "0 1"
-				}
-			}
-
-			Right
-			{
-				"1"
-				{
-					"color" "ControlBG"
-					"offset" "0 0"
-				}
-			}
-
-			Top
-			{
-				"1"
-				{
-					"color" "ControlBG"
-					"offset" "0 1"
-				}
-			}
-
-			Bottom
-			{
-				"1"
-				{
-					"color" "ControlBG"
-					"offset" "0 0"
-				}
-			}
+			backgroundtype	2
 		}
 
 		TabBorder

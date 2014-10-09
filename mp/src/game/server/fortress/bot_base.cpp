@@ -61,6 +61,7 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	}
 
 	// Allocate a CBasePlayer for the bot, and call spawn
+	// Commented out for now, just to avoid assigning teams twice for bots ~hogsy
 	//ClientPutInServer( pEdict, botname );
 	CBaseTFPlayer *pPlayer = ((CBaseTFPlayer *)CBaseEntity::Instance( pEdict ));
 	pPlayer->ClearFlags();

@@ -49,7 +49,7 @@
             <File name="kb_keys.lst" />
         </Folder>
         <Folder name="Schemes">
-            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\clientscheme.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ClientScheme.res" />
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ClientSchemeAlien.res" />
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ClientSchemeHuman.res" />
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ObjectControlPanelScheme.res" />
@@ -62,5 +62,6 @@
         <File name="decals_subrect.txt" />
         <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\notes.txt" />
         <File name="C:\Users\hogsy\Documents\Fortress\mp\Fortress.fgd" />
+        <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\gameinfo.txt" />
     </Project>
 </NotepadPlus>

@@ -43,7 +43,7 @@ private:
 			SetPaintBackgroundEnabled( false );
 		}
 
-		virtual void CreateDefaultPanels( void ) { /* don't create any panels yet*/ };
+		IViewPortPanel *CreatePanelByName(const char *szPanelName);
 
 	private:
 		bool			m_bHumanScheme;

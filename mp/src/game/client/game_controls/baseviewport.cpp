@@ -252,7 +252,6 @@ IViewPortPanel* CBaseViewport::CreatePanelByName(const char *szPanelName)
 {
 	IViewPortPanel* newpanel = NULL;
 
-#ifndef _XBOX
 	if ( Q_strcmp(PANEL_SCOREBOARD, szPanelName) == 0 )
 	{
 		newpanel = new CClientScoreBoardDialog( this );
@@ -284,7 +283,6 @@ IViewPortPanel* CBaseViewport::CreatePanelByName(const char *szPanelName)
 		newpanel = new CNavProgress( this );
 	}
 #endif	// TF_CLIENT_DLL
-#endif
 
 	if ( Q_strcmp(PANEL_COMMENTARY_MODELVIEWER, szPanelName) == 0 )
 	{

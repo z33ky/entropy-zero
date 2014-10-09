@@ -61,6 +61,8 @@
 #include "datacache/imdlcache.h"
 #include "globals.h"
 
+#include "viewport_panel_names.h"
+
 /*
 	TF2's player object.
 */
@@ -392,31 +394,31 @@ void CBaseTFPlayer::Spawn( void )
 
 		SetModel( "models/player/human_commando.mdl" );
 
-#if 0
-		// If they're not in a team, bring up the Team Menu
-		if ( !IsInAnyTeam() )
+		// Revised this ~hogsy
+		if(GetTeamNumber() == TEAM_UNASSIGNED)
 		{
-			if ( tf_autoteam.GetFloat() )
+			// Bots can't deal with menus, so just throw us into a team.
+			if(tf_autoteam.GetBool() || IsFakeClient())
 			{
-				// Autoteam the player
 				PlacePlayerInTeam();
 				ForceRespawn();
 			}
+			// But if we're a player, let us choose.
 			else
-				// Let players choose their team
-				m_pCurrentMenu = gMenus[MENU_TEAM];
-		}
-		else // Bring up the Class Menu
-			m_pCurrentMenu = gMenus[MENU_CLASS];
-#else	// For quick and easy testing. ~hogsy
-		if(GetTeamNumber() == TEAM_UNASSIGNED)
-		{
-			PlacePlayerInTeam();
-			ForceRespawn();
+				ShowViewPortPanel(PANEL_TEAM,true);
 		}
 		else
-			ChangeClass(TFCLASS_COMMANDO);
-#endif
+		{
+			// Bots can't deal with menus, so we'll just throw them into a random class.
+			if(IsFakeClient())
+			{
+				ChangeClass((TFClass)random->RandomInt(0,TFCLASS_CLASS_COUNT));
+				ForceRespawn();
+			}
+			// Otherwise just show us the class menu.
+			else
+				ShowViewPortPanel(PANEL_CLASS,true);
+		}
 
 		m_MenuRefreshTime = gpGlobals->curtime;
 		

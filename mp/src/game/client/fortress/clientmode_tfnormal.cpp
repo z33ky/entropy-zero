@@ -23,6 +23,8 @@
 #include <vgui/IPanel.h>
 #include <vgui_controls/AnimationController.h>
 
+#include "vgui_teammenu.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -65,14 +67,9 @@ void ClientModeTFNormal::Viewport::OnThink()
 
 	bool human = ( team == TEAM_HUMANS ) ? true : false;
 	if ( human != m_bHumanScheme )
-	{
 		ReloadScheme();
-	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFNormal::Viewport::ReloadScheme()
 {
 	// See if scheme should change
@@ -87,18 +84,23 @@ void ClientModeTFNormal::Viewport::ReloadScheme()
 	if ( team )
 	{
 		m_bHumanScheme = ( team == TEAM_HUMANS ) ? true : false;
-
 		if ( m_bHumanScheme )
-		{
 			schemeFile = "resource/ClientSchemeHuman.res";
-		}
 		else
-		{
 			schemeFile = "resource/ClientSchemeAlien.res";
-		}
 	}
 
 //	BaseClass::ReloadScheme( schemeFile );
+}
+
+IViewPortPanel *ClientModeTFNormal::Viewport::CreatePanelByName(const char *szPanelName)
+{
+	IViewPortPanel *newpanel = NULL;
+
+	if(!V_strcmp(PANEL_TEAM,szPanelName))
+		newpanel = new CFortressTeamMenu(this);
+
+	return newpanel;
 }
 
 //-----------------------------------------------------------------------------

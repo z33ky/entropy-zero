@@ -585,16 +585,29 @@ END_NETWORK_TABLE()
 		}
 		else if ( FStrEq( pcmd, "changeclass" ) )
 		{
+#if 0
 			pPlayer->m_pCurrentMenu = gMenus[MENU_CLASS];
 			pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
 			pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
+#else	// Rewrite ~hogsy
+#endif
 			return true;
 		}
 		else if ( FStrEq( pcmd, "changeteam" ) )
+		// Rewrote this... ~hogsy
 		{
-			pPlayer->m_pCurrentMenu = gMenus[MENU_TEAM];
-			pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
-			pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
+			if(args.ArgC() < 2)
+				return true;
+
+			int	iTeam = atoi(args.Arg(1));
+			if(iTeam == pPlayer->GetTeamNumber())
+				return true;
+
+			pPlayer->ChangeTeam(iTeam);
+
+			if(!pPlayer->IsDead())
+				pPlayer->ForceRespawn();
+
 			return true;
 		}
 		else if ( FStrEq( pcmd, "tactical" ) )

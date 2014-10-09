@@ -196,7 +196,6 @@ static void __MsgFunc_VGUIMenu( bf_read &msg )
 	bool  bShow = msg.ReadByte()!=0;
 	
 	IViewPortPanel *viewport = gViewPortInterface->FindPanelByName( panelname );
-
 	if ( !viewport )
 	{
 		// DevMsg("VGUIMenu: couldn't find panel '%s'.\n", panelname );
