@@ -47,22 +47,16 @@ Scheme
 		Main.Title1.X		"22"
 		Main.Title1.Y		"402"
 		Main.Title1.Color	"0 0 0 255"
-		
-		// Top-left corner of the "DEATHMATCH" on the main screen
-		Main.Title2.X		"20"
-		Main.Title2.Y		"400"
+		Main.Title2.X		20
+		Main.Title2.Y		400
 		Main.Title2.Color	"255 0 0 255"
+		Main.Menu.X			32
+		Main.Menu.Y			248
+		Main.BottomBorder	32
 
-		// Top-left corner of the menu on the main screen
-		Main.Menu.X		"32"
-		Main.Menu.Y		"248"
-
-		// Blank space to leave beneath the menu on the main screen
-		"Main.BottomBorder"	"32"
-
-		Border.Bright					"LightOrange"		// the lit side of a control
-		Border.Dark						"LightOrange"		// the dark/unlit side of a control
-		Border.Selection				"Blank"				// the additional border color for displaying the default/selected button
+		Border.Bright					LightOrange		// the lit side of a control
+		Border.Dark						LightOrange		// the dark/unlit side of a control
+		Border.Selection				Blank			// the additional border color for displaying the default/selected button
 
 		Button.TextColor				Orange
 		Button.BgColor					TransparentBlack
@@ -88,19 +82,19 @@ Scheme
 		Frame.FocusTransitionEffectTime		"0.0"	// time it takes for a window to fade in/out on focus/out of focus
 		Frame.TransitionEffectTime			"0.0"	// time it takes for a window to fade in/out on open/close
 		Frame.AutoSnapRange					"0"
-		FrameGrip.Color1					"Blank"
-		FrameGrip.Color2					"Blank"
-		FrameTitleButton.FgColor			LightWhite
-		FrameTitleButton.BgColor			"Blank"
-		FrameTitleButton.DisabledFgColor	LightWhite
-		FrameTitleButton.DisabledBgColor	"Blank"
-		FrameSystemButton.FgColor			"Blank"
-		FrameSystemButton.BgColor			"Blank"
+		FrameGrip.Color1					LightWhite
+		FrameGrip.Color2					White
+		FrameTitleButton.FgColor			Blank
+		FrameTitleButton.BgColor			Blank
+		FrameTitleButton.DisabledFgColor	Blank
+		FrameTitleButton.DisabledBgColor	Blank
+		FrameSystemButton.FgColor			Blank
+		FrameSystemButton.BgColor			Blank
 		FrameSystemButton.Icon				""
 		FrameSystemButton.DisabledIcon		""
 		FrameTitleBar.TextColor				"Orange"
 		FrameTitleBar.BgColor				"Blank"
-		FrameTitleBar.DisabledTextColor		"Orange"
+		FrameTitleBar.DisabledTextColor		LightOrange
 		FrameTitleBar.DisabledBgColor		"Blank"
 
 		GraphPanel.FgColor				"Orange"
@@ -253,6 +247,18 @@ Scheme
 				"tall"		"14"
 				"weight"	"400"
 				"antialias" "1"
+			}
+		}
+		
+		HeaderFont
+		{
+			"1"
+			{
+				"name"		"Verdana"
+				"tall"		"14"
+				"weight"	"700"
+				"antialias" "1"
+				"yres"		"1 599"
 			}
 		}
 

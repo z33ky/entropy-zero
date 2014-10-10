@@ -487,6 +487,7 @@ exit 1
     <ClInclude Include="fortress\playeroverlayname.h" />
     <ClInclude Include="fortress\playeroverlayselected.h" />
     <ClInclude Include="fortress\playeroverlaysquad.h" />
+    <ClInclude Include="fortress\vgui_classmenu.h" />
     <ClInclude Include="fortress\vgui_healthbar.h" />
     <ClInclude Include="fortress\vgui_rotation_slider.h" />
     <ClInclude Include="fortress\vgui_teammenu.h" />
@@ -1089,6 +1090,7 @@ exit 1
     <ClCompile Include="fortress\tf_clientmode.cpp" />
     <ClCompile Include="fortress\tf_in_main.cpp" />
     <ClCompile Include="fortress\tf_prediction.cpp" />
+    <ClCompile Include="fortress\vgui_classmenu.cpp" />
     <ClCompile Include="fortress\vgui_healthbar.cpp" />
     <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp" />
     <ClCompile Include="fortress\vgui_rotation_slider.cpp" />

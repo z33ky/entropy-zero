@@ -123,9 +123,6 @@ void CCommanderViewportPanel::Enable()
 	SetVisible( true );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CCommanderViewportPanel::Disable()
 {
 	if ( m_pOverlayPanel )
@@ -149,9 +146,6 @@ void CCommanderViewportPanel::MinimapClicked( const Vector& clickWorldPos )
 	m_pOverlayPanel->TacticalOrigin() = actualOrigin;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CClientModeCommander::CClientModeCommander() : BaseClass()
 {
 	m_pClear = NULL;
@@ -160,6 +154,9 @@ CClientModeCommander::CClientModeCommander() : BaseClass()
 	m_Log_BaseEto2 = 1.4427f;	// factor to convert from a logarithm of base E to base 2.
 
 	m_pViewport = new CCommanderViewportPanel;
+	// Give us a chance to set ourselves up properly...
+	m_pViewport->Start( gameuifuncs, gameeventmanager );
+
 	GetCommanderViewport()->SetCommanderView( this );
 }
 
@@ -233,9 +230,6 @@ void CClientModeCommander::Enable()
 	BaseClass::Enable();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CClientModeCommander::Disable()
 {
 	BaseClass::Disable();
@@ -244,10 +238,6 @@ void CClientModeCommander::Disable()
 	
 	HudCommanderOverlayMgr()->Enable( false );
 }
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 
 void CClientModeCommander::Update()
 {
@@ -267,9 +257,6 @@ void CClientModeCommander::Update()
 	HudCommanderOverlayMgr()->Tick( );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CClientModeCommander::Layout()
 {
 	BaseClass::Layout();

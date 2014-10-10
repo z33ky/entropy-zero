@@ -15,8 +15,10 @@ public:
 	~CFortressTeamMenu();
 
 protected:
+	virtual void	ApplySchemeSettings(vgui::IScheme *pScheme);
 	virtual void	OnCommand(const char *command);
 	virtual void	OnTick(void);
+	virtual void	Update(void);
 
 private:
 	int	iLastPreview;
@@ -24,7 +26,8 @@ private:
 	//vgui::CModel
 	vgui::RichText	*vTeamDescription;
 
-	CModelPanel	*mTeamPreviewPanel;
+	CModelPanel	*mTeamPreviewPanel,
+				*mTeamLogoPreview;
 
 	vgui::Button	
 		*bAlienButton,

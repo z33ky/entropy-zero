@@ -13,11 +13,6 @@ using namespace vgui;
 
 CFortressTeamMenu::CFortressTeamMenu(IViewPort *pViewPort) : CTeamMenu(pViewPort)
 {
-	//SetTitle("Team Selection",true);
-	SetTitleBarVisible(true);
-	SetMinimizeButtonVisible(false);
-	SetMaximizeButtonVisible(false);
-
 	iLastPreview = 0;	// Initially preview human team information.
 	
 	bAlienButton	= new Button(this,"AlienButton","Aliens");	// Alien team button.
@@ -27,7 +22,8 @@ CFortressTeamMenu::CFortressTeamMenu(IViewPort *pViewPort) : CTeamMenu(pViewPort
 
 	vTeamDescription	= new RichText(this,"TeamInfo");	// Team description.
 
-	mTeamPreviewPanel	= new CModelPanel(this,"TeamPreview");	// Model preview.
+	mTeamPreviewPanel	= new CModelPanel(this,"TeamPreview");
+	mTeamLogoPreview	= new CModelPanel(this,"TeamLogoPreview");
 
 	ivgui()->AddTickSignal(GetVPanel());
 
@@ -38,37 +34,53 @@ CFortressTeamMenu::~CFortressTeamMenu()
 {
 }
 
+void CFortressTeamMenu::ApplySchemeSettings(IScheme *pScheme)
+{
+	BaseClass::ApplySchemeSettings(pScheme);
+
+	Update();
+}
+
+void CFortressTeamMenu::Update(void)
+{
+	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
+	if(pPlayer && (pPlayer->GetTeamNumber() != TEAM_UNASSIGNED))
+		bCancelButton->SetVisible(true);
+	else
+		bCancelButton->SetVisible(false);
+
+	BaseClass::Update();
+}
+
 void CFortressTeamMenu::OnTick(void)
 {
 	if(bHumanButton->IsCursorOver() && (iLastPreview != 0))
 	{
+		mTeamLogoPreview->SwapModel("models/interface/red_team.mdl");
 		mTeamPreviewPanel->SwapModel("models/player/human_commando.mdl");
 
 		// TODO: This shouldn't be hard-coded!! ~hogsy
-		vTeamDescription->SetText(
-			"The Humans aren't quite technically advanced compared to their adversaries, " 
-			"but they make up for it with cheaper equipment and faster respawn times.");
+		vTeamDescription->SetText("#FORTRESS_TEAMHUMANINFO");
 
 		iLastPreview = 0;
 	}
 	else if(bAlienButton->IsCursorOver() && (iLastPreview != 1))
 	{
+		mTeamLogoPreview->SwapModel("models/interface/blue_team.mdl");
 		mTeamPreviewPanel->SwapModel("models/player/alien_commando.mdl");
 
 		// TODO: This shouldn't be hard-coded!! ~hogsy
-		vTeamDescription->SetText(
-			"The Aliens are highly advanced, however their equipment is more costly and takes longer to produce.");
+		vTeamDescription->SetText("#FORTRESS_TEAMALIENINFO");
 
 		iLastPreview = 1;
 	}
 	else if(bAutoButton->IsCursorOver() && (iLastPreview != 2))
 	{
+		mTeamLogoPreview->SwapModel("models/interface/auto_team.mdl");
 		mTeamPreviewPanel->DeleteModelData();
 
 		// TODO: This shouldn't be hard-coded!! ~hogsy
-		vTeamDescription->SetText(
-			"Automatic team assignment.\n"
-			"This will assign you to the most appropriate team.");
+		vTeamDescription->SetText("#FORTRESS_TEAMAUTOINFO");
 
 		iLastPreview = 2;
 	}

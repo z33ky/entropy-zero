@@ -2,5 +2,6 @@
 This project is intended to be a 1:1 port of the Invasion iteration of Team Fortress 2 to the latest version of the Source SDK.
 
 Thanks to the following people...
-	ScarT	(Human/Alien Commando model sources)
-	Valve	(For Team Fortress 2 and for additional fixes sto- er... taken from the 2007 Source Engine leak)
+	Marco Hladik	(Additional models)
+	ScarT		(Human/Alien Commando model sources)
+	Valve		(For Team Fortress 2 and for additional fixes sto- er... taken from the 2007 Source Engine leak)

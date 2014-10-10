@@ -832,9 +832,6 @@ void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void C_BaseTFPlayer::ReceiveMessage( int classID, bf_read &msg )
 {
 	Vector vOffsetFromEnt;
@@ -851,7 +848,6 @@ void C_BaseTFPlayer::ReceiveMessage( int classID, bf_read &msg )
 	if ( pEffect )
 		m_PersonalShieldEffects.AddToTail( pEffect );
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Free this entity

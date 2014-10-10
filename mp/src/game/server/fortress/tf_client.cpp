@@ -72,6 +72,10 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel( "models/player/defender.mdl" );
 	CBaseEntity::PrecacheModel( "models/player/technician.mdl" );
 
+	// I 'unno, just precache these here for now...
+	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");
+	CBaseEntity::PrecacheModel("models/interface/blue_team.mdl");
+
 	// Precache team message sounds
 	enginesound->PrecacheSound( "vox/reinforcement.wav" );
 	enginesound->PrecacheSound( "vox/harvester-attack.wav" );

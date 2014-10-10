@@ -24,6 +24,7 @@
 #include <vgui_controls/AnimationController.h>
 
 #include "vgui_teammenu.h"
+#include "vgui_classmenu.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -99,6 +100,8 @@ IViewPortPanel *ClientModeTFNormal::Viewport::CreatePanelByName(const char *szPa
 
 	if(!V_strcmp(PANEL_TEAM,szPanelName))
 		newpanel = new CFortressTeamMenu(this);
+	else if(!V_strcmp(PANEL_CLASS,szPanelName))
+		newpanel = new CFortressClassMenu(this);
 
 	return newpanel;
 }

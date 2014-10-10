@@ -584,13 +584,37 @@ END_NETWORK_TABLE()
 			return true;
 		}
 		else if ( FStrEq( pcmd, "changeclass" ) )
+		// Rewrote this... ~hogsy
 		{
-#if 0
-			pPlayer->m_pCurrentMenu = gMenus[MENU_CLASS];
-			pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
-			pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
-#else	// Rewrite ~hogsy
-#endif
+			if(args.ArgC() < 2)
+				return true;
+
+			int iClass		= atoi(args.Arg(1)),
+				iOldClass	= pPlayer->PlayerClass();
+			if(iClass == iOldClass)
+				return true;
+
+			// Random class selection.
+			if(iClass <= -1)
+				iClass = random->RandomInt(TFCLASS_RECON,TFCLASS_CLASS_COUNT-1);
+
+			pPlayer->ChangeClass((TFClass)iClass);
+			
+			int iTeam = pPlayer->GetTeamNumber();
+			if(	!pPlayer->IsDead() && 
+				((iTeam == TEAM_HUMANS || iTeam == TEAM_ALIENS) && 
+				((iOldClass > TFCLASS_UNDECIDED) && (iOldClass < TFCLASS_CLASS_COUNT))))
+			{
+				pPlayer->RemoveAllItems(false);
+				pPlayer->HideViewModels();
+				pPlayer->ClearPlayerClass();
+
+				pPlayer->CommitSuicide(false,true);
+				pPlayer->IncrementFragCount(1);
+			}
+			else
+				pPlayer->ForceRespawn();
+
 			return true;
 		}
 		else if ( FStrEq( pcmd, "changeteam" ) )
@@ -599,13 +623,27 @@ END_NETWORK_TABLE()
 			if(args.ArgC() < 2)
 				return true;
 
-			int	iTeam = atoi(args.Arg(1));
-			if(iTeam == pPlayer->GetTeamNumber())
+			int	iTeam		= atoi(args.Arg(1)),
+				iOldTeam	= pPlayer->GetTeamNumber();
+			if(iTeam == iOldTeam)
 				return true;
+			
+			// Automatic team selection.
+			if(iTeam <= -1)
+				pPlayer->PlacePlayerInTeam();
+			// Otherwise throw us into our selected team.
+			else
+				pPlayer->ChangeTeam(iTeam);
 
-			pPlayer->ChangeTeam(iTeam);
-
-			if(!pPlayer->IsDead())
+			// Don't commit suicide unless we're already in a team.
+			if(!pPlayer->IsDead() && (iOldTeam == TEAM_HUMANS || iOldTeam == TEAM_ALIENS))
+			{
+				pPlayer->RemoveAllItems(false);
+				pPlayer->HideViewModels();
+				pPlayer->CommitSuicide(false,true);
+				pPlayer->IncrementFragCount(1);
+			}
+			else
 				pPlayer->ForceRespawn();
 
 			return true;

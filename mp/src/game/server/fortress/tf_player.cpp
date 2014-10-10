@@ -412,7 +412,7 @@ void CBaseTFPlayer::Spawn( void )
 			// Bots can't deal with menus, so we'll just throw them into a random class.
 			if(IsFakeClient())
 			{
-				ChangeClass((TFClass)random->RandomInt(0,TFCLASS_CLASS_COUNT));
+				ChangeClass((TFClass)random->RandomInt(TFCLASS_RECON,TFCLASS_CLASS_COUNT-1));
 				ForceRespawn();
 			}
 			// Otherwise just show us the class menu.
@@ -1864,9 +1864,11 @@ void CBaseTFPlayer::MenuReset( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 {
+#if 0
 	// TODO:  Decide if we are going to keep the tactical view in TF2
 	if ( !inv_demo.GetBool() )
 		return;
+#endif
 
 	m_bSwitchingView	= true;
 

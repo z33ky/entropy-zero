@@ -2171,6 +2171,9 @@
     <ClInclude Include="fortress\vgui_teammenu.h">
       <Filter>Source Files\Fortress\VGUI</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\vgui_classmenu.h">
+      <Filter>Source Files\Fortress\VGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mp3player.cpp">
@@ -3872,6 +3875,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\vgui_teammenu.cpp">
+      <Filter>Source Files\Fortress\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_classmenu.cpp">
       <Filter>Source Files\Fortress\VGUI</Filter>
     </ClCompile>
   </ItemGroup>
