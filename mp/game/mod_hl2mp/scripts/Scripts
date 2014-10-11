@@ -22,6 +22,8 @@
                 <File name="HudAnimations.txt" />
                 <File name="mod_textures.txt" />
             </Folder>
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ui\classmenu.res" />
+            <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\resource\ui\teammenu.res" />
         </Folder>
         <Folder name="Sounds">
             <File name="game_sounds_fortress.txt" />

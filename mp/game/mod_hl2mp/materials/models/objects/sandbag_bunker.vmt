@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/objects/sandbag_bunker"
+	"$surfaceprop" "Dirt"
+}
