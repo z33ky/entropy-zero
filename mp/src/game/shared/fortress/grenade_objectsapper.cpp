@@ -51,17 +51,16 @@ void CGrenadeObjectSapper::Spawn( void )
 	m_bArmed = true;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CGrenadeObjectSapper::Precache( void )
 {
 	engine->PrecacheModel( "models/sapper.mdl" );
+
+	PrecacheScriptSound("WeaponObjectSapper.Attach");
+	PrecacheScriptSound("WeaponObjectSapper.AttachFail");
+	PrecacheScriptSound("GrenadeObjectSapper.Arming");
+	PrecacheScriptSound("GrenadeObjectSapper.RemoveSapper");
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CGrenadeObjectSapper::PlayArmingSound( void )
 {
 	EmitSound( "GrenadeObjectSapper.Arming" );

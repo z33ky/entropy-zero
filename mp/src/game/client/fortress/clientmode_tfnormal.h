@@ -32,6 +32,7 @@ private:
 		virtual ~Viewport() {}
 
 		virtual void	OnThink();
+		virtual void	CreateDefaultPanels();
 		void			ReloadScheme();
 
 		virtual void ApplySchemeSettings( vgui::IScheme *pScheme )

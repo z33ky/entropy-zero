@@ -17,14 +17,10 @@
 #include "playerandobjectenumerator.h"
 #include "IClientVehicle.h"
 #include "input.h"
-#ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
 #include "c_vehicle_teleport_station.h"
-#endif
 #include "weapon_combatshield.h"
-#ifdef IMPLEMENT_ME
 #include "hud_vehicle_role.h"
-#endif
 #include "hud_technologytreedoc.h"
 #include "iclientmode.h"
 #include "weapon_selection.h"
@@ -347,7 +343,6 @@ END_PREDICTION_DATA()
 // TODO: consolidate all these includes and the DEFINE_PRED... for each class type
 // into tf_shareddefs.h.
 #include "c_tf_class_commando.h"
-#ifdef IMPLEMENT_ME
 #include "c_tf_class_defender.h"
 #include "c_tf_class_escort.h"
 #include "c_tf_class_infiltrator.h"
@@ -357,7 +352,6 @@ END_PREDICTION_DATA()
 #include "c_tf_class_support.h"
 #include "c_tf_class_sapper.h"
 #include "c_tf_class_pyro.h"
-#endif
 
 BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 
@@ -367,7 +361,6 @@ BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 	DEFINE_PRED_FIELD( m_flPlaybackRate, FIELD_FLOAT, FTYPEDESC_INSENDTABLE | FTYPEDESC_PRIVATE | FTYPEDESC_OVERRIDE ),
 
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_COMMANDO], C_PlayerClassCommando ),
-#ifdef IMPLEMENT_ME
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_DEFENDER], C_PlayerClassDefender ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_ESCORT], C_PlayerClassEscort ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_INFILTRATOR], C_PlayerClassInfiltrator ),
@@ -376,7 +369,6 @@ BEGIN_PREDICTION_DATA( C_BaseTFPlayer )
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_SNIPER], C_PlayerClassSniper ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_SUPPORT], C_PlayerClassSupport ),
 	DEFINE_PRED_TYPEDESCRIPTION_PTR( m_PlayerClasses.m_pClasses[TFCLASS_SAPPER], C_PlayerClassSapper ),
-#endif
 
 	DEFINE_PRED_FIELD( m_iPlayerClass, FIELD_INTEGER, FTYPEDESC_INSENDTABLE ),
 	DEFINE_PRED_FIELD( m_flCamouflageAmount, FIELD_FLOAT, FTYPEDESC_INSENDTABLE ),
@@ -585,11 +577,7 @@ bool C_BaseTFPlayer::ShouldDraw()
 
 	// Draw the local player if he's the driver of a vehicle.
 	// We can safely return true here because vehicles will hide drivers that shouldn't be visible.
-#ifdef IMPLEMENT_ME
 	if ( mannedgun_usethirdperson.GetInt() && IsVehicleMounted() && IsLocalPlayer() )
-#else
-	if(IsVehicleMounted() && IsLocalPlayer())
-#endif
 	{
 		IClientVehicle *pVehicle = GetVehicle();
 		int nRole = pVehicle->GetPassengerRole( this );
@@ -868,7 +856,6 @@ void C_BaseTFPlayer::ItemPostFrame( void )
 	{
 		m_flNextUseCheck = gpGlobals->curtime + 0.3;
 
-#ifdef IMPLEMENT_ME
 		CVehicleRoleHudElement *pElement = GET_HUDELEMENT( CVehicleRoleHudElement );
 		Assert( pElement );
 		pElement->ShowVehicleRole( -1 );
@@ -885,7 +872,6 @@ void C_BaseTFPlayer::ItemPostFrame( void )
 					pElement->ShowVehicleRole( pVehicle->LocateEntryPoint( this ) );
 			}
 		}
-#endif
 	}
 
 	// Don't process items while in a vehicle.
@@ -926,11 +912,9 @@ void C_BaseTFPlayer::ItemPostFrame( void )
 //-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsVehicleMounted() const
 {
-#ifdef IMPLEMENT_ME
 	CBaseTFVehicle *pVehicle = dynamic_cast< CBaseTFVehicle* >( GetMoveParent() );
 	if ( pVehicle )
 		return dynamic_cast< CBaseTFVehicle* >( pVehicle->GetMoveParent() ) != NULL;
-#endif
 
 	return false;
 }
@@ -954,15 +938,13 @@ int C_BaseTFPlayer::DrawModel( int flags )
 		int nRole = pVehicle->GetPassengerRole( this );
 		if ( nRole == VEHICLE_ROLE_DRIVER )
 		{
-#ifdef IMPLEMENT_ME
 			C_BaseTFVehicle *pVehicleEntity = (CBaseTFVehicle*)pVehicle->GetVehicleEnt();
 			angleschanged = true;
-			SetLocalAngles( pVehicleEntity->GetPassengerAngles( saveAngles, VEHICLE_DRIVER ) );
+			SetLocalAngles( pVehicleEntity->GetPassengerAngles( saveAngles, VEHICLE_ROLE_DRIVER ) );
 
 			// HACK: Stomp the origin
 			originchanged = true;
 			SetLocalOrigin( vec3_origin );
-#endif
 		}
 	}
 	else
@@ -2136,12 +2118,10 @@ void C_BaseTFPlayer::SetVehicleRole( int nRole )
 {
 	if ( IsInAVehicle() )
 	{
-#ifdef IMPLEMENT_ME
 		C_BaseTFVehicle *pVehicle = ( C_BaseTFVehicle* )GetVehicle();
 		if ( pVehicle )
 			if ( nRole >= pVehicle->GetMaxPassengerCount() )
 				return;
-#endif
 	}
 
 	char szCmd[64];
@@ -2399,11 +2379,7 @@ void C_BaseTFPlayer::SetIDEnt( C_BaseEntity *pEntity )
 
 C_VehicleTeleportStation* C_BaseTFPlayer::GetSelectedMCV() const
 {
-#ifdef IMPLEMENT_ME
 	return dynamic_cast< C_VehicleTeleportStation* >( m_hSelectedMCV.Get() );
-#else
-	return NULL;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2411,12 +2387,8 @@ C_VehicleTeleportStation* C_BaseTFPlayer::GetSelectedMCV() const
 //-----------------------------------------------------------------------------
 bool C_BaseTFPlayer::IsUseableEntity( CBaseEntity *pEntity )
 {
-#ifdef IMPLEMENT_ME
 	// I can use vehicles
 	return dynamic_cast<C_BaseTFVehicle*>( pEntity );
-#else
-	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------

@@ -1,3 +1,40 @@
+// Sapper
+WeaponObjectSapper.Attach
+{
+	channel		CHAN_ITEM
+	soundlevel	SNDLVL_85dB
+	pitch		PITCH_NORM
+	volume		VOL_NORM
+	wave		objects/sapper/attach.wav
+}
+
+WeaponObjectSapper.AttachFail
+{
+	channel		CHAN_ITEM
+	soundlevel	SNDLVL_85dB
+	pitch		PITCH_NORM
+	volume		VOL_NORM
+	wave		common/wpn_denyselect.wav
+}
+
+GrenadeObjectSapper.Arming
+{
+	channel		CHAN_ITEM
+	soundlevel	SNDLVL_85dB
+	pitch		PITCH_NORM
+	volume		VOL_NORM
+	wave		objects/sapper/arming.wav
+}
+
+GrenadeObjectSapper.RemoveSapper
+{
+	channel		CHAN_ITEM
+	soundlevel	SNDLVL_85dB
+	pitch		PITCH_NORM
+	volume		VOL_NORM
+	wave		objects/sapper/remove.wav
+}
+
 // Weapons
 Weapon_BurstRifle.Single
 {
@@ -27,6 +64,15 @@ Minimap.ZoomOut
 	wave		minimap/zoom.wav
 }
 
+// Aliens
+AlienCommando.Death
+{
+	"channel"	"CHAN_VOICE"
+	"volume"	"1"
+	"soundlevel"  	"SNDLVL_TALKING"
+	"wave"	"player/suit_denydevice.wav"
+}
+
 // Humans
 Humans.Death
 {
@@ -39,11 +85,17 @@ Humans.Death
 
 Human.Pain
 {
-	"channel"	"CHAN_VOICE"
-	"volume"	"1"
-	"soundlevel"  	"SNDLVL_TALKING"
+	channel		CHAN_VOICE
+	volume		1
+	soundlevel  SNDLVL_TALKING
 
-	"wave"	"player/suit_denydevice.wav"
+	rndwave
+	{
+		wave	player/humans/commando/aaagh1.wav
+		wave	player/humans/commando/aaagh3.wav
+		wave	player/humans/commando/aaagh4.wav
+		wave	player/humans/commando/aaagh6.wav
+	}
 }
 
 Human.default.stepright

@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Vehicles">
+      <UniqueIdentifier>{67397BC2-C186-FFF3-4260-07B0682EB530}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\game_controls">
       <UniqueIdentifier>{1E7DB91A-DC0A-B17F-617D-4C4FB3FA7A3E}</UniqueIdentifier>
     </Filter>
@@ -2105,6 +2108,9 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_playeranimstate.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -2134,6 +2140,12 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h">
       <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_basefourwheelvehicle.h">
+      <Filter>Source Files\Fortress\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_vehicle_teleport_station.h">
+      <Filter>Source Files\Fortress\Vehicles</Filter>
     </ClInclude>
     <ClInclude Include="game_controls\basemodel_panel.h">
       <Filter>Source Files\game_controls</Filter>
@@ -2698,6 +2710,9 @@
     <ClCompile Include="history_resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hl2mp\hl2mp_hud_chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="hltvcamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2705,9 +2720,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hud_animationinfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hl2\hud_autoaim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hud_basechat.cpp">
@@ -2726,12 +2738,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hud_element_helper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hl2\hud_filmdemo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hl2\hud_hdrdemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hud_hintdisplay.cpp">
@@ -3571,6 +3577,9 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_shareddefs.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3609,6 +3618,12 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_basefourwheelvehicle.cpp">
+      <Filter>Source Files\Fortress\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_vehicle_teleport_station.cpp">
+      <Filter>Source Files\Fortress\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="game_controls\basemodel_panel.cpp">
       <Filter>Source Files\game_controls</Filter>

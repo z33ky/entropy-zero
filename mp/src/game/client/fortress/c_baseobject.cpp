@@ -12,9 +12,7 @@
 #include "particlemgr.h"
 #include "particle_collision.h"
 #include "env_objecteffects.h"
-#ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
-#endif
 #include "c_weapon_builder.h"
 #include "IVRenderView.h"
 #include "ObjectControlPanel.h"
@@ -478,11 +476,6 @@ void C_BaseObject::AddEntity( void )
 	// valid data to decide whether it's visible.
 	if ( !ShouldDraw() )
 		return;
-
-#ifdef IMPLEMENT_ME // ?
-	// Update the entity position
-	UpdatePosition();
-#endif
 
 	// Yaw preview
 	if (m_YawPreviewState != YAW_PREVIEW_OFF)

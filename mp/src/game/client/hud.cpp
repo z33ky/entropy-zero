@@ -158,7 +158,7 @@ void FreeHudTextureList( CUtlDict< CHudTexture *, int >& list )
 
 // Globally-used fonts
 vgui::HFont g_hFontTrebuchet24 = vgui::INVALID_FONT;
-
+vgui::HFont g_hFontTrebuchet40 = vgui::INVALID_FONT;
 
 //=======================================================================================================================
 // Hud Element Visibility handling
@@ -170,8 +170,6 @@ typedef struct hudelement_hidden_s
 } hudelement_hidden_t;
 
 ConVar hidehud( "hidehud", "0", FCVAR_CHEAT );
-
-
 
 CHudTexture::CHudTexture()
 {
@@ -483,7 +481,8 @@ void CHud::InitFonts()
 {
 	vgui::HScheme scheme = vgui::scheme()->GetScheme( "ClientScheme" );
 	vgui::IScheme *pScheme = vgui::scheme()->GetIScheme( scheme );
-	g_hFontTrebuchet24 = pScheme->GetFont("CenterPrintText", true);
+	g_hFontTrebuchet24 = pScheme->GetFont("Trebuchet24", true);
+	g_hFontTrebuchet40 = pScheme->GetFont("Trebuchet40",true);
 }
 
 //-----------------------------------------------------------------------------

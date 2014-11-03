@@ -75,9 +75,6 @@ void CBaseTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 
 	// Enter dying state
 	AddSolidFlags( FSOLID_NOT_SOLID );
-#ifdef IMPLEMENT_ME // ?
-	Relink();
-#endif
 	SetMoveType( MOVETYPE_NONE );
 	QAngle angles = GetLocalAngles();
 	angles.x = angles.z = 0;

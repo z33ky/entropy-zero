@@ -318,7 +318,7 @@ void CBaseTFPlayer::FinishAttaching( void )
 // FIXME FIXME:  Does this need to be hooked up?
 bool CBaseTFPlayer::IsWet() const
 {
-#ifdef IMPLEMENT_ME
+#ifdef CLIENT_DLL
 	return ((GetFlags() & FL_INRAIN) != 0) || (m_WetTime >= gpGlobals->curtime);
 #else
 	return ((GetFlags() & FL_INRAIN) != 0);
@@ -329,8 +329,7 @@ bool CBaseTFPlayer::IsWet() const
 
 #include "decals.h"
 
-/*	Brought over from gamemovement. ~hogsy
-	DUMB DUMB DUMB DUMB DUMB
+/*	Brought over from gamemovement.
 */
 void CBaseTFPlayer::PlantFootprint( surfacedata_t *psurface, const char *cMaterialStep )
 {
@@ -361,9 +360,9 @@ void CBaseTFPlayer::PlantFootprint( surfacedata_t *psurface, const char *cMateri
 		// Figure out which footprint type to plant...
 		// Use the wet footprint if we're wet...
 		if (IsWet())
-			Q_snprintf(cDecal,sizeof(cDecal),"Footprint.Wet");
+			V_snprintf(cDecal,sizeof(cDecal),"Footprint.Wet");
 		else
-			Q_snprintf(cDecal,sizeof(cDecal),"Footprint.%s",cMaterialStep);
+			V_snprintf(cDecal,sizeof(cDecal),"Footprint.%s",cMaterialStep);
 
 		Vector right;
 		AngleVectors(GetLocalAngles(), 0, &right, 0 );
@@ -401,11 +400,11 @@ void CBaseTFPlayer::UpdateWetness(void)
 	// Do this by tracing a line straight down with a size guaranteed to
 	// be larger than the map
 	// Update wetness based on whether we're in rain or not...
-#ifdef IMPLEMENT_ME
-	trace_t tr;
-	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector(0, 0, -COORD_EXTENT * 1.74), 
-					MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
-	if (tr.surface.flags & SURF_WET)
+#ifdef CLIENT_DLL
+	bool bInWater = (UTIL_PointContents ( GetAbsOrigin() ) & MASK_WATER) ? true : false;
+
+	// TODO: Also need to support actual rain, and not just water contents!! ~hogsy
+	if(bInWater)
 	{
 		if (! (GetFlags() & FL_INRAIN) )
 		{

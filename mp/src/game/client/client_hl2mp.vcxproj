@@ -68,7 +68,7 @@
       <AdditionalOptions>/Zm200 /Gw</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\;..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\client\generated_proto_mod_hl2mp;..\..\thirdparty\protobuf-2.3.0\src;..\..\vgui2\include;..\..\vgui2\controls;..\..\game\shared;.\game_controls;..\..\thirdparty\sixensesdk\include;hl2mp\ui;.\hl2mp;.\fortress;..\..\game\shared\hl2mp;..\..\game\shared\fortress;.\hl2;.\hl2\elements;..\..\game\shared\hl2</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;ENABLE_CHROMEHTMLWINDOW;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\hogsy\Documents\Fortress\mp\src\game\client;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;ENABLE_CHROMEHTMLWINDOW;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\hogsy\Documents\Fortress\mp\src\game\client;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -147,7 +147,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>.\;..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\client\generated_proto_mod_hl2mp;..\..\thirdparty\protobuf-2.3.0\src;..\..\vgui2\include;..\..\vgui2\controls;..\..\game\shared;.\game_controls;..\..\thirdparty\sixensesdk\include;hl2mp\ui;.\hl2mp;.\fortress;..\..\game\shared\hl2mp;..\..\game\shared\fortress;.\hl2;.\hl2\elements;..\..\game\shared\hl2</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;ENABLE_CHROMEHTMLWINDOW;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\hogsy\Documents\Fortress\mp\src\game\client;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;ENABLE_CHROMEHTMLWINDOW;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\hogsy\Documents\Fortress\mp\src\game\client;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -904,6 +904,7 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_movedata.h" />
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_basedrivergun_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.h" />
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\tf_playeranimstate.h" />
     <ClInclude Include="..\..\game\shared\fortress\tf_shareddefs.h" />
     <ClInclude Include="..\..\game\shared\fortress\tf_shieldshared.h" />
@@ -914,6 +915,8 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h" />
+    <ClInclude Include="fortress\c_basefourwheelvehicle.h" />
+    <ClInclude Include="fortress\c_vehicle_teleport_station.h" />
     <ClInclude Include="game_controls\basemodel_panel.h" />
     <ClInclude Include="game_controls\basemodelpanel.h" />
     <ClInclude Include="sixense\in_sixense.h" />
@@ -1130,18 +1133,16 @@
     <ClCompile Include="..\..\game\shared\hintmessage.cpp" />
     <ClCompile Include="..\..\game\shared\hintsystem.cpp" />
     <ClCompile Include="history_resource.cpp" />
+    <ClCompile Include="hl2mp\hl2mp_hud_chat.cpp" />
     <ClCompile Include="hltvcamera.cpp" />
     <ClCompile Include="hud.cpp" />
     <ClCompile Include="hud_animationinfo.cpp" />
-    <ClCompile Include="hl2\hud_autoaim.cpp" />
     <ClCompile Include="hud_basechat.cpp" />
     <ClCompile Include="hud_basetimer.cpp" />
     <ClCompile Include="hud_bitmapnumericdisplay.cpp" />
     <ClCompile Include="hud_closecaption.cpp" />
     <ClCompile Include="hud_crosshair.cpp" />
     <ClCompile Include="hud_element_helper.cpp" />
-    <ClCompile Include="hl2\hud_filmdemo.cpp" />
-    <ClCompile Include="hl2\hud_hdrdemo.cpp" />
     <ClCompile Include="hud_hintdisplay.cpp" />
     <ClCompile Include="hud_lcd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -1490,6 +1491,7 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_gamerules.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_basedrivergun_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_shareddefs.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_shield_mobile_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_shield_shared.cpp" />
@@ -1503,6 +1505,8 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp" />
+    <ClCompile Include="fortress\c_basefourwheelvehicle.cpp" />
+    <ClCompile Include="fortress\c_vehicle_teleport_station.cpp" />
     <ClCompile Include="game_controls\basemodel_panel.cpp" />
     <ClCompile Include="game_controls\basemodelpanel.cpp" />
     <ClCompile Include="game_controls\baseviewport.cpp" />

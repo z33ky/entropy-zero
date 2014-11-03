@@ -259,6 +259,7 @@ void CClientModeCommander::Update()
 
 void CClientModeCommander::Layout()
 {
+	// https://github.com/hogsy/Fortress/issues/14
 	BaseClass::Layout();
 
 	// Force it to recompute it's boundaries

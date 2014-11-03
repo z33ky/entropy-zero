@@ -683,6 +683,18 @@ Scheme
 				"symbol"	"1"
 			}
 		}
+		"Trebuchet40"
+		{
+			"1"
+			{
+				"name"		"Trebuchet MS"
+				"tall"		"40"
+				"weight"	"900"
+				"range"		"0x0000 0x007F"	//	Basic Latin
+				"antialias" "1"
+				"additive"	"1"
+			}
+		}
 		"Trebuchet24"
 		{
 			"1"

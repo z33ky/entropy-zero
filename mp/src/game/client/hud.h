@@ -199,6 +199,7 @@ extern CHud gHUD;
 // Global fonts used in the client DLL
 //-----------------------------------------------------------------------------
 extern vgui::HFont g_hFontTrebuchet24;
+extern vgui::HFont g_hFontTrebuchet40;
 
 void LoadHudTextures( CUtlDict< CHudTexture *, int >& list, const char *szFilenameWithoutExtension, const unsigned char *pICEKey );
 

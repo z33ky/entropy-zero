@@ -1,4 +1,4 @@
-HudScheme
+ClientSchemeHuman
 {
 	Colors
 	{

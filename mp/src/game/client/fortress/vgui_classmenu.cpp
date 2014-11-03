@@ -17,6 +17,7 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 
 	m_pViewPort = pViewPort;
 
+	SetScheme("ClientScheme");
 	SetSizeable(false);
 	SetProportional(true);
 	SetMoveable(false);
@@ -196,7 +197,7 @@ void CFortressClassMenu::OnTick(void)
 		else
 			mClassPreview->SwapModel("models/player/alien_pyro.mdl");
 
-		rtClassDescription->SetText("#FORTRESS_PYRODESCRIPTION");
+		rtClassDescription->SetText("#FORTRESS_CLASSPYROINFO");
 
 		iLastPreview = 10;
 	}
@@ -205,7 +206,7 @@ void CFortressClassMenu::OnTick(void)
 		mClassPreview->DeleteModelData();
 
 		// TODO: This shouldn't be hard-coded!! ~hogsy
-		rtClassDescription->SetText("Random class assignment.");
+		rtClassDescription->SetText("#FORTRESS_CLASSRANDOMINFO");
 
 		iLastPreview = 11;
 	}

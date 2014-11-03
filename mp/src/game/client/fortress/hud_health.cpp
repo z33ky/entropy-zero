@@ -2,9 +2,7 @@
 #include "hud.h"
 #include "hud_numeric.h"
 #include "c_basetfplayer.h"
-#ifdef IMPLEMENT_ME
 #include "basetfvehicle.h"
-#endif
 #include <vgui_controls/AnimationController.h>
 #include <KeyValues.h>
 #include "iclientmode.h"
@@ -137,7 +135,6 @@ bool CHudVehicleHealth::GetHealth( int& value )
 	if ( pPlayer )
 	{
 		// Draw the vehicle health:
-#ifdef IMPLEMENT_ME
 		C_BaseTFVehicle *pVehicleEnt = ( C_BaseTFVehicle* )pPlayer->GetVehicle();
 		if( pVehicleEnt )
 		{
@@ -153,7 +150,6 @@ bool CHudVehicleHealth::GetHealth( int& value )
 			m_bPrevHealth = true;
 			return true;
 		}
-#endif
 	}
 	
 	bool changed = m_bPrevHealth != false;

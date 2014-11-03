@@ -86,12 +86,18 @@ void ClientModeTFNormal::Viewport::ReloadScheme()
 	{
 		m_bHumanScheme = ( team == TEAM_HUMANS ) ? true : false;
 		if ( m_bHumanScheme )
-			schemeFile = "resource/ClientSchemeHuman.res";
+			schemeFile = "resource/clientschemehuman.res";
 		else
-			schemeFile = "resource/ClientSchemeAlien.res";
+			schemeFile = "resource/clientschemealien.res";
 	}
 
 //	BaseClass::ReloadScheme( schemeFile );
+}
+
+void ClientModeTFNormal::Viewport::CreateDefaultPanels()
+{
+	AddNewPanel(CreatePanelByName(PANEL_TEAM),"PANEL_TEAM");
+	AddNewPanel(CreatePanelByName(PANEL_CLASS),"PANEL_CLASS");
 }
 
 IViewPortPanel *ClientModeTFNormal::Viewport::CreatePanelByName(const char *szPanelName)
@@ -106,29 +112,17 @@ IViewPortPanel *ClientModeTFNormal::Viewport::CreatePanelByName(const char *szPa
 	return newpanel;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : vgui::Panel
-//-----------------------------------------------------------------------------
 vgui::Panel *ClientModeTFNormal::GetMinimapParent( void )
 {
 	return GetViewport();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeTFNormal::Update()
 {
 	BaseClass::Update();
 	HudCommanderOverlayMgr()->Tick( );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : frametime - 
-//			*cmd - 
-//-----------------------------------------------------------------------------
 bool ClientModeTFNormal::CreateMove( float flInputSampleTime, CUserCmd *cmd )
 {
 	// Let the player override the view.

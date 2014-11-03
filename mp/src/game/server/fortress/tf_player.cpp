@@ -7,9 +7,7 @@
 #include "entitylist.h"
 #include "menu_base.h"
 #include "basecombatweapon.h"
-#ifdef IMPLEMENT_ME
 #include "controlzone.h"
-#endif
 #include "tf_shareddefs.h"
 #include "AmmoDef.h"
 #include "techtree.h"
@@ -704,10 +702,6 @@ void CBaseTFPlayer::SetPlayerModel( void )
 		UTIL_SetSize(this, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX);
 	else
 		UTIL_SetSize(this, VEC_HULL_MIN, VEC_HULL_MAX);
-
-#ifdef IMPLEMENT_ME // ?
-	Relink();
-#endif
 }
 
 void CBaseTFPlayer::PlayerRespawn( void )
@@ -830,7 +824,6 @@ void CBaseTFPlayer::PreThink(void)
 	// Update zone state
 	if ( m_pCurrentZone )
 	{
-#ifdef IMPLEMENT_ME
 		m_iCurrentZoneState = m_pCurrentZone->GetControllingTeam();
 		if ( m_iCurrentZoneState != ZONE_CONTESTED )
 		{
@@ -840,7 +833,6 @@ void CBaseTFPlayer::PreThink(void)
 			else
 				m_iCurrentZoneState = ZONE_ENEMY;
 		}
-#endif
 	}
 	else
 		m_iCurrentZoneState = 0;
@@ -1375,7 +1367,6 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 
 		if ( FStrEq( cmd, "emp_target" ) )
 		{
-#ifdef IMPLEMENT_ME
 			CBaseEntity *pEntity = FindEntityForward( this, true );
 			if ( pEntity && pEntity->CanBePoweredUp() )
 			{
@@ -1386,7 +1377,6 @@ bool CBaseTFPlayer::ClientCommand(const CCommand &args)
 				}
 				pEntity->AttemptToPowerup( POWERUP_EMP, flTime );
 			}
-#endif
 			return true;
 		}
 
@@ -1864,11 +1854,9 @@ void CBaseTFPlayer::MenuReset( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 {
-#if 0
 	// TODO:  Decide if we are going to keep the tactical view in TF2
 	if ( !inv_demo.GetBool() )
 		return;
-#endif
 
 	m_bSwitchingView	= true;
 

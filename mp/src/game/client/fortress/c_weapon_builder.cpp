@@ -106,9 +106,7 @@ C_WeaponBuilder::C_WeaponBuilder()
 	m_flStartTime = 0;
 	m_flTotalTime = 0;
 
-#ifdef IMPLEMENT_ME
 	m_hFont = g_hFontTrebuchet40;
-#endif
 
 	m_pIconFireToSelect.Init( "Hud/build/firetobuild",TEXTURE_GROUP_VGUI );
 }

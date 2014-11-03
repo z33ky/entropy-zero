@@ -8,6 +8,11 @@ seem to do what they do...
 
 Q.	I can collide with capture points, resource areas and so on. Is this intended?
 
+Q.	What do we know about the turret?
+A.	Functionality seems identical to the turret featured in the final game, however there
+	is mention of "turtling" which seems to involve the turret closing down into itself which I
+	suppose is intended to protect it? Additionally, the turret
+
 --------------------------
 
 Q.	Where did resources come from?

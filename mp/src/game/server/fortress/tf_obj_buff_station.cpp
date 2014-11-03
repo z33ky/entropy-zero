@@ -207,12 +207,8 @@ void CObjectBuffStation::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 {
 	if ( useType == USE_ON )
 	{
-#ifdef IMPLEMENT_ME
 		// See if the activator is a player
 		if ( !pActivator->IsPlayer() || !InSameTeam( pActivator ) || !pActivator->CanBePoweredUp() )
-#else
-		if ( !pActivator->IsPlayer() || !InSameTeam( pActivator ))
-#endif
 			return;
 
 		CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer*>(pActivator);

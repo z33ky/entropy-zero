@@ -692,7 +692,7 @@
 		
 		model
 		{
-			modelname		"models/player/human_commando.mdl"
+			modelname		""
 			modelname_hwm	""
 			skin			0
 			angles_x		0.0

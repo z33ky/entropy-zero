@@ -49,8 +49,10 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 const char *CPlayerClassRecon::GetClassModelString( int nTeam )
 {
-	static const char *string = "models/player/recon.mdl";
-	return string;
+	if (nTeam == TEAM_HUMANS)
+		return "models/player/human_recon.mdl";
+	else
+		return "models/player/alien_recon.mdl";
 }
 
 // ------------------------------------------------------------------------ //

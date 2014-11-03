@@ -253,6 +253,8 @@ protected:
 	void	UpdateWetness(void);
 
 private:
+	float	m_WetTime;
+
 	C_BaseTFPlayer( const C_BaseTFPlayer & );
 
 	// Client-side obstacle avoidance

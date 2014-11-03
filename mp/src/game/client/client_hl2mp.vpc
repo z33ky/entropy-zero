@@ -39,6 +39,7 @@ $Project "Client"
 		$File	"vgui_entityimagepanel.cpp"
 		$File	"vgui_entitypanel.cpp"
 		$File	"teambitmapimage.cpp"
+		$File	"hl2mp\hl2mp_hud_chat.cpp"
 
 		$Folder	"Fortress"
 		{
@@ -111,6 +112,16 @@ $Project "Client"
 				$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.h
+			}
+			
+			$Folder "Vehicles"
+			{
+				$File	fortress/c_vehicle_teleport_station.cpp
+				$File	fortress/c_vehicle_teleport_station.h
+				$File	fortress/c_basefourwheelvehicle.cpp
+				$File	fortress/c_basefourwheelvehicle.h
 			}
 		
 			$File	fortress/clientmode_commander.cpp

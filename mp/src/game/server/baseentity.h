@@ -1146,6 +1146,10 @@ public:
 	// Use CDamageModifier to hook in damage modifiers on a guy.
 	virtual float			GetReceivedDamageScale( CBaseEntity *pAttacker );
 
+	// Sorry folks, here lies TF2-specific stuff that really has no other place to go
+	virtual bool			CanBePoweredUp( void ) { return false; }
+	virtual bool			AttemptToPowerup( int iPowerup, float flTime, float flAmount = 0, CBaseEntity *pAttacker = NULL, CDamageModifier *pDamageModifier = NULL ) { return false; }
+
  	void					SetCheckUntouch( bool check );
 	bool					GetCheckUntouch() const;
 

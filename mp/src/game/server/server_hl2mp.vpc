@@ -135,6 +135,8 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.h
 			}
 		
 			$File	fortress/basecombatcharacter_tf2.cpp

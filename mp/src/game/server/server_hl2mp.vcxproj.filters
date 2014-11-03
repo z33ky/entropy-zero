@@ -1727,6 +1727,9 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_playeranimstate.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -3134,6 +3137,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_shareddefs.cpp">

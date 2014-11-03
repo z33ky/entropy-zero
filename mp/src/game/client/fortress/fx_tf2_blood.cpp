@@ -25,10 +25,9 @@ CLIENTEFFECT_REGISTER_END()
 
 void FX_TF2_BloodSpray( const Vector &origin, const Vector &normal, float scale, unsigned char r, unsigned char g, unsigned char b, int flags )
 {
-#ifdef IMPLEMENT_ME
-	if ( cl_show_bloodspray.GetBool() == false )
+	// Apparently Valve use this, rather than a ConVar, now. ~hogsy
+	if(UTIL_IsLowViolence())
 		return;
-#endif
 
 	//debugoverlay->AddLineOverlay( origin, origin + normal * 72, 255, 255, 255, true, 10 ); 
 

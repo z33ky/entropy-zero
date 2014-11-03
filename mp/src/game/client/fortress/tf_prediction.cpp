@@ -2,9 +2,7 @@
 #include "prediction.h"
 #include "tf_movedata.h"
 #include "c_basetfplayer.h"
-#ifdef IMPLEMENT_ME
 #include "c_tf_class_recon.h"
-#endif
 #include "c_tf_class_commando.h"
 
 static CTFMoveData g_TFMoveData;
@@ -92,7 +90,6 @@ void CTFPrediction::SetupMove( C_BasePlayer *player, CUserCmd *ucmd, IMoveHelper
 void CTFPrediction::SetupMoveRecon( CUserCmd *ucmd, C_BaseTFPlayer *pTFPlayer, IMoveHelper *pHelper, 
 								    CTFMoveData *pTFMove )
 {
-#ifdef IMPLEMENT_ME
 	C_PlayerClassRecon *pRecon = static_cast<C_PlayerClassRecon*>( pTFPlayer->GetPlayerClass() );
 	if ( pRecon )
 	{
@@ -109,7 +106,6 @@ void CTFPrediction::SetupMoveRecon( CUserCmd *ucmd, C_BaseTFPlayer *pTFPlayer, I
 			pTFMove->ReconData().m_vecUnstickVelocity = pReconData->m_vecUnstickVelocity;
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -185,7 +181,6 @@ void CTFPrediction::FinishMove( C_BasePlayer *player, CUserCmd *ucmd, CMoveData 
 
 void CTFPrediction::FinishMoveRecon( CTFMoveData *pTFMove, C_BaseTFPlayer *pTFPlayer )
 {
-#ifdef IMPLEMENT_ME
 	C_PlayerClassRecon *pRecon = static_cast<C_PlayerClassRecon*>( pTFPlayer->GetPlayerClass() );
 	if ( pRecon )
 	{
@@ -202,7 +197,6 @@ void CTFPrediction::FinishMoveRecon( CTFMoveData *pTFMove, C_BaseTFPlayer *pTFPl
 			pReconData->m_vecUnstickVelocity = pTFMove->ReconData().m_vecUnstickVelocity;
 		}
 	}
-#endif
 }
 
 void CTFPrediction::FinishMoveCommando( CTFMoveData *pTFMove, C_BaseTFPlayer *pTFPlayer )

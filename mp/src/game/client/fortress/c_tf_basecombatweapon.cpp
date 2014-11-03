@@ -12,9 +12,7 @@
 #include "c_tf_hintmanager.h"
 #include "hud_ammo.h"
 #include "c_weapon__stubs.h"
-#ifdef IMPLEMENT_ME
 #include "c_tf_class_sapper.h"
-#endif
 #include <vgui/ISurface.h>
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -137,7 +135,6 @@ void C_BaseTFCombatWeapon::DrawAmmo()
 	// HACK: Draw technician's drain level
 	if ( IsLocalPlayerClass( TFCLASS_SAPPER ) )
 	{
-#ifdef IMPLEMENT_ME
 		C_PlayerClassSapper *pSapper = (C_PlayerClassSapper *)player->GetPlayerClass();
 
 		int r, g, b, a;
@@ -162,7 +159,6 @@ void C_BaseTFCombatWeapon::DrawAmmo()
 		// draw the powerered portion of the bar
 		vgui::surface()->DrawSetColor( Color( r, g * flPowerLevel, b * flPowerLevel, 190 ) );
 		vgui::surface()->DrawFilledRect( x, y + iHeight * flInverseFactor, x + iWidth, y + iHeight * flInverseFactor + iHeight * flPowerLevel );
-#endif
 	}
 }
 
