@@ -70,24 +70,31 @@ AlienCommando.Death
 	"channel"	"CHAN_VOICE"
 	"volume"	"1"
 	"soundlevel"  	"SNDLVL_TALKING"
-	"wave"	"player/suit_denydevice.wav"
+	"wave"		"player/suit_denydevice.wav"
 }
 
 // Humans
 Humans.Death
 {
-	"channel"	"CHAN_VOICE"
-	"volume"	"1"
-	"soundlevel"  	"SNDLVL_TALKING"
+	channel		CHAN_VOICE
+	volume		1
+	pitch		PITCH_NORM
+	soundlevel  	SNDLVL_TALKING
 
-	"wave"	"player/suit_denydevice.wav"
+	rndwave
+	{
+		wave	player/humans/commando/aaagh2.wav
+		wave	player/humans/commando/aaagh7.wav
+		wave	player/humans/commando/aaagh8.wav
+	}
 }
 
-Human.Pain
+Humans.Pain
 {
 	channel		CHAN_VOICE
 	volume		1
-	soundlevel  SNDLVL_TALKING
+	pitch		PITCH_NORM
+	soundlevel  	SNDLVL_TALKING
 
 	rndwave
 	{
