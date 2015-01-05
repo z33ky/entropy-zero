@@ -12,13 +12,11 @@
 #include "tf_gamemovement_medic.h"
 #include "tf_gamemovement_defender.h"
 #include "tf_gamemovement_sniper.h"
-#ifdef IMPLEMENT_ME
 #include "tf_gamemovement_support.h"
 #include "tf_gamemovement_escort.h"
 #include "tf_gamemovement_sapper.h"
 #include "tf_gamemovement_infiltrator.h"
 #include "tf_gamemovement_pyro.h"
-#endif
 
 //=============================================================================
 //
@@ -49,13 +47,11 @@ protected:
 	CTFGameMovementMedic			m_MedicMovement;
 	CTFGameMovementDefender			m_DefenderMovement;
 	CTFGameMovementSniper			m_SniperMovement;
-#ifdef IMPLEMENT_ME
 	CTFGameMovementSupport			m_SupportMovement;
 	CTFGameMovementEscort			m_EscortMovement;
 	CTFGameMovementSapper			m_SapperMovement;
 	CTFGameMovementInfiltrator		m_InfiltratorMovement;
 	CTFGameMovementPyro				m_PyroMovement;
-#endif
 
 	// Vector of class specific movements (for quick addressing).
 	CUtlVector<CTFGameMovement*>	m_Movements;

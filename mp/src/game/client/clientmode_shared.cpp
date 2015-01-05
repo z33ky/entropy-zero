@@ -303,11 +303,6 @@ void	ClientModeShared::ComputeVguiResConditions( KeyValues *pkvConditions )
 	}
 }
 
-
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void ClientModeShared::Init()
 {
 	m_pChatElement = ( CBaseHudChat * )GET_HUDELEMENT( CHudChat );

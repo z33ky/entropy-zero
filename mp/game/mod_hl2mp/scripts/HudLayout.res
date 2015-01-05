@@ -40,20 +40,48 @@ HudLayout
 	
 	HudWeaponSelection
 	{
-		fieldName			"HudWeaponSelection"
-		xpos				"16"
-		ypos				"16"
-		visible 			"1"
-		enabled 			"1"
-		wide				"64"
-		tall				"64"
-		IconWidth			"32"
-		IconHeight			"32"
-		TextXPos			"10"
-		TextYPos			"48"
-		PaintBackgroundType	"2"
+		fieldName					HudWeaponSelection
+		xpos							-80								// CONFIRMED
+		ypos							30								// CONFIRMED
+		visible 						1
+		enabled 					1
+		PaintBackgroundType	2
+		
+		BuildMenu1
+		{
+			fieldName			BuildMenu1
+			xpos				0
+			ypos				0
+			wide				64
+			tall				64
+			visible				1
+			enabled				1
+			PaintBackgroundType	2
+			
+			IconWidth			32
+			IconHeight			32
+			IconXPos			0
+			IconYPos			0
+			TextXPos			0
+			TextYPos			0
+			AmmoBarX			0
+			AmmoBarWide			4
+			SelectionNumberXPos	4
+		}
 	}
 	
+	HudWeaponFlashHelper
+	{
+		fieldName			HudWeaponFlashHelper
+		xpos				10
+		ypos				10
+		wide				200
+		tall				100
+		visible 			1
+		enabled 			1
+		PaintBackgroundType	2
+	}
+
 	HudHealth
 	{
 		fieldName			"HudHealth"

@@ -111,7 +111,7 @@ bool CObjectResupply::ResupplyHealth( CBaseTFPlayer *pPlayer, float flFraction )
 //-----------------------------------------------------------------------------
 // Handle commands sent from vgui panels on the client 
 //-----------------------------------------------------------------------------
-bool CObjectResupply::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg )
+bool CObjectResupply::ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args)
 {
 	// NOTE: Must match ResupplyBuyType_t
 	static float s_Costs[] =
@@ -124,9 +124,11 @@ bool CObjectResupply::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, I
 
 	COMPILE_TIME_ASSERT( RESUPPLY_BUY_TYPE_COUNT == 4 );
 
+	const char *pCmd = args[0];
+
 	if ( FStrEq( pCmd, "buy" ) )
 	{
-		if ( pArg->Argc() < 2 )
+		if ( args.ArgC() < 2 )
 			return true;
 
 		// I can't do anything if I'm not active
@@ -143,7 +145,7 @@ bool CObjectResupply::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, I
 		}
 
 		bool bUsedResupply = false;
-		ResupplyBuyType_t type = (ResupplyBuyType_t)atoi( pArg->Argv(1) );
+		ResupplyBuyType_t type = (ResupplyBuyType_t)atoi( args.ArgV()[1] );
 		if (type >= RESUPPLY_BUY_TYPE_COUNT)
 			return true;
 
@@ -208,7 +210,7 @@ bool CObjectResupply::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, I
 		return true;
 	}
 
-	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
+	return BaseClass::ClientCommand(pPlayer, args);
 }
 
 

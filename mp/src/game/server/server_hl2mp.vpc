@@ -68,6 +68,10 @@ $Project "Server"
 		{
 			$Folder	"Shared"
 			{
+				$File	$SRCDIR\game\shared\fortress\grenade_base_empable.cpp
+				$File	$SRCDIR\game\shared\fortress\grenade_base_empable.h
+				$File	$SRCDIR\game\shared\fortress\weapon_repairgun.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_repairgun.h
 				$File	$SRCDIR\game\shared\fortress\baseobject_shared.cpp
 				$File	$SRCDIR\game\shared\fortress\baseobject_shared.h
 				$File	$SRCDIR\game\shared\fortress\basetfcombatweapon_shared.cpp
@@ -104,6 +108,14 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_recon.h
 				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_sniper.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_sniper.h
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_infiltrator.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_infiltrator.h
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_escort.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_escort.h
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_pyro.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_pyro.h
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_sapper.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_sapper.h
 				$File	$SRCDIR\game\shared\fortress\tf_gamerules.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_gamerules.h
 				$File	$SRCDIR\game\shared\fortress\tf_hints.h
@@ -129,16 +141,37 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\weapon_combatshield.h
 				$File	$SRCDIR\game\shared\fortress\weapon_combat_burstrifle.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_combat_plasmarifle.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_combat_laserrifle.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.h
 				$File	$SRCDIR\game\shared\fortress\weapon_objectselection.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.h
+				$File	$SRCDIR\game\shared\fortress\weapon_arcwelder.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_shield.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_shield.h
+				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.h
 				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.h
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_support.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_support.h
+				$File	$SRCDIR\game\shared\fortress\vehicle_mortar_shared.h
+				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.cpp
+				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.h
 			}
-		
+			
+			$Folder	"Objects"
+			{
+				$File	fortress/tf_obj_manned_missilelauncher.cpp
+				$File	fortress/tf_obj_manned_missilelauncher.h
+			}
+			
+			$File	fortress/mortar_round.cpp
+			$File	fortress/mortar_round.h
 			$File	fortress/basecombatcharacter_tf2.cpp
 			$File	fortress/bot_base.cpp
 			$File	fortress/bot_base.h
@@ -171,7 +204,14 @@ $Project "Server"
 			$File	fortress/order_player.h
 			$File	fortress/order_repair.cpp
 			$File	fortress/order_repair.h
+			$File	fortress/order_resourcepump.cpp
 			$File	fortress/order_resourcepump.h
+			$File	fortress/order_resupply.cpp
+			$File	fortress/order_resupply.h
+			$File	fortress/order_mortar_attack.cpp
+			$File	fortress/order_mortar_attack.h
+			$File	fortress/order_buildshieldwall.cpp
+			$File	fortress/order_buildshieldwall.h
 			$File	fortress/ragdoll_shadow.cpp
 			$File	fortress/ragdoll_shadow.h
 			$File	fortress/resource_chunk.cpp
@@ -186,11 +226,21 @@ $Project "Server"
 			$File	fortress/tf_class_defender.h
 			$File	fortress/tf_class_recon.cpp
 			$File	fortress/tf_class_recon.h
+			$File	fortress/tf_class_medic.cpp
+			$File	fortress/tf_class_medic.h
+			$File	fortress/tf_class_support.cpp
+			$File	fortress/tf_class_support.h
+			$File	fortress/tf_class_infiltrator.cpp
+			$File	fortress/tf_class_infiltrator.h
+			$File	fortress/tf_class_escort.cpp
+			$File	fortress/tf_class_escort.h
 			$File	fortress/tf_client.cpp
 			$File	fortress/tf_func_no_build.cpp
 			$File	fortress/tf_func_no_build.h
 			$File	fortress/tf_func_resource.cpp
 			$File	fortress/tf_func_resource.h
+			$File	fortress/tf_func_construction_yard.cpp
+			$File	fortress/tf_func_construction_yard.h
 			$File	fortress/tf_gameinterface.cpp
 			$File	fortress/tf_hintmanager.cpp
 			$File	fortress/tf_hintmanager.h
@@ -210,6 +260,8 @@ $Project "Server"
 			$File	fortress/tf_obj_resupply.h
 			$File	fortress/tf_obj_sandbag_bunker.cpp
 			$File	fortress/tf_obj_sandbag_bunker.h
+			$File	fortress/tf_obj_shieldwall.cpp
+			$File	fortress/tf_obj_shieldwall.h
 			$File	fortress/tf_player.cpp
 			$File	fortress/tf_player.h
 			$File	fortress/tf_playerclass.cpp
@@ -230,6 +282,18 @@ $Project "Server"
 			$File	fortress/tf_stats.h
 			$File	fortress/tf_team.cpp
 			$File	fortress/tf_team.h
+			$File	fortress/tf_flare.cpp
+			$File	fortress/tf_flare.h
+			$File	fortress/tf_func_mass_teleport.cpp
+			$File	fortress/tf_func_mass_teleport.h
+			$File	fortress/tf_basefourwheelvehicle.cpp
+			$File	fortress/tf_basefourwheelvehicle.h
+			$File	fortress/tf_vehicle_teleport_station.cpp
+			$File	fortress/tf_vehicle_teleport_station.h
+			$File	fortress/tf_vehicle_tank.cpp
+			$File	fortress/tf_vehicle_tank.h
+			$File	fortress/tf_obj_mcv_selection_panel.cpp
+			$File	fortress/tf_obj_mcv_selection_panel.h
 		}
 	}
 }

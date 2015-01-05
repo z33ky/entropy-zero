@@ -22,6 +22,7 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 	SetProportional(true);
 	SetMoveable(false);
 	SetTitleBarVisible(false);
+	SetCloseButtonVisible(false);
 	
 	bReconButton		= new Button(this,"ReconButton","Recon");
 	bCommandoButton		= new Button(this,"CommandoButton","Commando");
@@ -39,6 +40,9 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 	rtClassDescription = new RichText(this,"ClassInfo");
 
 	mClassPreview = new CModelPanel(this,"ClassPreview");
+
+	// Don't show model preview until we hover over something...
+	mClassPreview->DeleteModelData();
 
 	ivgui()->AddTickSignal(GetVPanel());
 
@@ -205,7 +209,6 @@ void CFortressClassMenu::OnTick(void)
 	{
 		mClassPreview->DeleteModelData();
 
-		// TODO: This shouldn't be hard-coded!! ~hogsy
 		rtClassDescription->SetText("#FORTRESS_CLASSRANDOMINFO");
 
 		iLastPreview = 11;

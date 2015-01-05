@@ -52,10 +52,6 @@ void CObjectRespawnStation::Spawn()
 
 	UTIL_SetSize(this, RESPAWN_STATION_MINS, RESPAWN_STATION_MAXS);
 
-#ifdef IMPLEMENT_ME	// ?
-	Relink();
-#endif
-
 	m_iHealth = m_iMaxHealth = obj_respawnstation_health.GetInt();
 	m_takedamage = DAMAGE_YES;
 	m_fLastRespawnTime = -99999;

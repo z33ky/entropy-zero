@@ -64,6 +64,8 @@
 	output	OnEmpty(void)
 ]
 
+@SolidClass base(Trigger) = func_construction_yard : "Construction Yard" []
+
 @PointClass base(FObject) = obj_respawn_station :
 	"Respawn Station"
 [

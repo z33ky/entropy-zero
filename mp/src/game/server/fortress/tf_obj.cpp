@@ -28,9 +28,7 @@
 #include "VGuiScreen.h"
 #include "resource_chunk.h"
 #include "hierarchy.h"
-#ifdef IMPLEMENT_ME
 #include "tf_func_construction_yard.h"
-#endif
 #include "tf_func_no_build.h"
 #include <KeyValues.h>
 #include "team_messages.h"
@@ -240,6 +238,8 @@ void CBaseObject::Precache()
 {
 	PrecacheVGuiScreen( "screen_basic_with_disable" );
 
+	PrecacheParticleSystem("env_fire_tiny_smoke");
+
 	if ( m_iszUnderAttackSound != NULL_STRING )
 		PrecacheSound( STRING(m_iszUnderAttackSound) );
 
@@ -439,8 +439,10 @@ void CBaseObject::TakeControlCommand( CBaseTFPlayer *pSender )
 //-----------------------------------------------------------------------------
 // Handle commands sent from vgui panels on the client 
 //-----------------------------------------------------------------------------
-bool CBaseObject::ClientCommand( CBaseTFPlayer *pSender, const char *pCmd, ICommandArguments *pArg )
+bool CBaseObject::ClientCommand(CBaseTFPlayer *pSender, const CCommand &args)
 {
+	const char *pCmd = args[0];
+
 	if ( FStrEq( pCmd, "dismantle" ) )
 	{
 		DismantleCommand( pSender );
@@ -449,9 +451,9 @@ bool CBaseObject::ClientCommand( CBaseTFPlayer *pSender, const char *pCmd, IComm
 
 	if ( FStrEq( pCmd, "yaw" ) )
 	{
-		if ( pArg->Argc() == 2 )
+		if ( args.ArgC() == 2 )
 		{
-			float flYaw = atof( pArg->Argv(1) );
+			float flYaw = atof( args.ArgV()[1] );
 			YawCommand( pSender, flYaw );
 		}
 		return true;
@@ -714,14 +716,12 @@ float CBaseObject::GetTotalTime( void )
 	if (tf_fastbuild.GetInt())
 		return 2.f;
 
-#ifdef IMPLEMENT_ME
 	// If it's in a construction yard, don't take more than 5 seconds to build
   	if ( PointInConstructionYard( GetAbsOrigin() ) )
   	{
 		if ( GetObjectInfo( ObjectType() )->m_flBuildTime > 5.0 )
   			return 5.0;
   	}
-#endif
 
 	return GetObjectInfo( ObjectType() )->m_flBuildTime;
 }
@@ -745,10 +745,6 @@ void CBaseObject::StartPlacement( CBaseTFPlayer *pPlayer )
 	// Make it semi-transparent
 	m_nRenderMode = kRenderTransAlpha; 
 	SetRenderColorA( 128 );
-
-#ifdef IMPLEMENT_ME // ?
-	Relink();
-#endif
 	
 	// Set my build size
 	CollisionProp()->WorldSpaceAABB( &m_vecBuildMins, &m_vecBuildMaxs );
@@ -1074,11 +1070,9 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 	AttemptToFindPower();
 	AttemptToFindBuffStation();
 
-#ifdef IMPLEMENT_ME
 	// Make sure construction yards don't screw us up (tf_fastbuild allows builds anywhere)
 	if ( !tf_fastbuild.GetInt() && ConstructionYardPreventsBuild( this, m_vecBuildOrigin ))
 		return false;
-#endif
 
 	// If we have to be attached to something, and we're not, abort
 	if ( !tf_fastbuild.GetInt() && MustBeBuiltOnAttachmentPoint() && !bSnappedToPoint )
@@ -1319,10 +1313,6 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 
 	m_nRenderMode = kRenderNormal; 
 	RemoveSolidFlags( FSOLID_NOT_SOLID );
-
-#ifdef IMPLEMENT_ME // ?
-	Relink();
-#endif
 
 	// NOTE: We must spawn the control panels now, instead of during
 	// Spawn, because until placement is started, we don't actually know

@@ -11,10 +11,7 @@
 #include "tf_func_no_build.h"
 #include "tf_team.h"
 #include "NDebugOverlay.h"
-
-#ifndef IMPLEMENT_ME
 #include "tf_obj.h"
-#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Defines an area from which resources can be collected

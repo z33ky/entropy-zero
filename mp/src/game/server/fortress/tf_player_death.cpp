@@ -10,9 +10,7 @@
 #include "tf_shareddefs.h"
 #include "tf_team.h"
 #include "baseviewmodel.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_infiltrator.h"
-#endif
 #include "in_buttons.h"
 #include "globals.h"
 

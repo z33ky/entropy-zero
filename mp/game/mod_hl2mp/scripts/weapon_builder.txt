@@ -1,21 +1,18 @@
 WeaponData
 {
 	// Weapon data is loaded by both the Game and Client DLLs.
-	"printname"			"Builder"
-	"viewmodel"			"models/weapons/v_human_builder.mdl"
-	"playermodel"		"models/weapons/placeholders/w_smg.mdl"
-	"anim_prefix"		"python"
-	"bucket"			0
+	"printname"		"Builder"
+	"viewmodel"		"models/weapons/v_human_builder.mdl"
+	"playermodel"		"models/weapons/w_human_builder.mdl"
+	//"anim_prefix"		"python"
+	"bucket"		0
 	"bucket_position"	1
-
 	"clip_size"		0
 	"default_clip"		0
 	"primary_ammo"		"None"
 	"secondary_ammo"	"None"
-
 	"weight"		"7"
 	"item_flags"		"0"
-
 	"damage"		"75"
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)

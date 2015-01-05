@@ -67,6 +67,24 @@ int		SharedRandomInt( const char *sharedname, int iMinVal, int iMaxVal, int addi
 Vector	SharedRandomVector( const char *sharedname, float minVal, float maxVal, int additionalSeed = 0 );
 QAngle	SharedRandomAngle( const char *sharedname, float minVal, float maxVal, int additionalSeed = 0 );
 
+#define SHARED_RANDOMFLOAT_SEED( minval, maxval, seed ) \
+	SharedRandomFloat( __FILE__, minval, maxval, seed )
+#define SHARED_RANDOMINT_SEED( minval, maxval, seed ) \
+	SharedRandomInt( __FILE__, minval, maxval, seed )
+#define SHARED_RANDOMVECTOR_SEED( minval, maxval, seed ) \
+	SharedRandomVector( __FILE__, minval, maxval, seed )
+#define SHARED_RANDOMANGLE_SEED( minval, maxval, seed ) \
+	SharedRandomAngle( __FILE__, minval, maxval, seed )
+
+#define SHARED_RANDOMFLOAT( minval, maxval ) \
+	SharedRandomFloat( __FILE__, minval, maxval, 0 )
+#define SHARED_RANDOMINT( minval, maxval ) \
+	SharedRandomInt( __FILE__, minval, maxval, 0 )
+#define SHARED_RANDOMVECTOR( minval, maxval ) \
+	SharedRandomVector( __FILE__, minval, maxval, 0 )
+#define SHARED_RANDOMANGLE( minval, maxval ) \
+	SharedRandomAngle( __FILE__, minval, maxval, 0 )
+
 //-----------------------------------------------------------------------------
 // Standard collision filters...
 //-----------------------------------------------------------------------------

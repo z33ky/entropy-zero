@@ -97,17 +97,17 @@ objects
 	
 	OBJ_RESOURCEPUMP
 	{
-		ClassName				obj_resourcepump
-		StatusName				"Resource Pump"
+		ClassName			obj_resourcepump
+		StatusName			"Resource Pump"
 		BuilderWeaponName		"Resource Pump"
-		BuilderPlacementString	"Place on zone"
-		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
+		BuilderPlacementString		"Place on zone"
+		SolidToPlayerMovement		0
+		Icon				"placeholder"
+		BuildTime			10
+		MaxObjects			1
+		Cost				100
 		CostMultiplier			1
-		UpgradeCost				0
+		UpgradeCost			0
 		MaxUpgradeLevel			0
 		SelectionSlot			0
 		SelectionPosition		0
@@ -116,17 +116,17 @@ objects
 	
 	OBJ_RESPAWN_STATION
 	{
-		ClassName				obj_respawn_station
-		StatusName				"RespawnStation"
+		ClassName			obj_respawn_station
+		StatusName			"Respawn Station"
 		BuilderWeaponName		"Respawn Station"
-		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
+		BuilderPlacementString		"Place on ground"
+		SolidToPlayerMovement		0
+		Icon				"placeholder"
+		BuildTime			10
+		MaxObjects			1
+		Cost				100
 		CostMultiplier			1
-		UpgradeCost				0
+		UpgradeCost			0
 		MaxUpgradeLevel			0
 		SelectionSlot			0
 		SelectionPosition		0
@@ -136,8 +136,8 @@ objects
 	OBJ_RALLYFLAG
 	{
 		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		StatusName		"Rally Flag"
+		BuilderWeaponName	"Rally Flag"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -155,8 +155,8 @@ objects
 	OBJ_MANNED_PLASMAGUN
 	{
 		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		StatusName		"Plasma Gun"
+		BuilderWeaponName	"Plasma Gun"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -230,21 +230,21 @@ objects
 	
 	OBJ_BUFF_STATION
 	{
-		ClassName				obj_buff_station
-		StatusName				"Buff Station"
-		BuilderWeaponName		"Buff Station"
+		ClassName		obj_buff_station
+		StatusName		"Buff Station"
+		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	1
-		Icon					"placeholder"
-		BuildTime				5
-		MaxObjects				1
-		Cost					50
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		5
+		MaxObjects		1
+		Cost			50
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_BARBED_WIRE
@@ -344,9 +344,9 @@ objects
 	
 	OBJ_ARMOR_UPGRADE
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_armor_upgrade
+		StatusName		"Armor Upgrade"
+		BuilderWeaponName	"Armor Upgrade"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -420,9 +420,9 @@ objects
 	
 	OBJ_BATTERING_RAM
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_battering_ram
+		StatusName		"Battering Ram"
+		BuilderWeaponName	"Battering Ram"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"

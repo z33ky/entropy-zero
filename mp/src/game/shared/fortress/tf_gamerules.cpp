@@ -25,9 +25,7 @@
 	#include "entitylist.h"
 	#include "basecombatweapon.h"
 	#include "voice_gamemgr.h"
-#ifdef IMPLEMENT_ME
 	#include "tf_class_infiltrator.h"
-#endif
 	#include "team_messages.h"
 	#include "ndebugoverlay.h"
 	#include "bot_base.h"
@@ -111,35 +109,9 @@ END_NETWORK_TABLE()
 		"Alien",
 	};
 
-	// Helper function to parse arguments to player commands.
-	const char* FindEngineArg( const char *pName )
-	{
-#ifdef IMPLEMENT_ME
-		int nArgs = args.ArgC();
-		for ( int i=1; i < nArgs; i++ )
-		{
-			if ( stricmp( engine->Cmd_Argv(i), pName ) == 0 )
-				return (i+1) < nArgs ? engine->Cmd_Argv(i+1) : "";
-		}
-#endif
-		return 0;
-	}
-
-	int FindEngineArgInt( const char *pName, int defaultVal )
-	{
-#ifdef IMPLEMENT_ME
-		const char *pVal = FindEngineArg( pName );
-		if ( pVal )
-			return atoi( pVal );
-		else
-#endif
-			return defaultVal;
-	}
-
 	// Handle the "PossessBot" command.
-	void PossessBot_f()
+	CON_COMMAND_F(PossessBot, "Toggle. Possess a bot.\n\tArguments: <bot client number>", FCVAR_CHEAT)
 	{
-#ifdef IMPLEMENT_ME
 		CBaseTFPlayer *pPlayer = CBaseTFPlayer::Instance( UTIL_GetCommandClientIndex() );
 		if ( !pPlayer )
 			return;
@@ -202,12 +174,10 @@ END_NETWORK_TABLE()
 				}
 			}
 		}
-#endif
 	}
 
-
 	// Handler for the "bot" command.
-	void Bot_f()
+	CON_COMMAND_F(bot, "Add a bot.", FCVAR_CHEAT)
 	{
 		CBaseTFPlayer *pPlayer = CBaseTFPlayer::Instance( UTIL_GetCommandClientIndex() );
 
@@ -219,11 +189,11 @@ END_NETWORK_TABLE()
 		// -frozen prevents the bots from running around when they spawn in.
 
 		// Look at -count.
-		int count = FindEngineArgInt( "-count", 1 );
+		int count = args.FindArgInt( "-count", 1 );
 		count = clamp( count, 1, 16 );
 
 		int iTeam = -1;
-		const char *pVal = FindEngineArg( "-team" );
+		const char *pVal = args.FindArg( "-team" );
 		if ( pVal )
 		{
 			if ( pVal[0] == '!' )
@@ -235,23 +205,18 @@ END_NETWORK_TABLE()
 			}
 		}
 
-		int iClass = FindEngineArgInt( "-class", -1 );
+		int iClass = args.FindArgInt( "-class", -1 );
 		iClass = clamp( iClass, -1, TFCLASS_CLASS_COUNT );
 		if ( iClass == TFCLASS_UNDECIDED )
 			iClass = TFCLASS_RECON;
 		
 		// Look at -frozen.
-		bool bFrozen = !!FindEngineArg( "-frozen" );
+		bool bFrozen = !!args.FindArg( "-frozen" );
 			
 		// Ok, spawn all the bots.
 		while ( --count >= 0 )
 			BotPutInServer( bFrozen, iTeam, iClass );
 	}
-
-
-	ConCommand cc_Bot( "bot", Bot_f, "Add a bot.", FCVAR_CHEAT );
-	ConCommand cc_PossessBot( "PossessBot", PossessBot_f, "Toggle. Possess a bot.\n\tArguments: <bot client number>", FCVAR_CHEAT );
-
 
 	bool IsSpaceEmpty( CBaseEntity *pMainEnt, const Vector &vMin, const Vector &vMax )
 	{
@@ -531,10 +496,8 @@ END_NETWORK_TABLE()
 	//				float flDistSq = pObject->GetAbsOrigin().DistToSqr( pPlayer->GetAbsOrigin() );
 	//				if (flDistSq <= (MAX_OBJECT_COMMAND_DISTANCE * MAX_OBJECT_COMMAND_DISTANCE))
 					{
-#ifdef IMPLEMENT_ME
 						CCommand objectArgs( args.ArgC() - 2, &args.ArgV()[2]);
-						pObject->ClientCommand( pPlayer, objectArgs );
-#endif
+						pObject->ClientCommand(pPlayer, objectArgs);
 					}
 				}
 			}
@@ -953,7 +916,6 @@ END_NETWORK_TABLE()
 	//-----------------------------------------------------------------------------
 	void CTeamFortress::RadiusDamage( const CTakeDamageInfo &info, const Vector &vecSrcIn, float flRadius, int iClassIgnore )
 	{
-#ifdef IMPLEMENT_ME
 		CBaseEntity *pEntity = NULL;
 		trace_t		tr;
 		float		flAdjustedDamage, falloff;
@@ -972,8 +934,12 @@ END_NETWORK_TABLE()
 		vecSrc.z += 1;
 
 		// iterate on all entities in the vicinity.
-		for ( CEntitySphereQuery sphere( vecSrc, flRadius ); pEntity = sphere.GetCurrentEntity(); sphere.NextEntity() )
+		for ( CEntitySphereQuery sphere( vecSrc, flRadius ); ; sphere.NextEntity() )
 		{
+			pEntity = sphere.GetCurrentEntity();
+			if (!pEntity)
+				break;
+
 			if ( pEntity->m_takedamage != DAMAGE_NO )
 			{
 				// UNDONE: this should check a damage mask, not an ignore
@@ -1052,7 +1018,6 @@ END_NETWORK_TABLE()
 				}
 			}
 		}
-#endif
 	}
 
 	//-----------------------------------------------------------------------------
@@ -1106,7 +1071,7 @@ END_NETWORK_TABLE()
 		// Custom kill type?
 		if ( info.GetDamageCustom() )
 		{
-			killer_weapon_name = GetCustomKillString( info );
+			killer_weapon_name = GetDamageCustomString(info);
 			if ( pScorer )
 				killer_index = pScorer->entindex();
 		}
@@ -1141,15 +1106,7 @@ END_NETWORK_TABLE()
 				killer_weapon_name += 5;
 		}
 
-#ifdef IMPLEMENT_ME	// ?
-		CRelieableBroadcastRecipientFilter filter;
-		UserMessageBegin( filter, "DeathMsg" );
-			WRITE_BYTE( killer_index );						// the killer
-			WRITE_BYTE( assist_index );						// the assistant, if any
-			WRITE_BYTE( ENTINDEX(pVictim->edict()) );		// the victim
-			WRITE_STRING( killer_weapon_name );		// what they were killed by (should this be a string?)
-		MessageEnd();
-
+#if 0
 		// Did he kill himself?
 		if ( pVictim == pScorer )  
 			UTIL_LogPrintf( "\"%s<%i>\" killed self with %s\n",  STRING( pVictim->PlayerData()->netname ), engine->GetPlayerUserId( pVictim->edict() ), killer_weapon_name );
@@ -1164,7 +1121,7 @@ END_NETWORK_TABLE()
 		else
 			// killed by the world
 			UTIL_LogPrintf( "\"%s<%i>\" killed by world with %s\n",  STRING( pVictim->PlayerData()->netname ), engine->GetPlayerUserId( pVictim->edict() ), killer_weapon_name );
-#else
+#endif
 		IGameEvent * event = gameeventmanager->CreateEvent( "player_death" );
 		if(event)
 		{
@@ -1174,24 +1131,21 @@ END_NETWORK_TABLE()
 
 			gameeventmanager->FireEvent( event, false );
 		}
-#endif
 	}
 
 	//-----------------------------------------------------------------------------
 	// Purpose: Custom kill types for TF
 	//-----------------------------------------------------------------------------
-	const char *CTeamFortress::GetCustomKillString( const CTakeDamageInfo &info )
+	const char *CTeamFortress::GetDamageCustomString(const CTakeDamageInfo &info)
 	{
-#ifdef IMPLEMENT_ME
-		switch( info.GetCustomKill() )
+		switch( info.GetDamageCustom() )
 		{
 		case DMG_KILL_BULLRUSH:
-				return "bullrush";
-				break;
+			return "bullrush";
+			break;
 		default:
 			break;
 		};
-#endif
 
 		return "INVALID CUSTOM KILL TYPE";
 	}
@@ -1214,12 +1168,10 @@ END_NETWORK_TABLE()
 		{
 			if ( listener->IsClass( TFCLASS_INFILTRATOR ) )
 			{
-#ifdef IMPLEMENT_ME
 				Vector delta;
 				delta = listener->EarPosition() - speaker->GetAbsOrigin();
 				if ( delta.Length() < INFILTRATOR_EAVESDROP_RADIUS )
 					return true;
-#endif
 			}
 		}
 
@@ -1332,10 +1284,7 @@ END_NETWORK_TABLE()
 	const char *CTeamFortress::SetDefaultPlayerTeam( CBasePlayer *pPlayer )
 	{
 		Assert( pPlayer );
-#ifdef IMPLEMENT_ME	// ?
-		int clientIndex = pPlayer->entindex();
-		engine->SetClientKeyValue( clientIndex, engine->GetInfoKeyBuffer( pPlayer->edict() ), "model", "" );
-#endif
+
 		return BaseClass::SetDefaultPlayerTeam( pPlayer );
 	}
 

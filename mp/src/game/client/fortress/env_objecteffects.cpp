@@ -1,100 +1,137 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
+//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
-//=============================================================================
+//=============================================================================//
 #include "cbase.h"
 #include "particles_simple.h"
 #include "particlemgr.h"
 #include "particle_collision.h"
 #include "env_objecteffects.h"
 
-// IMPLEMENT_ME : Split simulate and render functionality ~hogsy
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CObjectSmokeParticles::Setup(const Vector &origin, const Vector *direction, float angularSpread, float minSpeed, float maxSpeed, float gravity, float dampen, int flags)
+{
+	// See if we've specified a direction
+	m_ParticleCollision.Setup(origin, direction, angularSpread, minSpeed, maxSpeed, gravity, dampen);
+}
+
+void CObjectSmokeParticles::SimulateParticles(CParticleSimulateIterator *pIterator)
+{
+	float timeDelta = pIterator->GetTimeDelta();
+
+	ObjectSmokeParticle *pParticle = (ObjectSmokeParticle*)pIterator->GetFirst();
+	while (pParticle)
+	{
+		//Update velocity
+		UpdateVelocity(pParticle, timeDelta);
+		pParticle->m_Pos += (pParticle->m_vecVelocity * timeDelta);
+		pParticle->m_vecVelocity += pParticle->m_vecAcceleration * 2 * timeDelta;
+
+		//Should this particle die?
+		pParticle->m_flLifetime += timeDelta;
+		UpdateRoll(pParticle, timeDelta);
+
+		if (pParticle->m_flLifetime >= pParticle->m_flDieTime)
+			pIterator->RemoveParticle(pParticle);
+
+		pParticle = (ObjectSmokeParticle*)pIterator->GetNext();
+	}
+}
+
+
+void CObjectSmokeParticles::RenderParticles(CParticleRenderIterator *pIterator)
+{
+	const ObjectSmokeParticle *pParticle = (const ObjectSmokeParticle *)pIterator->GetFirst();
+	while (pParticle)
+	{
+		//Render
+		Vector	tPos;
+
+		TransformParticle(ParticleMgr()->GetModelView(), pParticle->m_Pos, tPos);
+		float sortKey = (int)tPos.z;
+
+		//Render it
+		RenderParticle_ColorSizeAngle(
+			pIterator->GetParticleDraw(),
+			tPos,
+			UpdateColor(pParticle),
+			UpdateAlpha(pParticle) * GetAlphaDistanceFade(tPos, m_flNearClipMin, m_flNearClipMax),
+			UpdateScale(pParticle),
+			pParticle->m_flRoll);
+
+		pParticle = (const ObjectSmokeParticle *)pIterator->GetNext(sortKey);
+	}
+}
+
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CObjectSmokeParticles::Setup( const Vector &origin, const Vector *direction, float angularSpread, float minSpeed, float maxSpeed, float gravity, float dampen, int flags )
-{
-	// See if we've specified a direction
-	m_ParticleCollision.Setup( origin, direction, angularSpread, minSpeed, maxSpeed, gravity, dampen );
-}
-
-bool CObjectSmokeParticles::SimulateAndRender( Particle *pInParticle, ParticleDraw *pDraw, float &sortKey )
-{
-	ObjectSmokeParticle *pParticle = (ObjectSmokeParticle *) pInParticle;
-	float timeDelta = pDraw->GetTimeDelta();
-
-	//Render
-	Vector	tPos;
-	
-	TransformParticle( ParticleMgr()->GetModelView(), pParticle->m_Pos, tPos );
-	sortKey = (int) tPos.z;
-
-	//Render it
-	RenderParticle_ColorSizeAngle(
-		pDraw,
-		tPos,
-		UpdateColor( pParticle ),
-		UpdateAlpha( pParticle ) * GetAlphaDistanceFade( tPos, m_flNearClipMin, m_flNearClipMax ),
-		UpdateScale( pParticle ),
-		UpdateRoll( pParticle, timeDelta ) );
-
-	//Update velocity
-	UpdateVelocity( pParticle, timeDelta );
-	pParticle->m_Pos += (pParticle->m_vecVelocity * timeDelta);
-	pParticle->m_vecVelocity += pParticle->m_vecAcceleration * 2 * timeDelta;
-	//pParticle->m_Pos += (pParticle->m_vecAcceleration * (0.5f * timeDelta * timeDelta));
-
-	//Should this particle die?
-	pParticle->m_flLifetime += timeDelta;
-
-	if ( pParticle->m_flLifetime >= pParticle->m_flDieTime )
-		return false;
-
-	return true;
-}
-
-void CObjectFireParticles::Setup( const Vector &origin, const Vector *direction, float angularSpread, float minSpeed, float maxSpeed, float gravity, float dampen, int flags )
+void CObjectFireParticles::Setup(const Vector &origin, const Vector *direction, float angularSpread, float minSpeed, float maxSpeed, float gravity, float dampen, int flags)
 {
 }
 
-bool CObjectFireParticles::SimulateAndRender( Particle *pInParticle, ParticleDraw *pDraw, float &sortKey )
+void CObjectFireParticles::SimulateParticles(CParticleSimulateIterator *pIterator)
 {
-	ObjectFireParticle *pParticle = (ObjectFireParticle *) pInParticle;
-	float timeDelta = pDraw->GetTimeDelta();
+	float timeDelta = pIterator->GetTimeDelta();
 
-	// Lost our parent?
-	if ( !pParticle->m_hParent )
-		return false;
-
-	// Update position to match our parent
-	Vector vecFire;
-	QAngle angFire;
-	if ( pParticle->m_hParent->GetAttachment( pParticle->m_iAttachmentPoint, vecFire, angFire ) )
+	ObjectFireParticle *pParticle = (ObjectFireParticle*)pIterator->GetFirst();
+	while (pParticle)
 	{
-		pParticle->m_Pos = vecFire;
+		// Lost our parent?
+		if (!pParticle->m_hParent)
+		{
+			pIterator->RemoveParticle(pParticle);
+		}
+		else
+		{
+			// Update position to match our parent
+			Vector vecFire;
+			QAngle angFire;
+			if (pParticle->m_hParent->GetAttachment(pParticle->m_iAttachmentPoint, vecFire, angFire))
+			{
+				pParticle->m_Pos = vecFire;
+			}
+
+			// Should this particle die?
+			pParticle->m_flLifetime += timeDelta;
+
+			UpdateRoll(pParticle, timeDelta);
+
+			if (pParticle->m_flLifetime >= pParticle->m_flDieTime)
+				pIterator->RemoveParticle(pParticle);
+		}
+
+		pParticle = (ObjectFireParticle*)pIterator->GetNext();
 	}
-
-	// Render
-	Vector	tPos;
-	TransformParticle( ParticleMgr()->GetModelView(), pParticle->m_Pos, tPos );
-	sortKey = (int) tPos.z;
-
-	// Render it
-	RenderParticle_ColorSizeAngle(
-		pDraw,
-		tPos,
-		UpdateColor( pParticle ),
-		UpdateAlpha( pParticle ) * GetAlphaDistanceFade( tPos, m_flNearClipMin, m_flNearClipMax ),
-		UpdateScale( pParticle ),
-		UpdateRoll( pParticle, timeDelta ) );
-
-	// Should this particle die?
-	pParticle->m_flLifetime += timeDelta;
-
-	if ( pParticle->m_flLifetime >= pParticle->m_flDieTime )
-		return false;
-
-	return true;
 }
+
+
+void CObjectFireParticles::RenderParticles(CParticleRenderIterator *pIterator)
+{
+	const ObjectFireParticle *pParticle = (const ObjectFireParticle *)pIterator->GetFirst();
+	while (pParticle)
+	{
+		// Render
+		Vector	tPos;
+		TransformParticle(ParticleMgr()->GetModelView(), pParticle->m_Pos, tPos);
+		float sortKey = (int)tPos.z;
+
+		// Render it
+		RenderParticle_ColorSizeAngle(
+			pIterator->GetParticleDraw(),
+			tPos,
+			UpdateColor(pParticle),
+			UpdateAlpha(pParticle) * GetAlphaDistanceFade(tPos, m_flNearClipMin, m_flNearClipMax),
+			UpdateScale(pParticle),
+			pParticle->m_flRoll
+			);
+
+		pParticle = (const ObjectFireParticle *)pIterator->GetNext(sortKey);
+	}
+}
+
+

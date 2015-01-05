@@ -144,7 +144,7 @@ public:
 
 	// Client commands sent by clicking on various panels....
 	// NOTE: pArg->Argv(0) == pCmd, pArg->Argv(1) == the first argument
-	virtual bool	ClientCommand( CBaseTFPlayer *pSender, const char *pCmd, ICommandArguments *pArg );
+	virtual bool	ClientCommand(CBaseTFPlayer *pSender, const CCommand &args);
 
 	// Damage
 	void			SetHealth( float flHealth );

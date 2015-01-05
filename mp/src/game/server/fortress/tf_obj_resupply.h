@@ -46,7 +46,7 @@ public:
 	virtual	void	SetupAttachedVersion( void );
 
 	// Resupply
-	virtual bool	ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg );
+	virtual bool	ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args);
 
 	virtual void	ChangeTeam( int iTeamNum );
 

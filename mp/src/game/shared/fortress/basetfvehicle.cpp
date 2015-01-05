@@ -17,9 +17,7 @@
 #else
 	#include "tf_team.h"
 	#include "tf_gamerules.h"
-#ifdef IMPLEMENT_ME
 	#include "tf_func_construction_yard.h"
-#endif
 	#include "ndebugoverlay.h"
 #endif
 
@@ -278,12 +276,8 @@ void CBaseTFVehicle::ResetDeteriorationTime( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFVehicle::IsReadyToDrive( void )
 {
-#ifdef IMPLEMENT_ME
 #if !defined( CLIENT_DLL )
 	return ( PointInConstructionYard( GetAbsOrigin() ) == false );
-#else
-	return true;
-#endif
 #else
 	return true;
 #endif
@@ -405,18 +399,9 @@ int CBaseTFVehicle::GetChildVehicleRole( CBaseTFVehicle *pChild )
 	return -1;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFVehicle::SetObjectCollisionBox( void )
 {
-#ifdef IMPLEMENT_ME
-	// Chain back to the baseclass (skipping CBaseObject)
-	CBaseEntity::SetObjectCollisionBox();
-#endif
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Vehicles are permanently oriented off angle for vphysics.
@@ -598,9 +583,11 @@ void CBaseTFVehicle::AttemptToBoardVehicle( CBaseTFPlayer *pPlayer )
 //-----------------------------------------------------------------------------
 // Purpose: Handle commands sent from vgui panels on the client 
 //-----------------------------------------------------------------------------
-bool CBaseTFVehicle::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg )
+bool CBaseTFVehicle::ClientCommand( CBaseTFPlayer *pPlayer, const CCommand &args )
 {
 	ResetDeteriorationTime();
+
+	const char *pCmd = args[0];
 
 	if ( FStrEq( pCmd, "toggle_use" ) )
 	{
@@ -608,7 +595,7 @@ bool CBaseTFVehicle::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, IC
 		return true;
 	}
 
-	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
+	return BaseClass::ClientCommand( pPlayer, args );
 }
 
 //-----------------------------------------------------------------------------
@@ -773,7 +760,7 @@ void CBaseTFVehicle::HandleEntryExitFinish( bool bExitAnimOn )
 //-----------------------------------------------------------------------------
 // Purpose: Get and set the current driver.
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::SetPassenger( int nRole, CBasePlayer *pEnt )
+void CBaseTFVehicle::SetPassenger(int nRole, CBaseCombatCharacter *pEnt)
 {
 	Assert( !pEnt || pEnt->IsPlayer() );
 	Assert( nRole >= 0 && nRole < m_nMaxPassengers );

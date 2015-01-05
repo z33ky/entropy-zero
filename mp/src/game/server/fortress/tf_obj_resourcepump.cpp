@@ -230,8 +230,10 @@ void CObjectResourcePump::ResourcePumpThink( void )
 //-----------------------------------------------------------------------------
 // Purpose: Handle commands sent from vgui panels on the client 
 //-----------------------------------------------------------------------------
-bool CObjectResourcePump::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg )
+bool CObjectResourcePump::ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args)
 {
+	const char *pCmd = args[0];
+
 	if ( FStrEq( pCmd, "upgrade" ) )
 	{
 		int iCost = CalculateObjectUpgrade( GetType(), m_iPumpLevel );
@@ -253,5 +255,5 @@ bool CObjectResourcePump::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCm
 		return true;
 	}
 
-	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
+	return BaseClass::ClientCommand( pPlayer, args );
 }

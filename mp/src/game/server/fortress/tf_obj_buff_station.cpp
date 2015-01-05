@@ -222,15 +222,17 @@ void CObjectBuffStation::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 //-----------------------------------------------------------------------------
 // Purpose: Handle commands sent from vgui panels on the client 
 //-----------------------------------------------------------------------------
-bool CObjectBuffStation::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg )
+bool CObjectBuffStation::ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args)
 {
+	const char *pCmd = args[0];
+
 	if ( FStrEq( pCmd, "toggle_connect" ) )
 	{
 		UpdatePlayerAttachment( pPlayer );
 		return true;
 	}
 
-	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
+	return BaseClass::ClientCommand( pPlayer, args );
 }
 
 void CObjectBuffStation::InitAttachmentData( void )

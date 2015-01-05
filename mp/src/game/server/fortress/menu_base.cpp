@@ -11,9 +11,7 @@
 #include "tf_team.h"
 #include "baseviewmodel.h"
 #include "tf_gamerules.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_infiltrator.h"
-#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"

@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Fortress">
       <UniqueIdentifier>{2E6C6445-8149-FAB8-4CB0-942D12A0F9AF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Objects">
+      <UniqueIdentifier>{E06F7093-170C-F5B5-C54C-13BFA6250BAD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
     </Filter>
@@ -1559,7 +1562,13 @@
     <ClInclude Include="fortress\menu_base.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\mortar_round.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\order_assist.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_buildshieldwall.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\order_events.h">
@@ -1571,6 +1580,9 @@
     <ClInclude Include="fortress\order_helpers.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\order_mortar_attack.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\order_player.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1578,6 +1590,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\order_resourcepump.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_resupply.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\orders.h">
@@ -1595,13 +1610,37 @@
     <ClInclude Include="fortress\tf_basecombatweapon.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_basefourwheelvehicle.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_class_commando.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_class_defender.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_class_escort.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_infiltrator.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_medic.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_class_recon.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_support.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_flare.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_func_construction_yard.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_func_mass_teleport.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_func_no_build.h">
@@ -1617,6 +1656,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_obj_buff_station.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_mcv_selection_panel.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_obj_powerpack.h">
@@ -1635,6 +1677,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_obj_sandbag_bunker.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_shieldwall.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_player.h">
@@ -1664,6 +1709,15 @@
     <ClInclude Include="fortress\tf_team.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_vehicle_tank.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_vehicle_teleport_station.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_manned_missilelauncher.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -1674,6 +1728,12 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\basetfvehicle.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\env_laserdesignation.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\grenade_base_empable.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\grenade_objectsapper.h">
@@ -1703,13 +1763,28 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_defender.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_escort.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_infiltrator.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_medic.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_pyro.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_recon.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_sapper.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_sniper.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_gamemovement_support.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_gamerules.h">
@@ -1719,6 +1794,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_movedata.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_base_manned_gun.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_basedrivergun_shared.h">
@@ -1745,6 +1823,9 @@
     <ClInclude Include="..\..\game\shared\fortress\tfclassdata_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\vehicle_mortar_shared.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -1757,7 +1838,16 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h">
@@ -2962,7 +3052,13 @@
     <ClCompile Include="fortress\menu_base.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\mortar_round.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\order_assist.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_buildshieldwall.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\order_events.cpp">
@@ -2974,10 +3070,19 @@
     <ClCompile Include="fortress\order_helpers.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\order_mortar_attack.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\order_player.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\order_repair.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_resourcepump.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_resupply.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\orders.cpp">
@@ -2995,16 +3100,40 @@
     <ClCompile Include="fortress\tf2_eventlog.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_class_commando.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_class_defender.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_class_escort.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_infiltrator.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_medic.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_class_recon.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_class_support.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_client.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_flare.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_func_construction_yard.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_func_mass_teleport.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_func_no_build.cpp">
@@ -3025,6 +3154,9 @@
     <ClCompile Include="fortress\tf_obj_buff_station.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_obj_mcv_selection_panel.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_obj_powerpack.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3041,6 +3173,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_shieldwall.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_player.cpp">
@@ -3076,6 +3211,15 @@
     <ClCompile Include="fortress\tf_team.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_vehicle_tank.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_manned_missilelauncher.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3088,7 +3232,13 @@
     <ClCompile Include="..\..\game\shared\fortress\basetfvehicle.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\env_laserdesignation.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\env_meteor_shared.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\grenade_base_empable.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\grenade_objectsapper.cpp">
@@ -3121,16 +3271,34 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_defender.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_escort.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_infiltrator.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_medic.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_pyro.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_recon.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_sapper.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_sniper.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_gamemovement_support.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_gamerules.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_base_manned_gun.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_basedrivergun_shared.cpp">
@@ -3160,6 +3328,9 @@
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_basecombatobject.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3167,6 +3338,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_combat_burstrifle.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_laserrifle.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_combat_plasmarifle.cpp">
@@ -3178,7 +3352,16 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp">

@@ -23,11 +23,11 @@
 #include "weapon_objectselection.h"
 #include "vcollide_parse.h"
 #include "weapon_combatshield.h"
-#ifdef IMPLEMENT_ME
 #include "tf_vehicle_tank.h"
+#ifdef IMPLEMENT_ME
 #include "tf_obj_manned_plasmagun.h"
-#include "tf_obj_manned_missilelauncher.h"
 #endif
+#include "tf_obj_manned_missilelauncher.h"
 
 extern char *g_pszEMPPulseStart;
 extern ConVar tf_fastbuild;
@@ -113,11 +113,11 @@ int GetStatGroupFor( CBaseTFPlayer *pPlayer )
 	// In a vehicle?
 	if ( pPlayer->IsInAVehicle() )
 	{
-#ifdef IMPLEMENT_ME
 		if ( dynamic_cast<CVehicleTank*>( pPlayer->GetVehicle() ) )
 			return STATS_TANK;
 		if ( dynamic_cast<CObjectMannedMissileLauncher*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_ROCKET;
+#ifdef IMPLEMENT_ME
 		if ( dynamic_cast<CObjectMannedPlasmagun*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_PLASMA;
 #endif

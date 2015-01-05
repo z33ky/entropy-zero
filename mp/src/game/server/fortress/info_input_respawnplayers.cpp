@@ -9,10 +9,7 @@
 #include "EntityList.h"
 #include "tf_team.h"
 #include "baseentity.h"
-
-#ifndef IMPLEMENT_ME
 #include "tf_player.h"
-#endif
 
 // Spawnflags
 const int SF_RESPAWNPLAYERS_RESETALL		= 0x01;	// Respawned players have their inventory completely reset

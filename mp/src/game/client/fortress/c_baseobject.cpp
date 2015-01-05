@@ -736,6 +736,7 @@ void C_BaseObject::DrawDamageEffects( void )
 	// If we're really hurt, start burning
 	if ( flDamaged > 0.25 )
 	{
+#if 0
 		CSmartPtr<CObjectFireParticles> pFireEmitter = CObjectFireParticles::Create( "DrawDamageEffects 1" );
 		pFireEmitter->SetSortOrigin( vecFire );
 		PMaterialHandle	hSphereMaterial = pFireEmitter->GetPMaterial( "sprites/floorflame" );
@@ -755,6 +756,9 @@ void C_BaseObject::DrawDamageEffects( void )
 			pParticle->m_flRoll	= 0;
 			pParticle->m_flRollDelta = 0;
 		}
+#else	// Replacement, use proper particles now :) ~hogsy
+		DispatchParticleEffect("fortress_fire_small", vecFire, angSmoke, this);
+#endif
 	}
 
 	// Sparks

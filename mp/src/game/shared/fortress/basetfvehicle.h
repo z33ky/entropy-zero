@@ -65,7 +65,7 @@ public:
 	virtual bool	UseAttachedItem( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	virtual void	GetVectors(Vector* pForward, Vector* pRight, Vector* pUp) const;
 
-	virtual bool	ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg );
+	virtual bool	ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args);
 
 	// IVehicle overrides
 	virtual IServerVehicle*	GetServerVehicle() { return this; }
@@ -73,7 +73,7 @@ public:
 	virtual CBaseEntity* GetVehicleEnt();
 
 	// Get and set the current driver.
-	virtual void SetPassenger( int nRole, CBasePlayer *pEnt );
+	virtual void SetPassenger(int nRole, CBaseCombatCharacter *pEnt);
 
 	// Where do we get out of the vehicle?
 	virtual bool GetPassengerExitPoint( int nRole, Vector *pExitPoint, QAngle *pAngles );

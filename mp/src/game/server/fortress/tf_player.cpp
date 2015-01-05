@@ -28,15 +28,15 @@
 #include "tf_obj_resourcepump.h"
 #include "tf_class_commando.h"
 #include "tf_class_defender.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_escort.h"
 #include "tf_class_infiltrator.h"
 #include "tf_class_medic.h"
-#endif
 #include "tf_class_recon.h"
 #ifdef IMPLEMENT_ME
 #include "tf_class_sniper.h"
+#endif
 #include "tf_class_support.h"
+#ifdef IMPLEMENT_ME
 #include "tf_class_sapper.h"
 #endif
 #include "sendproxy.h"
@@ -53,9 +53,7 @@
 #include "ai_basehumanoid.h"
 #include "tf_stats.h"
 #include "iservervehicle.h"
-#ifdef IMPLEMENT_ME
 #include "tf_vehicle_teleport_station.h"
-#endif
 #include "datacache/imdlcache.h"
 #include "globals.h"
 
@@ -403,7 +401,7 @@ void CBaseTFPlayer::Spawn( void )
 			}
 			// But if we're a player, let us choose.
 			else
-				ShowViewPortPanel(PANEL_TEAM,true);
+				ShowViewPortPanel(PANEL_TEAM);
 		}
 		else
 		{
@@ -415,9 +413,9 @@ void CBaseTFPlayer::Spawn( void )
 			}
 			// Otherwise just show us the class menu.
 			else
-				ShowViewPortPanel(PANEL_CLASS,true);
+				ShowViewPortPanel(PANEL_CLASS);
 		}
-
+		
 		m_MenuRefreshTime = gpGlobals->curtime;
 		
 		m_nPreferredTechnology = -1;
@@ -720,6 +718,7 @@ void CBaseTFPlayer::PlayerRespawn( void )
 void CBaseTFPlayer::DeathSound( void )
 {
 	if ( GetTeamNumber() == TEAM_HUMANS )
+		// TODO: Class-specific death sounds.
 		EmitSound( "Humans.Death" );
 	else if ( GetTeamNumber() == TEAM_ALIENS )
 	{
@@ -844,12 +843,10 @@ void CBaseTFPlayer::PostThink()
 {
 	BaseClass::PostThink();
 
-#ifdef IMPLEMENT_ME
 	// Make sure we have a valid MCV id.
 	CVehicleTeleportStation *pMCV = GetSelectedMCV();
 	if ( !pMCV || !pMCV->IsDeployed() )
 		m_hSelectedMCV = CVehicleTeleportStation::GetFirstDeployedMCV( GetTeamNumber() );
-#endif
 
 	// Tell the client if our damage is boosted so it can do a smurfy effect on the weapon.
 	if ( GetAttackDamageScale(this) == 1 )
@@ -2215,19 +2212,13 @@ bool CBaseTFPlayer::CanGetInVehicle( void )
 
 CVehicleTeleportStation* CBaseTFPlayer::GetSelectedMCV() const
 {
-#ifdef IMPLEMENT_ME
 	return dynamic_cast< CVehicleTeleportStation* >( m_hSelectedMCV.Get() );
-#else
-	return NULL;
-#endif
 }
 
 
 void CBaseTFPlayer::SetSelectedMCV( CVehicleTeleportStation *pMCV )
 {
-#ifdef IMPLEMENT_ME
 	m_hSelectedMCV = pMCV;
-#endif
 }
 
 

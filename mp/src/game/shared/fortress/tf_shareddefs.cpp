@@ -14,15 +14,15 @@
 	#include "tf_team.h"
 	#include "tf_class_commando.h"
 	#include "tf_class_defender.h"
-#ifdef IMPLEMENT_ME
 	#include "tf_class_escort.h"
 	#include "tf_class_infiltrator.h"
 	#include "tf_class_medic.h"
-#endif
 	#include "tf_class_recon.h"
 #ifdef IMPLEMENT_ME
 	#include "tf_class_sniper.h"
+#endif
 	#include "tf_class_support.h"
+#ifdef IMPLEMENT_ME
 	#include "tf_class_sapper.h"
 	#include "tf_class_pyro.h"
 #endif
@@ -236,14 +236,16 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 
 	BEGIN_SEND_TABLE_NOBASE( CAllPlayerClasses, DT_AllPlayerClasses )
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_COMMANDO]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassCommandoData ),	SendProxy_DataTablePtrToDataTable ),
-#ifdef IMPLEMENT_ME
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_DEFENDER]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassDefenderData ),	SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_ESCORT]), 	&REFERENCE_SEND_TABLE( DT_PlayerClassEscortData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_INFILTRATOR]),&REFERENCE_SEND_TABLE( DT_PlayerClassInfiltratorData ), SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_MEDIC]),		&REFERENCE_SEND_TABLE( DT_PlayerClassMedicData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_RECON]),		&REFERENCE_SEND_TABLE( DT_PlayerClassReconData ),		SendProxy_DataTablePtrToDataTable ),
+#ifdef IMPLEMENT_ME
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SNIPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSniperData ),		SendProxy_DataTablePtrToDataTable ),
+#endif
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SUPPORT]),	&REFERENCE_SEND_TABLE( DT_PlayerClassSupportData ),		SendProxy_DataTablePtrToDataTable ),
+#ifdef IMPLEMENT_ME
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SAPPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSapperData ),		SendProxy_DataTablePtrToDataTable )
 #endif
 	END_SEND_TABLE()
@@ -285,16 +287,18 @@ PLAYER_CLASS_TYPE* CAllPlayerClasses::GetPlayerClass( int iClass )
 
 DEFINE_PLAYERCLASS_ALLOC_FNS( Recon,		TFCLASS_RECON );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Commando,		TFCLASS_COMMANDO );
-#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Medic,		TFCLASS_MEDIC );
-#endif
 DEFINE_PLAYERCLASS_ALLOC_FNS( Defender,		TFCLASS_DEFENDER );
 #ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sniper,		TFCLASS_SNIPER );
+#endif
 DEFINE_PLAYERCLASS_ALLOC_FNS( Support,		TFCLASS_SUPPORT );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Escort,		TFCLASS_ESCORT );
+#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sapper,		TFCLASS_SAPPER );
+#endif
 DEFINE_PLAYERCLASS_ALLOC_FNS( Infiltrator,	TFCLASS_INFILTRATOR );
+#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
 #endif
 
@@ -303,18 +307,18 @@ CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 	{ "Undecided",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
 	{ "Recon",			g_iClassInfo_Recon,			false,	GENERATE_PLAYERCLASS_INFO( Recon )			},
 	{ "Commando",		g_iClassInfo_Commando,		true,	GENERATE_PLAYERCLASS_INFO( Commando )		},
-#ifdef IMPLEMENT_ME
 	{ "Medic",			g_iClassInfo_Medic,			true,	GENERATE_PLAYERCLASS_INFO( Medic )			},
-#else
-	{	"dummy",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
-#endif
 	{ "Defender",		g_iClassInfo_Defender,		true,	GENERATE_PLAYERCLASS_INFO( Defender )		},
 #ifdef IMPLEMENT_ME
 	{ "Sniper",			g_iClassInfo_Sniper,		false,	GENERATE_PLAYERCLASS_INFO( Sniper )			},
+#endif
 	{ "Support",		g_iClassInfo_Support,		false,	GENERATE_PLAYERCLASS_INFO( Support )		},
 	{ "Escort",			g_iClassInfo_Escort,		true,	GENERATE_PLAYERCLASS_INFO( Escort )			},
+#ifdef IMPLEMENT_ME
 	{ "Sapper",			g_iClassInfo_Sapper,		true,	GENERATE_PLAYERCLASS_INFO( Sapper )			},
+#endif
 	{ "Infiltrator",	g_iClassInfo_Infiltrator,	false,	GENERATE_PLAYERCLASS_INFO( Infiltrator )	},
+#ifdef IMPLEMENT_ME
 	{ "Pyro",			g_iClassInfo_Pyro,			false,	GENERATE_PLAYERCLASS_INFO( Pyro )			}
 #endif
 };

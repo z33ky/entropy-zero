@@ -69,9 +69,6 @@ CCommanderOverlayPanel *CCommanderViewportPanel::GetCommanderOverlayPanel( void 
 	return m_pOverlayPanel;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CCommanderViewportPanel::CCommanderViewportPanel( void ) :
 	m_CursorCommander( vgui::dc_arrow ),
 	m_CursorRightMouseMove(vgui::dc_hand)
@@ -86,9 +83,6 @@ CCommanderViewportPanel::CCommanderViewportPanel( void ) :
 	SetCursor( m_CursorCommander );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CCommanderViewportPanel::~CCommanderViewportPanel( void )
 {
 }

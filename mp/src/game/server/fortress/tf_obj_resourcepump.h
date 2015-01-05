@@ -42,7 +42,7 @@ public:
 	virtual bool	CanTakeEMPDamage( void ) { return true; }
 
 	virtual void	ResourcePumpThink( void );
-	virtual bool	ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg );
+	virtual bool	ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args);
 	virtual void	SetupTeamModel( void );
 
 	// Gets the resource zone (may be NULL!)

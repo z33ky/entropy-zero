@@ -1,9 +1,7 @@
 #include "cbase.h"
 #include "tf_player.h"
 #include "tf_class_commando.h"
-#ifdef IMPLEMENT_ME
 #include "tf_vehicle_teleport_station.h"
-#endif
 #include "EntityList.h"
 #include "basecombatweapon.h"
 #include "weapon_builder.h"

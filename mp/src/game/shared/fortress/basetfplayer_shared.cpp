@@ -96,6 +96,7 @@ void CBaseTFPlayer::PainSound( void )
 	char *sSoundName = NULL;
 
 	if ( GetTeamNumber() == TEAM_HUMANS )
+		// TODO: Class-specific pain sounds.
 		sSoundName = "Humans.Pain";
 	else if ( GetTeamNumber() == TEAM_ALIENS )
 	{
@@ -484,9 +485,9 @@ void CBaseTFPlayer::PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, f
 
 	// Prepend our team's footsteps
 	if ( GetTeamNumber() == TEAM_HUMANS )
-		Q_snprintf( szSound, sizeof(szSound), "Human.%s", pSoundName );
+		V_snprintf( szSound, sizeof(szSound), "Human.%s", pSoundName );
 	else if ( GetTeamNumber() == TEAM_ALIENS )
-		Q_snprintf( szSound, sizeof(szSound), "Alien.%s", pSoundName );
+		V_snprintf( szSound, sizeof(szSound), "Alien.%s", pSoundName );
 	else
 		return;
 

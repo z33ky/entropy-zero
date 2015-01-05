@@ -62,18 +62,20 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel( "effects/human_object_glow.vmt" );
 
 	// Precache player models
-	CBaseEntity::PrecacheModel( "models/player/alien_commando.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/human_commando.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/alien_defender.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/human_defender.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/alien_medic.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/human_medic.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/alien_recon.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/human_recon.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/alien_escort.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/human_escort.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/defender.mdl" );
-	CBaseEntity::PrecacheModel( "models/player/technician.mdl" );
+	CBaseEntity::PrecacheModel("models/player/alien_commando.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_commando.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_defender.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_defender.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_medic.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_medic.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_recon.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_recon.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_escort.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_escort.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_defender.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_defender.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_technician.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_technician.mdl");
 
 	// I 'unno, just precache these here for now... ~hogsy
 	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");

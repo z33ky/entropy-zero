@@ -31,9 +31,7 @@
 #endif
 #include "weapon_twohandedcontainer.h"
 #include "weapon_combatshield.h"
-#ifdef IMPLEMENT_ME
 #include "tf_vehicle_teleport_station.h"
-#endif
 
 ConVar	class_defender_speed( "class_defender_speed","200", FCVAR_NONE, "Defender movement speed" );
 
@@ -69,7 +67,7 @@ const char *CPlayerClassDefender::GetClassModelString( int nTeam )
 	if (nTeam == TEAM_HUMANS)
 		return "models/player/human_defender.mdl";
 	else
-		return "models/player/defender.mdl";
+		return "models/player/alien_defender.mdl";
 }
 
 //-----------------------------------------------------------------------------

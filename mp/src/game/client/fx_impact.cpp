@@ -266,19 +266,36 @@ static void PerformNewCustomEffects( const Vector &vecOrigin, trace_t &tr, const
 	if ( !pEffect->IsValid() )
 		return;
 
+	Vector vecImpactPoint = (tr.fraction != 1.0f) ? tr.endpos : vecOrigin;
+
+#if 0
 	Vector	vecReflect;
-	float	flDot = DotProduct( shotDir, tr.plane.normal );
-	VectorMA( shotDir, -2.0f * flDot, tr.plane.normal, vecReflect );
+	float	flDot = DotProduct(shotDir, tr.plane.normal);
+	VectorMA(shotDir, -2.0f * flDot, tr.plane.normal, vecReflect);
 
 	Vector vecShotBackward;
-	VectorMultiply( shotDir, -1.0f, vecShotBackward );
-
-	Vector vecImpactPoint = ( tr.fraction != 1.0f ) ? tr.endpos : vecOrigin;
-	Assert( VectorsAreEqual( vecOrigin, tr.endpos, 1e-1 ) );
+	VectorMultiply(shotDir, -1.0f, vecShotBackward);
 
 	SetImpactControlPoint( pEffect.GetObject(), 0, vecImpactPoint, tr.plane.normal, tr.m_pEnt ); 
 	SetImpactControlPoint( pEffect.GetObject(), 1, vecImpactPoint, vecReflect,		tr.m_pEnt ); 
 	SetImpactControlPoint( pEffect.GetObject(), 2, vecImpactPoint, vecShotBackward,	tr.m_pEnt ); 
+#else
+	pEffect->SetControlPoint(0, vecOrigin);
+	pEffect->SetControlPoint(1, vecOrigin);
+
+	Vector	reflect;
+	float	dot = shotDir.Dot(tr.plane.normal);
+	reflect = shotDir + (tr.plane.normal * (dot*-2.0f));
+
+	QAngle vecShotBackward;
+	VectorAngles(reflect, vecShotBackward);
+
+	Vector vecForward, vecRight, vecUp;
+	AngleVectors(vecShotBackward, &vecForward, &vecRight, &vecUp);
+
+	pEffect->SetControlPointOrientation(0, vecForward, vecRight, vecUp);
+#endif
+
 	pEffect->SetControlPoint( 3, Vector( iScale, iScale, iScale ) );
 	if ( pEffect->m_pDef->ReadsControlPoint( 4 ) )
 	{

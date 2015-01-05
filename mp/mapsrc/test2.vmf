@@ -6,9 +6,6 @@ versioninfo
 	"formatversion" "100"
 	"prefab" "0"
 }
-visgroups
-{
-}
 viewsettings
 {
 	"bSnapToGrid" "1"
@@ -22,14 +19,14 @@ world
 	"id" "0"
 	"mapversion" "1"
 	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites"
+	"detailvbsp" "detail.vbsp"
+	"maxpropscreenwidth" "-1"
 	"MaxRange" "4096"
 	"message" "2 Forts Classic"
 	"skyname" "dusk"
 	"sounds" "1"
 	"spawnflags" "0"
-	"maxpropscreenwidth" "-1"
-	"detailvbsp" "detail.vbsp"
-	"detailmaterial" "detail/detailsprites"
 	solid
 	{
 		"id" "1"
@@ -417,93 +414,6 @@ world
 		editor
 		{
 			"color" "0 243 212"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-	solid
-	{
-		"id" "8"
-		side
-		{
-			"id" "44"
-			"plane" "(192 -871.988 -480) (192 -896 -480) (192 -896 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[0 1 0 0] 1"
-			"vaxis" "[0 0 -1 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "45"
-			"plane" "(160 -864 -480) (160 -864 -208) (160 -896 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[0 1 0 0] 1"
-			"vaxis" "[0 0 -1 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "46"
-			"plane" "(160.045 -864 -480) (160.045 -864 -208) (160 -864 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[1 0 0 0] 1"
-			"vaxis" "[0 0 -1 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "47"
-			"plane" "(160 -896 -480) (160 -896 -208) (192 -896 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[1 0 0 0] 1"
-			"vaxis" "[0 0 -1 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "48"
-			"plane" "(160.045 -864 -208) (192 -871.988 -208) (192 -896 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[1 0 0 0] 1"
-			"vaxis" "[0 -1 0 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "49"
-			"plane" "(192 -896 -480) (192 -871.988 -480) (160.045 -864 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[1 0 0 0] 1"
-			"vaxis" "[0 -1 0 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "50"
-			"plane" "(192 -871.988 -480) (192 -871.988 -208) (160.045 -864 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[1 0 0 0] 1"
-			"vaxis" "[0 0 -1 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "0 220 216"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}
@@ -1199,93 +1109,6 @@ world
 		editor
 		{
 			"color" "0 102 239"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-	solid
-	{
-		"id" "45"
-		side
-		{
-			"id" "171"
-			"plane" "(-192 -871.988 -208) (-192 -896 -208) (-192 -896 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[0 1 0 0] 1"
-			"vaxis" "[0 0 1 688] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "170"
-			"plane" "(-160 -864 -208) (-160 -864 -480) (-160 -896 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[0 1 0 0] 1"
-			"vaxis" "[0 0 1 688] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "169"
-			"plane" "(-160.045 -864 -208) (-160.045 -864 -480) (-160 -864 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[-1 0 0 0] 1"
-			"vaxis" "[0 0 1 688] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "168"
-			"plane" "(-160 -896 -208) (-160 -896 -480) (-192 -896 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[-1 0 0 0] 1"
-			"vaxis" "[0 0 1 688] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "167"
-			"plane" "(-160.045 -864 -480) (-192 -871.988 -480) (-192 -896 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[-1 0 0 0] 1"
-			"vaxis" "[0 -1 0 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "166"
-			"plane" "(-192 -896 -208) (-192 -871.988 -208) (-160.045 -864 -208)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[-1 0 0 0] 1"
-			"vaxis" "[0 -1 0 0] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "165"
-			"plane" "(-192 -871.988 -208) (-192 -871.988 -480) (-160.045 -864 -480)"
-			"material" "DEFAULT_ORANGE"
-			"uaxis" "[-1 0 0 0] 1"
-			"vaxis" "[0 0 1 688] 1"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "0 220 216"
 			"visgroupshown" "1"
 			"visgroupautoshown" "1"
 		}

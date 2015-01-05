@@ -35,7 +35,7 @@ public:
 
 	// Attach/Detach 
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	bool	ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg );
+	bool	ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args);
 
 	// EMP
 	bool	CanTakeEMPDamage( void ) { return true; }

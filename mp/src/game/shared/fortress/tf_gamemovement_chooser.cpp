@@ -15,15 +15,12 @@ CTFGameMovementChooser::CTFGameMovementChooser()
 	m_Movements[TFCLASS_MEDIC]			= &m_MedicMovement;
 	m_Movements[TFCLASS_DEFENDER]		= &m_DefenderMovement;
 	m_Movements[TFCLASS_SNIPER]			= &m_SniperMovement;
-#ifdef IMPLEMENT_ME
-	m_Movements[TFCLASS_SUPPORT] = &m_SupportMovement;
-	m_Movements[TFCLASS_ESCORT] = &m_EscortMovement;
-	m_Movements[TFCLASS_SAPPER] = &m_SapperMovement;
+	m_Movements[TFCLASS_SUPPORT]		= &m_SupportMovement;
+	m_Movements[TFCLASS_ESCORT]			= &m_EscortMovement;
+	m_Movements[TFCLASS_SAPPER]			= &m_SapperMovement;
 	m_Movements[TFCLASS_INFILTRATOR]	= &m_InfiltratorMovement;
-	m_Movements[TFCLASS_PYRO] = &m_PyroMovement;
-#else
+	m_Movements[TFCLASS_PYRO]			= &m_PyroMovement;
 	m_Movements[TFCLASS_COMMANDO]		= &m_CommandoMovement;
-#endif
 }
 
 void CTFGameMovementChooser::ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMoveData )

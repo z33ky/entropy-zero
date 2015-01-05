@@ -1327,7 +1327,7 @@ void FX_ConcussiveExplosion( Vector &origin, Vector &normal )
 
 	pSimple->SetSortOrigin( offset );
 	
-	SimpleParticle *pParticle = (SimpleParticle *) pSimple->AddParticle( sizeof(SimpleParticle), pSimple->GetPMaterial( "effects/blueflare1" ), offset );
+	SimpleParticle *pParticle = (SimpleParticle *) pSimple->AddParticle( sizeof(SimpleParticle), pSimple->GetPMaterial( "sprites/blueflare1" ), offset );
 	
 	if ( pParticle )
 	{
@@ -1346,7 +1346,7 @@ void FX_ConcussiveExplosion( Vector &origin, Vector &normal )
 		pParticle->m_uchEndSize		= 64;
 	}
 	
-	pParticle = (SimpleParticle *) pSimple->AddParticle( sizeof(SimpleParticle), pSimple->GetPMaterial( "effects/blueflare1" ), offset );
+	pParticle = (SimpleParticle *) pSimple->AddParticle( sizeof(SimpleParticle), pSimple->GetPMaterial( "sprites/blueflare1" ), offset );
 	
 	if ( pParticle )
 	{
@@ -1388,7 +1388,7 @@ void FX_ConcussiveExplosion( Vector &origin, Vector &normal )
 
 	if ( pSparkEmitter.IsValid() )
 	{
-		hMaterial= pSparkEmitter->GetPMaterial( "effects/blueflare1" );
+		hMaterial= pSparkEmitter->GetPMaterial( "sprites/blueflare1" );
 
 		pSparkEmitter->SetSortOrigin( offset );
 		pSparkEmitter->m_ParticleCollision.SetGravity( 0.0f );
@@ -1436,7 +1436,7 @@ void FX_ConcussiveExplosion( Vector &origin, Vector &normal )
 		pCollisionEmitter->SetSortOrigin( offset );
 
 		numSparks = random->RandomInt( 8, 16 );
-		hMaterial = pCollisionEmitter->GetPMaterial( "effects/blueflare1" );
+		hMaterial = pCollisionEmitter->GetPMaterial( "sprites/blueflare1" );
 
 		//Dump out sparks
 		for ( i = 0; i < numSparks; i++ )

@@ -18,7 +18,6 @@ void RegisterUserMessages( void )
 	usermessages->Register( "Geiger", 1 );
 	usermessages->Register( "TextMsg", -1 );
 	usermessages->Register( "InitHUD", 0 );		// called every time a new player joins the server
-	usermessages->Register( "DeathMsg", -1 );
 	usermessages->Register( "MOTD", -1 );
 	usermessages->Register( "ItemPickup", -1 );
 	usermessages->Register( "ShowMenu", -1 );

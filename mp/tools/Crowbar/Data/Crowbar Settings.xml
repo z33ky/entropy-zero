@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WindowLocation>
+    <X>76</X>
+    <Y>214</Y>
+  </WindowLocation>
+  <WindowSize>
+    <Width>800</Width>
+    <Height>600</Height>
+  </WindowSize>
+  <WindowState>Normal</WindowState>
+  <DecompileMdlPathFileName />
+  <DecompileOutputFolderOption>SubfolderName</DecompileOutputFolderOption>
+  <DecompileOutputSubfolderName>decompiled 0.24</DecompileOutputSubfolderName>
+  <DecompileOutputPathName />
+  <DecompileQcFileIsChecked>true</DecompileQcFileIsChecked>
+  <DecompileQcFileExtraInfoIsChecked>false</DecompileQcFileExtraInfoIsChecked>
+  <DecompileReferenceMeshSmdFileIsChecked>true</DecompileReferenceMeshSmdFileIsChecked>
+  <DecompileApplyRightHandFixIsChecked>false</DecompileApplyRightHandFixIsChecked>
+  <DecompileLodMeshSmdFilesIsChecked>true</DecompileLodMeshSmdFilesIsChecked>
+  <DecompilePhysicsMeshSmdFileIsChecked>true</DecompilePhysicsMeshSmdFileIsChecked>
+  <DecompileVertexAnimationVtaFileIsChecked>true</DecompileVertexAnimationVtaFileIsChecked>
+  <DecompileBoneAnimationSmdFilesIsChecked>true</DecompileBoneAnimationSmdFilesIsChecked>
+  <DecompileBoneAnimationDebugInfoIsChecked>false</DecompileBoneAnimationDebugInfoIsChecked>
+  <DecompileProceduralBonesVrdFileIsChecked>true</DecompileProceduralBonesVrdFileIsChecked>
+  <DecompileDebugInfoFilesIsChecked>false</DecompileDebugInfoFilesIsChecked>
+  <SelectedGameSetupIndex>5</SelectedGameSetupIndex>
+  <GameSetups>
+    <GameSetup>
+      <GameName>Alien Swarm</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\alien swarm\swarm\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\alien swarm\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Counter-Strike Global Offensive</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Counter-Strike Source</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Source\cstrike\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Source\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Day of Defeat Source</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Day of Defeat Source\dod\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Day of Defeat Source\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Dota 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\dota\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Fortress</GameName>
+      <GamePathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\game\mod_hl2mp\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Garry's Mod (using Source SDK Base 2013 MP)</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\hl2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Half-Life 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\hl2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Half-Life 2 Deathmatch</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2 Deathmatch\hl2mp\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2 Deathmatch\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Half-Life 2: Episode 1</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\episodic\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Half-Life 2: Episode 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\ep2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Half-Life 2\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Left 4 Dead</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\left 4 dead\left4dead\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\left 4 dead\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Left 4 Dead 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\left 4 dead 2\left4dead2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\left 4 dead 2\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Portal 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\portal 2\portal2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Source Filmmaker</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\SourceFilmmaker\game\usermod\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\SourceFilmmaker\game\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Source SDK 2013 Multiplayer</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\hl2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Source SDK 2013 Singleplayer</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Singleplayer\hl2\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Singleplayer\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+    <GameSetup>
+      <GameName>Team Fortress 2</GameName>
+      <GamePathFileName>C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf\gameinfo.txt</GamePathFileName>
+      <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\studiomdl.exe</CompilerPathFileName>
+    </GameSetup>
+  </GameSetups>
+  <CompileQcPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\modelsrc\Human_PDA\Old\v_pda_engineer.qc</CompileQcPathFileName>
+  <CompileOutputSubfolderIsChecked>false</CompileOutputSubfolderIsChecked>
+  <CompileOutputSubfolderName>for_model_viewer</CompileOutputSubfolderName>
+  <CompilerOptionNoP4IsChecked>true</CompilerOptionNoP4IsChecked>
+  <CompilerOptionVerboseIsChecked>true</CompilerOptionVerboseIsChecked>
+</AppSettings>

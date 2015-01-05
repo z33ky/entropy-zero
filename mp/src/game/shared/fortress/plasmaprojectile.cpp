@@ -23,8 +23,6 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-//	IMPLEMENT_ME : This needs heavy revision! Client and server-side crap need to be split up ~hogsy
-
 extern ConVar tf_knockdowntime;
 
 #define PLASMA_LIFETIME				2.0
@@ -526,124 +524,7 @@ void CBasePlasmaProjectile::RemapPosition( Vector &vecStart, float curtime, Vect
 //-----------------------------------------------------------------------------
 // Purpose: Update state + render
 //-----------------------------------------------------------------------------
-#if 0
-bool CBasePlasmaProjectile::SimulateAndRender(Particle *pInParticle, ParticleDraw *pDraw, float &sortKey)
-{
-	if ( IsDormantPredictable() )
-		return true;
 
-	if ( GetMoveType() == MOVETYPE_NONE )
-		return true;
-
-	// Update the particle position
-	pInParticle->m_Pos = GetAbsOrigin();
-
-	// Add our blended offset
-	if ( gpGlobals->curtime < m_Shared.GetSpawnTime() + REMAP_BLEND_TIME )
-	{
-		float frac = ( gpGlobals->curtime - m_Shared.GetSpawnTime() ) / REMAP_BLEND_TIME;
-		frac = 1.0f - clamp( frac, 0.0f, 1.0f );
-		Vector scaledOffset;
-		VectorScale( m_vecGunOriginOffset, frac, scaledOffset );
-		pInParticle->m_Pos += scaledOffset;
-	}
-
-	float timeDelta = pDraw->GetTimeDelta();
-
-	// Render the head particle
-	if ( pInParticle == m_pHeadParticle )
-	{
-		SimpleParticle *pParticle = (SimpleParticle *) pInParticle;
-		pParticle->m_flLifetime += timeDelta;
-
-		// Render
-		Vector tPos, vecOrigin;
-		RemapPosition( m_pPreviousPositions[MAX_HISTORY-1].m_Position, m_pPreviousPositions[MAX_HISTORY-1].m_Time, vecOrigin );
-
-		TransformParticle( ParticleMgr()->GetModelView(), vecOrigin, tPos );
-		sortKey = (int) tPos.z;
-
-		//Render it
-		RenderParticle_ColorSizeAngle(
-			pDraw,
-			tPos,
-			UpdateColor( pParticle, timeDelta ),
-			UpdateAlpha( pParticle, timeDelta ) * GetAlphaDistanceFade( tPos, 16, 64 ),
-			UpdateScale( pParticle, timeDelta ),
-			UpdateRoll( pParticle, timeDelta ) );
-
-		/*
-		if ( m_flNextSparkEffect < gpGlobals->curtime )
-		{
-			// Drop sparks?
-			if ( GetTeamNumber() == TEAM_HUMANS )
-			{
-				g_pEffects->Sparks( pInParticle->m_Pos, 1, 3 );
-			}
-			else
-			{
-				g_pEffects->EnergySplash( pInParticle->m_Pos, vec3_origin );
-			}
-			m_flNextSparkEffect = gpGlobals->curtime + RandomFloat( 0.5, 2 );
-		}
-		*/
-
-		return true;
-	}
-
-	// Render the trail
-	TrailParticle *pParticle = (TrailParticle *) pInParticle;
-	pParticle->m_flLifetime += timeDelta;
-	Vector vecScreenStart, vecScreenDelta;
-	sortKey = pParticle->m_Pos.z;
-
-	// NOTE: We need to do everything in screen space
-	float flFragmentLength = (MAX_HISTORY > 1) ? 1.0 / (float)(MAX_HISTORY-1) : 1.0;
-
-	for ( int i = 0; i < (MAX_HISTORY-1); i++ )
-	{
-		Vector vecWorldStart, vecWorldEnd, vecScreenEnd;
-		float flStartV, flEndV;
-
-		// Did we just appear?
-		if ( m_pPreviousPositions[i].m_Time == 0 )
-			continue;
-
-		RemapPosition( m_pPreviousPositions[i+1].m_Position, m_pPreviousPositions[i+1].m_Time, vecWorldStart );
-		RemapPosition( m_pPreviousPositions[i].m_Position, m_pPreviousPositions[i].m_Time, vecWorldEnd );
-
-		// Texture wrapping
-		flStartV = (flFragmentLength * (i+1));
-		flEndV = (flFragmentLength * i);
-		
-		TransformParticle( ParticleMgr()->GetModelView(), vecWorldStart, vecScreenStart );
-		TransformParticle( ParticleMgr()->GetModelView(), vecWorldEnd, vecScreenEnd );
-		Vector vecScreenDelta = (vecScreenEnd - vecScreenStart);
-		if ( vecScreenDelta == vec3_origin )
-			continue;
-
-		/*
-		Vector vecForward, vecRight;
-		AngleVectors( MainViewAngles(), &vecForward, &vecRight, NULL );
-		Vector vecWorldDelta = ( vecWorldEnd - vecWorldStart );
-		VectorNormalize( vecWorldDelta );
-		float flDot = fabs(DotProduct( vecWorldDelta, vecForward ));
-		if ( flDot > 0.99 )
-		{
-			// Remap alpha
-			pParticle->m_flColor[3] = 1.0 - min( 1.0, RemapVal( flDot, 0.99, 1.0, 0, 1 ) );
-		}
-		*/
-
-		// See if we should fade
-		float color[4];
-		Color32ToFloat4( color, pParticle->m_color );
-		Tracer_Draw( pDraw, vecScreenStart, vecScreenDelta, pParticle->m_flWidth, color, flStartV, flEndV );
-	}
-
-	return true;
-}
-#else	// Revised ~hogsy
 void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 {
 	const Particle *pInParticle = (const Particle*)pIterator->GetFirst();
@@ -770,7 +651,6 @@ void CBasePlasmaProjectile::SimulateParticles(CParticleSimulateIterator *pIterat
 		pParticle = (Particle*)pIterator->GetNext();
 	}
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: 

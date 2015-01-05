@@ -72,7 +72,7 @@ public:
 	
 	// Death notices
 	virtual void		DeathNotice( CBasePlayer *pVictim, const CTakeDamageInfo &info );
-	virtual const char  *GetCustomKillString( const CTakeDamageInfo &info );
+	virtual const char  *GetDamageCustomString(const CTakeDamageInfo &info);
 	CBasePlayer			*GetDeathAssistant( CBaseEntity *pKiller, CBaseEntity *pInflictor );
 
 	virtual bool PlayerCanHearChat( CBasePlayer *pListener, CBasePlayer *pSpeaker );
