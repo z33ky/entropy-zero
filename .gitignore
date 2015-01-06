@@ -78,3 +78,4 @@ config.cfg
 /mp/game/mod_hl2mp/albedo.tga
 /mp/game/mod_hl2mp/normal.tga
 *.db
+*.sfk

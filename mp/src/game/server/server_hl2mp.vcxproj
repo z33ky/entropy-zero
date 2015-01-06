@@ -66,7 +66,7 @@
       <AdditionalOptions>/Zm200 /Gw</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\server\generated_proto_mod_hl2mp;..\..\thirdparty\protobuf-2.3.0\src;.\;..\..\game\shared;..\..\utils\common;..\..\game\shared\econ;..\..\game\server\NextBot;..\..\game\shared\hl2;.\hl2;.\hl2mp;.\fortress;..\..\game\shared\fortress;..\..\game\shared\hl2mp</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=server;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;GAME_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;sprintf=use_Q_snprintf_instead_of_sprintf;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;USE_NAV_MESH;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\Mark\Source\Repos\Fortress\mp\src\game\server;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=server;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;GAME_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;sprintf=use_Q_snprintf_instead_of_sprintf;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;USE_NAV_MESH;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\Mark\Source\Repos\Fortress\mp\src\game\server;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -144,7 +144,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\server\generated_proto_mod_hl2mp;..\..\thirdparty\protobuf-2.3.0\src;.\;..\..\game\shared;..\..\utils\common;..\..\game\shared\econ;..\..\game\server\NextBot;..\..\game\shared\hl2;.\hl2;.\hl2mp;.\fortress;..\..\game\shared\fortress;..\..\game\shared\hl2mp</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=server;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;GAME_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;sprintf=use_Q_snprintf_instead_of_sprintf;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;USE_NAV_MESH;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\Mark\Source\Repos\Fortress\mp\src\game\server;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=server;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;GAME_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;sprintf=use_Q_snprintf_instead_of_sprintf;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;USE_NAV_MESH;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=C:\Users\Mark\Source\Repos\Fortress\mp\src\game\server;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -718,6 +718,7 @@
     <ClInclude Include="fortress\bot_base.h" />
     <ClInclude Include="fortress\controlzone.h" />
     <ClInclude Include="fortress\env_meteor.h" />
+    <ClInclude Include="fortress\grenade_rocket.h" />
     <ClInclude Include="fortress\info_act.h" />
     <ClInclude Include="fortress\info_buildpoint.h" />
     <ClInclude Include="fortress\info_customtech.h" />
@@ -818,6 +819,7 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
+    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h" />
     <ClInclude Include="nav.h" />
@@ -1299,6 +1301,7 @@
     <ClCompile Include="fortress\bot_base.cpp" />
     <ClCompile Include="fortress\controlzone.cpp" />
     <ClCompile Include="fortress\env_meteor.cpp" />
+    <ClCompile Include="fortress\grenade_rocket.cpp" />
     <ClCompile Include="fortress\info_act.cpp" />
     <ClCompile Include="fortress\info_buildpoint.cpp" />
     <ClCompile Include="fortress\info_customtech.cpp" />
@@ -1408,6 +1411,7 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp" />
     <ClCompile Include="nav_area.cpp" />

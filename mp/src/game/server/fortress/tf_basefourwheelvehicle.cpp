@@ -263,10 +263,13 @@ void CBaseTFFourWheelVehicle::Precache()
 void CBaseTFFourWheelVehicle::Spawn( )
 {
 	SetModel( STRING( GetModelName() ) );
-//	CFourWheelServerVehicle *pServerVehicle = dynamic_cast<CFourWheelServerVehicle*>(GetServerVehicle());
-//	m_VehiclePhysics.SetOuter( this, pServerVehicle );
+
+	CFourWheelServerVehicle *pServerVehicle = dynamic_cast<CFourWheelServerVehicle*>(GetServerVehicle());
+	m_VehiclePhysics.SetOuter( this, pServerVehicle );
 	m_VehiclePhysics.Spawn();
+
 	BaseClass::Spawn();
+
 	// The base class spawn sets a default collision group, so this needs to
 	// be called post.
 	SetCollisionGroup( COLLISION_GROUP_VEHICLE );

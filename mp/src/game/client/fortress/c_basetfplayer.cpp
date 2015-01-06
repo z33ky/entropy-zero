@@ -822,19 +822,41 @@ void C_BaseTFPlayer::PostDataUpdate( DataUpdateType_t updateType )
 
 void C_BaseTFPlayer::ReceiveMessage( int classID, bf_read &msg )
 {
-	Vector vOffsetFromEnt;
-	msg.ReadBitVec3Coord( vOffsetFromEnt );
+	if (classID != GetClientClass()->m_ClassID)
+	{
+		// message is for subclass
+		BaseClass::ReceiveMessage(classID, msg);
+		return;
+	}
 
-	// Show a personal shield effect.
-	Vector vIncomingDirection;
-	msg.ReadBitVec3Normal( vIncomingDirection );
+	int messageType = msg.ReadByte();
+	switch (messageType)
+	{
+	case BASEENTITY_MSG_REMOVE_DECALS:
+	{
+		RemoveAllDecals();
+	}
+	break;
+	case PLAYER_MSG_PERSONAL_SHIELD:
+	{
+		Vector vOffsetFromEnt;
+		msg.ReadBitVec3Coord(vOffsetFromEnt);
 
-	short iDamage = msg.ReadShort();
+		// Show a personal shield effect.
+		Vector vIncomingDirection;
+		msg.ReadBitVec3Normal(vIncomingDirection);
 
-	// Show the effect.
-	CPersonalShieldEffect *pEffect = CPersonalShieldEffect::Create( this, vOffsetFromEnt, vIncomingDirection, iDamage );
-	if ( pEffect )
-		m_PersonalShieldEffects.AddToTail( pEffect );
+		short iDamage = msg.ReadShort();
+
+		// Show the effect.
+		CPersonalShieldEffect *pEffect = CPersonalShieldEffect::Create(this, vOffsetFromEnt, vIncomingDirection, iDamage);
+		if (pEffect)
+			m_PersonalShieldEffects.AddToTail(pEffect);
+	}
+	break;
+	default:
+		break;
+	}
 }
 
 //-----------------------------------------------------------------------------

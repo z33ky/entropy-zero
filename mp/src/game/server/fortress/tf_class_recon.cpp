@@ -126,11 +126,11 @@ void CPlayerClassRecon::SetupMoveData( void )
 	m_flMaxWalkingSpeed = class_recon_speed.GetFloat();
 
 	m_ClassData.m_nJumpCount = 0;
-	m_ClassData.m_flSuppressionJumpTime = -99999;
-	m_ClassData.m_flSuppressionImpactTime = -99999;
-	m_ClassData.m_flActiveJumpTime = -99999;
-	m_ClassData.m_flStickTime = -99999;
-	m_ClassData.m_flImpactDist = -99999;
+	m_ClassData.m_flSuppressionJumpTime = -99999.0f;
+	m_ClassData.m_flSuppressionImpactTime = -99999.0f;
+	m_ClassData.m_flActiveJumpTime = -99999.0f;
+	m_ClassData.m_flStickTime = -99999.0f;
+	m_ClassData.m_flImpactDist = -99999.0f;
 	m_ClassData.m_vecImpactNormal.Init();
 	m_ClassData.m_vecUnstickVelocity.Init();
 	m_ClassData.m_bTrailParticles = false;

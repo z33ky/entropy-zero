@@ -78,13 +78,22 @@ public:
 	// Where do we get out of the vehicle?
 	virtual bool GetPassengerExitPoint( int nRole, Vector *pExitPoint, QAngle *pAngles );
 
-	virtual Class_T			ClassifyPassenger( CBasePlayer *pPassenger, Class_T defaultClassification ) { return defaultClassification; }
-	virtual float			DamageModifier ( CTakeDamageInfo &info ) { return 1.0; }
-	virtual const vehicleparams_t	*GetVehicleParams( void ) { return NULL; }
+	virtual Class_T			ClassifyPassenger(CBaseCombatCharacter *pPassenger, Class_T defaultClassification) { return defaultClassification; }
+	virtual float			PassengerDamageModifier(const CTakeDamageInfo &info) { return 1.0; }
+
+	virtual const vehicleparams_t		*GetVehicleParams( void ) { return NULL; }
+	virtual IPhysicsVehicleController	*GetVehicleController(void) { return NULL; }
 
 	virtual bool			IsVehicleUpright( void ) { return true; }
 
 	// NPC Driving
+	virtual int				NPC_GetAvailableSeat(CBaseCombatCharacter *pPassenger, string_t strRoleName, VehicleSeatQuery_e nQueryType) { return 0; }
+	virtual bool			NPC_AddPassenger(CBaseCombatCharacter *pPassenger, string_t strRoleName, int nSeat) { return false; }
+	virtual bool			NPC_RemovePassenger(CBaseCombatCharacter *pPassenger) { return false; }
+	virtual bool			NPC_GetPassengerSeatPosition(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
+	virtual bool			NPC_GetPassengerSeatPositionLocal(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
+	virtual int				NPC_GetPassengerSeatAttachment(CBaseCombatCharacter *pPassenger) { return 0; }
+	virtual bool			NPC_HasAvailableSeat(string_t strRoleName) { return false; }
 	virtual bool			NPC_CanDrive( void ) { return true; }
 	virtual void			NPC_SetDriver( CNPC_VehicleDriver *pDriver ) { return; }
 	virtual void			NPC_DriveVehicle( void ) { return; }
@@ -101,6 +110,8 @@ public:
 	virtual bool			NPC_HasSecondaryWeapon( void ) { return false; }
 	virtual void			NPC_AimPrimaryWeapon( Vector vecTarget ) { return; }
 	virtual void			NPC_AimSecondaryWeapon( Vector vecTarget ) { return; }
+	virtual const PassengerSeatAnims_t	*NPC_GetPassengerSeatAnims(CBaseCombatCharacter *pPassenger, PassengerSeatAnimType_t nType) { return NULL; }
+	virtual CBaseCombatCharacter	*NPC_GetPassengerInSeat(int nRoleID, int nSeatID) { return NULL; }
 
 	// Weapon handling
 	virtual void			Weapon_PrimaryRanges( float *flMinRange, float *flMaxRange ) { *flMinRange = 0; *flMaxRange = 0; }
@@ -120,9 +131,9 @@ public:
 	int GetParentVehicleRole();
 
 	// Purpose: 
-	void GetPassengerExitPoint( CBasePlayer *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles );
+	void GetPassengerExitPoint(CBaseCombatCharacter *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles);
 	int	 GetEntryAnimForPoint( const Vector &vecPoint );
-	int	 GetExitAnimToUse( void );
+	int	 GetExitAnimToUse(Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked);
 	void HandleEntryExitFinish( bool bExitAnimOn );
 
 	// Deterioration
@@ -136,7 +147,17 @@ public:
 	virtual bool	IsAVehicle( void ) { return true; }
 
 	// Get a position in *local space* inside the vehicle for the player to start at
-	virtual void GetPassengerStartPoint( int nRole, Vector *pPoint, QAngle *pAngles );
+	// Was GetPassengerStartPoint, but Valve change its name ~hogsy
+	virtual void GetPassengerSeatPoint( int nRole, Vector *pPoint, QAngle *pAngles );
+
+	// Additional stuff that was otherwise misssing. ~hogsy
+	virtual	bool PassengerShouldReceiveDamage(CTakeDamageInfo &info) { return true; }
+	virtual bool IsPassengerEntering(void) { return false; }
+	virtual bool IsPassengerExiting(void) { return false; }
+	virtual void RestorePassengerInfo(void) {}
+	virtual void HandlePassengerEntry(CBaseCombatCharacter *pPassenger, bool bAllowEntryOutsideZone = false) {}
+	virtual bool HandlePassengerExit(CBaseCombatCharacter *pPassenger) { return false; }
+	virtual void HandleEntryExitFinish(bool bExitAnimOn, bool bResetAnim) {}
 
 #if defined( CLIENT_DLL )
 	// C_BaseEntity overrides
@@ -236,6 +257,8 @@ protected:
 
 	bool	IsValidExitPoint( int nRole, Vector *pExitPoint, QAngle *pAngles );
 	int 	GetEmptyRole( void );
+
+	void	ReloadScript() {}	// debug/tuning
 
 private:
 #if !defined (CLIENT_DLL)

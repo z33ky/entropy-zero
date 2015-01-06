@@ -151,6 +151,8 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\weapon_arcwelder.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_shield.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_shield.h
+				$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.h
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.h
 				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
@@ -170,6 +172,8 @@ $Project "Server"
 				$File	fortress/tf_obj_manned_missilelauncher.h
 			}
 			
+			$File	fortress/grenade_rocket.cpp
+			$File	fortress/grenade_rocket.h
 			$File	fortress/mortar_round.cpp
 			$File	fortress/mortar_round.h
 			$File	fortress/basecombatcharacter_tf2.cpp

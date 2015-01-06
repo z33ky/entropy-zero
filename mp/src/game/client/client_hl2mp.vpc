@@ -128,6 +128,8 @@ $Project "Client"
 				$File	$SRCDIR\game\shared\fortress\weapon_arcwelder.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_shield.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_shield.h
+				$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.h
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.h
 				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
@@ -159,6 +161,8 @@ $Project "Client"
 			$File	fortress/CommanderOverlay.h
 			$File	fortress/commanderoverlaypanel.cpp
 			$File	fortress/commanderoverlaypanel.h
+			$File	fortress/ground_line.cpp
+			$File	fortress/ground_line.h
 			$File	fortress/c_basecombatcharacter_tf2.cpp
 			$File	fortress/c_baseobject.cpp
 			$File	fortress/c_baseobject.h
@@ -166,6 +170,8 @@ $Project "Client"
 			$File	fortress/c_basetfplayer.h
 			$File	fortress/c_controlzone.cpp
 			$File	fortress/c_controlzone.h
+			$File	fortress/c_vehicle_tank.cpp
+			$File	fortress/c_vehicle_tank.h
 			$File	fortress/c_demo_entities.cpp
 			$File	fortress/c_demo_entities.h
 			$File	fortress/c_effect_shootingstar.cpp
@@ -190,6 +196,11 @@ $Project "Client"
 			$File	fortress/c_obj_respawn_station.h
 			$File	fortress/c_obj_resupply.cpp
 			$File	fortress/c_obj_sandbag_bunker.cpp
+			$File	fortress/c_obj_manned_missilelauncher.cpp
+			$File	fortress/c_obj_mcv_selection_panel.cpp
+			$File	fortress/c_obj_base_manned_gun.cpp
+			$File	fortress/c_obj_base_manned_gun.h
+			$File	fortress/c_obj_shieldwall.cpp
 			$File	fortress/c_order.cpp
 			$File	fortress/c_order.h
 			$File	fortress/c_order_assist.cpp
@@ -255,6 +266,7 @@ $Project "Client"
 			$File	fortress/c_weapon_builder.h
 			$File	fortress/c_weapon_twohandedcontainer.cpp
 			$File	fortress/c_weapon__stubs_tf2.cpp
+			$File	fortress/c_grenade_rocket.cpp
 			$File	fortress/env_objecteffects.cpp
 			$File	fortress/env_objecteffects.h
 			$File	fortress/fx_tf2_blood.cpp

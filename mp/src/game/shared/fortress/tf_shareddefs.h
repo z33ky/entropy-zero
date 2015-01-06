@@ -7,6 +7,8 @@
 
 #define MAX_TF_TEAMS	4
 
+#define PLAYER_MSG_PERSONAL_SHIELD	2
+
 extern ConVar	inv_demo;
 extern ConVar	lod_effect_distance;
 

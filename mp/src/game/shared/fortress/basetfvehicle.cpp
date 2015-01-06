@@ -667,7 +667,7 @@ bool CBaseTFVehicle::IsValidExitPoint( int nRole, Vector *pExitPoint, QAngle *pA
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::GetPassengerExitPoint( CBasePlayer *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles )
+void CBaseTFVehicle::GetPassengerExitPoint( CBaseCombatCharacter *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles )
 {
 
 	// Deal with vehicles built on other vehicles
@@ -745,7 +745,7 @@ int CBaseTFVehicle::GetEntryAnimForPoint( const Vector &vecPoint )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-int CBaseTFVehicle::GetExitAnimToUse( void )
+int CBaseTFVehicle::GetExitAnimToUse(Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked)
 {
 	return ACTIVITY_NOT_AVAILABLE;
 }
@@ -783,7 +783,7 @@ void CBaseTFVehicle::SetPassenger(int nRole, CBaseCombatCharacter *pEnt)
 //-----------------------------------------------------------------------------
 // Get a position in *world space* inside the vehicle for the player to start at
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::GetPassengerStartPoint( int nRole, Vector *pAbsPoint, QAngle *pAbsAngles )
+void CBaseTFVehicle::GetPassengerSeatPoint( int nRole, Vector *pAbsPoint, QAngle *pAbsAngles )
 {
 	char pAttachmentName[32];
 	Q_snprintf( pAttachmentName, 32, "vehicle_feet_passenger%d", nRole );
@@ -1063,7 +1063,6 @@ void CBaseTFVehicle::GetVehicleViewPosition( int nRole, Vector *pAbsOrigin, QAng
 	}
 	*/
 }
-
 
 //-----------------------------------------------------------------------------
 //

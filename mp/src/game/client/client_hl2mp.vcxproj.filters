@@ -1859,6 +1859,9 @@
     <ClInclude Include="fortress\c_info_act.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_obj_base_manned_gun.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\c_obj_resourcepump.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1952,6 +1955,9 @@
     <ClInclude Include="fortress\c_tfteam.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_vehicle_tank.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\c_weapon_builder.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1971,6 +1977,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\env_objecteffects.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\ground_line.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\hintitembase.h">
@@ -2178,6 +2187,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h">
@@ -3292,6 +3304,9 @@
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_grenade_rocket.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_hint_events.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3301,7 +3316,16 @@
     <ClCompile Include="fortress\c_info_customtech.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_obj_buff_station.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_obj_powerpack.cpp">
@@ -3320,6 +3344,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_shieldwall.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_order.cpp">
@@ -3418,6 +3445,9 @@
     <ClCompile Include="fortress\c_tfteam.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_vehicle_tank.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3455,6 +3485,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\fx_tf2_tracers.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\ground_line.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\hintitembase.cpp">
@@ -3713,6 +3746,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp">

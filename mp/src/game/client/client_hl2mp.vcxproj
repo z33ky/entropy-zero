@@ -821,6 +821,7 @@
     <ClInclude Include="fortress\c_func_resource.h" />
     <ClInclude Include="fortress\c_hint_events.h" />
     <ClInclude Include="fortress\c_info_act.h" />
+    <ClInclude Include="fortress\c_obj_base_manned_gun.h" />
     <ClInclude Include="fortress\c_obj_resourcepump.h" />
     <ClInclude Include="fortress\c_obj_respawn_station.h" />
     <ClInclude Include="fortress\c_order.h" />
@@ -852,6 +853,7 @@
     <ClInclude Include="fortress\c_tfplayerlocaldata.h" />
     <ClInclude Include="fortress\c_tfplayerresource.h" />
     <ClInclude Include="fortress\c_tfteam.h" />
+    <ClInclude Include="fortress\c_vehicle_tank.h" />
     <ClInclude Include="fortress\c_weapon_builder.h" />
     <ClInclude Include="fortress\clientmode_commander.h" />
     <ClInclude Include="fortress\clientmode_tfbase.h" />
@@ -859,6 +861,7 @@
     <ClInclude Include="fortress\CommanderOverlay.h" />
     <ClInclude Include="fortress\commanderoverlaypanel.h" />
     <ClInclude Include="fortress\env_objecteffects.h" />
+    <ClInclude Include="fortress\ground_line.h" />
     <ClInclude Include="fortress\hintitembase.h" />
     <ClInclude Include="fortress\hintitemobjectbase.h" />
     <ClInclude Include="fortress\hintitemorderbase.h" />
@@ -928,6 +931,7 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
+    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h" />
     <ClInclude Include="fortress\c_basefourwheelvehicle.h" />
@@ -1396,16 +1400,21 @@
     <ClCompile Include="fortress\c_func_construction_yard.cpp" />
     <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp" />
+    <ClCompile Include="fortress\c_grenade_rocket.cpp" />
     <ClCompile Include="fortress\c_hint_events.cpp" />
     <ClCompile Include="fortress\c_info_act.cpp" />
     <ClCompile Include="fortress\c_info_customtech.cpp" />
+    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp" />
     <ClCompile Include="fortress\c_obj_buff_station.cpp" />
+    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp" />
+    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp" />
     <ClCompile Include="fortress\c_obj_powerpack.cpp" />
     <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
     <ClCompile Include="fortress\c_obj_resourcepump.cpp" />
     <ClCompile Include="fortress\c_obj_respawn_station.cpp" />
     <ClCompile Include="fortress\c_obj_resupply.cpp" />
     <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp" />
+    <ClCompile Include="fortress\c_obj_shieldwall.cpp" />
     <ClCompile Include="fortress\c_order.cpp" />
     <ClCompile Include="fortress\c_order_assist.cpp" />
     <ClCompile Include="fortress\c_order_buildshieldwall.cpp" />
@@ -1438,6 +1447,7 @@
     <ClCompile Include="fortress\c_tf_playerclass.cpp" />
     <ClCompile Include="fortress\c_tfplayerresource.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
+    <ClCompile Include="fortress\c_vehicle_tank.cpp" />
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
     <ClCompile Include="fortress\c_weapon_builder.cpp" />
     <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp" />
@@ -1451,6 +1461,7 @@
     <ClCompile Include="fortress\fx_tf2_buildeffects.cpp" />
     <ClCompile Include="fortress\fx_tf2_impacts.cpp" />
     <ClCompile Include="fortress\fx_tf2_tracers.cpp" />
+    <ClCompile Include="fortress\ground_line.cpp" />
     <ClCompile Include="fortress\hintitembase.cpp" />
     <ClCompile Include="fortress\hintitemobjectbase.cpp" />
     <ClCompile Include="fortress\hintitemorderbase.cpp" />
@@ -1537,6 +1548,7 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp" />
     <ClCompile Include="fortress\c_basefourwheelvehicle.cpp" />

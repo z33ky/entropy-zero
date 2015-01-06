@@ -1547,6 +1547,9 @@
     <ClInclude Include="fortress\env_meteor.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\grenade_rocket.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\info_act.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1845,6 +1848,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h">
@@ -3034,6 +3040,9 @@
     <ClCompile Include="fortress\env_meteor.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\grenade_rocket.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\info_act.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3359,6 +3368,9 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp">
