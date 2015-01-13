@@ -4,15 +4,15 @@ TeamMenu
 	{
 		ControlName				CFortressTeamMenu
 		fieldName				team
-		xpos					"160"
-		ypos					"120"
-		wide					"320"
-		tall					"240"
-		autoResize				"0"
-		pinCorner				"0"
-		visible					"1"
-		enabled					"1"
-		tabPosition				"0"
+		xpos					c-160
+		ypos					c-120
+		wide					320
+		tall					240
+		autoResize				0
+		pinCorner				0
+		visible					1
+		enabled					1
+		tabPosition				0
 	}
 	
 	HeaderLabel

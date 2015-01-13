@@ -36,8 +36,8 @@ void CTFHintManager::AddHint( CBaseTFPlayer *player, int hintID, int priority, i
 //			clientArea - 
 // Output : Returns true on success, false on failure.
 //-----------------------------------------------------------------------------
-bool CTFHintManager::ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea )
+int CTFHintManager::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
 	// Always send the manager, it has no data so it's no big deal
-	return true;
+	return FL_EDICT_ALWAYS;
 }

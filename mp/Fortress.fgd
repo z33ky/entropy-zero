@@ -97,3 +97,8 @@
 	"Meteor Spawner"
 [
 ]
+
+@PointClass = tf_hintmanager :
+	"Hint Manager"
+[
+]

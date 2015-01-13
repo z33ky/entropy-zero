@@ -2,7 +2,6 @@
     <Project name="Scripts">
         <File name="ChapterBackgrounds.txt" />
         <File name="game.txt" />
-        <File name="launcher.txt" />
         <File name="objects.txt" />
         <File name="technologytree.txt" />
         <Folder name="VGUI">
@@ -63,5 +62,6 @@
             <File name="C:\Users\hogsy\Documents\Fortress\mp\game\mod_hl2mp\cfg\config.cfg" />
         </Folder>
         <File name="decals_subrect.txt" />
+        <File name="C:\Users\Mark\Source\Repos\Fortress\mp\game\mod_hl2mp\notes.txt" />
     </Project>
 </NotepadPlus>

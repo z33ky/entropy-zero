@@ -1,23 +1,23 @@
 "resource/ui/classmenu.res"
 {
-	"class"
+	class
 	{
-		"ControlName"		"CFortressClassMenu"
-		"fieldName"		"class"
-		"xpos"		"c-320"
-		"ypos"		"120"
-		"wide"		"320"
-		"tall"		"240"
-		"autoResize"		"0"
-		"pinCorner"		"0"
-		"RoundedCorners"		"15"
-		"pin_corner_to_sibling"		"0"
-		"pin_to_sibling_corner"		"0"
-		"visible"		"1"
-		"enabled"		"1"
-		"tabPosition"		"0"
-		"settitlebarvisible"		"0"
-		"title"		"#Frame_Untitled"
+		ControlName				CFortressClassMenu
+		fieldName				class
+		xpos					c-160
+		ypos					c-120
+		wide					320
+		tall					240
+		autoResize				0
+		pinCorner				0
+		RoundedCorners			15
+		pin_corner_to_sibling	0
+		pin_to_sibling_corner	0
+		visible					1
+		enabled					1
+		tabPosition				0
+		settitlebarvisible		0
+		title					"#Frame_Untitled"
 	}
 
 	"ReconButton"

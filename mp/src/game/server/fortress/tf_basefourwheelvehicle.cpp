@@ -264,9 +264,11 @@ void CBaseTFFourWheelVehicle::Spawn( )
 {
 	SetModel( STRING( GetModelName() ) );
 
+#ifdef IMPLEMENT_ME
 	CFourWheelServerVehicle *pServerVehicle = dynamic_cast<CFourWheelServerVehicle*>(GetServerVehicle());
 	m_VehiclePhysics.SetOuter( this, pServerVehicle );
 	m_VehiclePhysics.Spawn();
+#endif
 
 	BaseClass::Spawn();
 

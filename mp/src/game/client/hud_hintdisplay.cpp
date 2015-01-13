@@ -320,23 +320,15 @@ void CHudHintDisplay::LocalizeAndDisplay( const char *pszHudTxtMsg, const char *
 		C_BasePlayer *pLocalPlayer = C_BasePlayer::GetLocalPlayer();
 		if ( pLocalPlayer )
 		{
-#ifndef HL2MP
 			if ( sv_hudhint_sound.GetBool() && cl_hudhint_sound.GetBool() )
-			{
 				pLocalPlayer->EmitSound( "Hud.Hint" );
-			}
-#endif // HL2MP
 
 			if ( pLocalPlayer->Hints() )
-			{
 				pLocalPlayer->Hints()->PlayedAHint();
-			}
 		}
 	}
 	else
-	{
 		g_pClientMode->GetViewportAnimationController()->StartAnimationSequence( "HintMessageHide" ); 
-	}
 }
 
 

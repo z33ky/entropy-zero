@@ -1,18 +1,20 @@
 WeaponData
 {
-	printname		"Burst Rifle"
-	viewmodel		"models/weapons/v_pistol.mdl"
-	playermodel		"models/weapons/placeholders/w_smg.mdl"
-	anim_prefix		"smg2"
-	bucket			0
+	printname	"Burst Rifle"
+	viewmodel	"models/weapons/v_pistol.mdl"
+	playermodel	"models/weapons/placeholders/w_smg.mdl"
+	anim_prefix	"smg2"
+	bucket		0
 	bucket_position	4
-	clip_size		30
+	clip_size	30
 	default_clip	30
 	primary_ammo	"Bullets"
 	secondary_ammo	"None"
-	weight			"7"
-	item_flags		"0"
-	damage			5
+	weight		"7"
+	item_flags	"0"
+	damage		5
+
+	showusagehint	1
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
@@ -26,24 +28,33 @@ WeaponData
 	{
 		"weapon"
 		{
-				"font"		"WeaponIcons"
-				"character"	"e"
+				"file"		"sprites/w_icons2b"
+				"x"		"0"
+				"y"		"128"
+				"width"		"128"
+				"height"	"64"
 		}
 		"weapon_s"
 		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"e"
+				"file"		"sprites/w_icons2b"
+				"x"		"0"
+				"y"		"128"
+				"width"		"128"
+				"height"	"64"
 		}
 		"ammo"
 		{
-				"font"		"WeaponIcons"
-				"character"	"q"
+				"file"		"sprites/a_icons1"
+				"x"		"55"
+				"y"		"90"
+				"width"		"73"
+				"height"	"20"
 		}
 		"crosshair"
 		{
 			file	"sprites/crosshairs"
-			x		48
-			y		48
+			x	48
+			y	48
 			width	24
 			height	24
 		}

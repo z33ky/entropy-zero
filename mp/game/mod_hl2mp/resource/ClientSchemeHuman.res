@@ -6,38 +6,50 @@ ClientSchemeHuman
 		Orange		"255 176 0 255"
 		Yellow		"255 255 0 255"
 		Red			"255 0 0 255"
+		DarkRed		"100 0 0 255"
 		Green		"0 255 0 255"
 		Black		"0 0 0 255"
-		LightBlack	"0 0 0 125"
+		LightBlack	"0 0 0 240"
+		Blue		"0 255 0 255"
 		Invisible	"0 0 0 0"
 		
-		TeamColour	"255 0 0 100"
+		TeamColour			"255 0 0 255"
+		TeamColourLight		"255 0 0 200"
+		TeamColourDark		"50 0 0 255"
+		TeamColourDarkLight	"50 0 0 200"
 	}
 
 	BaseSettings
 	{
-		Black						"Black"
-		White						"White"
-		BrightFg					"Yellow"
-		FgColor						"Orange"
-		HudStatusBgColor			"LightBlack"
-		HudStatusSelectedBgColor	"Black"
-		NumericText					"Yellow"
-		NumericTextWarning			"Orange"
-		NumericTextCritical			"Red"
-		NumericBox					"TeamColour"
-		NumericCharFg				"Orange"
-		NumericCharBg				"0 255 0 255"
-		NumericCharBgBorder			"0 0 255 255"
-		SelectionTextFg				"White"
-		InvalidSlotFg				"0 0 0 100"
-		InvalidSlotText				"Red"
-		InvalidActiveSlotFg			"0 0 0 128"
-		InvalidActiveSlotText		"Red"
-		AmmoNormal					"White"
-		AmmoCaution					"Red"
-		OtherSlotFg					"Black"
-		OtherSlotText				"White"
+		Black						Black
+		White						White
+
+		BrightFg					Yellow
+		FgColor						Orange
+
+		HudStatusBgColor			TeamColourDarkLight
+		HudStatusSelectedBgColor	TeamColourDark
+
+		NumericText					Green
+		NumericTextWarning			Orange
+		NumericTextCritical			Red
+		NumericBox					TeamColourDarkLight
+		NumericCharFg				Orange
+		NumericCharBg				Green
+		NumericCharBgBorder			Blue
+
+		SelectionTextFg				White
+
+		InvalidSlotFg				DarkRed
+		InvalidSlotText				DarkRed
+		InvalidActiveSlotFg			Red
+		InvalidActiveSlotText		Red
+
+		AmmoNormal					Green
+		AmmoCaution					Red
+
+		OtherSlotFg					Green
+		OtherSlotText				Green
 	}
 
 	Fonts
@@ -46,9 +58,9 @@ ClientSchemeHuman
 		{
 			1
 			{
-				name		"Electrofied"
-				tall		"16"
-				weight		"1000"
+				name		"Oswald"
+				tall		"24"
+				weight		"0"
 				antialias	"1"
 			}
 		}
@@ -57,10 +69,11 @@ ClientSchemeHuman
 		{
 			1
 			{
-				name		"Michroma"
-				tall		"16"
+				name		"Oswald"
+				tall		"13"
 				weight		"0"
 				antialias	"1"
+				scanlines	"3"
 			}
 		}
 		
@@ -68,8 +81,8 @@ ClientSchemeHuman
 		{
 			1
 			{
-				name		"Michroma"
-				tall		"13"
+				name		"Oswald"
+				tall		"10"
 				weight		"0"
 				antialias	"1"
 			}
@@ -79,8 +92,8 @@ ClientSchemeHuman
 		{
 			1
 			{
-				name		"Michroma"
-				tall		"16"
+				name		"Oswald"
+				tall		"18"
 				weight		"0"
 				antialias	"1"
 			}
@@ -91,7 +104,7 @@ ClientSchemeHuman
 			1
 			{
 				name		"Michroma"
-				tall		"13"
+				tall		"14"
 				weight		"100"
 				additive	"1"
 				antialias 	"1"
@@ -103,10 +116,10 @@ ClientSchemeHuman
 			1
 			{
 				name		"Michroma"
-				tall		"13"
+				tall		"14"
 				weight		"100"
 				additive	"1"
-				scanlines	"2"
+				scanlines	"3"
 				antialias 	"1"
 				blur		"2"
 			}
@@ -778,5 +791,7 @@ ClientSchemeHuman
 	{
 		1	"resource/fonts/michroma/michroma.ttf"
 		2	"resource/fonts/electr.ttf"
+		3	"resource/fonts/oswald/Oswald-Regular.ttf"
+		4	"resource/fonts/squada_one/SquadaOne-Regular.ttf"
 	}
 }

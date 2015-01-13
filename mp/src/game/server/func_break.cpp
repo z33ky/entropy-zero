@@ -22,21 +22,11 @@
 #include "physics_impact_damage.h"
 #include "tier0/icommandline.h"
 
-#ifdef PORTAL
-	#include "portal_shareddefs.h"
-	#include "portal_util_shared.h"
-	#include "prop_portal_shared.h"
-#endif
-
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
 ConVar func_break_max_pieces( "func_break_max_pieces", "15", FCVAR_ARCHIVE | FCVAR_REPLICATED );
 ConVar func_break_reduction_factor( "func_break_reduction_factor", ".5" );
-
-#ifdef HL1_DLL
-extern void PlayerPickupObject( CBasePlayer *pPlayer, CBaseEntity *pObject );
-#endif
 
 extern Vector		g_vecAttackDir;
 

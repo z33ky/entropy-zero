@@ -1374,7 +1374,6 @@ void WeaponImpact( trace_t *tr, Vector vecDir, bool bHurt, CBaseEntity *pEntity,
 	}
 }
 
-
 static bool CheckCollisionGroupPlayerMovement( int collisionGroup0, int collisionGroup1 )
 {
  	if ( collisionGroup0 == COLLISION_GROUP_PLAYER )
@@ -1412,7 +1411,6 @@ static bool CheckCollisionGroupPlayerMovement( int collisionGroup0, int collisio
 
 	return true;
 }
-
 
 void CTeamFortress::WeaponTraceLine( const Vector& src, const Vector& end, unsigned int mask, CBaseEntity *pShooter, int damageType, trace_t* pTrace )
 {

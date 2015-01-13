@@ -76,6 +76,10 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel("models/player/human_defender.mdl");
 	CBaseEntity::PrecacheModel("models/player/alien_technician.mdl");
 	CBaseEntity::PrecacheModel("models/player/human_technician.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_infiltrator.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_infiltrator.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_support.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_support.mdl");
 
 	// I 'unno, just precache these here for now... ~hogsy
 	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");

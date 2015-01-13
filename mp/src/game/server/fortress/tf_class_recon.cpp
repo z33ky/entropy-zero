@@ -33,20 +33,16 @@ ConVar	class_recon_speed( "class_recon_speed","250", FCVAR_NONE, "Recon movement
 //
 BEGIN_SEND_TABLE_NOBASE( CPlayerClassRecon, DT_PlayerClassReconData )
 	SendPropInt		( SENDINFO_STRUCTELEM( m_ClassData.m_nJumpCount ), 3, SPROP_UNSIGNED ),
-	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionJumpTime ), 32, SPROP_NOSCALE ),
+	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionJumpTime ), 0, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionImpactTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flStickTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flActiveJumpTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flImpactDist ), 32, SPROP_NOSCALE ),
-	SendPropVector	( SENDINFO_STRUCTELEM( m_ClassData.m_vecImpactNormal ), -1, SPROP_NORMAL ),
+	SendPropVector(SENDINFO_STRUCTELEM(m_ClassData.m_vecImpactNormal), -1, SPROP_NORMAL),
 	SendPropVector	( SENDINFO_STRUCTELEM( m_ClassData.m_vecUnstickVelocity ), -1, SPROP_COORD ),
 	SendPropInt		( SENDINFO_STRUCTELEM( m_ClassData.m_bTrailParticles ), 1, SPROP_UNSIGNED ),
 END_SEND_TABLE()
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : const char
-//-----------------------------------------------------------------------------
 const char *CPlayerClassRecon::GetClassModelString( int nTeam )
 {
 	if (nTeam == TEAM_HUMANS)
@@ -55,9 +51,6 @@ const char *CPlayerClassRecon::GetClassModelString( int nTeam )
 		return "models/player/alien_recon.mdl";
 }
 
-// ------------------------------------------------------------------------ //
-// CPlayerClassRecon
-// ------------------------------------------------------------------------ //
 CPlayerClassRecon::CPlayerClassRecon( CBaseTFPlayer *pPlayer, TFClass iClass ) : CPlayerClass( pPlayer, iClass )
 {
 	for (int i = 1; i <= MAX_TF_TEAMS; ++i)
@@ -66,17 +59,10 @@ CPlayerClassRecon::CPlayerClassRecon( CBaseTFPlayer *pPlayer, TFClass iClass ) :
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CPlayerClassRecon::~CPlayerClassRecon()
 {
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassRecon::ClassActivate( void )
 {
 	BaseClass::ClassActivate();
@@ -89,17 +75,11 @@ void CPlayerClassRecon::ClassActivate( void )
 	memset( &m_ClassData, 0, sizeof( m_ClassData ) );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassRecon::ClassDeactivate( void )
 {
 	BaseClass::ClassDeactivate();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CPlayerClassRecon::ResupplyAmmo( float flFraction, ResupplyReason_t reason )
 {
 	bool bGiven = false;
@@ -136,9 +116,6 @@ void CPlayerClassRecon::SetupMoveData( void )
 	m_ClassData.m_bTrailParticles = false;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CPlayerClassRecon::SetupSizeData( void )
 {
 	// Initially set the player to the base player class standing hull size.
@@ -155,9 +132,6 @@ int CPlayerClassRecon::CanBuild( int iObjectType )
 	return BaseClass::CanBuild( iObjectType );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CPlayerClassRecon::ClassThink()
 {
 	BaseClass::ClassThink();

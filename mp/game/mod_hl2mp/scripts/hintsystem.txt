@@ -1,0 +1,20 @@
+HintSystem
+{	
+	TF_HINT_WEAPONRECEIVED
+	{
+		classname	default
+		priority	100
+		width		default
+		title		"Weapon Received"
+
+		items
+		{
+			CHintHudWeaponFlash
+			{
+				title		"test title"
+				formatstring	"format string"
+				autocomplete	"0"
+			}
+		}
+	}
+}

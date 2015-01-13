@@ -88,6 +88,9 @@ DECLARE_HUD_MESSAGE( CHudResourcesPickup, PickupRes );
 CHudResourcesPickup::CHudResourcesPickup( const char *pElementName ) : CHudNumeric( pElementName, "HudResourcesPickup")
 {
 	m_iPickupAmount = 0;
+
+	// Don't draw the background for this. ~hogsy
+	SetPaintBackgroundEnabled(false);
 }
 
 void CHudResourcesPickup::Init( void )

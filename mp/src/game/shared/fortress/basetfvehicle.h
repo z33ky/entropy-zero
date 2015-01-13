@@ -1,8 +1,8 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
+//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: A base vehicle class
 //
-//=============================================================================
+//=============================================================================//
 
 #ifndef BASETFVEHICLE_H
 #define BASETFVEHICLE_H
@@ -59,13 +59,12 @@ public:
 #if !defined (CLIENT_DLL)
 	// CBaseEntity overrides
 	virtual void	FinishedBuilding( void );
-	virtual void	SetObjectCollisionBox( void );
 	virtual void	DestroyObject( );
 	virtual void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	virtual bool	UseAttachedItem( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	virtual void	GetVectors(Vector* pForward, Vector* pRight, Vector* pUp) const;
 
-	virtual bool	ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args);
+	virtual bool	ClientCommand( CBaseTFPlayer *pPlayer, const CCommand &args );
 
 	// IVehicle overrides
 	virtual IServerVehicle*	GetServerVehicle() { return this; }
@@ -80,38 +79,40 @@ public:
 
 	virtual Class_T			ClassifyPassenger(CBaseCombatCharacter *pPassenger, Class_T defaultClassification) { return defaultClassification; }
 	virtual float			PassengerDamageModifier(const CTakeDamageInfo &info) { return 1.0; }
-
-	virtual const vehicleparams_t		*GetVehicleParams( void ) { return NULL; }
-	virtual IPhysicsVehicleController	*GetVehicleController(void) { return NULL; }
+	virtual const vehicleparams_t	*GetVehicleParams( void ) { return NULL; }
 
 	virtual bool			IsVehicleUpright( void ) { return true; }
+	virtual bool			IsPassengerEntering( void ) { Assert( 0 ); return true; }
+	virtual bool			IsPassengerExiting( void ) { Assert( 0 ); return true; }
+
+	virtual void			RestorePassengerInfo(void) {}
 
 	// NPC Driving
-	virtual int				NPC_GetAvailableSeat(CBaseCombatCharacter *pPassenger, string_t strRoleName, VehicleSeatQuery_e nQueryType) { return 0; }
-	virtual bool			NPC_AddPassenger(CBaseCombatCharacter *pPassenger, string_t strRoleName, int nSeat) { return false; }
-	virtual bool			NPC_RemovePassenger(CBaseCombatCharacter *pPassenger) { return false; }
-	virtual bool			NPC_GetPassengerSeatPosition(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
-	virtual bool			NPC_GetPassengerSeatPositionLocal(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
-	virtual int				NPC_GetPassengerSeatAttachment(CBaseCombatCharacter *pPassenger) { return 0; }
-	virtual bool			NPC_HasAvailableSeat(string_t strRoleName) { return false; }
-	virtual bool			NPC_CanDrive( void ) { return true; }
-	virtual void			NPC_SetDriver( CNPC_VehicleDriver *pDriver ) { return; }
-	virtual void			NPC_DriveVehicle( void ) { return; }
-	virtual void			NPC_ThrottleCenter( void ) { return; }
-	virtual void			NPC_ThrottleReverse( void ) { return; }
-	virtual void			NPC_ThrottleForward( void ) { return; }
-	virtual void			NPC_Brake( void ) { return; }
-	virtual void			NPC_TurnLeft( float flDegrees ) { return; }
-	virtual void			NPC_TurnRight( float flDegrees ) { return; }
-	virtual void			NPC_TurnCenter( void ) { return; }
-	virtual void			NPC_PrimaryFire( void ) { return; }
-	virtual void			NPC_SecondaryFire( void ) { return; }
-	virtual bool			NPC_HasPrimaryWeapon( void ) { return false; }
-	virtual bool			NPC_HasSecondaryWeapon( void ) { return false; }
-	virtual void			NPC_AimPrimaryWeapon( Vector vecTarget ) { return; }
-	virtual void			NPC_AimSecondaryWeapon( Vector vecTarget ) { return; }
-	virtual const PassengerSeatAnims_t	*NPC_GetPassengerSeatAnims(CBaseCombatCharacter *pPassenger, PassengerSeatAnimType_t nType) { return NULL; }
-	virtual CBaseCombatCharacter	*NPC_GetPassengerInSeat(int nRoleID, int nSeatID) { return NULL; }
+	virtual bool						NPC_AddPassenger(CBaseCombatCharacter *pPassenger, string_t strRoleName, int nSeat) { return false; }
+	virtual bool						NPC_RemovePassenger(CBaseCombatCharacter *pPassenger) { return false; }
+	virtual bool						NPC_CanDrive( void ) { return true; }
+	virtual void						NPC_SetDriver( CNPC_VehicleDriver *pDriver ) { return; }
+	virtual void						NPC_DriveVehicle( void ) { return; }
+	virtual void						NPC_ThrottleCenter( void ) { return; }
+	virtual void						NPC_ThrottleReverse( void ) { return; }
+	virtual void						NPC_ThrottleForward( void ) { return; }
+	virtual void						NPC_Brake( void ) { return; }
+	virtual void						NPC_TurnLeft( float flDegrees ) { return; }
+	virtual void						NPC_TurnRight( float flDegrees ) { return; }
+	virtual void						NPC_TurnCenter( void ) { return; }
+	virtual void						NPC_PrimaryFire( void ) { return; }
+	virtual void						NPC_SecondaryFire( void ) { return; }
+	virtual bool						NPC_HasPrimaryWeapon( void ) { return false; }
+	virtual bool						NPC_HasSecondaryWeapon( void ) { return false; }
+	virtual bool						NPC_GetPassengerSeatPosition(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
+	virtual bool						NPC_GetPassengerSeatPositionLocal(CBaseCombatCharacter *pPassenger, Vector *vecResultPos, QAngle *vecResultAngle) { return false; }
+	virtual	bool						NPC_HasAvailableSeat(string_t strRoleName) { return false; }
+	virtual int							NPC_GetAvailableSeat(CBaseCombatCharacter *pPassenger, string_t strRoleName, VehicleSeatQuery_e nQueryType) { return 0; }
+	virtual void						NPC_AimPrimaryWeapon( Vector vecTarget ) { return; }
+	virtual void						NPC_AimSecondaryWeapon( Vector vecTarget ) { return; }
+	virtual int							NPC_GetPassengerSeatAttachment(CBaseCombatCharacter *pPassenger) { return 0; }
+	virtual const PassengerSeatAnims_t	*NPC_GetPassengerSeatAnims(CBaseCombatCharacter *pPassenger, PassengerSeatAnimType_t nType)	{ return NULL; }
+	virtual CBaseCombatCharacter		*NPC_GetPassengerInSeat(int nRoleID, int nSeatID)	{ return NULL; }
 
 	// Weapon handling
 	virtual void			Weapon_PrimaryRanges( float *flMinRange, float *flMaxRange ) { *flMinRange = 0; *flMaxRange = 0; }
@@ -131,15 +132,18 @@ public:
 	int GetParentVehicleRole();
 
 	// Purpose: 
-	void GetPassengerExitPoint(CBaseCombatCharacter *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles);
+	void GetPassengerExitPoint( CBasePlayer *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles );
 	int	 GetEntryAnimForPoint( const Vector &vecPoint );
-	int	 GetExitAnimToUse(Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked);
-	void HandleEntryExitFinish( bool bExitAnimOn );
+	int  GetExitAnimToUse( Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked );
+	void HandleEntryExitFinish( bool bExitAnimOn, bool bResetAnim );
+	void HandlePassengerEntry(CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone = false);
+	bool HandlePassengerExit(CBaseCombatCharacter *pPlayer);
 
 	// Deterioration
 	void	VehicleDeteriorationThink( void );
 	void	VehiclePassengerThink( void );
 
+	IPhysicsVehicleController *GetVehicleController() { return NULL; }
 #endif
 
 	bool	IsReadyToDrive( void );
@@ -147,19 +151,11 @@ public:
 	virtual bool	IsAVehicle( void ) { return true; }
 
 	// Get a position in *local space* inside the vehicle for the player to start at
-	// Was GetPassengerStartPoint, but Valve change its name ~hogsy
-	virtual void GetPassengerSeatPoint( int nRole, Vector *pPoint, QAngle *pAngles );
-
-	// Additional stuff that was otherwise misssing. ~hogsy
-	virtual	bool PassengerShouldReceiveDamage(CTakeDamageInfo &info) { return true; }
-	virtual bool IsPassengerEntering(void) { return false; }
-	virtual bool IsPassengerExiting(void) { return false; }
-	virtual void RestorePassengerInfo(void) {}
-	virtual void HandlePassengerEntry(CBaseCombatCharacter *pPassenger, bool bAllowEntryOutsideZone = false) {}
-	virtual bool HandlePassengerExit(CBaseCombatCharacter *pPassenger) { return false; }
-	virtual void HandleEntryExitFinish(bool bExitAnimOn, bool bResetAnim) {}
+	virtual void GetPassengerSeatPoint(int nRole, Vector *pPoint, QAngle *pAngles);
 
 #if defined( CLIENT_DLL )
+	virtual int GetJoystickResponseCurve() const	{ return 0; }
+
 	// C_BaseEntity overrides
 	virtual IClientVehicle*	GetClientVehicle() { return this; }
 
@@ -192,9 +188,6 @@ public:
 	virtual void	DrawHudBoostData( void );
 	virtual void	SetupCrosshair( void );
 
-	// Allows vehicles to choose their own curves for players using joysticks
-	virtual int		GetJoystickResponseCurve() const;
-
 #endif
 
 	int		LocateEntryPoint( CBaseTFPlayer *pPlayer, float* fBest2dDistanceSqr= NULL );
@@ -202,13 +195,12 @@ public:
 	// This lets the object decide whether or not it wants to use the ThirdPersonCameraOrigin attachment for its view.
 	// The manned guns use first-person when they're on the ground and third-person when they're in a vehicle.
 	virtual bool	ShouldUseThirdPersonVehicleView();
-	virtual void	GetVehicleViewPosition( int nRole, Vector *pOrigin, QAngle *pAngles, float *pFOV );
+	virtual void	GetVehicleViewPosition( int nRole, Vector *pOrigin, QAngle *pAngles, float *pFOV = NULL );
 	virtual bool	GetRoleViewPosition( int nRole, Vector *pVehicleEyeOrigin, QAngle *pVehicleEyeAngles );
 	virtual bool	GetRoleAbsViewPosition( int nRole, Vector *pAbsVehicleEyeOrigin, QAngle *pAbsVehicleEyeAngles );
 
 	// Can a given passenger take damage?
 	virtual bool	IsPassengerDamagable( int nRole ) { return (nRole != VEHICLE_ROLE_DRIVER); }
-
 
 	virtual void	Spawn();
 	virtual void	SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper *pHelper, CMoveData *move );
@@ -217,7 +209,7 @@ public:
 	virtual void	ItemPostFrame( CBasePlayer *pPassenger );
 
 	virtual CBasePlayer* GetPassenger( int nRole = VEHICLE_ROLE_DRIVER );
-	virtual int		GetPassengerRole( CBaseCombatCharacter *pPassenger );
+	virtual int		GetPassengerRole(CBaseCombatCharacter *pEnt);
 
 	// Does the player use his normal weapons while in this mode?
 	virtual bool	IsPassengerUsingStandardWeapons( int nRole = VEHICLE_ROLE_DRIVER ) { return false; }
@@ -239,6 +231,11 @@ public:
 	void	SetDriverGun( CBaseObjectDriverGun *pGun );
 	void	VehicleDriverGunThink( void );
 
+	// Additional functionality that was originally missing. ~hogsy
+	virtual bool	PassengerShouldReceiveDamage(CTakeDamageInfo &info) { return true; }
+	
+	virtual void ReloadScript() {}
+
 protected:
 	enum
 	{
@@ -257,8 +254,6 @@ protected:
 
 	bool	IsValidExitPoint( int nRole, Vector *pExitPoint, QAngle *pAngles );
 	int 	GetEmptyRole( void );
-
-	void	ReloadScript() {}	// debug/tuning
 
 private:
 #if !defined (CLIENT_DLL)

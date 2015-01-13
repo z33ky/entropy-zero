@@ -1,8 +1,8 @@
-//========= Copyright © 1996-2003, Valve LLC, All rights reserved. ============
+//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: A base vehicle class
 //
-//=============================================================================
+//=============================================================================//
 
 #include "cbase.h"
 #include "basetfvehicle.h"
@@ -35,7 +35,7 @@ BEGIN_NETWORK_TABLE( CBaseTFVehicle, DT_BaseTFVehicle )
 #endif
 END_NETWORK_TABLE()
 
-#if defined(CLIENT_DLL)
+#if defined( CLIENT_DLL )
 BEGIN_PREDICTION_DATA( CBaseTFVehicle )
 
 	DEFINE_PRED_ARRAY( m_hPassengers, FIELD_EHANDLE, CBaseTFVehicle::MAX_PASSENGERS, FTYPEDESC_INSENDTABLE ),
@@ -85,6 +85,7 @@ CBaseTFVehicle::CBaseTFVehicle()
 void CBaseTFVehicle::Spawn()
 {
 	BaseClass::Spawn();
+	CollisionProp()->SetSurroundingBoundsType( USE_OBB_COLLISION_BOUNDS );
 
 #if defined( CLIENT_DLL )
 	SetNextClientThink( CLIENT_THINK_ALWAYS );
@@ -104,9 +105,6 @@ CBaseEntity* CBaseTFVehicle::GetVehicleEnt()
 	return this;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFVehicle::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper *pHelper, CMoveData *move )
 {
 	// animate + update attachment points
@@ -131,7 +129,6 @@ void CBaseTFVehicle::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper
 void CBaseTFVehicle::FinishMove( CBasePlayer *player, CUserCmd *ucmd, CMoveData *move )
 {
 	VehicleDriverGunThink();
-	NetworkStateChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -165,7 +162,7 @@ void CBaseTFVehicle::OnItemPostFrame( CBaseTFPlayer *pDriver )
 	// If we have a gun for the driver, handle it
 	if ( m_hDriverGun )
 	{
-		if ( GetPassengerRole(pDriver) != VEHICLE_ROLE_DRIVER )
+		if (GetPassengerRole(pDriver) != VEHICLE_ROLE_DRIVER)
 			return;
 
 		if ( pDriver->m_nButtons & (IN_ATTACK | IN_ATTACK2) )
@@ -179,15 +176,12 @@ void CBaseTFVehicle::OnItemPostFrame( CBaseTFPlayer *pDriver )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-int CBaseTFVehicle::GetPassengerRole( CBaseCombatCharacter *pPassenger )
+int CBaseTFVehicle::GetPassengerRole(CBaseCombatCharacter *pEnt)
 {
-	Assert( pPassenger->IsPlayer() );
+	Assert( pEnt->IsPlayer() );
 	for ( int i = m_nMaxPassengers; --i >= 0; )
 	{
-		if (m_hPassengers[i] == pPassenger)
+		if (m_hPassengers[i] == pEnt)
 		{
 			return i;
 		}
@@ -399,9 +393,6 @@ int CBaseTFVehicle::GetChildVehicleRole( CBaseTFVehicle *pChild )
 	return -1;
 }
 
-void CBaseTFVehicle::SetObjectCollisionBox( void )
-{
-}
 
 //-----------------------------------------------------------------------------
 // Purpose: Vehicles are permanently oriented off angle for vphysics.
@@ -525,9 +516,6 @@ void CBaseTFVehicle::DestroyObject( void )
 	BaseClass::DestroyObject();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 int CBaseTFVehicle::GetEmptyRole( void )
 {
 	for ( int iPassenger = 0; iPassenger < m_nMaxPassengers; ++iPassenger )
@@ -605,7 +593,7 @@ bool CBaseTFVehicle::ClientCommand( CBaseTFPlayer *pPlayer, const CCommand &args
 void CBaseTFVehicle::GetInitialPassengerExitPoint( int nRole, Vector *pAbsPoint, QAngle *pAbsAngles )
 {
 	char pAttachmentName[32];
-	Q_snprintf( pAttachmentName, 32, "vehicle_exit_passenger%d", nRole );
+	Q_snprintf( pAttachmentName, sizeof( pAttachmentName ), "vehicle_exit_passenger%d", nRole );
 	int exitAttachmentIndex = LookupAttachment(pAttachmentName);
 	if (exitAttachmentIndex <= 0)
 	{
@@ -667,7 +655,7 @@ bool CBaseTFVehicle::IsValidExitPoint( int nRole, Vector *pExitPoint, QAngle *pA
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::GetPassengerExitPoint( CBaseCombatCharacter *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles )
+void CBaseTFVehicle::GetPassengerExitPoint( CBasePlayer *pPlayer, int nRole, Vector *pAbsPosition, QAngle *pAbsAngles )
 {
 
 	// Deal with vehicles built on other vehicles
@@ -730,7 +718,6 @@ bool CBaseTFVehicle::GetPassengerExitPoint( int nRole, Vector *pAbsPosition, QAn
 	// FIXME: Clean this up
 	CBasePlayer *pPlayer = GetPassenger(nRole);
 	GetPassengerExitPoint( pPlayer, nRole, pAbsPosition, pAbsAngles );
-
 	return true;
 }
 
@@ -745,16 +732,35 @@ int CBaseTFVehicle::GetEntryAnimForPoint( const Vector &vecPoint )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-int CBaseTFVehicle::GetExitAnimToUse(Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked)
+int CBaseTFVehicle::GetExitAnimToUse( Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked )
 {
+	bAllPointsBlocked = false;
 	return ACTIVITY_NOT_AVAILABLE;
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::HandleEntryExitFinish( bool bExitAnimOn )
+void CBaseTFVehicle::HandleEntryExitFinish( bool bExitAnimOn, bool bResetAnim )
 {
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+// Input  : *pPlayer - 
+//			false - 
+//-----------------------------------------------------------------------------
+void CBaseTFVehicle::HandlePassengerEntry(CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+// Input  : *pPlayer - 
+//-----------------------------------------------------------------------------
+bool CBaseTFVehicle::HandlePassengerExit(CBaseCombatCharacter *pPlayer)
+{
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -766,7 +772,6 @@ void CBaseTFVehicle::SetPassenger(int nRole, CBaseCombatCharacter *pEnt)
 	Assert( nRole >= 0 && nRole < m_nMaxPassengers );
 	Assert( !m_hPassengers[nRole].Get() || !pEnt );
 	m_hPassengers.Set( nRole, dynamic_cast<CBaseTFPlayer*>(pEnt) );
-	NetworkStateChanged( );
 
 	// If the vehicle's deteriorating, I get to own it now
 	if ( IsDeteriorating() )
@@ -786,7 +791,7 @@ void CBaseTFVehicle::SetPassenger(int nRole, CBaseCombatCharacter *pEnt)
 void CBaseTFVehicle::GetPassengerSeatPoint( int nRole, Vector *pAbsPoint, QAngle *pAbsAngles )
 {
 	char pAttachmentName[32];
-	Q_snprintf( pAttachmentName, 32, "vehicle_feet_passenger%d", nRole );
+	Q_snprintf( pAttachmentName, sizeof( pAttachmentName ), "vehicle_feet_passenger%d", nRole );
 	int nFeetAttachmentIndex = LookupAttachment(pAttachmentName);
 	GetAttachment( nFeetAttachmentIndex, *pAbsPoint, *pAbsAngles );
 }
@@ -823,7 +828,7 @@ int CBaseTFVehicle::LocateEntryPoint( CBaseTFPlayer *pPlayer, float* fBest2dDist
 			continue;
 	
 		// FIXME: Cache off the entry point
-		Q_snprintf( szPassengerEyes, 32, "vehicle_feet_passenger%d", iEntryPoint );
+		Q_snprintf( szPassengerEyes, sizeof( szPassengerEyes ), "vehicle_feet_passenger%d", iEntryPoint );
 		int nAttachmentIndex = LookupAttachment( szPassengerEyes );
 
 		float flDistance2;
@@ -881,7 +886,7 @@ void CBaseTFVehicle::VehicleDriverGunThink( void )
 	Vector vecForward;
 	Vector vecSrc;
 	QAngle angEyeAngles;
-	GetVehicleViewPosition( VEHICLE_ROLE_DRIVER, &vecSrc, &angEyeAngles, NULL );
+	GetVehicleViewPosition(VEHICLE_ROLE_DRIVER, &vecSrc, &angEyeAngles, NULL);
 	AngleVectors( angEyeAngles, &vecForward, NULL, NULL );
 	Vector vecEnd = vecSrc + (vecForward * 10000);
 	UTIL_TraceLine( vecSrc, vecEnd, MASK_OPAQUE, this, COLLISION_GROUP_NONE, &trace );
@@ -960,7 +965,7 @@ bool CBaseTFVehicle::GetRoleViewPosition( int nRole, Vector *pVehicleEyeOrigin, 
 bool CBaseTFVehicle::GetRoleAbsViewPosition( int nRole, Vector *pAbsVehicleEyeOrigin, QAngle *pAbsVehicleEyeAngles )
 {
 	int iAttachment = LookupAttachment( "ThirdPersonCameraOrigin" );
-	if ( ShouldUseThirdPersonVehicleView() && vehicle_thirdperson.GetInt() && nRole == VEHICLE_ROLE_DRIVER && iAttachment > 0 )
+	if (ShouldUseThirdPersonVehicleView() && vehicle_thirdperson.GetInt() && nRole == VEHICLE_ROLE_DRIVER && iAttachment > 0)
 	{
 		// Ok, we're using third person. Leave their angles intact but rotate theirt view around the
 		// ThirdPersonCameraOrigin attachment.
@@ -983,7 +988,7 @@ bool CBaseTFVehicle::GetRoleAbsViewPosition( int nRole, Vector *pAbsVehicleEyeOr
 		// Use the vehicle_eyes_passengerX attachments.
 		Assert( nRole >= 0 );
 		char pAttachmentName[32];
-		Q_snprintf( pAttachmentName, 32, "vehicle_eyes_passenger%d", nRole );
+		Q_snprintf( pAttachmentName, sizeof( pAttachmentName ), "vehicle_eyes_passenger%d", nRole );
 		int eyeAttachmentIndex = LookupAttachment(pAttachmentName);
 		
 		QAngle vTempAngles;
@@ -1000,7 +1005,7 @@ bool CBaseTFVehicle::GetRoleAbsViewPosition( int nRole, Vector *pAbsVehicleEyeOr
 //-----------------------------------------------------------------------------
 // Purpose: Modify the player view/camera while in a vehicle
 //-----------------------------------------------------------------------------
-void CBaseTFVehicle::GetVehicleViewPosition( int nRole, Vector *pAbsOrigin, QAngle *pAbsAngles, float *pFOV )
+void CBaseTFVehicle::GetVehicleViewPosition( int nRole, Vector *pAbsOrigin, QAngle *pAbsAngles, float *pFOV /*= NULL*/ )
 {
 	// UNDONE: Use attachment point on the vehicle, not hardcoded player eyes
 	Assert( nRole >= 0 );
@@ -1064,6 +1069,7 @@ void CBaseTFVehicle::GetVehicleViewPosition( int nRole, Vector *pAbsOrigin, QAng
 	*/
 }
 
+
 //-----------------------------------------------------------------------------
 //
 // Client-only code here
@@ -1095,9 +1101,6 @@ QAngle CBaseTFVehicle::GetPassengerAngles( QAngle angCurrent, int nRole )
 	return angCurrent;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFVehicle::DrawHudElements( void )
 {
 	// If we've got a driver gun, tell it to draw it's elements
@@ -1146,7 +1149,7 @@ void CBaseTFVehicle::SetupCrosshair( void )
 	{
 		// Init the default crosshair the first time.
 		CHudTexture newTexture;
-		Q_strcpy( newTexture.szTextureFile, "sprites/crosshairs" );
+		Q_strncpy( newTexture.szTextureFile, "sprites/crosshairs", sizeof( newTexture.szTextureFile ) );
 
 		newTexture.rc.left		= 0;
 		newTexture.rc.top		= 48;
@@ -1155,7 +1158,7 @@ void CBaseTFVehicle::SetupCrosshair( void )
 		m_pIconDefaultCrosshair = gHUD.AddUnsearchableHudIconToList( newTexture );
 	}
 
-	CHudCrosshair *crosshair = (CHudCrosshair *)GET_HUDELEMENT( CHudCrosshair );
+	CHudCrosshair *crosshair = GET_HUDELEMENT( CHudCrosshair );
 	if ( crosshair )
 	{
 		if ( !crosshair->HasCrosshair() && m_pIconDefaultCrosshair )
@@ -1163,11 +1166,6 @@ void CBaseTFVehicle::SetupCrosshair( void )
 			crosshair->SetCrosshair( m_pIconDefaultCrosshair, gHUD.m_clrNormal );
 		}
 	}
-}
-
-int CBaseTFVehicle::GetJoystickResponseCurve() const
-{
-	return 0;
 }
 
 #endif

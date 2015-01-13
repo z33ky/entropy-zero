@@ -14,15 +14,12 @@ STUB_WEAPON_CLASS( foo_weapon_basebludgeonweapon, BaseBludgeonWeapon, C_BaseComb
 
 STUB_WEAPON_CLASS( cycler_weapon, WeaponCycler, C_BaseCombatWeapon );
  
-STUB_WEAPON_CLASS( weapon_assault_rifle, WeaponAssaultRifle, C_TFMachineGun );
-STUB_WEAPON_CLASS( weapon_laserdesignator, WeaponLaserDesignator, C_BaseTFCombatWeapon );
-STUB_WEAPON_CLASS( weapon_laserrifle, WeaponLaserRifle, C_BaseTFCombatWeapon );
-STUB_WEAPON_CLASS( weapon_obj_empgenerator, WeaponObjEMPGenerator, C_WeaponBaseCombatObject );
+//STUB_WEAPON_CLASS( weapon_assault_rifle, WeaponAssaultRifle, C_TFMachineGun );
+//STUB_WEAPON_CLASS( weapon_laserdesignator, WeaponLaserDesignator, C_BaseTFCombatWeapon );
+//STUB_WEAPON_CLASS( weapon_laserrifle, WeaponLaserRifle, C_BaseTFCombatWeapon );
+//STUB_WEAPON_CLASS( weapon_obj_empgenerator, WeaponObjEMPGenerator, C_WeaponBaseCombatObject );
 STUB_WEAPON_CLASS( weapon_placedcharge, WeaponPlacedCharge, C_BaseTFCombatWeapon );
 STUB_WEAPON_CLASS( weapon_plasmarifle, WeaponPlasmaRifle, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_shotgun, WeaponShotgun, C_TFMachineGun );
 STUB_WEAPON_CLASS( weapon_sapper_shotgun, WeaponSapperShotgun, C_WeaponShotgun );
 STUB_WEAPON_CLASS( weapon_cubemap, WeaponCubemap, C_BaseCombatWeapon );
-
-// Added in for quick testing ~hogsy
-//STUB_WEAPON_CLASS(weapon_builder,WeaponBuilder,C_BaseCombatWeapon);

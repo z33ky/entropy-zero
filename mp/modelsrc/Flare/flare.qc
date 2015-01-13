@@ -10,8 +10,7 @@ Original internal name: Weapons/flare.mdl
 */
 
 $modelname "flare.mdl"
-$cd ".\"
-$cdtexture ".\"
+$cdmaterials "models/flare/"
 $scale 1.0
 
 $bbox -1.293600 -0.608121 -0.573675 1.292500 0.541892 0.576337

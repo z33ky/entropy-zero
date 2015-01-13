@@ -17,7 +17,6 @@
 #include "bone_setup.h"
 #include "hud_ammo.h"
 #include "hud_crosshair.h"
-#else
 #endif
 
 IMPLEMENT_NETWORKCLASS_ALIASED( ObjectBaseMannedGun, DT_ObjectBaseMannedGun )

@@ -606,21 +606,15 @@ IMPLEMENT_SERVERCLASS_ST( CShootingStarSpawner, DT_ShootingStarSpawner )
 	SendPropFloat( SENDINFO( m_flSpawnInterval ), -1, SPROP_NOSCALE ),
 END_SEND_TABLE()
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 CShootingStarSpawner::CShootingStarSpawner()
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 int CShootingStarSpawner::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
 	// Always send shooting star spawners if they are in the skybox!
 	if ( m_bSkybox )
-		return true;
+		return FL_EDICT_ALWAYS;
 
 	return BaseClass::ShouldTransmit( pInfo );
 }

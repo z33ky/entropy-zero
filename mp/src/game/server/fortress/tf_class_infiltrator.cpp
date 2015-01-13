@@ -38,8 +38,10 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 const char *CPlayerClassInfiltrator::GetClassModelString( int nTeam )
 {
-	static const char *string = "models/player/spy.mdl";
-	return string;
+	if (nTeam == TEAM_HUMANS)
+		return "models/player/human_infiltrator.mdl";
+	else
+		return "models/player/alien_infiltrator.mdl";
 }
 
 // Infiltrator

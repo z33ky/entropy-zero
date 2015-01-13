@@ -117,7 +117,7 @@
       <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\studiomdl.exe</CompilerPathFileName>
     </GameSetup>
   </GameSetups>
-  <CompileQcPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\modelsrc\Human_PDA\Old\v_pda_engineer.qc</CompileQcPathFileName>
+  <CompileQcPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\modelsrc\Flare\flare.qc</CompileQcPathFileName>
   <CompileOutputSubfolderIsChecked>false</CompileOutputSubfolderIsChecked>
   <CompileOutputSubfolderName>for_model_viewer</CompileOutputSubfolderName>
   <CompilerOptionNoP4IsChecked>true</CompilerOptionNoP4IsChecked>

@@ -29,10 +29,9 @@ public:
 						CTFHintManager( void );
 
 	virtual void		Spawn( void );
-
 	virtual void		Think( void );
 
-	virtual bool		ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea );
+	virtual int		ShouldTransmit(const CCheckTransmitInfo *pInfo);
 
 private:
 

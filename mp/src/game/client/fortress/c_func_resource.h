@@ -38,7 +38,7 @@ public:
 
 	C_ResourceSpawner();
 	virtual void OnDataChanged( DataUpdateType_t updateType );
-	virtual void ReceiveMessage( const char *msgname, int length, void *data );
+	virtual void ReceiveMessage(int classID, bf_read &msg);
 	virtual void SpawnEffect( bool bSpawningChunk );
 	virtual void ClientThink( void );
 

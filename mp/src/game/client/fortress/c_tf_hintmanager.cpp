@@ -15,7 +15,7 @@
 
 
 // Global off switch for hint system
-static ConVar tf2_hintsystem( "tf2_hintsystem", "0", 0, "Enable interface hints in TF2." );
+static ConVar tf2_hintsystem( "tf2_hintsystem", "1", 0, "Enable interface hints in TF2." );
 static C_TFHintManager *g_pHintManager = NULL;
 
 #define HINT_DISPLAY_STATS_FILE "scripts/hintdisplaystats.txt"

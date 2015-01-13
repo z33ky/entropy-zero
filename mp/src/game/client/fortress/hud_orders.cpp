@@ -15,27 +15,16 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudLabel::SetSelected( bool bSelected )
 {
 	m_bSelected = bSelected;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudOrderList *GetHudOrderList( void )
 {
 	return GET_HUDELEMENT( CHudOrderList );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudOrder::CHudOrder( int x,int y,int wide,int tall ) : vgui::Panel( NULL, "CHudOrder")
 {
 	SetBounds( x, y, wide, tall );
@@ -43,16 +32,10 @@ CHudOrder::CHudOrder( int x,int y,int wide,int tall ) : vgui::Panel( NULL, "CHud
 	m_pOrder = NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudOrder::~CHudOrder( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrder::Init( void )
 {
 	SetSize( ORDERS_ELEMENT_WIDTH, ORDERS_ELEMENT_HEIGHT );
@@ -65,9 +48,6 @@ void CHudOrder::Paint( void )
 {
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrder::SetOrder( C_Order *pOrder )
 {
 	// If we had an order, tell it to clean up
@@ -85,17 +65,11 @@ void CHudOrder::SetOrder( C_Order *pOrder )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 C_Order *CHudOrder::GetOrder( void )
 {
 	return m_pOrder;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrder::UpdateOrder( void )
 {
 	if ( m_pOrder == NULL )
@@ -110,9 +84,6 @@ void CHudOrder::OrderRemoved( void )
 	m_pOrder = NULL;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrder::ApplySchemeSettings(vgui::IScheme *pScheme)
 {
 	Panel::ApplySchemeSettings(pScheme);
@@ -148,9 +119,6 @@ CHudOrderList::CHudOrderList( const char *pElementName ) :
 
 DECLARE_HUDELEMENT( CHudOrderList );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CHudOrderList::~CHudOrderList( void )
 {
 	for (int i = 0; i < MAX_HUD_ORDERS; i++)
@@ -163,9 +131,6 @@ CHudOrderList::~CHudOrderList( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrderList::LevelInit( void )
 {
 	SetPos( ORDERS_LEFT, ORDERS_TOP );
@@ -216,13 +181,12 @@ void CHudOrderList::OnThink( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CHudOrderList::Paint( void )
 {
-//	vgui::surface()->DrawSetColor( 255,0,0, 64 );
-//	vgui::surface()->DrawOutlinedRect( 0,0, GetWide(), GetTall() );
+#if 1 // was originally disabled ~hogsy
+	vgui::surface()->DrawSetColor( 255,0,0, 64 );
+	vgui::surface()->DrawOutlinedRect( 0,0, GetWide(), GetTall() );
+#endif
 }
 
 //-----------------------------------------------------------------------------

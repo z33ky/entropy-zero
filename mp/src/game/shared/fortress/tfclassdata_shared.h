@@ -257,7 +257,6 @@ struct PlayerClassReconData_t
 	DECLARE_CLASS_NOBASE( PlayerClassReconData_t );
 	DECLARE_EMBEDDED_NETWORKVAR();
 
-
 	enum { PLAYERCLASS_ID = TFCLASS_RECON };
 
 	// For in-air jumps
@@ -268,8 +267,8 @@ struct PlayerClassReconData_t
 	CNetworkVar( float, m_flSuppressionImpactTime );
 	CNetworkVar( float, m_flActiveJumpTime );
 	CNetworkVar( float, m_flStickTime );
-	CNetworkVector(	m_vecImpactNormal );
 	CNetworkVar( float, m_flImpactDist );
+	CNetworkVector(m_vecImpactNormal);
 	CNetworkVector( m_vecUnstickVelocity );
 
 	// Trail

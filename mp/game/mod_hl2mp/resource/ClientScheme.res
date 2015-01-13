@@ -6,25 +6,20 @@ Scheme
 		"OrangeDim"				"255 176 0 120"
 		"LightOrange"			"188 112 0 128"
 		"Red"					"192 28 0 140"
-		"Black"					"0 0 0 196"
+		Black					"0 0 0 255"
 		"TransparentBlack"		"0 0 0 196"
 		"TransparentLightBlack"	"0 0 0 90"
 		"Blank"					"0 0 0 0"
 		White					"255 255 255 255"
 		LightWhite				"255 255 255 90"
-		"ForTesting"			"255 0 0 32"
-		"ForTesting_Magenta"	"255 0 255 255"
-		"ForTesting_MagentaDim"	"255 0 255 120"
 	}
 
 	BaseSettings
 	{
 		FgColor			"255 220 0 100"
-		BgColor			"0 0 0 255"
 		BrightFg		"255 220 0 255"
 		DamagedBg		"180 0 0 200"
 		DamagedFg		"180 0 0 230"
-		BrightDamagedFg	"255 0 0 255"
 
 		// weapon selection colors
 		"SelectionNumberFg"		"255 220 0 255"
@@ -32,16 +27,13 @@ Scheme
 		"SelectionEmptyBoxBg" 	"0 0 0 80"
 		"SelectionBoxBg" 		"0 0 0 80"
 		"SelectionSelectedBoxBg" "0 0 0 80"
-		
-		"ZoomReticleColor"	"255 220 0 255"
 
 		Panel.FgColor	"255 220 0 100"
 		Panel.BgColor	Blank
 
-		// HL1-style HUD colors
-		"Yellowish"			"255 160 0 255"
-		"Normal"			"255 208 64 255"
-		"Caution"			"255 48 0 255"
+		Yellowish	"255 160 0 255"
+		Normal		"255 208 64 255"
+		Caution		"255 48 0 255"
 
 		// Top-left corner of the "Half-Life 2" on the main screen
 		Main.Title1.X		"22"
@@ -185,23 +177,20 @@ Scheme
 		WizardSubPanel.BgColor		"Blank"
 
 		// scheme-specific colors
-		"FgColor"		"Orange"
-		"BgColor"		"TransparentBlack"
+		FgColor		"Orange"
+		BgColor		"TransparentBlack"
 
-		"ViewportBG"		"Blank"
+		ViewportBG		"Blank"
 		"team0"			"204 204 204 255" // Spectators
 		"team1"			"255 64 64 255" // CT's
 		"team2"			"153 204 255 255" // T's
 
-		"MapDescriptionText"	"Orange" // the text used in the map description window
-		"Hostage_Yellow"	"Panel.FgColor"
-		"HudIcon_Green"		"0 160 0 255"
-		"HudIcon_Red"		"160 0 0 255"
+		MapDescriptionText	"Orange" // the text used in the map description window
 
 		// CHudMenu
-		"ItemColor"		"255 167 42 200"	// default 255 167 42 255
-		"MenuColor"		"233 208 173 255"
-		"MenuBoxBg"		"0 0 0 100"
+		ItemColor	"255 167 42 255"
+		MenuColor	"233 208 173 255"
+		MenuBoxBg	"0 0 0 100"
 
 		// weapon selection colors
 		"SelectionNumberFg"		"255 220 0 200"
@@ -213,12 +202,13 @@ Scheme
 		// Hint message colors
 		"HintMessageFg"			"255 255 255 255"
 		"HintMessageBg" 		"0 0 0 60"
-
-		"ProgressBarFg"			"255 30 13 255"
 		
 		NumericText			"255 255 255 255"
 		NumericTextWarning	"OrangeDim"
 		NumericTextCritical	"255 0 0 255"
+
+		HumanBoxColor	"255 0 0 120"
+		AlienBoxColor	"0 0 255 120"
 	}
 	
 	//////////////////////// FONTS /////////////////////////////
@@ -546,6 +536,20 @@ Scheme
 				"additive"	"1"
 			}
 		}
+		
+		HudHintText
+		{
+			"1"
+			{
+				"name"		"Verdana" [!$OSX]
+				"name"		"Helvetica" [$OSX]
+				"tall"		"11"
+				"weight"	"0"
+				"antialias" "1"
+				"additive"	"1"
+			}
+		}
+		
 		HudSelectionText
 		{
 			"1"

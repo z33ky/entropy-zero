@@ -1,0 +1,11 @@
+"HintDisplayStats"
+{
+	"TF_HINT_WEAPONRECEIVED"
+	{
+		"Burst Rifle"
+		{
+			"times_shown"		"0"
+			"times_max"		"3"
+		}
+	}
+}

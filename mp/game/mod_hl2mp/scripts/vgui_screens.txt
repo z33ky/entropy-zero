@@ -11,16 +11,16 @@ Screens
 	screen_obj_power_pack
 	{
 		type		"powerpack_control_panel"
-		pixelswide	800
-		pixelshigh	600
+		pixelswide	640
+		pixelshigh	480
 		resfile		"scripts/screens/powerpack_control_panel.res"
 	}
 	
 	screen_obj_buffstation
 	{
 		type		"buffstation_control_panel"
-		pixelswide	800
-		pixelshigh	600
+		pixelswide	640
+		pixelshigh	480
 		resfile		"scripts/screens/buffstation_control_panel.res"
 	}
 }

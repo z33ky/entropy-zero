@@ -92,7 +92,7 @@ void C_ResourceSpawner::OnDataChanged( DataUpdateType_t updateType )
 //-----------------------------------------------------------------------------
 // Purpose: Receive a spawn message from the server
 //-----------------------------------------------------------------------------
-void C_ResourceSpawner::ReceiveMessage( const char *msgname, int length, void *data )
+void C_ResourceSpawner::ReceiveMessage( int classID, bf_read &msg )
 {
 	// Make some particles
 	SpawnEffect( true );

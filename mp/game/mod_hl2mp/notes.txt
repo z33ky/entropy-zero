@@ -15,6 +15,20 @@ A.	Functionality seems identical to the turret featured in the final game, howev
 
 --------------------------
 
+Q.	What are the ammo types?
+A.	These are located in tf_gamerules.cpp
+	Bullets			:	DMG_BULLET
+	Rockets			:	DMG_BLAST
+	Grenades		:	DMG_BLAST
+	ShieldGrenades	:	DMG_ENERGYBEAM
+	ShotgunEnergy	:	DMG_ENERGYBEAM
+	PlasmaGrenade	:	DMG_ENERGYBEAM|DMG_BLAST
+	ResourceChunks	:	DMG_GENERIC
+	Limpets			:	DMG_BLAST
+	Gasoline		:	DMG_BURN
+	RallyFlags		:	DMG_GENERIC
+	EMPGenerators	:	DMG_GENERIC
+
 Q.	Where did resources come from?
 A.	Right now as far as I understand it, the aliens are responsible for the resources
 	that exists in the Invasion phase of Team Fortress 2. There are two things that

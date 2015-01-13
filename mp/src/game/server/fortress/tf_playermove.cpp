@@ -114,9 +114,6 @@ void CTFPlayerMove::SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper 
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, IMoveHelper *pHelper, 
 								    CTFMoveData *pTFMove )
 {
@@ -126,14 +123,14 @@ void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, I
 		PlayerClassReconData_t *pReconData = pRecon->GetClassData();
 		if ( pReconData )
 		{
-			pTFMove->ReconData().m_nJumpCount = pReconData->m_nJumpCount;
-			pTFMove->ReconData().m_flSuppressionJumpTime = pReconData->m_flSuppressionJumpTime;
-			pTFMove->ReconData().m_flSuppressionImpactTime = pReconData->m_flSuppressionImpactTime;
-			pTFMove->ReconData().m_flActiveJumpTime = pReconData->m_flActiveJumpTime;
-			pTFMove->ReconData().m_flStickTime = pReconData->m_flStickTime;
-			pTFMove->ReconData().m_flImpactDist = pReconData->m_flImpactDist;
-			pTFMove->ReconData().m_vecImpactNormal = pReconData->m_vecImpactNormal;
-			pTFMove->ReconData().m_vecUnstickVelocity = pReconData->m_vecUnstickVelocity;
+			pTFMove->ReconData().m_nJumpCount				= pReconData->m_nJumpCount;
+			pTFMove->ReconData().m_flSuppressionJumpTime	= pReconData->m_flSuppressionJumpTime;
+			pTFMove->ReconData().m_flSuppressionImpactTime	= pReconData->m_flSuppressionImpactTime;
+			pTFMove->ReconData().m_flActiveJumpTime			= pReconData->m_flActiveJumpTime;
+			pTFMove->ReconData().m_flStickTime				= pReconData->m_flStickTime;
+			pTFMove->ReconData().m_flImpactDist				= pReconData->m_flImpactDist;
+			pTFMove->ReconData().m_vecImpactNormal			= pReconData->m_vecImpactNormal;
+			pTFMove->ReconData().m_vecUnstickVelocity		= pReconData->m_vecUnstickVelocity;
 		}
 	}
 }
@@ -223,9 +220,6 @@ void CTFPlayerMove::FinishMove( CBasePlayer *player, CUserCmd *ucmd, CMoveData *
 		pTFPlayer->m_aMomentum[iMomentum] = pTFMove->m_aMomentum[iMomentum];
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFPlayerMove::FinishMoveRecon( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFMove, 
 									 CUserCmd *ucmd )
 {
@@ -235,14 +229,14 @@ void CTFPlayerMove::FinishMoveRecon( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFM
 		PlayerClassReconData_t *pReconData = pRecon->GetClassData();
 		if ( pReconData )
 		{
-			pReconData->m_nJumpCount = pTFMove->ReconData().m_nJumpCount;
-			pReconData->m_flSuppressionJumpTime = pTFMove->ReconData().m_flSuppressionJumpTime;
-			pReconData->m_flSuppressionImpactTime = pTFMove->ReconData().m_flSuppressionImpactTime;
-			pReconData->m_flActiveJumpTime = pTFMove->ReconData().m_flActiveJumpTime;
-			pReconData->m_flStickTime = pTFMove->ReconData().m_flStickTime;
-			pReconData->m_flImpactDist = pTFMove->ReconData().m_flImpactDist;
-			pReconData->m_vecImpactNormal = pTFMove->ReconData().m_vecImpactNormal;
-			pReconData->m_vecUnstickVelocity = pTFMove->ReconData().m_vecUnstickVelocity;
+			pReconData->m_nJumpCount				= pTFMove->ReconData().m_nJumpCount;
+			pReconData->m_flSuppressionJumpTime		= pTFMove->ReconData().m_flSuppressionJumpTime;
+			pReconData->m_flSuppressionImpactTime	= pTFMove->ReconData().m_flSuppressionImpactTime;
+			pReconData->m_flActiveJumpTime			= pTFMove->ReconData().m_flActiveJumpTime;
+			pReconData->m_flStickTime				= pTFMove->ReconData().m_flStickTime;
+			pReconData->m_flImpactDist				= pTFMove->ReconData().m_flImpactDist;
+			pReconData->m_vecImpactNormal			= pTFMove->ReconData().m_vecImpactNormal;
+			pReconData->m_vecUnstickVelocity		= pTFMove->ReconData().m_vecUnstickVelocity;
 		}
 	}
 }

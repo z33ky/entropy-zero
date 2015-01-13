@@ -311,15 +311,21 @@ CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 	{ "Defender",		g_iClassInfo_Defender,		true,	GENERATE_PLAYERCLASS_INFO( Defender )		},
 #ifdef IMPLEMENT_ME
 	{ "Sniper",			g_iClassInfo_Sniper,		false,	GENERATE_PLAYERCLASS_INFO( Sniper )			},
+#else
+	{ "Dummy", g_iClassInfo_Pyro, false, NULL },
 #endif
 	{ "Support",		g_iClassInfo_Support,		false,	GENERATE_PLAYERCLASS_INFO( Support )		},
 	{ "Escort",			g_iClassInfo_Escort,		true,	GENERATE_PLAYERCLASS_INFO( Escort )			},
 #ifdef IMPLEMENT_ME
 	{ "Sapper",			g_iClassInfo_Sapper,		true,	GENERATE_PLAYERCLASS_INFO( Sapper )			},
+#else
+	{ "Dummy", g_iClassInfo_Pyro, false, NULL },
 #endif
 	{ "Infiltrator",	g_iClassInfo_Infiltrator,	false,	GENERATE_PLAYERCLASS_INFO( Infiltrator )	},
 #ifdef IMPLEMENT_ME
 	{ "Pyro",			g_iClassInfo_Pyro,			false,	GENERATE_PLAYERCLASS_INFO( Pyro )			}
+#else
+	{ "Dummy", g_iClassInfo_Pyro, false, NULL	}
 #endif
 };
 

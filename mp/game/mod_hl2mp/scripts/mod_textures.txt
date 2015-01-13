@@ -1,41 +1,95 @@
 "sprites/640_hud"
 {
 	TextureData
-	{
+	{		
 		human_weapon_selection_background_1
 		{
-			file	"sprites/640hud1"
-			x		"192"
-			y		"224"
-			width	"32"
-			height	"16"
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
 		}
-		
+
+		human_weapon_selection_background_2
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
+		human_weapon_selection_background_3
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
+		human_weapon_selection_background_4
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
+		human_weapon_selection_background_5
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
+		human_weapon_selection_background_6
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
+		human_weapon_selection_background_7
+		{
+			file	hud/menu/human_weapon_selection_background
+			x	0
+			y	0
+			width	512
+			height	256
+		}
+
 		weapon_selection_offensive
 		{
-			file	"hud/iconmap"
-			x		0
-			y		0
-			width	156
-			height	216
+				file	hud/menu/weapon_selection_offensive
+				x	0
+				y	0
+				width	64
+				height	32
 		}
 		
 		weapon_selection_defensive
 		{
-			file	"hud/iconmap"
-			x		0
-			y		0
-			width	156
-			height	216
+				file	hud/menu/weapon_selection_defensive
+				x	0
+				y	0
+				width	64
+				height	32
 		}
 		
 		weapon_selection_general
 		{
-			file	"hud/iconmap"
-			x		0
-			y		0
-			width	156
-			height	216
+				file	hud/menu/weapon_selection_general
+				x	0
+				y	0
+				width	64
+				height	32
 		}
 		
 		"d_skull"

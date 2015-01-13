@@ -39,7 +39,7 @@ public:
 
 	// Call Precache + Spawn from the containing entity's Precache + Spawn methods
 	void Spawn();
-	void SetOuter( CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle ); 
+	void SetOuter(CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle);
 	
 	// Initializes the vehicle physics so we can drive it
 	bool Initialize( const char *pScriptName, unsigned int nVehicleType );
@@ -201,7 +201,7 @@ inline int CFourWheelVehiclePhysics::BoostTimeLeft() const
 	return m_nBoostTimeLeft;
 }
 
-inline void CFourWheelVehiclePhysics::SetOuter( CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle ) 
+inline void CFourWheelVehiclePhysics::SetOuter(CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle)
 { 
 	m_pOuter = pOuter; 
 	m_pOuterServerVehicle = pServerVehicle; 
