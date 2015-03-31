@@ -79,3 +79,6 @@ config.cfg
 /mp/game/mod_hl2mp/normal.tga
 *.db
 *.sfk
+*.prt
+*.vmx
+/sp__/src

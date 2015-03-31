@@ -187,7 +187,7 @@ HudLayout
 		wide				"95"
 		tall  				"36"
 		visible 			"1"
-		enabled 			"1"		
+		enabled 			"1"	
 		label_xpos_right 	"10"
 		label_ypos 			"2"
 		value_xpos_right 	"10"
