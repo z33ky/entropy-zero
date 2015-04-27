@@ -265,6 +265,9 @@ private:
 
 	// Figure out which role of a vehicle a child vehicle is sitting in..
 	int GetChildVehicleRole( CBaseTFVehicle *pChild );
+
+protected:
+	void ResetUseKey(CBasePlayer *pPlayer);
 #endif
 
 private:

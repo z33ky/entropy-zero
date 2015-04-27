@@ -98,7 +98,6 @@ private:
 	void DriveVehicle( CBasePlayer *pPlayer, CUserCmd *ucmd );
 	void PlayerControlInit( CBasePlayer *pPlayer );
 	void PlayerControlShutdown();
-	void ResetUseKey( CBasePlayer *pPlayer );
 	void InitializePoseParameters();
 	bool ParseVehicleScript( solid_t &solid, vehicleparams_t &vehicle );
 

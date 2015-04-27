@@ -24,9 +24,7 @@
 #include "vcollide_parse.h"
 #include "weapon_combatshield.h"
 #include "tf_vehicle_tank.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_manned_plasmagun.h"
-#endif
 #include "tf_obj_manned_missilelauncher.h"
 
 extern char *g_pszEMPPulseStart;
@@ -117,10 +115,8 @@ int GetStatGroupFor( CBaseTFPlayer *pPlayer )
 			return STATS_TANK;
 		if ( dynamic_cast<CObjectMannedMissileLauncher*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_ROCKET;
-#ifdef IMPLEMENT_ME
 		if ( dynamic_cast<CObjectMannedPlasmagun*>( pPlayer->GetVehicle() ) )
 			return STATS_MANNEDGUN_PLASMA;
-#endif
 	}
 
 	// Otherwise, use the playerclass

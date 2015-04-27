@@ -45,6 +45,12 @@ $Project "Client"
 		{
 			$Folder	"Shared"
 			{
+				$Folder "Objects"
+				{
+					$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun.cpp
+					$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun.h
+				}
+			
 				$File	$SRCDIR\game\shared\fortress\grenade_base_empable.cpp
 				$File	$SRCDIR\game\shared\fortress\grenade_base_empable.h
 				$File	$SRCDIR\game\shared\fortress\weapon_repairgun.cpp
@@ -66,6 +72,12 @@ $Project "Client"
 				$File	$SRCDIR\game\shared\fortress\plasmaprojectile_shared.cpp
 				$File	$SRCDIR\game\shared\fortress\plasmaprojectile_shared.h
 				//$File	$SRCDIR\game\shared\fortress\team_messages.cpp
+				
+				$File	$SRCDIR\game\shared\fortress\weapon_gas_can.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_gas_can.h
+				$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.h
+
 				$File	$SRCDIR\game\shared\fortress\techtree.cpp
 				$File	$SRCDIR\game\shared\fortress\techtree.h
 				$File	$SRCDIR\game\shared\fortress\techtree_parse.cpp
@@ -141,6 +153,33 @@ $Project "Client"
 				$File	$SRCDIR\game\shared\fortress\vehicle_mortar_shared.h
 				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.cpp
 				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.h
+			}
+			
+			$Folder "HUD"
+			{
+				$File	fortress/hud_ammo.cpp
+				$File	fortress/hud_ammo.h
+				$File	fortress/hud_commander_statuspanel.cpp
+				$File	fortress/hud_commander_statuspanel.h
+				$File	fortress/hud_damageindicator.cpp
+				$File	fortress/hud_health.cpp
+				$File	fortress/hud_minimap.cpp
+				$File	fortress/hud_minimap.h
+				$File	fortress/hud_numeric.cpp
+				$File	fortress/hud_numeric.h
+				$File	fortress/hud_orders.cpp
+				$File	fortress/hud_orders.h
+				$File	fortress/hud_resources.cpp
+				$File	fortress/hud_targetreticle.cpp
+				$File	fortress/hud_targetreticle.h
+				$File	fortress/hud_target_id.cpp
+				$File	fortress/hud_technologytreedoc.cpp
+				$File	fortress/hud_technologytreedoc.h
+				$File	fortress/hud_timer.cpp
+				$File	fortress/hud_timer.h
+				$File	fortress/hud_vehicle_role.cpp
+				$File	fortress/hud_vehicle_role.h
+				$File	fortress/hud_weaponselection.cpp
 			}
 			
 			$Folder "Vehicles"
@@ -219,6 +258,8 @@ $Project "Client"
 			$File	fortress/c_order_buildshieldwall.h
 			$File	fortress/c_order_mortar_attack.cpp
 			$File	fortress/c_order_mortar_attack.h
+			$File	fortress/c_order_killmortarguy.cpp
+			$File	fortress/c_order_killmortarguy.h
 			$File	fortress/c_ragdoll_shadow.cpp
 			$File	fortress/c_resource_chunk.cpp
 			$File	fortress/c_shield.cpp
@@ -279,29 +320,6 @@ $Project "Client"
 			$File	fortress/hintitemobjectbase.h
 			$File	fortress/hintitemorderbase.cpp
 			$File	fortress/hintitemorderbase.h
-			$File	fortress/hud_ammo.cpp
-			$File	fortress/hud_ammo.h
-			$File	fortress/hud_commander_statuspanel.cpp
-			$File	fortress/hud_commander_statuspanel.h
-			$File	fortress/hud_damageindicator.cpp
-			$File	fortress/hud_health.cpp
-			$File	fortress/hud_minimap.cpp
-			$File	fortress/hud_minimap.h
-			$File	fortress/hud_numeric.cpp
-			$File	fortress/hud_numeric.h
-			$File	fortress/hud_orders.cpp
-			$File	fortress/hud_orders.h
-			$File	fortress/hud_resources.cpp
-			$File	fortress/hud_targetreticle.cpp
-			$File	fortress/hud_targetreticle.h
-			$File	fortress/hud_target_id.cpp
-			$File	fortress/hud_technologytreedoc.cpp
-			$File	fortress/hud_technologytreedoc.h
-			$File	fortress/hud_timer.cpp
-			$File	fortress/hud_timer.h
-			$File	fortress/hud_vehicle_role.cpp
-			$File	fortress/hud_vehicle_role.h
-			$File	fortress/hud_weaponselection.cpp
 			$File	fortress/itfhintitem.h
 			$File	fortress/mapdata.cpp
 			$File	fortress/mapdata.h

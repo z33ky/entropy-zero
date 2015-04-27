@@ -353,9 +353,7 @@ void CPlayerClassDefender::CreatePersonalOrder()
 
 	// Alternate between sentrygun and sandbag orders.
 	if ( OrderCreator_BuildSentryGun( this ) )
-	{
 		return;
-	}
 	
 	BaseClass::CreatePersonalOrder();
 }

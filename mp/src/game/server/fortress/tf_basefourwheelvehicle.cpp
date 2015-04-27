@@ -264,7 +264,7 @@ void CBaseTFFourWheelVehicle::Spawn( )
 {
 	SetModel( STRING( GetModelName() ) );
 
-#ifdef IMPLEMENT_ME
+#if 0
 	CFourWheelServerVehicle *pServerVehicle = dynamic_cast<CFourWheelServerVehicle*>(GetServerVehicle());
 	m_VehiclePhysics.SetOuter( this, pServerVehicle );
 	m_VehiclePhysics.Spawn();
@@ -469,17 +469,6 @@ void CBaseTFFourWheelVehicle::PlayerControlInit( CBasePlayer *pPlayer )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CBaseTFFourWheelVehicle::ResetUseKey( CBasePlayer *pPlayer )
-{
-	pPlayer->m_afButtonPressed &= ~IN_USE;
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFFourWheelVehicle::PlayerControlShutdown()
 {
 	CBasePlayer *pPlayer = GetDriverPlayer();
@@ -537,9 +526,6 @@ void CBaseTFFourWheelVehicle::PowerupEnd( int iPowerup )
 // Methods related to actually driving the vehicle
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CBaseTFFourWheelVehicle::DriveVehicle( CBasePlayer *pPlayer, CUserCmd *ucmd )
 {
 	// Lose control when the player dies

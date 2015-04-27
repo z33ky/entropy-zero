@@ -1644,13 +1644,10 @@ CAmmoDef *GetAmmoDef()
 	{
 		bInitted = true;
 		
-#if 0
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	0,	0);
-#else	// Added some basic physics force ~hogsy
+		// Added some basic physics force ~hogsy
 		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	10,	0);
-#endif
-		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				0,	0);
-		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				0,	0);
+		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				50,	0);
+		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				50,	0);
 		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);
 		def.AddAmmoType("ShotgunEnergy",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	INFINITE_AMMO,	0,	0);
 		def.AddAmmoType("PlasmaGrenade",	DMG_ENERGYBEAM|DMG_BLAST,	TRACER_LINE,	0,	0,	30,				0,	0);

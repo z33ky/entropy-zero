@@ -135,7 +135,7 @@
 		"textinsety"		"0"
 		"auto_wide_tocontents"		"0"
 		"use_proportional_insets"		"0"
-		"command"		"changeteam 4"
+		"command"		"changeclass 4"
 		"Default"		"0"
 	}
 	"SniperButton"
@@ -164,7 +164,7 @@
 		"textinsety"		"0"
 		"auto_wide_tocontents"		"0"
 		"use_proportional_insets"		"0"
-		"command"		"changeteam 5"
+		"command"		"changeclass 5"
 		"Default"		"0"
 	}
 

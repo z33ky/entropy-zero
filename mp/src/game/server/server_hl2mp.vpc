@@ -133,6 +133,7 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\tf_tacticalmap.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_usermessages.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_vehicleshared.h
+				
 				$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.h
 				$File	$SRCDIR\game\shared\fortress\weapon_builder.cpp
@@ -155,21 +156,44 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.h
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.h
-				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
-				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.h
-				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.cpp
-				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.h
+				$File	$SRCDIR\game\shared\fortress\weapon_gas_can.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_gas_can.h
+				$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.cpp
+				$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.h
+				
 				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_support.cpp
 				$File	$SRCDIR\game\shared\fortress\tf_gamemovement_support.h
 				$File	$SRCDIR\game\shared\fortress\vehicle_mortar_shared.h
 				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.cpp
 				$File	$SRCDIR\game\shared\fortress\env_laserdesignation.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun_shared.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_base_manned_gun.h
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun.cpp
+				$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun.h
 			}
 			
 			$Folder	"Objects"
 			{
 				$File	fortress/tf_obj_manned_missilelauncher.cpp
 				$File	fortress/tf_obj_manned_missilelauncher.h
+			}
+			
+			$Folder "Classes"
+			{
+				$File	fortress/tf_class_sniper.cpp
+				$File	fortress/tf_class_sniper.h
+				$File	fortress/tf_class_pyro.cpp
+				$File	fortress/tf_class_pyro.h
+				$File	fortress/tf_class_sapper.cpp
+				$File	fortress/tf_class_sapper.h
+			}
+			
+			$Folder "Orders"
+			{
+				$File	fortress/order_killmortarguy.cpp
+				$File	fortress/order_killmortarguy.h
 			}
 			
 			$File	fortress/grenade_rocket.cpp

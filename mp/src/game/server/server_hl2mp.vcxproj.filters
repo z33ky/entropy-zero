@@ -16,8 +16,14 @@
     <Filter Include="Source Files\Fortress">
       <UniqueIdentifier>{2E6C6445-8149-FAB8-4CB0-942D12A0F9AF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Classes">
+      <UniqueIdentifier>{11742729-1F0F-7FB2-A71A-89C9630487D7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Fortress\Objects">
       <UniqueIdentifier>{E06F7093-170C-F5B5-C54C-13BFA6250BAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Orders">
+      <UniqueIdentifier>{3FCEA97A-B2E3-ECC6-C710-8C9B8FF263EC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
@@ -1718,8 +1724,20 @@
     <ClInclude Include="fortress\tf_vehicle_teleport_station.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_class_pyro.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_sapper.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_class_sniper.h">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_obj_manned_missilelauncher.h">
       <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_killmortarguy.h">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
@@ -1808,6 +1826,9 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -1839,6 +1860,12 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
@@ -3226,8 +3253,20 @@
     <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_class_pyro.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_sapper.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_class_sniper.cpp">
+      <Filter>Source Files\Fortress\Classes</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_obj_manned_missilelauncher.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_killmortarguy.cpp">
+      <Filter>Source Files\Fortress\Orders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
@@ -3316,6 +3355,9 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_baseupgrade_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3359,6 +3401,12 @@
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">

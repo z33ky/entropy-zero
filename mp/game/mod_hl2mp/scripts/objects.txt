@@ -2,13 +2,13 @@ objects
 {
 	OBJ_POWERPACK
 	{
-		ClassName				obj_powerpack
-		StatusName				"Powerpack"
-		BuilderWeaponName		"Powerpack"
-		BuilderPlacementString	"Place on ground"
-		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				5
+		ClassName obj_powerpack
+		StatusName "Powerpack"
+		BuilderWeaponName "Powerpack"
+		BuilderPlacementString "Place on ground"
+		SolidToPlayerMovement 0
+		Icon "placeholder"
+		BuildTime 5
 		MaxObjects				2
 		Cost					40
 		CostMultiplier			1
@@ -154,7 +154,7 @@ objects
 	
 	OBJ_MANNED_PLASMAGUN
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_manned_plasmagun
 		StatusName		"Plasma Gun"
 		BuilderWeaponName	"Plasma Gun"
 		BuilderPlacementString	"Place on ground"
@@ -173,9 +173,9 @@ objects
 	
 	OBJ_MANNED_MISSILELAUNCHER
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_manned_missilelauncher
+		StatusName		"Manned Missile Launcher"
+		BuilderWeaponName	"Manned Missile Launcher"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -192,9 +192,9 @@ objects
 	
 	OBJ_MANNED_SHIELD
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_manned_shield
+		StatusName		"Manned Shield"
+		BuilderWeaponName	"Manned Shield"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -211,9 +211,9 @@ objects
 
 	OBJ_EMPGENERATOR
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_empgenerator
+		StatusName		"EMP Generator"
+		BuilderWeaponName	"EMP Generator"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -235,23 +235,23 @@ objects
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	1
-		Icon			"placeholder"
+		Icon			"obj_buff_station"
 		BuildTime		5
 		MaxObjects		1
 		Cost			50
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
-		SelectionSlot		0
+		SelectionSlot		1
 		SelectionPosition	0
 		SapperAttachTime	1
 	}
 	
 	OBJ_BARBED_WIRE
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_barbed_wire
+		StatusName		"Barbed Wire"
+		BuilderWeaponName	"Barbed Wire"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -363,21 +363,21 @@ objects
 	
 	OBJ_VEHICLE_BOOST
 	{
-		ClassName				obj_vehicle_boost
-		StatusName				"Vehicle Boost"
-		BuilderWeaponName		"Vehicle Boost"
+		ClassName		obj_vehicle_boost
+		StatusName		"Vehicle Boost"
+		BuilderWeaponName	"Vehicle Boost"
 		BuilderPlacementString	"Place on vehicle"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			100
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_EXPLOSIVES
@@ -401,9 +401,9 @@ objects
 	
 	OBJ_DRIVER_MACHINEGUN
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_driver_machinegun
+		StatusName		"Driver Machinegun"
+		BuilderWeaponName	"Driver Machinegun"
 		BuilderPlacementString	"Place on vehicle"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -439,9 +439,9 @@ objects
 	
 	OBJ_SIEGE_TOWER
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_siege_tower
+		StatusName		"Siege Tower"
+		BuilderWeaponName	"Siege Tower"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -458,9 +458,9 @@ objects
 	
 	OBJ_WAGON
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_wagon
+		StatusName		"Wagon"
+		BuilderWeaponName	"Wagon"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -686,9 +686,9 @@ objects
 	
 	OBJ_DRAGONSTEETH
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_dragonsteeth
+		StatusName		"Dragons Teeth"
+		BuilderWeaponName	"Dragons Teeth"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"

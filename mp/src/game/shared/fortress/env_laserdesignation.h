@@ -29,6 +29,8 @@ public:
 	virtual void Spawn( void );
 	virtual void ChangeTeam( int iTeamNum );
 
+	virtual void Precache(void);
+
 	// Designation
 	void	SetActive( bool bActive );
 	bool	IsActive( void ) { return m_bActive; }

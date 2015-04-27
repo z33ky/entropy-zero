@@ -229,9 +229,6 @@ int CBaseTFVehicle::GetPassengerCount() const
 	return nCount;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 int CBaseTFVehicle::GetMaxPassengerCount() const
 {
 	return m_nMaxPassengers;
@@ -244,6 +241,7 @@ void CBaseTFVehicle::ItemPostFrame( CBasePlayer *pPassenger )
 {
 #ifndef CLIENT_DLL
 	Assert( GetPassengerRole( pPassenger ) != -1 );
+
 	if (pPassenger->m_afButtonPressed & (IN_USE /*| IN_JUMP*/)) 
 	{
 		// Get the player out..
@@ -418,6 +416,11 @@ void CBaseTFVehicle::GetVectors(Vector* pForward, Vector* pRight, Vector* pUp) c
 	}
 }
 
+void CBaseTFVehicle::ResetUseKey(CBasePlayer *pPlayer)
+{
+	pPlayer->m_afButtonPressed &= ~IN_USE;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Get into the vehicle
 //-----------------------------------------------------------------------------
@@ -433,6 +436,8 @@ void CBaseTFVehicle::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 			// Check to see if we are really using nearby build points:
 			if( !UseAttachedItem( pActivator, pCaller, useType, value ) )
 			{
+				ResetUseKey(pPlayer);
+
 				// Attempt to board the vehicle:
 				AttemptToBoardVehicle( pPlayer );
 			}

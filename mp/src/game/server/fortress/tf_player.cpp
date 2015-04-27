@@ -32,9 +32,7 @@
 #include "tf_class_infiltrator.h"
 #include "tf_class_medic.h"
 #include "tf_class_recon.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_sniper.h"
-#endif
 #include "tf_class_support.h"
 #ifdef IMPLEMENT_ME
 #include "tf_class_sapper.h"

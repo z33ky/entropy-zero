@@ -33,12 +33,12 @@ ConVar	class_recon_speed( "class_recon_speed","250", FCVAR_NONE, "Recon movement
 //
 BEGIN_SEND_TABLE_NOBASE( CPlayerClassRecon, DT_PlayerClassReconData )
 	SendPropInt		( SENDINFO_STRUCTELEM( m_ClassData.m_nJumpCount ), 3, SPROP_UNSIGNED ),
-	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionJumpTime ), 0, SPROP_NOSCALE ),
+	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionJumpTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flSuppressionImpactTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flStickTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flActiveJumpTime ), 32, SPROP_NOSCALE ),
 	SendPropFloat	( SENDINFO_STRUCTELEM( m_ClassData.m_flImpactDist ), 32, SPROP_NOSCALE ),
-	SendPropVector(SENDINFO_STRUCTELEM(m_ClassData.m_vecImpactNormal), -1, SPROP_NORMAL),
+	SendPropVector	( SENDINFO_STRUCTELEM(m_ClassData.m_vecImpactNormal), 0, SPROP_NORMAL ),
 	SendPropVector	( SENDINFO_STRUCTELEM( m_ClassData.m_vecUnstickVelocity ), -1, SPROP_COORD ),
 	SendPropInt		( SENDINFO_STRUCTELEM( m_ClassData.m_bTrailParticles ), 1, SPROP_UNSIGNED ),
 END_SEND_TABLE()
@@ -106,11 +106,11 @@ void CPlayerClassRecon::SetupMoveData( void )
 	m_flMaxWalkingSpeed = class_recon_speed.GetFloat();
 
 	m_ClassData.m_nJumpCount = 0;
-	m_ClassData.m_flSuppressionJumpTime = -99999.0f;
-	m_ClassData.m_flSuppressionImpactTime = -99999.0f;
-	m_ClassData.m_flActiveJumpTime = -99999.0f;
-	m_ClassData.m_flStickTime = -99999.0f;
-	m_ClassData.m_flImpactDist = -99999.0f;
+	m_ClassData.m_flSuppressionJumpTime = -9999.0f;
+	m_ClassData.m_flSuppressionImpactTime = -9999.0f;
+	m_ClassData.m_flActiveJumpTime = -9999.0f;
+	m_ClassData.m_flStickTime = -9999.0f;
+	m_ClassData.m_flImpactDist = -9999.0f;
 	m_ClassData.m_vecImpactNormal.Init();
 	m_ClassData.m_vecUnstickVelocity.Init();
 	m_ClassData.m_bTrailParticles = false;

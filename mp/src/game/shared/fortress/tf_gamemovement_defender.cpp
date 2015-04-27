@@ -24,41 +24,27 @@ CTFGameMovementDefender::CTFGameMovementDefender()
 	m_vDuckViewOffset = DEFENDERCLASS_VIEWOFFSET_DUCK;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 void CTFGameMovementDefender::ProcessClassMovement( CBaseTFPlayer *pPlayer, CTFMoveData *pTFMoveData )
 {
 	// Get the class specific data from the TFMoveData structure
 	Assert( PlayerClassDefenderData_t::PLAYERCLASS_ID == pTFMoveData->m_nClassID );
+
 	m_pDefenderData = &pTFMoveData->DefenderData();
 
 	// to test pass it through!!
 	BaseClass::ProcessMovement( (CBasePlayer *)pPlayer, static_cast<CMoveData*>( pTFMoveData ) );
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 Vector CTFGameMovementDefender::GetPlayerMins( bool bDucked ) const
 {
 	return bDucked ? m_vDuckMins : m_vStandMins; 
 }
 
-	
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 Vector CTFGameMovementDefender::GetPlayerMaxs( bool bDucked ) const
 {
 	return bDucked ? m_vDuckMaxs : m_vStandMaxs;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
 Vector CTFGameMovementDefender::GetPlayerViewOffset( bool bDucked ) const
 {
 	return bDucked ? m_vDuckViewOffset : m_vStandViewOffset;

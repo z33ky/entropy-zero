@@ -6,9 +6,7 @@
 //=============================================================================//
 #include "cbase.h"
 #include "basetfplayer_shared.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_manned_plasmagun.h"
-#endif
 #include "env_laserdesignation.h"
 
 #if !defined( CLIENT_DLL )
@@ -84,20 +82,17 @@ CEnvLaserDesignation *CEnvLaserDesignation::CreatePredicted( CBasePlayer *pOwner
 #endif
 }
 
+void CEnvLaserDesignation::Precache(void)
+{
+	PrecacheModel("models/projectiles/grenade_limpet.mdl");
+}
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CEnvLaserDesignation::CEnvLaserDesignation( void )
 {
 	m_bActive		= false;	// So the first setactive will take effect
 	m_bPrevActive	= false;
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CEnvLaserDesignation::~CEnvLaserDesignation( void )
 {
 	EHANDLE hLaser;
@@ -113,9 +108,6 @@ CEnvLaserDesignation::~CEnvLaserDesignation( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CEnvLaserDesignation::Spawn( void )
 {
 	SetModel( "models/projectiles/grenade_limpet.mdl" );
@@ -124,9 +116,6 @@ void CEnvLaserDesignation::Spawn( void )
 	SetSize( vec3_origin, vec3_origin );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CEnvLaserDesignation::ChangeTeam( int iTeamNum )
 {
 	Assert( iTeamNum > 0 && iTeamNum < MAX_TF_TEAMS );

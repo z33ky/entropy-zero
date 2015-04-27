@@ -268,7 +268,7 @@ struct PlayerClassReconData_t
 	CNetworkVar( float, m_flActiveJumpTime );
 	CNetworkVar( float, m_flStickTime );
 	CNetworkVar( float, m_flImpactDist );
-	CNetworkVector(m_vecImpactNormal);
+	CNetworkVector( m_vecImpactNormal );
 	CNetworkVector( m_vecUnstickVelocity );
 
 	// Trail

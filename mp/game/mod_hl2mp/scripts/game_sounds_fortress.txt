@@ -253,6 +253,14 @@ ResourceChunk.Pickup
 	wave		resources/resource_pickup.wav
 }
 
+ObjectMannedMissileLauncher.Fire
+{
+}
+
+ObjectMannedMissileLauncher.Reload
+{
+}
+
 ObjectPortablePowerGenerator.Startup
 {
 	channel		"CHAN_STATIC"

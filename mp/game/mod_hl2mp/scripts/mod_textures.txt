@@ -70,8 +70,8 @@
 				file	hud/menu/weapon_selection_offensive
 				x	0
 				y	0
-				width	64
-				height	32
+				width	256
+				height	128
 		}
 		
 		weapon_selection_defensive
@@ -79,8 +79,8 @@
 				file	hud/menu/weapon_selection_defensive
 				x	0
 				y	0
-				width	64
-				height	32
+				width	256
+				height	128
 		}
 		
 		weapon_selection_general
@@ -88,8 +88,8 @@
 				file	hud/menu/weapon_selection_general
 				x	0
 				y	0
-				width	64
-				height	32
+				width	256
+				height	128
 		}
 		
 		"d_skull"

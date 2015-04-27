@@ -194,6 +194,22 @@ HudLayout
 		value_ypos 			"20"
 		PaintBackgroundType	2
 	}
+	
+	HudVehicleHealth
+	{
+		fieldName			"HudVehicleHealth"
+		xpos				120
+		ypos				386
+		wide				"95"
+		tall  				"36"
+		visible 			"1"
+		enabled 			"1"	
+		label_xpos_right 	"10"
+		label_ypos 			"2"
+		value_xpos_right 	"10"
+		value_ypos 			"20"
+		PaintBackgroundType	2
+	}
 
 	HudResources
 	{

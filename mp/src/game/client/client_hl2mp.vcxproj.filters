@@ -28,8 +28,14 @@
     <Filter Include="Source Files\Fortress">
       <UniqueIdentifier>{2E6C6445-8149-FAB8-4CB0-942D12A0F9AF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\HUD">
+      <UniqueIdentifier>{A775A7FB-94B7-215A-749B-213A31CB22C6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fortress\Shared\Objects">
+      <UniqueIdentifier>{529897A4-9A14-ABA9-7884-E4F7CFD2FD8C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Fortress\Vehicles">
       <UniqueIdentifier>{67397BC2-C186-FFF3-4260-07B0682EB530}</UniqueIdentifier>
@@ -1880,6 +1886,9 @@
     <ClInclude Include="fortress\c_order_heal.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_order_killmortarguy.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\c_order_mortar_attack.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -1991,33 +2000,6 @@
     <ClInclude Include="fortress\hintitemorderbase.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\hud_ammo.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_commander_statuspanel.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_minimap.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_numeric.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_orders.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_targetreticle.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_technologytreedoc.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_timer.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\hud_vehicle_role.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\itfhintitem.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
@@ -2065,6 +2047,33 @@
     </ClInclude>
     <ClInclude Include="fortress\vgui_teammenu.h">
       <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_ammo.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_commander_statuspanel.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_minimap.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_numeric.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_orders.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_targetreticle.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_technologytreedoc.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_timer.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\hud_vehicle_role.h">
+      <Filter>Source Files\Fortress\HUD</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
@@ -2180,6 +2189,12 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -2197,6 +2212,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h">
       <Filter>Source Files\Fortress\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_basefourwheelvehicle.h">
       <Filter>Source Files\Fortress\Vehicles</Filter>
@@ -3361,6 +3379,9 @@
     <ClCompile Include="fortress\c_order_heal.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_order_killmortarguy.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_order_mortar_attack.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3499,48 +3520,6 @@
     <ClCompile Include="fortress\hintitemorderbase.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\hud_ammo.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_commander_statuspanel.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_damageindicator.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_health.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_minimap.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_numeric.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_orders.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_resources.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_target_id.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_targetreticle.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_technologytreedoc.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_timer.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_vehicle_role.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\hud_weaponselection.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\mapdata.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
@@ -3615,6 +3594,48 @@
     </ClCompile>
     <ClCompile Include="fortress\vgui_teammenu.cpp">
       <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_ammo.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_commander_statuspanel.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_damageindicator.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_health.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_minimap.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_numeric.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_orders.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_resources.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_target_id.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_targetreticle.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_technologytreedoc.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_timer.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_vehicle_role.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\hud_weaponselection.cpp">
+      <Filter>Source Files\Fortress\HUD</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
@@ -3739,6 +3760,12 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp">
+      <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClCompile>
@@ -3756,6 +3783,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp">
+      <Filter>Source Files\Fortress\Shared\Objects</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_basefourwheelvehicle.cpp">
       <Filter>Source Files\Fortress\Vehicles</Filter>

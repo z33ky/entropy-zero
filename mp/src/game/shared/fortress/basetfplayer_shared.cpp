@@ -801,7 +801,7 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 	
 	GetOuterAbsVelocity( vel );
 
-	bool isMoving = ( vel.Length() > 0.0f ) ? true : false;
+	bool isMoving = ( vel.Length() > 1.0f ) ? true : false;
 	if ( !isMoving )
 	{
 		// Just stopped moving, try and clamp feet
@@ -853,17 +853,11 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 
 			float yd = m_flCurrentFeetYaw - m_flGoalFeetYaw;
 			if ( yd > 0 )
-			{
 				m_nTurningInPlace = TURN_RIGHT;
-			}
 			else if ( yd < 0 )
-			{
 				m_nTurningInPlace = TURN_LEFT;
-			}
 			else
-			{
 				m_nTurningInPlace = TURN_NONE;
-			}
 
 			turning = ConvergeAngles( m_flGoalFeetYaw, turnrate, gpGlobals->frametime, m_flCurrentFeetYaw );
 			yawdelta = GetOuter()->GetAbsAngles().y - m_flCurrentFeetYaw;
@@ -909,13 +903,6 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 	GetOuter()->SetPoseParameter( upper_body_yaw, clamp( m_flCurrentTorsoYaw, -90.0f, 90.0f ) );
 }
 
-
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : activity - 
-// Output : Activity
-//-----------------------------------------------------------------------------
 Activity CPlayerAnimState::BodyYawTranslateActivity( Activity activity )
 {
 	// Not even standing still, sigh
