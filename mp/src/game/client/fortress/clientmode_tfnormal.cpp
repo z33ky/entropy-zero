@@ -52,6 +52,12 @@ ClientModeTFNormal::Viewport::Viewport()
 	m_bHumanScheme = true;
 	vgui::HScheme scheme = vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/ClientSchemeHuman.res", "HudScheme");
 	SetScheme(scheme);
+
+	/*	Try to reload, so element colours are set appropriately to the custom schemes.
+		Traditionally, just setting the scheme and then reloading it sometimes isn't enough, which appears to be a bug. 
+		~hogsy
+	*/
+	ReloadScheme();
 }
 
 void ClientModeTFNormal::Viewport::OnThink()
@@ -91,7 +97,7 @@ void ClientModeTFNormal::Viewport::ReloadScheme()
 			schemeFile = "resource/clientschemealien.res";
 	}
 
-//	BaseClass::ReloadScheme( schemeFile );
+	BaseClass::ReloadScheme( schemeFile );
 }
 
 void ClientModeTFNormal::Viewport::CreateDefaultPanels()

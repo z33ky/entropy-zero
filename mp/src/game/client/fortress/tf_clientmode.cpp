@@ -26,9 +26,6 @@ public:
 	virtual void	LevelInit( const char *newmap );
 	virtual void	LevelShutdown( void );
 
-					CTFModeManager( void );
-	virtual			~CTFModeManager( void );
-
 	void			UserCmd_Commander( void );
 	void			UserCmd_Normal( void );
 
@@ -57,9 +54,13 @@ void __MsgFunc_ActEnd(bf_read &msg);
 //-----------------------------------------------------------------------------
 void CTFModeManager::Init( void )
 {
+#if 0	// IMPLEMENT_ME
 	g_pClientMode = ClientModeCommander();
 	g_pClientMode = GetClientModeNormal();
-
+#else
+	g_pClientMode = GetClientModeNormal();
+#endif
+	
 	// These define the panels that can be used by the engine
 	PanelMetaClassMgr()->LoadMetaClassDefinitionFile( MINIMAP_FILE );
 	PanelMetaClassMgr()->LoadMetaClassDefinitionFile( SCREEN_FILE );
@@ -71,14 +72,6 @@ void CTFModeManager::Init( void )
 
 	HOOK_MESSAGE( ActBegin );
 	HOOK_MESSAGE( ActEnd );
-}
-
-CTFModeManager::CTFModeManager( void )
-{
-}
-
-CTFModeManager::~CTFModeManager( void )
-{
 }
 
 void CTFModeManager::UserCmd_Commander( void )
@@ -98,6 +91,7 @@ void CTFModeManager::UserCmd_Normal( void )
 //-----------------------------------------------------------------------------
 void CTFModeManager::SwitchMode( bool commander, bool force )
 {
+#if 0	// IMPLEMENT_ME
 	if ( commander && ( ( g_pClientMode != ClientModeCommander() ) || force ) )
 	{
 		g_pClientMode->Disable();
@@ -110,6 +104,7 @@ void CTFModeManager::SwitchMode( bool commander, bool force )
 		g_pClientMode = GetClientModeNormal();
 		g_pClientMode->Enable();
 	}
+#endif
 }
 
 void CTFModeManager::LevelInit( const char *newmap )
@@ -121,15 +116,23 @@ void CTFModeManager::LevelInit( const char *newmap )
 	if ( timer )
 		timer->Init();
 
+#if 0	// IMPLEMENT_ME
 	// Tell all modes about the map change
 	ClientModeCommander()->LevelInit( newmap );
 	GetClientModeNormal()->LevelInit( newmap );
+#else
+	g_pClientMode->LevelInit(newmap);
+#endif
 }
 
 void CTFModeManager::LevelShutdown( void )
 {
+#if 0	// IMPLEMENT_ME
 	GetClientModeNormal()->LevelShutdown();
 	ClientModeCommander()->LevelShutdown();
+#else
+	g_pClientMode->LevelShutdown();
+#endif
 
 	g_pTF2RootPanel->LevelShutdown();
 	GetTechnologyTreeDoc().LevelShutdown();

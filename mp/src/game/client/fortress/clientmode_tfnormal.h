@@ -16,7 +16,6 @@ namespace vgui
 	class AnimationController;
 }
 
-
 class ClientModeTFNormal : public ClientModeTFBase
 {
 DECLARE_CLASS( ClientModeTFNormal, ClientModeTFBase );

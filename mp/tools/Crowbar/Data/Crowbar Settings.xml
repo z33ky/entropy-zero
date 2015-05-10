@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AppSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WindowLocation>
-    <X>76</X>
-    <Y>214</Y>
+    <X>873</X>
+    <Y>377</Y>
   </WindowLocation>
   <WindowSize>
     <Width>800</Width>
     <Height>600</Height>
   </WindowSize>
   <WindowState>Normal</WindowState>
-  <DecompileMdlPathFileName />
+  <DecompileMdlPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\tools\Crowbar\tf2\w_frontierjustice.mdl</DecompileMdlPathFileName>
   <DecompileOutputFolderOption>SubfolderName</DecompileOutputFolderOption>
   <DecompileOutputSubfolderName>decompiled 0.24</DecompileOutputSubfolderName>
-  <DecompileOutputPathName />
+  <DecompileOutputPathName>C:\Users\Mark\Source\Repos\Fortress\mp\tools\Crowbar\tf2</DecompileOutputPathName>
   <DecompileQcFileIsChecked>true</DecompileQcFileIsChecked>
-  <DecompileQcFileExtraInfoIsChecked>false</DecompileQcFileExtraInfoIsChecked>
+  <DecompileQcFileExtraInfoIsChecked>true</DecompileQcFileExtraInfoIsChecked>
   <DecompileReferenceMeshSmdFileIsChecked>true</DecompileReferenceMeshSmdFileIsChecked>
   <DecompileApplyRightHandFixIsChecked>false</DecompileApplyRightHandFixIsChecked>
   <DecompileLodMeshSmdFilesIsChecked>true</DecompileLodMeshSmdFilesIsChecked>
@@ -117,7 +117,7 @@
       <CompilerPathFileName>C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\bin\studiomdl.exe</CompilerPathFileName>
     </GameSetup>
   </GameSetups>
-  <CompileQcPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\modelsrc\Humans\Objects\HoloBanner\Banners.qc</CompileQcPathFileName>
+  <CompileQcPathFileName>C:\Users\Mark\Source\Repos\Fortress\mp\Content\Models\Projectiles\GrenadeLimpet\w_grenade.qc</CompileQcPathFileName>
   <CompileOutputSubfolderIsChecked>false</CompileOutputSubfolderIsChecked>
   <CompileOutputSubfolderName>for_model_viewer</CompileOutputSubfolderName>
   <CompilerOptionNoP4IsChecked>true</CompilerOptionNoP4IsChecked>

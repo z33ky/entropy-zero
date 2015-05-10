@@ -21,15 +21,12 @@
 #define	CHUNK_FLECK_DAMPEN			0.3f
 #define	CHUNK_FLECK_ANGULAR_SPRAY	0.8f
 
+//LINK_ENTITY_TO_CLASS(trigger_resourcezone, C_ResourceZone);
+
 IMPLEMENT_CLIENTCLASS_DT(C_ResourceZone, DT_ResourceZone, CResourceZone)
 	RecvPropFloat(RECVINFO(m_flClientResources)),
 	RecvPropInt(RECVINFO(m_nResourcesLeft)),
 END_RECV_TABLE()
-
-LINK_ENTITY_TO_CLASS( trigger_resourcezone, C_ResourceZone );
-
-BEGIN_PREDICTION_DATA( C_ResourceZone )
-END_PREDICTION_DATA();
 
 C_ResourceZone::C_ResourceZone()
 {
@@ -77,6 +74,11 @@ END_RECV_TABLE()
 
 C_ResourceSpawner::C_ResourceSpawner( void )
 {
+	// Moved these here, brush entities don't appear to spawn on the client... :( ~hogsy
+	CONSTRUCT_MINIMAP_PANEL("minimap_resource_zone", MINIMAP_RESOURCE_ZONES);
+	ENTITY_PANEL_ACTIVATE("resourcezone", true);
+
+	m_bActive = false;
 }
 
 void C_ResourceSpawner::OnDataChanged( DataUpdateType_t updateType )

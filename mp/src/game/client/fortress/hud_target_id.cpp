@@ -66,7 +66,7 @@ CTargetID::CTargetID( const char *pElementName ) :
 //-----------------------------------------------------------------------------
 void CTargetID::Init( void )
 {
-};
+}
 
 void CTargetID::ApplySchemeSettings( vgui::IScheme *scheme )
 {

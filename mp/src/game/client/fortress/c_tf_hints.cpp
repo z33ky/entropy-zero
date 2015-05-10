@@ -783,8 +783,10 @@ void CHudWeaponFlashHelper::Paint()
 		return;
 	}
 
+#ifdef IMPLEMENT_ME
 	if ( g_pClientMode == ClientModeCommander() )
 		return;
+#endif
 
 	C_BaseCombatWeapon *w = ( C_BaseCombatWeapon * )( (C_BaseEntity *)m_hWeapon );
 	if ( !w )

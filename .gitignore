@@ -85,3 +85,4 @@ config.cfg
 /mp/game/mod_hl2mp/cfg/pet.txt
 /mp/game/mod_hl2mp/cfg/vmt.txt
 *.res~
+*.vmm_prefs

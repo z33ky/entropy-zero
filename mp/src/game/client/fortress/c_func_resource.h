@@ -10,9 +10,8 @@
 //-----------------------------------------------------------------------------
 class C_ResourceZone : public C_BaseEntity
 {
-	DECLARE_CLASS( C_ResourceZone, C_BaseEntity );
 public:
-	DECLARE_PREDICTABLE();
+	DECLARE_CLASS(C_ResourceZone, C_BaseEntity);
 	DECLARE_CLIENTCLASS();
 	DECLARE_ENTITY_PANEL();
 	DECLARE_MINIMAP_PANEL();
@@ -35,6 +34,8 @@ class C_ResourceSpawner : public C_BaseAnimating
 	DECLARE_CLASS( C_ResourceSpawner, C_BaseAnimating );
 public:
 	DECLARE_CLIENTCLASS();
+	DECLARE_ENTITY_PANEL();
+	DECLARE_MINIMAP_PANEL();
 
 	C_ResourceSpawner();
 	virtual void OnDataChanged( DataUpdateType_t updateType );
@@ -42,8 +43,10 @@ public:
 	virtual void SpawnEffect( bool bSpawningChunk );
 	virtual void ClientThink( void );
 
+	const char *GetTargetDescription(void) const { return "Resource Zone"; }
+
 public:
-	bool	m_bActive;
+	bool m_bActive;
 };
 
 #endif // C_FUNC_RESOURCE_H

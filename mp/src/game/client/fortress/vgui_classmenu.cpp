@@ -21,7 +21,7 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 	SetSizeable(false);
 	SetProportional(true);
 	SetMoveable(false);
-	SetTitleBarVisible(false);
+	SetTitleBarVisible(true);
 	SetCloseButtonVisible(false);
 	
 	bReconButton		= new Button(this,"ReconButton","Recon");
@@ -87,6 +87,14 @@ void CFortressClassMenu::Update(void)
 		bCancelButton->SetVisible(true);
 	else
 		bCancelButton->SetVisible(false);
+}
+
+void CFortressClassMenu::Activate(void)
+{
+	BaseClass::Activate();
+
+	// Ensure that there's no model when initially opened.
+	mClassPreview->DeleteModelData();
 }
 
 void CFortressClassMenu::OnTick(void)

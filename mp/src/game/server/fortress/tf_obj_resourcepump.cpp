@@ -42,7 +42,7 @@ ConVar  obj_resourcepump_amount( "obj_resourcepump_amount","0", FCVAR_NONE, "Bas
 
 #define RESOURCE_PUMP_CONTEXT		"ResourcePumpThink"
 
-#define HUMAN_RESOURCEPUMP_MODEL		"models/objects/obj_resourcepump.mdl"
+#define HUMAN_RESOURCEPUMP_MODEL		"models/objects/human_obj_resourcepump.mdl"
 #define ALIEN_RESOURCEPUMP_MODEL		"models/objects/alien_obj_resourcepump.mdl"
 
 

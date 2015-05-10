@@ -78,6 +78,10 @@ void CHudNumeric::ApplySchemeSettings(IScheme *scheme)
 	BaseClass::ApplySchemeSettings(scheme);
 
 	m_flActualCharactersPerSecond = (float)m_flDesiredCharactersPerSecond;
+
+	// Update each of these! ~hogsy
+	m_BoxColor = scheme->GetColor("NumericBox", Color(0, 0, 0, 192));
+	m_BoxColorCritical = scheme->GetColor("NumericTextCritical", Color(255, 0, 0, 255));
 }
 
 //-----------------------------------------------------------------------------

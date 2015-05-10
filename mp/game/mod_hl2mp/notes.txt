@@ -6,14 +6,86 @@ differently to the final TF2 so I really need to teach myself to keep out of tha
 mindset. I suppose these will also help anyone else curious as to why certain things
 seem to do what they do...
 
+--------------------------
+
+List of models
+
+	models/objects/obj_manned_plasmagun.mdl
+	models/objects/human_obj_manned_plasmagun.mdl
+	models/projectiles/grenade_limpet.mdl
+	models/props/common/holo_banner/holo_banner.mdl
+	models/items/healthkit.mdl
+	
+	Player models
+	models/player/human_recon.mdl
+	models/player/alien_recon.mdl
+	models/player/human_commando.mdl
+	models/player/alien_commando.mdl
+
+--------------------------
+
+Classes (* = Functional):
+	Commando*
+	Defender*
+	Escort*
+	Infiltrator
+	Medic*
+	Recon
+	Sniper
+	Support
+	Sapper*
+	Pyro
+	
+Technology:
+	Recon Radar Scanner (rec_b_radar_scanners)
+	
+	
+Objects:
+	Powerpack
+	Resupply
+	Sentry Gun Plasma
+	Sentry Gun Rocket Launcher
+	Shield Wall
+	Resource Pump
+	Respawn Station
+	Rally Flag
+	Manned Plasma Gun
+	Manned Missile Launcher
+	Manned Shield
+	EMP Generator
+	Buff Station
+	Barbed Wire
+	MCV Selection Panel
+	Map Defined
+	Mortar
+	Self Heal
+	Armor Upgrade
+	Vehicle Boost
+	Explosives
+	Driver Machine Gun
+	Battering Ram
+	Siege Tower
+	Wagon
+	Flat Bed
+	Vehicle Mortar
+	Vehicle Teleport Station
+	Vehicle Tank
+	Vehicle Motorcycle
+	Walker Strider
+	Walker Mini Strider
+	Tower
+	Tunnel
+	Sandbag Bunker
+	Bunker
+	Dragons Teeth
+
 Q.	I can collide with capture points, resource areas and so on. Is this intended?
+A.	Seems to have been a bug, this has been resolved now.
 
 Q.	What do we know about the turret?
 A.	Functionality seems identical to the turret featured in the final game, however there
 	is mention of "turtling" which seems to involve the turret closing down into itself which I
-	suppose is intended to protect it? Additionally, the turret
-
---------------------------
+	suppose is intended to protect it?
 
 Q.	What are the ammo types?
 A.	These are located in tf_gamerules.cpp

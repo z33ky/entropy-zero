@@ -1,4 +1,4 @@
-ClientSchemeHuman
+HudScheme
 {
 	Colors
 	{
@@ -15,8 +15,8 @@ ClientSchemeHuman
 		
 		TeamColour			"255 0 0 255"
 		TeamColourLight		"255 0 0 200"
-		TeamColourDark		"50 0 0 255"
-		TeamColourDarkLight	"50 0 0 200"
+		TeamColourDark		"65 0 0 255"
+		TeamColourDarkLight	"65 0 0 192"
 	}
 
 	BaseSettings

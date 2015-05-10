@@ -27,6 +27,7 @@ protected:
 	virtual void	Update(void);
 	virtual void	ShowPanel(bool bShow);
 	virtual void	Reset(void) {};
+	virtual void	Activate(void);
 
 	vgui::VPANEL GetVPanel( void ) { return BaseClass::GetVPanel(); }
 

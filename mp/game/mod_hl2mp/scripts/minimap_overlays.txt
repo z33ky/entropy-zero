@@ -9,11 +9,20 @@ MinimapOverlays
 		//detail		1 (eventually change this to detail since they can quickly clutter!)
 	}
 	
+	minimap_construction_yard
+	{
+		type 		minimap_image_panel
+		offset 		"0 0"
+		size		"8 8"
+		material	hud/minimap/construction_yard
+		detail		0
+	}
+	
 	minimap_player
 	{
-		type				minimap_player_panel
-		offset				"0 0"
-		size				"8 8"
+		type	minimap_player_panel
+		offset	"0 0"
+		size	"8 8"
 		
 		localaliveimage
 		{

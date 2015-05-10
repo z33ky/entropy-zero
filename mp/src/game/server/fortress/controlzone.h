@@ -11,14 +11,16 @@
 #pragma once
 #endif
 
+#include "triggers.h"
+
 //-----------------------------------------------------------------------------
 // Purpose: Defines a team zone of control
 //			Usually the parent of many trigger entities
 //-----------------------------------------------------------------------------
-class CControlZone : public CBaseEntity
+class CControlZone : public CBaseTrigger
 {
 public:
-	DECLARE_CLASS( CControlZone, CBaseEntity );
+	DECLARE_CLASS(CControlZone, CBaseTrigger);
 	DECLARE_SERVERCLASS();
 
 	void Spawn( void );

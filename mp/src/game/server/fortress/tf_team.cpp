@@ -243,7 +243,7 @@ void CTFTeam::UpdateClientTechnology( int iTechID, CBaseTFPlayer *pPlayer )
 	pPlayer->AvailableTech(iTechID).m_nUserCount = pcount;
 	pPlayer->AvailableTech(iTechID).m_nResourceLevel = pTechnology->GetResourceLevel();
 	
-#ifdef DEBUG
+#if 0
 	Msg( "Sent %s(%d) to %s:\n", pTechnology->GetName(), iTechID, pPlayer->GetPlayerName() );
 	Msg( "   Available: %d\n", pTechnology->GetAvailable() );
 	Msg( "   PrefCount: %d\n", pTechnology->GetPreferenceCount() );

@@ -147,7 +147,7 @@ CClientModeCommander::CClientModeCommander() : BaseClass()
 	m_ScaledSlueSpeed = 10;
 	m_Log_BaseEto2 = 1.4427f;	// factor to convert from a logarithm of base E to base 2.
 
-	m_pViewport = new CCommanderViewportPanel;
+	m_pViewport = new CCommanderViewportPanel();
 	// Give us a chance to set ourselves up properly...
 	m_pViewport->Start( gameuifuncs, gameeventmanager );
 
@@ -529,6 +529,7 @@ void CClientModeCommander::LevelInit( const char *newmap )
 	BaseClass::LevelInit( newmap );
 
 	HudCommanderOverlayMgr()->LevelShutdown();
+
 	MapData().LevelInit( newmap );
 	GetCommanderViewport()->GetCommanderOverlayPanel()->LevelInit( newmap );
 	HudCommanderOverlayMgr()->LevelInit( );

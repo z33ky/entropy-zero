@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "hud/menu/obj_resourcepump"
+	"$translucent" 1
+}

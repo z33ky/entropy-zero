@@ -301,7 +301,7 @@ DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
 CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 {
 	{ "Undecided",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
-	{ "Recon",			g_iClassInfo_Recon,			false,	GENERATE_PLAYERCLASS_INFO( Recon )			},
+	{ "Recon",			g_iClassInfo_Recon,			/*false*/true,	GENERATE_PLAYERCLASS_INFO( Recon )			},
 	{ "Commando",		g_iClassInfo_Commando,		true,	GENERATE_PLAYERCLASS_INFO( Commando )		},
 	{ "Medic",			g_iClassInfo_Medic,			true,	GENERATE_PLAYERCLASS_INFO( Medic )			},
 	{ "Defender",		g_iClassInfo_Defender,		true,	GENERATE_PLAYERCLASS_INFO( Defender )		},

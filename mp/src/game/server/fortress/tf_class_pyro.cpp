@@ -41,7 +41,6 @@ void CPlayerClassPyro::SetupSizeData()
 	m_pPlayer->m_Local.m_flStepSize = PYROCLASS_STEPSIZE;	
 }
 
-
 void CPlayerClassPyro::ClassActivate()
 {
 	BaseClass::ClassActivate();
@@ -52,15 +51,13 @@ void CPlayerClassPyro::ClassActivate()
 	memset( &m_ClassData, 0, sizeof( m_ClassData ) );
 }
 
-
 const char *CPlayerClassPyro::GetClassModelString( int nTeam )
 {
 	if (nTeam == TEAM_HUMANS)
-		return "models/player/medic.mdl";
+		return "models/player/human_pyro.mdl";
 	else
-		return "models/player/recon.mdl";
+		return "models/player/alien_pyro.mdl";
 }
-
 
 void CPlayerClassPyro::CreateClass()
 {

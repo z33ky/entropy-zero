@@ -25,12 +25,12 @@ class CResourceSpawner;
 //-----------------------------------------------------------------------------
 class CResourceZone : public CBaseEntity, public IHasBuildPoints
 {
-	DECLARE_CLASS( CResourceZone, CBaseEntity );
 public:
-	CResourceZone();
-
+	DECLARE_CLASS(CResourceZone, CBaseEntity);
 	DECLARE_DATADESC();
 	DECLARE_SERVERCLASS();
+
+	CResourceZone();
 
 	virtual void Spawn( void );
 	virtual void Precache( void );

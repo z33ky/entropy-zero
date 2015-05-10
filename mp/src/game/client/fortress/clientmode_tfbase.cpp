@@ -51,22 +51,10 @@ CMinimapPanel *ClientModeTFBase::GetMinimap( void )
 // Purpose: 
 //-----------------------------------------------------------------------------
 
-// FIXME: Remove if this ever becomes true for HL2 (I expect it will)
-ConVar 	r_radiosity		( "r_radiosity", "2" );		// do full radiosity calc?
-// FIXME: Remove when we reactivate detail props
-extern ConVar r_DrawDetailProps;
-
 void ClientModeTFBase::Init()
 {
 	BaseClass::Init();
 	C_BaseTFCombatWeapon::CreateCrosshairPanels();
-
-	// FIXME: For playtests, turn off detail props. They're causing perf problems
-	r_DrawDetailProps.SetValue("0");
-
-	// Turn lighting into a mode where we use better computation for the ambient
-	// cube on static props, and a cheap one for dynamic entities.
- 	r_radiosity.SetValue("3");
 
 	if ( !m_pMinimap )
 	{

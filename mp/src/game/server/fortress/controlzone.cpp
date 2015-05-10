@@ -63,26 +63,20 @@ END_DATADESC()
 //-----------------------------------------------------------------------------
 void CControlZone::Spawn( void )
 {
-	// set the starting controlling team
-	m_ControllingTeam.Set( GetTeamNumber(), this, this );
-
-	// remember who the original controlling team was (for control locking)
+	// Set the starting controlling team.
+	m_ControllingTeam.Set(GetTeamNumber(),this,this);
+	
+	// Remember who the original controlling team was (for control locking).
 	m_iDefendingTeam = GetTeamNumber();
 
-	// Solid
-	SetSolid( SOLID_BSP );
-	AddSolidFlags( FSOLID_TRIGGER );
-	SetMoveType( MOVETYPE_NONE );
-	SetModel( STRING( GetModelName() ) );    // set size and link into world
+	InitTrigger();
 
 	// TF2 rules
 	m_flTimeTillContested = 10.0;	// Go to contested 10 seconds after enemies enter the zone
 	m_flTimeTillCaptured = 5.0;		// Go to captured state as soon as only one team holds the zone	
 
 	if ( m_nZoneNumber == 0 )
-	{
 		Warning( "Warning, trigger_controlzone without Zone Number set\n" );
-	}
 
 	m_ZonePlayerList.Purge();
 }

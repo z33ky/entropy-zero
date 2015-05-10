@@ -40,7 +40,6 @@ BEGIN_DATADESC( CResourceZone )
 
 END_DATADESC()
 
-
 IMPLEMENT_SERVERCLASS_ST(CResourceZone, DT_ResourceZone)
 	SendPropFloat( SENDINFO( m_flClientResources ),	8,	SPROP_UNSIGNED,	0.0f,	1.0f ),
 	SendPropInt( SENDINFO( m_nResourcesLeft ),	20,	SPROP_UNSIGNED ),
@@ -61,11 +60,11 @@ CResourceZone::CResourceZone()
 //-----------------------------------------------------------------------------
 void CResourceZone::Spawn( void )
 {
-	SetSolid( SOLID_BSP );
-	AddSolidFlags( FSOLID_TRIGGER );
-	SetMoveType( MOVETYPE_NONE );
+	SetSolid(GetParent() ? SOLID_VPHYSICS : SOLID_BSP);
+	AddSolidFlags(FSOLID_NOT_SOLID);
+	SetMoveType(MOVETYPE_NONE);
+	SetModel(STRING(GetModelName()));    // set size and link into world
 	AddEffects(EF_NODRAW);
-	SetModel( STRING( GetModelName() ) );
 
 	if ( !m_nResourcesLeft )
 		m_nResourcesLeft = 10000;
@@ -74,6 +73,7 @@ void CResourceZone::Spawn( void )
 	m_flClientResources = 1;
 
 	SetActive( false );
+
 	m_vecGatherPoint = WorldSpaceCenter();
 	m_angGatherPoint = vec3_angle;
 	m_iTeamGathering = -1;
@@ -96,6 +96,9 @@ void CResourceZone::Spawn( void )
 
 void CResourceZone::Precache( void )
 {
+	PrecacheScriptSound("ResourceZone.AmbientActiveSound");
+	PrecacheScriptSound("ResourceSpawner.BigPuff");
+	PrecacheScriptSound("ResourceSpawner.Puff");
 }
 
 //-----------------------------------------------------------------------------
@@ -160,14 +163,14 @@ void CResourceZone::SetActive( bool bActive )
 	if ( !m_bActive && bActive )
 	{
 		// Start our ambient sound
-		//EmitAmbientSound( this, Center(), "ResourceZone.AmbientActiveSound" );
+		EmitAmbientSound( ENTINDEX(this), GetAbsOrigin(), "ResourceZone.AmbientActiveSound" );
 	}
 	else if ( m_bActive && !bActive )
 	{
 		// Going inactive
 
 		// Stop our sound loop
-		//StopSound( "ResourceZone.AmbientActiveSound" );
+		StopSound( "ResourceZone.AmbientActiveSound" );
 	}
 
 	m_bActive = bActive;

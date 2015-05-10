@@ -1,5 +1,0 @@
-"VertexlitGeneric"
-{
-	"$basetexture" "models/weapons/v_weapon_pda/weapon_pda"
-	"$surfaceprop" "Metal"
-}

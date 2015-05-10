@@ -211,8 +211,8 @@ void CTFGameMovementRecon::ResetWallImpact( CTFMoveData *pTFMove )
 	{
 		pTFMove->ReconData().m_flActiveJumpTime = TIME_WALL_INVALID;
 		pTFMove->ReconData().m_flSuppressionImpactTime = TIME_WALL_INVALID;
-		pTFMove->ReconData().m_vecImpactNormal.Init( 9999, 9999, 9999 );
 		pTFMove->ReconData().m_flImpactDist = -9999.0f;
+		pTFMove->ReconData().m_vecImpactNormal.Init();
 	}
 }
 

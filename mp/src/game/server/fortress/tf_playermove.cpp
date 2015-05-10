@@ -53,6 +53,11 @@ CPlayerMove *PlayerMove()
 // Main setup, finish
 //-----------------------------------------------------------------------------
 
+void CTFPlayerMove::StartCommand(CBasePlayer *player, CUserCmd *cmd)
+{
+	BaseClass::StartCommand(player, cmd);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: This is called pre player movement and copies all the data necessary
 //          from the player for movement. (Server-side, the client-side version

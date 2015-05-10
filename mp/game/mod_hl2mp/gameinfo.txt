@@ -1,16 +1,14 @@
 "GameInfo"
 {
-	game		"Invasion"
-	gamelogo	1
-	//title		"FORTRESS"
-	//title2	"FORTRESS"
-	developer	"OldTimes Software"
+	game			"Fortress"
+	gamelogo		1
+	developer		"OldTimes Software"
 	developer_url	"http://oldtimes-software.com/blog"
-	type 		multiplayer_only
-	GameData	"fortress.fgd"
-	icon		"icon"
-	nomodels 	1
-	nohimodel 	1
+	type 			multiplayer_only
+	GameData		"fortress.fgd"
+	icon			"icon"
+	nomodels 		1
+	nohimodel 		1
 	nocrosshair 	1
 
 	hidden_maps
