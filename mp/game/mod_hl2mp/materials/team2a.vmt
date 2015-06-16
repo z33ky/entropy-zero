@@ -1,9 +1,9 @@
 "LightmappedGeneric"
 {
 	// Original shader: BaseTimesLightmapPlusMaskedSphericalEnvMap
-	"$basetexture" "tfc/team2a"
+	"$basetexture" "team2a"
 	"$envmapsphere" 1
 	"$envmap" "environment maps/envmap_01a"
-	"$envmapmask" "tfc/team2ar"
+	"$envmapmask" "team2ar"
 	"$surfaceprop" "metal"
 }

@@ -1713,8 +1713,6 @@ int CBaseTFPlayer::OnTakeDamage( const CTakeDamageInfo &info )
 	if ( !subInfo.GetDamage() )
 		return 0;
 
-	//Msg( "Weapon did: %f\n", flDamage );
-
 	int iDamageToDo = Ceil2Int( subInfo.GetDamage() );
 
 	if ( !(GetFlags() & FL_GODMODE) )
@@ -1724,8 +1722,6 @@ int CBaseTFPlayer::OnTakeDamage( const CTakeDamageInfo &info )
 
 		m_iHealth = max(0, m_iHealth - iDamageToDo);
 	}
-
-	//Msg( "m_iHealth: %d\n\n", m_iHealth );
 
 	// Dead?
 	if ( m_iHealth < 1 )
@@ -1787,8 +1783,6 @@ int CBaseTFPlayer::TakeHealth( float flHealth, int bitsDamageType )
 		flAmountToHeal = (m_iMaxHealth - m_iHealth);
 	m_iHealth += flAmountToHeal;
 
-	//Msg( "Health: %d\n", m_iHealth );
-
 	return flAmountToHeal;
 }
 
@@ -1841,7 +1835,7 @@ void CBaseTFPlayer::MenuReset( void )
 	m_MenuRefreshTime = m_MenuDisplayTime = 0;
 
 	m_pCurrentMenu = NULL;
-};
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Enables/disables tactical/map view for the player

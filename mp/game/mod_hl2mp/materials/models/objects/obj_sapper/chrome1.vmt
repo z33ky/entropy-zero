@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$envmap" "env_cubemap"
+	"$surfaceprop" "Metal"
+	"$translucent" 1
+}

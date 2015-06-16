@@ -9,9 +9,7 @@
 #include "in_buttons.h"
 #include "weapon_combatshield.h"
 #include "weapon_flame_thrower.h"
-#ifdef IMPLEMENT_ME
 #include "gasoline_shared.h"
-#endif
 #include "ammodef.h"
 
 

@@ -22,6 +22,15 @@
     <Filter Include="Replay">
       <UniqueIdentifier>{56E8FAC7-007D-E50D-7147-90732D5ACFB9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader Editor">
+      <UniqueIdentifier>{47BD5224-560B-5C97-0371-CC1269009B15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Editor\Header Files">
+      <UniqueIdentifier>{2E164E74-C582-3FBB-EC78-AA3BDFA16D5E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Editor\Implementation Files">
+      <UniqueIdentifier>{6E17B671-3F25-6E1B-6FD6-825ED04A486F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{BA03E055-4FA2-FCE3-8A1C-D348547D379C}</UniqueIdentifier>
     </Filter>
@@ -1763,6 +1772,18 @@
     <ClInclude Include="replay\replaycamera.h">
       <Filter>Replay</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\client\ShaderEditor\ISEdit_ModelRender.h">
+      <Filter>Shader Editor\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ShaderEditor\IVShaderEditor.h">
+      <Filter>Shader Editor\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ShaderEditor\SEdit_ModelRender.h">
+      <Filter>Shader Editor\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ShaderEditor\ShaderEditorSystem.h">
+      <Filter>Shader Editor\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="achievement_notification_panel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -1857,6 +1878,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_func_resource.h">
+      <Filter>Source Files\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_gasoline_blob.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_hint_events.h">
@@ -2253,6 +2277,12 @@
     </ClCompile>
     <ClCompile Include="replay\replaycamera.cpp">
       <Filter>Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ShaderEditor\SEdit_ModelRender.cpp">
+      <Filter>Shader Editor\Implementation Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ShaderEditor\ShaderEditorSystem.cpp">
+      <Filter>Shader Editor\Implementation Files</Filter>
     </ClCompile>
     <ClCompile Include="achievement_notification_panel.cpp">
       <Filter>Source Files</Filter>
@@ -3317,6 +3347,9 @@
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_func_resource.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_gasoline_blob.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp">

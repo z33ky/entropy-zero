@@ -1,9 +1,9 @@
 "GameInfo"
 {
-	game			"Fortress"
+	game			"Invasion"
 	gamelogo		1
-	developer		"OldTimes Software"
-	developer_url	"http://oldtimes-software.com/blog"
+	developer		"TalonBrave.info"
+	developer_url	"http://talonbrave.info"
 	type 			multiplayer_only
 	GameData		"fortress.fgd"
 	icon			"icon"

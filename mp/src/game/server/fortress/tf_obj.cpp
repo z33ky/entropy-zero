@@ -2716,10 +2716,6 @@ void CBaseObject::AttachObjectToObject( const CBaseEntity *pEntity, int iPoint, 
 			vecOrigin = GetLocalOrigin();
 		}
 	}
-
-#ifdef IMPLEMENT_ME
-	Assert( m_hBuiltOnEntity == GetMoveParent() );
-#endif
 }
 
 //-----------------------------------------------------------------------------

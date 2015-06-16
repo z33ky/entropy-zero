@@ -594,11 +594,6 @@ bool C_BaseTFPlayer::ShouldDraw()
 //-----------------------------------------------------------------------------
 ShadowType_t C_BaseTFPlayer::ShadowCastType()
 {
-	// FIXME: This check can be removed once we've dealt with the interpolation problem
-	C_BaseTFPlayer *local = C_BaseTFPlayer::GetLocalPlayer();
-	if (local == this)
-		return SHADOWS_NONE;
-
 	if (IsCamouflaged())
 		return SHADOWS_NONE;
 

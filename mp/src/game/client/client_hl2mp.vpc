@@ -202,6 +202,10 @@ $Project "Client"
 			$File	fortress/commanderoverlaypanel.h
 			$File	fortress/ground_line.cpp
 			$File	fortress/ground_line.h
+			
+			$File	fortress/c_gasoline_blob.cpp
+			$File	fortress/c_gasoline_blob.h
+			
 			$File	fortress/c_basecombatcharacter_tf2.cpp
 			$File	fortress/c_baseobject.cpp
 			$File	fortress/c_baseobject.h

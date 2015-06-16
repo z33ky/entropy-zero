@@ -300,20 +300,20 @@ DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
 
 CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 {
-	{ "Undecided",		g_iClassInfo_Undecided,		false,	NULL, NULL, NULL },
-	{ "Recon",			g_iClassInfo_Recon,			/*false*/true,	GENERATE_PLAYERCLASS_INFO( Recon )			},
-	{ "Commando",		g_iClassInfo_Commando,		true,	GENERATE_PLAYERCLASS_INFO( Commando )		},
-	{ "Medic",			g_iClassInfo_Medic,			true,	GENERATE_PLAYERCLASS_INFO( Medic )			},
-	{ "Defender",		g_iClassInfo_Defender,		true,	GENERATE_PLAYERCLASS_INFO( Defender )		},
-	{ "Sniper",			g_iClassInfo_Sniper,		false,	GENERATE_PLAYERCLASS_INFO( Sniper )			},
-	{ "Support",		g_iClassInfo_Support,		false,	GENERATE_PLAYERCLASS_INFO( Support )		},
-	{ "Escort",			g_iClassInfo_Escort,		true,	GENERATE_PLAYERCLASS_INFO( Escort )			},
+	{ "Undecided", g_iClassInfo_Undecided, false, NULL, NULL, NULL },
+	{ "Recon", g_iClassInfo_Recon, false, GENERATE_PLAYERCLASS_INFO(Recon) },
+	{ "Commando", g_iClassInfo_Commando, true, GENERATE_PLAYERCLASS_INFO(Commando) },
+	{ "Medic", g_iClassInfo_Medic, true, GENERATE_PLAYERCLASS_INFO(Medic) },
+	{ "Defender", g_iClassInfo_Defender, true, GENERATE_PLAYERCLASS_INFO(Defender) },
+	{ "Sniper", g_iClassInfo_Sniper, false, GENERATE_PLAYERCLASS_INFO(Sniper) },
+	{ "Support", g_iClassInfo_Support, false, GENERATE_PLAYERCLASS_INFO(Support) },
+	{ "Escort", g_iClassInfo_Escort, true, GENERATE_PLAYERCLASS_INFO(Escort) },
 #ifdef IMPLEMENT_ME
 	{ "Sapper",			g_iClassInfo_Sapper,		true,	GENERATE_PLAYERCLASS_INFO( Sapper )			},
 #else
 	{ "Dummy", g_iClassInfo_Pyro, false, NULL },
 #endif
-	{ "Infiltrator",	g_iClassInfo_Infiltrator,	false,	GENERATE_PLAYERCLASS_INFO( Infiltrator )	},
+	{ "Infiltrator", g_iClassInfo_Infiltrator, false, GENERATE_PLAYERCLASS_INFO(Infiltrator) },
 #ifdef IMPLEMENT_ME
 	{ "Pyro",			g_iClassInfo_Pyro,			false,	GENERATE_PLAYERCLASS_INFO( Pyro )			}
 #else

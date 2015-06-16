@@ -3,7 +3,7 @@ WeaponData
 	// Weapon data is loaded by both the Game and Client DLLs.
 	"printname"		"Shield"
 	"viewmodel"		"models/weapons/v_human_builder.mdl"
-	"playermodel"		"models/weapons/w_human_builder.mdl"
+	"playermodel"		"models/weapons/w_human_shield.mdl"
 	//"anim_prefix"		"python"
 	"bucket"		0
 	"bucket_position"	1

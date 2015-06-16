@@ -54,7 +54,7 @@ void __MsgFunc_ActEnd(bf_read &msg);
 //-----------------------------------------------------------------------------
 void CTFModeManager::Init( void )
 {
-#if 0	// IMPLEMENT_ME
+#if 1	// IMPLEMENT_ME
 	g_pClientMode = ClientModeCommander();
 	g_pClientMode = GetClientModeNormal();
 #else

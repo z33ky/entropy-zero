@@ -24,24 +24,23 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 	SetTitleBarVisible(true);
 	SetCloseButtonVisible(false);
 	
-	bReconButton		= new Button(this,"ReconButton","Recon");
-	bCommandoButton		= new Button(this,"CommandoButton","Commando");
-	bMedicButton		= new Button(this,"MedicButton","Medic");
-	bDefenderButton		= new Button(this,"DefenderButton","Defender");
-	bSniperButton		= new Button(this,"SniperButton","Sniper");
-	bSupportButton		= new Button(this,"SupportButton","Support");
-	bEscortButton		= new Button(this,"EscortButton","Escort");
-	bSapperButton		= new Button(this,"SapperButton","Sapper");
-	bInfiltratorButton	= new Button(this,"InfiltratorButton","Infiltrator");
-	bPyroButton			= new Button(this,"PyroButton","Pyro");
-	bRandomButton		= new Button(this,"RandomButton","Random");
-	bCancelButton		= new Button(this,"CancelButton","Cancel");
+	bReconButton = new Button(this, "ReconButton", "Recon");
+	bCommandoButton = new Button(this, "CommandoButton", "Commando");
+	bMedicButton = new Button(this, "MedicButton", "Medic");
+	bDefenderButton = new Button(this, "DefenderButton", "Defender");
+	bSniperButton = new Button(this, "SniperButton", "Sniper");
+	bSupportButton = new Button(this, "SupportButton", "Support");
+	bEscortButton = new Button(this, "EscortButton", "Escort");
+	bSapperButton = new Button(this, "SapperButton", "Sapper");
+	bInfiltratorButton = new Button(this, "InfiltratorButton", "Infiltrator");
+	bPyroButton = new Button(this, "PyroButton", "Pyro");
+	bRandomButton = new Button(this, "RandomButton", "Random");
+	bCancelButton = new Button(this, "CancelButton", "Cancel");
 
 	rtClassDescription = new RichText(this,"ClassInfo");
 
-	mClassPreview = new CModelPanel(this,"ClassPreview");
-
 	// Don't show model preview until we hover over something...
+	mClassPreview = new CModelPanel(this,"ClassPreview");
 	mClassPreview->DeleteModelData();
 
 	ivgui()->AddTickSignal(GetVPanel());
@@ -70,7 +69,6 @@ void CFortressClassMenu::ShowPanel(bool bShow)
 	if(bShow)
 	{
 		Activate();
-
 		SetMouseInputEnabled(true);
 	}
 	else
@@ -221,9 +219,6 @@ void CFortressClassMenu::OnTick(void)
 
 		iLastPreview = 11;
 	}
-
-	if(mClassPreview->m_hModel)
-		mClassPreview->m_hModel->SetAbsAngles(QAngle(0,mClassPreview->m_hModel->GetAbsAngles()[1]+0.5f,0));
 }
 
 void CFortressClassMenu::OnCommand(const char *command)

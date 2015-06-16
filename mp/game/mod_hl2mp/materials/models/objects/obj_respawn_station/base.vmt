@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/objects/obj_respawn_station/base"
+	"$surfaceprop" "Metal"
+}

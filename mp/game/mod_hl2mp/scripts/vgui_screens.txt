@@ -23,4 +23,13 @@ Screens
 		pixelshigh	480
 		resfile		"scripts/screens/buffstation_control_panel.res"
 	}
+	
+	screen_basic_with_disable
+	{
+		// PLACEHOLDER DATA
+		type		"human_pda"
+		pixelswide	300
+		pixelshigh	400
+		resfile		"scripts/screens/human_pda.res"
+	}
 }

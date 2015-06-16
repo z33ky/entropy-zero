@@ -147,11 +147,13 @@ CClientModeCommander::CClientModeCommander() : BaseClass()
 	m_ScaledSlueSpeed = 10;
 	m_Log_BaseEto2 = 1.4427f;	// factor to convert from a logarithm of base E to base 2.
 
+#if 0
 	m_pViewport = new CCommanderViewportPanel();
 	// Give us a chance to set ourselves up properly...
 	m_pViewport->Start( gameuifuncs, gameeventmanager );
 
 	GetCommanderViewport()->SetCommanderView( this );
+#endif
 }
 
 //-----------------------------------------------------------------------------

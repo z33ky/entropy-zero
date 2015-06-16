@@ -172,7 +172,6 @@ void ClientModeTFBase::Initialize( void )
 		return;
 	m_bInitialized = true;
 
-	// IMPLEMENT_ME : This cvar doesn't seem to exist anymore. ~hogsy
 	m_pCVDrawFullSkybox = (ConVar *)cvar->FindVar( "r_drawfullskybox" );
 }
 

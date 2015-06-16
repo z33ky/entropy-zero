@@ -91,7 +91,7 @@ void CShield::Spawn( void )
 
 	m_flNextRechargeTime = gpGlobals->curtime;
 
-	CollisionProp()->SetSurroundingBoundsType( USE_GAME_CODE );
+	CollisionProp()->SetSurroundingBoundsType(USE_GAME_CODE);
 	SetSolid( SOLID_CUSTOM );
 
 	// Stuff can't come to a rest on shields!

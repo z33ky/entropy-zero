@@ -81,7 +81,6 @@ void ClientModeTFNormal::Viewport::ReloadScheme()
 {
 	// See if scheme should change
 	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
-
 	if(!pPlayer)
 		return;
 

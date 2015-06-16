@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/player/human_recon/body"
+	"$surfaceprop" "Flesh"
+}

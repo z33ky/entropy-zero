@@ -58,8 +58,8 @@ HudScheme
 		{
 			1
 			{
-				name		"Oswald"
-				tall		"24"
+				name			"Michroma"
+				tall			"24"
 				weight		"0"
 				antialias	"1"
 			}
@@ -69,11 +69,10 @@ HudScheme
 		{
 			1
 			{
-				name		"Oswald"
-				tall		"13"
+				name			"Oswald"
+				tall			"13"
 				weight		"0"
 				antialias	"1"
-				scanlines	"3"
 			}
 		}
 		
@@ -81,8 +80,8 @@ HudScheme
 		{
 			1
 			{
-				name		"Oswald"
-				tall		"10"
+				name			"Michroma"
+				tall			"10"
 				weight		"0"
 				antialias	"1"
 			}
@@ -92,9 +91,9 @@ HudScheme
 		{
 			1
 			{
-				name		"Oswald"
-				tall		"18"
-				weight		"0"
+				name			"Oswald"
+				tall			"18"
+				weight		"100"
 				antialias	"1"
 			}
 		}
@@ -103,10 +102,10 @@ HudScheme
 		{
 			1
 			{
-				name		"Michroma"
-				tall		"14"
+				name			"Michroma"
+				tall			"14"
 				weight		"100"
-				additive	"1"
+				additive		"1"
 				antialias 	"1"
 			}
 		}
@@ -115,13 +114,13 @@ HudScheme
 		{
 			1
 			{
-				name		"Michroma"
-				tall		"14"
+				name			"Michroma"
+				tall			"14"
 				weight		"100"
-				additive	"1"
+				additive		"1"
 				scanlines	"3"
 				antialias 	"1"
-				blur		"2"
+				blur			"2"
 			}
 		}
 	}
@@ -793,5 +792,6 @@ HudScheme
 		2	"resource/fonts/electr.ttf"
 		3	"resource/fonts/oswald/Oswald-Regular.ttf"
 		4	"resource/fonts/squada_one/SquadaOne-Regular.ttf"
+		5	"resource/fonts/CRYSRG__.TTF"
 	}
 }

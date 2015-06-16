@@ -1,0 +1,23 @@
+"Refract"
+{
+	"$refractamount" ".1"
+	"$forcerefract" "1"
+	"$model" "1"
+	"$refracttint" "{255 255 128}"
+	"$normalmap" "effects/conc_normal"
+	"$bumpframe" "0"
+	"$bluramount" "1"
+	
+	"Proxies"
+	{
+		"sine"
+		{
+			"sinemax" ".001"
+			"sinemin" "-.001"
+			"sineperiod" "1"
+			"resultvar" "$refractamount"
+		}
+	}
+
+}
+

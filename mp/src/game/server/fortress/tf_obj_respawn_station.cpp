@@ -19,36 +19,29 @@ END_DATADESC()
 LINK_ENTITY_TO_CLASS(obj_respawn_station, CObjectRespawnStation);
 PRECACHE_REGISTER(obj_respawn_station);
 
+#define	RESPAWN_STATION_MODEL	"models/objects/obj_respawn_station.mdl"
+
 ConVar	obj_respawnstation_health( "obj_respawnstation_health","300", FCVAR_NONE, "Respawn Station health" );
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CObjectRespawnStation::CObjectRespawnStation()
 {
 	m_bIsInitialSpawnPoint = false;
 	UseClientSideAnimation();
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CObjectRespawnStation::Precache()
 {
-	engine->PrecacheModel( "models/objects/obj_respawn_station.mdl" );
+	engine->PrecacheModel(RESPAWN_STATION_MODEL);
 	m_iSpriteTexture = engine->PrecacheModel( "sprites/laserbeam.vmt" );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 void CObjectRespawnStation::Spawn()
 {
 	Precache();
 	SetMoveType( MOVETYPE_NONE );
 	SetSolid( SOLID_BBOX );
 
-	SetModel( "models/objects/obj_respawn_station.mdl" );
+	SetModel(RESPAWN_STATION_MODEL);
 
 	UTIL_SetSize(this, RESPAWN_STATION_MINS, RESPAWN_STATION_MAXS);
 
@@ -60,7 +53,6 @@ void CObjectRespawnStation::Spawn()
 
 	BaseClass::Spawn();
 }
-
 
 //-----------------------------------------------------------------------------
 // Object using!
@@ -80,8 +72,6 @@ void CObjectRespawnStation::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 
 	BaseClass::Use( pActivator, pCaller, useType, value );
 }
-
-
 
 //-----------------------------------------------------------------------------
 // Gets called when someone respawns on this station
