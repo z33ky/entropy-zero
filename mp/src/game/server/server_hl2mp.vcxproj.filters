@@ -3064,7 +3064,16 @@
     <ClCompile Include="fortress\controlzone.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\entity_burn_effect.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\env_meteor.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\fire_damage_mgr.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\gasoline_blob.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\grenade_rocket.cpp">

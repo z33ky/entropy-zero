@@ -37,10 +37,8 @@
 	#define FLAMETHROWER_PARTICLES_PER_SEC	100
 
 #else
-#ifdef IMPLEMENT_ME
 	#include "gasoline_blob.h"
 	#include "fire_damage_mgr.h"
-#endif
 	#include "tf_gamerules.h"
 	
 	#define FLAMETHROWER_DAMAGE_INTERVAL	0.2
@@ -207,8 +205,6 @@ void CWeaponFlameThrower::PrimaryAttack()
 	#if defined( CLIENT_DLL )
 	
 	#else
-
-#ifdef IMPLEMENT_ME	// IsBurnableEnt
 		CBasePlayer *pOwner = ToBaseTFPlayer( GetOwner() );
 		if ( !pOwner )
 			return;
@@ -248,9 +244,7 @@ void CWeaponFlameThrower::PrimaryAttack()
 				}	
 			}
 		}
-#endif
 
-#ifdef IMPLEMENT_ME
 		for ( int iHitEnt=0; iHitEnt < nHitEnts; iHitEnt++ )
 		{
 			CBaseEntity *pEnt = pHitEnts[iHitEnt];
@@ -263,9 +257,7 @@ void CWeaponFlameThrower::PrimaryAttack()
 			float flDamage = flPercent * FLAMETHROWER_DAMAGE_PER_SEC;
 			GetFireDamageMgr()->AddDamage( pEnt, GetOwner(), flDamage, !IsGasolineBlob( pEnt ) );
 		}
-#endif
 		
-#ifdef IMPLEMENT_ME
 		// Drop a new petrol blob.
 		if ( gpGlobals->curtime >= m_flNextPrimaryAttack )
 		{
@@ -296,7 +288,6 @@ void CWeaponFlameThrower::PrimaryAttack()
 			// Drop a blob every half second.
 			m_flNextPrimaryAttack = gpGlobals->curtime + FLAME_THROWER_FIRE_INTERVAL;
 		}
-#endif
 
 	#endif
 }
@@ -414,7 +405,7 @@ void CWeaponFlameThrower::PrimaryAttack()
 		CBasePlayer *pOwner = ToBaseTFPlayer( GetOwner() );
 		if ( !pOwner )
 			return;
-#ifdef IMPLEMENT_ME
+
 		Vector vOrigin = pOwner->Weapon_ShootPosition( );
 		CBaseEntity *ents[128];
 		float dists[128];
@@ -434,7 +425,6 @@ void CWeaponFlameThrower::PrimaryAttack()
 				GetFireDamageMgr()->AddDamage( pBlob, pOwner, 500, false );
 			}
 		}
-#endif
 	}
 
 #endif

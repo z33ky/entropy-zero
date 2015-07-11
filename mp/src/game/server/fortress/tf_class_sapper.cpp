@@ -48,8 +48,10 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 const char *CPlayerClassSapper::GetClassModelString( int nTeam )
 {
-	static const char *string = "models/player/technician.mdl";
-	return string;
+	if (nTeam == TEAM_HUMANS)
+		return "models/player/human_technician.mdl";
+	else
+		return "models/player/alien_technician.mdl";
 }
 
 //-----------------------------------------------------------------------------

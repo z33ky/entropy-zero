@@ -1,0 +1,4 @@
+exec joystick.cfg
+exec autoexec.cfg
+
+stuffcmds

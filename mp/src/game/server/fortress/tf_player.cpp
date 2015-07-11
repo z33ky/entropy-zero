@@ -1758,14 +1758,12 @@ void CBaseTFPlayer::ShowPersonalShieldEffect(
 	Vector vNormalized = vIncomingDirection;
 	VectorNormalize( vNormalized );
 	
-#ifdef IMPLEMENT_ME
 	EntityMessageBegin( this );
 		WRITE_BYTE( PLAYER_MSG_PERSONAL_SHIELD );
 		WRITE_VEC3COORD( vOffsetFromEnt );
 		WRITE_VEC3NORMAL( vNormalized );
 		WRITE_SHORT( (short)flDamage );
 	MessageEnd();
-#endif
 }
 
 

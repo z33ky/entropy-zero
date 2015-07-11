@@ -3340,6 +3340,9 @@
     <ClCompile Include="fortress\c_effect_shootingstar.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_entity_burn_effect.cpp">
+      <Filter>Source Files\Fortress</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_env_meteor.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>

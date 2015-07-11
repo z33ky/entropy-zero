@@ -231,7 +231,7 @@ void C_GasolineBlob::ClientThink()
 
 bool C_GasolineBlob::ShouldDraw()
 {
-	return IsStopped() && (m_flPuddleFade > 0);
+	return (IsStopped() && (m_flPuddleFade > 0));
 }
 
 
@@ -243,12 +243,10 @@ int C_GasolineBlob::DrawModel( int flags )
 
 	Vector vRight, vUp;
 	AngleVectors( angles, NULL, &vRight, &vUp );
-
 	
 	float flAlpha = m_flPuddleFade * RemapVal( m_flPuddleSize, PUDDLE_START_SIZE, PUDDLE_END_SIZE, 0, 1 );
 	if ( flAlpha <= 0 )
 		return 0;
-
 
 	// Draw the puddle.
 	IMaterial *pMat = materials->FindMaterial( "decals/puddle", TEXTURE_GROUP_DECAL );

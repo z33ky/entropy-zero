@@ -6,9 +6,7 @@
 //=============================================================================//
 
 #include "cbase.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_manned_plasmagun.h"
-#endif
 #include "tf_obj_manned_plasmagun_shared.h"
 #include "tf_team.h"
 #include "tf_obj.h"

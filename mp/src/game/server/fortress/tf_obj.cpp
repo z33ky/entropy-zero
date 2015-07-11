@@ -2344,10 +2344,8 @@ bool CBaseObject::HasSapperFromPlayer( CBaseTFPlayer *pPlayer )
 		if ( m_hSappers[i] == NULL )
 			continue;
 
-#ifdef IMPLEMENT_ME
-		if ( m_hSappers[i]->GetOwner() == pPlayer )
+		if ( m_hSappers[i]->GetThrower() == pPlayer )
 			return true;
-#endif
 	}
 
 	return false;
@@ -2456,12 +2454,10 @@ CRopeKeyframe *CBaseObject::ConnectCableTo( CBaseObject *pObject, int iLocalAtta
 	// tricky, so we make a proxy here to control it.
 	if ( IsPlacing() || pObject->IsPlacing() )
 	{
-#ifdef IMPLEMENT_ME	// This doesn't seem to be supported in this form anymore... Ugh ~hogsy
 		CObjectRopeTransmitProxy *pProxy = new CObjectRopeTransmitProxy( pRope );
 		pProxy->m_hObj1 = this;
 		pProxy->m_hObj2 = pObject;
-		pRope->SetTransmitProxy( pProxy );
-#endif
+		//pRope->NetworkProp->SetTransmitProxy( pProxy );
 	}
 
 	return pRope;

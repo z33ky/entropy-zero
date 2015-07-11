@@ -264,17 +264,17 @@ void CBaseTFFourWheelVehicle::Spawn( )
 {
 	SetModel( STRING( GetModelName() ) );
 
-#if 0
-	CFourWheelServerVehicle *pServerVehicle = dynamic_cast<CFourWheelServerVehicle*>(GetServerVehicle());
+	// TODO: This needs to be looked over and revised, just a workaround.
+	CFourWheelServerVehicle *pServerVehicle = /*dynamic_cast*/reinterpret_cast<CFourWheelServerVehicle*>(GetServerVehicle());
 	m_VehiclePhysics.SetOuter( this, pServerVehicle );
-	m_VehiclePhysics.Spawn();
-#endif
 
 	BaseClass::Spawn();
 
 	// The base class spawn sets a default collision group, so this needs to
 	// be called post.
 	SetCollisionGroup( COLLISION_GROUP_VEHICLE );
+
+	m_VehiclePhysics.Spawn();
 
 	m_eDeployMode = VEHICLE_MODE_NORMAL;
 

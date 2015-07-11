@@ -98,6 +98,7 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheScriptSound("WeaponObjectSapper.AttachFail");
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.Arming");
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.RemoveSapper");
+	CBaseEntity::PrecacheScriptSound("GasolineBlob.FlameSound");
 }
 
 

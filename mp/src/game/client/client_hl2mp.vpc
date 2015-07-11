@@ -205,7 +205,7 @@ $Project "Client"
 			
 			$File	fortress/c_gasoline_blob.cpp
 			$File	fortress/c_gasoline_blob.h
-			
+			$File	fortress/c_entity_burn_effect.cpp
 			$File	fortress/c_basecombatcharacter_tf2.cpp
 			$File	fortress/c_baseobject.cpp
 			$File	fortress/c_baseobject.h

@@ -26,8 +26,8 @@ CHudNumeric::CHudNumeric( const char *pElementName, const char *panelName )
 	SetAutoDelete( false );
 
 	m_nTextLen = 0;
-	Q_memset( m_szPreviousValue, 0, sizeof( m_szPreviousValue ) );
-	Q_memset( m_szLatchedValue, 0, sizeof( m_szLatchedValue ) );
+	V_memset( m_szPreviousValue, 0, sizeof( m_szPreviousValue ) );
+	V_memset( m_szLatchedValue, 0, sizeof( m_szLatchedValue ) );
 
 	m_bDrawLabel = true;
 	m_bSendPulses = true;

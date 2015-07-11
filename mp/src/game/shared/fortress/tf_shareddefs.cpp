@@ -243,9 +243,7 @@ bool IsObjectADefensiveBuilding( int iObjectType )
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_RECON]),		&REFERENCE_SEND_TABLE( DT_PlayerClassReconData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SNIPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSniperData ),		SendProxy_DataTablePtrToDataTable ),
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SUPPORT]),	&REFERENCE_SEND_TABLE( DT_PlayerClassSupportData ),		SendProxy_DataTablePtrToDataTable ),
-#ifdef IMPLEMENT_ME
 		SendPropDataTable( SENDINFO_DT(m_pClasses[TFCLASS_SAPPER]),		&REFERENCE_SEND_TABLE( DT_PlayerClassSapperData ),		SendProxy_DataTablePtrToDataTable )
-#endif
 	END_SEND_TABLE()
 
 #endif
@@ -290,13 +288,9 @@ DEFINE_PLAYERCLASS_ALLOC_FNS( Defender,		TFCLASS_DEFENDER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sniper,		TFCLASS_SNIPER );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Support,		TFCLASS_SUPPORT );
 DEFINE_PLAYERCLASS_ALLOC_FNS( Escort,		TFCLASS_ESCORT );
-#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Sapper,		TFCLASS_SAPPER );
-#endif
 DEFINE_PLAYERCLASS_ALLOC_FNS( Infiltrator,	TFCLASS_INFILTRATOR );
-#ifdef IMPLEMENT_ME
 DEFINE_PLAYERCLASS_ALLOC_FNS( Pyro,			TFCLASS_PYRO );
-#endif
 
 CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 {
@@ -308,17 +302,9 @@ CTFClassInfo g_TFClassInfos[ TFCLASS_CLASS_COUNT ] =
 	{ "Sniper", g_iClassInfo_Sniper, false, GENERATE_PLAYERCLASS_INFO(Sniper) },
 	{ "Support", g_iClassInfo_Support, false, GENERATE_PLAYERCLASS_INFO(Support) },
 	{ "Escort", g_iClassInfo_Escort, true, GENERATE_PLAYERCLASS_INFO(Escort) },
-#ifdef IMPLEMENT_ME
-	{ "Sapper",			g_iClassInfo_Sapper,		true,	GENERATE_PLAYERCLASS_INFO( Sapper )			},
-#else
-	{ "Dummy", g_iClassInfo_Pyro, false, NULL },
-#endif
+	{ "Sapper", g_iClassInfo_Sapper, true, GENERATE_PLAYERCLASS_INFO(Sapper) },
 	{ "Infiltrator", g_iClassInfo_Infiltrator, false, GENERATE_PLAYERCLASS_INFO(Infiltrator) },
-#ifdef IMPLEMENT_ME
-	{ "Pyro",			g_iClassInfo_Pyro,			false,	GENERATE_PLAYERCLASS_INFO( Pyro )			}
-#else
-	{ "Dummy", g_iClassInfo_Pyro, false, NULL	}
-#endif
+	{ "Pyro", g_iClassInfo_Pyro, false, GENERATE_PLAYERCLASS_INFO(Pyro) }
 };
 
 

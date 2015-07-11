@@ -8,4 +8,8 @@
 			"times_max"		"3"
 		}
 	}
+	"TF_HINT_BUILDRESOURCEPUMP"
+	{
+		"times_shown"		"100"
+	}
 }

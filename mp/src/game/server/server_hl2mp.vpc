@@ -196,6 +196,9 @@ $Project "Server"
 				$File	fortress/order_killmortarguy.h
 			}
 			
+			$File	fortress/entity_burn_effect.cpp
+			$File	fortress/fire_damage_mgr.cpp
+			$File	fortress/gasoline_blob.cpp
 			$File	fortress/grenade_rocket.cpp
 			$File	fortress/grenade_rocket.h
 			$File	fortress/mortar_round.cpp

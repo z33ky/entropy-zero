@@ -1,8 +1,0 @@
-
-$weightlist body_look_yaw_weightlist {
-	"Ab1" 1.0
-}
-
-$weightlist body_pitch_weightlist {
-	"Ab1" 1.0
-}
