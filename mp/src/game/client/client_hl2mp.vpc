@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 
 $Macro SRCDIR		"..\.."
-$Macro GAMENAME 	"hl2mp" [!$SOURCESDK]
-$Macro GAMENAME 	"mod_hl2mp" [$SOURCESDK]
+$Macro GAMENAME 	"invasion" [!$SOURCESDK]
+$Macro GAMENAME 	"invasion" [$SOURCESDK]
 
 $Include "$SRCDIR\game\client\client_base.vpc"
 
@@ -188,6 +188,12 @@ $Project "Client"
 				$File	fortress/c_vehicle_teleport_station.h
 				$File	fortress/c_basefourwheelvehicle.cpp
 				$File	fortress/c_basefourwheelvehicle.h
+			}
+			
+			$Folder "Objects"
+			{
+				$File	fortress/c_obj_sentrygun.cpp
+				$File	fortress/c_obj_sentrygun.h
 			}
 		
 			$File	fortress/clientmode_commander.cpp

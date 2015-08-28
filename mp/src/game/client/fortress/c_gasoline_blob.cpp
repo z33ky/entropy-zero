@@ -228,12 +228,10 @@ void C_GasolineBlob::ClientThink()
 	}
 }
 
-
 bool C_GasolineBlob::ShouldDraw()
 {
 	return (IsStopped() && (m_flPuddleFade > 0));
 }
-
 
 int C_GasolineBlob::DrawModel( int flags )
 {

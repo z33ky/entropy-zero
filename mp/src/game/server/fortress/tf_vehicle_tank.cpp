@@ -26,7 +26,7 @@
 #ifndef IMPLEMENT_ME
 #define	TANK_MODEL	"models/combine_apc.mdl"
 #else
-#define TANK_MODEL			"models/objects/vehicle_tank.mdl"
+#define TANK_MODEL	"models/objects/vehicle_tank.mdl"
 #endif
 
 // N seconds between tank shots.

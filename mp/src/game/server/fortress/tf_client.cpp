@@ -81,7 +81,7 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel("models/player/alien_support.mdl");
 	CBaseEntity::PrecacheModel("models/player/human_support.mdl");
 
-	// I 'unno, just precache these here for now... ~hogsy
+	// VGUI assets
 	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");
 	CBaseEntity::PrecacheModel("models/interface/blue_team.mdl");
 
@@ -92,13 +92,17 @@ void ClientGamePrecache( void )
 	enginesound->PrecacheSound( "vox/new-tech-level.wav" );
 	enginesound->PrecacheSound( "vox/resource-zone-emptied.wav" );
 
-	// Additions that were otherwise missing... ~hogsy
+	// HOGSY ADDITIONS START
 	CBaseEntity::PrecacheScriptSound("ResourceChunk.Pickup");
 	CBaseEntity::PrecacheScriptSound("WeaponObjectSapper.Attach");
 	CBaseEntity::PrecacheScriptSound("WeaponObjectSapper.AttachFail");
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.Arming");
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.RemoveSapper");
 	CBaseEntity::PrecacheScriptSound("GasolineBlob.FlameSound");
+
+	CBaseEntity::PrecacheScriptSound("Humans.Death");
+	CBaseEntity::PrecacheScriptSound("Humans.Pain");
+	// HOGSY ADDITIONS END
 }
 
 

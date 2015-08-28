@@ -1736,6 +1736,9 @@
     <ClInclude Include="fortress\tf_obj_manned_missilelauncher.h">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_obj_sentrygun.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\order_killmortarguy.h">
       <Filter>Source Files\Fortress\Orders</Filter>
     </ClInclude>
@@ -3272,6 +3275,9 @@
       <Filter>Source Files\Fortress\Classes</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_obj_manned_missilelauncher.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_sentrygun.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
     <ClCompile Include="fortress\order_killmortarguy.cpp">

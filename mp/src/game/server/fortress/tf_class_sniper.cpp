@@ -39,8 +39,10 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 const char *CPlayerClassSniper::GetClassModelString( int nTeam )
 {
-	static const char *string = "models/player/sniper.mdl";
-	return string;
+	if (nTeam == TEAM_HUMANS)
+		return "models/player/human_sniper.mdl";
+	else
+		return "models/player/alien_sniper.mdl";
 }
 
 

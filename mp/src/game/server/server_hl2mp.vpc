@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 
 $Macro SRCDIR		"..\.."
-$Macro GAMENAME 	"hl2mp" [!$SOURCESDK]
-$Macro GAMENAME 	"mod_hl2mp" [$SOURCESDK]
+$Macro GAMENAME 	"invasion" [!$SOURCESDK]
+$Macro GAMENAME 	"invasion" [$SOURCESDK]
 
 $Include "$SRCDIR\game\server\server_base.vpc"
 $Include "$SRCDIR\game\server\nav_mesh.vpc" [$SOURCESDK]
@@ -178,6 +178,8 @@ $Project "Server"
 			{
 				$File	fortress/tf_obj_manned_missilelauncher.cpp
 				$File	fortress/tf_obj_manned_missilelauncher.h
+				$File	fortress/tf_obj_sentrygun.cpp
+				$File	fortress/tf_obj_sentrygun.h
 			}
 			
 			$Folder "Classes"

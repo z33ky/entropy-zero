@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Fortress\HUD">
       <UniqueIdentifier>{A775A7FB-94B7-215A-749B-213A31CB22C6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fortress\Objects">
+      <UniqueIdentifier>{E06F7093-170C-F5B5-C54C-13BFA6250BAD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Fortress\Shared">
       <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
     </Filter>
@@ -2099,6 +2102,9 @@
     <ClInclude Include="fortress\hud_vehicle_role.h">
       <Filter>Source Files\Fortress\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_obj_sentrygun.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Fortress\Shared</Filter>
     </ClInclude>
@@ -3672,6 +3678,9 @@
     </ClCompile>
     <ClCompile Include="fortress\hud_weaponselection.cpp">
       <Filter>Source Files\Fortress\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_sentrygun.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Fortress\Shared</Filter>
