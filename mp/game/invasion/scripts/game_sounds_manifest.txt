@@ -17,6 +17,7 @@ game_sounds_manifest
 	//Music Tracks
 	"precache_file"		"scripts/level_sounds_music.txt"
 
-	precache_file	scripts/sounds/global.txt
-	precache_file	scripts/sounds/obj_sentrygun.txt
+	// Invasion
+	precache_file	"scripts/sounds/global.txt"
+	precache_file	"scripts/sounds/obj_sentrygun.txt"
 }

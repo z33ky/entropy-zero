@@ -130,11 +130,9 @@ void CObjectResourcePump::SetupPump( void )
 	while ((pEntity = gEntList.FindEntityByClassname( pEntity, "trigger_resourcezone" )) != NULL)
 	{
 		CResourceZone *pZone = (CResourceZone *)pEntity;
-
+		
 		// Are we within this zone?
-		if ( ( GetAbsOrigin().x > pZone->CollisionProp()->OBBMins().x && GetAbsOrigin().x < pZone->CollisionProp()->OBBMaxs().x ) &&
-			 ( GetAbsOrigin().y > pZone->CollisionProp()->OBBMins().y && GetAbsOrigin().y < pZone->CollisionProp()->OBBMaxs().y ) &&
-			 ( GetAbsOrigin().z > pZone->CollisionProp()->OBBMins().z && GetAbsOrigin().z < pZone->CollisionProp()->OBBMaxs().z ) )
+		if (Intersects(pZone))
 		{
 			m_hResourceZone = pZone;
 			break;

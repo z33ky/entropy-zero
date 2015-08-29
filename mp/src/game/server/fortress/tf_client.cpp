@@ -80,6 +80,10 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheModel("models/player/human_infiltrator.mdl");
 	CBaseEntity::PrecacheModel("models/player/alien_support.mdl");
 	CBaseEntity::PrecacheModel("models/player/human_support.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_sniper.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_sniper.mdl");
+	CBaseEntity::PrecacheModel("models/player/alien_pyro.mdl");
+	CBaseEntity::PrecacheModel("models/player/human_pyro.mdl");
 
 	// VGUI assets
 	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");
@@ -99,9 +103,10 @@ void ClientGamePrecache( void )
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.Arming");
 	CBaseEntity::PrecacheScriptSound("GrenadeObjectSapper.RemoveSapper");
 	CBaseEntity::PrecacheScriptSound("GasolineBlob.FlameSound");
-
 	CBaseEntity::PrecacheScriptSound("Humans.Death");
 	CBaseEntity::PrecacheScriptSound("Humans.Pain");
+	
+	PrecacheMaterial("cable/human_powercable.vmt");
 	// HOGSY ADDITIONS END
 }
 

@@ -17,8 +17,6 @@
 #include "team_messages.h"
 #include "tf_stats.h"
 
-LINK_ENTITY_TO_CLASS( trigger_resourcezone, CResourceZone);
-
 BEGIN_DATADESC( CResourceZone )
 
 	// keys 
@@ -44,6 +42,8 @@ IMPLEMENT_SERVERCLASS_ST(CResourceZone, DT_ResourceZone)
 	SendPropFloat( SENDINFO( m_flClientResources ),	8,	SPROP_UNSIGNED,	0.0f,	1.0f ),
 	SendPropInt( SENDINFO( m_nResourcesLeft ),	20,	SPROP_UNSIGNED ),
 END_SEND_TABLE();
+
+LINK_ENTITY_TO_CLASS(trigger_resourcezone, CResourceZone);
 
 PRECACHE_REGISTER( trigger_resourcezone );
 

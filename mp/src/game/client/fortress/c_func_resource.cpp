@@ -21,12 +21,12 @@
 #define	CHUNK_FLECK_DAMPEN			0.3f
 #define	CHUNK_FLECK_ANGULAR_SPRAY	0.8f
 
-//LINK_ENTITY_TO_CLASS(trigger_resourcezone, C_ResourceZone);
-
 IMPLEMENT_CLIENTCLASS_DT(C_ResourceZone, DT_ResourceZone, CResourceZone)
 	RecvPropFloat(RECVINFO(m_flClientResources)),
 	RecvPropInt(RECVINFO(m_nResourcesLeft)),
 END_RECV_TABLE()
+
+LINK_ENTITY_TO_CLASS(trigger_resourcezone, C_ResourceZone);
 
 C_ResourceZone::C_ResourceZone()
 {

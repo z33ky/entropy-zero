@@ -102,11 +102,11 @@ void CResourcePumpControlPanel::OnTick()
 	int iCost = CalculateObjectUpgrade( OBJ_RESOURCEPUMP, iPumpLevel );
 	if ( iCost )
 	{
-		Q_snprintf( buf, 256, "Upgrade to Level %d\nCost: %d", iPumpLevel+1, iCost );
+		V_snprintf( buf, 256, "Upgrade to Level %d\nCost: %d", iPumpLevel+1, iCost );
 	}
 	else
 	{
-		Q_snprintf( buf, 256, "Level %d", iPumpLevel );
+		V_snprintf( buf, 256, "Level %d", iPumpLevel );
 	}
 
 	m_pUpgradeButton->SetText( buf );
@@ -114,7 +114,7 @@ void CResourcePumpControlPanel::OnTick()
 	C_ResourceZone *pResourceZone = pPump->GetResourceZone();
 	if (pResourceZone)
 	{
-		Q_snprintf( buf, 256, "Resources: %d", pResourceZone->m_nResourcesLeft );
+		V_snprintf( buf, 256, "Resources: %d", pResourceZone->m_nResourcesLeft );
 		m_pResourcesLabel->SetText( buf );
 	}
 	else
@@ -140,7 +140,7 @@ void CResourcePumpControlPanel::Upgrade( void )
 //-----------------------------------------------------------------------------
 void CResourcePumpControlPanel::OnCommand( const char *command )
 {
-	if (!Q_strnicmp(command, "Upgrade", 7))
+	if (!V_strnicmp(command, "Upgrade", 7))
 	{
 		Upgrade();
 		return;
