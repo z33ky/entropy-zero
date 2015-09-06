@@ -176,6 +176,24 @@ $Project "Server"
 			
 			$Folder	"Objects"
 			{
+				$File	fortress/tf_obj.cpp
+				$File	fortress/tf_obj.h
+				$File	fortress/tf_obj_buff_station.cpp
+				$File	fortress/tf_obj_buff_station.h
+				$File	fortress/tf_obj_powerpack.cpp
+				$File	fortress/tf_obj_powerpack.h
+				$File	fortress/tf_obj_rallyflag.cpp
+				$File	fortress/tf_obj_rallyflag.h
+				$File	fortress/tf_obj_resourcepump.cpp
+				$File	fortress/tf_obj_resourcepump.h
+				$File	fortress/tf_obj_respawn_station.cpp
+				$File	fortress/tf_obj_respawn_station.h
+				$File	fortress/tf_obj_resupply.cpp
+				$File	fortress/tf_obj_resupply.h
+				$File	fortress/tf_obj_sandbag_bunker.cpp
+				$File	fortress/tf_obj_sandbag_bunker.h
+				$File	fortress/tf_obj_shieldwall.cpp
+				$File	fortress/tf_obj_shieldwall.h
 				$File	fortress/tf_obj_manned_missilelauncher.cpp
 				$File	fortress/tf_obj_manned_missilelauncher.h
 				$File	fortress/tf_obj_sentrygun.cpp
@@ -277,24 +295,6 @@ $Project "Server"
 			$File	fortress/tf_gameinterface.cpp
 			$File	fortress/tf_hintmanager.cpp
 			$File	fortress/tf_hintmanager.h
-			$File	fortress/tf_obj.cpp
-			$File	fortress/tf_obj.h
-			$File	fortress/tf_obj_buff_station.cpp
-			$File	fortress/tf_obj_buff_station.h
-			$File	fortress/tf_obj_powerpack.cpp
-			$File	fortress/tf_obj_powerpack.h
-			$File	fortress/tf_obj_rallyflag.cpp
-			$File	fortress/tf_obj_rallyflag.h
-			$File	fortress/tf_obj_resourcepump.cpp
-			$File	fortress/tf_obj_resourcepump.h
-			$File	fortress/tf_obj_respawn_station.cpp
-			$File	fortress/tf_obj_respawn_station.h
-			$File	fortress/tf_obj_resupply.cpp
-			$File	fortress/tf_obj_resupply.h
-			$File	fortress/tf_obj_sandbag_bunker.cpp
-			$File	fortress/tf_obj_sandbag_bunker.h
-			$File	fortress/tf_obj_shieldwall.cpp
-			$File	fortress/tf_obj_shieldwall.h
 			$File	fortress/tf_player.cpp
 			$File	fortress/tf_player.h
 			$File	fortress/tf_playerclass.cpp
