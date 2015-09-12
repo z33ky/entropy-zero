@@ -1661,34 +1661,7 @@
     <ClInclude Include="fortress\tf_hintmanager.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\tf_obj.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_buff_station.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_obj_mcv_selection_panel.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_powerpack.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_rallyflag.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_resourcepump.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_respawn_station.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_resupply.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_sandbag_bunker.h">
-      <Filter>Source Files\Fortress</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_obj_shieldwall.h">
       <Filter>Source Files\Fortress</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_player.h">
@@ -1733,10 +1706,37 @@
     <ClInclude Include="fortress\tf_class_sniper.h">
       <Filter>Source Files\Fortress\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_obj.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_buff_station.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_obj_manned_missilelauncher.h">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_obj_powerpack.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_rallyflag.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_resourcepump.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_respawn_station.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_resupply.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_sandbag_bunker.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_obj_sentrygun.h">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_shieldwall.h">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClInclude>
     <ClInclude Include="fortress\order_killmortarguy.h">
@@ -3196,34 +3196,7 @@
     <ClCompile Include="fortress\tf_hintmanager.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\tf_obj.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_buff_station.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_obj_mcv_selection_panel.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_powerpack.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_rallyflag.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_resourcepump.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_respawn_station.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_resupply.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp">
-      <Filter>Source Files\Fortress</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_obj_shieldwall.cpp">
       <Filter>Source Files\Fortress</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_player.cpp">
@@ -3274,10 +3247,37 @@
     <ClCompile Include="fortress\tf_class_sniper.cpp">
       <Filter>Source Files\Fortress\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_obj.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_buff_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_obj_manned_missilelauncher.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_obj_powerpack.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_rallyflag.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_resourcepump.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_respawn_station.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_resupply.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_obj_sentrygun.cpp">
+      <Filter>Source Files\Fortress\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_shieldwall.cpp">
       <Filter>Source Files\Fortress\Objects</Filter>
     </ClCompile>
     <ClCompile Include="fortress\order_killmortarguy.cpp">

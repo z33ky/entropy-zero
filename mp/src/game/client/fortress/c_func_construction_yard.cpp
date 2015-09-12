@@ -6,6 +6,8 @@
 //=============================================================================
 #include "cbase.h"
 
+#include "hud_minimap.h"
+
 //-----------------------------------------------------------------------------
 // Purpose: A place where vehicles can be built
 //-----------------------------------------------------------------------------
@@ -14,7 +16,7 @@ class C_FuncConstructionYard : public C_BaseEntity
 	DECLARE_CLASS( C_FuncConstructionYard, C_BaseEntity );
 public:
 	DECLARE_CLIENTCLASS();
-//	DECLARE_MINIMAP_PANEL();
+	DECLARE_MINIMAP_PANEL();
 
 	C_FuncConstructionYard();
 	const char	*GetTargetDescription( void ) const;
@@ -29,7 +31,7 @@ END_RECV_TABLE()
 //-----------------------------------------------------------------------------
 C_FuncConstructionYard::C_FuncConstructionYard()
 {
-//	CONSTRUCT_MINIMAP_PANEL( "minimap_construction_yard", MINIMAP_RESOURCE_ZONES );
+	CONSTRUCT_MINIMAP_PANEL( "minimap_construction_yard", MINIMAP_RESOURCE_ZONES );
 }
 
 //-----------------------------------------------------------------------------

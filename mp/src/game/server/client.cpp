@@ -1347,6 +1347,7 @@ void CC_HurtMe_f(const CCommand &args)
 
 static ConCommand hurtme("hurtme", CC_HurtMe_f, "Hurts the player.\n\tArguments: <health to lose>", FCVAR_CHEAT);
 
+#ifdef DBGFLAG_ASSERT
 static bool IsInGroundList( CBaseEntity *ent, CBaseEntity *ground )
 {
 	if ( !ground || !ent )
@@ -1366,8 +1367,8 @@ static bool IsInGroundList( CBaseEntity *ent, CBaseEntity *ground )
 	}
 
 	return false;
-
 }
+#endif
 
 static int DescribeGroundList( CBaseEntity *ent )
 {
