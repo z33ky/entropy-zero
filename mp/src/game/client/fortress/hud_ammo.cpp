@@ -1,9 +1,6 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
+/*	Copyright (C) Valve Corporation
+	Copyright (C) 2014-2015 TalonBrave.info
+*/
 
 #include "cbase.h"
 #include "hud_numeric.h"

@@ -514,8 +514,8 @@ float CHudNumeric::MaxCharacterDiff( const char *prev, const char *next )
 {
 	float maxdiff = 0.0f;
 
-	int textlen = Q_strlen( next );
-	int prevlen = Q_strlen( prev );
+	int textlen = V_strlen( next );
+	int prevlen = V_strlen( prev );
 	int ch;
 	for ( ch = 0; ch < textlen; ch++ )
 	{
@@ -642,7 +642,7 @@ void CHudNumeric::PaintStringRotary( float t, const char *text, int textlen, HFo
 	surface()->DrawSetTextFont( font );
 	int ch;
 
-	int prevlen = Q_strlen( m_szLatchedValue );
+	int prevlen = V_strlen( m_szLatchedValue );
 
 	// Compute pixels actually required
 	int pixels = 0;
@@ -745,7 +745,6 @@ void CHudNumeric::PaintStringRotary( float t, const char *text, int textlen, HFo
 			}
 			break;
 		}
-
 	}
 }
 
@@ -912,8 +911,8 @@ void CHudNumeric::Paint( void )
 			increment = true;
 		}
 
-		Q_strncpy( m_szLatchedValue, m_szPreviousValue, sizeof( m_szLatchedValue ) );
-		m_nTextLen = Q_strlen( value );
+		V_strncpy( m_szLatchedValue, m_szPreviousValue, sizeof( m_szLatchedValue ) );
+		m_nTextLen = V_strlen( value );
 		
 		m_flRotaryStartTime = gpGlobals->curtime;
 		float maxdiff = MaxCharacterDiff( m_szLatchedValue, value );
@@ -927,7 +926,7 @@ void CHudNumeric::Paint( void )
 		}
 	}
 
-	Q_strncpy( m_szPreviousValue, value, sizeof( m_szPreviousValue ) );
+	V_strncpy( m_szPreviousValue, value, sizeof( m_szPreviousValue ) );
 
 	Color clr = GetColor();
 	PaintValue( value, m_nTextLen, w, h, clr );

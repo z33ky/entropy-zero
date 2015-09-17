@@ -1,3 +1,7 @@
+/*	Copyright (C) Valve Corporation
+	Copyright (C) 2014-2015 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "hud_minimap.h"
 #include <vgui_controls/Controls.h>
@@ -103,9 +107,6 @@ private:
 	CPanelAnimationVar( Color, m_BackgroundColor, "BackgroundColor", "Black" );
 };
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 CTextHelpPanel::CTextHelpPanel()
 : BaseClass( NULL, "HudMinimapTextHelpPanel" )
 {

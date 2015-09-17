@@ -1,3 +1,7 @@
+/*	Copyright (C) Valve Corporation
+	Copyright (C) 2014-2015 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "weapon_selection.h"
 #include "iclientmode.h"
@@ -23,6 +27,7 @@ using namespace vgui;
 
 class CHudWeaponSelection;
 
+// TODO: What was this intended for? ~hogsy
 typedef enum
 {
 	IMAGE_BACKGROUND = 0,
@@ -1388,7 +1393,7 @@ void CHudWeaponItemPanel::Paint()
 	HFont textFont = sizefrac < 1.0 ? selection->m_hTextFontSmall : selection->m_hTextFont;
 	surface()->DrawSetTextFont(textFont);
 	//int slen = UTIL_ComputeStringWidth( textFont, info.printname ); 
-	int charCount = Q_strlen(info.printname);
+	int charCount = V_strlen(info.printname);
 
 	int textYPos = m_flTextYPos;
 	int textXPos = m_flTextXPos;
@@ -1438,7 +1443,7 @@ void CHudWeaponItemPanel::OnWeaponSelectionDrawn(CHudWeaponSelection *selection,
 	int y = tall - m_flPriceYEndPos - fontHeight;
 
 	char text[32];
-	Q_snprintf(text, sizeof(text), "%i", iCost);
+	V_snprintf(text, sizeof(text), "%i", iCost);
 
 	// Compute pixels needed so we can right justify it
 	int pixels = 0;
