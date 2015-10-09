@@ -13,6 +13,21 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{BA03E055-4FA2-FCE3-8A1C-D348547D379C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Invasion">
+      <UniqueIdentifier>{F1AA1111-291C-4AC3-3E62-CF1BFEFEFD60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Classes">
+      <UniqueIdentifier>{B422DA24-4BF8-BD9A-1DB4-B59EE1786A06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Objects">
+      <UniqueIdentifier>{7CE2649D-705E-7843-5E53-84C73B5B1DFC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Orders">
+      <UniqueIdentifier>{8A6AE5DA-7F7A-B396-726A-78C81D704C21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Shared">
+      <UniqueIdentifier>{F4CACB3C-A885-5904-6FB8-853F26D95055}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Navigation Mesh">
       <UniqueIdentifier>{B09D60FE-50B0-FE99-73C2-303E809808E2}</UniqueIdentifier>
     </Filter>
@@ -27,21 +42,6 @@
     </Filter>
     <Filter Include="VPC Scripts">
       <UniqueIdentifier>{A40EE377-781A-C6B9-0C7C-B3BE118D248E}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Invasion">
-      <UniqueIdentifier>{2E6C6445-8149-FAB8-4CB0-942D12A0F9AF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Invasion\Classes">
-      <UniqueIdentifier>{11742729-1F0F-7FB2-A71A-89C9630487D7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Invasion\Objects">
-      <UniqueIdentifier>{E06F7093-170C-F5B5-C54C-13BFA6250BAD}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Invasion\Orders">
-      <UniqueIdentifier>{3FCEA97A-B2E3-ECC6-C710-8C9B8FF263EC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Invasion\Shared">
-      <UniqueIdentifier>{56C5F164-81CD-59F9-7917-3DF4517A5931}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

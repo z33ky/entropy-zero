@@ -108,7 +108,7 @@ public:
 	virtual void		GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax );
 
 	// Player Physics Shadow
-	virtual void		InitVCollision( void );
+	virtual void		InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity);
 
 	// Powerups
 	virtual void		PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier );
@@ -136,7 +136,7 @@ public:
 	// Respawn ( allow classes to override spawn points )
 	virtual CBaseEntity		*SelectSpawnPoint( void );
 
-    void *operator new( size_t stAllocateBlock )	
+	void *operator new( size_t stAllocateBlock )	
 	{												
 		Assert( stAllocateBlock != 0 );				
 		void *pMem = malloc( stAllocateBlock );

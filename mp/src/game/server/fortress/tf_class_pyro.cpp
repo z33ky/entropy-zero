@@ -112,7 +112,6 @@ void CPlayerClassPyro::GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vec
 	}
 }
 
-
 void CPlayerClassPyro::ResetViewOffset()
 {
 	if ( m_pPlayer )
@@ -121,21 +120,13 @@ void CPlayerClassPyro::ResetViewOffset()
 	}
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CPlayerClassPyro::InitVCollision()
+void CPlayerClassPyro::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
 	CPhysCollide *pStandModel = PhysCreateBbox( PYROCLASS_HULL_STAND_MIN, PYROCLASS_HULL_STAND_MAX );
 	CPhysCollide *pCrouchModel = PhysCreateBbox( PYROCLASS_HULL_DUCK_MIN, PYROCLASS_HULL_DUCK_MAX );
-	m_pPlayer->SetupVPhysicsShadow(m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), pStandModel, "tfplayer_medic_stand", pCrouchModel, "tfplayer_medic_crouch");
+	m_pPlayer->SetupVPhysicsShadow(vecAbsOrigin, vecAbsVelocity, pStandModel, "tfplayer_medic_stand", pCrouchModel, "tfplayer_medic_crouch");
 }
 
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
 bool CPlayerClassPyro::ResupplyAmmo( float flFraction, ResupplyReason_t reason )
 {
 	bool bGiven = false;

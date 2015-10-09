@@ -78,7 +78,7 @@ public:
 	CNetworkVarEmbedded( PlayerClassCommandoData_t, m_ClassData );
 
 	// Player physics shadow.
-	void			InitVCollision( void );
+	void			InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity);
 
 	// Vehicle
 	bool			CanGetInVehicle( void );

@@ -100,7 +100,7 @@ bool CBaseTFFourWheelVehicle::Deploy( void )
 	m_flDeployFinishTime = gpGlobals->curtime + flDeployTime;
 
 	SetContextThink( &CBaseTFFourWheelVehicle::BaseFourWheeledVehicleDeployThink, gpGlobals->curtime + flDeployTime, 
-		             BASEFOURWHEELEDVEHICLE_DEPLOYTHINK_CONTEXT );
+					 BASEFOURWHEELEDVEHICLE_DEPLOYTHINK_CONTEXT );
 
 	// Set the deploy mode.
 	m_eDeployMode = VEHICLE_MODE_DEPLOYING;
@@ -132,7 +132,7 @@ void CBaseTFFourWheelVehicle::UnDeploy( void )
 	m_flDeployFinishTime = gpGlobals->curtime + flUnDeployTime;
 
 	SetContextThink(&CBaseTFFourWheelVehicle::BaseFourWheeledVehicleDeployThink, gpGlobals->curtime + flUnDeployTime,
-		             BASEFOURWHEELEDVEHICLE_DEPLOYTHINK_CONTEXT );
+					 BASEFOURWHEELEDVEHICLE_DEPLOYTHINK_CONTEXT );
 
 	// Set the deploy mode.
 	m_eDeployMode = VEHICLE_MODE_UNDEPLOYING;
@@ -265,8 +265,9 @@ void CBaseTFFourWheelVehicle::Spawn( )
 	SetModel( STRING( GetModelName() ) );
 
 	// TODO: This needs to be looked over and revised, just a workaround.
-	CFourWheelServerVehicle *pServerVehicle = /*dynamic_cast*/reinterpret_cast<CFourWheelServerVehicle*>(GetServerVehicle());
+	CBaseTFFourWheelVehicle *pServerVehicle = dynamic_cast<CBaseTFFourWheelVehicle*>(GetServerVehicle());
 	m_VehiclePhysics.SetOuter( this, pServerVehicle );
+	m_VehiclePhysics.Spawn();
 
 	BaseClass::Spawn();
 
@@ -660,7 +661,7 @@ void CBaseTFFourWheelVehicle::VPhysicsCollision( int index, gamevcollisionevent_
 	int otherIndex = !index;
 	CBaseEntity *pEntity = pEvent->pEntities[otherIndex];
 
-    // We only damage objects...
+	// We only damage objects...
 	// And only if we're travelling fast enough...
 	Assert( pEntity );
 	if ( !pEntity->IsSolid() )

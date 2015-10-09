@@ -1,3 +1,7 @@
+/*	Copyright (C) Valve Corporation
+	Copyright (C) 2014-2015 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "hud.h"
 #include "hud_numeric.h"

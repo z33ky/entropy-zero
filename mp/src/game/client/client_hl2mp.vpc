@@ -41,7 +41,7 @@ $Project "Client"
 		$File	"teambitmapimage.cpp"
 		$File	"hl2mp\hl2mp_hud_chat.cpp"
 
-		$Folder	"Fortress"
+		$Folder	"Invasion"
 		{
 			$Folder	"Shared"
 			{

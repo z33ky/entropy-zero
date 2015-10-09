@@ -444,7 +444,7 @@ private:
 	bool		ShouldMatchCycles( Activity newActivity, Activity currentActivity );
 
 	// TF Player Physics Shadow
-	void		InitVCollision( void );
+	void		InitVCollision( const Vector &vecAbsOrigin, const Vector &vecAbsVelocity );
 
 	void		ApplyDamageForce( const CTakeDamageInfo &info, int nDamageToDo );
 
@@ -583,21 +583,5 @@ inline CBaseTFPlayer *ToBaseTFPlayer( CBaseEntity *pEntity )
 
 	return dynamic_cast<CBaseTFPlayer *>( pEntity );
 }
-
-class CPhysicsPlayerCallback : public IPhysicsPlayerControllerEvent
-{
-public:
-
-	int ShouldMoveTo( IPhysicsObject *pObject, const Vector &position )
-	{
-		CBaseTFPlayer *pPlayer = ( CBaseTFPlayer* )pObject->GetGameData();
-		if ( pPlayer->TouchedPhysics() )
-			return 0;
-
-		return 1;
-	}
-};
-
-extern CPhysicsPlayerCallback playerCallback;
 
 #endif // TF_PLAYER_H

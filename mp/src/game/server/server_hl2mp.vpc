@@ -64,7 +64,7 @@ $Project "Server"
 		
 		$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
 
-		$Folder	"Fortress"
+		$Folder	"Invasion"
 		{
 			$Folder	"Shared"
 			{

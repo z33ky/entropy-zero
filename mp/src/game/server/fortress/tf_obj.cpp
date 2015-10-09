@@ -20,9 +20,7 @@
 #include "tf_stats.h"
 #include "tf_gamerules.h"
 #include "engine/IEngineSound.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_sentrygun.h"
-#endif
 #include "tf_obj_powerpack.h"
 #include "tf_shareddefs.h"
 #include "VGuiScreen.h"
@@ -717,11 +715,11 @@ float CBaseObject::GetTotalTime( void )
 		return 2.f;
 
 	// If it's in a construction yard, don't take more than 5 seconds to build
-  	if ( PointInConstructionYard( GetAbsOrigin() ) )
-  	{
+	if ( PointInConstructionYard( GetAbsOrigin() ) )
+	{
 		if ( GetObjectInfo( ObjectType() )->m_flBuildTime > 5.0 )
-  			return 5.0;
-  	}
+			return 5.0;
+	}
 
 	return GetObjectInfo( ObjectType() )->m_flBuildTime;
 }
@@ -1120,11 +1118,9 @@ bool CBaseObject::CheckBuildOrigin( CBaseTFPlayer *pPlayer, const Vector &vecIni
 				// Sentryguns may be turtled, and non-solid
 				if ( pEntity->Classify() == CLASS_MILITARY )
 				{
-#ifdef IMPLEMENT_ME
 					CObjectSentrygun *pSentry = dynamic_cast<CObjectSentrygun*>(pEntity);
 					if ( pSentry && pSentry->IsTurtled() )
 						return false;
-#endif
 				}
 			}
 		}

@@ -361,9 +361,9 @@ void CPlayerClassDefender::CreatePersonalOrder()
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CPlayerClassDefender::InitVCollision( void  )
+void CPlayerClassDefender::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
 	CPhysCollide *pStandModel = PhysCreateBbox( DEFENDERCLASS_HULL_STAND_MIN, DEFENDERCLASS_HULL_STAND_MAX );
 	CPhysCollide *pCrouchModel = PhysCreateBbox( DEFENDERCLASS_HULL_DUCK_MIN, DEFENDERCLASS_HULL_DUCK_MAX );
-	m_pPlayer->SetupVPhysicsShadow( m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), pStandModel, "tfplayer_defender_stand", pCrouchModel, "tfplayer_defender_crouch" );
+	m_pPlayer->SetupVPhysicsShadow( vecAbsOrigin, vecAbsVelocity, pStandModel, "tfplayer_defender_stand", pCrouchModel, "tfplayer_defender_crouch" );
 }

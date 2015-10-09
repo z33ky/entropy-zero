@@ -1,11 +1,7 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
-//
-// Purpose: HUD Timer
-//
-// $Workfile:     $
-// $Date:         $
-// $NoKeywords: $
-//=============================================================================//
+/*	Copyright (C) Valve Corporation
+	Copyright (C) 2014-2015 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "hud.h"
 #include "hud_macros.h"
@@ -188,8 +184,8 @@ bool CHudTimer::GetValue( char *value, int maxlen )
 	// Convert time to Minutes and Seconds (prevent negative times)
 	int iTimerMinutes = max( 0, ((int)m_flCurrentTime) / 60 );
 	int iTimerSeconds = max( 0, ((int)m_flCurrentTime) % 60 );
-
-	Q_snprintf( value, maxlen, "%02d:%.2d", iTimerMinutes, iTimerSeconds );
+	
+	V_snprintf( value, maxlen, "%02d:%.2d", iTimerMinutes, iTimerSeconds );
 	return true;
 }
 

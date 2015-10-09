@@ -268,11 +268,9 @@ float CPlayerClassMedic::OnTakeDamage( const CTakeDamageInfo &info )
 	return BaseClass::OnTakeDamage( info );
 }
 
-void CPlayerClassMedic::InitVCollision( void )
+void CPlayerClassMedic::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
-#ifdef IMPLEMENT_ME
 	CPhysCollide *pStandModel = PhysCreateBbox( MEDICCLASS_HULL_STAND_MIN, MEDICCLASS_HULL_STAND_MAX );
 	CPhysCollide *pCrouchModel = PhysCreateBbox( MEDICCLASS_HULL_DUCK_MIN, MEDICCLASS_HULL_DUCK_MAX );
-	m_pPlayer->SetupVPhysicsShadow( pStandModel, "tfplayer_medic_stand", pCrouchModel, "tfplayer_medic_crouch" );
-#endif
+	m_pPlayer->SetupVPhysicsShadow( vecAbsOrigin, vecAbsVelocity, pStandModel, "tfplayer_medic_stand", pCrouchModel, "tfplayer_medic_crouch" );
 }

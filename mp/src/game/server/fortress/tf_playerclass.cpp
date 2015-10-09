@@ -940,7 +940,7 @@ void CPlayerClass::GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax 
 	}
 }
 
-void CPlayerClass::InitVCollision( void )
+void CPlayerClass::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
 	CPhysCollide *pStandModel = PhysCreateBbox( PLAYERCLASS_HULL_STAND_MIN, PLAYERCLASS_HULL_STAND_MAX );
 	CPhysCollide *pCrouchModel = PhysCreateBbox( PLAYERCLASS_HULL_DUCK_MIN, PLAYERCLASS_HULL_DUCK_MAX );
@@ -974,9 +974,9 @@ void CPlayerClass::InitVCollision( void )
 
 	// init state
 	if ( m_pPlayer->GetFlags() & FL_DUCKING )
-		m_pPlayer->SetVCollisionState( m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), VPHYS_CROUCH );
+		m_pPlayer->SetVCollisionState(vecAbsOrigin, vecAbsVelocity, VPHYS_CROUCH );
 	else
-		m_pPlayer->SetVCollisionState( m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), VPHYS_WALK );
+		m_pPlayer->SetVCollisionState(vecAbsOrigin, vecAbsVelocity, VPHYS_WALK );
 }
 
 void CPlayerClass::OwnedObjectChangeToTeam( CBaseObject *pObject, CBaseTFPlayer *pNewOwner )

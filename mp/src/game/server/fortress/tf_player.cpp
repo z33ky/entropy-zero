@@ -34,9 +34,7 @@
 #include "tf_class_recon.h"
 #include "tf_class_sniper.h"
 #include "tf_class_support.h"
-#ifdef IMPLEMENT_ME
 #include "tf_class_sapper.h"
-#endif
 #include "sendproxy.h"
 #include "ragdoll_shadow.h"
 #include "vstdlib/random.h"
@@ -3354,8 +3352,11 @@ public:
 	int ShouldMoveTo( IPhysicsObject *pObject, const Vector &position )
 	{
 		CBaseTFPlayer *pPlayer = ( CBaseTFPlayer* )pObject->GetGameData();
-		if ( pPlayer->TouchedPhysics() )
-			return 0;
+		if (pPlayer)
+		{
+			if (pPlayer->TouchedPhysics())
+				return 0;
+		}
 
 		return 1;
 	}
@@ -3363,10 +3364,17 @@ public:
 
 static CPhysicsTFPlayerCallback TFPlayerCallback;
 
-void CBaseTFPlayer::InitVCollision( void )
+void CBaseTFPlayer::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
+#if 0
+	VPhysicsDestroyObject();
+
+	// IMPLEMENT_ME: This is currently causing issues. ~hogsy
 	if ( GetPlayerClass() )
-		GetPlayerClass()->InitVCollision();
+		GetPlayerClass()->InitVCollision(vecAbsOrigin, vecAbsVelocity);
+#else
+	BaseClass::InitVCollision(vecAbsOrigin, vecAbsVelocity);
+#endif
 
 	// Setup the HL2 specific callback.
 	if ( GetPhysicsController() )

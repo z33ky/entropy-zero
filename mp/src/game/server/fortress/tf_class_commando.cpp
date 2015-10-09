@@ -473,11 +473,11 @@ void CPlayerClassCommando::ResetViewOffset( void )
 		m_pPlayer->SetViewOffset( COMMANDOCLASS_VIEWOFFSET_STAND );
 }
 
-void CPlayerClassCommando::InitVCollision( void )
+void CPlayerClassCommando::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
 	CPhysCollide *pStandModel = PhysCreateBbox( COMMANDOCLASS_HULL_STAND_MIN, COMMANDOCLASS_HULL_STAND_MAX );
 	CPhysCollide *pCrouchModel = PhysCreateBbox( COMMANDOCLASS_HULL_DUCK_MIN, COMMANDOCLASS_HULL_DUCK_MAX );
-	m_pPlayer->SetupVPhysicsShadow( m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsVelocity(), pStandModel, "tfplayer_commando_stand", pCrouchModel, "tfplayer_commando_crouch" );
+	m_pPlayer->SetupVPhysicsShadow( vecAbsOrigin, vecAbsVelocity, pStandModel, "tfplayer_commando_stand", pCrouchModel, "tfplayer_commando_crouch" );
 }
 
 bool CPlayerClassCommando::CanGetInVehicle( void )
