@@ -205,22 +205,10 @@ void CWeaponCombatBurstRifle::PrimaryAttack( void )
 	Vector vecStartSpot = vecSrc;
 
 	// Get the firing position
-#ifdef CLIENT_DLL
-	// On our client, grab the viewmodel's firing position
 	Vector vecWorldOffset = vecStartSpot + Vector(0,0,-8) + right * 12 + forward * 16;
-#else
-	// For everyone else, grab the weapon model's position
-	/*
-	Vector vecWorldOffset;
-	QAngle angIgnore;
-	GetAttachment( LookupAttachment( "muzzle" ), vecWorldOffset, angIgnore );
-	*/
-
-	Vector vecWorldOffset = vecStartSpot + Vector(0,0,-8) + right * 12 + forward * 16;
-#endif
 	Vector gunOffset = vecWorldOffset - vecStartSpot;
 
-	CPowerPlasmaProjectile *pPlasma = CPowerPlasmaProjectile::CreatePredicted( vecStartSpot, vecDir, gunOffset, DMG_ENERGYBEAM, pPlayer );
+	CPowerPlasmaProjectile *pPlasma = CPowerPlasmaProjectile::CreatePredicted(vecSrc, vecDir, gunOffset, DMG_ENERGYBEAM, pPlayer);
 	if ( pPlasma )
 	{
 		pPlasma->SetDamage( weapon_combat_burstrifle_damage.GetFloat() );

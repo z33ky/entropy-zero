@@ -264,10 +264,12 @@ void CBaseTFFourWheelVehicle::Spawn( )
 {
 	SetModel( STRING( GetModelName() ) );
 
+#if 0
 	// TODO: This needs to be looked over and revised, just a workaround.
 	CBaseTFFourWheelVehicle *pServerVehicle = dynamic_cast<CBaseTFFourWheelVehicle*>(GetServerVehicle());
 	m_VehiclePhysics.SetOuter( this, pServerVehicle );
 	m_VehiclePhysics.Spawn();
+#endif
 
 	BaseClass::Spawn();
 
