@@ -10,7 +10,7 @@ HudScheme
 		Green		"0 255 0 255"
 		Black		"0 0 0 255"
 		LightBlack	"0 0 0 240"
-		Blue		"0 255 0 255"
+		Blue			"0 255 0 255"
 		Invisible	"0 0 0 0"
 		
 		TeamColour			"255 0 0 255"
@@ -24,8 +24,8 @@ HudScheme
 		Black						Black
 		White						White
 
-		BrightFg					Yellow
-		FgColor						Orange
+		BrightFg		Yellow
+		FgColor		Orange
 
 		HudStatusBgColor			TeamColourDarkLight
 		HudStatusSelectedBgColor	TeamColourDark
@@ -48,8 +48,8 @@ HudScheme
 		AmmoNormal					Green
 		AmmoCaution					Red
 
-		OtherSlotFg					Green
-		OtherSlotText				Green
+		OtherSlotFg	Green
+		OtherSlotText	Green
 	}
 
 	Fonts
@@ -62,6 +62,7 @@ HudScheme
 				tall			"24"
 				weight		"0"
 				antialias	"1"
+				outline		1
 			}
 		}
 		
@@ -73,6 +74,7 @@ HudScheme
 				tall			"13"
 				weight		"0"
 				antialias	"1"
+				outline		1
 			}
 		}
 		
@@ -84,6 +86,7 @@ HudScheme
 				tall			"10"
 				weight		"0"
 				antialias	"1"
+				outline		1
 			}
 		}
 		
@@ -95,6 +98,7 @@ HudScheme
 				tall			"18"
 				weight		"100"
 				antialias	"1"
+				outline		1
 			}
 		}
 		
@@ -107,6 +111,7 @@ HudScheme
 				weight		"100"
 				additive		"1"
 				antialias 	"1"
+				outline		1
 			}
 		}
 		

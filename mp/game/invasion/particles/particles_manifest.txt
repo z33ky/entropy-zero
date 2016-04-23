@@ -1,4 +1,4 @@
 particles_manifest
 {
-	file	!particles/fire_01.pcf
+	file	"!particles/fire_01.pcf"
 }

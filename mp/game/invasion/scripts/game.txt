@@ -1,2 +1,2 @@
 // Game specific definitions
-"$game"	"Fortress"
+"$game"	"invasion"

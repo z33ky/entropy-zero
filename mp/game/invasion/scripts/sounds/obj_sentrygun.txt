@@ -23,4 +23,5 @@ ObjectSentrygun.Fire
 	pitch		PITCH_NORM
 	soundlevel	SNDLVL_NORM
 	wave		objects/sentrygun/plasma_fire.wav
+	//wave		objects/sentrygun/sentry_shoot.wav
 }

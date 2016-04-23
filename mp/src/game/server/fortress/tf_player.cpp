@@ -227,15 +227,6 @@ void StatusPrintf( bool clear, int destination, char *pFormat, ... )
 //=====================================================================
 CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this ), m_PlayerAnimState( this )
 {
-	// HACK because player's have pev set in baseclass constructor
-	// which triggers an assert that we want to keep.
-	{
-		edict_t *savepev = edict();
-		NetworkProp()->SetEdict( NULL );
-		UseClientSideAnimation();
-		NetworkProp()->SetEdict( savepev );
-	}
-
 	m_bWasMoving = false;
 
 	m_iLastSecondsToGo = -1;
@@ -1236,7 +1227,7 @@ void CBaseTFPlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 	case PLAYER_DIE:
 		// Uses Ragdoll now???
-		idealActivity = ACT_DIESIMPLE;
+		idealActivity = ACT_DIERAGDOLL;	//ACT_DIESIMPLE;
 		break;
 
 	// FIXME:  Use overlays for reload, start/leave aiming, attacking

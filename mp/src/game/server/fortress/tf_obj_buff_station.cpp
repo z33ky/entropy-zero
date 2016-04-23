@@ -241,7 +241,7 @@ void CObjectBuffStation::InitAttachmentData( void )
 	char szAttachName[13];
 
 	m_nPlayerCount = 0;
-	Q_strncpy( szAttachName, "playercable1", 13 );
+	V_strncpy( szAttachName, "playercable1", 13 );
 	for ( int iPlayer = 0; iPlayer < BUFF_STATION_MAX_PLAYERS; ++iPlayer )
 	{
 		m_hPlayers.Set( iPlayer, NULL );
@@ -251,7 +251,7 @@ void CObjectBuffStation::InitAttachmentData( void )
 	}
 
 	m_nObjectCount = 0;
-	Q_strncpy( szAttachName, "objectcable1", 13 );	
+	V_strncpy( szAttachName, "objectcable1", 13 );	
 	for ( int iObject = 0; iObject < BUFF_STATION_MAX_OBJECTS; ++iObject )
 	{
 		m_hObjects.Set( iObject, NULL );
@@ -715,7 +715,7 @@ void CObjectBuffStation::DeBuffObject( CBaseObject *pObject )
 //-----------------------------------------------------------------------------
 void CObjectBuffStation::BuffNearbyObjects( CBaseObject *pObjectToTarget, bool bPlacing )
 {
-#if 0	// ROBIN: Disabled object buffing for now
+#if 1	// ROBIN: Disabled object buffing for now
 	// Check for a team.
 	if ( !GetTFTeam() )
 		return;

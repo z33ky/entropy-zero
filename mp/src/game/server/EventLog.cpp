@@ -97,7 +97,7 @@ bool CEventLog::PrintPlayerEvent( IGameEvent *event )
 		return false;
 	}
 
-	if ( !Q_strncmp( eventName, "player_team", Q_strlen("player_team") ) )
+	if ( !V_strncmp( eventName, "player_team", V_strlen("player_team") ) )
 	{
 		const bool bDisconnecting = event->GetBool( "disconnect" );
 

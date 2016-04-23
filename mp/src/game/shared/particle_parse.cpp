@@ -149,8 +149,8 @@ void ReloadParticleEffectsInList( IFileList *pFilesToReload )
 	if ( pszMapName && pszMapName[0] )
 	{
 		char mapname[MAX_MAP_NAME];
-		Q_FileBase( pszMapName, mapname, sizeof( mapname ) );
-		Q_strlower( mapname );
+		V_FileBase( pszMapName, mapname, sizeof( mapname ) );
+		V_strlower( mapname );
 		ParseParticleEffectsMap( mapname, true, pFilesToReload );
 	}
 
