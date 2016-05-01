@@ -127,7 +127,7 @@ void C_BaseTFCombatWeapon::DrawAmmo()
 		Clip2(), 
 		GetMaxClip2() );
 
-#if 1	// ROBIN: Disabled mini ammo count for now
+#if 0	// ROBIN: Disabled mini ammo count for now
 	InitializeCrosshairPanels();
 	DrawMiniAmmo();
 #endif

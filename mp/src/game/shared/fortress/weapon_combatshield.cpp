@@ -684,7 +684,7 @@ float CWeaponCombatShield::GetLoweringTime( void )
 //-----------------------------------------------------------------------------
 void CWeaponCombatShield::DrawAmmo( void )
 {
-#if 0	// ROBIN: Removed this now that the shield colors itself to show health level
+#if 1	// ROBIN: Removed this now that the shield colors itself to show health level
 	int r, g, b, a;
 	int x, y;
 

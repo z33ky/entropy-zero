@@ -64,8 +64,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		10
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		WeaponMenu2
@@ -74,8 +74,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		74
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		WeaponMenu3
@@ -84,8 +84,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		138
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		WeaponMenu4
@@ -94,8 +94,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		202
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		WeaponMenu5
@@ -104,8 +104,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		266
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		WeaponMenu6
@@ -114,8 +114,8 @@ HudLayout
 			tall		60
 			xpos		-3
 			ypos		330
-			enabled		1
-			visible		1
+			enabled	1
+			visible	1
 		}
 
 		BuildMenu1
@@ -123,7 +123,7 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		100
-			visible		1
+			visible	1
 		}
 
 		BuildMenu2
@@ -131,7 +131,7 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		200
-			visible		1
+			visible	1
 		}
 
 		BuildMenu3
@@ -139,7 +139,7 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		300
-			visible		1
+			visible	1
 		}
 
 		BuildMenu4
@@ -147,7 +147,7 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		400
-			visible		1
+			visible	1
 		}
 
 		BuildMenu5
@@ -155,7 +155,7 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		500
-			visible		1
+			visible	1
 		}
 
 		BuildMenu6
@@ -163,19 +163,19 @@ HudLayout
 			wide		80
 			tall		64
 			xpos		600
-			visible		0
+			visible	0
 		}
 	}
 
 	HudWeaponFlashHelper
 	{
 		fieldName			HudWeaponFlashHelper
-		xpos				10
-		ypos				10
-		wide				200
-		tall				100
-		visible 			1
-		enabled 			1
+		xpos					10
+		ypos					10
+		wide					200
+		tall					100
+		visible 				1
+		enabled 				1
 		PaintBackgroundType	2
 	}
 
@@ -290,19 +290,31 @@ HudLayout
 	HudOrderList
 	{
 		fieldName	HudOrderList
-		visible		1
+		visible		0
 		enabled		1
 	}
 	
 	HudMinimap
 	{
-		fieldName		HudMinimap
+		fieldName	HudMinimap
 		xpos			r170
 		ypos			10
 		wide			160
 		tall			160
 		visible 		1
 		enabled 		1
+	}
+	
+	HudMinimapTextHelpPanel
+	{
+		fieldName	HudMinimapTextHelpPanel
+		xpos			r170
+		ypos			180
+		wide			128
+		tall			128
+		
+		visible	1
+		enabled	1
 	}
 	
 	DamageIndicator

@@ -1,5 +1,5 @@
 /*	Copyright (C) Valve Corporation
-	Copyright (C) 2014-2015 TalonBrave.info
+	Copyright (C) 2014-2016 TalonBrave.info
 */
 
 #include "cbase.h"
@@ -30,7 +30,6 @@
 
 static ConVar minimap_visible( "minimap_visible", "1", 0, "Draw minimap?" );
 ConVar minimap_zoomtime( "minimap_zoomtime", "0.4", 0, "How long it takes to resize the minimap." );
-
 
 static ConVar current_team( "current_team", "-1", 0 );
 

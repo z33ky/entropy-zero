@@ -1,0 +1,191 @@
+@include "base.fgd"
+
+@BaseClass = FObject
+[
+	input	SetHealth(integer)				:	"Sets the health of the object."
+	input	AddHealth(integer)				:	"Adds health to the object."
+	input	RemoveHealth(integer)			:	"Removes health from the object."
+	input	SetMinDisabledHealth(integer)	:	"Sets minimum health before object becomes disabled."
+	input	SetSolidToPlayer(integer)		:	"Sets the object to be solid to the player."
+	
+	TeamNum(choices) : "Team" : 2 : "Team" =
+	[
+		2 : "Human"
+		3 : "Alien"
+	]
+	Invulnerable(choices)		:	"Invulnerable?"		:	0	:	"Sets the object as invulnerable." =
+	[
+		0	:	"False"
+		1	:	"True"
+	]
+	CantDie(choices)			:	"Can't die?"		:	1	:	"If true, the object can't be killed." =
+	[
+		0	:	"False"
+		1	:	"True"
+	]
+	DisabledModel(string)		:	"Disabled model"	:	""	:	"Model to show when object is disabled."
+	SolidToPlayer(integer)		:	"Solid to player?"	:	0	:	"If enabled, the object is solid to the player."
+	MinDisabledHealth(float)	:	"Disabled health"	:	10	:	"Minimum health before object becomes disabled."
+]
+
+@SolidClass base(Trigger) = trigger_controlzone : "Control Zone"
+[
+	output	ControllingTeam(integer)	:	"Returns the current controlling team."
+
+	input	SetTeam(void)	:	"Sets the team of the zone."
+	input	LockTeam(void)	:	"Locks the zone to the current controlling team."
+
+	LockAfterChange(choices)	:	"Lock after change?"	:	0	:	"Sets the control zone to lock after being captured." =
+	[
+		0	:	"False"
+		1	:	"True"
+	]
+	ZoneNumber(integer)			:	"Number"				:	0	:	"Sets the unique zone ID for the control zone."
+	ContestedTime(float)		:	"Time until contested"	:	10	:	"Sets the time before the zone becomes contested after a team enters the area."
+	UncontestedTime(float)		:	"Time until captured"	:	5	:	"Sets the length of time it takes to capture the zone."
+]
+
+@SolidClass base(Trigger) = trigger_resourcezone: 
+	"Resource Zone"
+[
+	ResourceAmount(integer)	:	"Amount"				:	10000	:	""
+	ResourceChunks(integer)	:	"Chunks"				:	5		:	""
+	ResourceRate(float)		:	"Rate"					:	0		:	""
+	ChunkValueMin(float)	:	"Minimum chunk value"	:	20		:	""
+	ChunkValueMax(float)	:	"Maximum chunk value"	:	60		:	""
+	
+	input	SetAmount(integer)
+	input	ResetAmount(void)
+	input	SetActive(void)
+	input	SetInactive(void)
+	input	ToggleActive(void)
+	
+	output	OnEmpty(void)
+]
+
+@SolidClass base(Trigger) = func_construction_yard : "Construction Yard" []
+
+@PointClass base(FObject) = obj_respawn_station :
+	"Respawn Station"
+[
+	InitialSpawn(choices)	:	"Initial spawn?"	:	1	:	"Returns true if this spawn point is the map specified initial spawn point for its team." =
+	[
+		0	:	"False"
+		1	:	"True"
+	]
+]
+
+@PointClass = env_resourcespawner :	"Resource Spawner"
+[
+	target(target_destination)	: "Target"
+]
+
+@PointClass = env_meteortarget :
+	"Meteor Target"
+[
+]
+
+@PointClass = env_meteorspawner :
+	"Meteor Spawner"
+[
+]
+
+@PointClass = tf_hintmanager :
+	"Hint Manager"
+[
+]
+
+// Info Entities
+
+@PointClass = info_act : "Act Information"
+[
+	ActNumber(integer) 						: "Act Number"
+	ActTimeLimit(float) 					: "Act Time Limit"
+	IntermissionCamera(target_destination)	: "Intermission Camera"
+	Respawn1Team1Time(integer)				: "Respawn 1 Team 1 Time"
+	Respawn2Team1Time(integer)				: "Respawn 2 Team 1 Time"
+	Respawn1Team2Time(integer)				: "Respawn 1 Team 2 Time"
+	Respawn2Team2Time(integer)				: "Respawn 2 Team 2 Time"
+	RespawnTeam1InitialDelay(integer)		: "Respawn Team 1 Initial Delay"
+	RespawnTeam2InitialDelay(integer)		: "Respawn Team 2 Initial Delay"
+
+	input Start(void)
+	input FinishWinNone(void)
+	input FinishWin1(void)
+	input FinishWin2(void)
+	input AddTime(float)
+	
+	output OnStarted(void)
+	output OnFinishedWinNone(void)
+	output OnFinishedWin1(void)
+	output OnFinishedWin2(void)
+	output OnTimerExpired(void)
+	
+	output OnRespawn1Team1_90sec(void)
+	output OnRespawn1Team1_60sec(void)
+	output OnRespawn1Team1_45sec(void)
+	output OnRespawn1Team1_30sec(void)
+	output OnRespawn1Team1_10sec(void)
+	output OnRespawn1Team1(void)
+	output Respawn1Team1TimeRemaining(void)
+	
+	output OnRespawn2Team1_90sec(void)
+	output OnRespawn2Team1_60sec(void)
+	output OnRespawn2Team1_45sec(void)
+	output OnRespawn2Team1_30sec(void)
+	output OnRespawn2Team1_10sec(void)
+	output OnRespawn2Team1(void)
+	output Respawn2Team1TimeRemaining(void)
+	
+	output OnRespawn1Team2_90sec(void)
+	output OnRespawn1Team2_60sec(void)
+	output OnRespawn1Team2_45sec(void)
+	output OnRespawn1Team2_30sec(void)
+	output OnRespawn1Team2_10sec(void)
+	output OnRespawn1Team2(void)
+	output Respawn1Team2TimeRemaining(void)
+	
+	output OnRespawn2Team2_90sec(void)
+	output OnRespawn2Team2_60sec(void)
+	output OnRespawn2Team2_45sec(void)
+	output OnRespawn2Team2_30sec(void)
+	output OnRespawn2Team2_10sec(void)
+	output OnRespawn2Team2(void)
+	output Respawn2Team2TimeRemaining(void)
+	
+	output OnTeam1RespawnDelayDone(void)
+	output OnTeam2RespawnDelayDone(void)
+]
+
+@PointClass = info_input_respawnplayers : "Respawn Players"
+[
+	input RespawnAll(void)
+	input RespawnTeam1(void)
+	input RespawnTeam2(void)
+	input RespawnPlayer(void)
+]
+
+@PointClass = info_vehicle_bay : "Vehicle Bay" []
+@PointClass = vgui_screen_vehicle_bay : "Vehicle Bay VGUI"
+[
+	output OnStartedBuild(void)
+	output OnFinishedBuild(void)
+	output OnReadyToBuildAgain(void)
+]
+
+@PointClass = info_buildpoint :	"Build Point"
+[
+	AllowedObject(string)	: "Allowed Object"
+]
+
+@PointClass = info_customtech : "Custom Technology"
+[
+	TechToWatch(string)	: "Tech To Watch"
+	NewTechFile(string)	: "New Tech File"
+
+	output TechPercentage(void)
+]
+
+// Objects
+
+@PointClass = obj_manned_plasmagun : "Manned Plasma Gun" []
