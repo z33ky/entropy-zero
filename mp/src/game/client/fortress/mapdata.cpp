@@ -150,8 +150,11 @@ void CMapData::SetTeamDefaultColor( int iTeamNumber, int r, int g, int b )
 void CMapData::UseDefaults( void )
 {
 	// Init colors for all teams
-	SetTeamDefaultColor( 1, 255, 0, 0 );
-	SetTeamDefaultColor( 2, 0, 0, 255 );
+	// hogsy start - team nums were shifted...
+	SetTeamDefaultColor(1, 0, 0, 0);
+	SetTeamDefaultColor(TEAM_HUMANS, 255, 0, 0);
+	SetTeamDefaultColor(TEAM_ALIENS, 0, 0, 255);
+	// hogsy end
 	SetTeamDefaultColor( 3, 0, 0, 0 );
 	SetTeamDefaultColor( 4, 0, 0, 0 );
 	SetTeamDefaultColor( 5, 0, 0, 0 );
@@ -184,7 +187,7 @@ void CMapData::GetMapBounds(Vector &mins, Vector& maxs)
 	}
 	else
 	{
-		Assert(0);
+		//Assert(0);
 		mins.Init( 0, 0, 0 );
 		maxs.Init( 1, 1, 1 );
 	}

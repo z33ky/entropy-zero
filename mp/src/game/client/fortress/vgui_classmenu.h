@@ -42,7 +42,6 @@ protected:
 private:
 	int	iLastPreview;
 
-	//vgui::CModel
 	vgui::RichText	*rtClassDescription;
 
 	CModelPanel	*mClassPreview;

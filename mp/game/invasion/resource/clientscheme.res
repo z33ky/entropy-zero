@@ -699,6 +699,7 @@ Scheme
 				"additive"	"1"
 			}
 		}
+		
 		"Trebuchet24"
 		{
 			"1"
@@ -711,13 +712,28 @@ Scheme
 				"additive"	"1"
 			}
 		}
-		"Trebuchet18"
+		
+		Trebuchet20
 		{
-			"1"
+			1
 			{
-				"name"		"Trebuchet MS"
-				"tall"		"18"
-				"weight"	"900"
+				name			"Trebuchet MS"
+				tall			20
+				weight		1000
+				antialias 	1
+				additive		1
+				outline		1
+			}
+		}
+		
+		Trebuchet18
+		{
+			1
+			{
+				name		"Trebuchet MS"
+				tall		18
+				weight	700
+				outline	1
 			}
 		}
 		

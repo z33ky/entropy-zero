@@ -147,13 +147,13 @@ void CBitmapPanel::Paint( void )
 void CBitmapPanel::OnCursorEntered()
 {
 	if ( m_szMouseOverText[ 0 ] )
-		StatusPrint( TYPE_HINT, "%s", m_szMouseOverText );
+		CCommanderStatusPanel::StatusPanel()->SetText(TYPE_HINT, "%s", m_szMouseOverText);
 }
 
 void CBitmapPanel::OnCursorExited()
 {
 	if ( m_szMouseOverText[ 0 ] )
-		StatusClear();
+		CCommanderStatusPanel::StatusPanel()->Clear();
 }
 
 

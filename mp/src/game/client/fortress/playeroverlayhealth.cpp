@@ -114,15 +114,11 @@ void CHudPlayerOverlayHealth::Paint( void )
 void CHudPlayerOverlayHealth::OnCursorEntered()
 {
 	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusPrint( TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText() );
-	}
+		CCommanderStatusPanel::StatusPanel()->SetText(TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText());
 }
 
 void CHudPlayerOverlayHealth::OnCursorExited()
 {
-	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusClear();
-	}
+	if (m_pBaseOverlay->GetMouseOverText())
+		CCommanderStatusPanel::StatusPanel()->Clear();
 }

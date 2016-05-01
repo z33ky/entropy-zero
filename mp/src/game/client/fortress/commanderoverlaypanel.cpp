@@ -8,7 +8,7 @@
 #include <vgui/IVGui.h>
 #include <vgui/IInput.h>
 #include <vgui/ISurface.h>
-#include "clientmode_commander.h"
+#include "clientmode_tfnormal.h"
 #include "vgui_int.h"
 #include "iinput.h"
 #include "kbutton.h"
@@ -34,11 +34,6 @@
 static inline int AlphaMapIndex(int x, int y)
 {
 	return y * FOG_ALPHAMAP_SIZE + x;
-}
-
-void CCommanderOverlayPanel::SetCommanderView( CClientModeCommander *commander )
-{
-	m_pCommanderView = commander;
 }
 
 CCommanderOverlayPanel::CCommanderOverlayPanel( void ) :
@@ -297,8 +292,17 @@ void CCommanderOverlayPanel::OnKeyPressed(vgui::KeyCode code)
 
 			ChangeZoomLevel(TACTICAL_SPACEBAR_VIEWABLE_SIZE);
 
+			// hogsy start
+			ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+			if (!mode)
+			{
+				Assert(0);
+				return;
+			}
+
 			// Place mouse over me
-			m_pCommanderView->MoveMouse( mouseWorldPos );
+			mode->MoveMouse( mouseWorldPos );
+			// hogsy end
 		}
 		break;
 
@@ -333,8 +337,17 @@ void CCommanderOverlayPanel::ChangeZoomLevel( float newZoom )
 
 	BoundOrigin( m_vecTacticalOrigin );
 
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert(0);
+		return;
+	}
+
 	// move mouse to center and zero out any delta
-	m_pCommanderView->MoveMouse( rayOrigin );
+	mode->MoveMouse( rayOrigin );
+	// hogsy end
 //	RequestFocus();
 }
 
@@ -953,8 +966,17 @@ void CCommanderOverlayPanel::OnMouseWheeled(int delta)
 
 	BoundOrigin( m_vecTacticalOrigin );
 
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert(0);
+		return;
+	}
+
 	// move mouse to center and zero out any delta
-	m_pCommanderView->MoveMouse( rayOrigin );
+	mode->MoveMouse(rayOrigin);
+	// hogsy end
 
 //	RequestFocus();
 }

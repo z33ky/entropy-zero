@@ -150,6 +150,10 @@ int CTechnologyTreeDoc::MsgFunc_Technology(bf_read &msg)
 			// Note, only show a max of three or 4 newtechnology hints at a time
 			CreateGlobalHint( TF_HINT_NEWTECHNOLOGY, item->GetPrintName(), index, 3 );
 		}
+
+		// hogsy start
+		//StatusTechnology(item);
+		// hogsy end
 	}
 	
 	return 1;

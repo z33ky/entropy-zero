@@ -19,6 +19,7 @@
 
 
 CMinimapPanel *ClientModeTFBase::m_pMinimap = NULL;
+CCommanderStatusPanel *ClientModeTFBase::m_pCommanderStatus = nullptr;
 vgui::HScheme g_hVGuiObjectScheme = 0;
 
 //-----------------------------------------------------------------------------
@@ -57,9 +58,9 @@ void ClientModeTFBase::Init()
 	C_BaseTFCombatWeapon::CreateCrosshairPanels();
 
 	if ( !m_pMinimap )
-	{
 		m_pMinimap = GET_HUDELEMENT( CMinimapPanel );
-	}
+	if (!m_pCommanderStatus)
+		m_pCommanderStatus = GET_HUDELEMENT(CCommanderStatusPanel);
 
 	// Load up the object control panel scheme
 	g_hVGuiObjectScheme = vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/ObjectControlPanelScheme.res", "TFBase" );

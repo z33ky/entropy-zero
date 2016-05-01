@@ -1830,9 +1830,11 @@ void CBaseTFPlayer::MenuReset( void )
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 {
+#if 0
 	// TODO:  Decide if we are going to keep the tactical view in TF2
 	if ( !inv_demo.GetBool() )
 		return;
+#endif
 
 	m_bSwitchingView	= true;
 

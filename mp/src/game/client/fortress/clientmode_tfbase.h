@@ -15,6 +15,7 @@
 
 class ConVar;
 class CMinimapPanel;
+class CCommanderStatusPanel;
 
 namespace vgui
 {
@@ -46,7 +47,10 @@ public:
 	// Input
 	virtual int		KeyInput( int down, ButtonCode_t keynum, const char *pszCurrentBinding );
 
-	virtual CMinimapPanel	*GetMinimap( void );
+	virtual CMinimapPanel *GetMinimap( void );
+	// hogsy start
+	virtual CCommanderStatusPanel *GetCommanderStatus() { return m_pCommanderStatus; }
+	// hogsy end
 
 	virtual vgui::Panel *GetMinimapParent( void ) = 0;
 
@@ -59,9 +63,11 @@ private:
 
 	float			m_flOldDrawFullSkybox;
 
-	static CMinimapPanel	*m_pMinimap;
+	static CMinimapPanel *m_pMinimap;
+	// hogsy start
+	static CCommanderStatusPanel *m_pCommanderStatus;
+	// hogsy end
 };
-
 
 extern vgui::HScheme g_hVGuiObjectScheme;
 

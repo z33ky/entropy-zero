@@ -60,6 +60,8 @@ CHintChangeToCommander::CHintChangeToCommander( vgui::Panel *parent, const char 
 {
 }
 
+#include "clientmode_tfnormal.h"
+
 //-----------------------------------------------------------------------------
 // Purpose: Set completed flag if we've made it to commander mode
 // Output : 	 virtual void
@@ -68,8 +70,17 @@ void CHintChangeToCommander::Think( void )
 {
 	BaseClass::Think();
 
-	if ( g_pClientMode == ClientModeCommander() )
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert( 0 );
+		return;
+	}
+
+	if (mode->IsCommanderMode())
 		m_bCompleted = true;
+	// hogsy end
 }
 
 class CHintGotoObject : public CHintItemObjectBase
@@ -783,10 +794,17 @@ void CHudWeaponFlashHelper::Paint()
 		return;
 	}
 
-#ifdef IMPLEMENT_ME
-	if ( g_pClientMode == ClientModeCommander() )
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert(0);
 		return;
-#endif
+	}
+
+	if (mode->IsCommanderMode())
+		return;
+	// hogsy end
 
 	C_BaseCombatWeapon *w = ( C_BaseCombatWeapon * )( (C_BaseEntity *)m_hWeapon );
 	if ( !w )
@@ -1017,12 +1035,19 @@ void CHintHudWeaponFlash::Think( void )
 	if ( m_pWeaponFlashHelper->IsWeaponSelectionActive() )
 		m_bCompleted = true;
 
-	bool incommander = ( g_pClientMode == ClientModeCommander() );
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert(0);
+		return;
+	}
+	// hogsy end
 
 	CPanelEffect *effect = g_pTF2RootPanel->FindEffect( m_hLineEffect );
 	if ( effect )
 	{
-		effect->SetVisible( !incommander );
+		effect->SetVisible(!mode->IsCommanderMode());
 
 		C_BaseCombatWeapon *w = static_cast< C_BaseCombatWeapon * >( ( C_BaseEntity * )m_hWeapon );
 

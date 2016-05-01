@@ -9,7 +9,7 @@
 #include "vgui_EntityPanel.h"
 #include "ienginevgui.h"
 #include "c_BaseTFPlayer.h"
-#include "clientmode_commander.h"
+#include "clientmode_tfnormal.h"
 #include "hud_commander_statuspanel.h"
 #include <KeyValues.h>
 #include "commanderoverlaypanel.h"
@@ -65,9 +65,11 @@ void CEntityPanel::ComputeParent( void )
 
 	if ( IsLocalPlayerInTactical() || !m_bShowInNormal )
 	{
+#ifdef IMPLEMENT_ME
 		CClientModeCommander *commander = ( CClientModeCommander * )ClientModeCommander();
 		Assert( commander );
 		parent = commander->GetCommanderOverlayPanel()->GetVPanel();
+#endif
 	}
 	else
 	{
@@ -90,12 +92,14 @@ void CEntityPanel::ComputeAndSetSize( void )
 	// Use different scales in tactical / normal
 	if ( IsLocalPlayerInTactical() )
 	{
+#ifdef IMPLEMENT_ME
 		CClientModeCommander *commander = ( CClientModeCommander * )ClientModeCommander();
 		Assert( commander );
 		float flZoom = commander->GetCommanderOverlayPanel()->GetZoom();
 
 		// Scale our size
 		m_flScale = 0.75 + (0.25 * (1.0 - flZoom)); // 1/2 size at max zoomed out, full size by half zoomed in
+#endif
 	}
 	else if ( m_pBaseEntity )
 	{
@@ -176,7 +180,7 @@ void CEntityPanel::GetEntityPosition( int& sx, int& sy )
 //-----------------------------------------------------------------------------
 bool CEntityPanel::ShouldDraw()
 {
-	return ( ( IsLocalPlayerInTactical() && ClientModeCommander()->ShouldDrawEntity( m_pBaseEntity ) ) || 
+	return ( ( IsLocalPlayerInTactical() && GetClientModeNormal()->ShouldDrawEntity( m_pBaseEntity ) ) || 
 			 ( !IsLocalPlayerInTactical() && m_bShowInNormal) );
 }
 
@@ -210,9 +214,7 @@ void CEntityPanel::OnTick()
 void CEntityPanel::OnCursorEntered()
 {
 	if ( m_szMouseOverText[ 0 ] )
-	{
-		StatusPrint( TYPE_HINT, "%s", m_szMouseOverText );
-	}
+		CCommanderStatusPanel::StatusPanel()->SetText(TYPE_HINT, "%s", m_szMouseOverText);
 }
 
 //-----------------------------------------------------------------------------
@@ -221,9 +223,7 @@ void CEntityPanel::OnCursorEntered()
 void CEntityPanel::OnCursorExited()
 {
 	if ( m_szMouseOverText[ 0 ] )
-	{
-		StatusClear();
-	}
+		CCommanderStatusPanel::StatusPanel()->Clear();
 }
 
 //-----------------------------------------------------------------------------

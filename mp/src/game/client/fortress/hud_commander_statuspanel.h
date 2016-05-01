@@ -4,6 +4,7 @@
 #pragma once
 #endif
 
+#include "hudelement.h"
 #include <vgui_controls/Panel.h>
 
 typedef enum
@@ -26,15 +27,15 @@ class CBaseTechnology;
 // Purpose: The status line appears along the bottom of the screen and shows
 //  tooltip style help
 //-----------------------------------------------------------------------------
-class CCommanderStatusPanel : public vgui::Panel
+class CCommanderStatusPanel : public CHudElement, public vgui::Panel
 {
 public:
-	typedef vgui::Panel BaseClass;
-	//DECLARE_CLASS_SIMPLE(CCommanderStatusPanel,vgui::Panel);
+	//typedef vgui::Panel BaseClass;
+	DECLARE_CLASS_SIMPLE(CCommanderStatusPanel, vgui::Panel);
 
 	enum { MAX_STATUS_TEXT = 4096 };
 
-							CCommanderStatusPanel( void );
+	CCommanderStatusPanel(const char *pElementName);
 	virtual					~CCommanderStatusPanel( void );
 
 	virtual void			ApplySchemeSettings(vgui::IScheme *pScheme);
@@ -50,6 +51,10 @@ public:
 
 	virtual void			SetLeftBottom( int l, int b );
 
+	// hogsy start
+	static CCommanderStatusPanel *StatusPanel();
+	// hogsy end
+
 private:
 	void					RecomputeBounds( void );
 	void					InternalClear();
@@ -63,7 +68,6 @@ private:
 
 	vgui::HFont				m_hFont;
 	vgui::HFont				m_hFontText;
-	vgui::LineBorder		*m_pBorder;
 
 	// Position of the first '\n' character
 	char					m_nTitlePos;
@@ -74,13 +78,5 @@ private:
 	bool					m_bShowTechnology;
 	CBaseTechnology			*m_pTechnology;
 };
-
-void StatusCreate( vgui::Panel *parent, int treetoprow );
-void StatusDestroy( void );
-void StatusSetTopRow( int treetoprow );
-
-void StatusPrint( STATUSTYPE type, const char *fmt, ... );
-void StatusTechnology( CBaseTechnology *technology );
-void StatusClear( void );
 
 #endif // COMMANDER_STATUSPANEL_H

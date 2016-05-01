@@ -178,15 +178,11 @@ void CHudPlayerOverlaySquad::OnMouseWheeled(int delta)
 void CHudPlayerOverlaySquad::OnCursorEntered()
 {
 	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusPrint( TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText() );
-	}
+		CCommanderStatusPanel::StatusPanel()->SetText(TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText());
 }
 
 void CHudPlayerOverlaySquad::OnCursorExited()
 {
-	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusClear();
-	}
+	if (m_pBaseOverlay->GetMouseOverText())
+		CCommanderStatusPanel::StatusPanel()->Clear();
 }

@@ -9,7 +9,7 @@
 #include "mathlib/vplane.h"
 #include "beamdraw.h"
 #include "bitvec.h"
-#include "clientmode_commander.h"
+#include "clientmode_tfnormal.h"
 #include <vgui_controls/Controls.h>
 #include <vgui/ISurface.h>
 #include "ClientEffectPrecacheSystem.h"
@@ -300,12 +300,19 @@ void CGroundLine::Draw()
 		return;
 	if ( !IsVisible() )
 		return;
+
+	// hogsy start
+	ClientModeTFNormal *mode = (ClientModeTFNormal *)g_pClientMode;
+	if (!mode)
+	{
+		Assert(0);
+		return;
+	}
 	
 	float flAlpha = m_Alpha;
-	if( g_pClientMode == ClientModeCommander() )
-	{
+	if( mode->IsCommanderMode() )
 		flAlpha = 1; // draw bright..
-	}
+	// hogsy end
 
 	CMatRenderContextPtr pRenderContext(materials);
 

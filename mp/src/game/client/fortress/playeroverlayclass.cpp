@@ -260,15 +260,11 @@ void CHudPlayerOverlayClass::Paint( void )
 void CHudPlayerOverlayClass::OnCursorEntered()
 {
 	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusPrint( TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText() );
-	}
+		CCommanderStatusPanel::StatusPanel()->SetText(TYPE_HINT, "%s", m_pBaseOverlay->GetMouseOverText());
 }
 
 void CHudPlayerOverlayClass::OnCursorExited()
 {
 	if ( m_pBaseOverlay->GetMouseOverText() )
-	{
-		StatusClear();
-	}
+		CCommanderStatusPanel::StatusPanel()->Clear();
 }

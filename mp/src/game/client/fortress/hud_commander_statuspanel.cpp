@@ -7,6 +7,10 @@
 #include <vgui_controls/Controls.h>
 #include <vgui/ISurface.h>
 #include <vgui/IScheme.h>
+#include <vgui/IBorder.h>
+#include "iclientmode.h"
+
+#include "clientmode_tfbase.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -16,28 +20,41 @@ static CCommanderStatusPanel *g_pCommanderStatusPanel = NULL;
 #define ALPHA_ADJUST_TIME 0.1f
 #define MAX_FILLED_INFO_ALPHA 127.0f
 
-CCommanderStatusPanel::CCommanderStatusPanel( void ) : 
-	BaseClass( NULL, "CCommanderStatusPanel" )
+// hogsy start
+DECLARE_HUDELEMENT(CCommanderStatusPanel);
+// hogsy end
+
+CCommanderStatusPanel::CCommanderStatusPanel(const char *pElementName) :
+	CHudElement(pElementName), BaseClass( NULL, "CCommanderStatusPanel" )
 {
 	m_hFont = m_hFontText = 0;
 	m_nLeftEdge = 0;
 	m_nBottomEdge = 0;
 
-//	m_pBorder = new vgui::LineBorder( 2, vgui::Color( 127, 127, 127, 255 ) );
-//	setBorder( m_pBorder );
+	// We handle the border manually now ~hogsy
+
+	SetPaintBorderEnabled(true);
 	
 	SetBgColor( Color( 0, 0, 0, 100 ) );
 
+	// hogsy start
+	vgui::Panel *pParent = g_pClientMode->GetViewport();
+	SetParent(pParent);
+	// hogsy end
+
 	// we need updating
-	vgui::ivgui()->AddTickSignal( GetVPanel() );
+	// commented out, not needed? ~hogsy
+	//vgui::ivgui()->AddTickSignal( GetVPanel() );
+
+	// hogsy start
+	SetHiddenBits(HIDEHUD_MISCSTATUS);
+	// hogsy end
 
 	InternalClear();
 }
 
 CCommanderStatusPanel::~CCommanderStatusPanel( void )
-{
-//	delete m_pBorder;
-}
+{}
 
 //-----------------------------------------------------------------------------
 // Scheme settings
@@ -199,13 +216,25 @@ void CCommanderStatusPanel::PaintBackground()
 
 		alpha += ( 255 - alpha ) / 2;
 
-//		m_pBorder->SetColor( vgui::Color( 120, 120, 180, alpha ) ); 
+		// hogsy start
+		surface()->DrawSetColor(Color(120, 120, 180, alpha));
+		// hogsy end
 	}
 	else
 	{
 		SetBgColor( Color( 0, 0, 0, 0 ) );
-//		m_pBorder->SetColor( vgui::Color( 0, 0, 0, 0 ) );
+		// hogsy start
+		surface()->DrawSetColor(Color(0,0,0,0));
+		// hogsy end
 	}
+
+	// hogsy start
+	int w, h;
+	GetSize(w, h);
+
+	surface()->DrawOutlinedRect(0, 0, w, h);
+	surface()->DrawOutlinedRect(1, 1, w - 1, h - 1);
+	// hogsy end
 
 	BaseClass::PaintBackground();
 }
@@ -302,6 +331,19 @@ void CCommanderStatusPanel::SetLeftBottom( int l, int b )
 	RecomputeBounds();
 }
 
+// hogsy start
+
+CCommanderStatusPanel *CCommanderStatusPanel::StatusPanel()
+{
+	ClientModeTFBase *pBasemode = (ClientModeTFBase *)g_pClientMode;
+	if (!pBasemode)
+		return NULL;
+
+	return pBasemode->GetCommanderStatus();
+}
+
+// hogsy end
+
 //////////////////////////////////////////
 //
 // Status Panel Creation/Destruction and public api
@@ -310,7 +352,7 @@ void CCommanderStatusPanel::SetLeftBottom( int l, int b )
 void StatusCreate( vgui::Panel *parent, int treetoprow )
 {
 	Assert( !g_pCommanderStatusPanel );
-	g_pCommanderStatusPanel = new CCommanderStatusPanel();
+	g_pCommanderStatusPanel = new CCommanderStatusPanel("");
 	g_pCommanderStatusPanel->SetAutoDelete( false );
 	g_pCommanderStatusPanel->SetParent( parent );
 	g_pCommanderStatusPanel->SetLeftBottom( 0, treetoprow - 10 );

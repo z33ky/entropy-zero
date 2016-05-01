@@ -81,7 +81,7 @@ public:
 
 	float	GetZoom( void );
 
-	void	SetCommanderView( CClientModeCommander *commander );
+	//void	SetCommanderView( CClientModeCommander *commander );
 	bool	IsRightMouseMapMoving( void );
 
 private:
@@ -133,8 +133,6 @@ private:
 	float	m_MaxWorldWidth;
 	bool	m_bHaveActiveSelection;
 	float	m_flPreviousMaxWorldWidth;
-
-	CClientModeCommander	*m_pCommanderView;
 
 	vgui::HCursor	m_CursorCommander;
 	vgui::HCursor	m_CursorRightMouseMove;

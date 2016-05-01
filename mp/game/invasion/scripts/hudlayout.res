@@ -48,6 +48,16 @@ HudLayout
 		enabled	1
 	}
 	
+	HudHintDisplayLabel
+	{
+		xpos		10
+		ypos		10
+		wide		120
+		tall		120
+		visible	1
+		enabled	1
+	}
+	
 	HudWeaponSelection
 	{
 		fieldName			HudWeaponSelection
@@ -294,6 +304,27 @@ HudLayout
 		enabled		1
 	}
 	
+	HudTimer
+	{
+		"fieldName" 	"HudTimer"
+		"xpos"		"c50"
+		"ypos"		"432"
+		"wide"		"170"
+		"tall"  		"36"
+		"visible" 	"1"
+		"enabled" 	"1"
+
+		"PaintBackgroundType"	"2"
+
+		"text_xpos" "8"
+		"text_ypos" "20"
+		"digit_xpos" "44"
+		"digit_ypos" "2"
+		//"NumberFont" "CloseCaption_Bold"
+		//"digit_xpos" "3"
+		//"digit_ypos" "1"
+	}
+	
 	HudMinimap
 	{
 		fieldName	HudMinimap
@@ -315,6 +346,19 @@ HudLayout
 		
 		visible	1
 		enabled	1
+	}
+	
+	CCommanderStatusPanel
+	{
+		fieldName	CCommanderStatusPanel
+		
+		xpos		r170
+		ypos		180
+		wide		128
+		tall		128
+		
+		visible 	1
+		enabled 	1
 	}
 	
 	DamageIndicator

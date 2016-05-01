@@ -597,7 +597,9 @@ void ClientModeTFNormal::PreRender(CViewSetup *pSetup)
 		float maxSize = max(size.x, size.y);
 		bool showStaticProps = (maxSize < VISIBLE_STATIC_PROP_HEIGHT);
 		ClientLeafSystem()->DrawStaticProps(showStaticProps);
+#if 0	// Source doesn't support this anymore
 		ClientLeafSystem()->DrawSmallEntities(showStaticProps);
+#endif
 	}
 
 	BaseClass::PreRender(pSetup);
@@ -613,12 +615,13 @@ void ClientModeTFNormal::PostRender(void)
 	m_pSkyBox->SetValue(m_fOldSkybox);
 #endif
 
-	// Supposed to be called post render for world ?? ~hogsy
 	if (IsCommanderMode())
 	{
 		render->DrawTopView(false);
 		ClientLeafSystem()->DrawStaticProps(true);
+#if 0	// Source doesn't support this anymore
 		ClientLeafSystem()->DrawSmallEntities(true);
+#endif
 		return;
 	}
 
@@ -718,13 +721,16 @@ void ClientModeTFNormal::Init()
 	//GetViewport()->RequestFocus();
 }
 
+#include "hud_commander_statuspanel.h"
+
 void ClientModeTFNormal::LevelInit(const char *newmap)
 {
+	MapData().LevelInit(newmap);
+
 	BaseClass::LevelInit(newmap);
 
 	HudCommanderOverlayMgr()->LevelShutdown();
 
-	MapData().LevelInit(newmap);
 	GetNormalViewport()->GetCommanderOverlayPanel()->LevelInit(newmap);
 	HudCommanderOverlayMgr()->LevelInit();
 
