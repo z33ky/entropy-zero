@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "hud/minimap/test/test_act00_overlay"
+	"$translucent" 1
+}
