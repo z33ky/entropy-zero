@@ -20,4 +20,5 @@ game_sounds_manifest
 	// Invasion
 	precache_file	"scripts/sounds/global.txt"
 	precache_file	"scripts/sounds/obj_sentrygun.txt"
+	precache_file	"scripts/sounds/weapon_limpetmine.soundscript"
 }

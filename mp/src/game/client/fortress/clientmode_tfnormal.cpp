@@ -726,8 +726,6 @@ void ClientModeTFNormal::Init()
 	//GetViewport()->RequestFocus();
 }
 
-#include "hud_commander_statuspanel.h"
-
 void ClientModeTFNormal::LevelInit(const char *newmap)
 {
 	MapData().LevelInit(newmap);

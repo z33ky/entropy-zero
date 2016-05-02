@@ -792,6 +792,7 @@
     <ClInclude Include="..\..\game\shared\fortress\basetfvehicle.h" />
     <ClInclude Include="..\..\game\shared\fortress\env_laserdesignation.h" />
     <ClInclude Include="..\..\game\shared\fortress\grenade_base_empable.h" />
+    <ClInclude Include="..\..\game\shared\fortress\grenade_limpetmine.h" />
     <ClInclude Include="..\..\game\shared\fortress\grenade_objectsapper.h" />
     <ClInclude Include="..\..\game\shared\fortress\ihasbuildpoints.h" />
     <ClInclude Include="..\..\game\shared\fortress\plasmaprojectile.h" />
@@ -825,6 +826,7 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h" />
+    <ClInclude Include="..\..\game\shared\fortress\weapon_limpetmine.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h" />
@@ -1392,6 +1394,7 @@
     <ClCompile Include="..\..\game\shared\fortress\env_laserdesignation.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\env_meteor_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\grenade_base_empable.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\grenade_limpetmine.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\grenade_objectsapper.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\plasmaprojectile.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\plasmaprojectile_shared.cpp" />
@@ -1428,6 +1431,7 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\weapon_limpetmine.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp" />

@@ -31,20 +31,38 @@
     <Filter Include="Source Files\Invasion">
       <UniqueIdentifier>{F1AA1111-291C-4AC3-3E62-CF1BFEFEFD60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Invasion\Classes">
+      <UniqueIdentifier>{B422DA24-4BF8-BD9A-1DB4-B59EE1786A06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Grenades">
+      <UniqueIdentifier>{E1ABED55-C181-1AFE-3D4E-8E0133A0ADC2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Invasion\HUD">
       <UniqueIdentifier>{5A9CB6FD-E719-216A-2D91-98D530ADC684}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Invasion\Objects">
       <UniqueIdentifier>{7CE2649D-705E-7843-5E53-84C73B5B1DFC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Invasion\Objects\Shared">
+      <UniqueIdentifier>{4BC10F6A-63FE-8212-78C7-7B21F4BAC665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Orders">
+      <UniqueIdentifier>{8A6AE5DA-7F7A-B396-726A-78C81D704C21}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Invasion\Shared">
       <UniqueIdentifier>{F4CACB3C-A885-5904-6FB8-853F26D95055}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Invasion\Shared\Objects">
-      <UniqueIdentifier>{87013ECA-8FA6-49FD-2598-AF2D6E760305}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Invasion\Vehicles">
       <UniqueIdentifier>{1E3ECB16-589E-4653-A8C2-A861669114E5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\VGUI">
+      <UniqueIdentifier>{E33FCC48-52F1-9279-A5A4-CD1E3AFAF190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Weapons">
+      <UniqueIdentifier>{3841B975-8055-1445-725E-39ECE0D3C4E2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Weapons\Shared">
+      <UniqueIdentifier>{5AEF6467-405F-7F84-1A48-F870BCCB1AF4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Precompiled Header">
       <UniqueIdentifier>{A7D26A13-21F4-C6B5-5922-8A4FB05AF07D}</UniqueIdentifier>
@@ -1877,45 +1895,6 @@
     <ClInclude Include="fortress\c_info_act.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\c_obj_base_manned_gun.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_obj_resourcepump.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_obj_respawn_station.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_assist.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_buildshieldwall.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_heal.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_killmortarguy.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_mortar_attack.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_player.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_repair.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_resourcepump.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_order_resupply.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\c_shield.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
@@ -1926,36 +1905,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_tf_basehint.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_commando.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_defender.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_escort.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_infiltrator.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_medic.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_pyro.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_recon.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_sapper.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_sniper.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_tf_class_support.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_tf_hintmanager.h">
@@ -1977,9 +1926,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_vehicle_tank.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\c_weapon_builder.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\clientmode_commander.h">
@@ -2048,17 +1994,35 @@
     <ClInclude Include="fortress\playeroverlaysquad.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\vgui_classmenu.h">
-      <Filter>Source Files\Invasion</Filter>
+    <ClInclude Include="fortress\c_tf_class_commando.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\vgui_healthbar.h">
-      <Filter>Source Files\Invasion</Filter>
+    <ClInclude Include="fortress\c_tf_class_defender.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\vgui_rotation_slider.h">
-      <Filter>Source Files\Invasion</Filter>
+    <ClInclude Include="fortress\c_tf_class_escort.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\vgui_teammenu.h">
-      <Filter>Source Files\Invasion</Filter>
+    <ClInclude Include="fortress\c_tf_class_infiltrator.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_medic.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_pyro.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_recon.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_sapper.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_sniper.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_tf_class_support.h">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClInclude>
     <ClInclude Include="fortress\hud_ammo.h">
       <Filter>Source Files\Invasion\HUD</Filter>
@@ -2087,8 +2051,50 @@
     <ClInclude Include="fortress\hud_vehicle_role.h">
       <Filter>Source Files\Invasion\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_obj_base_manned_gun.h">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_obj_resourcepump.h">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_obj_respawn_station.h">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\c_obj_sentrygun.h">
       <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h">
+      <Filter>Source Files\Invasion\Objects\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_assist.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_buildshieldwall.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_heal.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_killmortarguy.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_mortar_attack.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_player.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_repair.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_resourcepump.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_order_resupply.h">
+      <Filter>Source Files\Invasion\Orders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Invasion\Shared</Filter>
@@ -2195,47 +2201,62 @@
     <ClInclude Include="..\..\game\shared\fortress\vehicle_mortar_shared.h">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h">
       <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h">
-      <Filter>Source Files\Invasion\Shared\Objects</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_basefourwheelvehicle.h">
       <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClInclude>
     <ClInclude Include="fortress\c_vehicle_teleport_station.h">
       <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\vgui_classmenu.h">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\vgui_healthbar.h">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\vgui_rotation_slider.h">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\vgui_teammenu.h">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_weapon_builder.h">
+      <Filter>Source Files\Invasion\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_limpetmine.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClInclude>
     <ClInclude Include="sixense\in_sixense.h">
       <Filter>Source Files\Sixense</Filter>
@@ -3373,9 +3394,6 @@
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_grenade_rocket.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\c_hint_events.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
@@ -3383,69 +3401,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_info_customtech.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_buff_station.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_powerpack.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_rallyflag.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_resourcepump.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_respawn_station.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_resupply.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_obj_shieldwall.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_assist.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_buildshieldwall.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_heal.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_killmortarguy.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_mortar_attack.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_player.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_repair.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_resourcepump.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_order_resupply.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_ragdoll_shadow.cpp">
@@ -3469,36 +3424,6 @@
     <ClCompile Include="fortress\c_tf_basehint.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_commando.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_defender.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_escort.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_infiltrator.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_medic.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_pyro.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_recon.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_sapper.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_sniper.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_tf_class_support.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\c_tf_flare.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
@@ -3518,15 +3443,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_vehicle_tank.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_weapon_builder.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\clientmode_commander.cpp">
@@ -3631,20 +3547,41 @@
     <ClCompile Include="fortress\tf_prediction.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\vgui_classmenu.cpp">
-      <Filter>Source Files\Invasion</Filter>
+    <ClCompile Include="fortress\c_tf_class_commando.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\vgui_healthbar.cpp">
-      <Filter>Source Files\Invasion</Filter>
+    <ClCompile Include="fortress\c_tf_class_defender.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp">
-      <Filter>Source Files\Invasion</Filter>
+    <ClCompile Include="fortress\c_tf_class_escort.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\vgui_rotation_slider.cpp">
-      <Filter>Source Files\Invasion</Filter>
+    <ClCompile Include="fortress\c_tf_class_infiltrator.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\vgui_teammenu.cpp">
-      <Filter>Source Files\Invasion</Filter>
+    <ClCompile Include="fortress\c_tf_class_medic.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_pyro.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_recon.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_sapper.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_sniper.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_tf_class_support.cpp">
+      <Filter>Source Files\Invasion\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_grenade_limpetmine.cpp">
+      <Filter>Source Files\Invasion\Grenades</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_grenade_rocket.cpp">
+      <Filter>Source Files\Invasion\Grenades</Filter>
     </ClCompile>
     <ClCompile Include="fortress\hud_ammo.cpp">
       <Filter>Source Files\Invasion\HUD</Filter>
@@ -3688,8 +3625,74 @@
     <ClCompile Include="fortress\hud_weaponselection.cpp">
       <Filter>Source Files\Invasion\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_buff_station.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_powerpack.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_rallyflag.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_resourcepump.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_respawn_station.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_resupply.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_obj_sentrygun.cpp">
       <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_obj_shieldwall.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp">
+      <Filter>Source Files\Invasion\Objects\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_assist.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_buildshieldwall.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_heal.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_killmortarguy.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_mortar_attack.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_player.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_repair.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_resourcepump.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_order_resupply.cpp">
+      <Filter>Source Files\Invasion\Orders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
@@ -3793,59 +3796,83 @@
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_basecombatobject.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_burstrifle.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_laserrifle.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_plasmarifle.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp">
-      <Filter>Source Files\Invasion\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp">
-      <Filter>Source Files\Invasion\Shared\Objects</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_basefourwheelvehicle.cpp">
       <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_vehicle_teleport_station.cpp">
       <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_classmenu.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_healthbar.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_rotation_slider.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\vgui_teammenu.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp">
+      <Filter>Source Files\Invasion\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_weapon_builder.cpp">
+      <Filter>Source Files\Invasion\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp">
+      <Filter>Source Files\Invasion\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_basecombatobject.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_burstrifle.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_laserrifle.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_plasmarifle.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_combatshield.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_limpetmine.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\Precompiled Header</Filter>

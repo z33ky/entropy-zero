@@ -1784,6 +1784,9 @@
     <ClInclude Include="..\..\game\shared\fortress\grenade_base_empable.h">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\grenade_limpetmine.h">
+      <Filter>Source Files\Invasion\Shared</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\grenade_objectsapper.h">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClInclude>
@@ -1881,6 +1884,9 @@
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\fortress\weapon_limpetmine.h">
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h">
@@ -3328,6 +3334,9 @@
     <ClCompile Include="..\..\game\shared\fortress\grenade_base_empable.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\grenade_limpetmine.cpp">
+      <Filter>Source Files\Invasion\Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\grenade_objectsapper.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
     </ClCompile>
@@ -3434,6 +3443,9 @@
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp">
+      <Filter>Source Files\Invasion\Weapons\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\fortress\weapon_limpetmine.cpp">
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp">

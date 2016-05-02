@@ -18,9 +18,7 @@
 #include "tf_obj_sentrygun.h"
 #include "basecombatweapon.h"
 #include "weapon_builder.h"
-#ifdef IMPLEMENT_ME
 #include "weapon_limpetmine.h"
-#endif
 #include "tf_team.h"
 #include "orders.h"
 #include "order_repair.h"
@@ -285,13 +283,11 @@ void CPlayerClassDefender::FinishedObject( CBaseObject *pObject )
 //-----------------------------------------------------------------------------
 void CPlayerClassDefender::PlayerDied( CBaseEntity *pAttacker )
 {
-#ifdef IMPLEMENT_ME
 	CWeaponLimpetmine *weapon = (CWeaponLimpetmine*)m_pPlayer->Weapon_OwnsThisType( "weapon_limpetmine" );
 	if ( weapon )
 	{
 		weapon->RemoveDeployedLimpets();
 	}
-#endif
 
 	BaseClass::PlayerDied( pAttacker );
 }

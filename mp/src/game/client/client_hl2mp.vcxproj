@@ -68,7 +68,7 @@
       <AdditionalOptions>/Zm200 /Gw /Zc:inline</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\;..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\client\generated_proto_invasion;..\..\thirdparty\protobuf-2.3.0\src;..\..\vgui2\include;..\..\vgui2\controls;..\..\game\shared;.\game_controls;..\..\thirdparty\sixensesdk\include;hl2mp\ui;.\hl2mp;.\fortress;..\..\game\shared\hl2mp;..\..\game\shared\fortress;.\hl2;.\hl2\elements;..\..\game\shared\hl2</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=F:\InvasionSource\mp\src\game\client;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;_HAS_ITERATOR_DEBUGGING=0;WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=F:\InvasionSource\mp\src\game\client;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -147,7 +147,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>.\;..\..\common;..\..\public;..\..\public\tier0;..\..\public\tier1;..\..\game\client\generated_proto_invasion;..\..\thirdparty\protobuf-2.3.0\src;..\..\vgui2\include;..\..\vgui2\controls;..\..\game\shared;.\game_controls;..\..\thirdparty\sixensesdk\include;hl2mp\ui;.\hl2mp;.\fortress;..\..\game\shared\hl2mp;..\..\game\shared\fortress;.\hl2;.\hl2\elements;..\..\game\shared\hl2</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=F:\InvasionSource\mp\src\game\client;_DLL_EXT=.dll;VPCGAME=hl2mp;SOURCE1=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VPC;RAD_TELEMETRY_DISABLED;WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_MSC_VER_MISMATCH;%(PreprocessorDefinitions);COMPILER_MSVC32;COMPILER_MSVC32;COMPILER_MSVC;_DLL_EXT=.dll;DLLNAME=client;BINK_VIDEO;AVI_VIDEO;WMV_VIDEO;DEV_BUILD;FRAME_POINTER_OMISSION_DISABLED;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead;fopen=dont_use_fopen;_EXTERNAL_DLL_EXT=.dll;VPCGAMECAPS=HL2MP;PROJECTDIR=F:\InvasionSource\mp\src\game\client;_DLL_EXT=.dll;SOURCE1=1;VPCGAME=hl2mp</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -824,33 +824,10 @@
     <ClInclude Include="fortress\c_gasoline_blob.h" />
     <ClInclude Include="fortress\c_hint_events.h" />
     <ClInclude Include="fortress\c_info_act.h" />
-    <ClInclude Include="fortress\c_obj_base_manned_gun.h" />
-    <ClInclude Include="fortress\c_obj_resourcepump.h" />
-    <ClInclude Include="fortress\c_obj_respawn_station.h" />
-    <ClInclude Include="fortress\c_order.h" />
-    <ClInclude Include="fortress\c_order_assist.h" />
-    <ClInclude Include="fortress\c_order_buildshieldwall.h" />
-    <ClInclude Include="fortress\c_order_heal.h" />
-    <ClInclude Include="fortress\c_order_killmortarguy.h" />
-    <ClInclude Include="fortress\c_order_mortar_attack.h" />
-    <ClInclude Include="fortress\c_order_player.h" />
-    <ClInclude Include="fortress\c_order_repair.h" />
-    <ClInclude Include="fortress\c_order_resourcepump.h" />
-    <ClInclude Include="fortress\c_order_resupply.h" />
     <ClInclude Include="fortress\c_shield.h" />
     <ClInclude Include="fortress\c_tf2rootpanel.h" />
     <ClInclude Include="fortress\c_tf_basecombatweapon.h" />
     <ClInclude Include="fortress\c_tf_basehint.h" />
-    <ClInclude Include="fortress\c_tf_class_commando.h" />
-    <ClInclude Include="fortress\c_tf_class_defender.h" />
-    <ClInclude Include="fortress\c_tf_class_escort.h" />
-    <ClInclude Include="fortress\c_tf_class_infiltrator.h" />
-    <ClInclude Include="fortress\c_tf_class_medic.h" />
-    <ClInclude Include="fortress\c_tf_class_pyro.h" />
-    <ClInclude Include="fortress\c_tf_class_recon.h" />
-    <ClInclude Include="fortress\c_tf_class_sapper.h" />
-    <ClInclude Include="fortress\c_tf_class_sniper.h" />
-    <ClInclude Include="fortress\c_tf_class_support.h" />
     <ClInclude Include="fortress\c_tf_hintmanager.h" />
     <ClInclude Include="fortress\c_tf_hints.h" />
     <ClInclude Include="fortress\c_tf_playerclass.h" />
@@ -858,7 +835,6 @@
     <ClInclude Include="fortress\c_tfplayerresource.h" />
     <ClInclude Include="fortress\c_tfteam.h" />
     <ClInclude Include="fortress\c_vehicle_tank.h" />
-    <ClInclude Include="fortress\c_weapon_builder.h" />
     <ClInclude Include="fortress\clientmode_commander.h" />
     <ClInclude Include="fortress\clientmode_tfbase.h" />
     <ClInclude Include="fortress\clientmode_tfnormal.h" />
@@ -881,10 +857,16 @@
     <ClInclude Include="fortress\playeroverlayname.h" />
     <ClInclude Include="fortress\playeroverlayselected.h" />
     <ClInclude Include="fortress\playeroverlaysquad.h" />
-    <ClInclude Include="fortress\vgui_classmenu.h" />
-    <ClInclude Include="fortress\vgui_healthbar.h" />
-    <ClInclude Include="fortress\vgui_rotation_slider.h" />
-    <ClInclude Include="fortress\vgui_teammenu.h" />
+    <ClInclude Include="fortress\c_tf_class_commando.h" />
+    <ClInclude Include="fortress\c_tf_class_defender.h" />
+    <ClInclude Include="fortress\c_tf_class_escort.h" />
+    <ClInclude Include="fortress\c_tf_class_infiltrator.h" />
+    <ClInclude Include="fortress\c_tf_class_medic.h" />
+    <ClInclude Include="fortress\c_tf_class_pyro.h" />
+    <ClInclude Include="fortress\c_tf_class_recon.h" />
+    <ClInclude Include="fortress\c_tf_class_sapper.h" />
+    <ClInclude Include="fortress\c_tf_class_sniper.h" />
+    <ClInclude Include="fortress\c_tf_class_support.h" />
     <ClInclude Include="fortress\hud_ammo.h" />
     <ClInclude Include="fortress\hud_commander_statuspanel.h" />
     <ClInclude Include="fortress\hud_minimap.h" />
@@ -894,7 +876,21 @@
     <ClInclude Include="fortress\hud_technologytreedoc.h" />
     <ClInclude Include="fortress\hud_timer.h" />
     <ClInclude Include="fortress\hud_vehicle_role.h" />
+    <ClInclude Include="fortress\c_obj_base_manned_gun.h" />
+    <ClInclude Include="fortress\c_obj_resourcepump.h" />
+    <ClInclude Include="fortress\c_obj_respawn_station.h" />
     <ClInclude Include="fortress\c_obj_sentrygun.h" />
+    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h" />
+    <ClInclude Include="fortress\c_order.h" />
+    <ClInclude Include="fortress\c_order_assist.h" />
+    <ClInclude Include="fortress\c_order_buildshieldwall.h" />
+    <ClInclude Include="fortress\c_order_heal.h" />
+    <ClInclude Include="fortress\c_order_killmortarguy.h" />
+    <ClInclude Include="fortress\c_order_mortar_attack.h" />
+    <ClInclude Include="fortress\c_order_player.h" />
+    <ClInclude Include="fortress\c_order_repair.h" />
+    <ClInclude Include="fortress\c_order_resourcepump.h" />
+    <ClInclude Include="fortress\c_order_resupply.h" />
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\basetfcombatweapon_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\basetfplayer_shared.h" />
@@ -930,20 +926,25 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_vehicleshared.h" />
     <ClInclude Include="..\..\game\shared\fortress\tfclassdata_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\vehicle_mortar_shared.h" />
+    <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
+    <ClInclude Include="fortress\c_basefourwheelvehicle.h" />
+    <ClInclude Include="fortress\c_vehicle_teleport_station.h" />
+    <ClInclude Include="fortress\vgui_classmenu.h" />
+    <ClInclude Include="fortress\vgui_healthbar.h" />
+    <ClInclude Include="fortress\vgui_rotation_slider.h" />
+    <ClInclude Include="fortress\vgui_teammenu.h" />
+    <ClInclude Include="fortress\c_weapon_builder.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_combatshield.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_flame_thrower.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_gas_can.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_grenade_rocket.h" />
+    <ClInclude Include="..\..\game\shared\fortress\weapon_limpetmine.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_objectselection.h" />
-    <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_rocketlauncher.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_shield.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_twohandedcontainer.h" />
-    <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.h" />
-    <ClInclude Include="fortress\c_basefourwheelvehicle.h" />
-    <ClInclude Include="fortress\c_vehicle_teleport_station.h" />
     <ClInclude Include="sixense\in_sixense.h" />
     <ClInclude Include="sixense\in_sixense_gesture_bindings.h" />
     <ClInclude Include="..\..\game\shared\sixense\sixense_convars_extern.h" />
@@ -1420,31 +1421,9 @@
     <ClCompile Include="fortress\c_func_resource.cpp" />
     <ClCompile Include="fortress\c_gasoline_blob.cpp" />
     <ClCompile Include="fortress\c_grenade_objectsapper.cpp" />
-    <ClCompile Include="fortress\c_grenade_rocket.cpp" />
     <ClCompile Include="fortress\c_hint_events.cpp" />
     <ClCompile Include="fortress\c_info_act.cpp" />
     <ClCompile Include="fortress\c_info_customtech.cpp" />
-    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp" />
-    <ClCompile Include="fortress\c_obj_buff_station.cpp" />
-    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp" />
-    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp" />
-    <ClCompile Include="fortress\c_obj_powerpack.cpp" />
-    <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
-    <ClCompile Include="fortress\c_obj_resourcepump.cpp" />
-    <ClCompile Include="fortress\c_obj_respawn_station.cpp" />
-    <ClCompile Include="fortress\c_obj_resupply.cpp" />
-    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp" />
-    <ClCompile Include="fortress\c_obj_shieldwall.cpp" />
-    <ClCompile Include="fortress\c_order.cpp" />
-    <ClCompile Include="fortress\c_order_assist.cpp" />
-    <ClCompile Include="fortress\c_order_buildshieldwall.cpp" />
-    <ClCompile Include="fortress\c_order_heal.cpp" />
-    <ClCompile Include="fortress\c_order_killmortarguy.cpp" />
-    <ClCompile Include="fortress\c_order_mortar_attack.cpp" />
-    <ClCompile Include="fortress\c_order_player.cpp" />
-    <ClCompile Include="fortress\c_order_repair.cpp" />
-    <ClCompile Include="fortress\c_order_resourcepump.cpp" />
-    <ClCompile Include="fortress\c_order_resupply.cpp" />
     <ClCompile Include="fortress\c_ragdoll_shadow.cpp" />
     <ClCompile Include="fortress\c_resource_chunk.cpp" />
     <ClCompile Include="fortress\c_shield.cpp" />
@@ -1452,16 +1431,6 @@
     <ClCompile Include="fortress\c_tf2rootpanel.cpp" />
     <ClCompile Include="fortress\c_tf_basecombatweapon.cpp" />
     <ClCompile Include="fortress\c_tf_basehint.cpp" />
-    <ClCompile Include="fortress\c_tf_class_commando.cpp" />
-    <ClCompile Include="fortress\c_tf_class_defender.cpp" />
-    <ClCompile Include="fortress\c_tf_class_escort.cpp" />
-    <ClCompile Include="fortress\c_tf_class_infiltrator.cpp" />
-    <ClCompile Include="fortress\c_tf_class_medic.cpp" />
-    <ClCompile Include="fortress\c_tf_class_pyro.cpp" />
-    <ClCompile Include="fortress\c_tf_class_recon.cpp" />
-    <ClCompile Include="fortress\c_tf_class_sapper.cpp" />
-    <ClCompile Include="fortress\c_tf_class_sniper.cpp" />
-    <ClCompile Include="fortress\c_tf_class_support.cpp" />
     <ClCompile Include="fortress\c_tf_flare.cpp" />
     <ClCompile Include="fortress\c_tf_hintmanager.cpp" />
     <ClCompile Include="fortress\c_tf_hints.cpp" />
@@ -1469,9 +1438,6 @@
     <ClCompile Include="fortress\c_tfplayerresource.cpp" />
     <ClCompile Include="fortress\c_tfteam.cpp" />
     <ClCompile Include="fortress\c_vehicle_tank.cpp" />
-    <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
-    <ClCompile Include="fortress\c_weapon_builder.cpp" />
-    <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp" />
     <ClCompile Include="fortress\clientmode_commander.cpp" />
     <ClCompile Include="fortress\clientmode_tfbase.cpp" />
     <ClCompile Include="fortress\clientmode_tfnormal.cpp" />
@@ -1506,11 +1472,18 @@
     <ClCompile Include="fortress\tf_clientmode.cpp" />
     <ClCompile Include="fortress\tf_in_main.cpp" />
     <ClCompile Include="fortress\tf_prediction.cpp" />
-    <ClCompile Include="fortress\vgui_classmenu.cpp" />
-    <ClCompile Include="fortress\vgui_healthbar.cpp" />
-    <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp" />
-    <ClCompile Include="fortress\vgui_rotation_slider.cpp" />
-    <ClCompile Include="fortress\vgui_teammenu.cpp" />
+    <ClCompile Include="fortress\c_tf_class_commando.cpp" />
+    <ClCompile Include="fortress\c_tf_class_defender.cpp" />
+    <ClCompile Include="fortress\c_tf_class_escort.cpp" />
+    <ClCompile Include="fortress\c_tf_class_infiltrator.cpp" />
+    <ClCompile Include="fortress\c_tf_class_medic.cpp" />
+    <ClCompile Include="fortress\c_tf_class_pyro.cpp" />
+    <ClCompile Include="fortress\c_tf_class_recon.cpp" />
+    <ClCompile Include="fortress\c_tf_class_sapper.cpp" />
+    <ClCompile Include="fortress\c_tf_class_sniper.cpp" />
+    <ClCompile Include="fortress\c_tf_class_support.cpp" />
+    <ClCompile Include="fortress\c_grenade_limpetmine.cpp" />
+    <ClCompile Include="fortress\c_grenade_rocket.cpp" />
     <ClCompile Include="fortress\hud_ammo.cpp" />
     <ClCompile Include="fortress\hud_commander_statuspanel.cpp" />
     <ClCompile Include="fortress\hud_damageindicator.cpp" />
@@ -1525,7 +1498,29 @@
     <ClCompile Include="fortress\hud_timer.cpp" />
     <ClCompile Include="fortress\hud_vehicle_role.cpp" />
     <ClCompile Include="fortress\hud_weaponselection.cpp" />
+    <ClCompile Include="fortress\c_obj_base_manned_gun.cpp" />
+    <ClCompile Include="fortress\c_obj_buff_station.cpp" />
+    <ClCompile Include="fortress\c_obj_manned_missilelauncher.cpp" />
+    <ClCompile Include="fortress\c_obj_mcv_selection_panel.cpp" />
+    <ClCompile Include="fortress\c_obj_powerpack.cpp" />
+    <ClCompile Include="fortress\c_obj_rallyflag.cpp" />
+    <ClCompile Include="fortress\c_obj_resourcepump.cpp" />
+    <ClCompile Include="fortress\c_obj_respawn_station.cpp" />
+    <ClCompile Include="fortress\c_obj_resupply.cpp" />
+    <ClCompile Include="fortress\c_obj_sandbag_bunker.cpp" />
     <ClCompile Include="fortress\c_obj_sentrygun.cpp" />
+    <ClCompile Include="fortress\c_obj_shieldwall.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp" />
+    <ClCompile Include="fortress\c_order.cpp" />
+    <ClCompile Include="fortress\c_order_assist.cpp" />
+    <ClCompile Include="fortress\c_order_buildshieldwall.cpp" />
+    <ClCompile Include="fortress\c_order_heal.cpp" />
+    <ClCompile Include="fortress\c_order_killmortarguy.cpp" />
+    <ClCompile Include="fortress\c_order_mortar_attack.cpp" />
+    <ClCompile Include="fortress\c_order_player.cpp" />
+    <ClCompile Include="fortress\c_order_repair.cpp" />
+    <ClCompile Include="fortress\c_order_resourcepump.cpp" />
+    <ClCompile Include="fortress\c_order_resupply.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\basetfcombatweapon_shared.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\basetfplayer_shared.cpp" />
@@ -1560,6 +1555,17 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_tacticalmap.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_usermessages.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
+    <ClCompile Include="fortress\c_basefourwheelvehicle.cpp" />
+    <ClCompile Include="fortress\c_vehicle_teleport_station.cpp" />
+    <ClCompile Include="fortress\vgui_classmenu.cpp" />
+    <ClCompile Include="fortress\vgui_healthbar.cpp" />
+    <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp" />
+    <ClCompile Include="fortress\vgui_rotation_slider.cpp" />
+    <ClCompile Include="fortress\vgui_teammenu.cpp" />
+    <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp" />
+    <ClCompile Include="fortress\c_weapon_builder.cpp" />
+    <ClCompile Include="fortress\c_weapon_twohandedcontainer.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_basecombatobject.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_combat_burstrifle.cpp" />
@@ -1570,14 +1576,11 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_flame_thrower.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_gas_can.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_grenade_rocket.cpp" />
+    <ClCompile Include="..\..\game\shared\fortress\weapon_limpetmine.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_objectselection.cpp" />
-    <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_rocketlauncher.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_shield.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_twohandedcontainer.cpp" />
-    <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun.cpp" />
-    <ClCompile Include="fortress\c_basefourwheelvehicle.cpp" />
-    <ClCompile Include="fortress\c_vehicle_teleport_station.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
