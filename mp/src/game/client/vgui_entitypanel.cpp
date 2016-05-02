@@ -65,11 +65,9 @@ void CEntityPanel::ComputeParent( void )
 
 	if ( IsLocalPlayerInTactical() || !m_bShowInNormal )
 	{
-#ifdef IMPLEMENT_ME
-		CClientModeCommander *commander = ( CClientModeCommander * )ClientModeCommander();
+		ClientModeTFNormal *commander = (ClientModeTFNormal *)g_pClientMode;
 		Assert( commander );
 		parent = commander->GetCommanderOverlayPanel()->GetVPanel();
-#endif
 	}
 	else
 	{
@@ -92,14 +90,12 @@ void CEntityPanel::ComputeAndSetSize( void )
 	// Use different scales in tactical / normal
 	if ( IsLocalPlayerInTactical() )
 	{
-#ifdef IMPLEMENT_ME
-		CClientModeCommander *commander = ( CClientModeCommander * )ClientModeCommander();
+		ClientModeTFNormal *commander = (ClientModeTFNormal *)g_pClientMode;
 		Assert( commander );
 		float flZoom = commander->GetCommanderOverlayPanel()->GetZoom();
 
 		// Scale our size
 		m_flScale = 0.75 + (0.25 * (1.0 - flZoom)); // 1/2 size at max zoomed out, full size by half zoomed in
-#endif
 	}
 	else if ( m_pBaseEntity )
 	{

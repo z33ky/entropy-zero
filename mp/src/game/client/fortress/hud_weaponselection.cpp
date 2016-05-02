@@ -371,10 +371,16 @@ void CHudWeaponSelection::RebuildMenus()
 
 		if (dynamic_cast< C_WeaponObjectSelection * >(pWeapon))
 		{
+			// hogsy start
+#if 0		// original implementation
 			// HACK
 			int firstbuildslot = 4;
 			int whichBuildMenu = clamp(pWeapon->GetSlot() - firstbuildslot, 0, NUM_BUILD_MENUS - 1);
-
+#else
+			int whichBuildMenu = clamp(pWeapon->GetSlot(), 0, NUM_BUILD_MENUS - 1);
+#endif
+			// hogsy end
+			
 			m_BuildObjects[whichBuildMenu].items.Insert(item);
 		}
 		else

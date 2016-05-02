@@ -28,6 +28,8 @@
 #include "vgui_teammenu.h"
 #include "vgui_classmenu.h"
 
+#include "viewrender.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -579,6 +581,8 @@ void ClientModeTFNormal::PreRender(CViewSetup *pSetup)
 
 		m_fOldSkybox = m_pSkyBox->GetFloat();
 		m_pSkyBox->SetValue(0.0f);
+#else
+		materials->ClearBuffers(true, false);
 #endif
 
 		GetOrthoParameters(pSetup);
@@ -597,7 +601,7 @@ void ClientModeTFNormal::PreRender(CViewSetup *pSetup)
 		float maxSize = max(size.x, size.y);
 		bool showStaticProps = (maxSize < VISIBLE_STATIC_PROP_HEIGHT);
 		ClientLeafSystem()->DrawStaticProps(showStaticProps);
-#if 0	// Source doesn't support this anymore
+#if 0	// Source doesn't support this anymore ~hogsy
 		ClientLeafSystem()->DrawSmallEntities(showStaticProps);
 #endif
 	}
@@ -607,19 +611,19 @@ void ClientModeTFNormal::PreRender(CViewSetup *pSetup)
 
 void ClientModeTFNormal::PostRender(void)
 {
-#ifdef IMPLEMENT_ME
-	if (!m_pClear || !m_pSkyBox)
-		return;
-
-	m_pClear->SetValue(m_fOldClear);
-	m_pSkyBox->SetValue(m_fOldSkybox);
-#endif
-
 	if (IsCommanderMode())
 	{
+#ifdef IMPLEMENT_ME
+		if (!m_pClear || !m_pSkyBox)
+			return;
+
+		m_pClear->SetValue(m_fOldClear);
+		m_pSkyBox->SetValue(m_fOldSkybox);
+#endif
+
 		render->DrawTopView(false);
 		ClientLeafSystem()->DrawStaticProps(true);
-#if 0	// Source doesn't support this anymore
+#if 0	// Source doesn't support this anymore ~hogsy
 		ClientLeafSystem()->DrawSmallEntities(true);
 #endif
 		return;
@@ -665,9 +669,10 @@ void ClientModeTFNormal::OverrideView(CViewSetup *pSetup)
 	// Turn off vis when in commander mode
 	if(IsCommanderMode())
 	{
-#ifdef IMPLEMENT_ME
-		view->DisableVis();
-#endif
+		// hogsy start
+		CViewRender::GetMainView()->DisableVis();
+		// hogsy end
+
 		VectorCopy(GetNormalViewport()->GetCommanderOverlayPanel()->TacticalAngles(), pSetup->angles);
 		VectorCopy(GetNormalViewport()->GetCommanderOverlayPanel()->TacticalOrigin(), pSetup->origin);
 		return;

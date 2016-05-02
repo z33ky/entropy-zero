@@ -131,7 +131,7 @@ HudLayout
 		BuildMenu1
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		100
 			visible	1
 		}
@@ -139,7 +139,7 @@ HudLayout
 		BuildMenu2
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		200
 			visible	1
 		}
@@ -147,7 +147,7 @@ HudLayout
 		BuildMenu3
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		300
 			visible	1
 		}
@@ -155,7 +155,7 @@ HudLayout
 		BuildMenu4
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		400
 			visible	1
 		}
@@ -163,7 +163,7 @@ HudLayout
 		BuildMenu5
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		500
 			visible	1
 		}
@@ -171,9 +171,9 @@ HudLayout
 		BuildMenu6
 		{
 			wide		80
-			tall		64
+			tall		60
 			xpos		600
-			visible	0
+			visible	1
 		}
 	}
 

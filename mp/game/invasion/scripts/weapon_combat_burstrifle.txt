@@ -28,19 +28,19 @@ WeaponData
 	{
 		"weapon"
 		{
-				"file"		"sprites/w_icons2b"
-				"x"		"0"
-				"y"		"128"
-				"width"		"128"
-				"height"	"64"
+				"file"		"hud/menu/human_weapon_combat_burstrifle"
+				"x"			"0"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"weapon_s"
 		{	
-				"file"		"sprites/w_icons2b"
-				"x"		"0"
-				"y"		"128"
-				"width"		"128"
-				"height"	"64"
+				"file"		"hud/menu/human_weapon_combat_burstrifle"
+				"x"			"0"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"ammo"
 		{

@@ -10,7 +10,7 @@
 	}
 	"TF_HINT_BUILDRESOURCEPUMP"
 	{
-		"times_shown"		"0"
+		"times_shown"		"100"
 	}
 	"TF_HINT_BUILDSENTRYGUN_PLASMA"
 	{
