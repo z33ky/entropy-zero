@@ -940,6 +940,7 @@ void CPlayerClass::GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax 
 	}
 }
 
+#if 0	// Left over legacy code ~hogsy
 void CPlayerClass::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
 	CPhysCollide *pStandModel = PhysCreateBbox( PLAYERCLASS_HULL_STAND_MIN, PLAYERCLASS_HULL_STAND_MAX );
@@ -978,6 +979,7 @@ void CPlayerClass::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecA
 	else
 		m_pPlayer->SetVCollisionState(vecAbsOrigin, vecAbsVelocity, VPHYS_WALK );
 }
+#endif
 
 void CPlayerClass::OwnedObjectChangeToTeam( CBaseObject *pObject, CBaseTFPlayer *pNewOwner )
 {

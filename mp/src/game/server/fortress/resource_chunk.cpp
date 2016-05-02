@@ -81,14 +81,9 @@ void CResourceChunk::Precache( void )
 //------------------------------------------------------------------------------
 void CResourceChunk::SetObjectCollisionBox( void )
 {
-#ifdef IMPLEMENT_ME
-	ComputeSurroundingBox();
-
-	SetAbsMins( GetAbsMins() + Vector( -24, -24, -24 ) );
-	SetAbsMaxs( GetAbsMaxs() + Vector( 24, 24, 24 ) );
-#else	// Sleazy implementation... it'll do ~hogsy
-	CollisionProp()->SetCollisionBounds(Vector(-32,-32,-32),Vector(32,32,32));
-#endif
+	Vector vMins = WorldAlignMins() + Vector(-24, -24, -24);
+	Vector vMaxs = WorldAlignMaxs() + Vector(24, 24, 24);
+	SetCollisionBounds(vMins, vMaxs);
 }
 
 //-----------------------------------------------------------------------------

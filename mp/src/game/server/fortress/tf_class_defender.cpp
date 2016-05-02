@@ -15,9 +15,7 @@
 #include "tf_player.h"
 #include "tf_class_defender.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_sentrygun.h"
-#endif
 #include "basecombatweapon.h"
 #include "weapon_builder.h"
 #ifdef IMPLEMENT_ME
@@ -239,7 +237,6 @@ void CPlayerClassDefender::GainedNewTechnology( CBaseTechnology *pTechnology )
 //-----------------------------------------------------------------------------
 void CPlayerClassDefender::UpdateSentrygunTechnology( void )
 {
-#ifdef IMPLEMENT_ME
 	for (int i = 0; i < m_pPlayer->GetObjectCount(); i++)
 	{
 		CBaseObject *pObj = m_pPlayer->GetObject(i);
@@ -249,7 +246,6 @@ void CPlayerClassDefender::UpdateSentrygunTechnology( void )
 			pSentry->SetTechnology( m_bHasSmarterSentryguns, m_bHasSensorSentryguns );
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -356,14 +352,4 @@ void CPlayerClassDefender::CreatePersonalOrder()
 		return;
 	
 	BaseClass::CreatePersonalOrder();
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CPlayerClassDefender::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
-{
-	CPhysCollide *pStandModel = PhysCreateBbox( DEFENDERCLASS_HULL_STAND_MIN, DEFENDERCLASS_HULL_STAND_MAX );
-	CPhysCollide *pCrouchModel = PhysCreateBbox( DEFENDERCLASS_HULL_DUCK_MIN, DEFENDERCLASS_HULL_DUCK_MAX );
-	m_pPlayer->SetupVPhysicsShadow( vecAbsOrigin, vecAbsVelocity, pStandModel, "tfplayer_defender_stand", pCrouchModel, "tfplayer_defender_crouch" );
 }

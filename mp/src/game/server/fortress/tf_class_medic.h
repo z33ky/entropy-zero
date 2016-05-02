@@ -54,9 +54,6 @@ public:
 
 	virtual float	OnTakeDamage( const CTakeDamageInfo &info );
 
-	// Player physics shadow.
-	void InitVCollision( const Vector &vecAbsOrigin, const Vector &vecAbsVelocity );
-
 protected:
 
 	// Weapons

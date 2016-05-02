@@ -52,9 +52,6 @@ public:
 	virtual void	SetPlayerHull( void );
 	virtual void	GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax );
 
-	// Player physics shadow.
-	void			InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity);
-
 public:
 	// Sentrygun building
 	int							m_iNumberOfSentriesAllowed;

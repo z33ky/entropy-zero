@@ -86,10 +86,28 @@
 		weapon_selection_general
 		{
 				file	hud/menu/weapon_selection_general
-				x	0
-				y	0
+				x		0
+				y		0
 				width	256
 				height	128
+		}
+		
+		selection_obj_powerpack
+		{
+			file	hud/menu/selection_obj_powerpack
+			x		0
+			y		0
+			width	256
+			height	128
+		}
+		
+		selection_obj_resourcepump
+		{
+			file	hud/menu/selection_obj_resourcepump
+			x		0
+			y		0
+			width	256
+			height	128
 		}
 		
 		"d_skull"

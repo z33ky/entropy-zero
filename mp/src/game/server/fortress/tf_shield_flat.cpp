@@ -80,12 +80,8 @@ void CShieldFlat::SetObjectCollisionBox( void )
 	// Override the base classes'
 	if ( edict() )
 	{
-#ifdef IMPLEMENT_ME
-		ComputeSurroundingBox();
-#endif
-
 		Vector bloat( 1, 1, 1 );
-		SetCollisionBounds(CollisionProp()->OBBMins() - bloat,CollisionProp()->OBBMaxs() + bloat);
+		SetCollisionBounds(WorldAlignMins() - bloat, WorldAlignMaxs() + bloat);
 	}
 }
 

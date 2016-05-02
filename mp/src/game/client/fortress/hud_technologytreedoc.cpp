@@ -151,8 +151,8 @@ int CTechnologyTreeDoc::MsgFunc_Technology(bf_read &msg)
 			CreateGlobalHint( TF_HINT_NEWTECHNOLOGY, item->GetPrintName(), index, 3 );
 		}
 
-		// hogsy start
-		//StatusTechnology(item);
+		// hogsy start - this might be temporary, just keep it here for now.
+		CCommanderStatusPanel::StatusPanel()->SetTechnology(item);
 		// hogsy end
 	}
 	

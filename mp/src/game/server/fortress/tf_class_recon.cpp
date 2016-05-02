@@ -136,9 +136,7 @@ void CPlayerClassRecon::ClassThink()
 {
 	BaseClass::ClassThink();
 
-#ifdef IMPLEMENT_ME
 	m_ClassData.m_bTrailParticles = (m_pPlayer->IsAlive() && !(m_pPlayer->GetFlags() & FL_ONGROUND));
-#endif
 }
 
 //-----------------------------------------------------------------------------

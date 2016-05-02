@@ -102,7 +102,7 @@ objects
 		BuilderWeaponName		"Resource Pump"
 		BuilderPlacementString	"Place on zone"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
+		Icon					"selection_obj_resourcepump"
 		BuildTime				10
 		MaxObjects				1
 		Cost					100
@@ -273,12 +273,13 @@ objects
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
+		
+		Icon				"placeholder"
+		BuildTime			10
+		MaxObjects			1
+		Cost				100
 		CostMultiplier		1
-		UpgradeCost		0
+		UpgradeCost			0
 		MaxUpgradeLevel		0
 		SelectionSlot		0
 		SelectionPosition	0

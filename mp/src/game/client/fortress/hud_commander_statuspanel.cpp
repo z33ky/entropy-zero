@@ -30,27 +30,25 @@ CCommanderStatusPanel::CCommanderStatusPanel(const char *pElementName) :
 	m_hFont = m_hFontText = 0;
 	m_nLeftEdge = 0;
 	m_nBottomEdge = 0;
-
-	// We handle the border manually now ~hogsy
-
-	SetPaintBorderEnabled(true);
 	
 	SetBgColor( Color( 0, 0, 0, 100 ) );
 
 	// hogsy start
 	vgui::Panel *pParent = g_pClientMode->GetViewport();
 	SetParent(pParent);
-	// hogsy end
 
-	// we need updating
-	// commented out, not needed? ~hogsy
-	//vgui::ivgui()->AddTickSignal( GetVPanel() );
-
-	// hogsy start
 	SetHiddenBits(HIDEHUD_MISCSTATUS);
 	// hogsy end
 
+	// we need updating
+	//vgui::ivgui()->AddTickSignal( GetVPanel() );
+
 	InternalClear();
+
+	// hogsy start
+	SetAutoDelete(false);
+	SetLeftBottom(0, 1 - 10);
+	// hogsy end
 }
 
 CCommanderStatusPanel::~CCommanderStatusPanel( void )
@@ -343,55 +341,3 @@ CCommanderStatusPanel *CCommanderStatusPanel::StatusPanel()
 }
 
 // hogsy end
-
-//////////////////////////////////////////
-//
-// Status Panel Creation/Destruction and public api
-//
-//////////////////////////////////////////
-void StatusCreate( vgui::Panel *parent, int treetoprow )
-{
-	Assert( !g_pCommanderStatusPanel );
-	g_pCommanderStatusPanel = new CCommanderStatusPanel("");
-	g_pCommanderStatusPanel->SetAutoDelete( false );
-	g_pCommanderStatusPanel->SetParent( parent );
-	g_pCommanderStatusPanel->SetLeftBottom( 0, treetoprow - 10 );
-}
-
-void StatusSetTopRow( int treetoprow )
-{
-	Assert( g_pCommanderStatusPanel );
-	g_pCommanderStatusPanel->SetLeftBottom( 0, treetoprow - 10 );
-}
-
-void StatusDestroy( void )
-{
-	delete g_pCommanderStatusPanel;
-	g_pCommanderStatusPanel = NULL;
-}
-
-void StatusPrint( STATUSTYPE type, const char *fmt, ... )
-{
-	char text[ CCommanderStatusPanel::MAX_STATUS_TEXT ];
-
-	va_list argptr;
-	va_start( argptr, fmt );
-	_vsnprintf(text, CCommanderStatusPanel::MAX_STATUS_TEXT, fmt, argptr);
-	va_end(argptr);
-	text[ CCommanderStatusPanel::MAX_STATUS_TEXT - 1 ] = 0;
-
-	if ( g_pCommanderStatusPanel )
-		g_pCommanderStatusPanel->SetText( type, text );
-}
-
-void StatusClear( void )
-{
-	if ( g_pCommanderStatusPanel )
-		g_pCommanderStatusPanel->Clear();
-}
-
-void StatusTechnology( CBaseTechnology *technology )
-{
-	if ( g_pCommanderStatusPanel )
-		g_pCommanderStatusPanel->SetTechnology(technology );
-}

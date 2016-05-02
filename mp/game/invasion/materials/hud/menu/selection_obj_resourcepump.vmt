@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" 	"hud/menu/selection_obj_resourcepump"
+	"$additive" 	"1"
+	"$vertexcolor" 	"1"
+	"$vertexalpha" 	"1"
+	"$ignorez"     	"1"
+}

@@ -37,7 +37,6 @@ public:
 	virtual void	SetPlayerHull();
 	virtual void	GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax );
 	virtual void	ResetViewOffset();
-	virtual void	InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity);
 	virtual bool	ResupplyAmmo( float flFraction, ResupplyReason_t reason );
 	virtual void	ClassActivate();
 

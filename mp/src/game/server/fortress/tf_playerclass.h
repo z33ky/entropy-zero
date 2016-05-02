@@ -107,9 +107,6 @@ public:
 	virtual void		SetPlayerHull( void );
 	virtual void		GetPlayerHull( bool bDucking, Vector &vecMin, Vector &vecMax );
 
-	// Player Physics Shadow
-	virtual void		InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity);
-
 	// Powerups
 	virtual void		PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier );
 	virtual void		PowerupEnd( int iPowerup );

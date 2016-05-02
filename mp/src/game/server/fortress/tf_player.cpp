@@ -3359,19 +3359,13 @@ static CPhysicsTFPlayerCallback TFPlayerCallback;
 
 void CBaseTFPlayer::InitVCollision(const Vector &vecAbsOrigin, const Vector &vecAbsVelocity)
 {
-#if 0
-	VPhysicsDestroyObject();
-
-	// IMPLEMENT_ME: This is currently causing issues. ~hogsy
-	if ( GetPlayerClass() )
-		GetPlayerClass()->InitVCollision(vecAbsOrigin, vecAbsVelocity);
-#else
 	BaseClass::InitVCollision(vecAbsOrigin, vecAbsVelocity);
-#endif
 
+#if 0
 	// Setup the HL2 specific callback.
 	if ( GetPhysicsController() )
 		GetPhysicsController()->SetEventHandler( &TFPlayerCallback );
+#endif
 }
 
 //-----------------------------------------------------------------------------
