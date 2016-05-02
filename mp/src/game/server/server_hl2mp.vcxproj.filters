@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Invasion\Shared">
       <UniqueIdentifier>{F4CACB3C-A885-5904-6FB8-853F26D95055}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Invasion\Vehicles">
+      <UniqueIdentifier>{1E3ECB16-589E-4653-A8C2-A861669114E5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Invasion\Weapons">
       <UniqueIdentifier>{3841B975-8055-1445-725E-39ECE0D3C4E2}</UniqueIdentifier>
     </Filter>
@@ -1595,9 +1598,6 @@
     <ClInclude Include="fortress\tf_basecombatweapon.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
-    <ClInclude Include="fortress\tf_basefourwheelvehicle.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
     <ClInclude Include="fortress\tf_flare.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
@@ -1644,12 +1644,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_team.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_vehicle_tank.h">
-      <Filter>Source Files\Invasion</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\tf_vehicle_teleport_station.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
     <ClInclude Include="fortress\tf_class_commando.h">
@@ -1864,6 +1858,21 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\vehicle_mortar_shared.h">
       <Filter>Source Files\Invasion\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_basefourwheelvehicle.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_vehicle_tank.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_vehicle_teleport_station.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_walker_base.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_walker_strider.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h">
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>
@@ -3130,9 +3139,6 @@
     <ClCompile Include="fortress\tf2_eventlog.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
-    <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
     <ClCompile Include="fortress\tf_client.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
@@ -3191,12 +3197,6 @@
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_team.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_vehicle_tank.cpp">
-      <Filter>Source Files\Invasion</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_class_commando.cpp">
@@ -3411,6 +3411,21 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_vehicle_tank.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_walker_base.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_walker_strider.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp">
       <Filter>Source Files\Invasion\Weapons\Shared</Filter>

@@ -2210,6 +2210,12 @@
     <ClInclude Include="fortress\c_vehicle_teleport_station.h">
       <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\c_walker_base.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\c_walker_strider.h">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\vgui_classmenu.h">
       <Filter>Source Files\Invasion\VGUI</Filter>
     </ClInclude>
@@ -3803,6 +3809,12 @@
       <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="fortress\c_vehicle_teleport_station.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_walker_base.cpp">
+      <Filter>Source Files\Invasion\Vehicles</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\c_walker_strider.cpp">
       <Filter>Source Files\Invasion\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="fortress\vgui_classmenu.cpp">

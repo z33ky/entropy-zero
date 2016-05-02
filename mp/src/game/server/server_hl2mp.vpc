@@ -335,12 +335,21 @@ $Project "Server"
 			$File	fortress/tf_flare.h
 			$File	fortress/tf_func_mass_teleport.cpp
 			$File	fortress/tf_func_mass_teleport.h
-			$File	fortress/tf_basefourwheelvehicle.cpp
-			$File	fortress/tf_basefourwheelvehicle.h
-			$File	fortress/tf_vehicle_teleport_station.cpp
-			$File	fortress/tf_vehicle_teleport_station.h
-			$File	fortress/tf_vehicle_tank.cpp
-			$File	fortress/tf_vehicle_tank.h
+
+			$Folder "Vehicles"
+			{
+				$File	fortress/tf_basefourwheelvehicle.cpp
+				$File	fortress/tf_basefourwheelvehicle.h
+				$File	fortress/tf_vehicle_teleport_station.cpp
+				$File	fortress/tf_vehicle_teleport_station.h
+				$File	fortress/tf_vehicle_tank.cpp
+				$File	fortress/tf_vehicle_tank.h
+				$File	fortress/tf_walker_base.cpp
+				$File	fortress/tf_walker_base.h
+				$File	fortress/tf_walker_strider.cpp
+				$File	fortress/tf_walker_strider.h
+			}
+
 			$File	fortress/tf_obj_mcv_selection_panel.cpp
 			$File	fortress/tf_obj_mcv_selection_panel.h
 		}

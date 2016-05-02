@@ -729,7 +729,6 @@
     <ClInclude Include="fortress\resource_chunk.h" />
     <ClInclude Include="fortress\team_messages.h" />
     <ClInclude Include="fortress\tf_basecombatweapon.h" />
-    <ClInclude Include="fortress\tf_basefourwheelvehicle.h" />
     <ClInclude Include="fortress\tf_flare.h" />
     <ClInclude Include="fortress\tf_func_construction_yard.h" />
     <ClInclude Include="fortress\tf_func_mass_teleport.h" />
@@ -746,8 +745,6 @@
     <ClInclude Include="fortress\tf_shield_flat.h" />
     <ClInclude Include="fortress\tf_stats.h" />
     <ClInclude Include="fortress\tf_team.h" />
-    <ClInclude Include="fortress\tf_vehicle_tank.h" />
-    <ClInclude Include="fortress\tf_vehicle_teleport_station.h" />
     <ClInclude Include="fortress\tf_class_commando.h" />
     <ClInclude Include="fortress\tf_class_defender.h" />
     <ClInclude Include="fortress\tf_class_escort.h" />
@@ -819,6 +816,11 @@
     <ClInclude Include="..\..\game\shared\fortress\tf_vehicleshared.h" />
     <ClInclude Include="..\..\game\shared\fortress\tfclassdata_shared.h" />
     <ClInclude Include="..\..\game\shared\fortress\vehicle_mortar_shared.h" />
+    <ClInclude Include="fortress\tf_basefourwheelvehicle.h" />
+    <ClInclude Include="fortress\tf_vehicle_tank.h" />
+    <ClInclude Include="fortress\tf_vehicle_teleport_station.h" />
+    <ClInclude Include="fortress\tf_walker_base.h" />
+    <ClInclude Include="fortress\tf_walker_strider.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_basecombatobject.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_builder.h" />
     <ClInclude Include="..\..\game\shared\fortress\weapon_combat_usedwithshieldbase.h" />
@@ -1326,7 +1328,6 @@
     <ClCompile Include="fortress\resource_chunk.cpp" />
     <ClCompile Include="fortress\sensor_tf_team.cpp" />
     <ClCompile Include="fortress\tf2_eventlog.cpp" />
-    <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp" />
     <ClCompile Include="fortress\tf_client.cpp" />
     <ClCompile Include="fortress\tf_flare.cpp" />
     <ClCompile Include="fortress\tf_func_construction_yard.cpp" />
@@ -1347,8 +1348,6 @@
     <ClCompile Include="fortress\tf_shield_flat.cpp" />
     <ClCompile Include="fortress\tf_stats.cpp" />
     <ClCompile Include="fortress\tf_team.cpp" />
-    <ClCompile Include="fortress\tf_vehicle_tank.cpp" />
-    <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp" />
     <ClCompile Include="fortress\tf_class_commando.cpp" />
     <ClCompile Include="fortress\tf_class_defender.cpp" />
     <ClCompile Include="fortress\tf_class_escort.cpp" />
@@ -1420,6 +1419,11 @@
     <ClCompile Include="..\..\game\shared\fortress\tf_tacticalmap.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tf_usermessages.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp" />
+    <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp" />
+    <ClCompile Include="fortress\tf_vehicle_tank.cpp" />
+    <ClCompile Include="fortress\tf_vehicle_teleport_station.cpp" />
+    <ClCompile Include="fortress\tf_walker_base.cpp" />
+    <ClCompile Include="fortress\tf_walker_strider.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_arcwelder.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_basecombatobject.cpp" />
     <ClCompile Include="..\..\game\shared\fortress\weapon_builder.cpp" />

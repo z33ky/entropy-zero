@@ -929,6 +929,8 @@
     <ClInclude Include="..\..\game\shared\fortress\weapon_repairgun.h" />
     <ClInclude Include="fortress\c_basefourwheelvehicle.h" />
     <ClInclude Include="fortress\c_vehicle_teleport_station.h" />
+    <ClInclude Include="fortress\c_walker_base.h" />
+    <ClInclude Include="fortress\c_walker_strider.h" />
     <ClInclude Include="fortress\vgui_classmenu.h" />
     <ClInclude Include="fortress\vgui_healthbar.h" />
     <ClInclude Include="fortress\vgui_rotation_slider.h" />
@@ -1558,6 +1560,8 @@
     <ClCompile Include="..\..\game\shared\fortress\weapon_repairgun.cpp" />
     <ClCompile Include="fortress\c_basefourwheelvehicle.cpp" />
     <ClCompile Include="fortress\c_vehicle_teleport_station.cpp" />
+    <ClCompile Include="fortress\c_walker_base.cpp" />
+    <ClCompile Include="fortress\c_walker_strider.cpp" />
     <ClCompile Include="fortress\vgui_classmenu.cpp" />
     <ClCompile Include="fortress\vgui_healthbar.cpp" />
     <ClCompile Include="fortress\vgui_rootpanel_tf2.cpp" />
