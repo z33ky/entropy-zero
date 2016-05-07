@@ -5419,7 +5419,7 @@ bool CBasePlayer::GetInVehicle( IServerVehicle *pVehicle, int nRole )
 		{
 			pWeapon->Holster( NULL );
 		}
-
+		
 #ifndef HL2_DLL
 		m_Local.m_iHideHUD |= HIDEHUD_WEAPONSELECTION;
 #endif
@@ -5481,6 +5481,10 @@ bool CBasePlayer::GetInVehicle( IServerVehicle *pVehicle, int nRole )
 	m_iVehicleAnalogBias = VEHICLE_ANALOG_BIAS_NONE;
 
 	OnVehicleStart();
+
+	// hogsy start - hack
+	m_afButtonPressed &= ~IN_USE;
+	// hogsy end - hack
 
 	return true;
 }

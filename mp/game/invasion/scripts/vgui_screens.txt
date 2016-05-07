@@ -1,5 +1,13 @@
 Screens
 {
+	screen_vehicle_bay
+	{
+		type		"vehicle_bay_screen"
+		pixelswide	640
+		pixelshigh	480
+		resfile		"scripts/screens/screen_vehicle_bay.res"
+	}
+
 	screen_human_pda
 	{
 		type		"human_pda"
@@ -22,6 +30,14 @@ Screens
 		pixelswide	640
 		pixelshigh	480
 		resfile		"scripts/screens/buffstation_control_panel.res"
+	}
+	
+	screen_obj_resourcepump
+	{
+		type		"resource_pump"
+		pixelswide	640
+		pixelshigh	480
+		resfile		"scripts/screens/resourcepump_control_panel.res"
 	}
 	
 	screen_basic_with_disable

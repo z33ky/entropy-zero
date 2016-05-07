@@ -27,11 +27,10 @@
 
 // How many inches/sec the strider's torso moves up and down to get the torso at the right height.
 #define STRIDER_TORSO_VERTICAL_SLIDE_SPEED	100
-#define STRIDER_FIRE_TIME			5
-#define STRIDER_FIRE_INTERVAL		0.3
-#define STRIDER_FIRE_ANGLE_ERROR	6	// N degrees of error when he fires.
-// Changed from models/objects/walker_strider.mdl to placeholder models/combine_strider.mdl ~hogsy
-#define WALKER_STRIDER_MODEL		"models/combine_strider.mdl"
+#define STRIDER_FIRE_TIME					5
+#define STRIDER_FIRE_INTERVAL				0.3
+#define STRIDER_FIRE_ANGLE_ERROR			6	// N degrees of error when he fires.
+#define WALKER_STRIDER_MODEL				"models/objects/alien_vehicle_strider.mdl"	//"models/objects/walker_strider.mdl"
 
 
 IMPLEMENT_SERVERCLASS_ST( CWalkerStrider, DT_WalkerStrider )

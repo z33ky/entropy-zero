@@ -142,7 +142,7 @@ void CWalkerBase::WalkerThink()
 		if ( m_vSteerVelocity.x == 0 && m_vSteerVelocity.y == 0 )
 		{
 			// Changed from idle to idle01 ~hogsy
-			iWantedSequence = LookupSequence( "idle" );
+			iWantedSequence = LookupSequence( "idle01" );
 
 			// HACK: HL2 Strider has no idle
 			if ( iWantedSequence == -1 )

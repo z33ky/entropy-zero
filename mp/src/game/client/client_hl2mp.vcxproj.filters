@@ -3832,6 +3832,9 @@
     <ClCompile Include="fortress\vgui_teammenu.cpp">
       <Filter>Source Files\Invasion\VGUI</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\VGuiScreenVehicleBay.cpp">
+      <Filter>Source Files\Invasion\VGUI</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\c_weapon__stubs_tf2.cpp">
       <Filter>Source Files\Invasion\Weapons</Filter>
     </ClCompile>

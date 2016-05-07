@@ -1,6 +1,19 @@
 @include "base.fgd"
 
-@BaseClass = FObject
+// BASE
+
+@BaseClass = BaseTeam
+[
+	TeamNum(choices) : "Team" : 2 : "Team" =
+	[
+		0 : "Any"
+		2 : "Human"
+		3 : "Alien"
+	]
+	input SetTeam(integer) : "Changes the entity's team."
+]
+
+@BaseClass = BaseObject
 [
 	input	SetHealth(integer)				:	"Sets the health of the object."
 	input	AddHealth(integer)				:	"Adds health to the object."
@@ -8,11 +21,6 @@
 	input	SetMinDisabledHealth(integer)	:	"Sets minimum health before object becomes disabled."
 	input	SetSolidToPlayer(integer)		:	"Sets the object to be solid to the player."
 	
-	TeamNum(choices) : "Team" : 2 : "Team" =
-	[
-		2 : "Human"
-		3 : "Alien"
-	]
 	Invulnerable(choices)		:	"Invulnerable?"		:	0	:	"Sets the object as invulnerable." =
 	[
 		0	:	"False"
@@ -27,6 +35,8 @@
 	SolidToPlayer(integer)		:	"Solid to player?"	:	0	:	"If enabled, the object is solid to the player."
 	MinDisabledHealth(float)	:	"Disabled health"	:	10	:	"Minimum health before object becomes disabled."
 ]
+
+// 
 
 @SolidClass base(Trigger) = trigger_controlzone : "Control Zone"
 [
@@ -65,16 +75,6 @@
 
 @SolidClass base(Trigger) = func_construction_yard : "Construction Yard" []
 
-@PointClass base(FObject) = obj_respawn_station :
-	"Respawn Station"
-[
-	InitialSpawn(choices)	:	"Initial spawn?"	:	1	:	"Returns true if this spawn point is the map specified initial spawn point for its team." =
-	[
-		0	:	"False"
-		1	:	"True"
-	]
-]
-
 @PointClass = env_resourcespawner :	"Resource Spawner"
 [
 	target(target_destination)	: "Target"
@@ -97,7 +97,7 @@
 
 // Info Entities
 
-@PointClass = info_act : "Act Information"
+@PointClass base(Targetname) = info_act : "Act Information"
 [
 	ActNumber(integer) 						: "Act Number"
 	ActTimeLimit(float) 					: "Act Time Limit"
@@ -157,7 +157,7 @@
 	output OnTeam2RespawnDelayDone(void)
 ]
 
-@PointClass = info_input_respawnplayers : "Respawn Players"
+@PointClass base(Targetname) = info_input_respawnplayers : "Respawn Players"
 [
 	input RespawnAll(void)
 	input RespawnTeam1(void)
@@ -165,9 +165,11 @@
 	input RespawnPlayer(void)
 ]
 
-@PointClass = info_vehicle_bay : "Vehicle Bay" []
-@PointClass = vgui_screen_vehicle_bay : "Vehicle Bay VGUI"
+@PointClass base(Targetname) = info_vehicle_bay : "Vehicle Bay" []
+@PointClass base(vgui_screen_base, BaseTeam) = vgui_screen_vehicle_bay : "Vehicle Bay VGUI"
 [
+	target(target_destination) : "Vehicle Bay"
+
 	output OnStartedBuild(void)
 	output OnFinishedBuild(void)
 	output OnReadyToBuildAgain(void)
@@ -186,6 +188,14 @@
 	output TechPercentage(void)
 ]
 
-// Objects
+// OBJECTS
 
-@PointClass = obj_manned_plasmagun : "Manned Plasma Gun" []
+@PointClass base(BaseObject, BaseTeam) = obj_manned_plasmagun : "Manned Plasma Gun" []
+@PointClass base(BaseObject, BaseTeam) = obj_respawn_station : "Respawn Station"
+[
+	InitialSpawn(choices) : "Initial spawn?" : 1 : "Returns true if this spawn point is the map specified initial spawn point for its team." =
+	[
+		0	: "False"
+		1	: "True"
+	]
+]

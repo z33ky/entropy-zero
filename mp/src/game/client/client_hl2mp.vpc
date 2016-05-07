@@ -416,6 +416,7 @@ $Project "Client"
 				$File	fortress/vgui_rotation_slider.h
 				$File	fortress/vgui_teammenu.cpp
 				$File	fortress/vgui_teammenu.h
+				$File	fortress/VGuiScreenVehicleBay.cpp
 			}
 		}
 	}

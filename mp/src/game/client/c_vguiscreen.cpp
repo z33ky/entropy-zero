@@ -47,6 +47,8 @@ CLIENTEFFECT_REGISTER_END()
 // This is a cache of preloaded keyvalues.
 // ----------------------------------------------------------------------------- // 
 
+CUtlVector<C_VGuiScreen*> g_pVGUIScreens;
+
 CUtlDict<KeyValues*, int> g_KeyValuesCache;
 
 KeyValues* CacheKeyValuesForFile( const char *pFilename )
@@ -102,10 +104,14 @@ C_VGuiScreen::C_VGuiScreen()
 
 	m_WriteZMaterial.Init( "engine/writez", TEXTURE_GROUP_VGUI );
 	m_OverlayMaterial.Init( m_WriteZMaterial );
+
+	g_pVGUIScreens.AddToTail(this);
 }
 
 C_VGuiScreen::~C_VGuiScreen()
 {
+	g_pVGUIScreens.FindAndRemove(this);
+
 	DestroyVguiScreen();
 }
 
@@ -416,6 +422,25 @@ void C_VGuiScreen::ClientThink( void )
 	int px = (int)(u * m_nPixelWidth + 0.5f);
 	int py = (int)(v * m_nPixelHeight + 0.5f);
 
+	// START TEDDYS FIX
+	for (int i = 0; i < pPanel->GetChildCount(); i++)
+	{
+		vgui::Button *child = dynamic_cast<vgui::Button*>(pPanel->GetChild(i));
+		if (child)
+		{
+			int x1, x2, y1, y2;
+			child->GetBounds(x1, y1, x2, y2);
+
+			// Generate mouse input commands
+			if ((m_nButtonState & IN_ATTACK))
+			{
+				if (px >= x1 && px <= x1 + x2 && py >= y1 && py <= y1 + y2)
+					child->FireActionSignal();
+			}
+		}
+	}
+	// FIN TEDDYS FIX
+
 	// Generate mouse input commands
 	if ((px != m_nOldPx) || (py != m_nOldPy))
 	{
@@ -680,7 +705,7 @@ C_VGuiScreen *CVGuiScreenEnumerator::GetVGuiScreen( int index )
 //-----------------------------------------------------------------------------
 C_BaseEntity *FindNearbyVguiScreen( const Vector &viewPosition, const QAngle &viewAngle, int nTeam )
 {
-	if ( IsX360() )
+	if (IsX360())
 	{
 		// X360TBD: Turn this on if feature actually used
 		return NULL;
@@ -688,83 +713,83 @@ C_BaseEntity *FindNearbyVguiScreen( const Vector &viewPosition, const QAngle &vi
 
 	C_BasePlayer *pLocalPlayer = C_BasePlayer::GetLocalPlayer();
 
-	Assert( pLocalPlayer );
+	Assert(pLocalPlayer);
 
-	if ( !pLocalPlayer )
+	if (!pLocalPlayer)
 		return NULL;
 
 	// Get the view direction...
 	Vector lookDir;
-	AngleVectors( viewAngle, &lookDir );
+	AngleVectors(viewAngle, &lookDir);
 
 	// Create a ray used for raytracing 
 	Vector lookEnd;
-	VectorMA( viewPosition, 2.0f * VGUI_SCREEN_MODE_RADIUS, lookDir, lookEnd );
+	VectorMA(viewPosition, 2.0f * VGUI_SCREEN_MODE_RADIUS, lookDir, lookEnd);
 
 	Ray_t lookRay;
-	lookRay.Init( viewPosition, lookEnd );
-
-	// Look for vgui screens that are close to the player
-	CVGuiScreenEnumerator localScreens;
-	partition->EnumerateElementsInSphere( PARTITION_CLIENT_NON_STATIC_EDICTS, viewPosition, VGUI_SCREEN_MODE_RADIUS, false, &localScreens );
+	lookRay.Init(viewPosition, lookEnd);
 
 	Vector vecOut, vecViewDelta;
 
 	float flBestDist = 2.0f;
 	C_VGuiScreen *pBestScreen = NULL;
-	for (int i = localScreens.GetScreenCount(); --i >= 0; )
+
+	for (int i = 0; i < g_pVGUIScreens.Count(); i++)
 	{
-		C_VGuiScreen *pScreen = localScreens.GetVGuiScreen(i);
-
-		if ( pScreen->IsAttachedToViewModel() )
-			continue;
-
-		// Don't bother with screens I'm behind...
-		// Hax - don't cancel backfacing with viewmodel attached screens.
-		// we can get prediction bugs that make us backfacing for one frame and
-		// it resets the mouse position if we lose focus.
-		if ( pScreen->IsBackfacing(viewPosition) )
-			continue;
-
-		// Don't bother with screens that are turned off
-		if (!pScreen->IsActive())
-			continue;
-
-		// FIXME: Should this maybe go into a derived class of some sort?
-		// Don't bother with screens on the wrong team
-		if (!pScreen->IsVisibleToTeam(nTeam))
-			continue;
-
-		if ( !pScreen->AcceptsInput() )
-			continue;
-
-		if ( pScreen->IsInputOnlyToOwner() && pScreen->GetPlayerOwner() != pLocalPlayer )
-			continue;
-
-		// Test perpendicular distance from the screen...
-		pScreen->GetVectors( NULL, NULL, &vecOut );
-		VectorSubtract( viewPosition, pScreen->GetAbsOrigin(), vecViewDelta );
-		float flPerpDist = DotProduct(vecViewDelta, vecOut);
-		if ( (flPerpDist < 0) || (flPerpDist > VGUI_SCREEN_MODE_RADIUS) )
-			continue;
-
-		// Perform a raycast to see where in barycentric coordinates the ray hits
-		// the viewscreen; if it doesn't hit it, you're not in the mode
-		float u, v, t;
-		if (!pScreen->IntersectWithRay( lookRay, &u, &v, &t ))
-			continue;
-
-		// Barycentric test
-		if ((u < 0) || (v < 0) || (u > 1) || (v > 1))
-			continue;
-
-		if ( t < flBestDist )
+		if (g_pVGUIScreens.IsValidIndex(i))
 		{
-			flBestDist = t;
-			pBestScreen = pScreen;
+			C_VGuiScreen *pScreen = g_pVGUIScreens[i];
+
+			if (pScreen->IsAttachedToViewModel())
+				continue;
+
+			// Don't bother with screens I'm behind...
+			// Hax - don't cancel backfacing with viewmodel attached screens.
+			// we can get prediction bugs that make us backfacing for one frame and
+			// it resets the mouse position if we lose focus.
+			if (pScreen->IsBackfacing(viewPosition))
+				continue;
+
+			// Don't bother with screens that are turned off
+			if (!pScreen->IsActive())
+				continue;
+
+			// FIXME: Should this maybe go into a derived class of some sort?
+			// Don't bother with screens on the wrong team
+			if (!pScreen->IsVisibleToTeam(nTeam))
+				continue;
+
+			if (!pScreen->AcceptsInput())
+				continue;
+
+			if (pScreen->IsInputOnlyToOwner() && pScreen->GetPlayerOwner() != pLocalPlayer)
+				continue;
+
+			// Test perpendicular distance from the screen...
+			pScreen->GetVectors(NULL, NULL, &vecOut);
+			VectorSubtract(viewPosition, pScreen->GetAbsOrigin(), vecViewDelta);
+			float flPerpDist = DotProduct(vecViewDelta, vecOut);
+			if ((flPerpDist < 0) || (flPerpDist > VGUI_SCREEN_MODE_RADIUS))
+				continue;
+
+			// Perform a raycast to see where in barycentric coordinates the ray hits
+			// the viewscreen; if it doesn't hit it, you're not in the mode
+			float u, v, t;
+			if (!pScreen->IntersectWithRay(lookRay, &u, &v, &t))
+				continue;
+
+			// Barycentric test
+			if ((u < 0) || (v < 0) || (u > 1) || (v > 1))
+				continue;
+
+			if (t < flBestDist)
+			{
+				flBestDist = t;
+				pBestScreen = pScreen;
+			}
 		}
 	}
-	
+
 	return pBestScreen;
 }
 

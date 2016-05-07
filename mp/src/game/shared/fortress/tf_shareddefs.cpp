@@ -62,15 +62,17 @@ static int g_iClassInfo_Recon[] =
 
 static int g_iClassInfo_Commando[] =
 {
+#if 0	// For testing... ~hogsy
+	OBJ_POWERPACK,
+	OBJ_RESOURCEPUMP,
+	OBJ_WALKER_STRIDER,
+#else	// Original list ~hogsy
 	OBJ_POWERPACK,
 	OBJ_VEHICLE_BOOST,
 	OBJ_DRAGONSTEETH,
 	OBJ_MANNED_MISSILELAUNCHER,
 	OBJ_SANDBAG_BUNKER,
 	OBJ_DRAGONSTEETH,
-
-#ifndef IMPLEMENT_ME	// For testing... ~hogsy
-	OBJ_RESOURCEPUMP,
 #endif
 
 	OBJ_LAST
