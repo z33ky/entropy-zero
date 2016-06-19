@@ -1,5 +1,6 @@
-/*	Copyright (C) Valve Corporation
-	Copyright (C) 2014-2016 TalonBrave.info
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
 */
 
 #include "cbase.h"
@@ -571,19 +572,7 @@ void ClientModeTFNormal::PreRender(CViewSetup *pSetup)
 {
 	if (IsCommanderMode())
 	{
-#ifdef IMPLEMENT_ME
-		if (!m_pClear || !m_pSkyBox)
-			return;
-
-		m_fOldClear = m_pClear->GetFloat();
-		m_pClear->SetValue(1.0f);
-		materials->ClearBuffers(!!m_pClear->GetInt(), false);
-
-		m_fOldSkybox = m_pSkyBox->GetFloat();
-		m_pSkyBox->SetValue(0.0f);
-#else
 		materials->ClearBuffers(true, false);
-#endif
 
 		GetOrthoParameters(pSetup);
 		render->DrawTopView(true);
@@ -613,15 +602,8 @@ void ClientModeTFNormal::PostRender(void)
 {
 	if (IsCommanderMode())
 	{
-#ifdef IMPLEMENT_ME
-		if (!m_pClear || !m_pSkyBox)
-			return;
-
-		m_pClear->SetValue(m_fOldClear);
-		m_pSkyBox->SetValue(m_fOldSkybox);
-#endif
-
 		render->DrawTopView(false);
+
 		ClientLeafSystem()->DrawStaticProps(true);
 #if 0	// Source doesn't support this anymore ~hogsy
 		ClientLeafSystem()->DrawSmallEntities(true);

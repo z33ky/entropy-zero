@@ -43,7 +43,7 @@ protected:
 	virtual void	Paint();
 	
 	// Crosshair sprite and colors
-	CHudTexture		*m_pCrosshair;
+	CHudTexture		*m_pCrosshair, *m_pVGUIHoverIcon;
 	CHudTexture		*m_pDefaultCrosshair;
 	Color			m_clrCrosshair;
 	QAngle			m_vecCrossHairOffsetAngle;

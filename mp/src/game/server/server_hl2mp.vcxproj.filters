@@ -2662,6 +2662,9 @@
     <ClCompile Include="..\..\game\shared\multiplay_gamerules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\Multiplayer\multiplayer_animstate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ndebugoverlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

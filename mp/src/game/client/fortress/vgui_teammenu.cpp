@@ -59,7 +59,6 @@ void CFortressTeamMenu::OnTick(void)
 		mTeamLogoPreview->SwapModel("models/interface/red_team.mdl");
 		mTeamPreviewPanel->SwapModel("models/player/human_commando.mdl");
 
-		// TODO: This shouldn't be hard-coded!! ~hogsy
 		vTeamDescription->SetText("#FORTRESS_TEAMHUMANINFO");
 
 		iLastPreview = 0;
@@ -69,17 +68,15 @@ void CFortressTeamMenu::OnTick(void)
 		mTeamLogoPreview->SwapModel("models/interface/blue_team.mdl");
 		mTeamPreviewPanel->SwapModel("models/player/alien_commando.mdl");
 
-		// TODO: This shouldn't be hard-coded!! ~hogsy
 		vTeamDescription->SetText("#FORTRESS_TEAMALIENINFO");
 
 		iLastPreview = 1;
 	}
 	else if(bAutoButton->IsCursorOver() && (iLastPreview != 2))
 	{
-		mTeamLogoPreview->SwapModel("models/interface/auto_team.mdl");
+		mTeamLogoPreview->SwapModel("models/interface/random.mdl");
 		mTeamPreviewPanel->DeleteModelData();
 
-		// TODO: This shouldn't be hard-coded!! ~hogsy
 		vTeamDescription->SetText("#FORTRESS_TEAMAUTOINFO");
 
 		iLastPreview = 2;

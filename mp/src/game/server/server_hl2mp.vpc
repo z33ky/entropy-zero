@@ -64,6 +64,8 @@ $Project "Server"
 		
 		$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
 
+		$File "$SRCDIR\game\shared\Multiplayer\multiplayer_animstate.cpp"
+
 		$Folder	"Invasion"
 		{
 			$Folder	"Shared"

@@ -110,6 +110,19 @@
 			height	128
 		}
 		
+		// Custom Icons //
+		
+		crosshair_hover
+		{
+			file	vgui/vgui_hover
+			x		0
+			y		0
+			width	64
+			height	64
+		}
+		
+		//////////////////////
+		
 		"d_skull"
 		{
 				"file"		"sprites/640hud1"

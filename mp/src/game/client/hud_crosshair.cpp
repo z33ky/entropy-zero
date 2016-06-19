@@ -49,6 +49,7 @@ CHudCrosshair::CHudCrosshair( const char *pElementName ) :
 	SetParent( pParent );
 
 	m_pCrosshair = 0;
+	m_pVGUIHoverIcon = 0;
 
 	m_clrCrosshair = Color( 0, 0, 0, 0 );
 
@@ -66,6 +67,7 @@ void CHudCrosshair::ApplySchemeSettings( IScheme *scheme )
 	BaseClass::ApplySchemeSettings( scheme );
 
 	m_pDefaultCrosshair = gHUD.GetIcon("crosshair_default");
+	m_pVGUIHoverIcon = gHUD.GetIcon("crosshair_hover");
 	SetPaintBackgroundEnabled( false );
 
     SetSize( ScreenWidth(), ScreenHeight() );
@@ -93,12 +95,6 @@ bool CHudCrosshair::ShouldDraw( void )
 	if ( pWeapon && !pWeapon->ShouldDrawCrosshair() )
 		return false;
 
-#ifdef PORTAL
-	C_Portal_Player *portalPlayer = ToPortalPlayer(pPlayer);
-	if ( portalPlayer && portalPlayer->IsSuppressingCrosshair() )
-		return false;
-#endif // PORTAL
-
 	/* disabled to avoid assuming it's an HL2 player.
 	// suppress crosshair in zoom.
 	if ( pPlayer->m_HL2Local.m_bZooming )
@@ -106,29 +102,15 @@ bool CHudCrosshair::ShouldDraw( void )
 	*/
 
 	// draw a crosshair only if alive or spectating in eye
-	if ( IsX360() )
-	{
-		bNeedsDraw = m_pCrosshair && 
-			!engine->IsDrawingLoadingImage() &&
-			!engine->IsPaused() && 
-			( !pPlayer->IsSuitEquipped() || g_pGameRules->IsMultiplayer() ) &&
-			g_pClientMode->ShouldDrawCrosshair() &&
-			!( pPlayer->GetFlags() & FL_FROZEN ) &&
-			( pPlayer->entindex() == render->GetViewEntity() ) &&
-			( pPlayer->IsAlive() ||	( pPlayer->GetObserverMode() == OBS_MODE_IN_EYE ) || ( cl_observercrosshair.GetBool() && pPlayer->GetObserverMode() == OBS_MODE_ROAMING ) );
-	}
-	else
-	{
-		bNeedsDraw = m_pCrosshair && 
-			crosshair.GetInt() &&
-			!engine->IsDrawingLoadingImage() &&
-			!engine->IsPaused() && 
-			g_pClientMode->ShouldDrawCrosshair() &&
-			!( pPlayer->GetFlags() & FL_FROZEN ) &&
-			( pPlayer->entindex() == render->GetViewEntity() ) &&
-			!pPlayer->IsInVGuiInputMode() &&
-			( pPlayer->IsAlive() ||	( pPlayer->GetObserverMode() == OBS_MODE_IN_EYE ) || ( cl_observercrosshair.GetBool() && pPlayer->GetObserverMode() == OBS_MODE_ROAMING ) );
-	}
+	bNeedsDraw = m_pCrosshair && 
+		crosshair.GetInt() &&
+		!engine->IsDrawingLoadingImage() &&
+		!engine->IsPaused() && 
+		g_pClientMode->ShouldDrawCrosshair() &&
+		!( pPlayer->GetFlags() & FL_FROZEN ) &&
+		( pPlayer->entindex() == render->GetViewEntity() ) &&
+		//!pPlayer->IsInVGuiInputMode() &&
+		( pPlayer->IsAlive() ||	( pPlayer->GetObserverMode() == OBS_MODE_IN_EYE ) || ( cl_observercrosshair.GetBool() && pPlayer->GetObserverMode() == OBS_MODE_ROAMING ) );
 
 	return ( bNeedsDraw && CHudElement::ShouldDraw() );
 }
@@ -272,12 +254,22 @@ void CHudCrosshair::Paint( void )
 	int iX = (int)( x + 0.5f );
 	int iY = (int)( y + 0.5f );
 
-	m_pCrosshair->DrawSelfCropped (
-		iX-(iWidth/2), iY-(iHeight/2),
-		0, 0,
-		iTextureW, iTextureH,
-		iWidth, iHeight,
-		clr );
+	if (pPlayer->IsInVGuiInputMode() && m_pVGUIHoverIcon)
+		m_pVGUIHoverIcon->DrawSelf(
+		iX - (m_pVGUIHoverIcon->Width() / 2), 
+		iY - (m_pVGUIHoverIcon->Height() / 2), 
+		m_pVGUIHoverIcon->Width(), 
+		m_pVGUIHoverIcon->Height(), 
+		Color(0, 255, 0, 255));
+	else
+	{
+		m_pCrosshair->DrawSelfCropped(
+			iX - (iWidth / 2), iY - (iHeight + 2),
+			0, 0,
+			iTextureW, iTextureH,
+			iWidth, iHeight,
+			clr);
+	}
 }
 
 //-----------------------------------------------------------------------------

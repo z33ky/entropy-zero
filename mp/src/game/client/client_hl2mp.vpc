@@ -35,6 +35,8 @@ $Project "Client"
 		$File	"$SRCDIR\game\shared\teamplay_round_timer.cpp"
 		$File	"$SRCDIR\game\shared\teamplay_round_timer.h"
 		$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
+
+		$File "$SRCDIR\game\shared\Multiplayer\multiplayer_animstate.cpp"
 		
 		$File	"vgui_entityimagepanel.cpp"
 		$File	"vgui_entitypanel.cpp"

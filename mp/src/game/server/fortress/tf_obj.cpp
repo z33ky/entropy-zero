@@ -1,5 +1,9 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
+*/
 
-// Purpose: Base Object built by players
+/*	Base Object built by players	*/
 
 #include "cbase.h"
 #include "tf_player.h"
@@ -45,7 +49,6 @@
 #define SCREEN_OVERLAY_MATERIAL "vgui/screens/vgui_overlay"
 
 #define ROPE_HANG_DIST	150
-
 
 ConVar object_verbose( "object_verbose", "0", 0, "Debug object system." );
 ConVar obj_damage_factor( "obj_damage_factor","0", FCVAR_NONE, "Factor applied to all damage done to objects" );

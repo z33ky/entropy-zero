@@ -13,9 +13,6 @@
 #include "tf_team.h"
 #include "entitylist.h"
 #include "tf_obj.h"
-#ifdef IMPLEMENT_ME
-#include "weapon_mortar.h"
-#endif
 #include "orders.h"
 #include "engine/IEngineSound.h"
 #include "weapon_twohandedcontainer.h"

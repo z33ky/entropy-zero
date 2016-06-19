@@ -1,3 +1,8 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "c_basetfplayer.h"
 #include "beamdraw.h"

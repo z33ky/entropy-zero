@@ -21,13 +21,9 @@
 #include "weapon_grenade_rocket.h"
 
 
-#define TANK_MINS			Vector(-30, -50, -10)
-#define TANK_MAXS			Vector( 30,  50, 55)
-#ifndef IMPLEMENT_ME
-#define	TANK_MODEL	"models/combine_apc.mdl"
-#else
+#define TANK_MINS	Vector(-30, -50, -10)
+#define TANK_MAXS	Vector( 30,  50, 55)
 #define TANK_MODEL	"models/objects/vehicle_tank.mdl"
-#endif
 
 // N seconds between tank shots.
 #define TANK_FIRE_INTERVAL	2

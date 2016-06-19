@@ -1,5 +1,6 @@
-/*	Copyright (C) Valve Corporation
-	Copyright (C) 2014-2016 TalonBrave.info
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
 */
 
 #include "cbase.h"
