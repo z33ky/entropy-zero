@@ -112,10 +112,10 @@ public:
 	virtual void PreRender(CViewSetup *pSetup);
 	virtual void PostRender();
 
+	Viewport *GetNormalViewport();
+
 private:
 	bool commander_mode;
-
-	Viewport *GetNormalViewport();
 
 	// Fills in ortho parameters (and near/far Z) in pSetup for how the commander mode renders the world.
 	bool GetOrthoParameters(CViewSetup *pSetup);

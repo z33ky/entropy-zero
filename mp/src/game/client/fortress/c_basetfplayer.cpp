@@ -30,10 +30,12 @@ Copyright (C) 2014-2016 TalonBrave.info
 #include "iclientmode.h"
 #include "weapon_selection.h"
 #include "collisionutils.h"
+// hogsy start
+#include "clientmode_tfnormal.h"
+// hogsy end
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
-
 
 // Don't alias here
 #if defined( CBaseTFPlayer )
@@ -1375,7 +1377,6 @@ float C_BaseTFPlayer::GetKnockdownViewheightAdjust( void ) const
 	return m_flKnockdownViewheightAdjust;
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Player has changed to a new team
 //-----------------------------------------------------------------------------
@@ -1384,9 +1385,17 @@ void C_BaseTFPlayer::TeamChange( int iNewTeam )
 	BaseClass::TeamChange( iNewTeam );
 
 	// Did we change team? or did we just join our first team?
-	if ( iNewTeam != GetTeamNumber() )
+	if (iNewTeam != GetTeamNumber())
+	{
 		// Tell the tech tree to reload itself
 		GetTechnologyTreeDoc().ReloadTechTree();
+
+		// hogsy start
+		ClientModeTFNormal *mode = dynamic_cast<ClientModeTFNormal*>(GetClientModeNormal());
+		if (mode)
+			mode->GetNormalViewport()->ReloadScheme();
+		// hogsy end
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2372,7 +2381,7 @@ bool C_BaseTFPlayer::CreateMove( float flInputSampleTime, CUserCmd *pCmd )
 C_BaseAnimating* C_BaseTFPlayer::GetRenderedWeaponModel()
 {
 	// Attach to either their weapon model or their view model.
-	if ( input->CAM_IsThirdPerson() || this != C_BasePlayer::GetLocalPlayer() )
+	if ( ::input->CAM_IsThirdPerson() || this != C_BasePlayer::GetLocalPlayer() )
 	{
 		// Hook it to their external weapon model.
 		C_BaseCombatWeapon *pWeapon = GetActiveWeapon();

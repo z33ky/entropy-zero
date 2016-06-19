@@ -1,3 +1,7 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
+*/
 
 // Purpose: Human's power pack
 

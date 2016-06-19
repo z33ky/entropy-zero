@@ -1,3 +1,7 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
+*/
 
 // Purpose: Resource pump
 
@@ -21,13 +25,11 @@ BEGIN_DATADESC( CObjectResourcePump )
 
 END_DATADESC()
 
-
 // Resource pump team-only vars.
 BEGIN_SEND_TABLE_NOBASE( CObjectResourcePump, DT_ResourcePumpTeamOnlyVars )
 	SendPropInt( SENDINFO(m_iPumpLevel), 4 ),
 	SendPropEHandle( SENDINFO(m_hResourceZone) ),
 END_SEND_TABLE()
-
 
 IMPLEMENT_SERVERCLASS_ST(CObjectResourcePump, DT_ResourcePump)
 	SendPropDataTable( "teamonly", 0, &REFERENCE_SEND_TABLE( DT_ResourcePumpTeamOnlyVars ), SendProxy_OnlyToTeam ),
@@ -53,7 +55,6 @@ CObjectResourcePump::CObjectResourcePump()
 {
 	UseClientSideAnimation();
 }
-
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -164,6 +165,8 @@ void CObjectResourcePump::SetupPump( void )
 //-----------------------------------------------------------------------------
 void CObjectResourcePump::Precache()
 {
+	BaseClass::Precache();
+
 	engine->PrecacheModel( HUMAN_RESOURCEPUMP_MODEL );
 	engine->PrecacheModel( ALIEN_RESOURCEPUMP_MODEL );
 	PrecacheVGuiScreen( "screen_obj_resourcepump" );

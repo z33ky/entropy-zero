@@ -34,7 +34,7 @@ Screens
 	
 	screen_obj_resourcepump
 	{
-		type		"resource_pump"
+		type		"resourcepump_control_panel"
 		pixelswide	640
 		pixelshigh	480
 		resfile		"scripts/screens/resourcepump_control_panel.res"

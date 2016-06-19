@@ -57,6 +57,7 @@ CShieldEffect::CShieldEffect( )
 //-----------------------------------------------------------------------------
 void CShieldEffect::ComputeRestPositions()
 {
+#if 0
 	int i;
 
 	// Set the initial directions and distances (in shield space)...
@@ -87,6 +88,7 @@ void CShieldEffect::ComputeRestPositions()
 	float l = dist.Length(); // * m_RestLength;
 	SetShieldPanelSize( Vector( -l * 0.25f, -l * 0.25f, -l * 0.25f), 
 		Vector( l * 0.25f, l * 0.25f, l * 0.25f) );
+#endif
 }
 
 

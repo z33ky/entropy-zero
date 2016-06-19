@@ -10,6 +10,24 @@ HudLayout
 		wide	 	252
 		tall	 	35
 	}
+	
+	HudTrain
+	{
+		fieldName	HudTrain
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
+	HudMessage
+	{
+		fieldName	HudMessage
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
 
 	HudMenu
 	{
@@ -205,6 +223,15 @@ HudLayout
 		PaintBackgroundType	2
 	}
 	
+	HudVehicle
+	{
+		fieldName	HudVehicle
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
 	HudVehicleHealth
 	{
 		fieldName			"HudVehicleHealth"
@@ -379,6 +406,51 @@ HudLayout
 		wide	 			"320"
 		tall	 			"120"
 		PaintBackgroundType	"2"
+	}
+	
+	HudPredictionDump
+	{
+		fieldName	HudPredictionDump
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
+	HudHistoryResource
+	{
+		fieldName	HudHistoryResource
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
+	HudAnimationInfo
+	{
+		fieldName	HudAnimationInfo
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
+	HudCloseCaption
+	{
+		fieldName	HudCloseCaption
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
+	}
+	
+	HudGeiger
+	{
+		fieldName	HudGeiger
+		visible		1
+		enabled		1
+		wide		640
+		tall		480
 	}
 	
 	AchievementNotificationPanel

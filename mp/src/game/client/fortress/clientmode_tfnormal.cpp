@@ -82,7 +82,7 @@ ClientModeTFNormal::Viewport::Viewport() :
 
 	// use a custom scheme for the hud
 	m_bHumanScheme = true;
-	vgui::HScheme scheme = vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/ClientSchemeHuman.res", "HudScheme");
+	vgui::HScheme scheme = vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/clientschemehuman.res", "HudScheme");
 	SetScheme(scheme);
 
 	/*	Try to reload, so element colours are set appropriately to the custom schemes.
@@ -120,15 +120,13 @@ void ClientModeTFNormal::Viewport::ReloadScheme()
 	if(!pPlayer)
 		return;
 
-	const char *schemeFile = NULL;
+	const char *schemeFile = "resource/clientschemehuman.res";;
 
 	int team = pPlayer->GetTeamNumber();
 	if ( team )
 	{
 		m_bHumanScheme = ( team == TEAM_HUMANS ) ? true : false;
-		if ( m_bHumanScheme )
-			schemeFile = "resource/clientschemehuman.res";
-		else
+		if ( !m_bHumanScheme )
 			schemeFile = "resource/clientschemealien.res";
 	}
 
