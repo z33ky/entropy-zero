@@ -1079,9 +1079,13 @@ static void FindPelvisAndSpine( int numbones, mstudiobone_t *bones, int *pelvis,
 //-----------------------------------------------------------------------------
 void C_BaseTFPlayer::GetBoneControllers(float controllers[MAXSTUDIOBONECTRLS])
 {
+#if 0	// Removed this for now ~hogsy
 	// Set controllers to a their zero value.
 	for(int i=0; i < MAXSTUDIOBONECTRLS; i++)
 		controllers[i] = 0.5;
+#else
+	BaseClass::GetBoneControllers(controllers);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1091,6 +1095,7 @@ void C_BaseTFPlayer::StandardBlendingRules( CStudioHdr *pStudioHdr, Vector pos[]
 {
 	BaseClass::StandardBlendingRules( pStudioHdr, pos, q, currentTime, boneMask );
 
+#if 0	// Removed this for now ~hogsy
 	if ( !m_pRagdollInfo || !m_pRagdollInfo->m_bActive )
 		return;
 
@@ -1114,6 +1119,7 @@ void C_BaseTFPlayer::StandardBlendingRules( CStudioHdr *pStudioHdr, Vector pos[]
 		VectorLerp( m_pRagdollInfo->m_rgBonePos[ i ], pos[ i ], frac, pos[ i ] );
 		QuaternionSlerp( m_pRagdollInfo->m_rgBoneQuaternion[ i ], q[ i ], frac, q[ i ] );
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------

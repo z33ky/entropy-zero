@@ -6,6 +6,9 @@ differently to the final TF2 so I really need to teach myself to keep out of tha
 mindset. I suppose these will also help anyone else curious as to why certain things
 seem to do what they do...
 
+Invasion Demo Dates (UK Format)
+05/02/03 - proxy_sunroof.cpp, proxy_shield.cpp
+
 --------------------------
 
 List of models

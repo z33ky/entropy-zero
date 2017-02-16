@@ -11,9 +11,17 @@
 #pragma once
 #endif
 
+#if defined(CLIENT_DLL)
+#include "c_tf_basecombatweapon.h"
+#endif
 #include "weapon_combat_usedwithshieldbase.h"
 
 class CBaseObject;
+
+// todo, merge this with c_weapon_builder ~hogsy
+#if defined( CLIENT_DLL )
+#define CWeaponBuilder C_WeaponBuilder
+#endif
 
 //=========================================================
 // Builder Weapon
@@ -23,10 +31,12 @@ class CWeaponBuilder : public CWeaponCombatUsedWithShieldBase
 	DECLARE_CLASS( CWeaponBuilder, CWeaponCombatUsedWithShieldBase );
 public:
 	CWeaponBuilder();
+	~CWeaponBuilder();
 
 	virtual void	UpdateOnRemove( void );
 
-	DECLARE_SERVERCLASS();
+	DECLARE_NETWORKCLASS();
+	DECLARE_PREDICTABLE();
 
 	virtual void	Precache( void );
 	virtual bool	CanDeploy( void );
@@ -63,27 +73,51 @@ public:
 
 	virtual bool			ShouldShowControlPanels( void );
 
+	CBaseObject *GetPlacementModel(void) { return m_hObjectBeingBuilt.Get(); }
+
+#if defined(CLIENT_DLL)
+	virtual void Redraw();
+	virtual bool VisibleInWeaponSelection(void) { return false; }
+
+	virtual bool IsPlacingObject(void);
+	// IsBuildingObject > use IsBuilding instead.
+
+	virtual const char *GetCurrentSelectionObjectName(void);
+
+	// Materials
+	CMaterialReference	m_pIconFireToSelect;
+
 private:
-	void	PerformModifications( CBaseObject* pObject );
+	CWeaponBuilder(const CWeaponBuilder &);
+
+	void PerformModifications(CBaseObject* pObject);
 
 public:
-	CNetworkVar( int, m_iBuildState );
-	CNetworkVar( unsigned int, m_iCurrentObject );
+#endif
+
+	virtual bool IsPredicted(void) const { return true; }
+
+	CNetworkVar(int, m_iBuildState);
+	CNetworkVar(unsigned int, m_iCurrentObject);
 	int		m_iCurrentObjectID;
-	CNetworkVar( int, m_iCurrentObjectState );
+	CNetworkVar(int, m_iCurrentObjectState);
 
 	// Objects that this builder can build
-	CNetworkArray( bool, m_bObjectValidity, OBJ_LAST );
+	CNetworkArray(bool, m_bObjectValidity, OBJ_LAST);
 	// Buildability of each object
-	CNetworkArray( bool, m_bObjectBuildability, OBJ_LAST );
+	CNetworkArray(bool, m_bObjectBuildability, OBJ_LAST);
 
 	// Build data for the current object, propagated when the player starts to build it
-	CNetworkVar( float, m_flStartTime );
-	CNetworkVar( float, m_flTotalTime );
+	CNetworkVar(float, m_flStartTime);
+	CNetworkVar(float, m_flTotalTime);
 
 	float	m_flLastRepairTime;
 
-	CNetworkHandle( CBaseObject, m_hObjectBeingBuilt );
+	// Our placement model
+	CNetworkHandle(CBaseObject, m_hObjectBeingBuilt);
+#if defined(CLIENT_DLL)
+	CHandle<C_BaseObject>	m_hObjectBeingBuilt;
+#endif
 };
 
 

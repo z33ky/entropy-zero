@@ -462,8 +462,6 @@ void CBaseObject::SetObjectSequence( int sequence )
 	if ( IsUsingClientSideAnimation() )
 		ResetClientsideFrame();
 #endif
-
-	NetworkStateChanged();
 }
 
 void CBaseObject::AttemptToGoActive( void )

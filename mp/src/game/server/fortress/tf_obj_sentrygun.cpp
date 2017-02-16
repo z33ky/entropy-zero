@@ -250,7 +250,7 @@ int CObjectSentrygun::OnTakeDamage( const CTakeDamageInfo &info )
 //-----------------------------------------------------------------------------
 // Purpose: Object has been blown up
 //-----------------------------------------------------------------------------
-void CObjectSentrygun::Killed( void )
+void CObjectSentrygun::Killed(const CTakeDamageInfo &info)
 {
 	// Tell the player he's lost this resupply beacon
 	if ( GetOwner() )
@@ -258,7 +258,7 @@ void CObjectSentrygun::Killed( void )
 		GetOwner()->OwnedObjectDestroyed( this );
 	}
 
-	BaseClass::Killed();
+	BaseClass::Killed(info);
 }
 
 //-----------------------------------------------------------------------------

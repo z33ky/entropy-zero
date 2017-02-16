@@ -25,7 +25,6 @@ public:
 	virtual void	Spawn( void );
 	virtual void	Precache( void );
 	virtual void	UpdateOnRemove( void );
-	virtual void	SetObjectCollisionBox( void );
 
 	void			ChunkTouch( CBaseEntity *pOther );
 	void			ChunkRemove( void );

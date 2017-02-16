@@ -99,6 +99,12 @@ void C_BaseObject::OnDataChanged( DataUpdateType_t updateType )
 		OnGoActive();
 	else if ( m_bWasActive && !bShouldBeActive )
 		OnGoInactive();
+
+	// hogsy start
+	if (m_iHealth > m_iOldHealth && m_iHealth == m_iMaxHealth)
+		// If we were just fully healed, remove all decals
+		RemoveAllDecals();
+	// hogsy end
 }
 
 //-----------------------------------------------------------------------------
@@ -113,6 +119,7 @@ void C_BaseObject::SetDormant( bool bDormant )
 #define TF_OBJ_BODYGROUPTURNON			1
 #define TF_OBJ_BODYGROUPTURNOFF			0
 
+// None of these are used ~hogsy
 void C_BaseObject::FireEvent( const Vector& origin, const QAngle& angles, int event, const char *options )
 {
 	switch ( event )
@@ -215,9 +222,11 @@ int C_BaseObject::DrawModel( int flags )
 			drawn = BaseClass::DrawModel(flags);
 	}
 
+#if 1
 	// Restore faked origin
 	if ( needOriginReset )
 		SetLocalOrigin( vRealOrigin );
+#endif
 
 	// If we were drawn, draw building effects if we're building, or damage effects if we're damaged
 	if ( drawn && (m_flNextEffect < gpGlobals->curtime) )
@@ -274,6 +283,13 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 		render->GetColorModulation( orgColor.Base() );
 		float orgBlend = render->GetBlend();
 
+		// hogsy start
+		bool bSameTeam = (pPlacementObj->GetTeamNumber() == GetTeamNumber());
+		if (!bSameTeam)
+			// Don't hilight upgrades on enemy objects
+			return;
+		// hogsy end
+
 		// Any empty buildpoints?
 		for ( int i = 0; i < GetNumBuildPoints(); i++ )
 		{
@@ -292,12 +308,6 @@ void C_BaseObject::HighlightBuildPoints( int flags )
 					frac *= 2 * M_PI;
 					frac = cos( frac );
 					render->SetBlend( (175 + (int)( frac * 75.0f )) / 255.0 );
-
-					// HACK: Fixup angles on the HL2 model we're using
-					if ( !strcmp( modelinfo->GetModelName( pPlacementObj->GetModel() ), "models/items/HealthKit.mdl" ) )
-					{
-						vecBPAngles.x += 90;
-					}
 
 					// FIXME: This truly sucks! The bone cache should use
 					// render location for this computation instead of directly accessing AbsAngles
@@ -535,21 +545,6 @@ const char *C_BaseObject::GetIDString( void )
 	RecalculateIDString();
 	return m_szIDString;
 }
-
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void C_BaseObject::SetObjectCollisionBox( void )
-{
-	// Objects never rotate from their original position, so don't compute a box big enough to hold rotation (i.e. pitch)
-	Vector vecWorldMins, vecWorldMaxs;
-	CollisionProp()->WorldSpaceAABB( &vecWorldMins, &vecWorldMaxs );
-	vecWorldMins -= Vector( 1, 1, 1 );
-	vecWorldMaxs += Vector( 1, 1, 1 );
-	CollisionProp()->SetCollisionBounds(vecWorldMins,vecWorldMaxs);
-}
-
 
 //-----------------------------------------------------------------------------
 // It's a valid ID target when it's building 

@@ -27,24 +27,47 @@
 extern ConVar tf2_object_hard_limits;
 extern ConVar tf_fastbuild;
 
-EXTERN_SEND_TABLE(DT_BaseCombatWeapon)
+//EXTERN_SEND_TABLE(DT_BaseCombatWeapon)
 
-IMPLEMENT_SERVERCLASS_ST(CWeaponBuilder, DT_WeaponBuilder)
-	SendPropInt( SENDINFO( m_iBuildState ), 4, SPROP_UNSIGNED ),
-	SendPropInt( SENDINFO( m_iCurrentObject ), BUILDER_OBJECT_BITS, SPROP_UNSIGNED ),
-	SendPropInt( SENDINFO( m_iCurrentObjectState ), 4, SPROP_UNSIGNED ),
-	SendPropEHandle( SENDINFO( m_hObjectBeingBuilt ) ),
-	SendPropTime( SENDINFO( m_flStartTime ) ),
-	SendPropTime( SENDINFO( m_flTotalTime ) ),
+IMPLEMENT_NETWORKCLASS_ALIASED(WeaponBuilder, DT_WeaponBuilder)
+BEGIN_NETWORK_TABLE(CWeaponBuilder, DT_WeaponBuilder)
+#if !defined(CLIENT_DLL)
+	SendPropInt(SENDINFO(m_iBuildState), 4, SPROP_UNSIGNED),
+	SendPropInt(SENDINFO(m_iCurrentObject), BUILDER_OBJECT_BITS, SPROP_UNSIGNED),
+	SendPropInt(SENDINFO(m_iCurrentObjectState), 4, SPROP_UNSIGNED),
+	SendPropEHandle(SENDINFO(m_hObjectBeingBuilt)),
+	SendPropTime(SENDINFO(m_flStartTime)),
+	SendPropTime(SENDINFO(m_flTotalTime)),
 	SendPropArray
-	( 
-		SendPropInt( SENDINFO_ARRAY(m_bObjectValidity), 1, SPROP_UNSIGNED), m_bObjectValidity
+	(
+		SendPropInt(SENDINFO_ARRAY(m_bObjectValidity), 1, SPROP_UNSIGNED), m_bObjectValidity
 	),
 	SendPropArray
-	( 
-		SendPropInt( SENDINFO_ARRAY(m_bObjectBuildability), 1, SPROP_UNSIGNED), m_bObjectBuildability
+	(
+		SendPropInt(SENDINFO_ARRAY(m_bObjectBuildability), 1, SPROP_UNSIGNED), m_bObjectBuildability
 	),
-END_SEND_TABLE()
+#else
+	RecvPropInt(RECVINFO(m_iBuildState)),
+	RecvPropInt(RECVINFO(m_iCurrentObject)),
+	RecvPropInt(RECVINFO(m_iCurrentObjectState)),
+	RecvPropEHandle(RECVINFO(m_hObjectBeingBuilt)),
+	RecvPropTime(RECVINFO(m_flStartTime)),
+	RecvPropTime(RECVINFO(m_flTotalTime)),
+	RecvPropArray
+	(
+		RecvPropInt(RECVINFO(m_bObjectValidity[0])), m_bObjectValidity
+	),
+	RecvPropArray
+	(
+		RecvPropInt(RECVINFO(m_bObjectBuildability[0])), m_bObjectBuildability
+	),
+#endif
+END_NETWORK_TABLE()
+
+BEGIN_PREDICTION_DATA(CWeaponBuilder)
+#if defined(CLIENT_DLL)
+#endif
+END_PREDICTION_DATA()
 
 LINK_ENTITY_TO_CLASS( weapon_builder, CWeaponBuilder );
 PRECACHE_WEAPON_REGISTER(weapon_builder);
@@ -57,7 +80,17 @@ CWeaponBuilder::CWeaponBuilder()
 	for ( int i=0; i < m_bObjectValidity.Count(); i++ )
 		m_bObjectValidity.Set( i, 0 );
 
+	m_iBuildState = 0;
 	m_iCurrentObject = BUILDER_INVALID_OBJECT;
+	m_iCurrentObjectState = 0;
+	m_flStartTime = 0;
+	m_flTotalTime = 0;
+
+#if defined(CLIENT_DLL)
+	m_hFont = g_hFontTrebuchet40;
+
+	m_pIconFireToSelect.Init("Hud/build/firetobuild", TEXTURE_GROUP_VGUI);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -184,7 +217,7 @@ CBaseCombatWeapon *CWeaponBuilder::GetLastWeapon( void )
 //-----------------------------------------------------------------------------
 bool CWeaponBuilder::Holster( CBaseCombatWeapon *pSwitchingTo )
 {
-	if ( m_iBuildState == BS_PLACING || m_iBuildState == BS_PLACING_INVALID )
+	if (IsPlacingObject())
 	{
 		SetCurrentState( BS_IDLE );
 	}
@@ -207,7 +240,7 @@ void CWeaponBuilder::ItemPostFrame( void )
 		return;
 
 	// Switch away if I'm not in placement mode
-	if ( m_iBuildState != BS_PLACING && m_iBuildState != BS_PLACING_INVALID )
+	if ( !IsPlacingObject() )
 	{
 		pOwner->SwitchToNextBestWeapon( NULL );
 		return;
@@ -422,6 +455,15 @@ void CWeaponBuilder::GainedNewTechnology( CBaseTechnology *pTechnology )
 }
 
 //-----------------------------------------------------------------------------
+// Purpose: 
+// Output : Returns true on success, false on failure.
+//-----------------------------------------------------------------------------
+bool CWeaponBuilder::IsPlacingObject(void)
+{
+	return (m_iBuildState == BS_PLACING || m_iBuildState == BS_PLACING_INVALID);
+}
+
+//-----------------------------------------------------------------------------
 // Purpose: Start placing the object
 //-----------------------------------------------------------------------------
 void CWeaponBuilder::StartPlacement( void )
@@ -521,3 +563,128 @@ void CWeaponBuilder::FinishedObject( void )
 		SetCurrentState( BS_IDLE );
 	}
 }
+
+#if defined(CLIENT_DLL)
+#define BUILD_ICON_SCALE			0.75
+
+#define BUILD_ICON_BOTTOM_OFFSET	YRES(160)
+
+//-----------------------------------------------------------------------------
+// Purpose: Draw a material on a quad
+//-----------------------------------------------------------------------------
+void DrawQuadMaterial(IMaterial *pMaterial, int iX, int iY, int iWidth, int iHeight,
+	unsigned char r = 255, unsigned char g = 255, unsigned char b = 255, unsigned char a = 255,
+	float flTextureLeft = 0.0, float flTextureRight = 1.0, bool bRotated = false)
+{
+	CMatRenderContextPtr pRenderContext(materials);
+	IMesh* pMesh = pRenderContext->GetDynamicMesh(true, NULL, NULL, pMaterial);
+
+	CMeshBuilder meshBuilder;
+	meshBuilder.Begin(pMesh, MATERIAL_QUADS, 1);
+
+	meshBuilder.Color4ub(r, g, b, a);
+	if (bRotated)
+		meshBuilder.TexCoord2f(0, flTextureLeft, 1);
+	else
+		meshBuilder.TexCoord2f(0, flTextureLeft, 0);
+
+	meshBuilder.Position3f(iX, iY, 0);
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Color4ub(r, g, b, a);
+	if (bRotated)
+	{
+		meshBuilder.TexCoord2f(0, flTextureLeft, 0);
+	}
+	else
+	{
+		meshBuilder.TexCoord2f(0, flTextureRight, 0);
+	}
+	meshBuilder.Position3f(iX + iWidth, iY, 0);
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Color4ub(r, g, b, a);
+	if (bRotated)
+	{
+		meshBuilder.TexCoord2f(0, flTextureRight, 0);
+	}
+	else
+	{
+		meshBuilder.TexCoord2f(0, flTextureRight, 1);
+	}
+	meshBuilder.Position3f(iX + iWidth, iY + iHeight, 0);
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Color4ub(r, g, b, a);
+	if (bRotated)
+	{
+		meshBuilder.TexCoord2f(0, flTextureRight, 1);
+	}
+	else
+	{
+		meshBuilder.TexCoord2f(0, flTextureLeft, 1);
+	}
+	meshBuilder.Position3f(iX, iY + iHeight, 0);
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.End();
+	pMesh->Draw();
+}
+
+//-----------------------------------------------------------------------------
+// A couple helper methods for drawing builder status 
+//-----------------------------------------------------------------------------
+static void DrawTextIcon(IMaterial* pMaterial, int parentWidth, int parentHeight, float r = 1.0f, float g = 1.0f, float b = 1.0f)
+{
+	if (!pMaterial)
+		return;
+
+	// We're in build selection mode, so draw the current build icon
+	int iWidth = pMaterial->GetMappingWidth();
+	int iHeight = pMaterial->GetMappingHeight();
+	int iX = (parentWidth - iWidth) / 2;
+	int iY = (parentHeight - 216);
+	DrawQuadMaterial(pMaterial, iX, iY, iWidth, iHeight, r * 255, g * 255, b * 255);
+}
+
+const char *CWeaponBuilder::GetCurrentSelectionObjectName(void)
+{
+	if (m_iCurrentObject == -1 || (m_iBuildState == BS_SELECTING))
+		return "";
+
+	return GetObjectInfo(m_iCurrentObject)->m_pBuilderWeaponName;
+}
+
+void CWeaponBuilder::Redraw()
+{
+	BaseClass::Redraw();
+
+	// Don't draw if we're hiding the weapons, or the player's dead
+	if (gHUD.IsHidden(HIDEHUD_WEAPONSELECTION | HIDEHUD_PLAYERDEAD))
+		return;
+
+	C_BaseTFPlayer *pPlayer = C_BaseTFPlayer::GetLocalPlayer();
+	if (!pPlayer)
+		return;
+
+	vgui::Panel *pParent = GetClientModeNormal()->GetViewport();
+	int parentWidth, parentHeight;
+	pParent->GetSize(parentWidth, parentHeight);
+
+	// If we're in placement mode, draw the placement icon
+	switch (m_iBuildState)
+	{
+	case BS_PLACING:
+	case BS_PLACING_INVALID:
+		break;
+
+	default:
+	{
+		if (!inv_demo.GetInt())
+			DrawTextIcon(m_pIconFireToSelect, parentWidth, parentHeight);
+		break;
+	}
+	break;
+	}
+}
+#endif

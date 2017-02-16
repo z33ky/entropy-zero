@@ -36,8 +36,6 @@ public:
 	virtual bool IsPanelActive( int x, int y ) { return true; }
 	virtual const Vector& GetPoint( int x, int y );
 
-	void SetObjectCollisionBox( void );
-
 public:
 	// Think methods
 	void ShieldMoved();

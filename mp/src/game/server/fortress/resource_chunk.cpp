@@ -67,6 +67,11 @@ void CResourceChunk::Spawn( )
 	SetTouch( &CResourceChunk::ChunkTouch );
 	SetThink( &CResourceChunk::ChunkRemove );
 	SetNextThink( gpGlobals->curtime + random->RandomFloat( 50.0, 80.0 ) ); // Remove myself the
+
+	// Override to make chunks easier to pick up
+	Vector vMins = WorldAlignMins() + Vector(-24, -24, -24);
+	Vector vMaxs = WorldAlignMaxs() + Vector(24, 24, 24);
+	SetCollisionBounds(vMins, vMaxs);
 }
 
 void CResourceChunk::Precache( void )
@@ -74,16 +79,6 @@ void CResourceChunk::Precache( void )
 	engine->PrecacheModel( sResourceChunkModel );
 	engine->PrecacheModel( sProcessedResourceChunkModel );
 	engine->PrecacheModel( "sprites/redglow1.vmt" );
-}
-
-//------------------------------------------------------------------------------
-// Purpose : Override to make chunks easier to pick up
-//------------------------------------------------------------------------------
-void CResourceChunk::SetObjectCollisionBox( void )
-{
-	Vector vMins = WorldAlignMins() + Vector(-24, -24, -24);
-	Vector vMaxs = WorldAlignMaxs() + Vector(24, 24, 24);
-	SetCollisionBounds(vMins, vMaxs);
 }
 
 //-----------------------------------------------------------------------------

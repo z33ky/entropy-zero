@@ -28,7 +28,6 @@ public:
 	~C_WeaponBuilder();
 
 	virtual void Redraw();
-	virtual bool VisibleInWeaponSelection( void ) { return false; }
 
 	virtual bool	IsPlacingObject( void );
 	virtual bool	IsBuildingObject( void );

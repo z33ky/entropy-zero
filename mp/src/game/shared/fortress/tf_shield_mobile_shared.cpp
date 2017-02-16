@@ -106,9 +106,6 @@ public:
 	virtual void SetCenterAngles( const QAngle& angles );
 	virtual void SetThetaPhi( float flTheta, float flPhi );
 
-	// Computes a surrounding box the the entity
-	virtual void SetObjectCollisionBox( void );
-
 	// All predicted weapons need to implement and return true
 	virtual bool IsPredicted( void ) const
 	{ 
@@ -471,23 +468,6 @@ void CShieldMobile::ComputeBoundingBox( void )
 #endif
 }
 
-
-//-----------------------------------------------------------------------------
-// Computes a surrounding box the the entity
-//-----------------------------------------------------------------------------
-void CShieldMobile::SetObjectCollisionBox( void )
-{
-#if 0
-#if 0
-	SetAbsMins( WorldAlignMins() + GetAbsOrigin() );
-	SetAbsMaxs( WorldAlignMaxs() + GetAbsOrigin() );
-#else	// This'll probably do ~hogsy
-	SetCollisionBounds(WorldAlignMins()+GetAbsOrigin(),WorldAlignMaxs()+GetAbsOrigin());
-#endif
-#endif
-}
-
-
 //-----------------------------------------------------------------------------
 // Determines shield obstructions 
 //-----------------------------------------------------------------------------
@@ -502,7 +482,6 @@ void CShieldMobile::DetermineObstructions( )
 //-----------------------------------------------------------------------------
 bool CShieldMobile::EnumEntity( IHandleEntity *pHandleEntity )
 {
-#if 0
 #ifdef CLIENT_DLL
 	CBaseEntity *pOther = cl_entitylist->GetBaseEntityFromHandle( pHandleEntity->GetRefEHandle() );
 #else
@@ -546,7 +525,6 @@ bool CShieldMobile::EnumEntity( IHandleEntity *pHandleEntity )
 		// surface of the shield in its final position, which is kind of bogus...
 		pOther->PhysicsImpact( this, tr );
 	}
-#endif
 
 	return true;
 }
@@ -557,7 +535,6 @@ bool CShieldMobile::EnumEntity( IHandleEntity *pHandleEntity )
 //-----------------------------------------------------------------------------
 void CShieldMobile::SimulateShield( void )
 {
-#if 0
 	CBaseEntity *owner = GetOwnerEntity();
 	Vector origin;
 	if ( owner )
@@ -660,7 +637,6 @@ void CShieldMobile::SimulateShield( void )
 		m_pEnumCtx = &ctx;
 		enginetrace->EnumerateEntities( vecCompositeMins, vecCompositeMaxs, this );
 	}
-#endif
 }
 
 

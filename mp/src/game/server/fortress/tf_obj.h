@@ -90,7 +90,6 @@ public:
 	virtual void	SetupTeamModel( void ) { return; }
 	virtual void	SetType( int iObjectType );
 	int				ObjectType( ) const;
-	virtual void	SetObjectCollisionBox( void );
 
 	virtual int		BloodColor( void ) { return BLOOD_COLOR_MECH; }
 
@@ -98,7 +97,7 @@ public:
 	virtual float	GetTotalTime( void );
 	virtual void	StartPlacement( CBaseTFPlayer *pPlayer );
 	void			StopPlacement( void );
-	bool			FindNearestBuildPoint( CBaseEntity *pEntity, Vector vecBuildOrigin, float &flNearestPoint, Vector &vecNearestBuildPoint );
+	bool			FindNearestBuildPoint( CBaseEntity *pEntity, CBaseTFPlayer *pBuilder, Vector vecBuildOrigin, float &flNearestPoint, Vector &vecNearestBuildPoint );
 	virtual bool	CalculatePlacement( CBaseTFPlayer *pPlayer );
 	bool			CheckBuildPoint( Vector vecPoint, Vector &vecTrace, Vector *vecOutPoint=NULL );
 	bool			VerifyCorner( const Vector &vBottomCenter, float xOffset, float yOffset );
@@ -163,7 +162,7 @@ public:
 
 	// Destruction
 	virtual bool	ShouldAutoRemove( void );
-	virtual void	Killed( void );
+	virtual void	Killed(const CTakeDamageInfo &info);
 	virtual void	DestroyObject( void );		// Silent cleanup
 	virtual bool	IsDying( void ) { return m_bDying; }
 
@@ -323,8 +322,11 @@ public:
 
 // IServerNetworkable.
 public:
-	virtual int		ShouldTransmit( const CCheckTransmitInfo *pInfo );
-	virtual void	SetTransmit( CCheckTransmitInfo *pInfo, bool bAlways );
+	// hogsy start
+	virtual int		UpdateTransmitState(void);
+	// hogsy end
+	virtual int		ShouldTransmit(const CCheckTransmitInfo *pInfo);
+	virtual void	SetTransmit(CCheckTransmitInfo *pInfo, bool bAlways);
 
 
 protected:

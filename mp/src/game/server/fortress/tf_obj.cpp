@@ -196,6 +196,10 @@ void CBaseObject::UpdateOnRemove( void )
 	if ( GetTeam() )
 		((CTFTeam*)GetTeam())->RemoveObject( this );
 
+	// hogsy start
+	DetachObjectFromObject();
+	// hogsy end
+
 	// Make sure the object isn't in either team's list of objects...
 	Assert( !GetGlobalTFTeam(TEAM_HUMANS)->IsObjectOnTeam( this ) );
 	Assert( !GetGlobalTFTeam(TEAM_ALIENS)->IsObjectOnTeam( this ) );
@@ -203,6 +207,13 @@ void CBaseObject::UpdateOnRemove( void )
 	// Chain at end to mimic destructor unwind order
 	BaseClass::UpdateOnRemove();
 }
+
+// hogsy start
+int CBaseObject::UpdateTransmitState()
+{
+	return SetTransmitState(FL_EDICT_FULLCHECK);
+}
+// hogsy end
 
 int CBaseObject::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
@@ -238,7 +249,7 @@ void CBaseObject::SetTransmit( CCheckTransmitInfo *pInfo, bool bAlways )
 void CBaseObject::Precache()
 {
 	PrecacheVGuiScreen( "screen_basic_with_disable" );
-
+	
 	PrecacheParticleSystem("env_fire_tiny_smoke");
 
 	if ( m_iszUnderAttackSound != NULL_STRING )
@@ -254,6 +265,9 @@ void CBaseObject::Spawn( void )
 {
 	Precache();
 
+	// hogsy start
+	CollisionProp()->SetSurroundingBoundsType(USE_BEST_COLLISION_BOUNDS);
+	// hogsy end
 	SetSolidToPlayers( m_SolidToPlayers, true );
 
 	m_bWasMapPlaced = false;
@@ -267,6 +281,11 @@ void CBaseObject::Spawn( void )
 
 	AddFlag( FL_OBJECT ); // So NPCs will notice it
 	SetViewOffset( WorldSpaceCenter() - GetAbsOrigin() );
+
+	// hogsy start
+	if (!VPhysicsGetObject())
+		VPhysicsInitStatic();
+	// hogsy end
 
 	// Don't take damage if we're invulnerable, and don't require power either
 	if ( m_bInvulnerable )
@@ -318,8 +337,8 @@ void CBaseObject::SpawnControlPanels()
 		{
 			char sBuildPointLL[64];
 			char sBuildPointUR[64];
-			Q_snprintf( sBuildPointLL, 64, "bp%d_controlpanel%%d_ll", m_iBuiltOnPoint );
-			Q_snprintf( sBuildPointUR, 64, "bp%d_controlpanel%%d_ur", m_iBuiltOnPoint );
+			Q_snprintf(sBuildPointLL, sizeof(sBuildPointLL), "bp%d_controlpanel%%d_ll", m_iBuiltOnPoint);
+			Q_snprintf(sBuildPointUR, sizeof(sBuildPointUR), "bp%d_controlpanel%%d_ur", m_iBuiltOnPoint);
 			pAttachmentNameLL = sBuildPointLL;
 			pAttachmentNameUR = sBuildPointUR;
 		}
@@ -333,24 +352,24 @@ void CBaseObject::SpawnControlPanels()
 	int nPanel;
 	for ( nPanel = 0; true; ++nPanel )
 	{
-		Q_snprintf( buf, 64, pAttachmentNameLL, nPanel );
+		Q_snprintf(buf, sizeof(buf), pAttachmentNameLL, nPanel);
 		int nLLAttachmentIndex = pEntityToSpawnOn->LookupAttachment(buf);
 		if (nLLAttachmentIndex <= 0)
 		{
 			// Try and use my panels then
 			pEntityToSpawnOn = this;
-			Q_snprintf( buf, 64, pOrgLL, nPanel );
+			Q_snprintf( buf, sizeof(buf), pOrgLL, nPanel );
 			nLLAttachmentIndex = pEntityToSpawnOn->LookupAttachment(buf);
 			if (nLLAttachmentIndex <= 0)
 				return;
 		}
 
-		Q_snprintf( buf, 64, pAttachmentNameUR, nPanel );
+		Q_snprintf(buf, sizeof(buf), pAttachmentNameUR, nPanel);
 		int nURAttachmentIndex = pEntityToSpawnOn->LookupAttachment(buf);
 		if (nURAttachmentIndex <= 0)
 		{
 			// Try and use my panels then
-			Q_snprintf( buf, 64, pOrgUR, nPanel );
+			Q_snprintf(buf, sizeof(buf), pOrgUR, nPanel);
 			nURAttachmentIndex = pEntityToSpawnOn->LookupAttachment(buf);
 			if (nURAttachmentIndex <= 0)
 				return;
@@ -388,6 +407,8 @@ void CBaseObject::SpawnControlPanels()
 		pScreen->SetActive( false );
 		pScreen->MakeVisibleOnlyToTeammates( true );
 		pScreen->SetOverlayMaterial( SCREEN_OVERLAY_MATERIAL );
+		pScreen->SetTransparency(true);
+
 		int nScreen = m_hScreens.AddToTail( );
 		m_hScreens[nScreen].Set( pScreen );
 	}
@@ -616,27 +637,12 @@ void CBaseObject::SetBuilder( CBaseTFPlayer *pBuilder, bool moveobjects )
 //-----------------------------------------------------------------------------
 void CBaseObject::ObjectMoved( )
 {
-	NetworkStateChanged( );
 }
 
 int	CBaseObject::ObjectType( ) const
 {
 	return m_iObjectType;
 }
-
-void CBaseObject::SetObjectCollisionBox( void )
-{
-	if ( !edict() )
-		return;
-
-	// Objects never rotate from their original position, so don't compute a box big enough to hold rotation (i.e. pitch)
-	Vector vecWorldMins, vecWorldMaxs;
-	CollisionProp()->WorldSpaceAABB( &vecWorldMins, &vecWorldMaxs );
-	vecWorldMins -= Vector( 1, 1, 1 );
-	vecWorldMaxs += Vector( 1, 1, 1 );
-	CollisionProp()->SetCollisionBounds( vecWorldMins,vecWorldMaxs );
-}
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Remove this object from it's team and mark for deletion
@@ -682,13 +688,11 @@ void CBaseObject::StartDeteriorating( void )
 	m_bDeteriorating = true;
 	m_flStartedDeterioratingAt = gpGlobals->curtime;
 	SetBuilder( NULL, true );
-	NetworkStateChanged();
 }
 
 void CBaseObject::StopDeteriorating( void )
 {
 	m_bDeteriorating = false;
-	NetworkStateChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -732,7 +736,6 @@ float CBaseObject::GetTotalTime( void )
 //-----------------------------------------------------------------------------
 void CBaseObject::StartPlacement( CBaseTFPlayer *pPlayer )
 {
-	NetworkStateChanged();
 	AddSolidFlags( FSOLID_NOT_SOLID );
 
 	m_bPlacing = true;
@@ -766,7 +769,7 @@ void CBaseObject::StopPlacement( void )
 //-----------------------------------------------------------------------------
 // Purpose: Find the nearest buildpoint on the specified entity
 //-----------------------------------------------------------------------------
-bool CBaseObject::FindNearestBuildPoint( CBaseEntity *pEntity, Vector vecBuildOrigin, float &flNearestPoint, Vector &vecNearestBuildPoint )
+bool CBaseObject::FindNearestBuildPoint(CBaseEntity *pEntity, CBaseTFPlayer *pBuilder, Vector vecBuildOrigin, float &flNearestPoint, Vector &vecNearestBuildPoint)
 {
 	bool bFoundPoint = false;
 
@@ -784,6 +787,19 @@ bool CBaseObject::FindNearestBuildPoint( CBaseEntity *pEntity, Vector vecBuildOr
 			QAngle vecBPAngles;
 			if ( pBPInterface->GetBuildPoint(i, vecBPOrigin, vecBPAngles) )
 			{
+				// hogsy start
+				// ignore build points outside our view
+				if (!pBuilder->FInViewCone(vecBPOrigin))
+					continue;
+
+				// Do a trace to make sure we don't place attachments through things (players, world, etc...)
+				Vector vecStart = pBuilder->EyePosition();
+				trace_t trace;
+				UTIL_TraceLine(vecStart, vecBPOrigin, MASK_SOLID, pBuilder, COLLISION_GROUP_NONE, &trace);
+				if (trace.m_pEnt != pEntity && trace.fraction != 1.0)
+					continue;
+				// hogsy end
+
 				float flDist = (vecBPOrigin - vecBuildOrigin).Length();
 				if ( flDist < min(flNearestPoint, pBPInterface->GetMaxSnapDistance( i )) )
 				{
@@ -836,7 +852,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		CBaseObject *pObject = GetTFTeam()->GetObject(i);
 		if ( pObject && !pObject->IsPlacing() )
 		{
-			if ( FindNearestBuildPoint( pObject, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
+			if ( FindNearestBuildPoint( pObject, pPlayer, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
 			{
 				bSnappedToPoint = true;
 
@@ -853,7 +869,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		CBaseEntity *pEntity = NULL;
 		while ((pEntity = gEntList.FindEntityByClassname( pEntity, "info_vehicle_bay" )) != NULL)
 		{
-			if ( FindNearestBuildPoint( pEntity, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
+			if ( FindNearestBuildPoint( pEntity, pPlayer, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
 				bSnappedToPoint = true;
 		}
 	}
@@ -864,7 +880,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		CBaseEntity *pEntity = NULL;
 		while ((pEntity = gEntList.FindEntityByClassname( pEntity, "trigger_resourcezone" )) != NULL)
 		{
-			if ( FindNearestBuildPoint( pEntity, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
+			if ( FindNearestBuildPoint( pEntity, pPlayer, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
 				bSnappedToPoint = true;
 		}
 	}
@@ -876,7 +892,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 		if ( !InSameTeam(g_MapDefinedBuildPoints[i]) )
 			continue;
 
-		if ( FindNearestBuildPoint( g_MapDefinedBuildPoints[i], vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
+		if ( FindNearestBuildPoint( g_MapDefinedBuildPoints[i], pPlayer, vecBuildOrigin, flNearestPoint, vecNearestBuildPoint ) )
 			bSnappedToPoint = true;
 	}
 
@@ -912,7 +928,7 @@ bool CBaseObject::CalculatePlacement( CBaseTFPlayer *pPlayer )
 	}
 
 	// Check the build position
-	return CheckBuildOrigin( pPlayer, vecBuildOrigin, false );
+	return CheckBuildOrigin(pPlayer, vecBuildOrigin, false);
 }
 
 
@@ -1273,7 +1289,7 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 {
 	// Need to add the object to the team now...
 	CTFTeam *pTFTeam = ( CTFTeam * )GetGlobalTeam( GetTeamNumber() );
-
+	
 	// Deduct the cost from the player
 	if ( pBuilder && pBuilder->IsPlayer() )
 	{
@@ -1297,8 +1313,7 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 	SetHealth( OBJECT_CONSTRUCTION_STARTINGHEALTH );
 	m_flPercentageConstructed = 0;
 
-	NetworkStateChanged();
-
+#if 0
 	// Compute a good fitting AABB since we know where this thing belongs
 	if ( VPhysicsGetObject() && !IsBuiltOnAttachment() )
 	{
@@ -1309,6 +1324,7 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 		// since the client uses the mins to compute absmins + absmaxs
 		SetCollisionBounds( absmins - GetAbsOrigin(), absmaxs - GetAbsOrigin() );
 	}
+#endif
 
 	m_nRenderMode = kRenderNormal; 
 	RemoveSolidFlags( FSOLID_NOT_SOLID );
@@ -1336,6 +1352,17 @@ bool CBaseObject::StartBuilding( CBaseEntity *pBuilder )
 		((CBaseTFPlayer*)pBuilder)->FinishedObject( this );
 
 	m_vecBuildOrigin = GetAbsOrigin();
+
+	// hogsy start
+	int contents = UTIL_PointContents(m_vecBuildOrigin);
+	if (contents & MASK_WATER)
+	{
+		SetWaterLevel(3);
+	}
+
+	// instantly play the build anim
+	DetermineAnimation();
+	// hogsy end
 
 	return true;
 }
@@ -1394,8 +1421,6 @@ void CBaseObject::FinishedBuilding( void )
 	// Let our vehicle bay know, if we have one
 	if ( m_hVehicleBay )
 		m_hVehicleBay->FinishedBuildVehicle( this );
-
-	NetworkStateChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -1428,8 +1453,6 @@ void CBaseObject::SetHealth( float flHealth )
 	if ( changed )
 		// Set value and fire output
 		m_OnObjectHealthChanged.Set( m_flHealth, this, this );
-
-	NetworkStateChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -1524,10 +1547,8 @@ void CBaseObject::TraceAttack( const CTakeDamageInfo &inputInfo, const Vector &v
 {
 	// Prevent team damage here so blood doesn't appear
 	if ( inputInfo.GetAttacker() )
-	{
-		if ( InSameTeam(inputInfo.GetAttacker()) )
+		if (InSameTeam(inputInfo.GetAttacker()))
 			return;
-	}
 
 	float fVulnerableMultiplier = FindVulnerablePointMultiplier( ptr->hitgroup, ptr->hitbox ); 
 
@@ -1819,7 +1840,7 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 
 		m_lifeState = LIFE_DEAD;
 		m_OnDestroyed.FireOutput( info.GetAttacker(), this);
-		Killed();
+		Killed(info);
 	}
 	else
 	{
@@ -1933,7 +1954,7 @@ bool CBaseObject::Repair( float flHealth )
 //-----------------------------------------------------------------------------
 // Purpose: Object has been blown up. Drop resource chunks upto the value of my max health.
 //-----------------------------------------------------------------------------
-void CBaseObject::Killed( void )
+void CBaseObject::Killed( const CTakeDamageInfo &info )
 {
 	m_bDying = true;
 
@@ -2243,8 +2264,6 @@ void CBaseObject::ChangeTeam( int iTeamNum )
 		m_fObjectFlags |= OF_DOESNT_NEED_POWER;
 
 	GainedNewTechnology( NULL );
-
-	NetworkStateChanged();
 }
 
 const char *CBaseObject::GetWeaponClassnameForObject( void )
@@ -2275,8 +2294,6 @@ void CBaseObject::ChangeBuilder( CBaseTFPlayer *pNewBuilder, bool moveobjects )
 		m_hOriginalBuilder = GetOwner();
 
 	m_hBuilder = pNewBuilder;
-
-	NetworkStateChanged( );
 
 	if ( !moveobjects )
 		return;
@@ -2359,7 +2376,6 @@ void CBaseObject::AddSapper( CGrenadeObjectSapper *pSapper )
 	hSapper = pSapper;
 	m_hSappers.AddToTail( hSapper );
 	m_bHasSapper = true;
-	NetworkStateChanged();
 }
 
 //-----------------------------------------------------------------------------
@@ -2402,7 +2418,6 @@ void CBaseObject::GiveNamedTechnology( CBaseTFPlayer *pRecipient, const char *te
 	if ( tech )
 		team->EnableTechnology( tech, true );
 }
-
 
 bool CBaseObject::ShowVGUIScreen( int panelIndex, bool bShow )
 {
@@ -2449,16 +2464,6 @@ CRopeKeyframe *CBaseObject::ConnectCableTo( CBaseObject *pObject, int iLocalAtta
 	m_aRopes.AddToTail( hHandle );
 	pObject->m_aRopes.AddToTail( hHandle );
 
-	// During placement, the rules for whether the rope is transmitted or not are 
-	// tricky, so we make a proxy here to control it.
-	if ( IsPlacing() || pObject->IsPlacing() )
-	{
-		CObjectRopeTransmitProxy *pProxy = new CObjectRopeTransmitProxy( pRope );
-		pProxy->m_hObj1 = this;
-		pProxy->m_hObj2 = pObject;
-		//pRope->NetworkProp->SetTransmitProxy( pProxy );
-	}
-
 	return pRope;
 }
 
@@ -2486,7 +2491,6 @@ bool CBaseObject::HasCableTo( CBaseObject *pObject )
 //-----------------------------------------------------------------------------
 int CBaseObject::GetCableAttachment( void )
 {
-	Vector vecOrigin, vecAngles;
 	// If I already have a rope attached, try and use a different attachment point
 	if ( m_aRopes.Size() )
 	{
@@ -2513,7 +2517,6 @@ int CBaseObject::GetCableAttachment( void )
 		if ( iPoint > 0 )
 			return iPoint;											
 	}
-
 
 	return LookupAttachment( "cablepoint1" );
 }
@@ -2595,7 +2598,11 @@ void CBaseObject::InputRemoveHealth( inputdata_t &inputdata )
 	{
 		m_lifeState = LIFE_DEAD;
 		m_OnDestroyed.FireOutput(this, this);
-		Killed();
+
+		// hogsy start
+		CTakeDamageInfo info(inputdata.pCaller, inputdata.pActivator, vec3_origin, GetAbsOrigin(), iDamage, DMG_GENERIC);
+		// hogsy end
+		Killed(info);
 	}
 }
 
@@ -2652,12 +2659,15 @@ void CBaseObject::DetermineAnimation( void )
 		{
 			if ( IsPlacing() )
 				desiredActivity = ACT_OBJ_PLACING;
-			else if ( IsBuilding() )
+			else if (IsBuilding())
 				desiredActivity = ACT_OBJ_ASSEMBLING;
+			// hogsy start
+			else if (IsDeteriorating())
+				desiredActivity = ACT_OBJ_DETERIORATING;
+			// hogsy end
 			/*
 			TODO:
 				ACT_OBJ_DISMANTLING;
-				ACT_OBJ_DETERIORATING;
 			*/
 			else
 				desiredActivity = ACT_OBJ_RUNNING;
@@ -2942,7 +2952,6 @@ void CBaseObject::SetSolidToPlayers( OBJSOLIDTYPE stp, bool force )
 			IsSolidToPlayers() ? 
 				TFCOLLISION_GROUP_OBJECT_SOLIDTOPLAYERMOVEMENT : 
 				TFCOLLISION_GROUP_OBJECT );
-		NetworkStateChanged();
 	}
 }
 
@@ -2954,7 +2963,7 @@ void CBaseObject::SetDisabled( bool bDisabled )
 { 
 	bool changed = m_bDisabled != bDisabled;
 	m_bDisabled = bDisabled;
-
+	
 	// value changed and mapper specified a "disabled"/damaged model
 	if ( changed && NULL_STRING != m_iszDisabledModel )
 		// Change model

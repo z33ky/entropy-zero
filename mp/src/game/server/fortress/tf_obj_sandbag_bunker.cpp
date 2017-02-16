@@ -51,21 +51,6 @@ void CObjectSandbagBunker::Precache( void )
 	engine->PrecacheModel( SANDBAGBUNKER_MODEL );
 }
 
-void CObjectSandbagBunker::SetObjectCollisionBox( void )
-{
-	if ( VPhysicsGetObject() )
-	{
-		Vector absmins, absmaxs;		
-		physcollision->CollideGetAABB( &absmins, &absmaxs, VPhysicsGetObject()->GetCollide(), GetAbsOrigin(), GetAbsAngles() );
-		CollisionProp()->SetCollisionBounds(absmins,absmaxs);
-		return;
-	}
-	else
-	{
-		BaseClass::SetObjectCollisionBox();
-	}
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: Gets info about the control panels
 //-----------------------------------------------------------------------------

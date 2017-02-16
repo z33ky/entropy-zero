@@ -24,7 +24,6 @@ public:
 
 	virtual void	Spawn( void );
 	virtual void	Precache( void );
-	virtual void	SetObjectCollisionBox( void );
 	virtual void	GetControlPanelInfo( int nPanelIndex, const char *&pPanelName );
 
 private:

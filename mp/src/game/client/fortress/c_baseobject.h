@@ -78,8 +78,6 @@ public:
 
 	void			SendClientCommand( const char *pCmd );
 
-	virtual void	SetObjectCollisionBox( void );
-
 	virtual void FireEvent( const Vector& origin, const QAngle& angles, int event, const char *options );
 
 	// Builder preview...
@@ -183,7 +181,7 @@ private:
 	int				m_fObjectFlags;
 	float			m_fYawPreview;
 	char			m_YawPreviewState;
-	CHandle< C_BaseTFPlayer >	m_hOldOwner;
+	CHandle< C_BaseTFPlayer > m_hOldOwner;
 	CHandle< C_BaseTFPlayer > m_hBuilder;
 	bool			m_bWasActive;
 	int				m_iOldHealth;

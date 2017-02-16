@@ -71,22 +71,6 @@ void CShieldFlat::SetSize( float w, float h )
 }
 
 //-----------------------------------------------------------------------------
-// Compute world axis-aligned bounding box
-//-----------------------------------------------------------------------------
-
-void CShieldFlat::SetObjectCollisionBox( void )
-{
-	// FIXME! This a fast solution, but maybe not the best one
-	// Override the base classes'
-	if ( edict() )
-	{
-		Vector bloat( 1, 1, 1 );
-		SetCollisionBounds(WorldAlignMins() - bloat, WorldAlignMaxs() + bloat);
-	}
-}
-
-
-//-----------------------------------------------------------------------------
 // Shield points
 //-----------------------------------------------------------------------------
 const Vector& CShieldFlat::GetPoint( int x, int y ) 

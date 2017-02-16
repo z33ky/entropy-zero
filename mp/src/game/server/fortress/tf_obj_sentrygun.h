@@ -54,7 +54,7 @@ public:
 	virtual bool	WantsCoverFromSentryGun() { return false; }
 	virtual void	SetTechnology( bool bSmarter, bool bSensors );
 	virtual int		OnTakeDamage( const CTakeDamageInfo &info );
-	virtual void	Killed( void );
+	virtual void	Killed(const CTakeDamageInfo &info);
 
 	// Ammo filling
 	virtual bool	ClientCommand( CBaseTFPlayer *pPlayer, const CCommand &args );
