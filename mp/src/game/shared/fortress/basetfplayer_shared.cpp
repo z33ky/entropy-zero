@@ -1,3 +1,7 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
 
 // Purpose: TF2's player object, code shared between client & server.
 
@@ -6,11 +10,10 @@
 #include "weapon_combatshield.h"
 #include "weapon_objectselection.h"
 #include "weapon_twohandedcontainer.h"
+#include "weapon_builder.h"
 #ifdef CLIENT_DLL
-#include "c_weapon_builder.h"
 #include "prediction.h"
 #else
-#include "weapon_builder.h"
 #include "basegrenade_shared.h"
 #include "grenade_objectsapper.h"
 #endif

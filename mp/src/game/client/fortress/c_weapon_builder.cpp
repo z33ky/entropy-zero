@@ -7,12 +7,11 @@
 #include "clientmode_tfnormal.h"
 #include "engine/IEngineSound.h"
 #include "imessagechars.h"
-#include "c_weapon_builder.h"
+#include "weapon_builder.h"
 #include "c_weapon__stubs.h"
 #include "iinput.h"
 #include "ObjectControlPanel.h"
 #include <vgui/IVGUI.h>
-#include "weapon_builder.h"
 
 #include "vgui_bitmapimage.h"
 #include "vgui_BitmapPanel.h"

@@ -17,11 +17,9 @@ Copyright (C) 2014-2016 TalonBrave.info
 #include <vgui/IVGui.h>
 
 #include "weapon_twohandedcontainer.h"
-#ifdef CLIENT_DLL
-#include "c_weapon_builder.h"
-#include "iinput.h"
-#else
 #include "weapon_builder.h"
+#ifdef CLIENT_DLL
+#include "iinput.h"
 #endif
 
 using namespace vgui;

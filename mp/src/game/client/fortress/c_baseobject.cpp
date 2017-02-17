@@ -13,7 +13,7 @@
 #include "particle_collision.h"
 #include "env_objecteffects.h"
 #include "basetfvehicle.h"
-#include "c_weapon_builder.h"
+#include "weapon_builder.h"
 #include "IVRenderView.h"
 #include "ObjectControlPanel.h"
 #include "engine/ivmodelinfo.h"

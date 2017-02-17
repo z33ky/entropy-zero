@@ -14,6 +14,6 @@
 	}
 	"TF_HINT_BUILDSENTRYGUN_PLASMA"
 	{
-		"times_shown"		"0"
+		"times_shown"		"100"
 	}
 }

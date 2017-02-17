@@ -25,11 +25,11 @@
     <Filter Include="Source Files\Invasion\Objects\Shared">
       <UniqueIdentifier>{4BC10F6A-63FE-8212-78C7-7B21F4BAC665}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Invasion\Orders">
-      <UniqueIdentifier>{8A6AE5DA-7F7A-B396-726A-78C81D704C21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Invasion\Shared">
       <UniqueIdentifier>{F4CACB3C-A885-5904-6FB8-853F26D95055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Invasion\Triggers">
+      <UniqueIdentifier>{28141220-A2F7-0289-92CC-747FFBF67094}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Invasion\Vehicles">
       <UniqueIdentifier>{1E3ECB16-589E-4653-A8C2-A861669114E5}</UniqueIdentifier>
@@ -1586,6 +1586,42 @@
     <ClInclude Include="fortress\mortar_round.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\order_assist.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_buildshieldwall.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_events.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_heal.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_helpers.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_killmortarguy.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_mortar_attack.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_player.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_repair.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_resourcepump.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\order_resupply.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\orders.h">
+      <Filter>Source Files\Invasion</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\ragdoll_shadow.h">
       <Filter>Source Files\Invasion</Filter>
     </ClInclude>
@@ -1679,6 +1715,12 @@
     <ClInclude Include="fortress\tf_obj.h">
       <Filter>Source Files\Invasion\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="fortress\tf_obj_armor_upgrade.h">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="fortress\tf_obj_barbed_wire.h">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="fortress\tf_obj_buff_station.h">
       <Filter>Source Files\Invasion\Objects</Filter>
     </ClInclude>
@@ -1723,42 +1765,6 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.h">
       <Filter>Source Files\Invasion\Objects\Shared</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_assist.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_buildshieldwall.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_events.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_heal.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_helpers.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_killmortarguy.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_mortar_attack.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_player.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_repair.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_resourcepump.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\order_resupply.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClInclude>
-    <ClInclude Include="fortress\orders.h">
-      <Filter>Source Files\Invasion\Orders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\fortress\baseobject_shared.h">
       <Filter>Source Files\Invasion\Shared</Filter>
@@ -3130,6 +3136,42 @@
     <ClCompile Include="fortress\mortar_round.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\order_assist.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_buildshieldwall.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_events.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_heal.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_helpers.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_killmortarguy.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_mortar_attack.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_player.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_repair.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_resourcepump.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\order_resupply.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\orders.cpp">
+      <Filter>Source Files\Invasion</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\ragdoll_shadow.cpp">
       <Filter>Source Files\Invasion</Filter>
     </ClCompile>
@@ -3235,6 +3277,12 @@
     <ClCompile Include="fortress\tf_obj.cpp">
       <Filter>Source Files\Invasion\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="fortress\tf_obj_armor_upgrade.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\tf_obj_barbed_wire.cpp">
+      <Filter>Source Files\Invasion\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="fortress\tf_obj_buff_station.cpp">
       <Filter>Source Files\Invasion\Objects</Filter>
     </ClCompile>
@@ -3279,42 +3327,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tf_obj_manned_plasmagun_shared.cpp">
       <Filter>Source Files\Invasion\Objects\Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_assist.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_buildshieldwall.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_events.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_heal.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_helpers.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_killmortarguy.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_mortar_attack.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_player.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_repair.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_resourcepump.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\order_resupply.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
-    </ClCompile>
-    <ClCompile Include="fortress\orders.cpp">
-      <Filter>Source Files\Invasion\Orders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\baseobject_shared.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
@@ -3414,6 +3426,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\fortress\tfclassdata_shared.cpp">
       <Filter>Source Files\Invasion\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="fortress\trigger_skybox.cpp">
+      <Filter>Source Files\Invasion\Triggers</Filter>
     </ClCompile>
     <ClCompile Include="fortress\tf_basefourwheelvehicle.cpp">
       <Filter>Source Files\Invasion\Vehicles</Filter>

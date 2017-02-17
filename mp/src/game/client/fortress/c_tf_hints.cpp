@@ -12,7 +12,7 @@
 #include "c_basetfplayer.h"
 #include "weapon_selection.h"
 #include <KeyValues.h>
-#include "c_weapon_builder.h"
+#include "weapon_builder.h"
 #include "vguimatsurface/IMatSystemSurface.h"
 #include "c_tf_hints.h"
 #include "c_hint_events.h"
@@ -430,7 +430,7 @@ void CHintStartBuilding::Think( void )
 	BaseClass::Think();
 	
 	C_WeaponBuilder *builder = dynamic_cast< C_WeaponBuilder * >( GetActiveWeapon() );
-	if ( builder && builder->IsBuildingObject() )
+	if ( builder && builder->IsBuilding() )
 		m_bCompleted = true;
 }
 

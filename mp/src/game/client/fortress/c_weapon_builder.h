@@ -1,9 +1,7 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2016 TalonBrave.info
+*/
 
 #ifndef C_WEAPON_BUILDER_H
 #define C_WEAPON_BUILDER_H

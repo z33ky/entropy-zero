@@ -1,28 +1,29 @@
-//=========== (C) Copyright 2000 Valve, L.L.C. All rights reserved. ===========
-//
-// The copyright to the contents herein is the property of Valve, L.L.C.
-// The contents may be used and/or copied only with the written permission of
-// Valve, L.L.C., or in accordance with the terms and conditions stipulated in
-// the agreement/contract under which the contents have been supplied.
-//
-// Purpose:			The "weapon" used to build objects
-//					
-//
-// $Workfile:     $
-// $Date:         $
-// $NoKeywords: $
-//=============================================================================
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
+
+// Purpose:	The "weapon" used to build objects
+
 #include "cbase.h"
+#if !defined(CLIENT_DLL)
 #include "tf_player.h"
 #include "tf_basecombatweapon.h"
 #include "EntityList.h"
+#endif
 #include "in_buttons.h"
 #include "weapon_builder.h"
+#if !defined(CLIENT_DLL)
 #include "tf_obj.h"
 #include "sendproxy.h"
+#endif
 #include "weapon_objectselection.h"
+#if !defined(CLIENT_DLL)
 #include "info_act.h"
 #include "vguiscreen.h"
+#else
+#include "clientmode_tfnormal.h"
+#endif
 
 extern ConVar tf2_object_hard_limits;
 extern ConVar tf_fastbuild;
@@ -101,7 +102,9 @@ void CWeaponBuilder::Precache( void )
 	BaseClass::Precache();
 
 	PrecacheModel( "models/weapons/v_slam.mdl" );
+#if !defined( CLIENT_DLL )
 	PrecacheVGuiScreen( "screen_human_pda" );
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -129,12 +132,14 @@ bool CWeaponBuilder::ShouldShowControlPanels( void )
 //-----------------------------------------------------------------------------
 void CWeaponBuilder::UpdateOnRemove( void )
 {
+#if !defined(CLIENT_DLL)
 	// Tell the player he's lost his build weapon
 	CBaseTFPlayer *pOwner = ToBaseTFPlayer( GetOwner() );
 	if ( pOwner && pOwner->GetWeaponBuilder() == this )
 	{
 		pOwner->SetWeaponBuilder( NULL );
 	}
+#endif
 
 	// Chain at end to mimic destructor unwind order
 	BaseClass::UpdateOnRemove();
@@ -146,7 +151,9 @@ void CWeaponBuilder::UpdateOnRemove( void )
 void CWeaponBuilder::Equip( CBaseCombatCharacter *pOwner )
 {
 	BaseClass::Equip( pOwner );
+#if !defined(CLIENT_DLL)
 	((CBaseTFPlayer*)pOwner)->SetWeaponBuilder( this );
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -235,6 +242,7 @@ void CWeaponBuilder::ItemPostFrame( void )
 	if ( !pOwner )
 		return;
 
+#if !defined(CLIENT_DLL) // implement isbuilding client-side for C_BaseTFPlayer? ~hogsy
 	// Ignore input while the player's building anything
 	if ( pOwner->IsBuilding() )
 		return;
@@ -255,6 +263,7 @@ void CWeaponBuilder::ItemPostFrame( void )
 	AllowShieldPostFrame( true );
 
 	WeaponIdle();
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -287,6 +296,7 @@ void CWeaponBuilder::PrimaryAttack( void )
 		{
 			if ( m_hObjectBeingBuilt )
 			{
+#if !defined(CLIENT_DLL)
 				// Give the object a chance to veto the "start building" command. Objects like barbed wire
 				// may want to change their properties instead of actually building yet.
 				if ( m_hObjectBeingBuilt->PreStartBuilding() )
@@ -314,6 +324,7 @@ void CWeaponBuilder::PrimaryAttack( void )
 						pOwner->SwitchToNextBestWeapon( NULL );
 					}
 				}
+#endif
 			}
 		}
 		break;
@@ -325,10 +336,12 @@ void CWeaponBuilder::PrimaryAttack( void )
 			// If there is any associated error text when placing the object, display it
 			if( m_hObjectBeingBuilt != NULL )
 			{
+#if !defined(CLIENT_DLL)
 				if (m_hObjectBeingBuilt->MustBeBuiltInResourceZone())
 					ClientPrint( pOwner, HUD_PRINTCENTER, "Only placeable in an empty resource zone.\n" );
 				else if (m_hObjectBeingBuilt->MustBeBuiltInConstructionYard())
 					ClientPrint( pOwner, HUD_PRINTCENTER, "Only placeable in a construction yard.\n" );
+#endif
 			}
 		}
 		break;
@@ -365,6 +378,7 @@ void CWeaponBuilder::SetCurrentState( int iState )
 //-----------------------------------------------------------------------------
 void CWeaponBuilder::SetCurrentObject( int iObject )
 {
+#if !defined(CLIENT_DLL)
 	// Fixup for invalid objects
 	if (iObject < 0)
 		iObject = BUILDER_INVALID_OBJECT;
@@ -404,6 +418,7 @@ void CWeaponBuilder::SetCurrentObject( int iObject )
 	m_iCurrentObjectState = pOwner->CanBuild( m_iCurrentObject );
 	m_flStartTime = 0;
 	m_flTotalTime = 0;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -475,11 +490,15 @@ void CWeaponBuilder::StartPlacement( void )
 	if ( m_hObjectBeingBuilt )
 	{
 		m_hObjectBeingBuilt->Spawn();
+#if !defined(CLIENT_DLL)
 		m_hObjectBeingBuilt->StartPlacement( ToBaseTFPlayer( GetOwner() ) );
+#endif
 		UpdatePlacement();
 
+#if !defined(CLIENT_DLL)
 		// Stomp this here in the same frame we make the object, so prevent clientside warnings that it's under attack
 		m_hObjectBeingBuilt->m_iHealth = OBJECT_CONSTRUCTION_STARTINGHEALTH;
+#endif
 	}
 }
 
@@ -498,7 +517,9 @@ void CWeaponBuilder::StopPlacement( void )
 {
 	if ( m_hObjectBeingBuilt )
 	{
+#if !defined(CLIENT_DLL)
 		m_hObjectBeingBuilt->StopPlacement();
+#endif
 		m_hObjectBeingBuilt = NULL;
 	}
 }
@@ -511,7 +532,11 @@ bool CWeaponBuilder::UpdatePlacement( void )
 	if ( !m_hObjectBeingBuilt )
 		return false;
 
+#if !defined(CLIENT_DLL)
 	return m_hObjectBeingBuilt->UpdatePlacement( ToBaseTFPlayer(GetOwner()) );
+#else
+	return true;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -522,7 +547,9 @@ void CWeaponBuilder::StartBuilding( void )
 	if ( m_hObjectBeingBuilt.Get() && UpdatePlacement() )
 	{
 		SetCurrentState( BS_BUILDING );
+#if !defined(CLIENT_DLL)
 		m_hObjectBeingBuilt->StartBuilding( GetOwner() );
+#endif
 	}
 }
 

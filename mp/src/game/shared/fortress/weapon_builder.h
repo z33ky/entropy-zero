@@ -31,7 +31,6 @@ class CWeaponBuilder : public CWeaponCombatUsedWithShieldBase
 	DECLARE_CLASS( CWeaponBuilder, CWeaponCombatUsedWithShieldBase );
 public:
 	CWeaponBuilder();
-	~CWeaponBuilder();
 
 	virtual void	UpdateOnRemove( void );
 
@@ -75,17 +74,19 @@ public:
 
 	CBaseObject *GetPlacementModel(void) { return m_hObjectBeingBuilt.Get(); }
 
+	virtual bool IsPlacingObject(void);
+	// IsBuildingObject > use IsBuilding instead.
+
 #if defined(CLIENT_DLL)
 	virtual void Redraw();
 	virtual bool VisibleInWeaponSelection(void) { return false; }
-
-	virtual bool IsPlacingObject(void);
-	// IsBuildingObject > use IsBuilding instead.
 
 	virtual const char *GetCurrentSelectionObjectName(void);
 
 	// Materials
 	CMaterialReference	m_pIconFireToSelect;
+
+	vgui::HFont m_hFont;
 
 private:
 	CWeaponBuilder(const CWeaponBuilder &);
@@ -115,9 +116,6 @@ public:
 
 	// Our placement model
 	CNetworkHandle(CBaseObject, m_hObjectBeingBuilt);
-#if defined(CLIENT_DLL)
-	CHandle<C_BaseObject>	m_hObjectBeingBuilt;
-#endif
 };
 
 

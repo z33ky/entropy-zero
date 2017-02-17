@@ -1,3 +1,7 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
 
 // Purpose: Support weapon and weapons contained within it
 
