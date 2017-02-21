@@ -10,7 +10,6 @@
 #pragma once
 #endif
 
-
 #include "hudelement.h"
 #include <vgui_controls/Controls.h>
 #include <vgui_controls/Panel.h>
@@ -29,6 +28,5 @@ private:
 	int m_iRole;
 	vgui::HFont	m_hTextFont;
 };
-
 
 #endif // HUD_VEHICLE_ROLE_H

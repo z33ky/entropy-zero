@@ -11,6 +11,13 @@ Invasion Demo Dates (UK Format)
 
 --------------------------
 
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
+
+--------------------------
+
 List of models
 
 	models/objects/obj_manned_plasmagun.mdl

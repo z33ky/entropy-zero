@@ -1,9 +1,8 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "c_tf_hintmanager.h"
 #include "c_tf_basehint.h"

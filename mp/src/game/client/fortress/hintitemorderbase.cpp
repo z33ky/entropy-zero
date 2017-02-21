@@ -1,3 +1,8 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "hintitemorderbase.h"
 #include "paneleffect.h"

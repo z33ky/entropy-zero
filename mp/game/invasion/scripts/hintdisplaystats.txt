@@ -4,16 +4,20 @@
 	{
 		"Burst Rifle"
 		{
-			"times_shown"		"0"
-			"times_max"		"3"
+			"times_shown"	"0"
+			"times_max"		"200"
 		}
 	}
 	"TF_HINT_BUILDRESOURCEPUMP"
 	{
-		"times_shown"		"100"
+		"times_shown"		"0"
 	}
 	"TF_HINT_BUILDSENTRYGUN_PLASMA"
 	{
-		"times_shown"		"100"
+		"times_shown"		"0"
+	}
+	"TF_HINT_BUILDSANDBAG"
+	{
+		"times_shown"		"0"
 	}
 }

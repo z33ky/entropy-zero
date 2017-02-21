@@ -1,3 +1,8 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2017 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "hintitembase.h"
 #include <vgui_controls/Controls.h>
@@ -22,10 +27,10 @@ CHintItemBase::CHintItemBase( vgui::Panel *parent, const char *panelName )
 	m_pLabel = new vgui::Label( this, "TFTextHint", "" );
 	m_pLabel->SetContentAlignment( vgui::Label::a_west );
 	
-	//	m_pIndex = new vgui::Label( this, "TFTextHintIndex", "" );
-	//	m_pIndex->setContentAlignment( vgui::Label::a_west );
-	//	m_pIndex->SetBounds( 20, 0, 20, 20 );
-	//	m_nIndex = 0;	
+	m_pIndex = new vgui::Label( this, "TFTextHintIndex", "" );
+	m_pIndex->SetContentAlignment( vgui::Label::a_west );
+	m_pIndex->SetBounds( 20, 0, 20, 20 );
+	m_nIndex = 0;
 	
 	m_bCompleted = false;
 	m_bActive = false;
@@ -378,14 +383,12 @@ void CHintItemBase::SetPosition( int x, int y )
 //-----------------------------------------------------------------------------
 void CHintItemBase::SetItemNumber( int index )
 {
-/*
-m_nIndex = index;
+	m_nIndex = index;
 
-  char sz[ 32 ];
-  sprintf( sz, "%i", m_nIndex );
-  
-	m_pIndex->setText( sz );
-	*/
+	char sz[32];
+	sprintf(sz, "%i", m_nIndex);
+
+	m_pIndex->SetText(sz);
 }
 
 //-----------------------------------------------------------------------------

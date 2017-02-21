@@ -220,6 +220,22 @@ void C_BaseTFCombatWeapon::OnDataChanged( DataUpdateType_t updateType )
 	if ( !tree )
 		return;
 
+#if 1
+	static C_TFBaseHint *hint = nullptr;
+	if (!hint)
+	{
+		hint = CreateGlobalHint(TF_HINT_WEAPONRECEIVED, GetPrintName(), -1, 3);
+		ITFHintItem *item = hint->GetHintItem(0);
+		if (item)
+		{
+			item->SetKeyValue("weapon", GetPrintName());
+			item->SetKeyValue("weapontype", GetName());
+		}
+		hint = CreateGlobalHint(TF_HINT_BUILDRESOURCEPUMP, GetPrintName(), -1, 3);		
+		hint = CreateGlobalHint(TF_HINT_BUILDSANDBAG, GetPrintName(), -1, 3);
+	}
+#endif
+
 	bool done = false;
 	for ( int i = 0; !done && ( i < tree->GetNumberTechnologies() ); i++ )
 	{

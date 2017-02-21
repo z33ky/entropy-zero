@@ -247,6 +247,17 @@ HudLayout
 		value_ypos 			"20"
 		PaintBackgroundType	2
 	}
+	
+	VehicleRoleHudElement
+	{
+		fieldName	VehicleRoleHudElement
+		visible		1
+		enabled		1
+		xpos		200
+		ypos		386
+		wide		95
+		tall		32
+	}
 
 	HudResources
 	{

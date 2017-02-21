@@ -89,6 +89,10 @@ protected:
 	bool			m_bActive;
 	// Text of hint
 	vgui::Label		*m_pLabel;
+
+	vgui::Label		*m_pIndex;
+	int				m_nIndex;
+
 	// Depends on type of hint
 	vgui::Panel		*m_pObject;
 	// Time the hint was activated
