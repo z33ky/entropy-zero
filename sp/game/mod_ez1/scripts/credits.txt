@@ -1,0 +1,47 @@
+//Adrian: This file contains the credits info for both the Intro and outro.
+"credits.txt"
+{
+//========================================================
+//These are the names used in the intro (Compound Raid)
+//========================================================
+"IntroCreditsNames"
+{
+	"V"	"WeaponIcons"
+	" "	"CreditsText"
+	" "	"CreditsText"
+	"Breadman"   "CreditsText"
+	"Thanks to:"   "CreditsText"
+	"CubicApocalypse (Reddit)"   "CreditsText"
+	"Half-Life 2 Short Stories Team"   "CreditsText"
+	"Human Error Team"   "CreditsText"
+	"Wazanator & /r/SourceEngine"   "CreditsText"
+	"/r/HalfLife"   "CreditsText"
+	"Lambda Generation"   "CreditsText"
+	"Valve"   "CreditsText"
+	"ModDB"   "CreditsText"
+	"Breadwife & Kids"   "CreditsText"
+	"Morch Kovalski AKA Yackson (Youtube)"   "CreditsText"
+	"DetectiveDom"   "CreditsText"
+	"Dominichello"   "CreditsText"
+}
+
+"CreditsParams"
+{
+	"logo" "HALF-LIFE'"
+	
+	"fadeintime"	"2.5"
+	"fadeouttime"	"1"
+	"fadeholdtime"	"1.0"
+	"nextfadetime"	"1.0"
+	"pausebetweenwaves" "1.0"
+	"logotime" "1.0"
+	"posx"	"360"
+	"posy"	"360"
+
+	"color" "255 255 255 128"
+
+//Outro Parameters
+	"scrolltime" "158"
+	"separation"  "10"
+}
+}

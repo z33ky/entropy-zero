@@ -2692,6 +2692,11 @@ CON_COMMAND_F_COMPLETION( cc_emit, "Emits a closed caption", 0, EmitCaptionCompl
 		return;
 	}
 
+	if (!closecaption.GetBool()) {
+		DevMsg("cc_emit was called, but closed captions are disabled!\n");
+		return;
+	}
+
 	CHudCloseCaption *hudCloseCaption = GET_HUDELEMENT( CHudCloseCaption );
 	if ( hudCloseCaption )
 	{

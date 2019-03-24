@@ -60,7 +60,7 @@ public:
 	CNPC_Manhack();
 	~CNPC_Manhack();
 
-	Class_T			Classify(void);
+	Class_T	CNPC_Manhack::Classify(void);
 
 	bool			CorpseGib( const CTakeDamageInfo &info );
 	void			Event_Dying(void);
@@ -275,6 +275,29 @@ private:
 	CNetworkVar( int,	m_nEnginePitch2 );
 	CNetworkVar( float,	m_flEnginePitch1Time );
 	CNetworkVar( float,	m_flEnginePitch2Time );
+
+	//NEW CONTROLLABLE STUFF:
+	bool m_bControllable;
+	bool m_bShouldFollowPlayer;
+
+public:
+	void		SetControllable(bool bControllable);
+	void		ShouldFollowPlayer(bool bFollow) { m_bShouldFollowPlayer = bFollow; }
+	void		ShowRedGlow(bool bHide);
+
+	//void		SetHeadYaw(float HeadYaw);
+
+	void		MoveUpDown(float direction);
+	void		MoveForwardBack(float direction, QAngle angManhackEye);
+	//void TurnLeft();
+	//void TurnRight();
+
+	Vector		GetManhackView();
+	//Vector		m_vCollisionView;		//NOTE: I think this is not even used at the moment
+
+	void		ComeBackToPlayer(CBasePlayer *pPlayer, float fCallBackTime);
+	void		GoThere(CBasePlayer *pPlayer, float fGoHereTime);
+
 };
 
 #endif	//NPC_MANHACK_H

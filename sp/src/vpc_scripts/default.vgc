@@ -12,6 +12,8 @@ $Games
 {
 	"EPISODIC"
 	"HL2"
+	"EZ1"
+	"EZ2"
 }
 
 // Makes the VPC scripts work in the SDK's context

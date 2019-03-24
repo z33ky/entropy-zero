@@ -29,13 +29,18 @@ extern ConVar r_flashlightdepthres;
 #include "tier0/memdbgon.h"
 
 extern ConVar r_flashlightdepthtexture;
+extern ConCommand Ez_Nvg_On; // Breadman - Probably don't need this.
 
 void r_newflashlightCallback_f( IConVar *pConVar, const char *pOldString, float flOldValue );
 
 static ConVar r_newflashlight( "r_newflashlight", "1", FCVAR_CHEAT, "", r_newflashlightCallback_f );
 static ConVar r_swingflashlight( "r_swingflashlight", "1", FCVAR_CHEAT );
 static ConVar r_flashlightlockposition( "r_flashlightlockposition", "0", FCVAR_CHEAT );
+#ifdef EZ
+static ConVar r_flashlightfov( "r_flashlightfov", "100", FCVAR_CHEAT ); // Breadman - Changed for NVG effect
+#else
 static ConVar r_flashlightfov( "r_flashlightfov", "45.0", FCVAR_CHEAT );
+#endif
 static ConVar r_flashlightoffsetx( "r_flashlightoffsetx", "10.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsety( "r_flashlightoffsety", "-20.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsetz( "r_flashlightoffsetz", "24.0", FCVAR_CHEAT );
@@ -50,7 +55,6 @@ static ConVar r_flashlightshadowatten( "r_flashlightshadowatten", "0.35", FCVAR_
 static ConVar r_flashlightladderdist( "r_flashlightladderdist", "40.0", FCVAR_CHEAT );
 static ConVar mat_slopescaledepthbias_shadowmap( "mat_slopescaledepthbias_shadowmap", "16", FCVAR_CHEAT );
 static ConVar mat_depthbias_shadowmap(	"mat_depthbias_shadowmap", "0.0005", FCVAR_CHEAT  );
-
 
 void r_newflashlightCallback_f( IConVar *pConVar, const char *pOldString, float flOldValue )
 {
@@ -76,9 +80,18 @@ CFlashlightEffect::CFlashlightEffect(int nEntIndex)
 	if( engine->GetDXSupportLevel() < 70 )
 	{
 		r_newflashlight.SetValue( 0 );
-	}	
+	}
 
 	if ( g_pMaterialSystemHardwareConfig->SupportsBorderColor() )
+#ifdef EZ
+	{
+		m_FlashlightTexture.Init( "effects/Ez_MetroVision_border", TEXTURE_GROUP_OTHER, true );
+	}
+	else
+	{
+		m_FlashlightTexture.Init( "effects/Ez_MetroVision", TEXTURE_GROUP_OTHER, true );
+	}
+#else
 	{
 		m_FlashlightTexture.Init( "effects/flashlight_border", TEXTURE_GROUP_OTHER, true );
 	}
@@ -86,6 +99,7 @@ CFlashlightEffect::CFlashlightEffect(int nEntIndex)
 	{
 		m_FlashlightTexture.Init( "effects/flashlight001", TEXTURE_GROUP_OTHER, true );
 	}
+#endif
 }
 
 
@@ -95,6 +109,9 @@ CFlashlightEffect::CFlashlightEffect(int nEntIndex)
 CFlashlightEffect::~CFlashlightEffect()
 {
 	LightOff();
+#ifdef EZ
+	engine->ClientCmd("Ez_Nvg_On"); //Breadman - see View_scene.cpp for this Convar
+#endif
 }
 
 
@@ -105,6 +122,9 @@ void CFlashlightEffect::TurnOn()
 {
 	m_bIsOn = true;
 	m_flDistMod = 1.0f;
+#ifdef EZ
+	engine->ClientCmd("Ez_Nvg_On"); //Breadman - see View_scene.cpp for this Convar
+#endif
 }
 
 
@@ -379,6 +399,11 @@ void CFlashlightEffect::UpdateLightOld(const Vector &vecPos, const Vector &vecDi
 		m_pPointLight = effects->CL_AllocDlight(m_nEntIndex);
 		m_pPointLight->flags = 0.0f;
 		m_pPointLight->radius = 80;
+#ifdef EZ
+		m_pPointLight->color.r = 5; // Breadman - Doesn't actually work here. Seems to be derived from the texture colour.
+		m_pPointLight->color.g = 230; // Breadman
+		m_pPointLight->color.b = 255; // Breadman
+#endif
 	}
 	
 	// For bumped lighting
