@@ -327,6 +327,14 @@ const char *CBaseCombatWeapon::GetWorldModel( void ) const
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
+const char *CBaseCombatWeapon::GetSecondaryWorldModel(void) const
+{
+	return GetWpnData().szWorldModel2;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 const char *CBaseCombatWeapon::GetAnimPrefix( void ) const
 {
 	return GetWpnData().szAnimationPrefix;
