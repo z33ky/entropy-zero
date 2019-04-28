@@ -30,6 +30,28 @@ enum
 };
 
 //=========================================================
+// states
+//=========================================================
+enum
+{
+	NPC_STATE_FIRST = NPC_STATE_DEAD,
+	NPC_STATE_AMBUSH,
+	NPC_STATE_SURRENDER,
+	NPC_STATE_LAST_CUSTOM
+};
+
+// -----------------------------------------------
+//	Squad slots
+// -----------------------------------------------
+enum
+{
+	LAST_SQUADSLOT = 100,	// Custom NPCs might share a squad with any NPC, so let's just be safe and skip to a high number
+	SQUAD_SLOT_CHASE_1,
+	SQUAD_SLOT_CHASE_2,
+	LAST_CUSTOM_SQUADSLOT
+};
+
+//=========================================================
 //=========================================================
 typedef CAI_BlendingHost< CAI_BehaviorHost<CAI_BaseNPC> > CAI_CustomNPCBase;
 
@@ -48,9 +70,16 @@ public:
 	virtual int				SelectIdleSchedule();
 	virtual int				SelectAlertSchedule();
 	virtual int				SelectCombatSchedule();
+	virtual int				SelectAmbushSchedule();
+	virtual int				SelectSurrenderSchedule();
 	virtual float			GetSequenceGroundSpeed(CStudioHdr *pStudioHdr, int iSequence);
 	virtual Activity		NPC_TranslateActivity(Activity eNewActivity);
 	virtual int				TranslateSchedule(int scheduleType);
+
+	// Custom states
+	virtual NPC_STATE	SelectIdealState(void);
+	NPC_STATE			SelectAmbushIdealState();
+	NPC_STATE			SelectSurrenderIdealState();
 
 	// Sounds
 	virtual void		PlaySound(string_t soundname, bool optional);
@@ -90,7 +119,7 @@ protected:
 	bool		HasRangedWeapon();
 	void		PrecacheNPCSoundScript(string_t* SoundName, string_t defaultSoundName);
 
-
+	int			m_iNumSquadmates;
 	bool		m_bUseBothSquadSlots;	// If true use two squad slots, if false use one squad slot
 	bool		m_bCannotOpenDoors;		// If true, this NPC cannot open doors. The condition is reversed because originally it could.
 	bool		m_bCanPickupWeapons;			// If true, this NPC is able to pick up weapons off of the ground just like npc_citizen.
@@ -102,76 +131,3 @@ protected:
 
 
 LINK_ENTITY_TO_CLASS(npc_base_custom, CNPC_BaseCustomNPC);
-
-//---------------------------------------------------------
-// Save/Restore
-//---------------------------------------------------------
-BEGIN_DATADESC(CNPC_BaseCustomNPC)
-DEFINE_KEYFIELD(m_iszWeaponModelName, FIELD_STRING, "WeaponModel"),
-DEFINE_KEYFIELD(m_iHealth, FIELD_INTEGER, "Health"),
-DEFINE_KEYFIELD(m_iszFearSound, FIELD_SOUNDNAME, "FearSound"),
-DEFINE_KEYFIELD(m_iszDeathSound, FIELD_SOUNDNAME, "DeathSound"),
-DEFINE_KEYFIELD(m_iszIdleSound, FIELD_SOUNDNAME, "IdleSound"),
-DEFINE_KEYFIELD(m_iszPainSound, FIELD_SOUNDNAME, "PainSound"),
-DEFINE_KEYFIELD(m_iszAlertSound, FIELD_SOUNDNAME, "AlertSound"),
-DEFINE_KEYFIELD(m_iszLostEnemySound, FIELD_SOUNDNAME, "LostEnemySound"),
-DEFINE_KEYFIELD(m_iszFoundEnemySound, FIELD_SOUNDNAME, "FoundEnemySound"),
-DEFINE_KEYFIELD(m_bUseBothSquadSlots, FIELD_BOOLEAN, "UseBothSquadSlots"),
-DEFINE_KEYFIELD(m_bCannotOpenDoors, FIELD_BOOLEAN, "CannotOpenDoors"),
-DEFINE_KEYFIELD(m_bCanPickupWeapons, FIELD_BOOLEAN, "CanPickupWeapons"),
-
-DEFINE_FIELD(m_bWanderToggle, FIELD_BOOLEAN),
-DEFINE_FIELD(m_flNextSoundTime, FIELD_TIME),
-DEFINE_FIELD(m_flNextFoundEnemySoundTime, FIELD_TIME),
-DEFINE_FIELD(m_flSpeedModifier, FIELD_TIME),
-
-DEFINE_INPUTFUNC(FIELD_FLOAT, "SetSpeedModifier", InputSetSpeedModifier),
-DEFINE_INPUTFUNC(FIELD_VOID, "EnableOpenDoors", InputEnableOpenDoors),
-DEFINE_INPUTFUNC(FIELD_VOID, "DisableOpenDoors", InputDisableOpenDoors),
-DEFINE_INPUTFUNC(FIELD_VOID, "EnablePickupWeapons", InputEnablePickupWeapons),
-DEFINE_INPUTFUNC(FIELD_VOID, "DisablePickupWeapons", InputDisablePickupWeapons)
-END_DATADESC()
-
-
-AI_BEGIN_CUSTOM_NPC(npc_base_custom, CNPC_BaseCustomNPC)
-//=========================================================
-// > Melee_Attack_NoInterrupt
-//=========================================================
-DEFINE_SCHEDULE
-(
-	SCHED_MELEE_ATTACK_NOINTERRUPT,
-
-	"	Tasks"
-	"		TASK_STOP_MOVING		0"
-	"		TASK_FACE_ENEMY			0"
-	"		TASK_ANNOUNCE_ATTACK	1"	// 1 = primary attack
-	"		TASK_MELEE_ATTACK1		0"
-	""
-	"	Interrupts"
-	"		COND_ENEMY_DEAD"
-	"		COND_ENEMY_OCCLUDED"
-);
-
-//=========================================================
-// 	SCHED_HIDE
-//=========================================================
-DEFINE_SCHEDULE
-(
-	SCHED_HIDE,
-
-	"	Tasks"
-	"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_COMBAT_FACE"
-	"		TASK_STOP_MOVING			0"
-	"		TASK_FIND_COVER_FROM_ENEMY	0"
-	"		TASK_RUN_PATH				0"
-	"		TASK_WAIT_FOR_MOVEMENT		0"
-	"		TASK_REMEMBER				MEMORY:INCOVER"
-	"		TASK_FACE_ENEMY				0"
-	""
-	"	Interrupts"
-	"		COND_HEAR_DANGER"
-	"		COND_NEW_ENEMY"
-	"		COND_ENEMY_DEAD"
-);
-AI_END_CUSTOM_NPC()
-

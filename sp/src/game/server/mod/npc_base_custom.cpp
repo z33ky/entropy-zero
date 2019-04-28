@@ -17,6 +17,7 @@
 #include "engine/IEngineSound.h"
 #include "basehlcombatweapon_shared.h"
 #include "ai_squadslot.h"
+#include "ai_squad.h"
 
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -30,6 +31,79 @@ const float MIN_TIME_NEXT_SOUND = 0.5f;
 const float MAX_TIME_NEXT_SOUND = 1.0f;
 const float MIN_TIME_NEXT_FOUNDENEMY_SOUND = 2.0f;
 const float MAX_TIME_NEXT_FOUNDENEMY_SOUND = 5.0f;
+
+//---------------------------------------------------------
+// Save/Restore
+//---------------------------------------------------------
+BEGIN_DATADESC(CNPC_BaseCustomNPC)
+	DEFINE_KEYFIELD(m_iszWeaponModelName, FIELD_STRING, "WeaponModel"),
+	DEFINE_KEYFIELD(m_iHealth, FIELD_INTEGER, "Health"),
+	DEFINE_KEYFIELD(m_iszFearSound, FIELD_SOUNDNAME, "FearSound"),
+	DEFINE_KEYFIELD(m_iszDeathSound, FIELD_SOUNDNAME, "DeathSound"),
+	DEFINE_KEYFIELD(m_iszIdleSound, FIELD_SOUNDNAME, "IdleSound"),
+	DEFINE_KEYFIELD(m_iszPainSound, FIELD_SOUNDNAME, "PainSound"),
+	DEFINE_KEYFIELD(m_iszAlertSound, FIELD_SOUNDNAME, "AlertSound"),
+	DEFINE_KEYFIELD(m_iszLostEnemySound, FIELD_SOUNDNAME, "LostEnemySound"),
+	DEFINE_KEYFIELD(m_iszFoundEnemySound, FIELD_SOUNDNAME, "FoundEnemySound"),
+	DEFINE_KEYFIELD(m_bUseBothSquadSlots, FIELD_BOOLEAN, "UseBothSquadSlots"),
+	DEFINE_KEYFIELD(m_bCannotOpenDoors, FIELD_BOOLEAN, "CannotOpenDoors"),
+	DEFINE_KEYFIELD(m_bCanPickupWeapons, FIELD_BOOLEAN, "CanPickupWeapons"),
+
+	DEFINE_FIELD(m_iNumSquadmates, FIELD_INTEGER),
+	DEFINE_FIELD(m_bWanderToggle, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_flNextSoundTime, FIELD_TIME),
+	DEFINE_FIELD(m_flNextFoundEnemySoundTime, FIELD_TIME),
+	DEFINE_FIELD(m_flSpeedModifier, FIELD_TIME),
+
+	DEFINE_INPUTFUNC(FIELD_FLOAT, "SetSpeedModifier", InputSetSpeedModifier),
+	DEFINE_INPUTFUNC(FIELD_VOID, "EnableOpenDoors", InputEnableOpenDoors),
+	DEFINE_INPUTFUNC(FIELD_VOID, "DisableOpenDoors", InputDisableOpenDoors),
+	DEFINE_INPUTFUNC(FIELD_VOID, "EnablePickupWeapons", InputEnablePickupWeapons),
+	DEFINE_INPUTFUNC(FIELD_VOID, "DisablePickupWeapons", InputDisablePickupWeapons)
+END_DATADESC()
+
+AI_BEGIN_CUSTOM_NPC(npc_base_custom, CNPC_BaseCustomNPC)
+//=========================================================
+// > Melee_Attack_NoInterrupt
+//=========================================================
+DEFINE_SCHEDULE
+(
+	SCHED_MELEE_ATTACK_NOINTERRUPT,
+
+	"	Tasks"
+	"		TASK_STOP_MOVING		0"
+	"		TASK_FACE_ENEMY			0"
+	"		TASK_ANNOUNCE_ATTACK	1"	// 1 = primary attack
+	"		TASK_MELEE_ATTACK1		0"
+	""
+	"	Interrupts"
+	"		COND_ENEMY_DEAD"
+	"		COND_ENEMY_OCCLUDED"
+);
+
+//=========================================================
+// 	SCHED_HIDE
+//=========================================================
+DEFINE_SCHEDULE
+(
+	SCHED_HIDE,
+
+	"	Tasks"
+	"		TASK_SET_FAIL_SCHEDULE		SCHEDULE:SCHED_COMBAT_FACE"
+	"		TASK_STOP_MOVING			0"
+	"		TASK_FIND_COVER_FROM_ENEMY	0"
+	"		TASK_RUN_PATH				0"
+	"		TASK_WAIT_FOR_MOVEMENT		0"
+	"		TASK_REMEMBER				MEMORY:INCOVER"
+	"		TASK_FACE_ENEMY				0"
+	""
+	"	Interrupts"
+	"		COND_HEAR_DANGER"
+	"		COND_NEW_ENEMY"
+	"		COND_ENEMY_DEAD"
+);
+AI_END_CUSTOM_NPC()
+
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -174,6 +248,54 @@ int CNPC_BaseCustomNPC::SelectScheduleRetrieveItem()
 }
 
 //-----------------------------------------------------------------------------
+// Purpose: Select ideal state.
+//		Conditions for custom states are defined here.
+//-----------------------------------------------------------------------------
+NPC_STATE CNPC_BaseCustomNPC::SelectIdealState(void)
+{
+	switch ((int)this->m_NPCState) {
+		case NPC_STATE_AMBUSH:
+			return SelectAmbushIdealState();
+		case NPC_STATE_SURRENDER:
+			return SelectSurrenderIdealState();
+		default:
+			return BaseClass::SelectIdealState();
+	}
+
+}
+
+NPC_STATE CNPC_BaseCustomNPC::SelectAmbushIdealState()
+{
+	// AMBUSH goes to ALERT upon death of enemy
+	if (GetEnemy() == NULL)
+	{
+		return NPC_STATE_ALERT;
+	}
+
+	// If I am not in a squad, there is no reason to ambush
+	if (!m_pSquad) {
+		return NPC_STATE_COMBAT;
+	}
+
+	// If I am the last in a squad, attack!
+	if (m_pSquad->NumMembers() == 1) {
+		return NPC_STATE_COMBAT;
+	}
+
+	if (OccupyStrategySlotRange(SQUAD_SLOT_CHASE_1, SQUAD_SLOT_CHASE_2)) {
+		return NPC_STATE_COMBAT;
+	}
+
+	// The best ideal state is the current ideal state.
+	return (NPC_STATE)NPC_STATE_AMBUSH;
+}
+
+NPC_STATE CNPC_BaseCustomNPC::SelectSurrenderIdealState()
+{
+	return NPC_STATE_ALERT;
+}
+
+//-----------------------------------------------------------------------------
 // Purpose: Select a schedule to retrieve better weapons if they are available.
 //-----------------------------------------------------------------------------
 int CNPC_BaseCustomNPC::SelectScheduleWander()
@@ -193,7 +315,7 @@ int CNPC_BaseCustomNPC::SelectScheduleWander()
 //-----------------------------------------------------------------------------
 int CNPC_BaseCustomNPC::SelectSchedule()
 {
-	switch (m_NPCState)
+	switch ((int)m_NPCState)
 	{
 	case NPC_STATE_IDLE:
 		AssertMsgOnce(GetEnemy() == NULL, "NPC has enemy but is not in combat state?");
@@ -205,7 +327,10 @@ int CNPC_BaseCustomNPC::SelectSchedule()
 
 	case NPC_STATE_COMBAT:
 		return SelectCombatSchedule();
-
+	case NPC_STATE_AMBUSH:
+		return SelectAmbushSchedule();
+	case NPC_STATE_SURRENDER:
+		return SelectSurrenderSchedule();
 	default:
 		return BaseClass::SelectSchedule();
 	}
@@ -289,12 +414,72 @@ int CNPC_BaseCustomNPC::SelectCombatSchedule()
 	return BaseClass::SelectSchedule(); // Let Base NPC handle it
 }
 
+//-----------------------------------------------------------------------------
+// Combat schedule selection
+//-----------------------------------------------------------------------------
+int CNPC_BaseCustomNPC::SelectAmbushSchedule()
+{
+	// Check enemy death
+	if (HasCondition(COND_ENEMY_DEAD))
+	{
+		// clear the current (dead) enemy and try to find another.
+		SetEnemy(NULL);
+
+		if (ChooseEnemy())
+		{
+			SetState(NPC_STATE_COMBAT);
+			FoundEnemySound();
+			ClearCondition(COND_ENEMY_DEAD);
+			return SelectSchedule();
+		}
+
+		SetState(NPC_STATE_ALERT);
+		return SelectSchedule();
+	}
+
+	
+	CBaseEntity* pEnemy = GetEnemy();
+	if (pEnemy && EnemyDistance(pEnemy) < 128)
+	{
+		SetState(NPC_STATE_COMBAT);
+		return SelectSchedule();
+	}
+	
+	if (pEnemy == NULL || HasCondition(COND_LOST_ENEMY)) {
+		SetState(NPC_STATE_ALERT);
+		return SelectSchedule();
+	}
+
+	// If I am the last in a squad, attack!
+	if (m_iNumSquadmates > m_pSquad->NumMembers())
+		SetState(SelectAmbushIdealState());
+
+	if (HasCondition(COND_LIGHT_DAMAGE)) {
+		SetState(NPC_STATE_COMBAT);
+	}
+
+	if (HasCondition(COND_SEE_ENEMY) && HasCondition(COND_ENEMY_FACING_ME) && HasCondition(COND_HAVE_ENEMY_LOS)) {
+		if(GetState() != NPC_STATE_COMBAT)
+			SetState(SelectAmbushIdealState());
+		return SCHED_HIDE;
+	}
+
+	m_iNumSquadmates = m_pSquad->NumMembers();
+
+	return SCHED_COMBAT_FACE;
+}
+
+int CNPC_BaseCustomNPC::SelectSurrenderSchedule()
+{
+	return BaseClass::SelectSchedule();
+}
+
 bool CNPC_BaseCustomNPC::HasRangedWeapon()
 {
 	CBaseCombatWeapon *pWeapon = GetActiveWeapon();
 
 	if (pWeapon)
-		return !(FClassnameIs(pWeapon, "weapon_crowbar") || FClassnameIs(pWeapon, "weapon_stunstick"));
+		return !(FClassnameIs(pWeapon, "weapon_crowbar") || FClassnameIs(pWeapon, "weapon_stunstick") || FClassnameIs(pWeapon, "weapon_custommelee"));
 
 	return false;
 }
