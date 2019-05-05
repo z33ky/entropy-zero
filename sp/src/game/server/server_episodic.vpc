@@ -52,6 +52,8 @@ $Project "Server (Episodic)"
 		{
 			$Folder	"Mod"
 			{
+				$File	"hl2\npc_bullsquid.h"
+				$File	"hl2\npc_bullsquid.cpp"
 				$File	"episodic\grenade_hopwire.cpp"
 				$File	"episodic\grenade_hopwire.h"
 				$File	"episodic\weapon_hopwire.cpp"

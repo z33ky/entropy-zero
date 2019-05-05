@@ -119,8 +119,11 @@ game_sounds_manifest
 	"precache_file"		"scripts/npc_sounds_alyx_episodic2.txt"
 	"precache_file"		"scripts/npc_sounds_turret_episodic2.txt"
 
-	// 1upD's Halloween NPCs
+	// 1upD's Custom NPCs
 	"precache_file"		"scripts/npc_sounds_shadow_walker.txt"
 	"precache_file"		"scripts/npc_sounds_lost_soul.txt"
+	"precache_file"		"scripts/npc_sounds_bullsquid.txt"
+	
+
 	
 }
