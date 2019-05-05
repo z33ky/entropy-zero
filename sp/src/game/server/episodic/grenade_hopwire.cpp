@@ -18,18 +18,26 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-ConVar hopwire_vortex( "hopwire_vortex", "0" );
-ConVar hopwire_trap( "hopwire_trap", "1" );
+ConVar hopwire_vortex( "hopwire_vortex", "1" );
+
 ConVar hopwire_strider_kill_dist_h( "hopwire_strider_kill_dist_h", "300" );
 ConVar hopwire_strider_kill_dist_v( "hopwire_strider_kill_dist_v", "256" );
 ConVar hopwire_strider_hits( "hopwire_strider_hits", "1" );
+ConVar hopwire_trap("hopwire_trap", "0");
 ConVar hopwire_hopheight( "hopwire_hopheight", "400" );
+
+ConVar hopwire_minheight("hopwire_minheight", "100");
+ConVar hopwire_radius("hopwire_radius", "300");
+ConVar hopwire_strength("hopwire_strength", "150");
+ConVar hopwire_duration("hopwire_duration", "3.0");
+ConVar hopwire_pull_player("hopwire_pull_player", "1");
 
 ConVar g_debug_hopwire( "g_debug_hopwire", "0" );
 
 #define	DENSE_BALL_MODEL	"models/props_junk/metal_paintcan001b.mdl"
 
 #define	MAX_HOP_HEIGHT		(hopwire_hopheight.GetFloat())		// Maximum amount the grenade will "hop" upwards when detonated
+#define	MIN_HOP_HEIGHT		(hopwire_minheight.GetFloat())		// Minimum amount the grenade will "hop" upwards when detonated
 
 class CGravityVortexController : public CBaseEntity
 {
@@ -71,6 +79,10 @@ float CGravityVortexController::GetConsumedMass( void ) const
 //-----------------------------------------------------------------------------
 void CGravityVortexController::ConsumeEntity( CBaseEntity *pEnt )
 {
+	// Don't try to consume the player! What would even happen!?
+	if (pEnt->IsPlayer())
+		return;
+
 	// Get our base physics object
 	IPhysicsObject *pPhysObject = pEnt->VPhysicsGetObject();
 	if ( pPhysObject == NULL )
@@ -206,7 +218,8 @@ void CGravityVortexController::CreateDenseBall( void )
 void CGravityVortexController::PullThink( void )
 {
 	// Pull any players close enough to us
-	PullPlayersInRange();
+	if(hopwire_pull_player.GetBool())
+		PullPlayersInRange();
 
 	Vector mins, maxs;
 	mins = GetAbsOrigin() - Vector( m_flRadius, m_flRadius, m_flRadius );
@@ -223,6 +236,9 @@ void CGravityVortexController::PullThink( void )
 
 	for ( int i = 0; i < numEnts; i++ )
 	{
+		if (pEnts[i]->IsPlayer())
+			continue;
+
 		IPhysicsObject *pPhysObject = NULL;
 
 		// Attempt to kill and ragdoll any victims in range
@@ -354,9 +370,18 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 void CGrenadeHopwire::Spawn( void )
 {
+	if (szWorldModelClosed == NULL || szWorldModelClosed[0] == '\0') {
+		DevMsg("Warning: Missing primary hopwire model, using placeholder models \n");
+		SetWorldModelClosed(GRENADE_MODEL_CLOSED);
+		SetWorldModelOpen(GRENADE_MODEL_OPEN);
+	} else if (szWorldModelOpen == NULL || szWorldModelOpen[0] == '\0') {
+		DevMsg("Warning: Missing secondary hopwire model, using primary model as secondary \n");
+		SetWorldModelOpen(szWorldModelClosed);
+	}
+
 	Precache();
 
-	SetModel( GRENADE_MODEL_CLOSED );
+	SetModel( szWorldModelClosed );
 	SetCollisionGroup( COLLISION_GROUP_PROJECTILE );
 	
 	CreateVPhysics();
@@ -379,11 +404,12 @@ bool CGrenadeHopwire::CreateVPhysics()
 void CGrenadeHopwire::Precache( void )
 {
 	// FIXME: Replace
-	//PrecacheSound("NPC_Strider.Shoot");
+	PrecacheScriptSound("NPC_Strider.Charge");
+	PrecacheScriptSound("NPC_Strider.Shoot");
 	//PrecacheSound("d3_citadel.weapon_zapper_beam_loop2");
 
-	PrecacheModel( GRENADE_MODEL_OPEN );
-	PrecacheModel( GRENADE_MODEL_CLOSED );
+	PrecacheModel( szWorldModelOpen );
+	PrecacheModel(szWorldModelClosed );
 	
 	PrecacheModel( DENSE_BALL_MODEL );
 
@@ -490,7 +516,7 @@ void CGrenadeHopwire::CombatThink( void )
 	KillStriders();
 
 	// FIXME: Replace
-	//EmitSound("NPC_Strider.Shoot");
+	EmitSound("NPC_Strider.Charge"); // Sound to emit during detonation
 	//EmitSound("d3_citadel.weapon_zapper_beam_loop2");
 
 	// Quick screen flash
@@ -501,7 +527,7 @@ void CGrenadeHopwire::CombatThink( void )
 	// Create the vortex controller to pull entities towards us
 	if ( hopwire_vortex.GetBool() )
 	{
-		m_hVortexController = CGravityVortexController::Create( GetAbsOrigin(), 512, 150, 3.0f );
+		m_hVortexController = CGravityVortexController::Create( GetAbsOrigin(), hopwire_radius.GetFloat(), hopwire_strength.GetFloat(), hopwire_duration.GetFloat() );
 
 		// Start our client-side effect
 		EntityMessageBegin( this, true );
@@ -538,7 +564,8 @@ void CGrenadeHopwire::SetVelocity( const Vector &velocity, const AngularImpulse 
 //-----------------------------------------------------------------------------
 void CGrenadeHopwire::Detonate( void )
 {
-	SetModel( GRENADE_MODEL_OPEN );
+	EmitSound("NPC_Strider.Shoot"); // Sound to emit before detonating
+	SetModel(szWorldModelOpen);
 
 	AngularImpulse	hopAngle = RandomAngularImpulse( -300, 300 );
 
@@ -548,6 +575,7 @@ void CGrenadeHopwire::Detonate( void )
 
 	// Jump half the height to the found ceiling
 	float hopHeight = MIN( MAX_HOP_HEIGHT, (MAX_HOP_HEIGHT*tr.fraction) );
+	hopHeight =	MAX(hopHeight, MIN_HOP_HEIGHT);
 
 	//Add upwards velocity for the "hop"
 	Vector hopVel( 0.0f, 0.0f, hopHeight );
@@ -564,10 +592,14 @@ void CGrenadeHopwire::Detonate( void )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-CBaseGrenade *HopWire_Create( const Vector &position, const QAngle &angles, const Vector &velocity, const AngularImpulse &angVelocity, CBaseEntity *pOwner, float timer )
+CBaseGrenade *HopWire_Create( const Vector &position, const QAngle &angles, const Vector &velocity, const AngularImpulse &angVelocity, CBaseEntity *pOwner, float timer, const char * modelClosed, const char * modelOpen)
 {
-	CGrenadeHopwire *pGrenade = (CGrenadeHopwire *) CBaseEntity::Create( "npc_grenade_hopwire", position, angles, pOwner );
-	
+	CGrenadeHopwire *pGrenade = (CGrenadeHopwire *) CBaseEntity::CreateNoSpawn( "npc_grenade_hopwire", position, angles, pOwner ); // Don't spawn the hopwire until models are set!
+	pGrenade->SetWorldModelClosed(modelClosed);
+	pGrenade->SetWorldModelOpen(modelOpen);
+
+	DispatchSpawn(pGrenade);
+
 	// Only set ourselves to detonate on a timer if we're not a trap hopwire
 	if ( hopwire_trap.GetBool() == false )
 	{

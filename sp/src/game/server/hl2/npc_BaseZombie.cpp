@@ -821,7 +821,9 @@ int CNPC_BaseZombie::OnTakeDamage_Alive( const CTakeDamageInfo &inputInfo )
 		// If a zombie is on fire it only takes damage from the fire that's attached to it. (DMG_DIRECT)
 		// This is to stop zombies from burning to death 10x faster when they're standing around
 		// 10 fire entities.
-		if( IsOnFire() && !(inputInfo.GetDamageType() & DMG_DIRECT) )
+		//
+		// 1upD - Flare gun deals both DMG_BURN and DMG_BULLET, so deal damage if the damage type has DMG_BULLET
+		if( IsOnFire() && !(inputInfo.GetDamageType() & DMG_DIRECT) && !(inputInfo.GetDamageType() & DMG_BULLET))
 		{
 			return 0;
 		}

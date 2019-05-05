@@ -20,5 +20,7 @@ weapon_manifest
 	"file"		"scripts/weapon_stunstick.txt"
 	
 	// Custom
-	"file"		"scripts/weapon_custommelee.txt"	
+	"file"		"scripts/weapon_custommelee.txt"
+	"file"		"scripts/weapon_flaregun.txt"	
+	"file"		"scripts/weapon_hopwire.txt"
 }

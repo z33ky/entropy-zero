@@ -340,6 +340,7 @@ public:
 	const FileWeaponInfo_t	&GetWpnData( void ) const;
 	virtual const char		*GetViewModel( int viewmodelindex = 0 ) const;
 	virtual const char		*GetWorldModel( void ) const;
+	virtual const char		*GetSecondaryWorldModel(void) const; // 1upD - adding secondary worldmodel for hopwire grenade
 	virtual const char		*GetAnimPrefix( void ) const;
 	virtual int				GetMaxClip1( void ) const;
 	virtual int				GetMaxClip2( void ) const;
