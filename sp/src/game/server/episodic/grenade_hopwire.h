@@ -34,13 +34,19 @@ public:
 	void	EndThink( void );		// Last think before going away
 	void	CombatThink( void );	// Makes the main explosion go off
 
+	void SetWorldModelClosed(const char * modelName) { Q_strncpy(szWorldModelClosed, modelName, MAX_WEAPON_STRING); }
+	void SetWorldModelOpen(const char * modelName) { Q_strncpy(szWorldModelOpen, modelName, MAX_WEAPON_STRING); }
+
 protected:
 
 	void	KillStriders( void );
 
+	char	szWorldModelClosed[MAX_WEAPON_STRING]; // "models/roller.mdl"
+	char	szWorldModelOpen[MAX_WEAPON_STRING]; // "models/roller_spikes.mdl"
+
 	CHandle<CGravityVortexController>	m_hVortexController;
 };
 
-extern CBaseGrenade *HopWire_Create( const Vector &position, const QAngle &angles, const Vector &velocity, const AngularImpulse &angVelocity, CBaseEntity *pOwner, float timer );
+extern CBaseGrenade *HopWire_Create( const Vector &position, const QAngle &angles, const Vector &velocity, const AngularImpulse &angVelocity, CBaseEntity *pOwner, float timer, const char * modelClosed, const char * modelOpen );
 
 #endif // GRENADE_HOPWIRE_H

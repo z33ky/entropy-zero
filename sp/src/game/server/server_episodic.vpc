@@ -50,6 +50,21 @@ $Project "Server (Episodic)"
 
 		$Folder	"HL2 DLL"
 		{
+			$Folder	"Mod"
+			{
+				$File	"hl2\npc_bullsquid.h"
+				$File	"hl2\npc_bullsquid.cpp"
+				$File	"episodic\grenade_hopwire.cpp"
+				$File	"episodic\grenade_hopwire.h"
+				$File	"episodic\weapon_hopwire.cpp"
+				$File	"mod\npc_base_custom.h"
+				$File	"mod\npc_base_custom.cpp"
+				$File	"mod\npc_lost_soul.cpp"
+				$File	"mod\npc_shadow_walker.h"
+				$File	"mod\npc_shadow_walker.cpp"
+				$File	"mod\weapon_custom_flaregun.cpp"
+				$File	"mod\weapon_custom_melee.h"
+			}
 			$File	"$SRCDIR\game\shared\episodic\achievements_ep1.cpp"
 			$File	"$SRCDIR\game\shared\episodic\achievements_ep2.cpp"
 			$File	"$SRCDIR\game\shared\episodic\achievements_epx.cpp"
