@@ -56,6 +56,11 @@ int AE_FASTZOMBIE_VEHICLE_SS_DIE;	// Killed while doing scripted sequence on veh
 
 #endif // HL2_EPISODIC
 
+#ifdef EZ
+ConVar	sk_zombie_fast_dmg_one_slash("sk_zombie_fast_dmg_one_slash", "12");
+ConVar	sk_zombie_fast_dmg_both_slash("sk_zombie_fast_dmg_both_slash", "22"); // Originally hard coded to 50 in Entropy : Zero
+#endif
+
 enum
 {
 	COND_FASTZOMBIE_CLIMB_TOUCH	= LAST_BASE_ZOMBIE_CONDITION,
@@ -1085,7 +1090,7 @@ void CFastZombie::HandleAnimEvent( animevent_t *pEvent )
 
 		QAngle angle( -3, -5, -3  );
 #ifdef EZ
-		ClawAttack( GetClawAttackRange(), 12, angle, right, ZOMBIE_BLOOD_RIGHT_HAND ); // Breadman - I think this is the fast zombie attack damage right here. Was 3.
+		ClawAttack( GetClawAttackRange(), sk_zombie_fast_dmg_one_slash.GetFloat(), angle, right, ZOMBIE_BLOOD_RIGHT_HAND );
 #else
 		ClawAttack( GetClawAttackRange(), 3, angle, right, ZOMBIE_BLOOD_RIGHT_HAND );
 #endif
@@ -1099,7 +1104,7 @@ void CFastZombie::HandleAnimEvent( animevent_t *pEvent )
 		right = right * 50;
 		QAngle angle( -3, 5, -3 );
 #ifdef EZ
-		ClawAttack( GetClawAttackRange(), 12, angle, right, ZOMBIE_BLOOD_LEFT_HAND ); // Breadman - I think this is the fast zombie attack damage right here. Was 3.
+		ClawAttack( GetClawAttackRange(), sk_zombie_fast_dmg_one_slash.GetFloat(), angle, right, ZOMBIE_BLOOD_LEFT_HAND );
 #else
 		ClawAttack( GetClawAttackRange(), 3, angle, right, ZOMBIE_BLOOD_LEFT_HAND );
 #endif
@@ -1489,7 +1494,7 @@ void CFastZombie::LeapAttackTouch( CBaseEntity *pOther )
 	QAngle qaPunch( 15, random->RandomInt(-5,5), random->RandomInt(-5,5) );
 
 #ifdef EZ
-	ClawAttack( GetClawAttackRange(), 50, qaPunch, forward, ZOMBIE_BLOOD_BOTH_HANDS ); // Breadman - Both claws. Pain train.
+	ClawAttack( GetClawAttackRange(), sk_zombie_fast_dmg_both_slash.GetFloat(), qaPunch, forward, ZOMBIE_BLOOD_BOTH_HANDS ); // Breadman - Both claws. Pain train.
 #else
 	ClawAttack( GetClawAttackRange(), 5, qaPunch, forward, ZOMBIE_BLOOD_BOTH_HANDS );
 #endif
