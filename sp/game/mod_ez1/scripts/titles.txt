@@ -308,6 +308,8 @@ EZ_CR3
 {
 Mod coding:
 John Richardson
+Derek Dik (1upD)
+Blixibon
 }
 
 EZ_CR4
@@ -320,6 +322,7 @@ EZ_CR5
 {
 Mod sounds:
 John Richardson
+Caleb West (CW3D)
 }
 
 EZ_CR6
@@ -406,13 +409,25 @@ Union of Universes and Patrons
 
 EZ_CR17
 {
+v3 / EZ2 Team:
+Caleb West (CW3D)
+Derek Dik (1upD)
+Blixibon
+Kralich
+Max Brando
+Brandy
+Sam Pearson (Trivvy)
+}
+
+EZ_CR18
+{
 Thanks to:
 Alex Malkin (Mod icon creator)
 Breadwife and Kids
 Detectivedom
 }
 
-EZ_CR18
+EZ_CR19
 {
 Thanks to:
 Dominichello
@@ -420,7 +435,7 @@ Valve
 Wazanator
 }
 
-EZ_CR19
+EZ_CR20
 {
 Thanks to:
 /r/Half-Life (I cri evertiem)
@@ -428,15 +443,16 @@ Thanks to:
 Source_Modding (Discord)
 }
 
-EZ_CR20
+EZ_CR21
 {
 Thanks to:
 Lambda Generation
 Mod DB
+All of our followers!
 (You guys are awesome)
 }
 
-EZ_CR21
+EZ_CR22
 {
 In memory of N. Hepburn.
 }

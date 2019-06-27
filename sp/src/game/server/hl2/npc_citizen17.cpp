@@ -2067,9 +2067,11 @@ void CNPC_Citizen::OnEndMoveAndShoot()
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
+// BREADMAN - This is interesting...
+// I've commented this back in to see what it does!
 void CNPC_Citizen::LocateEnemySound()
 {
-#if 0
+#ifdef EZ
 	if ( !GetEnemy() )
 		return;
 
@@ -3845,6 +3847,13 @@ void CNPC_Citizen::DeathSound( const CTakeDamageInfo &info )
 	SentenceStop();
 
 	EmitSound( "NPC_Citizen.Die" );
+#ifdef EZ
+	// BREADMAN - hijacking this
+	// dump a decal beneath us.
+	trace_t tr;
+	AI_TraceLine(GetAbsOrigin() + Vector(0, 0, 1), GetAbsOrigin() - Vector(0, 0, 64), MASK_SOLID_BRUSHONLY | CONTENTS_PLAYERCLIP | CONTENTS_MONSTERCLIP, this, COLLISION_GROUP_NONE, &tr);
+	UTIL_DecalTrace(&tr, "Blood"); // my bits - trying to dump a big splat on the floor when we die.
+#endif
 }
 
 //------------------------------------------------------------------------------

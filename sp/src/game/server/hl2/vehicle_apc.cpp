@@ -726,11 +726,12 @@ void CPropAPC::DriveVehicle( float flFrameTime, CUserCmd *ucmd, int iButtonsDown
 void CPropAPC::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	BaseClass::Use( pActivator, pCaller, useType, value );
-
+#ifndef EZ // BREADMAN ^ commented this out
 	if ( pActivator->IsPlayer() )
 	{
 		 EmitSound ( "combine.door_lock" );
 	}
+#endif
 }
 
 

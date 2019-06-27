@@ -226,7 +226,7 @@ static ImpactEffect_t s_pImpactEffect[26] =
 	{ NULL,					NULL },							// CHAR_TEX_GRATE			
 	{ NULL,					NULL },							// CHAR_TEX_ALIENFLESH		
 	{ NULL,					NULL },							// CHAR_TEX_CLIP			
-	{ NULL,					NULL },							// CHAR_TEX_UNUSED		
+	{ "impact_dirt",		NULL },							// CHAR_TEX_SNOW		
 	{ NULL,					NULL },							// CHAR_TEX_UNUSED		
 	{ NULL,					NULL },							// CHAR_TEX_PLASTIC		
 	{ "impact_metal",		NULL },							// CHAR_TEX_METAL			
@@ -330,6 +330,14 @@ void PerformCustomEffects( const Vector &vecOrigin, trace_t &tr, const Vector &s
 	else if ( ( iMaterial == CHAR_TEX_DIRT ) || ( iMaterial == CHAR_TEX_SAND ) )
 	{
 		FX_DustImpact( vecOrigin, &tr, iScale );
+#ifdef EZ
+		FX_DebrisFlecks(vecOrigin, &tr, iMaterial, iScale, bNoFlecks); // BREADMAN - this wasn't here before!
+#endif
+	}
+	else if (iMaterial == CHAR_TEX_SNOW)
+	{
+		FX_DustImpact(vecOrigin, &tr, iScale * 2); // 2x impact for snow for dramatic effect
+		FX_DebrisFlecks(vecOrigin, &tr, iMaterial, iScale, bNoFlecks);
 	}
 	else if ( iMaterial == CHAR_TEX_ANTLION )
 	{
@@ -340,12 +348,17 @@ void PerformCustomEffects( const Vector &vecOrigin, trace_t &tr, const Vector &s
 		Vector	reflect;
 		float	dot = shotDir.Dot( tr.plane.normal );
 		reflect = shotDir + ( tr.plane.normal * ( dot*-2.0f ) );
-
+#ifdef EZ
+		reflect[0] += random->RandomFloat( -0.8f, 0.8f ); //BREADMAN all were -0.2 and 2
+		reflect[1] += random->RandomFloat( -0.8f, 0.8f );
+		reflect[2] += random->RandomFloat( -0.8f, 0.8f );
+		FX_ElectricSpark(vecOrigin, iScale, iScale, &reflect);
+#else
 		reflect[0] += random->RandomFloat( -0.2f, 0.2f );
 		reflect[1] += random->RandomFloat( -0.2f, 0.2f );
 		reflect[2] += random->RandomFloat( -0.2f, 0.2f );
-
-		FX_MetalSpark( vecOrigin, reflect, tr.plane.normal, iScale );
+		FX_MetalSpark(vecOrigin, reflect, tr.plane.normal, iScale);
+#endif
 	}
 	else if ( iMaterial == CHAR_TEX_COMPUTER )
 	{

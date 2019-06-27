@@ -221,7 +221,7 @@ void FX_TracerSound( const Vector &start, const Vector &end, int iTracerType )
 		{
 			pszSoundName = "Bullets.DefaultNearmiss";
 #ifdef EZ
-			flWhizDist = 1000; // was 24
+			flWhizDist = 2000; // was 24
 #else
 			flWhizDist = 24;
 #endif

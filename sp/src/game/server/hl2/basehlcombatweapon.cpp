@@ -94,7 +94,12 @@ void CHLMachineGun::PrimaryAttack( void )
 	info.m_vecSpread = pPlayer->GetAttackSpread( this );
 	info.m_flDistance = MAX_TRACE_LENGTH;
 	info.m_iAmmoType = m_iPrimaryAmmoType;
+#ifdef EZ
+	info.m_iTracerFreq = 1;
+#else
 	info.m_iTracerFreq = 2;
+#endif
+
 	FireBullets( info );
 
 	//Factor in the view kick

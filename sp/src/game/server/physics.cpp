@@ -2646,6 +2646,7 @@ void PhysCollisionDust( gamevcollisionevent_t *pEvent, surfacedata_t *phit )
 
 	switch ( phit->game.material )
 	{
+	case CHAR_TEX_SNOW:
 	case CHAR_TEX_SAND:
 	case CHAR_TEX_DIRT:
 

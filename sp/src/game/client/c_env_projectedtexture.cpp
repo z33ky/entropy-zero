@@ -1,6 +1,6 @@
 //========= Copyright Valve Corporation, All rights reserved. ============//
 //
-// Purpose: 
+// Purpose: BREADMAN - added in transmissions code. this whole thing is from their source.
 //
 //=============================================================================
 
@@ -17,8 +17,13 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#ifdef EZ
+static ConVar mat_slopescaledepthbias_shadowmap("mat_slopescaledepthbias_shadowmap", "4", FCVAR_CHEAT);
+static ConVar mat_depthbias_shadowmap("mat_depthbias_shadowmap", "0.00001", FCVAR_CHEAT);
+#else
 static ConVar mat_slopescaledepthbias_shadowmap( "mat_slopescaledepthbias_shadowmap", "16", FCVAR_CHEAT );
 static ConVar mat_depthbias_shadowmap(	"mat_depthbias_shadowmap", "0.0005", FCVAR_CHEAT  );
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -33,8 +38,9 @@ public:
 	void	ShutDownLightHandle( void );
 
 	virtual void Simulate();
+	virtual void CreateShadow();//TE120
 
-	void	UpdateLight( bool bForceUpdate );
+	void	UpdateLight(bool bForceUpdate);
 
 	C_EnvProjectedTexture();
 	~C_EnvProjectedTexture();
@@ -101,11 +107,19 @@ void C_EnvProjectedTexture::ShutDownLightHandle( void )
 // Purpose: 
 // Input  : updateType - 
 //-----------------------------------------------------------------------------
-void C_EnvProjectedTexture::OnDataChanged( DataUpdateType_t updateType )
+void C_EnvProjectedTexture::OnDataChanged(DataUpdateType_t updateType)
 {
-	UpdateLight( true );
-	BaseClass::OnDataChanged( updateType );
+	UpdateLight(true);
+	BaseClass::OnDataChanged(updateType);
 }
+
+//TE120--
+void C_EnvProjectedTexture::CreateShadow()
+{
+	if (m_bState == true)
+		BaseClass::CreateShadow();
+}
+//TE120--
 
 void C_EnvProjectedTexture::UpdateLight( bool bForceUpdate )
 {
@@ -153,21 +167,19 @@ void C_EnvProjectedTexture::UpdateLight( bool bForceUpdate )
 		}
 		else
 		{
-			vForward = m_hTargetEntity->GetAbsOrigin() - GetAbsOrigin();
-			VectorNormalize( vForward );
-
-			// JasonM - unimplemented
-			Assert (0);
-
-			//Quaternion q = DirectionToOrientation( dir );
-
-
-			//
-			// JasonM - set up vRight, vUp
-			//
-
-//			VectorNormalize( vRight );
-//			VectorNormalize( vUp );
+			// VXP: Fixing targeting
+			Vector vecToTarget;
+			QAngle vecAngles;
+			if (m_hTargetEntity == NULL)
+			{
+				vecAngles = GetAbsAngles();
+			}
+			else
+			{
+				vecToTarget = m_hTargetEntity->GetAbsOrigin() - GetAbsOrigin();
+				VectorAngles(vecToTarget, vecAngles);
+			}
+			AngleVectors(vecAngles, &vForward, &vRight, &vUp);
 		}
 	}
 	else
