@@ -6153,18 +6153,43 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 #endif		
 		GiveNamedItem( "weapon_smg1" );
 		GiveNamedItem( "weapon_frag" );
-		GiveNamedItem( "weapon_crowbar" );
+#ifdef EZ1
+		GiveNamedItem("weapon_stunstick");
+#else
+		GiveNamedItem("weapon_crowbar");
+#endif
+#ifndef EZ2
 		GiveNamedItem( "weapon_pistol" );
+#endif
 		GiveNamedItem( "weapon_ar2" );
 		GiveNamedItem( "weapon_shotgun" );
+#ifndef EZ2
 		GiveNamedItem( "weapon_physcannon" );
 		GiveNamedItem( "weapon_bugbait" );
+#endif
 		GiveNamedItem( "weapon_rpg" );
 		GiveNamedItem( "weapon_357" );
 		GiveNamedItem( "weapon_crossbow" );
 #ifdef HL2_EPISODIC
 		// GiveNamedItem( "weapon_magnade" );
 #endif
+
+#ifdef EZ2
+		GiveAmmo(3, "XenGrenade");
+		GiveAmmo(3, "slam");
+		GiveAmmo(3, "FlareRound");
+		GiveNamedItem("weapon_pulsepistol");
+		GiveNamedItem("weapon_smg2");
+		GiveNamedItem("weapon_flaregun");
+		GiveNamedItem("weapon_slam");
+		GiveNamedItem("weapon_hopwire");
+#endif
+
+#ifdef EZ1
+		GiveNamedItem("weapon_manhacktoss");
+		GiveAmmo(2, "Manhack");
+#endif
+
 		if ( GetHealth() < 100 )
 		{
 			TakeHealth( 25, DMG_GENERIC );

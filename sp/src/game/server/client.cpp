@@ -951,6 +951,14 @@ static ConCommand test_dispatcheffect("test_dispatcheffect", CC_Player_TestDispa
 //-----------------------------------------------------------------------------
 void CC_Player_PhysSwap( void )
 {
+#ifdef EZ1
+	const char * weaponName = "weapon_stunstick";
+#elif EZ2
+	const char * weaponName = "weapon_pulsepistol";
+#else
+	const char * weaponName = "weapon_physcannon";
+#endif
+
 	CBasePlayer *pPlayer = ToBasePlayer( UTIL_GetCommandClient() );
 	
 	if ( pPlayer )
@@ -964,14 +972,14 @@ void CC_Player_PhysSwap( void )
 
 			const char *strWeaponName = pWeapon->GetName();
 
-			if ( !Q_stricmp( strWeaponName, "weapon_physcannon" ) )
+			if ( !Q_stricmp( strWeaponName, weaponName) )
 			{
 				PhysCannonForceDrop( pWeapon, NULL );
 				pPlayer->SelectLastItem();
 			}
 			else
 			{
-				pPlayer->SelectItem( "weapon_physcannon" );
+				pPlayer->SelectItem(weaponName);
 			}
 		}
 	}

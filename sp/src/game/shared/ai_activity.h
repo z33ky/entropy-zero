@@ -2107,6 +2107,13 @@ typedef enum
 	ACT_SPELL_VM_ARM, 
 	ACT_SPELL_VM_FIRE,
 
+	// Command animations
+	ACT_VM_COMMAND_RECALL,
+	ACT_VM_COMMAND_SEND,
+
+	// New viewmodel animations
+	ACT_VM_FIRSTDRAW,
+
 	// this is the end of the global activities, private per-monster activities start here.
 	LAST_SHARED_ACTIVITY,
 } Activity;

@@ -81,7 +81,11 @@ ConVar sv_autojump( "sv_autojump", "0" );
 
 ConVar hl2_walkspeed( "hl2_walkspeed", "150" );
 ConVar hl2_normspeed( "hl2_normspeed", "190" );
+#ifdef EZ2
+ConVar hl2_sprintspeed("hl2_sprintspeed", "285");		// 1upD - Changing default from 320
+#else
 ConVar hl2_sprintspeed( "hl2_sprintspeed", "320" );
+#endif
 
 ConVar hl2_darkness_flashlight_factor ( "hl2_darkness_flashlight_factor", "1" );
 
@@ -100,12 +104,25 @@ ConVar player_showpredictedposition_timestep( "player_showpredictedposition_time
 
 ConVar player_squad_transient_commands( "player_squad_transient_commands", "1", FCVAR_REPLICATED );
 ConVar player_squad_double_tap_time( "player_squad_double_tap_time", "0.25" );
-
-ConVar sv_infinite_aux_power( "sv_infinite_aux_power", "0", FCVAR_CHEAT );
+#ifdef EZ
+ConVar sv_infinite_aux_power( "sv_infinite_aux_power", "1", FCVAR_CHEAT );
+#else
+ConVar sv_infinite_aux_power("sv_infinite_aux_power", "0", FCVAR_CHEAT);
+#endif
 
 ConVar autoaim_unlock_target( "autoaim_unlock_target", "0.8666" );
 
 ConVar sv_stickysprint("sv_stickysprint", "0", FCVAR_ARCHIVE | FCVAR_ARCHIVE_XBOX);
+#ifdef EZ2
+ConVar sv_command_viewmodel_anims("sv_command_viewmodel_anims", "1", FCVAR_REPLICATED);
+ConVar sv_disallow_zoom_fire("sv_disallow_zoom_fire", "0", FCVAR_REPLICATED);
+#else
+ConVar sv_command_viewmodel_anims("sv_command_viewmodel_anims", "0", FCVAR_REPLICATED);
+ConVar sv_disallow_zoom_fire("sv_disallow_zoom_fire", "1", FCVAR_REPLICATED);
+#endif
+
+// Maximum suit value
+ConVar sk_suit_maxarmor("sk_suit_maxarmor", "100", FCVAR_REPLICATED);
 
 #define	FLASH_DRAIN_TIME	 1.1111	// 100 units / 90 secs
 #define	FLASH_CHARGE_TIME	 50.0f	// 100 units / 2 secs
@@ -868,28 +885,31 @@ void CHL2_Player::PreThink(void)
 	UpdateWeaponPosture();
 
 	// Disallow shooting while zooming
-	if ( IsX360() )
+	if (sv_disallow_zoom_fire.GetBool())
 	{
-		if ( IsZooming() )
+		if (IsX360())
 		{
-			if( GetActiveWeapon() && !GetActiveWeapon()->IsWeaponZoomed() )
+			if (IsZooming())
 			{
-				// If not zoomed because of the weapon itself, do not attack.
-				m_nButtons &= ~(IN_ATTACK|IN_ATTACK2);
+				if (GetActiveWeapon() && !GetActiveWeapon()->IsWeaponZoomed())
+				{
+					// If not zoomed because of the weapon itself, do not attack.
+					m_nButtons &= ~(IN_ATTACK | IN_ATTACK2);
+				}
 			}
 		}
-	}
-	else
-	{
-		if ( m_nButtons & IN_ZOOM )
+		else
 		{
-			//FIXME: Held weapons like the grenade get sad when this happens
-	#ifdef HL2_EPISODIC
-			// Episodic allows players to zoom while using a func_tank
-			CBaseCombatWeapon* pWep = GetActiveWeapon();
-			if ( !m_hUseEntity || ( pWep && pWep->IsWeaponVisible() ) )
-	#endif
-			m_nButtons &= ~(IN_ATTACK|IN_ATTACK2);
+			if (m_nButtons & IN_ZOOM)
+			{
+				//FIXME: Held weapons like the grenade get sad when this happens
+#ifdef HL2_EPISODIC
+		// Episodic allows players to zoom while using a func_tank
+				CBaseCombatWeapon* pWep = GetActiveWeapon();
+				if (!m_hUseEntity || (pWep && pWep->IsWeaponVisible()))
+#endif
+					m_nButtons &= ~(IN_ATTACK | IN_ATTACK2);
+			}
 		}
 	}
 }
@@ -1584,10 +1604,22 @@ bool CHL2_Player::CommanderExecuteOne( CAI_BaseNPC *pNpc, const commandgoal_t &g
 {
 	if ( goal.m_pGoalEntity )
 	{
+#ifdef EZ
+		// 1upD - If this is a recall order, try to play the 'recall squad' viewmodel animation
+		if ( sv_command_viewmodel_anims.GetBool() && GetActiveWeapon() && goal.m_pGoalEntity == this ) {
+			GetActiveWeapon()->SendViewModelAnim(ACT_VM_COMMAND_RECALL);
+		}
+#endif
 		return pNpc->TargetOrder( goal.m_pGoalEntity, Allies, numAllies );
 	}
 	else if ( pNpc->IsInPlayerSquad() )
 	{
+#ifdef EZ
+		// 1upD - Try to play the 'send squad' viewmodel animation
+		if (sv_command_viewmodel_anims.GetBool() && GetActiveWeapon() && goal.m_pGoalEntity == this ) {
+			GetActiveWeapon()->SendViewModelAnim(ACT_VM_COMMAND_SEND);
+		}
+#endif
 		pNpc->MoveOrder( goal.m_vecGoalLocation, Allies, numAllies );
 	}
 	
@@ -1978,13 +2010,13 @@ ConVar	sk_battery( "sk_battery","0" );
 
 bool CHL2_Player::ApplyBattery( float powerMultiplier )
 {
-	const float MAX_NORMAL_BATTERY = 100;
-	if ((ArmorValue() < MAX_NORMAL_BATTERY) && IsSuitEquipped())
+	float maxNormalBattery = sk_suit_maxarmor.GetFloat();
+	if ((ArmorValue() < maxNormalBattery) && IsSuitEquipped())
 	{
 		int pct;
 		char szcharge[64];
 
-		IncrementArmorValue( sk_battery.GetFloat() * powerMultiplier, MAX_NORMAL_BATTERY );
+		IncrementArmorValue( sk_battery.GetFloat() * powerMultiplier, maxNormalBattery );
 
 		CPASAttenuationFilter filter( this, "ItemBattery.Touch" );
 		EmitSound( filter, entindex(), "ItemBattery.Touch" );
@@ -1999,7 +2031,7 @@ bool CHL2_Player::ApplyBattery( float powerMultiplier )
 		
 		// Suit reports new power level
 		// For some reason this wasn't working in release build -- round it.
-		pct = (int)( (float)(ArmorValue() * 100.0) * (1.0/MAX_NORMAL_BATTERY) + 0.5);
+		pct = (int)( (float)(ArmorValue() * 100.0) * (1.0/maxNormalBattery) + 0.5);
 		pct = (pct / 5);
 		if (pct > 0)
 			pct--;
