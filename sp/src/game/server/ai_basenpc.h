@@ -36,6 +36,7 @@
 #include "soundent.h"
 #include "ai_navigator.h"
 #include "tier1/functors.h"
+#include "Sprite.h"
 
 
 #define PLAYER_SQUADNAME "player_squad"
@@ -418,6 +419,37 @@ struct ScriptedNPCInteraction_t
 	DECLARE_SIMPLE_DATADESC();
 };
 
+// -----------------------------------------
+// Glow sprite data
+// -----------------------------------------
+struct EyeGlow_t
+{
+	EyeGlow_t() 
+	{
+		red = 0;
+		green = 0;
+		blue = 0;
+		scale = 0;
+		alpha = 0;
+		renderMode = kRenderTransAdd;
+		brightness = 0;
+		proxyScale = 0.0f;
+		spriteName = NULL;
+		attachment = NULL;
+	}
+
+	int red;
+	int green;
+	int blue;
+	int alpha;
+	RenderMode_t renderMode;
+	float brightness;
+	float scale;
+	float proxyScale;
+	const char *spriteName;
+	const char *attachment;
+};
+
 //=============================================================================
 //
 // Utility functions
@@ -613,7 +645,7 @@ public:
 	virtual void		MakeTracer( const Vector &vecTracerSrc, const trace_t &tr, int iTracerType );
 	virtual const char	*GetTracerType( void );
 	virtual void		DoImpactEffect( trace_t &tr, int nDamageType );
-		
+
 	enum
 	{
 		NEXT_SCHEDULE 	= LAST_SHARED_SCHEDULE,
@@ -2123,6 +2155,19 @@ public:
 	void				GetPlayerAvoidBounds( Vector *pMins, Vector *pMaxs );
 
 	void				StartPingEffect( void ) { m_flTimePingEffect = gpGlobals->curtime + 2.0f; DispatchUpdateTransmitState(); }
+
+#ifdef EZ
+protected:
+	// Glow Effects
+	CSprite		* m_pEyeGlow;
+
+	virtual void		StartEye(void); // Start glow effects for this NPC
+	virtual void		KillSprites(float flDelay); // Stop all glow effects
+	virtual CSprite		* GetGlowSpritePtr(int i);
+	virtual void		  SetGlowSpritePtr(int i, CSprite * sprite);
+	virtual EyeGlow_t	* GetEyeGlowData(int i) { return NULL; };
+	virtual int			GetNumGlows() { return 1; };
+#endif
 };
 
 

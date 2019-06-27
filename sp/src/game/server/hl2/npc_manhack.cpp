@@ -406,10 +406,11 @@ void CNPC_Manhack::Event_Killed( const CTakeDamageInfo &info )
 	else
 	{
 		m_bGib = false;
-		
+#ifndef EZ		
 		//FIXME: These don't stay with the ragdolls currently -- jdw
 		// Long fadeout on the sprites!!
 		KillSprites( 0.0f );
+#endif
 	}
 
 	BaseClass::Event_Killed( info );
@@ -2469,6 +2470,93 @@ void CNPC_Manhack::Spawn(void)
 	StopLoitering();
 }
 
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: Return the pointer for a given sprite given an index
+//-----------------------------------------------------------------------------
+CSprite	* CNPC_Manhack::GetGlowSpritePtr(int index) {
+	switch (index) {
+		case 0:
+			return m_pEyeGlow;
+		case 1:
+			return m_pLightGlow;
+		default:
+			return BaseClass::GetGlowSpritePtr(index);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Sets the glow sprite at the given index
+//-----------------------------------------------------------------------------
+void CNPC_Manhack::SetGlowSpritePtr(int index, CSprite * sprite)
+{
+	switch (index) {
+	case 0:
+		m_pEyeGlow = sprite;
+		break;
+	case 1:
+		m_pLightGlow = sprite;
+		break;
+	default:
+		BaseClass::SetGlowSpritePtr(index, sprite);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Return the glow attributes for a given index
+//-----------------------------------------------------------------------------
+EyeGlow_t * CNPC_Manhack::GetEyeGlowData(int index)
+{
+	EyeGlow_t * eyeGlow = new EyeGlow_t();
+
+	switch(index){
+	case 0 :
+		eyeGlow->spriteName = MANHACK_GLOW_SPRITE;
+		eyeGlow->attachment = "Eye";
+
+		eyeGlow->alpha = 128;
+		eyeGlow->brightness = 164;
+		if (m_bHackedByAlyx)
+		{
+			eyeGlow->red = 0;
+			eyeGlow->green = 255;
+			eyeGlow->blue = 255;
+		}
+		else
+		{
+			eyeGlow->red = 255;
+			eyeGlow->green = 0;
+			eyeGlow->blue = 0;
+		}
+		eyeGlow->renderMode = kRenderTransAdd;
+		eyeGlow->scale = 0.25f;
+		return eyeGlow;
+	case 1:
+		eyeGlow->spriteName = MANHACK_GLOW_SPRITE;
+		eyeGlow->attachment = "Light";
+
+		eyeGlow->alpha = 128;
+		eyeGlow->brightness = 164;
+		if (m_bHackedByAlyx)
+		{
+			eyeGlow->red = 0;
+			eyeGlow->green = 255;
+			eyeGlow->blue = 255;
+		}
+		else
+		{
+			eyeGlow->red = 255;
+			eyeGlow->green = 0;
+			eyeGlow->blue = 0;
+		}
+		eyeGlow->renderMode = kRenderTransAdd;
+		eyeGlow->scale = 0.25f;
+		return eyeGlow;
+	default:
+		return NULL;
+	}
+}
+#else
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -2482,18 +2570,13 @@ void CNPC_Manhack::StartEye( void )
 		
 		if( m_bHackedByAlyx )
 		{
-#ifdef EZ
-			m_pEyeGlow->SetTransparency(kRenderTransAdd, 0, 255, 255, 128, kRenderFxNoDissipation);
-			m_pEyeGlow->SetColor(0, 255, 255);
-#else
-			m_pEyeGlow->SetTransparency( kRenderTransAdd, 0, 255, 0, 128, kRenderFxNoDissipation );
-			m_pEyeGlow->SetColor( 0, 255, 0 );
-#endif
+			m_pEyeGlow->SetTransparency(kRenderTransAdd, 0, 255, 0, 128, kRenderFxNoDissipation);
+			m_pEyeGlow->SetColor(0, 255, 0);
 		}
 		else
 		{
-			m_pEyeGlow->SetTransparency( kRenderTransAdd, 255, 0, 0, 128, kRenderFxNoDissipation );
-			m_pEyeGlow->SetColor( 255, 0, 0 );
+			m_pEyeGlow->SetTransparency(kRenderTransAdd, 255, 0, 0, 128, kRenderFxNoDissipation);
+			m_pEyeGlow->SetColor(255, 0, 0);
 		}
 
 		m_pEyeGlow->SetBrightness( 164, 0.1f );
@@ -2509,13 +2592,8 @@ void CNPC_Manhack::StartEye( void )
 
 		if( m_bHackedByAlyx )
 		{
-#ifdef EZ
-			m_pLightGlow->SetTransparency( kRenderTransAdd, 0, 255, 255, 128, kRenderFxNoDissipation );
-			m_pLightGlow->SetColor( 0, 255, 255 );
-#else
-			m_pLightGlow->SetTransparency( kRenderTransAdd, 0, 255, 0, 128, kRenderFxNoDissipation );
-			m_pLightGlow->SetColor( 0, 255, 0 );
-#endif
+			m_pLightGlow->SetTransparency(kRenderTransAdd, 0, 255, 0, 128, kRenderFxNoDissipation);
+			m_pLightGlow->SetColor(0, 255, 0);
 		}
 		else
 		{
@@ -2528,17 +2606,19 @@ void CNPC_Manhack::StartEye( void )
 		m_pLightGlow->SetAsTemporary();
 	}
 }
+#endif
 
 //-----------------------------------------------------------------------------
 
 void CNPC_Manhack::Activate()
 {
 	BaseClass::Activate();
-
+#ifndef EZ
 	if ( IsAlive() )
 	{
 		StartEye();
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2821,7 +2901,9 @@ void CNPC_Manhack::StartTask( const Task_t *pTask )
 void CNPC_Manhack::UpdateOnRemove( void )
 {
 	DestroySmokeTrail();
+#ifndef EZ
 	KillSprites( 0.0 );
+#endif
 	BaseClass::UpdateOnRemove();
 }
 
@@ -2903,6 +2985,7 @@ void CNPC_Manhack::ClampMotorForces( Vector &linear, AngularImpulse &angular )
 	angular.z *= scale;
 }
 
+#ifndef EZ
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -2929,6 +3012,7 @@ void CNPC_Manhack::KillSprites( float flDelay )
 	}
 	*/
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Tests whether we're above the target's feet but also below their top

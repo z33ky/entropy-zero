@@ -719,6 +719,82 @@ void CNPC_Combine::RunTaskChaseEnemyContinuously( const Task_t *pTask )
 	m_vSavePosition = pEnemy->WorldSpaceCenter();
 }
 
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: Return the glow attributes for a given index
+//-----------------------------------------------------------------------------
+EyeGlow_t * CNPC_Combine::GetEyeGlowData(int i)
+{
+	if (i != 0)
+		return NULL;
+
+	EyeGlow_t * eyeGlow = new EyeGlow_t();
+
+	string_t iszModel_Elite = AllocPooledString("models/combine_super_soldier.mdl");
+	string_t iszModel_PrisonGuard = AllocPooledString("models/combine_soldier_prisonguard.mdl");
+	string_t iszModel_RegularSoldier = AllocPooledString("models/combine_soldier.mdl");
+	string_t iszModelName = GetModelName();
+
+	if (iszModelName == iszModel_RegularSoldier)
+	{
+		if (m_nSkin == COMBINE_SKIN_SHOTGUNNER)
+		{
+			// Orange eyes
+			eyeGlow->red = 255;
+			eyeGlow->green = 64;
+			eyeGlow->blue = 0;
+			eyeGlow->alpha = 100;
+		}
+		else
+		{
+			// Blue eyes
+			eyeGlow->red = 0;
+			eyeGlow->green = 50;
+			eyeGlow->blue = 150;
+			eyeGlow->alpha = 100;
+		}
+	}
+	else if (iszModelName == iszModel_Elite)
+	{
+		// Red eye
+		eyeGlow->red = 255;
+		eyeGlow->green = 0;
+		eyeGlow->blue = 0;
+		eyeGlow->alpha = 150;
+	}
+	else if (iszModelName == iszModel_PrisonGuard)
+	{
+		if (m_nSkin == COMBINE_SKIN_SHOTGUNNER)
+		{
+			// Red eyes
+			eyeGlow->red = 255;
+			eyeGlow->green = 0;
+			eyeGlow->blue = 0;
+			eyeGlow->alpha = 100;
+		}
+		else
+		{
+			// Green eyes
+			eyeGlow->red = 50;
+			eyeGlow->green = 150;
+			eyeGlow->blue = 25;
+			eyeGlow->alpha = 100;
+		}
+	}
+	else
+	{
+		// Not a recognizable Combine type. No glow.
+		return NULL;
+	}
+
+	eyeGlow->spriteName = "sprites/light_glow02.vmt";
+	eyeGlow->attachment = "eyes";
+	eyeGlow->scale = 0.3f;
+	eyeGlow->proxyScale = 3.0f;
+	eyeGlow->renderMode = kRenderGlow;
+	return eyeGlow;
+}
+#endif
 
 //=========================================================
 // start task
