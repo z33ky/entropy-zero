@@ -569,4 +569,96 @@ protected:
 	}
 };
 DECLARE_ACHIEVEMENT(CAchievementEZEvictionNotice, ACHIEVEMENT_EZ_ENOTICE, "ACH_EZ_ENOTICE", 5);
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Complete the mod on Normal difficulty
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class CAchievementEZFinishNormal : public CFailableAchievement
+{
+protected:
+
+	void Init()
+	{
+		SetFlags(ACH_LISTEN_SKILL_EVENTS | ACH_LISTEN_MAP_EVENTS | ACH_SAVE_WITH_GAME);
+		SetGameDirFilter("EntropyZero");
+		SetGoal(1);
+	}
+
+	virtual void Event_SkillChanged(int iSkillLevel, IGameEvent * event)
+	{
+		if (g_iSkillLevel < SKILL_MEDIUM)
+		{
+			SetAchieved(false);
+			SetFailed();
+		}
+	}
+
+	// Upon activating this achievement, test the current skill level
+	virtual void OnActivationEvent() {
+		Activate();
+		Event_SkillChanged(g_iSkillLevel, NULL);
+	}
+
+	// map event where achievement is activated
+	virtual const char *GetActivationEventName() { return "EZ_START_GAME"; }
+	// map event where achievement is evaluated for success
+	virtual const char *GetEvaluationEventName() { return "EZ_BEAT_GAME"; }
+};
+DECLARE_ACHIEVEMENT(CAchievementEZFinishNormal, ACHIEVEMENT_EZ_NMODE, "ACH_EZ_NMODE", 15);
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Complete the mod on Hard difficulty
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class CAchievementEZFinishHard : public CFailableAchievement
+{
+protected:
+
+	void Init()
+	{
+		SetFlags(ACH_LISTEN_SKILL_EVENTS | ACH_LISTEN_MAP_EVENTS | ACH_SAVE_WITH_GAME);
+		SetGameDirFilter("EntropyZero");
+		SetGoal(1);
+	}
+
+	virtual void Event_SkillChanged(int iSkillLevel, IGameEvent * event)
+	{
+		if (g_iSkillLevel < SKILL_HARD)
+		{
+			SetAchieved(false);
+			SetFailed();
+		}
+	}
+
+	// Upon activating this achievement, test the current skill level
+	virtual void OnActivationEvent() {
+		Activate();
+		Event_SkillChanged(g_iSkillLevel, NULL);
+	}
+
+	// map event where achievement is activated
+	virtual const char *GetActivationEventName() { return "EZ_START_GAME"; }
+	// map event where achievement is evaluated for success
+	virtual const char *GetEvaluationEventName() { return "EZ_BEAT_GAME"; }
+};
+DECLARE_ACHIEVEMENT(CAchievementEZFinishHard, ACHIEVEMENT_EZ_HMODE, "ACH_EZ_HMODE", 15);
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Die 100 times in Entropy : Zero
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class CAchievementEZBulletHangover : public CBaseAchievement
+{
+protected:
+
+	virtual void Init()
+	{
+		SetVictimFilter("player");
+		SetFlags(ACH_LISTEN_KILL_EVENTS | ACH_SAVE_GLOBAL);
+		SetGameDirFilter("EntropyZero");
+		SetGoal(100);
+	}
+
+	// Don't show progress for this achievement
+	virtual bool ShouldShowProgressNotification() { return false; }
+
+	//// map event where achievement is activated
+	virtual const char *GetActivationEventName() { return "EZ_START_GAME"; }
+};
+DECLARE_ACHIEVEMENT(CAchievementEZBulletHangover, ACHIEVEMENT_EZ_BHANGOVER, "ACH_EZ_BHANGOVER", 5);
 #endif // GAME_DLL

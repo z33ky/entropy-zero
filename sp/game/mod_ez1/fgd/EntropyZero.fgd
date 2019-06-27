@@ -4154,6 +4154,8 @@
 		"ACHIEVEMENT_EVENT_PORTAL_KILL_COMPANIONCUBE"					: "[PORTAL] Do whatever it takes to survive."
 		"ACHIEVEMENT_EVENT_PORTAL_ESCAPE_TESTCHAMBERS"					: "[PORTAL] Make the correct party escort submission position decision."
 		"ACHIEVEMENT_EVENT_PORTAL_BEAT_GAME"					: "[PORTAL] Complete Portal."
+		"ACHIEVEMENT_EVENT_EZ_START_GAME"					: "[EZ] Began Entropy : Zero (for tracking difficulty achievements)"
+		"ACHIEVEMENT_EVENT_EZ_BEAT_GAME"					: "[EZ] Complete Entropy : Zero."
 	]
 
 	// Inputs

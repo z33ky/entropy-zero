@@ -29,6 +29,9 @@ public:
 	virtual void Init() {}
 	virtual void ListenForEvents() {};
 	virtual void Event_EntityKilled( CBaseEntity *pVictim, CBaseEntity *pAttacker, CBaseEntity *pInflictor, IGameEvent *event );
+#ifdef EZ
+	virtual void Event_SkillChanged(int iSkillLevel, IGameEvent * event) {}
+#endif
 
 	int GetAchievementID() { return m_iAchievementID; }
 	void SetAchievementID( int iAchievementID ) { m_iAchievementID = iAchievementID; }
