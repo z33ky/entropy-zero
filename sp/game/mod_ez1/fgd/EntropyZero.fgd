@@ -789,6 +789,7 @@
 	additionalequipment(choices) : "Weapons" : "0" =
 	[
 		"weapon_smg1" : "SMG1"
+		"weapon_smg2" : "MP5K"
 		"weapon_ar2" : "AR2"
 		"weapon_stunstick" : "Stun Stick"
 		"weapon_crowbar" : "Crow Bar"
@@ -818,6 +819,8 @@
 		1 : "Downtrodden"
 		2 : "Refugee"
 		3 : "Rebel"
+		5 : "Rebel Brute"
+		6 : "Long Fall"
 		4 : "Unique"
 	]
 
@@ -867,7 +870,15 @@
 	]
 
 	denycommandconcept(string) : "Deny command speech concept" : "" : "If you want your citizens to squad with the player but not obey commands the player gives to move the squad, put a concept here and this citizen will speak the concept instead of obeying the order."
+	
+	willpowerdisabled(choices) : "Use Willpower System?" : 0 : "Citizens in Entropy : Zero will calculate a 'willpower score' based on their current conditions. If they believe conditions are favorable, they will fight more aggressively. If conditions are unfavorable, they will fear enemies instead of hating them and retreat from combat. In general, citizens that are locked to a single location with limited mobility should have willpower disabled."=
+	[
+		0 : "Use willpower"
+		1 : "Do not use willpower"
+	]
 
+	willpowermodifier(integer) : "Willpower modifier" : 0 : "This value is added to the willpower calculation to make them more brave. (Or more cowardly, if negative) Has no effect if not using the willpower system for the Citizen."
+	
     //Inputs
 	input RemoveFromPlayerSquad(void) : "Remove from player squad, instantly."
 	input SetExpressionOverride(string) : "Set facial expression override"

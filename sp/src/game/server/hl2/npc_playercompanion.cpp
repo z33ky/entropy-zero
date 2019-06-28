@@ -36,6 +36,12 @@ ConVar ai_debug_readiness("ai_debug_readiness", "0" );
 ConVar ai_use_readiness("ai_use_readiness", "1" ); // 0 = off, 1 = on, 2 = on for player squad only
 ConVar ai_readiness_decay( "ai_readiness_decay", "120" );// How many seconds it takes to relax completely
 ConVar ai_new_aiming( "ai_new_aiming", "1" );
+#ifdef EZ2
+ConVar ai_jump_rise("ai_jump_rise", "64"); // How high can player companions jump
+ConVar ai_jump_drop("ai_jump_drop", "384"); // How high can player companions fall
+ConVar ai_jump_distance("ai_jump_distance", "160"); // How high can player companions jump
+#endif
+ConVar sk_companion_melee_damage("sk_companion_melee_damage", "25");
 
 #define GetReadinessUse()	ai_use_readiness.GetInt()
 
@@ -46,6 +52,9 @@ extern ConVar g_debug_transitions;
 int AE_COMPANION_PRODUCE_FLARE;
 int AE_COMPANION_LIGHT_FLARE;
 int AE_COMPANION_RELEASE_FLARE;
+
+#define AE_PC_MELEE 3
+#define COMPANION_MELEE_DIST 64.0
 
 #define MAX_TIME_BETWEEN_BARRELS_EXPLODING			5.0f
 #define MAX_TIME_BETWEEN_CONSECUTIVE_PLAYER_KILLS	3.0f
@@ -220,8 +229,18 @@ void CNPC_PlayerCompanion::Spawn()
 		CapabilitiesAdd( bits_CAP_DUCK | bits_CAP_DOORS_GROUP );
 		CapabilitiesAdd( bits_CAP_USE_SHOT_REGULATOR );
 	}
-	CapabilitiesAdd( bits_CAP_NO_HIT_PLAYER | bits_CAP_NO_HIT_SQUADMATES | bits_CAP_FRIENDLY_DMG_IMMUNE );
+
+// In Entropy: Zero 2, player companions can do friendly fire damage. Additionally, rebels are considered to be 'player companions' even though they are enemies
+#ifndef EZ
+	CapabilitiesAdd( bits_CAP_NO_HIT_PLAYER );
+#endif
+	CapabilitiesAdd(bits_CAP_NO_HIT_SQUADMATES | bits_CAP_FRIENDLY_DMG_IMMUNE);
+
+
 	CapabilitiesAdd( bits_CAP_MOVE_GROUND );
+#ifdef EZ2
+	CapabilitiesAdd( bits_CAP_MOVE_JUMP); // 1upD - "player companions" (Rebels and Combine) should jump!
+#endif
 	SetMoveType( MOVETYPE_STEP );
 
 	m_HackedGunPos = Vector( 0, 0, 55 );
@@ -510,6 +529,59 @@ void CNPC_PlayerCompanion::GatherConditions()
 }
 
 //-----------------------------------------------------------------------------
+// Purpose: For unused citizen melee attack (vorts might use this too)
+//		From Blixibon
+// Input  :
+// Output :
+//-----------------------------------------------------------------------------
+int CNPC_PlayerCompanion::MeleeAttack1Conditions(float flDot, float flDist)
+{
+	if (!GetActiveWeapon())
+		return COND_NONE;
+
+	if (IsMoving())
+	{
+		// Is moving, cond_none
+		return COND_NONE;
+	}
+
+	if (flDist > COMPANION_MELEE_DIST)
+	{
+		return COND_NONE; // COND_TOO_FAR_TO_ATTACK;
+	}
+	else if (flDot < 0.7)
+	{
+		return COND_NONE; // COND_NOT_FACING_ATTACK;
+	}
+
+	if (GetEnemy())
+	{
+		// Check Z
+		if (fabs(GetEnemy()->GetAbsOrigin().z - GetAbsOrigin().z) > 64)
+			return COND_NONE;
+
+		if (GetEnemy()->MyCombatCharacterPointer() && GetEnemy()->MyCombatCharacterPointer()->GetHullType() == HULL_TINY)
+		{
+			return COND_NONE;
+		}
+	}
+
+	// Make sure not trying to kick through a window or something. 
+	trace_t tr;
+	Vector vecSrc, vecEnd;
+
+	vecSrc = WorldSpaceCenter();
+	vecEnd = GetEnemy()->WorldSpaceCenter();
+
+	AI_TraceLine(vecSrc, vecEnd, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
+	if (tr.m_pEnt != GetEnemy())
+	{
+		return COND_NONE;
+	}
+
+	return COND_CAN_MELEE_ATTACK1;
+}
+//-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
 void CNPC_PlayerCompanion::DoCustomSpeechAI( void )
@@ -538,7 +610,7 @@ void CNPC_PlayerCompanion::DoCustomSpeechAI( void )
 	}	
 
 	// Mention the player is dead
-	if ( HasCondition( COND_TALKER_PLAYER_DEAD ) )
+	if ( HasCondition( COND_TALKER_PLAYER_DEAD ) && IRelationType(UTIL_GetLocalPlayer()) == D_LI) // 1upD - Companions must like the player to use the player dead concept
 	{
 		SpeakIfAllowed( TLK_PLDEAD );
 	}
@@ -565,6 +637,19 @@ void CNPC_PlayerCompanion::BuildScheduleTestBits()
 {
 	BaseClass::BuildScheduleTestBits();
 	
+	// Melee attack interrupt from Blixibon
+	if (IsCurSchedule(SCHED_RANGE_ATTACK1) ||
+		IsCurSchedule(SCHED_BACK_AWAY_FROM_ENEMY) ||
+		IsCurSchedule(SCHED_RUN_FROM_ENEMY)
+#ifdef EZ // Melee attack conditions should also interrupt reloads
+		|| IsCurSchedule(SCHED_RELOAD) ||
+		IsCurSchedule(SCHED_HIDE_AND_RELOAD)
+#endif
+		)
+	{
+		SetCustomInterruptCondition(COND_CAN_MELEE_ATTACK1);
+	}
+
 	// Always interrupt to get into the car
 	SetCustomInterruptCondition( COND_PC_BECOMING_PASSENGER );
 
@@ -873,6 +958,14 @@ bool CNPC_PlayerCompanion::IgnorePlayerPushing( void )
 //-----------------------------------------------------------------------------
 int CNPC_PlayerCompanion::SelectScheduleCombat()
 {
+	// Melee attack code from Blixibon
+	if (HasCondition(COND_CAN_MELEE_ATTACK1))
+	{
+		DevMsg("Returning melee attack schedule\n");
+		return SCHED_MELEE_ATTACK1;
+	}
+
+
 	if ( CanReload() && (HasCondition ( COND_NO_PRIMARY_AMMO ) || HasCondition(COND_LOW_PRIMARY_AMMO)) )
 	{
 		return SCHED_HIDE_AND_RELOAD;
@@ -896,6 +989,13 @@ bool CNPC_PlayerCompanion::CanReload( void )
 //-----------------------------------------------------------------------------
 bool CNPC_PlayerCompanion::ShouldDeferToFollowBehavior()
 {
+	// Melee attack code from blixibon
+	if (HasCondition(COND_CAN_MELEE_ATTACK1) /*&& !GetFollowBehavior().IsActive()*/)
+	{
+		// We should only get melee condition if we're not moving
+		return false;
+	}
+
 	if ( !GetFollowBehavior().CanSelectSchedule() || !GetFollowBehavior().FarFromFollowTarget() )
 		return false;
 		
@@ -1037,7 +1137,10 @@ int CNPC_PlayerCompanion::TranslateSchedule( int scheduleType )
 		if( !OccupyStrategySlotRange( SQUAD_SLOT_ATTACK1, SQUAD_SLOT_ATTACK2 ) )
 			return SCHED_STANDOFF;
 		break;
-
+	case SCHED_MELEE_ATTACK1:
+		if(!HasCondition(COND_NO_PRIMARY_AMMO))
+			return SCHED_PC_MELEE_AND_MOVE_AWAY;
+		break;
 	case SCHED_FAIL_TAKE_COVER:
 		if ( IsEnemyTurret() )
 		{
@@ -1046,6 +1149,11 @@ int CNPC_PlayerCompanion::TranslateSchedule( int scheduleType )
 		break;
 	case SCHED_RUN_FROM_ENEMY_FALLBACK:
 		{
+			// Melee attack code from Blixibon
+			if (HasCondition(COND_CAN_MELEE_ATTACK1) && !HasCondition(COND_HEAVY_DAMAGE))
+			{
+				return SCHED_MELEE_ATTACK1;
+			}
 			if ( HasCondition( COND_CAN_RANGE_ATTACK1 ) )
 			{
 				return SCHED_RANGE_ATTACK1;
@@ -1456,7 +1564,41 @@ void CNPC_PlayerCompanion::HandleAnimEvent( animevent_t *pEvent )
 			ClearCondition(COND_NO_SECONDARY_AMMO);
 		}
 		break;
+	case AE_PC_MELEE:
+	{
+		CBaseEntity *pHurt = CheckTraceHullAttack(COMPANION_MELEE_DIST, -Vector(16, 16, 18), Vector(16, 16, 18), 0, DMG_CLUB);
+		CBaseCombatCharacter* pBCC = ToBaseCombatCharacter(pHurt);
+		if (pBCC)
+		{
+			Vector forward, up;
+			AngleVectors(GetLocalAngles(), &forward, NULL, &up);
 
+			if (pBCC->IsPlayer())
+			{
+				pBCC->ViewPunch(QAngle(-12, -7, 0));
+				pHurt->ApplyAbsVelocityImpulse(forward * 100 + up * 50);
+			}
+
+			float l_nKickDamage = sk_companion_melee_damage.GetFloat();
+#ifdef EZ2
+			// Rebels should 1-hit noncommandable Combine soldiers
+			if (pBCC->ClassMatches("npc_combine_s"))
+			{
+				CNPC_PlayerCompanion * pCombine = static_cast<CNPC_PlayerCompanion *>(pBCC);
+				if (pCombine && !pCombine->IsCommandable()) {
+					l_nKickDamage = pBCC->GetHealth();
+				}
+			}
+#endif
+
+			CTakeDamageInfo info(this, this, l_nKickDamage, DMG_CLUB); // TODO Replace with virtual method for class specific damage
+			CalculateMeleeDamageForce(&info, forward, pBCC->GetAbsOrigin());
+			pBCC->TakeDamage(info);
+
+			EmitSound("NPC_Combine.WeaponBash"); // TODO Replace with a virtual method for class specific sounds
+		}
+		break;
+	}
 	default:
 		BaseClass::HandleAnimEvent( pEvent );
 		break;
@@ -1507,7 +1649,7 @@ void CNPC_PlayerCompanion::Touch( CBaseEntity *pOther )
 	BaseClass::Touch( pOther );
 
 	// Did the player touch me?
-	if ( pOther->IsPlayer() || ( pOther->VPhysicsGetObject() && (pOther->VPhysicsGetObject()->GetGameFlags() & FVPHYSICS_PLAYER_HELD ) ) )
+	if ( (pOther->IsPlayer() && IRelationType(UTIL_GetLocalPlayer()) == D_LI) || ( pOther->VPhysicsGetObject() && (pOther->VPhysicsGetObject()->GetGameFlags() & FVPHYSICS_PLAYER_HELD ) ) )
 	{
 		// Ignore if pissed at player
 		if ( m_afMemory & bits_MEMORY_PROVOKED )
@@ -2301,7 +2443,11 @@ void CNPC_PlayerCompanion::DecalTrace( trace_t *pTrace, char const *decalName )
 //------------------------------------------------------------------------------
 bool CNPC_PlayerCompanion::FCanCheckAttacks()
 {
-	if( GetEnemy() && ( IsSniper(GetEnemy()) || IsMortar(GetEnemy()) || IsTurret(GetEnemy()) ) )
+	if( GetEnemy() && ( IsSniper(GetEnemy()) || IsMortar(GetEnemy()) 
+#ifndef EZ // Attack turrets at will in Entropy : Zero!
+		|| IsTurret(GetEnemy()) 
+#endif
+		) )
 	{
 		// Don't attack the sniper or the mortar.
 		return false;
@@ -3058,8 +3204,25 @@ bool CNPC_PlayerCompanion::OnObstructionPreSteer( AILocalMoveGoal_t *pMoveGoal, 
 
 	return BaseClass::OnObstructionPreSteer( pMoveGoal, distClear, pResult );
 }
-
+#ifdef EZ2
 //-----------------------------------------------------------------------------
+// Purpose: Returns true if a reasonable jumping distance
+//		1upD - Copied this from FastZombie to add jumping to soldiers and rebels!
+// Input  :
+// Output :
+//-----------------------------------------------------------------------------
+bool CNPC_PlayerCompanion::IsJumpLegal(const Vector &startPos, const Vector &apex, const Vector &endPos) const
+{
+	return IsJumpLegal(startPos, apex, endPos, ai_jump_rise.GetFloat(), ai_jump_drop.GetFloat(), ai_jump_distance.GetFloat());
+}
+
+bool CNPC_PlayerCompanion::IsJumpLegal(const Vector & startPos, const Vector & apex, const Vector & endPos, float maxUp, float maxDown, float maxDist) const
+{
+	return BaseClass::IsJumpLegal(startPos, apex, endPos, maxUp, maxDown, maxDist);
+}
+#endif
+
+////-----------------------------------------------------------------------------
 // Purpose: Whether or not we should always transition with the player
 // Output : Returns true on success, false on failure.
 //-----------------------------------------------------------------------------
@@ -3843,6 +4006,26 @@ AI_BEGIN_CUSTOM_NPC( player_companion_base, CNPC_PlayerCompanion )
 		""
 		"	Interrupts"
 		""
+	)
+	// Melee attack from Blixibon
+	//=========================================================
+	DEFINE_SCHEDULE
+	(
+		SCHED_PC_MELEE_AND_MOVE_AWAY,
+
+		"    Tasks"
+		"        TASK_STOP_MOVING        0"
+		"        TASK_FACE_ENEMY            0"
+		"        TASK_ANNOUNCE_ATTACK    1"    // 1 = primary attack
+		"        TASK_MELEE_ATTACK1        0"
+		"        TASK_SET_SCHEDULE            SCHEDULE:SCHED_MOVE_AWAY_FROM_ENEMY"
+		""
+		"    Interrupts"
+		"        COND_NEW_ENEMY"
+		"        COND_ENEMY_DEAD"
+		//"        COND_LIGHT_DAMAGE"
+		"        COND_HEAVY_DAMAGE"
+		"        COND_ENEMY_OCCLUDED"
 	)
 
 AI_END_CUSTOM_NPC()

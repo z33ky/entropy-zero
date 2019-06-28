@@ -4567,7 +4567,7 @@ int CAI_BaseNPC::SelectCombatSchedule()
 	if ( !HasCondition(COND_CAN_RANGE_ATTACK1) && !HasCondition(COND_CAN_MELEE_ATTACK1) )
 	{
 		// if we can see enemy but can't use either attack type, we must need to get closer to enemy
-		if ( GetActiveWeapon() )
+		if (GetActiveWeapon())
 			return SCHED_MOVE_TO_WEAPON_RANGE;
 
 		// If we have an innate attack and we're too far (or occluded) then get line of sight

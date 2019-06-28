@@ -1285,8 +1285,7 @@ bool CAI_BaseNPC::PlayerInSpread( const Vector &sourcePos, const Vector &targetP
 	for (int i = 1; i <= gpGlobals->maxClients; i++ )
 	{
 		CBasePlayer *pPlayer = UTIL_PlayerByIndex( i );
-
-		if ( pPlayer && ( !ignoreHatedPlayers || IRelationType( pPlayer ) != D_HT ) )
+		if (pPlayer && (!ignoreHatedPlayers || IRelationType(pPlayer) > D_FR))
 		{
 			if ( PointInSpread( pPlayer, sourcePos, targetPos, pPlayer->WorldSpaceCenter(), flSpread, maxDistOffCenter ) )
 				return true;
@@ -13993,6 +13992,18 @@ void CAI_BaseNPC::ModifyOrAppendCriteria( AI_CriteriaSet& set )
 	else
 	{
 		set.AppendCriteria( "distancetoenemy", "-1" );
+	}
+
+	// Mapbase code for squadmate criteria 
+	if (IsInSquad())
+	{
+		set.AppendCriteria("insquad", "1");
+		set.AppendCriteria("squadmates", UTIL_VarArgs("%i", GetSquad()->NumMembers()));
+		set.AppendCriteria("isleader", GetSquad()->IsLeader(this) ? "0" : "1");
+	}
+	else
+	{
+		set.AppendCriteria("insquad", "0");
 	}
 }
 

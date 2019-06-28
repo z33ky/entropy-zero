@@ -61,6 +61,11 @@ ConVar	sk_citizen_heal_ally_min_pct	( "sk_citizen_heal_ally_min_pct",		"0.90");
 ConVar	sk_citizen_player_stare_time	( "sk_citizen_player_stare_time",		"1.0" );
 ConVar  sk_citizen_player_stare_dist	( "sk_citizen_player_stare_dist",		"72" );
 ConVar	sk_citizen_stare_heal_time		( "sk_citizen_stare_heal_time",			"5" );
+#ifdef EZ
+ConVar  sk_citizen_ar2_proficiency("sk_citizen_ar2_proficiency", "2"); // Added by 1upD. Skill rating 0 - 4 of how accurate the AR2 should be
+ConVar  sk_citizen_default_proficiency("sk_citizen_default_proficiency", "1"); // Added by 1upD. Skill rating 0 - 4 of how accurate all weapons but the AR2 should be
+ConVar  sk_citizen_default_willpower("sk_citizen_default_willpower", "1"); // Added by 1upD. Amount of mental stress damage citizen can take before panic
+#endif
 
 ConVar	g_ai_citizen_show_enemy( "g_ai_citizen_show_enemy", "0" );
 
@@ -69,7 +74,6 @@ ConVar	npc_citizen_squad_marker( "npc_citizen_squad_marker", "0" );
 ConVar	npc_citizen_explosive_resist( "npc_citizen_explosive_resist", "0" );
 ConVar	npc_citizen_auto_player_squad( "npc_citizen_auto_player_squad", "1" );
 ConVar	npc_citizen_auto_player_squad_allow_use( "npc_citizen_auto_player_squad_allow_use", "0" );
-
 
 ConVar	npc_citizen_dont_precache_all( "npc_citizen_dont_precache_all", "0" );
 
@@ -92,13 +96,23 @@ ConVar player_squad_autosummon_move_tolerance( "player_squad_autosummon_move_tol
 ConVar player_squad_autosummon_player_tolerance( "player_squad_autosummon_player_tolerance", "10" );
 ConVar player_squad_autosummon_time_after_combat( "player_squad_autosummon_time_after_combat", "8" );
 ConVar player_squad_autosummon_debug( "player_squad_autosummon_debug", "0" );
-
+#ifdef EZ
+ConVar ai_debug_willpower("ai_debug_willpower", "0"); // 1upD - use this to print messages to the log about Citizen willpower
+ConVar ai_debug_rebel_suppressing_fire("ai_debug_rebel_suppressing_fire", "0"); // 1upD - use this to print messages to the log about Citizen willpower
+ConVar ai_min_suppression_distance("ai_min_suppression_distance", "256", FCVAR_REPLICATED); // 1upD - minimum distance from object for an NPC to use suppressing fire
+ConVar ai_suppression_distance_ratio("ai_suppression_distance_ratio", "0.5", FCVAR_REPLICATED); // 1upD - What percent of distance to suppression target must be covered
+ConVar ai_willpower_translate_schedules("ai_willpower_translate_schedules", "1", FCVAR_REPLICATED); // 1upD - Should new EZ2 schedules be used?
+#endif
 #define ShouldAutosquad() (npc_citizen_auto_player_squad.GetBool())
 
 enum SquadSlot_T
 {
 	SQUAD_SLOT_CITIZEN_RPG1	= LAST_SHARED_SQUADSLOT,
 	SQUAD_SLOT_CITIZEN_RPG2,
+#ifdef EZ
+	SQUAD_SLOT_CITIZEN_INVESTIGATE,
+	SQUAD_SLOT_CITIZEN_ADVANCE
+#endif EZ
 };
 
 const float HEAL_MOVE_RANGE = 30*12;
@@ -279,6 +293,9 @@ static const char *g_ppszModelLocs[] =
 	"Group01",
 	"Group02",
 	"Group03%s",
+	"Group03%s",
+	"Group03b",
+	"Group03x", // May wish to change this to "Group04%s" IF a brute and medic version of the long fall rebel are created - then we can have Group04, Group04b, Group04m
 };
 
 #define IsExcludedHead( type, bMedic, iHead) false // see XBox codeline for an implementation
@@ -335,7 +352,10 @@ BEGIN_DATADESC( CNPC_Citizen )
 	DEFINE_KEYFIELD(	m_bNotifyNavFailBlocked,	FIELD_BOOLEAN, "notifynavfailblocked" ),
 	DEFINE_KEYFIELD(	m_bNeverLeavePlayerSquad,	FIELD_BOOLEAN, "neverleaveplayersquad" ),
 	DEFINE_KEYFIELD(	m_iszDenyCommandConcept,	FIELD_STRING, "denycommandconcept" ),
-
+#ifdef EZ
+	DEFINE_KEYFIELD(	m_iWillpowerModifier,		FIELD_INTEGER, "willpowermodifier"),
+	DEFINE_KEYFIELD(    m_bWillpowerDisabled, FIELD_BOOLEAN, "willpowerdisabled"),
+#endif
 	DEFINE_OUTPUT(		m_OnJoinedPlayerSquad,	"OnJoinedPlayerSquad" ),
 	DEFINE_OUTPUT(		m_OnLeftPlayerSquad,	"OnLeftPlayerSquad" ),
 	DEFINE_OUTPUT(		m_OnFollowOrder,		"OnFollowOrder" ),
@@ -514,7 +534,17 @@ void CNPC_Citizen::Spawn()
 		CapabilitiesRemove( bits_CAP_USE_SHOT_REGULATOR );
 		pRPG->StopGuiding();
 	}
-
+#ifdef EZ
+	// TODO Remember to remove this if you implement "enable melee" keyvalue!
+	if (m_spawnEquipment != NULL_STRING)
+		CapabilitiesAdd(bits_CAP_INNATE_MELEE_ATTACK1); 
+	#ifndef EZ2
+	if (m_Type == CT_LONGFALL)
+	{
+		CapabilitiesAdd(bits_CAP_MOVE_JUMP);
+	}
+	#endif
+#endif
 	m_flTimePlayerStare = FLT_MAX;
 
 	AddEFlags( EFL_NO_DISSOLVE | EFL_NO_MEGAPHYSCANNON_RAGDOLL | EFL_NO_PHYSCANNON_INTERACTION );
@@ -583,6 +613,8 @@ void CNPC_Citizen::SelectModel()
 		PrecacheAllOfType( CT_DOWNTRODDEN );
 		PrecacheAllOfType( CT_REFUGEE );
 		PrecacheAllOfType( CT_REBEL );
+		PrecacheAllOfType( CT_BRUTE);
+		PrecacheAllOfType( CT_LONGFALL);
 	}
 
 	const char *pszModelName = NULL;
@@ -714,7 +746,22 @@ void CNPC_Citizen::SelectModel()
 	// Unique citizen models are left alone
 	if ( m_Type != CT_UNIQUE )
 	{
-		SetModelName( AllocPooledString( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[ m_Type ], ( IsMedic() ) ? "m" : "" )), pszModelName ) ) );
+#ifdef EZ2
+		const char * subtype = ""; // 1upD - used to be the only subtype was "m" for medic
+		subtype = (m_spawnEquipment == AllocPooledString("weapon_shotgun")) ? "b" : subtype;	// Rebel Brute - may wish to rethind this approach
+																								//	Currently, rebels with shotguns are still CT_REBEL with modelset Group03b
+																								//	If we want any special behaviors for the brute, we will need to set the type of
+																								//	shotgun rebels to "CT_BRUTE".
+		subtype = (IsMedic()) ? "m" : subtype; // Rebel Medic takes precedence
+
+		// If this citizen's type is "LongFall", they should use the appropriate subtype
+		if (m_Type == CT_LONGFALL)
+			subtype = "x"; // We may wish to change this so that long fall boot rebels are Group04. We would do this in order to get a separate -b and -m group for long fall citizens - for now let's not bother
+
+		SetModelName( AllocPooledString( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[ m_Type ], subtype )), pszModelName ) ) );
+#else		
+	SetModelName( AllocPooledString( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[ m_Type ], ( IsMedic() ) ? "m" : "" )), pszModelName ) ) );
+#endif
 	}
 }
 
@@ -738,7 +785,10 @@ void CNPC_Citizen::SelectExpressionType()
 	case CT_REBEL:
 		m_ExpressionType = (CitizenExpressionTypes_t)RandomInt( CIT_EXP_SCARED, CIT_EXP_ANGRY );
 		break;
-
+	case CT_BRUTE:
+		m_ExpressionType = (CitizenExpressionTypes_t)RandomInt(CIT_EXP_NORMAL, CIT_EXP_ANGRY); // Brutes show no fear
+	case CT_LONGFALL:
+		m_ExpressionType = (CitizenExpressionTypes_t)RandomInt(CIT_EXP_NORMAL, CIT_EXP_ANGRY); // Long fall boot rebels are crazy
 	case CT_DEFAULT:
 	case CT_UNIQUE:
 	default:
@@ -894,10 +944,147 @@ void CNPC_Citizen::OnChangeRunningBehavior( CAI_BehaviorBase *pOldBehavior,  CAI
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
+#ifdef EZ
+void CNPC_Citizen::GatherWillpowerConditions()
+{
+	if (m_bWillpowerDisabled || m_NPCState != NPC_STATE_COMBAT)
+		return;
+
+	CBaseCombatWeapon * pWeapon = GetActiveWeapon();
+	if (pWeapon == NULL) // Unarmed citizens do not use willpower
+		return;
+
+	int l_iWillpower = sk_citizen_default_willpower.GetInt() + m_iWillpowerModifier;
+
+	if( pWeapon->UsesClipsForAmmo1() && ((float)pWeapon->m_iClip1 / (float)pWeapon->GetMaxClip1()) > 0.75) // ratio of rounds left in magazine
+		l_iWillpower++;
+
+	if (HasCondition(COND_LOW_PRIMARY_AMMO))
+		l_iWillpower--;
+
+	if(pWeapon->ClassMatches("weapon_shotgun"))
+		l_iWillpower++;
+
+	// Lone wolf bonus - I have no squad
+	if (m_pSquad == NULL) {
+		l_iWillpower++;
+	} 
+	else if (m_pSquad && m_pSquad->NumMembers() > 2) // More than 1 squadmate
+	{
+		l_iWillpower++; // I have a squad! Setting this to number of squadmates made it too influential
+	}
+	else  // I'm the last one
+	{
+		l_iWillpower -= 2; // This is a big deal
+	}
+
+	if (HasCondition(COND_BEHIND_ENEMY))
+		l_iWillpower++;
+
+	if (HasCondition(COND_ENEMY_DEAD))
+		l_iWillpower++;
+
+	if (HasCondition(COND_ENEMY_OCCLUDED))
+		l_iWillpower++;
+
+	if (HasCondition(COND_LIGHT_DAMAGE) || HasCondition(COND_HEAVY_DAMAGE)) // Light damage and heavy damage are the same - This is Entropy: Zero
+		l_iWillpower -= 2; // This is a big deal
+
+	if (HasCondition(COND_NEW_ENEMY))
+		l_iWillpower--;
+
+	if (HasCondition(COND_HAVE_ENEMY_LOS))
+		l_iWillpower--;
+
+	if (HasCondition(COND_HEAR_SPOOKY))
+		l_iWillpower--;
+
+	// Bullet impacts make citizens jumpy
+	if (HasCondition(COND_HEAR_BULLET_IMPACT))
+		l_iWillpower--;
+
+	if (HasCondition(COND_HEAR_DANGER))
+		l_iWillpower--;
+
+	if (HasCondition(COND_HEAR_PHYSICS_DANGER))
+		l_iWillpower--;
+
+	if (l_iWillpower <= 0)
+	{
+		if (!HasCondition(COND_CIT_WILLPOWER_LOW))
+		{
+			if (m_pSquad && m_pSquad->NumMembers() == 1) // Last one
+			{
+				MsgWillpower("%s is now scared and is the last squadmate!\tWillpower: %i\n", l_iWillpower);
+			}
+			else 
+			{
+				MsgWillpower("%s is now scared!\tWillpower: %i\n", l_iWillpower);
+			}
+		}
+		ClearCondition(COND_CIT_WILLPOWER_HIGH);
+		SetCondition(COND_CIT_WILLPOWER_LOW);
+	}
+	else if (l_iWillpower > 1)
+	{
+		if (!HasCondition(COND_CIT_WILLPOWER_HIGH))
+			MsgWillpower("%s is now brave!\tWillpower: %i\n", l_iWillpower);
+
+		ClearCondition(COND_CIT_WILLPOWER_LOW);
+		SetCondition(COND_CIT_WILLPOWER_HIGH);
+	}
+	else {
+		ClearCondition(COND_CIT_WILLPOWER_HIGH);
+		ClearCondition(COND_CIT_WILLPOWER_LOW);
+	}
+}
+
+Disposition_t CNPC_Citizen::IRelationType(CBaseEntity * pTarget)
+{
+	Disposition_t disposition = BaseClass::IRelationType(pTarget);
+	// If the citizen has low willpower, fear an enemy instead of hating them
+	if (disposition == D_HT && HasCondition(COND_CIT_WILLPOWER_LOW)) {
+		return D_FR;
+	}
+	return disposition;
+}
+
+void CNPC_Citizen::MsgWillpower(const tchar * pMsg, int willpower)
+{
+	if (ai_debug_willpower.GetBool() && m_flLastWillpowerMsgTime <= gpGlobals->curtime) {
+		DevMsg(pMsg, GetDebugName(), willpower);
+		m_flLastWillpowerMsgTime = gpGlobals->curtime + 1.0;
+	}
+}
+
+//-----------------------------------------------------------------------------
+//
+//-----------------------------------------------------------------------------
+const char* CNPC_Citizen::GetSquadSlotDebugName(int iSquadSlot)
+{
+	switch (iSquadSlot)
+	{
+	case SQUAD_SLOT_CITIZEN_RPG1:			return "SQUAD_SLOT_CITIZEN_RPG1";
+		break;
+	case SQUAD_SLOT_CITIZEN_RPG2:			return "SQUAD_SLOT_CITIZEN_RPG2";
+		break;
+	case SQUAD_SLOT_CITIZEN_INVESTIGATE:	return "SQUAD_SLOT_CITIZEN_INVESTIGATE";
+		break;
+	case SQUAD_SLOT_CITIZEN_ADVANCE:		return "SQUAD_SLOT_CITIZEN_ADVANCE";
+		break;
+	}
+
+	return BaseClass::GetSquadSlotDebugName(iSquadSlot);
+}
+#endif
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void CNPC_Citizen::GatherConditions()
 {
 	BaseClass::GatherConditions();
-
+#ifdef EZ
+	GatherWillpowerConditions();
+#endif
 	if( IsInPlayerSquad() && hl2_episodic.GetBool() )
 	{
 		// Leave the player squad if someone has made me neutral to player.
@@ -1160,6 +1347,16 @@ int CNPC_Citizen::SelectFailSchedule( int failedSchedule, int failedTask, AI_Tas
 			return SCHED_STANDOFF;
 		}
 		break;
+#ifdef EZ
+	case SCHED_RANGE_ATTACK1:
+		if (!GetShotRegulator()->IsInRestInterval()) // If the reason range attack 1 failed was because of the shot regulator, don't try it again
+		{
+			int attackSchedule = TranslateSuppressingFireSchedule(failedSchedule);
+			if (attackSchedule != failedSchedule)
+				return attackSchedule;
+		}
+		break;
+#endif
 	}
 
 	return BaseClass::SelectFailSchedule( failedSchedule, failedTask, taskFailCode );
@@ -1443,13 +1640,23 @@ bool CNPC_Citizen::ShouldDeferToFollowBehavior()
 //-----------------------------------------------------------------------------
 int CNPC_Citizen::TranslateSchedule( int scheduleType ) 
 {
+#ifdef EZ
+	if (!m_bWillpowerDisabled && ai_willpower_translate_schedules.GetBool()) {
+		int willpowerSchedule = TranslateWillpowerSchedule(scheduleType);
+		if (willpowerSchedule != SCHED_NONE) {
+			if (ai_debug_willpower.GetBool())
+				DevMsg("Citizen name: %s\tOld Schedule: %s\t New Schedule: %s\tWillpower: %s%s\n", GetDebugName(), GetSchedule(scheduleType)->GetName(), GetSchedule(willpowerSchedule)->GetName(), HasCondition(COND_CIT_WILLPOWER_HIGH) ? "High" : "", HasCondition(COND_CIT_WILLPOWER_LOW) ? "Low" : "");
+			return willpowerSchedule;
+		}
+	}
+#endif
 	CBasePlayer *pLocalPlayer = AI_GetSinglePlayer();
 
 	switch( scheduleType )
 	{
 	case SCHED_IDLE_STAND:
 	case SCHED_ALERT_STAND:
-		if( m_NPCState != NPC_STATE_COMBAT && pLocalPlayer && !pLocalPlayer->IsAlive() && CanJoinPlayerSquad() )
+		if( m_NPCState != NPC_STATE_COMBAT && pLocalPlayer && !pLocalPlayer->IsAlive() && CanJoinPlayerSquad() && IRelationType(UTIL_GetLocalPlayer()) == D_LI)
 		{
 			// Player is dead! 
 			float flDist;
@@ -1465,6 +1672,15 @@ int CNPC_Citizen::TranslateSchedule( int scheduleType )
 
 	case SCHED_ESTABLISH_LINE_OF_FIRE:
 	case SCHED_MOVE_TO_WEAPON_RANGE:
+#ifdef EZ
+		// Per Breadman's changes to ai_basenpc_schedule, fire at where you think the enemy will be instead of advancing
+		if ( !HasCondition(COND_SEE_ENEMY) && !HasCondition(COND_TOO_CLOSE_TO_ATTACK)) // We don't want this to use Attack squad slots because it could 'steal' a slot from a squadmate who might need it. 
+		{
+			int suppressingFireSchedule = TranslateSuppressingFireSchedule(scheduleType);
+			if (suppressingFireSchedule != scheduleType)
+				return suppressingFireSchedule;
+		}
+#endif
 		if( !IsMortar( GetEnemy() ) && HaveCommandGoal() )
 		{
 			if ( GetActiveWeapon() && ( GetActiveWeapon()->CapabilitiesGet() & bits_CAP_WEAPON_RANGE_ATTACK1 ) && random->RandomInt( 0, 1 ) && HasCondition(COND_SEE_ENEMY) && !HasCondition ( COND_NO_PRIMARY_AMMO ) )
@@ -1498,14 +1714,21 @@ int CNPC_Citizen::TranslateSchedule( int scheduleType )
 			}
 			else
 			{
+#ifndef MAPBASE // This has been disabled for now.
 				CBasePlayer *pPlayer = AI_GetSinglePlayer();
+#ifdef MAPBASE
+				// Don't avoid player if notarget is on
+				if ( pPlayer && GetEnemy() && !(pPlayer->GetFlags() & FL_NOTARGET) && ( ( GetEnemy()->GetAbsOrigin() - 
+#else
 				if ( pPlayer && GetEnemy() && ( ( GetEnemy()->GetAbsOrigin() - 
+#endif
 					pPlayer->GetAbsOrigin() ).LengthSqr() < RPG_SAFE_DISTANCE * RPG_SAFE_DISTANCE ) )
 				{
 					// Don't fire our RPG at an enemy too close to the player
 					return SCHED_STANDOFF;
 				}
 				else
+#endif
 				{
 					return SCHED_CITIZEN_RANGE_ATTACK1_RPG;
 				}
@@ -1516,6 +1739,139 @@ int CNPC_Citizen::TranslateSchedule( int scheduleType )
 
 	return BaseClass::TranslateSchedule( scheduleType );
 }
+
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: translate the given scheduleType based on the willpower conditions
+// (COND_CIT_WILLPOWER_LOW, COND_CIT_WILLPOWER_HIGH)
+//		1upD
+//-----------------------------------------------------------------------------
+int CNPC_Citizen::TranslateWillpowerSchedule(int scheduleType)
+{
+	switch (scheduleType)
+	{
+		// Don't investigate sounds if you're scared or unarmed
+		case SCHED_INVESTIGATE_SOUND:
+		if (HasCondition(COND_CIT_WILLPOWER_LOW) || HasCondition(COND_NO_WEAPON) || !OccupyStrategySlot(SQUAD_SLOT_CITIZEN_INVESTIGATE))
+		{
+			return SCHED_ALERT_FACE_BESTSOUND;
+		}
+		break;
+	case SCHED_CHASE_ENEMY:
+		if (HasCondition(COND_CIT_WILLPOWER_LOW) || HasCondition(COND_NO_WEAPON))
+			return SCHED_RUN_FROM_ENEMY; // If we are afraid, take cover!
+		break;
+	case SCHED_COMBAT_FACE:
+		// 1upD - don't just stand there, do something!
+		if (HasCondition(COND_CIT_WILLPOWER_HIGH) && !HasCondition(COND_NO_WEAPON) && OccupyStrategySlot(SQUAD_SLOT_CITIZEN_ADVANCE)) // You have to be pretty brave to just rush at the enemy
+			return SCHED_CHASE_ENEMY; // If we are brave, advance!
+		break;
+	case SCHED_RANGE_ATTACK1:
+		if (!IsMortar(GetEnemy()) && GetActiveWeapon() && FClassnameIs(GetActiveWeapon(), "weapon_rpg")) 
+		{
+			return SCHED_NONE;
+		}
+		// If we are scared, back away while shooting!
+		if (HasCondition(COND_CIT_WILLPOWER_LOW))
+		{
+			return SCHED_TAKE_COVER_FROM_ENEMY;
+		}
+		// If we are brave, fire then advance!
+		else if (HasCondition(COND_CIT_WILLPOWER_HIGH) && OccupyStrategySlot(SQUAD_SLOT_CITIZEN_ADVANCE) && !HasCondition(COND_NO_PRIMARY_AMMO))
+		{
+			return SCHED_CITIZEN_RANGE_ATTACK1_ADVANCE;
+		}
+		break;
+	case SCHED_RELOAD:
+	case SCHED_HIDE_AND_RELOAD:
+		CBaseEntity * pEnemy = GetEnemy();
+
+		if (pEnemy && ai_debug_willpower.GetBool())
+			DevMsg(UTIL_VarArgs("%s reloading. Distance to enemy: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length()));
+
+		// Interrupt reload with melee if possible
+		if (HasCondition(COND_CAN_MELEE_ATTACK1)) {
+			return SCHED_MELEE_ATTACK1;
+		}
+
+		if (pEnemy
+			&& !HasCondition(COND_CIT_WILLPOWER_LOW)
+			&& (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() < 128
+			)
+		{
+			if (ai_debug_willpower.GetBool())
+				DevMsg(UTIL_VarArgs("%s out of ammo! Charging to enemy at distance: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length()));
+			return SCHED_CHASE_ENEMY;
+		}
+
+		break;
+	}
+
+	return SCHED_NONE;
+}
+
+
+ //-----------------------------------------------------------------------------
+ // Purpose: trace a firing position to see if this citizen can suppress an enemy's position.
+ //		1upD
+ //-----------------------------------------------------------------------------
+int CNPC_Citizen::TranslateSuppressingFireSchedule(int scheduleType)
+{
+	if (HasCondition(COND_NO_PRIMARY_AMMO) || HasCondition(COND_NO_WEAPON)) 
+	{
+		return scheduleType;
+	}
+
+	CBaseEntity * pEnemy = GetEnemy();
+
+	if (!pEnemy) 
+	{
+		if(ai_debug_rebel_suppressing_fire.GetBool())
+			DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s tried to suppress but couldn't get enemy! \n", GetDebugName());
+		return scheduleType;
+	}
+
+	if(m_flLastAttackTime == 0)
+	{
+		if (ai_debug_rebel_suppressing_fire.GetBool())
+			DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s tried to suppress but hasn't shot at any enemies yet! \n", GetDebugName());
+		return scheduleType;
+	}
+
+	trace_t tr;
+	Vector startpos = this->EyePosition();
+	Vector targetpos = pEnemy->EyePosition();
+
+	float distance = UTIL_DistApprox(startpos, targetpos);
+	if (ai_debug_rebel_suppressing_fire.GetBool() && distance <= ai_min_suppression_distance.GetFloat())
+	{
+		DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s too close to target to use suppressing fire at range: %f\n", GetDebugName(), distance);
+	}
+
+	AI_TraceLine(startpos, targetpos, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr);
+	if (ai_debug_rebel_suppressing_fire.GetBool())
+		NDebugOverlay::Line(startpos, targetpos, 255, 0, 0, false, 5.0f);
+
+	float traceLength = abs(tr.fraction  * distance);
+	if (ai_debug_rebel_suppressing_fire.GetBool() && tr.fraction < ai_suppression_distance_ratio.GetFloat())
+	{
+		DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s covering fire doesn't cover sufficent ratio at: %f\n", GetDebugName(), tr.fraction);
+	}
+
+	if (traceLength > ai_min_suppression_distance.GetFloat() && tr.fraction >= ai_suppression_distance_ratio.GetFloat())
+	{
+		if (ai_debug_rebel_suppressing_fire.GetBool())
+			DevMsg(UTIL_VarArgs("NPC_Citizen::TranslateSuppressingFireSchedule: %s using suppressing fire at range: %f\n", GetDebugName(), traceLength));
+		
+		return SCHED_CITIZEN_RANGE_ATTACK1_SUPPRESS;
+	}
+	else if (ai_debug_rebel_suppressing_fire.GetBool()) {
+		DevMsg(UTIL_VarArgs("NPC_Citizen::TranslateSuppressingFireSchedule: %s failed to use suppressing fire at range: %f\n", GetDebugName(), traceLength));
+	}
+
+	return scheduleType;
+}
+#endif
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -1771,13 +2127,20 @@ void CNPC_Citizen::RunTask( const Task_t *pTask )
 					}
 
 					Vector vecEnemyPos = GetEnemy()->BodyTarget(GetAbsOrigin(), false);
+#ifndef MAPBASE // This has been disabled for now.
 					CBasePlayer *pPlayer = AI_GetSinglePlayer();
+#ifdef MAPBASE
+					// Don't avoid player if notarget is on
+					if ( pPlayer && !(pPlayer->GetFlags() & FL_NOTARGET) && ( ( vecEnemyPos - pPlayer->GetAbsOrigin() ).LengthSqr() < RPG_SAFE_DISTANCE * RPG_SAFE_DISTANCE ) )
+#else
 					if ( pPlayer && ( ( vecEnemyPos - pPlayer->GetAbsOrigin() ).LengthSqr() < RPG_SAFE_DISTANCE * RPG_SAFE_DISTANCE ) )
+#endif
 					{
 						m_bRPGAvoidPlayer = true;
 						Speak( TLK_WATCHOUT );
 					}
 					else
+#endif
 					{
 						// Pull the laserdot towards the target
 						Vector vecToTarget = (vecEnemyPos - vecLaserPos);
@@ -1840,9 +2203,12 @@ void CNPC_Citizen::TaskFail( AI_TaskFailureCode_t code )
 //-----------------------------------------------------------------------------
 Activity CNPC_Citizen::NPC_TranslateActivity( Activity activity )
 {
-	if ( activity == ACT_MELEE_ATTACK1 )
+	if (activity == ACT_MELEE_ATTACK1)
 	{
-		return ACT_MELEE_ATTACK_SWING;
+		if (GetActiveWeapon() && GetActiveWeapon()->IsMeleeWeapon())
+		{
+			return ACT_MELEE_ATTACK_SWING;
+		}
 	}
 
 	// !!!HACK - Citizens don't have the required animations for shotguns, 
@@ -2048,7 +2414,14 @@ bool CNPC_Citizen::OnBeginMoveAndShoot()
 {
 	if ( BaseClass::OnBeginMoveAndShoot() )
 	{
+#ifdef EZ
+		if (HasCondition(COND_NO_PRIMARY_AMMO))
+			return false;
+
+		if( m_iMySquadSlot == SQUAD_SLOT_ATTACK1 || m_iMySquadSlot == SQUAD_SLOT_ATTACK2 || m_iMySquadSlot == SQUAD_SLOT_CITIZEN_ADVANCE)
+#else
 		if( m_iMySquadSlot == SQUAD_SLOT_ATTACK1 || m_iMySquadSlot == SQUAD_SLOT_ATTACK2 )
+#endif
 			return true; // already have the slot I need
 
 		if( m_iMySquadSlot == SQUAD_SLOT_NONE && OccupyStrategySlotRange( SQUAD_SLOT_ATTACK1, SQUAD_SLOT_ATTACK2 ) )
@@ -2062,6 +2435,11 @@ bool CNPC_Citizen::OnBeginMoveAndShoot()
 //-----------------------------------------------------------------------------
 void CNPC_Citizen::OnEndMoveAndShoot()
 {
+#ifdef EZ
+	// Don't vacate strategy slot if that slot is 'advance'
+	if(m_iMySquadSlot == SQUAD_SLOT_CITIZEN_ADVANCE)
+		return
+#endif
 	VacateStrategySlot();
 }
 
@@ -2105,6 +2483,10 @@ bool CNPC_Citizen::IsManhackMeleeCombatant()
 //-----------------------------------------------------------------------------
 Vector CNPC_Citizen::GetActualShootPosition( const Vector &shootOrigin )
 {
+#ifdef MAPBASE
+	// The code below is probably broken, it definitely isn't very effective
+	return BaseClass::GetActualShootPosition( shootOrigin );
+#else
 	Vector vecTarget = BaseClass::GetActualShootPosition( shootOrigin );
 
 	CWeaponRPG *pRPG = dynamic_cast<CWeaponRPG*>(GetActiveWeapon());
@@ -2150,6 +2532,7 @@ Vector CNPC_Citizen::GetActualShootPosition( const Vector &shootOrigin )
 	}
 
 	return vecTarget;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3419,7 +3802,10 @@ bool CNPC_Citizen::ShouldHealTarget( CBaseEntity *pTarget, bool bActiveUse )
 {
 	Disposition_t disposition;
 	
-	if ( !pTarget && ( ( disposition = IRelationType( pTarget ) ) != D_LI && disposition != D_NU ) )
+	if (!pTarget)
+		return false;
+
+	if ( ( disposition = IRelationType( pTarget ) ) != D_LI && disposition != D_NU )
 		return false;
 
 	// Don't heal if I'm in the middle of talking
@@ -3851,6 +4237,9 @@ void CNPC_Citizen::DeathSound( const CTakeDamageInfo &info )
 //------------------------------------------------------------------------------
 void CNPC_Citizen::FearSound( void )
 {
+#ifdef EZ
+	SpeakIfAllowed(TLK_DANGER); // Say something when afraid
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3893,6 +4282,16 @@ AI_BEGIN_CUSTOM_NPC( npc_citizen, CNPC_Citizen )
 	DECLARE_CONDITION( COND_CIT_PLAYERHEALREQUEST )
 	DECLARE_CONDITION( COND_CIT_COMMANDHEAL )
 	DECLARE_CONDITION( COND_CIT_START_INSPECTION )
+#ifdef EZ
+	DECLARE_CONDITION(COND_CIT_WILLPOWER_LOW)
+	DECLARE_CONDITION(COND_CIT_WILLPOWER_HIGH)
+
+	DECLARE_SQUADSLOT(SQUAD_SLOT_CITIZEN_RPG1) // Previously, RPG squad slots were undeclared
+	DECLARE_SQUADSLOT(SQUAD_SLOT_CITIZEN_RPG2)
+	DECLARE_SQUADSLOT(SQUAD_SLOT_CITIZEN_ADVANCE)
+	DECLARE_SQUADSLOT(SQUAD_SLOT_CITIZEN_INVESTIGATE)
+	DECLARE_SQUADSLOT(SQUAD_SLOT_CITIZEN_ADVANCE)
+#endif
 
 	//Events
 	DECLARE_ANIMEVENT( AE_CITIZEN_GET_PACKAGE )
@@ -4048,7 +4447,67 @@ AI_BEGIN_CUSTOM_NPC( npc_citizen, CNPC_Citizen )
 		""
 		"	Interrupts"
 	)
+#ifdef EZ
+	//=========================================================
+	// > RangeAttack1Advance
+	//	New schedule by 1upD to fire and then charge towards the player
+	//=========================================================
+	DEFINE_SCHEDULE
+	(
+		SCHED_CITIZEN_RANGE_ATTACK1_ADVANCE,
 
+		"	Tasks"
+		"		TASK_STOP_MOVING		0"
+		"		TASK_FACE_ENEMY			0"
+		"		TASK_ANNOUNCE_ATTACK	1"	// 1 = primary attack
+		"		TASK_RANGE_ATTACK1		0"
+		"		TASK_SET_SCHEDULE		SCHEDULE:SCHED_CHASE_ENEMY"
+		""
+		"	Interrupts"
+		"		COND_NO_PRIMARY_AMMO"
+		"		COND_NEW_ENEMY"
+		"		COND_ENEMY_DEAD"
+		"		COND_ENEMY_UNREACHABLE"
+		"		COND_CAN_MELEE_ATTACK1"
+		"		COND_CAN_RANGE_ATTACK2"
+		"		COND_CAN_MELEE_ATTACK2"
+		"		COND_TOO_CLOSE_TO_ATTACK"
+		"		COND_TASK_FAILED"
+		"		COND_LOST_ENEMY"
+		"		COND_BETTER_WEAPON_AVAILABLE"
+		"		COND_HEAR_DANGER"
+		"		COND_CIT_WILLPOWER_LOW"
+	);
+
+	//===============================================
+	//	> RangeAttack1Suppress
+	//	1upD - Currently essentially the same
+	//		as SCHED_RANGE_ATTACK1, but will
+	//		be updated with new tasks
+	//===============================================
+		DEFINE_SCHEDULE
+	(
+		SCHED_CITIZEN_RANGE_ATTACK1_SUPPRESS,
+
+		"	Tasks"
+		"		TASK_STOP_MOVING		0"
+		"		TASK_FACE_ENEMY			0"
+		"		TASK_RANGE_ATTACK1		0"
+		""
+		"	Interrupts"
+		"		COND_NO_PRIMARY_AMMO"
+		"		COND_NEW_ENEMY"
+		"		COND_ENEMY_DEAD"
+		"		COND_LIGHT_DAMAGE"
+		"		COND_HEAVY_DAMAGE"
+		"		COND_HEAR_DANGER"
+		"		COND_WEAPON_BLOCKED_BY_FRIEND"
+		"		COND_CAN_MELEE_ATTACK1"
+		"		COND_CAN_RANGE_ATTACK2"
+		"		COND_CAN_MELEE_ATTACK2"
+		"		COND_TOO_CLOSE_TO_ATTACK"
+	);
+#endif
 AI_END_CUSTOM_NPC()
 
 
@@ -4267,3 +4726,63 @@ int CNPC_Citizen::DrawDebugTextOverlays( void )
 	}
 	return text_offset;
 }
+#ifdef EZ
+//------------------------------------------------------------------------------
+// Added by 1upD. Citizen weapon proficiency should be configurable
+//------------------------------------------------------------------------------
+WeaponProficiency_t CNPC_Citizen::CalcWeaponProficiency(CBaseCombatWeapon *pWeapon)
+{
+	int proficiency;
+
+	if (FClassnameIs(pWeapon, "weapon_ar2"))
+	{
+		proficiency = sk_citizen_ar2_proficiency.GetInt();
+	}
+	else {
+		proficiency = sk_citizen_default_proficiency.GetInt();
+	}
+	
+	// Clamp the upper range of the ConVar to "perfect"
+	// Could also cast the int to the enum if you're feeling dangerous
+	if (proficiency > 4) {
+		return WEAPON_PROFICIENCY_PERFECT;
+	}
+	
+	// Switch values to enum. You could cast the int to the enum here,
+	// but I'm not sure how 'safe' that is since the enum values are
+	// not explicity defined. This also clamps the range.
+	switch (proficiency) {
+		case 4:
+			return WEAPON_PROFICIENCY_PERFECT;
+		case 3:
+			return WEAPON_PROFICIENCY_VERY_GOOD;
+		case 2:
+			return WEAPON_PROFICIENCY_GOOD;
+		case 1:
+			return WEAPON_PROFICIENCY_AVERAGE;
+		default:
+			return WEAPON_PROFICIENCY_POOR;
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Returns true if a reasonable jumping distance
+//		1upD - If this rebel is using Aperture Science tech, he should be able
+//				to jump incredible distances
+// Input  :
+// Output :
+//-----------------------------------------------------------------------------
+bool CNPC_Citizen::IsJumpLegal(const Vector &startPos, const Vector &apex, const Vector &endPos) const
+{
+	if (m_Type == CT_LONGFALL) 
+	{
+		const float MAX_JUMP_RISE = 256.0f; // This one might need some adjustment - how high is too high?
+		const float MAX_JUMP_DISTANCE = 256.0f;
+		const float MAX_JUMP_DROP = 8192.0f; // Basically any height
+
+		return BaseClass::IsJumpLegal(startPos, apex, endPos, MAX_JUMP_RISE, MAX_JUMP_DROP, MAX_JUMP_DISTANCE);
+	}
+
+	return BaseClass::IsJumpLegal(startPos, apex, endPos);
+}
+#endif
