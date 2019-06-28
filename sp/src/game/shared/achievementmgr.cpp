@@ -316,6 +316,7 @@ bool CAchievementMgr::Init()
 #ifdef GAME_DLL
 	ListenForGameEvent( "entity_killed" );
 	ListenForGameEvent( "game_init" );
+	ListenForGameEvent("skill_changed");
 #else
 	ListenForGameEvent( "player_death" );
 	ListenForGameEvent( "player_stats_updated" );
@@ -414,6 +415,9 @@ void CAchievementMgr::Shutdown()
 	m_vecKillEventListeners.RemoveAll();
 	m_vecMapEventListeners.RemoveAll();
 	m_vecComponentListeners.RemoveAll();
+#ifdef EZ
+	m_vecSkillChangeEventListeners.RemoveAll();
+#endif
 	m_AchievementsAwarded.RemoveAll();
 	m_bGlobalStateLoaded = false;
 }
@@ -505,6 +509,9 @@ void CAchievementMgr::LevelInitPreEntity()
 	m_vecKillEventListeners.RemoveAll();
 	m_vecMapEventListeners.RemoveAll();
 	m_vecComponentListeners.RemoveAll();
+#ifdef EZ
+	m_vecSkillChangeEventListeners.RemoveAll();
+#endif
 
 	m_AchievementsAwarded.RemoveAll();
 
@@ -540,6 +547,13 @@ void CAchievementMgr::LevelInitPreEntity()
 		if ( pMapNameFilter && ( 0 != Q_strcmp( m_szMap, pMapNameFilter ) ) )
 			continue;
 
+#ifdef EZ
+		// if the achievement needs skill events, add it as a listener
+		if (pAchievement->GetFlags() & ACH_LISTEN_SKILL_EVENTS)
+		{
+			m_vecSkillChangeEventListeners.AddToTail(pAchievement);
+		}
+#endif
 		// if the achievement needs kill events, add it as a listener
 		if ( pAchievement->GetFlags() & ACH_LISTEN_KILL_EVENTS )
 		{
@@ -1435,6 +1449,13 @@ void CAchievementMgr::FireGameEvent( IGameEvent *event )
 	VPROF_( "CAchievementMgr::FireGameEvent", 1, VPROF_BUDGETGROUP_STEAM, false, 0 );
 	const char *name = event->GetName();
 	if ( name == NULL ) { return; }
+#ifdef EZ
+	if (0 == Q_strcmp(name, "skill_changed"))
+	{
+		DevMsg("Achievement: Skill changed \n");
+		OnSkillChangedEvent(event->GetInt("skill_level"), event);
+	} else
+#endif
 	if ( 0 == Q_strcmp( name, "entity_killed" ) )
 	{
 #ifdef GAME_DLL
@@ -1648,6 +1669,25 @@ void CAchievementMgr::OnMapEvent( const char *pchEventName )
 		pAchievement->OnMapEvent( pchEventName );
 	}
 }
+#ifdef EZ 
+//-----------------------------------------------------------------------------
+// Purpose: called when a the difficulty changes
+//-----------------------------------------------------------------------------
+void CAchievementMgr::OnSkillChangedEvent(int iSkillLevel, IGameEvent * event)
+{
+	if (event == NULL)
+		return;
+
+	FOR_EACH_VEC(m_vecSkillChangeEventListeners, iAchievement)
+	{
+		CBaseAchievement *pAchievement = m_vecSkillChangeEventListeners[iAchievement];
+		if (pAchievement)
+		{
+			pAchievement->Event_SkillChanged(iSkillLevel, event);
+		}
+	}
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Returns an achievement as it's abstract object. This interface is used by gameui.dll for getting achievement info.

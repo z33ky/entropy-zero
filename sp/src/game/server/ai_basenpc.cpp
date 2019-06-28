@@ -583,6 +583,10 @@ void CAI_BaseNPC::Event_Killed( const CTakeDamageInfo &info )
 	}
 
 	Wake( false );
+
+#ifdef EZ
+	KillSprites(0.0f);
+#endif
 	
 	//Adrian: Select a death pose to extrapolate the ragdoll's velocity.
 	SelectDeathPose( info );
@@ -1287,8 +1291,7 @@ bool CAI_BaseNPC::PlayerInSpread( const Vector &sourcePos, const Vector &targetP
 	for (int i = 1; i <= gpGlobals->maxClients; i++ )
 	{
 		CBasePlayer *pPlayer = UTIL_PlayerByIndex( i );
-
-		if ( pPlayer && ( !ignoreHatedPlayers || IRelationType( pPlayer ) != D_HT ) )
+		if (pPlayer && (!ignoreHatedPlayers || IRelationType(pPlayer) > D_FR))
 		{
 			if ( PointInSpread( pPlayer, sourcePos, targetPos, pPlayer->WorldSpaceCenter(), flSpread, maxDistOffCenter ) )
 				return true;
@@ -1616,6 +1619,86 @@ void CAI_BaseNPC::DoImpactEffect( trace_t &tr, int nDamageType )
 
 	BaseClass::DoImpactEffect( tr, nDamageType );
 }
+
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: Start all glow effects for this NPC.
+//		Based on Manhack eye glows
+//		1upD
+//-----------------------------------------------------------------------------
+void CAI_BaseNPC::StartEye(void)
+{
+	for (int i = 0; i < GetNumGlows(); i++) 
+	{
+		EyeGlow_t * glowData = GetEyeGlowData(i);
+		if (glowData == NULL)
+			continue;
+
+		CSprite * sprite = GetGlowSpritePtr(i);
+		
+		//Create our Eye sprite
+		if (sprite == NULL)
+		{
+			sprite = CSprite::SpriteCreate(glowData->spriteName, GetLocalOrigin(), false);
+			sprite->SetAttachment(this, LookupAttachment(glowData->attachment));
+
+			sprite->SetTransparency(glowData->renderMode, glowData->red, glowData->green, glowData->blue, glowData->alpha, kRenderFxNoDissipation);
+			sprite->SetColor(glowData->red, glowData->green, glowData->blue);
+
+			if (glowData->brightness > 0) 
+			{
+				sprite->SetBrightness(glowData->brightness, 0.1f);
+			}
+			if (glowData->scale > 0) 
+			{
+				sprite->SetScale(glowData->scale, 0.1f);
+			}
+			if (glowData->proxyScale > 0) 
+			{
+				sprite->SetGlowProxySize(glowData->proxyScale);
+			}
+			sprite->SetAsTemporary();
+			SetGlowSpritePtr(i, sprite);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Remove all glow sprites
+//		Based on Manhack eye glows
+//		1upD
+//-----------------------------------------------------------------------------
+void CAI_BaseNPC::KillSprites(float flDelay)
+{
+	for (int i = 0; i < GetNumGlows(); i++) {
+		CSprite * sprite = GetGlowSpritePtr(i);
+		if (sprite)
+			sprite->FadeAndDie(flDelay);
+		SetGlowSpritePtr(i, NULL);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Return the pointer for a given sprite
+//-----------------------------------------------------------------------------
+CSprite	* CAI_BaseNPC::GetGlowSpritePtr(int i) {
+	if (i != 0)
+		return NULL;
+
+	return m_pEyeGlow;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Sets the glow sprite at the given index
+//-----------------------------------------------------------------------------
+void CAI_BaseNPC::SetGlowSpritePtr(int i, CSprite * sprite)
+{
+	if (i != 0)
+		return;
+
+	m_pEyeGlow = sprite;
+}
+#endif
 
 //---------------------------------------------------------
 //---------------------------------------------------------
@@ -10868,6 +10951,12 @@ void CAI_BaseNPC::Activate( void )
 	m_ScheduleHistory.RemoveAll();
 #endif//AI_MONITOR_FOR_OSCILLATION
 
+#ifdef EZ
+	if (IsAlive())
+	{
+		StartEye();
+	}
+#endif
 }
 
 void CAI_BaseNPC::Precache( void )
@@ -11405,6 +11494,10 @@ CAI_BaseNPC::~CAI_BaseNPC(void)
 //-----------------------------------------------------------------------------
 void CAI_BaseNPC::UpdateOnRemove(void)
 {
+#ifdef EZ
+	KillSprites(0.0f);
+#endif
+
 	if ( !m_bDidDeathCleanup )
 	{
 		if ( m_NPCState == NPC_STATE_DEAD )
@@ -13995,6 +14088,18 @@ void CAI_BaseNPC::ModifyOrAppendCriteria( AI_CriteriaSet& set )
 	else
 	{
 		set.AppendCriteria( "distancetoenemy", "-1" );
+	}
+
+	// Mapbase code for squadmate criteria 
+	if (IsInSquad())
+	{
+		set.AppendCriteria("insquad", "1");
+		set.AppendCriteria("squadmates", UTIL_VarArgs("%i", GetSquad()->NumMembers()));
+		set.AppendCriteria("isleader", GetSquad()->IsLeader(this) ? "0" : "1");
+	}
+	else
+	{
+		set.AppendCriteria("insquad", "0");
 	}
 }
 

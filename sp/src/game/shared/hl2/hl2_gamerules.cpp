@@ -1638,6 +1638,20 @@ float CHalfLife2::AdjustPlayerDamageInflicted( float damage )
 		break;
 	}
 }
+	#ifdef EZ
+void CHalfLife2::OnSkillLevelChanged(int iNewLevel)
+{
+	// Fire achievement change for difficulty level changed
+	IGameEvent *event = gameeventmanager->CreateEvent("skill_changed");
+	if (event)
+	{
+		event->SetInt("skill_level", iNewLevel);
+		gameeventmanager->FireEvent(event);
+	}
+
+	BaseClass::OnSkillLevelChanged(iNewLevel);
+}
+	#endif
 #endif//CLIENT_DLL
 
 //---------------------------------------------------------

@@ -22,6 +22,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+extern ConVar   sk_suit_maxarmor;
 static ConVar	sk_suitcharger( "sk_suitcharger","0" );
 static ConVar	sk_suitcharger_citadel( "sk_suitcharger_citadel","0" );
 static ConVar	sk_suitcharger_citadel_maxarmor( "sk_suitcharger_citadel_maxarmor","0" );
@@ -273,7 +274,7 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 	CBasePlayer *pl = (CBasePlayer *) m_hActivator.Get();
 
 	// charge the player
-	int nMaxArmor = 100;
+	int nMaxArmor = sk_suit_maxarmor.GetInt();
 	int nIncrementArmor = 1;
 	if ( HasSpawnFlags(	SF_CITADEL_RECHARGER ) )
 	{
@@ -643,7 +644,7 @@ void CNewRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 	}
 
 	// Get our maximum armor value
-	int nMaxArmor = 100;
+	int nMaxArmor = sk_suit_maxarmor.GetInt();
 	if ( HasSpawnFlags(	SF_CITADEL_RECHARGER ) )
 	{
 		nMaxArmor = sk_suitcharger_citadel_maxarmor.GetInt();

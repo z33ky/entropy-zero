@@ -120,6 +120,7 @@ public:
 	virtual void	PredictPlayerPush();
 	void			BuildScheduleTestBits();
 
+	int             MeleeAttack1Conditions(float flDot, float flDist);
 	CSound			*GetBestSound( int validTypes = ALL_SOUNDS );
 	bool			QueryHearSound( CSound *pSound );
 	bool			QuerySeeEntity( CBaseEntity *pEntity, bool bOnlyHateOrFearIfNPC = false );
@@ -269,7 +270,9 @@ public:
 	static bool		IsSniper( CBaseEntity *pEntity );
 	static bool		IsTurret(  CBaseEntity *pEntity );
 	static bool		IsGunship( CBaseEntity *pEntity );
-	
+#ifdef EZ
+	virtual bool		UseAttackSquadSlots() { return !IsCommandable(); } // All non-commandable "companions" should use attack squad slots
+#endif
 	//---------------------------------
 	// Damage handling
 	//---------------------------------
@@ -291,6 +294,10 @@ public:
 	float			GetIdealSpeed() const;
 	float			GetIdealAccel() const;
 	bool			OnObstructionPreSteer( AILocalMoveGoal_t *pMoveGoal, float distClear, AIMoveResult_t *pResult );
+#ifdef EZ2
+	bool			IsJumpLegal(const Vector &startPos, const Vector &apex, const Vector &endPos, float maxUp, float maxDown, float maxDist) const; // For inheritance reasons, need to pass this through to base class
+	bool			IsJumpLegal(const Vector & startPos, const Vector & apex, const Vector & endPos) const; // Added by 1upD - all 'player companions' should be able to jump
+#endif
 
 	//---------------------------------
 	// Inputs
@@ -326,11 +333,15 @@ protected:
 		SCHED_PC_FAIL_TAKE_COVER_TURRET,
 		SCHED_PC_FAKEOUT_MORTAR,
 		SCHED_PC_GET_OFF_COMPANION,
+		SCHED_PC_MELEE_AND_MOVE_AWAY,
 		NEXT_SCHEDULE,
 
 		TASK_PC_WAITOUT_MORTAR = BaseClass::NEXT_TASK,
 		TASK_PC_GET_PATH_OFF_COMPANION,
 		NEXT_TASK,
+
+		AE_PC_MELEE = LAST_SHARED_ANIMEVENT
+
 	};
 
 private:

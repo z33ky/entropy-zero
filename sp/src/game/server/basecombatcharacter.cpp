@@ -1161,8 +1161,8 @@ bool CTraceFilterMelee::ShouldHitEntity( IHandleEntity *pHandleEntity, int conte
 		// Only do these comparisons between NPCs
 		if ( pBCC && pVictimBCC )
 		{
-			// Can only damage other NPCs that we hate
-			if ( m_bDamageAnyNPC || pBCC->IRelationType( pEntity ) == D_HT )
+			// Can only damage other NPCs that we hate or fear
+			if ( m_bDamageAnyNPC || pBCC->IRelationType( pEntity ) <= D_FR )
 			{
 				if ( info.GetDamage() )
 				{

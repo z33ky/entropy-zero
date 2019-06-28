@@ -95,7 +95,9 @@ private:
 
 	void AdjustPlayerDamageTaken( CTakeDamageInfo *pInfo );
 	float AdjustPlayerDamageInflicted( float damage );
-
+#ifdef EZ
+	void OnSkillLevelChanged(int iNewLevel);
+#endif
 	int						DefaultFOV( void ) { return 75; }
 #endif
 };

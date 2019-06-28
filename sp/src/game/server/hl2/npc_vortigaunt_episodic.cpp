@@ -1799,6 +1799,43 @@ void CNPC_Vortigaunt::MaintainGlows( void )
 	}
 }
 
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: Return the glow attributes for a given index
+//-----------------------------------------------------------------------------
+EyeGlow_t * CNPC_Vortigaunt::GetEyeGlowData(int i)
+{
+	if (i != 0)
+		return NULL;
+
+	EyeGlow_t * eyeGlow = new EyeGlow_t();
+
+	eyeGlow->spriteName = "sprites/light_glow02.vmt";
+	eyeGlow->attachment = "eyes";
+
+	eyeGlow->alpha = 150;
+	eyeGlow->red = 0;
+	eyeGlow->green = 255;
+	eyeGlow->blue = 0;
+	eyeGlow->scale = 0.3f;
+	eyeGlow->proxyScale = 3.0f;
+	eyeGlow->renderMode = kRenderGlow;
+	return eyeGlow;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: If the vortiguant is glowing blue, it has 1 glow sprite
+//		Otherwise 0
+//-----------------------------------------------------------------------------
+int CNPC_Vortigaunt::GetNumGlows()
+{
+	string_t iszModel_BlueVortigaunt = AllocPooledString("models/vortigaunt_blue.mdl");
+	if (iszModel_BlueVortigaunt == GetModelName())
+		return 1;
+	return 0;
+}
+#endif
+
 
 //-----------------------------------------------------------------------------
 // Purpose: Squelch looping sounds and glows after a restore.

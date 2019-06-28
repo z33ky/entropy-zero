@@ -222,6 +222,14 @@ private:
 	void			EndHandGlow( int beamType = VORTIGAUNT_BEAM_ALL );
 	void			MaintainGlows( void );
 
+#ifdef EZ
+protected:
+	// Glowing eyes
+	EyeGlow_t	* GetEyeGlowData(int i);
+	int			  GetNumGlows();
+private:
+#endif
+
 	// ----------------
 	//  Healing
 	// ----------------
