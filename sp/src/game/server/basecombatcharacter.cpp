@@ -3038,6 +3038,14 @@ float CBaseCombatCharacter::CalculatePhysicsStressDamage( vphysics_objectstress_
 
 void CBaseCombatCharacter::ApplyStressDamage( IPhysicsObject *pPhysics, bool bRequireLargeObject )
 {
+#ifdef EZ
+	if ( Classify() == CLASS_COMBINE )
+	{
+		// Bypass stress completely for Combine
+		return;
+	}
+#endif
+
 #ifdef HL2_DLL
 	if( Classify() == CLASS_PLAYER_ALLY || Classify() == CLASS_PLAYER_ALLY_VITAL )
 	{

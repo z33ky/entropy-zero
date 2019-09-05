@@ -195,9 +195,6 @@ float CNPC_Stalker::MaxYawSpeed( void )
 //-----------------------------------------------------------------------------
 Class_T CNPC_Stalker::Classify( void )
 {
-#ifdef EZ1
-	return CLASS_CITIZEN_REBEL; // Breadman
-#endif
 	return CLASS_STALKER;
 }
 
