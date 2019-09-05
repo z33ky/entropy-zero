@@ -1335,6 +1335,13 @@ void CClientShadowMgr::InitDepthTextureShadows()
 {
 	VPROF_BUDGET( "CClientShadowMgr::InitDepthTextureShadows", VPROF_BUDGETGROUP_SHADOW_DEPTH_TEXTURING );
 
+	// SAUL: start benchmark timer
+	CFastTimer timer;
+	timer.Start();
+
+	// SAUL: set m_nDepthTextureResolution to the depth resolution we want
+	m_nDepthTextureResolution = r_flashlightdepthres.GetInt();
+
 	if( !m_bDepthTextureActive )
 	{
 		m_bDepthTextureActive = true;
@@ -1351,7 +1358,8 @@ void CClientShadowMgr::InitDepthTextureShadows()
 		m_DummyColorTexture.InitRenderTargetTexture( r_flashlightdepthres.GetInt(), r_flashlightdepthres.GetInt(), RT_SIZE_OFFSCREEN, IMAGE_FORMAT_BGR565, MATERIAL_RT_DEPTH_SHARED, false, "_rt_ShadowDummy" );
 		m_DummyColorTexture.InitRenderTargetSurface( r_flashlightdepthres.GetInt(), r_flashlightdepthres.GetInt(), IMAGE_FORMAT_BGR565, true );
 #else
-		m_DummyColorTexture.InitRenderTarget( r_flashlightdepthres.GetInt(), r_flashlightdepthres.GetInt(), RT_SIZE_OFFSCREEN, nullFormat, MATERIAL_RT_DEPTH_NONE, false, "_rt_ShadowDummy" );
+		// SAUL: we want to create a render target of specific size, so use RT_SIZE_NO_CHANGE
+		m_DummyColorTexture.InitRenderTarget( m_nDepthTextureResolution, m_nDepthTextureResolution, RT_SIZE_NO_CHANGE, nullFormat, MATERIAL_RT_DEPTH_NONE, false, "_rt_ShadowDummy" );
 #endif
 
 		// Create some number of depth-stencil textures
@@ -1371,8 +1379,12 @@ void CClientShadowMgr::InitDepthTextureShadows()
 			depthTex.InitRenderTargetTexture( m_nDepthTextureResolution, m_nDepthTextureResolution, RT_SIZE_OFFSCREEN, dstFormat, MATERIAL_RT_DEPTH_NONE, false, strRTName );
 			depthTex.InitRenderTargetSurface( 1, 1, dstFormat, false );
 #else
-			depthTex.InitRenderTarget( m_nDepthTextureResolution, m_nDepthTextureResolution, RT_SIZE_OFFSCREEN, dstFormat, MATERIAL_RT_DEPTH_NONE, false, strRTName );
+			// SAUL: we want to create a *DEPTH TEXTURE* of specific size, so use RT_SIZE_NO_CHANGE and MATERIAL_RT_DEPTH_ONLY
+			depthTex.InitRenderTarget( m_nDepthTextureResolution, m_nDepthTextureResolution, RT_SIZE_NO_CHANGE, dstFormat, MATERIAL_RT_DEPTH_ONLY, false, strRTName );
 #endif
+
+			// SAUL: ensure the depth texture size wasn't changed
+			Assert( depthTex->GetActualWidth() == m_nDepthTextureResolution );
 
 			if ( i == 0 )
 			{
@@ -1387,6 +1399,8 @@ void CClientShadowMgr::InitDepthTextureShadows()
 
 		materials->EndRenderTargetAllocation();
 	}
+	timer.End();
+	DevMsg( "InitDepthTextureShadows took %.2f msec\n", timer.GetDuration().GetMillisecondsF() );
 }
 
 void CClientShadowMgr::ShutdownDepthTextureShadows() 
@@ -2598,13 +2612,22 @@ static void DebugDrawFrustum( const Vector &vOrigin, const VMatrix &matWorldToFl
 //-----------------------------------------------------------------------------
 // Builds a list of leaves inside the flashlight volume
 //-----------------------------------------------------------------------------
-static void BuildFlashlightLeafList( CShadowLeafEnum *pEnum, const VMatrix &worldToShadow )
+static bool BuildFlashlightLeafList( CShadowLeafEnum *pEnum, const VMatrix &worldToShadow )
 {
 	// Use an AABB around the frustum to enumerate leaves.
 	Vector mins, maxs;
 	CalculateAABBFromProjectionMatrix( worldToShadow, &mins, &maxs );
 	ISpatialQuery* pQuery = engine->GetBSPTreeQuery();
 	pQuery->EnumerateLeavesInBox( mins, maxs, pEnum, 0 );
+
+	// 1upD - Per the VDC guide, return false if the AABB is not in our view
+	// to short circuit BuildFlashlight()
+	// https://developer.valvesoftware.com/wiki/Env_projectedtexture/fixes#Enabling_visibility_tests
+	//
+	// Don't project the flashlight if the frustum AABB is not in our view
+	if (engine->CullBox( mins, maxs ))
+		return false;
+	return true;
 }
 
 
@@ -2631,9 +2654,15 @@ void CClientShadowMgr::BuildFlashlight( ClientShadowHandle_t handle )
 	CShadowLeafEnum leafList;
 	if ( bLightWorld || ( bLightModels && !bLightSpecificEntity ) )
 	{
-		BuildFlashlightLeafList( &leafList, shadow.m_WorldToShadow );
-		nCount = leafList.m_LeafList.Count();
-		pLeafList = leafList.m_LeafList.Base();
+		if (BuildFlashlightLeafList( &leafList, shadow.m_WorldToShadow ))
+		{
+			nCount = leafList.m_LeafList.Count();
+			pLeafList = leafList.m_LeafList.Base();
+		}
+		else
+		{
+			return;
+		}
 	}
 
 	if( bLightWorld )
@@ -3847,20 +3876,22 @@ int CClientShadowMgr::BuildActiveShadowDepthList( const CViewSetup &viewSetup, i
 		if ( !flashlightState.m_bEnableShadows )
 			continue;
 
-		// Calculate an AABB around the shadow frustum
-		Vector vecAbsMins, vecAbsMaxs;
-		CalculateAABBFromProjectionMatrix( shadow.m_WorldToShadow, &vecAbsMins, &vecAbsMaxs );
+		// 1upD - Per the VDC guide, I'm commenting out this culling as it was causing projected textures to render inappropriately
+		// https://developer.valvesoftware.com/wiki/Env_projectedtexture/fixes#Enabling_shadow_receiving_on_the_view_model
+		//// Calculate an AABB around the shadow frustum
+		//Vector vecAbsMins, vecAbsMaxs;
+		//CalculateAABBFromProjectionMatrix( shadow.m_WorldToShadow, &vecAbsMins, &vecAbsMaxs );
 
-		Frustum_t viewFrustum;
-		GeneratePerspectiveFrustum( viewSetup.origin, viewSetup.angles, viewSetup.zNear, viewSetup.zFar, viewSetup.fov, viewSetup.m_flAspectRatio, viewFrustum );
+		//Frustum_t viewFrustum;
+		//GeneratePerspectiveFrustum( viewSetup.origin, viewSetup.angles, viewSetup.zNear, viewSetup.zFar, viewSetup.fov, viewSetup.m_flAspectRatio, viewFrustum );
 
-		// FIXME: Could do other sorts of culling here, such as frustum-frustum test, distance etc.
-		// If it's not in the view frustum, move on
-		if ( R_CullBox( vecAbsMins, vecAbsMaxs, viewFrustum ) )
-		{
-			shadowmgr->SetFlashlightDepthTexture( shadow.m_ShadowHandle, NULL, 0 );
-			continue;
-		}
+		//// FIXME: Could do other sorts of culling here, such as frustum-frustum test, distance etc.
+		//// If it's not in the view frustum, move on
+		//if ( R_CullBox( vecAbsMins, vecAbsMaxs, viewFrustum ) )
+		//{
+		//	shadowmgr->SetFlashlightDepthTexture( shadow.m_ShadowHandle, NULL, 0 );
+		//	continue;
+		//}
 
 		if ( nActiveDepthShadowCount >= nMaxDepthShadows )
 		{

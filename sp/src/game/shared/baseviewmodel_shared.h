@@ -145,7 +145,13 @@ public:
 	// Should this object receive shadows?
 	virtual bool			ShouldReceiveProjectedTextures( int flags )
 	{
+#ifdef EZ
+		// 1upD - Per the VDC guide, view models should receive projected textures
+		// https://developer.valvesoftware.com/wiki/Env_projectedtexture/fixes#Enabling_shadow_receiving_on_the_view_model
+		return true;
+#else
 		return false;
+#endif
 	}
 
 	// Add entity to visible view models list?
