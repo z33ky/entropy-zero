@@ -546,9 +546,9 @@ void CNPC_Citizen::Spawn()
 	#endif
 #endif
 	m_flTimePlayerStare = FLT_MAX;
-
+#ifndef EZ
 	AddEFlags( EFL_NO_DISSOLVE | EFL_NO_MEGAPHYSCANNON_RAGDOLL | EFL_NO_PHYSCANNON_INTERACTION );
-
+#endif
 	NPCInit();
 
 	SetUse( &CNPC_Citizen::CommanderUse );
