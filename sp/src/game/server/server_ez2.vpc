@@ -14,7 +14,7 @@ $Configuration
 	$Compiler
 	{
 		$AdditionalIncludeDirectories	"$BASE;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;.\hl2;.\episodic; .\ez1 .\ez2"
-		$PreprocessorDefinitions		"$BASE;HL2_DLL;HL2_EPISODIC;EZ;EZ2;USES_SAVERESTORE"
+		$PreprocessorDefinitions		"$BASE;HL2_DLL;HL2_EPISODIC;EZ;EZ2;HE_APC;GLOWS_ENABLE;USES_SAVERESTORE"
 	}
 }
 
@@ -26,9 +26,13 @@ $Project "Server (Entropy Zero 2)"
 		{
 			$File	"ez1\weapon_ManhackToss.cpp"
 		}
+		$Folder	"HE DLL"
+		{
+			$File	"Human_Error\vehicle_drivable_apc.h"
+			$File	"Human_Error\vehicle_drivable_apc.cpp"
+		}
 		$Folder	"EZ2 DLL"
 		{
-			$File	"ez1\weapon_ManhackToss.cpp"
 			$File	"ez2\npc_basepredator.h"
 			$File	"ez2\npc_basepredator.cpp"
 			$File	"ez2\npc_bullsquid.h"

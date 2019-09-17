@@ -366,6 +366,10 @@ public:
 	virtual void		AddEntityRelationship( CBaseEntity *pEntity, Disposition_t nDisposition, int nPriority );
 	virtual bool		RemoveEntityRelationship( CBaseEntity *pEntity );
 	virtual void		AddClassRelationship( Class_T nClass, Disposition_t nDisposition, int nPriority );
+#ifdef HE_APC
+	//TERO: this one added by me
+	static Disposition_t		GetDefaultRelationshipDispositionBetweenClasses( Class_T nClassTarget1, Class_T nClassTarget2 );
+#endif
 
 	virtual void		ChangeTeam( int iTeamNum );
 
