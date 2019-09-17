@@ -41,6 +41,11 @@ $Project "Server (Entropy Zero)"
 			$File	"ez2\npc_bullsquid.cpp"
 		}
 		
+		$Folder	"Mod"
+		{
+			$File	"mod\weapon_smg2.cpp"
+		}
+	
 		$File	"ai_eventresponse.cpp"
 		$File	"ai_eventresponse.h"
 		$File	"ai_relationship.cpp"
