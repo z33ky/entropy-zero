@@ -28,7 +28,15 @@ $Project "Server (Entropy Zero)"
 			$File	"ez1\achievements_EZ.cpp"
 			$File	"ez1\EZ_Achievements_Reset.cpp"
 		}
-	
+		$Folder	"EZ2 DLL"
+		{
+			$File	"ez1\weapon_ManhackToss.cpp"
+			$File	"ez2\npc_basepredator.h"
+			$File	"ez2\npc_basepredator.cpp"
+			$File	"ez2\npc_bullsquid.h"
+			$File	"ez2\npc_bullsquid.cpp"
+		}
+		
 		$File	"ai_eventresponse.cpp"
 		$File	"ai_eventresponse.h"
 		$File	"ai_relationship.cpp"
@@ -56,6 +64,10 @@ $Project "Server (Entropy Zero)"
 
 		$Folder	"HL2 DLL"
 		{
+			$Folder	"Mod"
+			{
+				$File	"pointhurt.h"
+			}
 			$File	"$SRCDIR\game\shared\episodic\achievements_ep1.cpp"
 			$File	"$SRCDIR\game\shared\episodic\achievements_ep2.cpp"
 			$File	"$SRCDIR\game\shared\episodic\achievements_epx.cpp"

@@ -26,7 +26,14 @@ $Project "Server (Entropy Zero 2)"
 		{
 			$File	"ez1\weapon_ManhackToss.cpp"
 		}
-	
+		$Folder	"EZ2 DLL"
+		{
+			$File	"ez1\weapon_ManhackToss.cpp"
+			$File	"ez2\npc_basepredator.h"
+			$File	"ez2\npc_basepredator.cpp"
+			$File	"ez2\npc_bullsquid.h"
+			$File	"ez2\npc_bullsquid.cpp"
+		}
 		$File	"ai_eventresponse.cpp"
 		$File	"ai_eventresponse.h"
 		$File	"ai_relationship.cpp"
@@ -56,8 +63,6 @@ $Project "Server (Entropy Zero 2)"
 		{
 			$Folder	"Mod"
 			{
-				$File	"hl2\npc_bullsquid.h"
-				$File	"hl2\npc_bullsquid.cpp"
 				$File	"episodic\grenade_hopwire.cpp"
 				$File	"episodic\grenade_hopwire.h"
 				$File	"episodic\weapon_hopwire.cpp"

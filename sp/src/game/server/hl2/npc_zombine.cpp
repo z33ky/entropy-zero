@@ -92,9 +92,10 @@ public:
 	virtual void BuildScheduleTestBits( void );
 
 	virtual void HandleAnimEvent( animevent_t *pEvent );
-
+#ifndef EZ
 	virtual const char *GetLegsModel( void );
 	virtual const char *GetTorsoModel( void );
+#endif
 	virtual const char *GetHeadcrabClassname( void );
 	virtual const char *GetHeadcrabModel( void );
 
@@ -108,6 +109,10 @@ public:
 	virtual void FootstepSound( bool fRightFoot );
 	virtual void FootscuffSound( bool fRightFoot );
 	virtual void MoanSound( envelopePoint_t *pEnvelope, int iEnvelopeSize );
+#ifdef EZ
+	virtual void ChargeSound( void );
+	virtual void ReadyGrenadeSound( void );
+#endif
 
 	virtual void Event_Killed( const CTakeDamageInfo &info );
 	virtual void TraceAttack( const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr, CDmgAccumulator *pAccumulator );
@@ -203,7 +208,16 @@ void CNPC_Zombine::Spawn( void )
 	m_fIsTorso = false;
 	m_fIsHeadless = false;
 	
-#ifdef HL2_EPISODIC
+#ifdef EZ
+	if ( m_tEzVariant == EZ_VARIANT_RAD ) 
+	{
+		SetBloodColor( BLOOD_COLOR_BLUE );
+	}
+	else 
+	{
+		SetBloodColor( BLOOD_COLOR_ZOMBIE );
+	}
+#elif HL2_EPISODIC
 	SetBloodColor( BLOOD_COLOR_ZOMBIE );
 #else
 	SetBloodColor( BLOOD_COLOR_GREEN );
@@ -225,12 +239,17 @@ void CNPC_Zombine::Spawn( void )
 
 	g_flZombineGrenadeTimes = gpGlobals->curtime;
 	m_flGrenadePullTime = gpGlobals->curtime;
-
+#ifdef EZ
+	// Xen zombine do not use grenades, otherwise start with the max number of grenades
+	m_iGrenadeCount = m_tEzVariant == EZ_VARIANT_XEN ? 0 : ZOMBINE_MAX_GRENADES;
+#else
 	m_iGrenadeCount = ZOMBINE_MAX_GRENADES;
+#endif
 }
 
 void CNPC_Zombine::Precache( void )
 {
+#ifndef EZ
 	BaseClass::Precache();
 
 	PrecacheModel( "models/zombie/zombie_soldier.mdl" );
@@ -250,11 +269,91 @@ void CNPC_Zombine::Precache( void )
 	PrecacheScriptSound( "ATV_engine_null" );
 	PrecacheScriptSound( "Zombine.Charge" );
 	PrecacheScriptSound( "Zombie.Attack" );
+#else
+	char * modelVariant;
+	switch (m_tEzVariant)
+	{
+		case EZ_VARIANT_RAD:
+			modelVariant = "glowbie";
+			PrecacheScriptSound( "Glowbie.FootstepRight" );
+			PrecacheScriptSound( "Glowbie.FootstepLeft" );
+			PrecacheScriptSound( "Glowbine.ScuffRight" );
+			PrecacheScriptSound( "Glowbine.ScuffLeft" );
+			PrecacheScriptSound( "Glowbie.AttackHit" );
+			PrecacheScriptSound( "Glowbie.AttackMiss" );
+			PrecacheScriptSound( "Glowbine.Pain" );
+			PrecacheScriptSound( "Glowbine.Die" );
+			PrecacheScriptSound( "Glowbine.Alert" );
+			PrecacheScriptSound( "Glowbine.Idle" );
+			PrecacheScriptSound( "Glowbine.ReadyGrenade" );
+
+			PrecacheScriptSound( "ATV_engine_null" );
+			PrecacheScriptSound( "Glowbine.Charge" );
+			PrecacheScriptSound( "Glowbie.Attack" );
+			break;
+		case EZ_VARIANT_XEN:
+			modelVariant = "xenbie";
+			PrecacheScriptSound( "Xenbie.FootstepRight" );
+			PrecacheScriptSound( "Xenbie.FootstepLeft" );
+			PrecacheScriptSound( "Xenbine.ScuffRight" );
+			PrecacheScriptSound( "Xenbine.ScuffLeft" );
+			PrecacheScriptSound( "Xenbie.AttackHit" );
+			PrecacheScriptSound( "Xenbie.AttackMiss" );
+			PrecacheScriptSound( "Xenbine.Pain" );
+			PrecacheScriptSound( "Xenbine.Die" );
+			PrecacheScriptSound( "Xenbine.Alert" );
+			PrecacheScriptSound( "Xenbine.Idle" );
+			PrecacheScriptSound( "Xenbine.ReadyGrenade" );
+
+			PrecacheScriptSound( "ATV_engine_null" );
+			PrecacheScriptSound( "Xenbine.Charge" );
+			PrecacheScriptSound( "Xenbie.Attack" );
+			break;
+		default:
+			modelVariant = "zombie";
+			PrecacheScriptSound( "Zombie.FootstepRight" );
+			PrecacheScriptSound( "Zombie.FootstepLeft" );
+			PrecacheScriptSound( "Zombine.ScuffRight" );
+			PrecacheScriptSound( "Zombine.ScuffLeft" );
+			PrecacheScriptSound( "Zombie.AttackHit" );
+			PrecacheScriptSound( "Zombie.AttackMiss" );
+			PrecacheScriptSound( "Zombine.Pain" );
+			PrecacheScriptSound( "Zombine.Die" );
+			PrecacheScriptSound( "Zombine.Alert" );
+			PrecacheScriptSound( "Zombine.Idle" );
+			PrecacheScriptSound( "Zombine.ReadyGrenade" );
+
+			PrecacheScriptSound( "ATV_engine_null" );
+			PrecacheScriptSound( "Zombine.Charge" );
+			PrecacheScriptSound( "Zombie.Attack" );
+			break;
+	}
+	if (GetModelName() == NULL_STRING)
+	{
+		SetModelName( AllocPooledString( UTIL_VarArgs( "models/zombie/%s_soldier.mdl", modelVariant ) ) );
+	}
+	if (GetTorsoModelName() == NULL_STRING && m_tEzVariant != EZ_VARIANT_XEN)
+	{
+		SetTorsoModelName( AllocPooledString( UTIL_VarArgs( "models/zombie/%s_soldier_torso.mdl", modelVariant ) ) );
+	}
+	if (GetLegsModelName() == NULL_STRING && m_tEzVariant != EZ_VARIANT_XEN)
+	{
+		SetLegsModelName( AllocPooledString( UTIL_VarArgs( "models/zombie/%s_soldier_legs.mdl", modelVariant ) ) );
+	}
+
+	PrecacheModel( STRING( GetModelName() ) );
+
+	BaseClass::Precache();
+#endif
 }
 
 void CNPC_Zombine::SetZombieModel( void )
 {
+#ifndef EZ
 	SetModel( "models/zombie/zombie_soldier.mdl" );
+#else
+	SetModel( STRING( GetModelName() ) );
+#endif  
 	SetHullType( HULL_HUMAN );
 
 	SetBodygroup( ZOMBIE_BODYGROUP_HEADCRAB, !m_fIsHeadless );
@@ -367,7 +466,12 @@ int CNPC_Zombine::MeleeAttack1Conditions ( float flDot, float flDist )
 	{
 		//Adrian: stop spriting if we get close enough to melee and we have a grenade
 		//this gives NPCs time to move away from you (before it was almost impossible cause of the high sprint speed)
-		if ( iBase == COND_CAN_MELEE_ATTACK1 )
+		if ( iBase == COND_CAN_MELEE_ATTACK1 
+#ifdef EZ
+			&& m_tEzVariant != EZ_VARIANT_RAD // EZ2 Glowing zombine keep running
+#endif
+
+		)
 		{
 			StopSprint();
 		}
@@ -562,8 +666,11 @@ void CNPC_Zombine::HandleAnimEvent( animevent_t *pEvent )
 				pGrenade->SetDamage( 200.0f );
 				m_hGrenade = pGrenade;
 				
+#ifdef EZ
+				ReadyGrenadeSound();
+#else
 				EmitSound( "Zombine.ReadyGrenade" );
-
+#endif
 				// Tell player allies nearby to regard me!
 				CAI_BaseNPC **ppAIs = g_AI_Manager.AccessAIs();
 				CAI_BaseNPC *pNPC;
@@ -636,7 +743,12 @@ bool CNPC_Zombine::AllowedToSprint( void )
 	}
 
 	//Below 25% health they'll always sprint
-	if ( ( GetHealth() > GetMaxHealth() * 0.5f ) )
+	if ( ( GetHealth() > GetMaxHealth() * 0.5f ) 
+#ifdef EZ
+		// EZ2 Glowing zombine always run
+		||  m_tEzVariant == EZ_VARIANT_RAD
+#endif
+	)
 	{
 		if ( IsStrategySlotRangeOccupied( SQUAD_SLOT_ZOMBINE_SPRINT1, SQUAD_SLOT_ZOMBINE_SPRINT2 ) == true )
 			return false;
@@ -685,7 +797,11 @@ void CNPC_Zombine::Sprint( bool bMadSprint )
 	//Don't sprint for this long after I'm done with this sprint run.
 	m_flSprintRestTime = m_flSprintTime + random->RandomFloat( 2.5f, 5.0f );
 
+#ifdef EZ
+	ChargeSound();
+#else
 	EmitSound( "Zombine.Charge" );
+#endif
 }
 
 void CNPC_Zombine::RunTask( const Task_t *pTask )
@@ -795,6 +911,25 @@ bool CNPC_Zombine::ShouldBecomeTorso( const CTakeDamageInfo &info, float flDamag
 //-----------------------------------------------------------------------------
 void CNPC_Zombine::FootscuffSound( bool fRightFoot )
 {
+#ifdef EZ
+	if (m_tEzVariant == EZ_VARIANT_RAD && fRightFoot)
+	{
+		EmitSound( "Glowbine.ScuffRight" );
+	}
+	else if (m_tEzVariant == EZ_VARIANT_RAD)
+	{
+		EmitSound( "Glowbine.ScuffLeft" );
+	}
+	if (m_tEzVariant == EZ_VARIANT_XEN && fRightFoot)
+	{
+		EmitSound( "Xenbine.ScuffRight" );
+	}
+	else if (m_tEzVariant == EZ_VARIANT_XEN)
+	{
+		EmitSound( "Xenbine.ScuffLeft" );
+	}
+	else
+#endif
 	if( fRightFoot )
 	{
 		EmitSound( "Zombine.ScuffRight" );
@@ -882,14 +1017,36 @@ void CNPC_Zombine::AttackSound( void )
 {
 	
 }
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: Play a sound while charging towards the enemy
+//-----------------------------------------------------------------------------
+void CNPC_Zombine::ChargeSound( void )
+{
+	EmitSound( "Zombine.Charge" );
+}
 
+//-----------------------------------------------------------------------------
+// Purpose: Play a sound while readying a grenade
+//-----------------------------------------------------------------------------
+void CNPC_Zombine::ReadyGrenadeSound( void )
+{
+	EmitSound( "Zombine.ReadyGrenade" );
+}
+#endif
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 const char *CNPC_Zombine::GetHeadcrabModel( void )
 {
-	return "models/headcrabclassic.mdl";
+	switch (m_tEzVariant)
+	{
+		case EZ_VARIANT_RAD:
+			return "models/glowcrabclassic.mdl";
+		default:
+			return "models/headcrabclassic.mdl";
+	}
 }
-
+#ifndef EZ
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -904,7 +1061,7 @@ const char *CNPC_Zombine::GetTorsoModel( void )
 {
 	return "models/zombie/zombie_soldier_torso.mdl";
 }
-
+#endif
 //---------------------------------------------------------
 // Classic zombie only uses moan sound if on fire.
 //---------------------------------------------------------

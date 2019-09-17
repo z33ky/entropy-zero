@@ -317,6 +317,8 @@ struct UnreachableEnt_t
 #define SCNPC_FLAG_NEEDS_WEAPON_THEM			( 1 << 5 )
 #define SCNPC_FLAG_DONT_TELEPORT_AT_END_ME		( 1 << 6 )
 #define SCNPC_FLAG_DONT_TELEPORT_AT_END_THEM	( 1 << 7 )
+#define SCNPC_FLAG_TEST_SQUADMATE_HEALTH		( 1 << 8 )
+#define SCNPC_FLAG_TEST_END_POSITION            ( 1 << 9 )
 
 // -----------------------------------------
 //	Scripted NPC interaction trigger methods
@@ -389,6 +391,10 @@ struct ScriptedNPCInteraction_t
 		iszMyWeapon = NULL_STRING;
 		iszTheirWeapon = NULL_STRING;
 
+		flHealthRatio = 0.0f;
+		vecRelativeEndPos = vec3_invalid;
+
+
 		for ( int i = 0; i < SNPCINT_NUM_PHASES; i++)
 		{
 			sPhases[i].iszSequence = NULL_STRING;
@@ -409,6 +415,9 @@ struct ScriptedNPCInteraction_t
 	string_t	iszMyWeapon;				// Classname of the weapon I'm holding, if any
 	string_t	iszTheirWeapon;				// Classname of the weapon my interaction partner is holding, if any
 	ScriptedNPCInteraction_Phases_t sPhases[SNPCINT_NUM_PHASES];
+
+	float		flHealthRatio; // Added by 1upD / Blixibon
+	Vector      vecRelativeEndPos;            // Relative position that the NPC must fit in
 
 	// These will be filled out for you in AddScriptedNPCInteraction
 	VMatrix		matDesiredLocalToWorld;		// Desired relative position / angles of the other NPC
@@ -2037,7 +2046,20 @@ private:
 	bool	m_bCrouchDesired;
 	bool	m_bForceCrouch;
 	bool	m_bIsCrouching;
+
 	//-----------------------------------------------------
+	// Entropy : Zero 2 Variants
+	//-----------------------------------------------------
+public:
+	enum EZ_VARIANT
+	{
+		EZ_VARIANT_INVALID = -1,
+		EZ_VARIANT_DEFAULT = 0,
+		EZ_VARIANT_XEN,
+		EZ_VARIANT_RAD,
+	};
+
+	EZ_VARIANT m_tEzVariant;
 
 	//-----------------------------------------------------
 	// ai_post_frame_navigation
@@ -2161,6 +2183,7 @@ public:
 protected:
 	// Glow Effects
 	CSprite		* m_pEyeGlow;
+	bool		m_bNoGlow; // Don't glow!
 
 	virtual void		StartEye(void); // Start glow effects for this NPC
 	virtual void		KillSprites(float flDelay); // Stop all glow effects

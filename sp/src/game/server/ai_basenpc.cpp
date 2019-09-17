@@ -1628,6 +1628,12 @@ void CAI_BaseNPC::DoImpactEffect( trace_t &tr, int nDamageType )
 //-----------------------------------------------------------------------------
 void CAI_BaseNPC::StartEye(void)
 {
+	// If; they key value "No glows" is set, don't start any glows!
+	if (m_bNoGlow)
+	{
+		return;
+	}
+
 	for (int i = 0; i < GetNumGlows(); i++) 
 	{
 		EyeGlow_t * glowData = GetEyeGlowData(i);
@@ -10776,6 +10782,11 @@ BEGIN_DATADESC( CAI_BaseNPC )
 	DEFINE_KEYFIELD( m_iszEnemyFilterName,		FIELD_STRING, "enemyfilter" ),
 	DEFINE_FIELD( m_bImportanRagdoll,			FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bPlayerAvoidState,			FIELD_BOOLEAN ),
+#ifdef EZ
+		DEFINE_KEYFIELD( m_tEzVariant,			FIELD_INTEGER, "ezvariant" ),
+		DEFINE_KEYFIELD( m_bNoGlow,				FIELD_BOOLEAN, "noglow" ),
+#endif
+
 
 	// Satisfy classcheck
 	// DEFINE_FIELD( m_ScheduleHistory, CUtlVector < AIScheduleChoice_t > ),
@@ -13828,6 +13839,15 @@ bool CAI_BaseNPC::InteractionCouldStart( CAI_BaseNPC *pOtherNPC, ScriptedNPCInte
 
 	}
 
+	// 1upD / Blixibon - Check commandable
+	if (pInteraction->iFlags & SCNPC_FLAG_TEST_SQUADMATE_HEALTH && pOtherNPC->IsCommandable())
+	{
+		if (((float)pOtherNPC->GetHealth() / (float)pOtherNPC->GetMaxHealth()) >= pInteraction->flHealthRatio)
+		{
+			return false;
+		}
+	}
+
 	// Valid so far. Now check to make sure there's nothing in the way.
 	// This isn't a very good method of checking, but it's cheap and rules out the problems we're seeing so far.
 	// If we start getting interactions that start a fair distance apart, we're going to need to do more work here.
@@ -13882,6 +13902,26 @@ bool CAI_BaseNPC::InteractionCouldStart( CAI_BaseNPC *pOtherNPC, ScriptedNPCInte
 			NDebugOverlay::Box( vecOrigin, pOtherNPC->GetHullMins(), pOtherNPC->GetHullMaxs(), 255,0,0, true, 1.0 );
 		}
 		return false;
+	}
+
+	// 1upD / Blixibon - Make sure we could fit at the sequence end position too.
+	if (pInteraction->iFlags & SCNPC_FLAG_TEST_END_POSITION)
+	{
+		VMatrix matTestToWorld;
+		matTestToWorld.SetupMatrixOrgAngles(pInteraction->vecRelativeEndPos, angMyCurrent);
+		MatrixMultiply(matMeToWorld, matTestToWorld, matLocalToWorld);
+		Vector vecPos = (matLocalToWorld.GetTranslation());
+
+		// Start from the NPC's position.
+		AI_TraceHull(pOtherNPC->GetAbsOrigin(), vecPos, GetHullMins(), GetHullMaxs(), MASK_SOLID, &traceFilter, &tr);
+		if (tr.fraction != 1.0)
+		{
+			if (bDebug)
+			{
+				NDebugOverlay::Box(vecPos, GetHullMins(), GetHullMaxs(), 255, 0, 0, 100, 1.0);
+			}
+			return false;
+		}
 	}
 
 	// If the NPCs are swapping places during this interaction, make sure they can fit at each

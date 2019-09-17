@@ -269,7 +269,10 @@ bool CBaseCombatCharacter::HasAlienGibs( void )
 		 myClass == CLASS_STALKER		 ||
 		 myClass == CLASS_ZOMBIE		 ||
 		 myClass == CLASS_VORTIGAUNT	 ||
-		 myClass == CLASS_HEADCRAB )
+#ifdef EZ
+		myClass == CLASS_BULLSQUID ||
+#endif
+		myClass == CLASS_HEADCRAB )
 	{
 		 return true;
 	}
