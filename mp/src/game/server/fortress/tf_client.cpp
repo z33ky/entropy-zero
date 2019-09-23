@@ -88,6 +88,7 @@ void ClientGamePrecache( void )
 	// VGUI assets
 	CBaseEntity::PrecacheModel("models/interface/red_team.mdl");
 	CBaseEntity::PrecacheModel("models/interface/blue_team.mdl");
+	CBaseEntity::PrecacheModel("models/interface/random.mdl");
 
 	// Precache team message sounds
 	enginesound->PrecacheSound( "vox/reinforcement.wav" );
