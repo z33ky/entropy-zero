@@ -1197,10 +1197,9 @@ END_NETWORK_TABLE()
 	CTFTeam *GetOpposingTeam( CTeam *pTeam )
 	{
 		// Hacky!
-		if ( pTeam->GetTeamNumber() == 1 )
-			return GetGlobalTFTeam( 2 );
-
-		return GetGlobalTFTeam( 1 );
+		return pTeam->GetTeamNumber() == TEAM_HUMANS ?
+			GetGlobalTFTeam(TEAM_ALIENS) :
+			GetGlobalTFTeam(TEAM_HUMANS);
 	}
 
 
@@ -1626,7 +1625,7 @@ CAmmoDef *GetAmmoDef()
 		bInitted = true;
 		
 		// Added some basic physics force ~hogsy
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	10,	0);
+		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	20,	0);
 		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				50,	0);
 		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				50,	0);
 		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);

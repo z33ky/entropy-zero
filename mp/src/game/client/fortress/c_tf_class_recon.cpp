@@ -20,7 +20,7 @@ BEGIN_RECV_TABLE_NOBASE( C_PlayerClassRecon, DT_PlayerClassReconData )
 	RecvPropFloat	( RECVINFO( m_ClassData.m_flImpactDist ) ),
 	RecvPropVector	( RECVINFO( m_ClassData.m_vecImpactNormal ) ),
 	RecvPropVector	( RECVINFO( m_ClassData.m_vecUnstickVelocity ) ),
-	RecvPropInt		( RECVINFO( m_ClassData.m_bTrailParticles ) ),
+	RecvPropBool	( RECVINFO( m_ClassData.m_bTrailParticles ) ),
 END_RECV_TABLE()
 
 BEGIN_PREDICTION_DATA_NO_BASE( C_PlayerClassRecon )
