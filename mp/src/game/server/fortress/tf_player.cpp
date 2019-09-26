@@ -1789,20 +1789,7 @@ bool CBaseTFPlayer::MenuInput( int iInput )
 
 void CBaseTFPlayer::MenuReset( void )
 {
-	CSingleUserRecipientFilter user( this );
-	user.MakeReliable();
-
-	UserMessageBegin( user, "ShowMenu" );
-		WRITE_SHORT( 0 );  
-		WRITE_CHAR( 0 );		// display time (-1 means unlimited)
-		WRITE_BYTE( false );	// is there more message to come? no
-		WRITE_STRING( "" );
-	MessageEnd();
-
-	Q_strncpy( m_MenuStringBuffer, "" ,  sizeof(m_MenuStringBuffer) );
-	m_MenuRefreshTime = m_MenuDisplayTime = 0;
-
-	m_pCurrentMenu = NULL;
+	// TODO: remove
 }
 
 //-----------------------------------------------------------------------------
