@@ -16,7 +16,6 @@
 	#include "game.h"
 	#include "gamerules.h"
 	#include "teamplay_gamerules.h"
-	#include "menu_base.h"
 	#include "ammodef.h"
 	#include "techtree.h"
 	#include "tf_team.h"
@@ -528,25 +527,7 @@ END_NETWORK_TABLE()
 		}
 
 		// TF Commands
-		if ( FStrEq( pcmd, "menuselect" ) )
-		{
-			if ( pPlayer->m_pCurrentMenu == NULL )
-				return true;
-			if ( args.ArgC() < 2 )
-				return true;
-
-			int slot = atoi( args[1] );
-			// select the item from the current menu
-			if ( pPlayer->m_pCurrentMenu->Input( pPlayer, slot ) == false )
-			{
-				// invalid selection, force menu refresh
-				pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
-				pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
-			}
-
-			return true;
-		}
-		else if ( FStrEq( pcmd, "changeclass" ) )
+		if ( FStrEq( pcmd, "changeclass" ) )
 		// Rewrote this... ~hogsy
 		{
 			if(args.ArgC() < 2)

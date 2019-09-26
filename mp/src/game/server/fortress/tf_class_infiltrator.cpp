@@ -17,7 +17,6 @@
 #include "tf_class_infiltrator.h"
 #include "EntityList.h"
 #include "basecombatweapon.h"
-#include "menu_base.h"
 #include "tf_obj.h"
 #include "tf_team.h"
 #include "weapon_builder.h"

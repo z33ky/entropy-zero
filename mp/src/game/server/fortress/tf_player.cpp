@@ -5,7 +5,6 @@
 #include "gamerules.h"
 #include "trains.h"
 #include "entitylist.h"
-#include "menu_base.h"
 #include "basecombatweapon.h"
 #include "controlzone.h"
 #include "tf_shareddefs.h"
@@ -1779,30 +1778,12 @@ int CBaseTFPlayer::TakeHealth( float flHealth, int bitsDamageType )
 //=====================================================================
 void CBaseTFPlayer::MenuDisplay( void )	
 {
-	if ( !m_pCurrentMenu )
-	{
-		m_MenuRefreshTime = 0;
-		return;
-	}
-
-	if ( m_MenuRefreshTime > gpGlobals->curtime )
-	{
-		// guard against sudden clock changes
-		m_MenuRefreshTime = min( m_MenuRefreshTime, gpGlobals->curtime + MENU_UPDATETIME );
-		return;
-	}
-
-	m_MenuRefreshTime = gpGlobals->curtime + MENU_UPDATETIME;
-
-	if ( m_pCurrentMenu )
-		m_pCurrentMenu->Display( this );
+	// TODO: remove
 }
 
 bool CBaseTFPlayer::MenuInput( int iInput )
 {
-	if ( m_pCurrentMenu )
-		return m_pCurrentMenu->Input( this, iInput );
-
+	// TODO: remove
 	return false;
 }
 
