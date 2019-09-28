@@ -2,7 +2,7 @@
 {
 	$basetexture					"models/player/commando/alien_commando_texture"
 	$bumpmap 						"models/player/commando/alien_commando_texture_normal"
-	$normalmapalphaenvmapmask 		"0"
+	$normalmapalphaenvmapmask 		1
 	
 	// Produces a nicer, more subtle effect compared to specular.
 	$phong					1
@@ -11,10 +11,13 @@
 	$phongfresnelranges		"[0.1 0.1 5]"
 	
 	$lightwarptexture	"lightwarp/mirv_lightwarp"
+
+	$selfillum 1
+    $selfillummask "models/player/commando/alien_commando_texture_illum"
 	
-//	$rimlight		1
-//	$rimlightexponent	0
-//	$rimlightboost   	1
+	$rimlight		1
+	$rimlightexponent	0
+	$rimlightboost   	1
 	
 	$halflambert	0
 }
