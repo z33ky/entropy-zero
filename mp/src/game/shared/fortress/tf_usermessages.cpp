@@ -19,8 +19,8 @@ void RegisterUserMessages( void )
 	usermessages->Register( "TextMsg", -1 );
 	usermessages->Register( "InitHUD", 0 );		// called every time a new player joins the server
 	usermessages->Register( "MOTD", -1 );
-	usermessages->Register( "ItemPickup", -1 );
-	usermessages->Register( "ShowMenu", -1 );
+	usermessages->Register( "ItemPickup", -1 );	// unused
+	usermessages->Register( "ShowMenu", -1 );	// unused
 	usermessages->Register( "Shake", -1 );
 	usermessages->Register( "TeamChange", 1 );
 	usermessages->Register( "ClearDecals", 1 );
@@ -36,13 +36,18 @@ void RegisterUserMessages( void )
 
 	// TF User messages
 	usermessages->Register( "Damage", 13 );
-	usermessages->Register( "Accuracy", 2 );
-	usermessages->Register( "ZoneState", 1 );
+	usermessages->Register( "Accuracy", 2 );		// unused
+	usermessages->Register( "ZoneState", 1 );		// unused
 	usermessages->Register( "Technology", -1 );
 	usermessages->Register( "MinimapPulse", -1 );
 	usermessages->Register( "ActBegin", -1 );
 	usermessages->Register( "ActEnd", -1 );
 	usermessages->Register( "PickupRes", 1 );
+
+	// Timer
+	usermessages->Register("StartTimer", 1);
+	usermessages->Register("SetTimer", 4);
+	usermessages->Register("UpdateTimer", 4);
 
 	// NVNT register haptic user messages
 	RegisterHapticMessages();

@@ -137,6 +137,7 @@ void CTFPlayerMove::SetupMoveRecon( CBaseTFPlayer *pTFPlayer, CUserCmd *pUcmd, I
 			pTFMove->ReconData().m_flImpactDist				= pReconData->m_flImpactDist;
 			pTFMove->ReconData().m_vecImpactNormal			= pReconData->m_vecImpactNormal;
 			pTFMove->ReconData().m_vecUnstickVelocity		= pReconData->m_vecUnstickVelocity;
+			pTFMove->ReconData().m_bTrailParticles			= pReconData->m_bTrailParticles;
 		}
 	}
 }
@@ -243,6 +244,7 @@ void CTFPlayerMove::FinishMoveRecon( CBaseTFPlayer *pTFPlayer, CTFMoveData *pTFM
 			pReconData->m_flImpactDist				= pTFMove->ReconData().m_flImpactDist;
 			pReconData->m_vecImpactNormal			= pTFMove->ReconData().m_vecImpactNormal;
 			pReconData->m_vecUnstickVelocity		= pTFMove->ReconData().m_vecUnstickVelocity;
+			pReconData->m_bTrailParticles			= pTFMove->ReconData().m_bTrailParticles;
 		}
 	}
 }

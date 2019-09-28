@@ -35,7 +35,9 @@ CFortressClassMenu::CFortressClassMenu(IViewPort *pViewPort) : Frame(NULL,PANEL_
 	bInfiltratorButton = new Button(this, "InfiltratorButton", "Infiltrator");
 	bPyroButton = new Button(this, "PyroButton", "Pyro");
 	bRandomButton = new Button(this, "RandomButton", "Random");
-	bCancelButton = new Button(this, "CancelButton", "Cancel");
+
+	bCancelButton = new Button(this, "CancelButton", "#VGui_Cancel");
+	bCancelButton->SetCommand("Cancel");
 
 	rtClassDescription = new RichText(this,"ClassInfo");
 
@@ -223,11 +225,13 @@ void CFortressClassMenu::OnTick(void)
 
 void CFortressClassMenu::OnCommand(const char *command)
 {
-	C_BaseTFPlayer	*pLocalPlayer = C_BaseTFPlayer::GetLocalPlayer();
-	if(!pLocalPlayer)
+	if (V_strcmp(command, "Cancel") == 0)
+	{
+		Close();
 		return;
+	}
 
-	if(V_strstr(command,"changeclass "))
+	if (V_strstr(command, "changeclass "))
 		// TODO: Check if this is valid before sending... ~hogsy
 		engine->ClientCmd(command);
 

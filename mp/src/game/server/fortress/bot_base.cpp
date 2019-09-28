@@ -19,7 +19,6 @@
 #include "cbase.h"
 #include "player.h"
 #include "tf_player.h"
-#include "menu_base.h"
 #include "in_buttons.h"
 #include "movehelper_server.h"
 #include "weapon_twohandedcontainer.h"
@@ -191,21 +190,6 @@ static void RunPlayerMove( CBaseTFPlayer *fakeclient, const QAngle& viewangles, 
 //-----------------------------------------------------------------------------
 void Bot_Think( CBaseTFPlayer *pBot )
 {
-	// Hack to make Bots use Menus
-	if ( pBot->m_pCurrentMenu == gMenus[MENU_CLASS] )
-	{
-		int iClass = g_iNextBotClass;
-		if ( iClass == -1 )
-			iClass = random->RandomInt( 1, TFCLASS_CLASS_COUNT );
-
-		pBot->m_pCurrentMenu->Input( pBot, iClass );
-	}
-	else if ( bot_changeclass.GetInt() && bot_changeclass.GetInt() != pBot->PlayerClass() )
-	{
-		pBot->m_pCurrentMenu = gMenus[MENU_CLASS];
-		pBot->m_pCurrentMenu->Input( pBot, bot_changeclass.GetInt() );
-	}
-
 	// Make sure we stay being a bot
 	pBot->AddFlag( FL_FAKECLIENT );
 

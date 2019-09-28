@@ -220,7 +220,7 @@ void C_BaseTFCombatWeapon::OnDataChanged( DataUpdateType_t updateType )
 	if ( !tree )
 		return;
 
-#if 1
+#if 0
 	static C_TFBaseHint *hint = nullptr;
 	if (!hint)
 	{

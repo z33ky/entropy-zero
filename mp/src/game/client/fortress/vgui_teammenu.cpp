@@ -18,7 +18,9 @@ CFortressTeamMenu::CFortressTeamMenu(IViewPort *pViewPort) : CTeamMenu(pViewPort
 	bAlienButton	= new Button(this,"AlienButton","Aliens");	// Alien team button.
 	bHumanButton	= new Button(this,"HumanButton","Humans");	// Human team button.
 	bAutoButton		= new Button(this,"AutoButton","Auto");		// Automatic team selection button.
-	bCancelButton	= new Button(this,"CancelButton","Cancel");	// Cancel, duh.
+
+	bCancelButton = new Button(this, "CancelButton", "#VGui_Cancel");	// Cancel, duh.
+	bCancelButton->SetCommand("Cancel");
 
 	vTeamDescription	= new RichText(this,"TeamInfo");	// Team description.
 
@@ -85,11 +87,13 @@ void CFortressTeamMenu::OnTick(void)
 
 void CFortressTeamMenu::OnCommand(const char *command)
 {
-	C_BaseTFPlayer	*pLocalPlayer = C_BaseTFPlayer::GetLocalPlayer();
-	if(!pLocalPlayer)
+	if (V_strcmp(command, "Cancel") == 0)
+	{
+		Close();
 		return;
+	}
 
-	if(Q_strstr(command,"changeteam "))
+	if(V_strstr(command,"changeteam "))
 		// TODO: Check if this is valid before sending... ~hogsy
 		engine->ClientCmd(command);
 

@@ -16,7 +16,6 @@
 	#include "game.h"
 	#include "gamerules.h"
 	#include "teamplay_gamerules.h"
-	#include "menu_base.h"
 	#include "ammodef.h"
 	#include "techtree.h"
 	#include "tf_team.h"
@@ -528,25 +527,7 @@ END_NETWORK_TABLE()
 		}
 
 		// TF Commands
-		if ( FStrEq( pcmd, "menuselect" ) )
-		{
-			if ( pPlayer->m_pCurrentMenu == NULL )
-				return true;
-			if ( args.ArgC() < 2 )
-				return true;
-
-			int slot = atoi( args[1] );
-			// select the item from the current menu
-			if ( pPlayer->m_pCurrentMenu->Input( pPlayer, slot ) == false )
-			{
-				// invalid selection, force menu refresh
-				pPlayer->m_MenuUpdateTime = gpGlobals->curtime;
-				pPlayer->m_MenuRefreshTime = gpGlobals->curtime;
-			}
-
-			return true;
-		}
-		else if ( FStrEq( pcmd, "changeclass" ) )
+		if ( FStrEq( pcmd, "changeclass" ) )
 		// Rewrote this... ~hogsy
 		{
 			if(args.ArgC() < 2)
@@ -1216,10 +1197,9 @@ END_NETWORK_TABLE()
 	CTFTeam *GetOpposingTeam( CTeam *pTeam )
 	{
 		// Hacky!
-		if ( pTeam->GetTeamNumber() == 1 )
-			return GetGlobalTFTeam( 2 );
-
-		return GetGlobalTFTeam( 1 );
+		return pTeam->GetTeamNumber() == TEAM_HUMANS ?
+			GetGlobalTFTeam(TEAM_ALIENS) :
+			GetGlobalTFTeam(TEAM_HUMANS);
 	}
 
 
@@ -1645,7 +1625,7 @@ CAmmoDef *GetAmmoDef()
 		bInitted = true;
 		
 		// Added some basic physics force ~hogsy
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	10,	0);
+		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	20,	0);
 		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				50,	0);
 		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				50,	0);
 		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);

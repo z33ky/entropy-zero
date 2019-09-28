@@ -297,8 +297,8 @@ $Project "Server"
 			$File	fortress/info_input_respawnplayers.cpp
 			$File	fortress/info_vehicle_bay.cpp
 			$File	fortress/info_vehicle_bay.h
-			$File	fortress/menu_base.cpp
-			$File	fortress/menu_base.h
+			//$File	fortress/menu_base.cpp
+			//$File	fortress/menu_base.h
 			$File	fortress/ragdoll_shadow.cpp
 			$File	fortress/ragdoll_shadow.h
 			$File	fortress/resource_chunk.cpp

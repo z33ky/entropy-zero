@@ -17,7 +17,6 @@
 #include "basecombatweapon.h"
 #include "tf_obj.h"
 #include "in_buttons.h"
-#include "menu_base.h"
 #include "tf_team.h"
 #include "weapon_builder.h"
 
