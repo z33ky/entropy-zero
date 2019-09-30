@@ -539,6 +539,9 @@ void CAI_PlayerAlly::PrescheduleThink( void )
 		m_flTimeLastRegen = gpGlobals->curtime;
 
 		TakeHealth( flHealthRegen, DMG_GENERIC );
+#ifdef EZ
+		RegenSound();
+#endif
 	}
 
 #ifdef HL2_EPISODIC
@@ -575,7 +578,9 @@ int CAI_PlayerAlly::SelectSchedule( void )
 		if ( m_iHealth <= m_iMaxHealth * 0.75 && IsAllowedToSpeak( TLK_WOUND ) && !GetExpresser()->SpokeConcept(TLK_WOUND) )
 		{
 			CTakeDamageInfo info;
+#ifndef EZ // 1upD - I think this might be the culprit behind citizens yelling 'OW!' awkwardly
 			PainSound( info );
+#endif
 		}
 		// sustained heavy wounds?
 		else if ( m_iHealth <= m_iMaxHealth * 0.5 && IsAllowedToSpeak( TLK_MORTAL) )
@@ -1063,7 +1068,11 @@ void CAI_PlayerAlly::Touch( CBaseEntity *pOther )
 	BaseClass::Touch( pOther );
 
 	// Did the player touch me?
+#ifndef EZ
 	if ( pOther->IsPlayer() )
+#else
+	if ( pOther->IsPlayer() && IRelationType( UTIL_GetLocalPlayer() ) != D_HT )
+#endif
 	{
 		// Ignore if pissed at player
 		if ( m_afMemory & bits_MEMORY_PROVOKED )

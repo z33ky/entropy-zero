@@ -122,7 +122,11 @@ ConVar sv_disallow_zoom_fire("sv_disallow_zoom_fire", "1", FCVAR_REPLICATED);
 #endif
 
 // Maximum suit value
+#ifdef EZ2
+ConVar sk_suit_maxarmor("sk_suit_maxarmor", "200", FCVAR_REPLICATED);
+#else
 ConVar sk_suit_maxarmor("sk_suit_maxarmor", "100", FCVAR_REPLICATED);
+#endif
 
 #define	FLASH_DRAIN_TIME	 1.1111	// 100 units / 90 secs
 #define	FLASH_CHARGE_TIME	 50.0f	// 100 units / 2 secs
@@ -210,6 +214,10 @@ public:
 
 	COutputEvent m_OnFlashlightOn;
 	COutputEvent m_OnFlashlightOff;
+#ifdef EZ
+	COutputEvent m_OnPlayerRecallSquad;
+	COutputEvent m_OnPlayerSendSquad;
+#endif
 	COutputEvent m_PlayerHasAmmo;
 	COutputEvent m_PlayerHasNoAmmo;
 	COutputEvent m_PlayerDied;
@@ -1605,26 +1613,55 @@ bool CHL2_Player::CommanderExecuteOne( CAI_BaseNPC *pNpc, const commandgoal_t &g
 	if ( goal.m_pGoalEntity )
 	{
 #ifdef EZ
+		// 1upD - If this is a recall order, hide the command point
+		if (goal.m_pGoalEntity == this) {
+			CBaseEntity *pCommandPointProp = gEntList.FindEntityByClassname(NULL, "prop_command_point");
+			if (pCommandPointProp)
+				UTIL_Remove(pCommandPointProp); // TODO - Find a more elegant way to do this!
+		}
 		// 1upD - If this is a recall order, try to play the 'recall squad' viewmodel animation
-		if ( sv_command_viewmodel_anims.GetBool() && GetActiveWeapon() && goal.m_pGoalEntity == this ) {
+		if ( GetActiveWeapon() && goal.m_pGoalEntity == this && sv_command_viewmodel_anims.GetBool()) {
 			GetActiveWeapon()->SendViewModelAnim(ACT_VM_COMMAND_RECALL);
 		}
+		
+		// 1upD - Fire player proxy output
+		helperFireSquadCommandOuput("OnPlayerRecallSquad", Allies);
 #endif
+
 		return pNpc->TargetOrder( goal.m_pGoalEntity, Allies, numAllies );
 	}
 	else if ( pNpc->IsInPlayerSquad() )
 	{
 #ifdef EZ
 		// 1upD - Try to play the 'send squad' viewmodel animation
-		if (sv_command_viewmodel_anims.GetBool() && GetActiveWeapon() && goal.m_pGoalEntity == this ) {
+		if (GetActiveWeapon() && sv_command_viewmodel_anims.GetBool()) {
 			GetActiveWeapon()->SendViewModelAnim(ACT_VM_COMMAND_SEND);
 		}
+
+		// 1upD - Fire player proxy output
+		helperFireSquadCommandOuput("OnPlayerSendSquad", Allies);
 #endif
+
 		pNpc->MoveOrder( goal.m_vecGoalLocation, Allies, numAllies );
 	}
 	
 	return true;
 }
+
+#ifdef EZ
+// 1upD - Helper method to fire player proxy output
+void CHL2_Player::helperFireSquadCommandOuput(const char * outputName, CAI_BaseNPC **Allies) {
+	variant_t variantSquadMembers;
+	if (Allies) {
+		variantSquadMembers.SetInt(sizeof(Allies));
+	}
+	else {
+		variantSquadMembers.SetInt(0);
+	}
+
+	FirePlayerProxyOutput(outputName, variantSquadMembers, this, this);
+}
+#endif
 
 //---------------------------------------------------------
 //---------------------------------------------------------
@@ -2284,12 +2321,30 @@ void CHL2_Player::InputIgnoreFallDamageWithoutReset( inputdata_t &inputdata )
 //-----------------------------------------------------------------------------
 void CHL2_Player::OnSquadMemberKilled( inputdata_t &data )
 {
+#ifdef EZ
+	CleanUpSquadMarker();
+#endif
 	// send a message to the client, to notify the hud of the loss
 	CSingleUserRecipientFilter user( this );
 	user.MakeReliable();
 	UserMessageBegin( user, "SquadMemberDied" );
 	MessageEnd();
 }
+
+#ifdef EZ
+//-----------------------------------------------------------------------------
+// Purpose: If the entire squad is dead, remove the squad marker
+//-----------------------------------------------------------------------------
+void CHL2_Player::CleanUpSquadMarker(void)
+{
+	if (GetSquadCommandRepresentative() != NULL && GetNumSquadCommandables() > 1)
+		return;
+
+	CBaseEntity *pCommandPointProp = gEntList.FindEntityByClassname(NULL, "prop_command_point");
+	if (pCommandPointProp)
+		UTIL_Remove(pCommandPointProp); // TODO - Find a more elegant way to do this!
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -3818,6 +3873,10 @@ LINK_ENTITY_TO_CLASS( logic_playerproxy, CLogicPlayerProxy);
 BEGIN_DATADESC( CLogicPlayerProxy )
 	DEFINE_OUTPUT( m_OnFlashlightOn, "OnFlashlightOn" ),
 	DEFINE_OUTPUT( m_OnFlashlightOff, "OnFlashlightOff" ),
+#ifdef EZ
+	DEFINE_OUTPUT( m_OnPlayerSendSquad, "OnPlayerSendSquad"),
+	DEFINE_OUTPUT( m_OnPlayerRecallSquad, "OnPlayerRecallSquad"),
+#endif
 	DEFINE_OUTPUT( m_RequestedPlayerHealth, "PlayerHealth" ),
 	DEFINE_OUTPUT( m_PlayerHasAmmo, "PlayerHasAmmo" ),
 	DEFINE_OUTPUT( m_PlayerHasNoAmmo, "PlayerHasNoAmmo" ),

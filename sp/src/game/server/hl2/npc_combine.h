@@ -21,20 +21,36 @@
 #include "ai_behavior_actbusy.h"
 #include "ai_sentence.h"
 #include "ai_baseactor.h"
+#ifdef EZ
+#include "npc_playercompanion.h"
+#endif
 
 // Used when only what combine to react to what the spotlight sees
 #define SF_COMBINE_NO_LOOK	(1 << 16)
 #define SF_COMBINE_NO_GRENADEDROP ( 1 << 17 )
 #define SF_COMBINE_NO_AR2DROP ( 1 << 18 )
+#ifdef EZ
+#define SF_COMBINE_COMMANDABLE ( 1 << 19 ) // Added by 1upD - soldier commandable spawnflag
+#define SF_COMBINE_REGENERATE ( 1 << 20 ) // Added by 1upD - soldier health regen spawnflag
+#define SF_COMBINE_NO_MANHACK_DEPLOY ( 1 << 21 ) // Blixibon -- Manhack toss spawnflag
+#endif
 
 //=========================================================
 //	>> CNPC_Combine
 //=========================================================
+#ifndef EZ
 class CNPC_Combine : public CAI_BaseActor
+#else
+class CNPC_Combine : public CNPC_PlayerCompanion
+#endif
 {
 	DECLARE_DATADESC();
 	DEFINE_CUSTOM_AI;
+#ifndef EZ
 	DECLARE_CLASS( CNPC_Combine, CAI_BaseActor );
+#else
+	DECLARE_CLASS( CNPC_Combine, CNPC_PlayerCompanion );
+#endif
 
 public:
 	CNPC_Combine();
@@ -57,7 +73,11 @@ public:
 	virtual Vector  GetCrouchEyeOffset( void );
 
 	void Event_Killed( const CTakeDamageInfo &info );
+#ifdef EZ
+	void Event_KilledOther( CBaseEntity *pVictim, const CTakeDamageInfo &info );
 
+	virtual bool	PassesDamageFilter( const CTakeDamageInfo &info );
+#endif
 
 	void SetActivity( Activity NewActivity );
 	NPC_STATE		SelectIdealState ( void );
@@ -70,6 +90,53 @@ public:
 	void InputAssault( inputdata_t &inputdata );
 	void InputHitByBugbait( inputdata_t &inputdata );
 	void InputThrowGrenadeAtTarget( inputdata_t &inputdata );
+#ifdef EZ
+	void InputSetCommandable( inputdata_t &inputdata );  // New inputs to toggle player commands on / off
+	void InputSetNonCommandable(inputdata_t &inputdata);
+	void InputRemoveFromPlayerSquad( inputdata_t &inputdata ) { RemoveFromPlayerSquad(); }
+	void InputAddToPlayerSquad( inputdata_t &inputdata ) { AddToPlayerSquad(); }
+	void InputEnableManhackToss( inputdata_t &inputdata );
+	void InputDisableManhackToss( inputdata_t &inputdata );
+	void InputDeployManhack( inputdata_t &inputdata );
+	void InputAddManhacks( inputdata_t &inputdata );
+	void InputSetManhacks( inputdata_t &inputdata );
+	COutputEHANDLE	m_OutManhack;
+#endif
+#ifdef MAPBASE
+	void InputSetElite( inputdata_t &inputdata );
+#endif
+
+#ifdef EZ
+	//-----------------------------------------------------
+	//	Outputs
+	//-----------------------------------------------------	
+	virtual void	Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
+	COutputEvent	m_OnPlayerUse;
+	COutputEvent	m_OnFollowOrder;
+	void 			ClearFollowTarget();
+	// Added by 1upD - methods required for player squad behavior
+	virtual bool	IsCommandable(); // This should check the spawn flag
+	virtual bool	IsPlayerAlly(CBasePlayer *pPlayer = NULL) { return this->IsCommandable() || BaseClass::IsPlayerAlly(); } // If this NPC is commandable, it IS a player ally regardless of affiliation
+	virtual CAI_BaseNPC *GetSquadCommandRepresentative();
+	virtual void	GetSquadGoal();
+	virtual void	SetCommandGoal(const Vector &vecGoal) { BaseClass::SetCommandGoal(vecGoal); }
+	virtual void	ClearCommandGoal() { BaseClass::ClearCommandGoal(); }
+	virtual bool	HaveCommandGoal() const;
+	virtual bool	TargetOrder(CBaseEntity *pTarget, CAI_BaseNPC **Allies, int numAllies);
+	virtual void	MoveOrder(const Vector &vecDest, CAI_BaseNPC **Allies, int numAllies);
+	virtual void	OnTargetOrder() {}
+	virtual void	OnMoveOrder() {}
+	virtual void	ToggleSquadCommand();
+	virtual void	AddToPlayerSquad();
+	virtual void	RemoveFromPlayerSquad();
+	virtual void	FixupPlayerSquad();
+	virtual bool	ShouldRegenerateHealth(void);
+	virtual void	UpdateFollowCommandPoint();
+	virtual bool	IsFollowingCommandPoint();
+	virtual void	FollowSound();
+	virtual void	StopFollowSound();
+	virtual bool	ShouldAlwaysThink();
+#endif
 
 	bool			UpdateEnemyMemory( CBaseEntity *pEnemy, const Vector &position, CBaseEntity *pInformer = NULL );
 
@@ -98,6 +165,11 @@ public:
 	void			GatherConditions();
 	virtual void	PrescheduleThink();
 
+#ifdef EZ
+	Disposition_t	IRelationType( CBaseEntity *pTarget );
+	int				IRelationPriority( CBaseEntity *pTarget );
+#endif
+
 	Activity		NPC_TranslateActivity( Activity eNewActivity );
 	void			BuildScheduleTestBits( void );
 	virtual int		SelectSchedule( void );
@@ -106,8 +178,20 @@ public:
 
 	bool			CreateBehaviors();
 
+#ifdef EZ
+	bool			CanDeployManhack( void );
+	void			ReleaseManhack( void );
+	void			OnAnimEventDeployManhack( animevent_t *pEvent );
+	void			OnAnimEventStartDeployManhack( void );
+#endif
+
 	bool			OnBeginMoveAndShoot();
 	void			OnEndMoveAndShoot();
+
+#ifdef EZ
+	bool			PickTacticalLookTarget( AILookTargetArgs_t *pArgs );
+	void			AimGun();
+#endif
 
 	// Combat
 	WeaponProficiency_t CalcWeaponProficiency( CBaseCombatWeapon *pWeapon );
@@ -115,6 +199,9 @@ public:
 	bool			ActiveWeaponIsFullyLoaded();
 
 	bool			HandleInteraction(int interactionType, void *data, CBaseCombatCharacter *sourceEnt);
+#ifdef EZ
+	bool			FValidateHintType( CAI_Hint *pHint );
+#endif
 	const char*		GetSquadSlotDebugName( int iSquadSlot );
 
 	bool			IsUsingTacticalVariant( int variant );
@@ -126,7 +213,11 @@ public:
 	// Sounds
 	// -------------
 	void			DeathSound( void );
-	void			PainSound( void );
+
+	void			PainSound( const CTakeDamageInfo &info );
+#ifdef EZ
+	void			RegenSound(); // Added by 1upD
+#endif
 	void			IdleSound( void );
 	void			AlertSound( void );
 	void			LostEnemySound( void );
@@ -149,9 +240,19 @@ public:
 
 	virtual bool	ShouldPickADeathPose( void );
 
+#ifdef EZ
+	// Blixibon - Created to use/deactivate certain code on CAI_PlayerAlly/CNPC_PlayerCompanion.
+	bool			IsCombine() { return true; }
+#endif
+
 protected:
 	void			SetKickDamage( int nDamage ) { m_nKickDamage = nDamage; }
 	CAI_Sentence< CNPC_Combine > *GetSentences() { return &m_Sentences; }
+
+#ifdef EZ
+	int				m_iManhacks;
+	AIHANDLE		m_hManhack = NULL;
+#endif
 
 private:
 	//=========================================================
@@ -192,6 +293,9 @@ private:
 		SCHED_COMBINE_MOVE_TO_FORCED_GREN_LOS,
 		SCHED_COMBINE_FACE_IDEAL_YAW,
 		SCHED_COMBINE_MOVE_TO_MELEE,
+#ifdef EZ
+		SCHED_COMBINE_DEPLOY_MANHACK,
+#endif
 		NEXT_SCHEDULE,
 	};
 
@@ -251,6 +355,18 @@ private:
 		}
 	};
 
+#ifdef EZ
+	// Blixibon -- Special Combine follow behavior stub since follow behavior overrides a few important schedules.
+	class CCombineFollowBehavior : public CAI_FollowBehavior
+	{
+		DECLARE_CLASS(CCombineFollowBehavior, CAI_FollowBehavior);
+
+		virtual int SelectSchedule();
+
+		inline CNPC_Combine *GetOuterS() { return static_cast<CNPC_Combine*>(GetOuter()); }
+	};
+#endif
+
 	// Rappel
 	virtual bool IsWaitingToRappel( void ) { return m_RappelBehavior.IsWaitingToRappel(); }
 	void BeginRappel() { m_RappelBehavior.BeginRappel(); }
@@ -265,9 +381,11 @@ private:
 	EHANDLE			m_hForcedGrenadeTarget;
 	bool			m_bShouldPatrol;
 	bool			m_bFirstEncounter;// only put on the handsign show in the squad's first encounter.
+	string_t		m_iszOriginalSquad;
 
 	// Time Variables
 	float			m_flNextPainSoundTime;
+	float			m_flNextRegenSoundTime; // Added by 1upD
 	float			m_flNextAlertSoundTime;
 	float			m_flNextGrenadeCheck;	
 	float			m_flNextLostSoundTime;
@@ -281,12 +399,23 @@ private:
 	CAI_Sentence< CNPC_Combine > m_Sentences;
 
 	int			m_iNumGrenades;
+#ifdef EZ // Blixibon - We inherit most of our behaviors from CNPC_PlayerCompanion now.
+protected:
+	virtual CAI_StandoffBehavior &GetStandoffBehavior( void ) { return m_StandoffBehavior; } // Blixibon - Added because soldiers have their own special standoff behavior
+	virtual CAI_FollowBehavior &GetFollowBehavior( void ) { return m_FollowBehavior; }
+
+	CCombineStandoffBehavior	m_StandoffBehavior;
+	CCombineFollowBehavior		m_FollowBehavior;
+	CAI_FuncTankBehavior		m_FuncTankBehavior;
+	CAI_RappelBehavior			m_RappelBehavior;
+#else
 	CAI_AssaultBehavior			m_AssaultBehavior;
 	CCombineStandoffBehavior	m_StandoffBehavior;
 	CAI_FollowBehavior			m_FollowBehavior;
 	CAI_FuncTankBehavior		m_FuncTankBehavior;
 	CAI_RappelBehavior			m_RappelBehavior;
 	CAI_ActBusyBehavior			m_ActBusyBehavior;
+#endif
 
 public:
 	int				m_iLastAnimEventHandled;

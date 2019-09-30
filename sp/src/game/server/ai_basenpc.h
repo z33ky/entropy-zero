@@ -317,8 +317,13 @@ struct UnreachableEnt_t
 #define SCNPC_FLAG_NEEDS_WEAPON_THEM			( 1 << 5 )
 #define SCNPC_FLAG_DONT_TELEPORT_AT_END_ME		( 1 << 6 )
 #define SCNPC_FLAG_DONT_TELEPORT_AT_END_THEM	( 1 << 7 )
-#define SCNPC_FLAG_TEST_SQUADMATE_HEALTH		( 1 << 8 )
+#ifdef MAPBASE
+#define SCNPC_FLAG_MAPBASE_ADDITION				( 1 << 8 )
 #define SCNPC_FLAG_TEST_END_POSITION            ( 1 << 9 )
+#endif
+// If Mapbase adds more flags for some reason, we'd have to bump this up to prevent conflicts.
+// That's not really a problem, but to prevent this, I'm starting E:Z2-specific flags at 16. No harm in it.
+#define SCNPC_FLAG_TEST_SQUADMATE_HEALTH		( 1 << 16 )
 
 // -----------------------------------------
 //	Scripted NPC interaction trigger methods
@@ -1228,6 +1233,9 @@ public:
 	virtual void		AlertSound( void )							{ return; };
 	virtual void		IdleSound( void )							{ return; };
 	virtual void		PainSound( const CTakeDamageInfo &info )	{ return; };
+#ifdef EZ
+	virtual void		RegenSound()		{ return; }; // Added by 1upD
+#endif
 	virtual void		FearSound( void )				 			{ return; };
 	virtual void		LostEnemySound( void ) 						{ return; };
 	virtual void		FoundEnemySound( void ) 					{ return; };
@@ -3128,10 +3136,18 @@ public:
 // NOTE: YOU MUST DEFINE THE OUTPUTS IN YOUR CLASS'S DATADESC!
 //		 THE DO SO, INSERT THE FOLLOWING MACRO INTO YOUR CLASS'S DATADESC.
 //		
+#ifdef MAPBASE
+#define	DEFINE_BASENPCINTERACTABLE_DATADESC() \
+	DEFINE_OUTPUT( m_OnAlyxStartedInteraction,				"OnAlyxStartedInteraction" ),	\
+	DEFINE_OUTPUT( m_OnAlyxFinishedInteraction,				"OnAlyxFinishedInteraction" ),  \
+	DEFINE_INPUTFUNC( FIELD_VOID, "InteractivePowerDown", InputPowerdown ), \
+	DEFINE_INPUTFUNC( FIELD_VOID, "Hack", InputDoInteraction )
+#else
 #define	DEFINE_BASENPCINTERACTABLE_DATADESC() \
 	DEFINE_OUTPUT( m_OnAlyxStartedInteraction,				"OnAlyxStartedInteraction" ),	\
 	DEFINE_OUTPUT( m_OnAlyxFinishedInteraction,				"OnAlyxFinishedInteraction" ),  \
 	DEFINE_INPUTFUNC( FIELD_VOID, "InteractivePowerDown", InputPowerdown )
+#endif
 
 template <class NPC_CLASS>
 class CNPCBaseInteractive : public NPC_CLASS, public INPCInteractive
@@ -3147,6 +3163,12 @@ public:
 
 	}
 
+#ifdef MAPBASE
+	virtual void	InputDoInteraction( inputdata_t &inputdata )
+	{
+		NotifyInteraction(inputdata.pActivator ? inputdata.pActivator->MyNPCPointer() : NULL);
+	}
+#endif
 	// Alyx specific interactions
 	virtual void	AlyxStartedInteraction( void )
 	{

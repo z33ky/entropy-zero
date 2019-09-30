@@ -508,6 +508,11 @@ bool CAI_BaseActor::ProcessSceneEvent( CSceneEventInfo *info, CChoreoScene *scen
 							Vector vecAimTargetLoc = info->m_hTarget->EyePosition();
 							Vector vecAimDir = vecAimTargetLoc - EyePosition();
 
+#ifdef MAPBASE
+							// Mind the ramp
+							vecAimDir *= event->GetIntensity(scene->GetTime());
+#endif
+
 							VectorNormalize( vecAimDir );
 							SetAim( vecAimDir);
 						}

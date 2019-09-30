@@ -4962,7 +4962,11 @@ WeaponProficiency_t CNPC_MetroPolice::CalcWeaponProficiency( CBaseCombatWeapon *
 	{
 		return WEAPON_PROFICIENCY_VERY_GOOD;
 	}
-
+#ifdef EZ
+	if (FClassnameIs(pWeapon, "weapon_smg2")) {
+		return WEAPON_PROFICIENCY_AVERAGE;
+	}
+#endif
 	return BaseClass::CalcWeaponProficiency( pWeapon );
 }
 
