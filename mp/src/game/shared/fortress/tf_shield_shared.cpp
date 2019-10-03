@@ -15,7 +15,7 @@
 
 #include "tf_shieldshared.h"
 #include "edict.h"
-#include "mathlib/VMatrix.h"
+#include "mathlib/vmatrix.h"
 #include "engine/IEngineTrace.h"
 
 #ifdef CLIENT_DLL

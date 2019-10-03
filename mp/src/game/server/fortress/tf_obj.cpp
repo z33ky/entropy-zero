@@ -27,7 +27,7 @@ Copyright (C) 2014-2016 TalonBrave.info
 #include "tf_obj_sentrygun.h"
 #include "tf_obj_powerpack.h"
 #include "tf_shareddefs.h"
-#include "VGuiScreen.h"
+#include "vguiscreen.h"
 #include "resource_chunk.h"
 #include "hierarchy.h"
 #include "tf_func_construction_yard.h"

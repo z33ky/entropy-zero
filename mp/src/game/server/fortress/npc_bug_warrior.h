@@ -11,7 +11,7 @@
 #pragma once
 #endif
 
-#include "AI_BaseNPC.h"
+#include "ai_basenpc.h"
 
 // Animation events
 #define BUG_WARRIOR_AE_MELEE_SOUND1			11	// Start attack sound

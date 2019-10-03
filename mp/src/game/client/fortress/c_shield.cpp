@@ -6,15 +6,15 @@
 // $NoKeywords: $
 //=============================================================================//
 #include "cbase.h"
-#include "C_Shield.h"
-#include "ClientEffectPrecacheSystem.h"
+#include "c_shield.h"
+#include "clienteffectprecachesystem.h"
 #include "clientmode.h"
-#include "materialsystem/IMesh.h"
+#include "materialsystem/imesh.h"
 #include "mapdata.h"
-#include "IVRenderView.h"
+#include "ivrenderview.h"
 #include "tf_shareddefs.h"
 #include "collisionutils.h"
-#include "FunctionProxy.h"
+#include "functionproxy.h"
 
 // Precache the effects
 CLIENTEFFECT_REGISTER_BEGIN( Shield )

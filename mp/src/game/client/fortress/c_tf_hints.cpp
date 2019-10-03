@@ -13,7 +13,7 @@
 #include "weapon_selection.h"
 #include <KeyValues.h>
 #include "weapon_builder.h"
-#include "vguimatsurface/IMatSystemSurface.h"
+#include "VGuiMatSurface/IMatSystemSurface.h"
 #include "c_tf_hints.h"
 #include "c_hint_events.h"
 #include "c_tf_hintmanager.h"

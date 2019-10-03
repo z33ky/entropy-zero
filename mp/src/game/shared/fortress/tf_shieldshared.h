@@ -13,9 +13,9 @@
 
 #include "mathlib/mathlib.h"
 #include "mathlib/vector.h"
-#include "mathlib/VMatrix.h"
-#include "UtlVector.h"
-#include "SheetSimulator.h"
+#include "mathlib/vmatrix.h"
+#include "utlvector.h"
+#include "sheetsimulator.h"
 #include "predictable_entity.h"
 
 
