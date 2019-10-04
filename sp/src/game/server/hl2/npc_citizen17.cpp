@@ -1787,7 +1787,7 @@ int CNPC_Citizen::TranslateWillpowerSchedule(int scheduleType)
 		CBaseEntity * pEnemy = GetEnemy();
 
 		if (pEnemy && ai_debug_willpower.GetBool())
-			DevMsg(UTIL_VarArgs("%s reloading. Distance to enemy: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length()));
+			DevMsg("%s reloading. Distance to enemy: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length());
 
 		// Interrupt reload with melee if possible
 		if (HasCondition(COND_CAN_MELEE_ATTACK1)) {
@@ -1800,7 +1800,7 @@ int CNPC_Citizen::TranslateWillpowerSchedule(int scheduleType)
 			)
 		{
 			if (ai_debug_willpower.GetBool())
-				DevMsg(UTIL_VarArgs("%s out of ammo! Charging to enemy at distance: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length()));
+				DevMsg("%s out of ammo! Charging to enemy at distance: %f\n", GetDebugName(), (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length());
 			return SCHED_CHASE_ENEMY;
 		}
 
@@ -1861,12 +1861,12 @@ int CNPC_Citizen::TranslateSuppressingFireSchedule(int scheduleType)
 	if (traceLength > ai_min_suppression_distance.GetFloat() && tr.fraction >= ai_suppression_distance_ratio.GetFloat())
 	{
 		if (ai_debug_rebel_suppressing_fire.GetBool())
-			DevMsg(UTIL_VarArgs("NPC_Citizen::TranslateSuppressingFireSchedule: %s using suppressing fire at range: %f\n", GetDebugName(), traceLength));
+			DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s using suppressing fire at range: %f\n", GetDebugName(), traceLength);
 		
 		return SCHED_CITIZEN_RANGE_ATTACK1_SUPPRESS;
 	}
 	else if (ai_debug_rebel_suppressing_fire.GetBool()) {
-		DevMsg(UTIL_VarArgs("NPC_Citizen::TranslateSuppressingFireSchedule: %s failed to use suppressing fire at range: %f\n", GetDebugName(), traceLength));
+		DevMsg("NPC_Citizen::TranslateSuppressingFireSchedule: %s failed to use suppressing fire at range: %f\n", GetDebugName(), traceLength);
 	}
 
 	return scheduleType;
