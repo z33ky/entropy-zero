@@ -106,7 +106,7 @@ extern PMaterialHandle g_Material_Spark;
 void GetColorForSurface( trace_t *trace, Vector *color )
 {
 	Vector	baseColor, diffuseColor;
-	Vector	end = trace->startpos + ( ( Vector )trace->endpos - ( Vector )trace->startpos ) * 1.1f;
+	Vector	end = trace->startpos + ( trace->endpos - trace->startpos ) * 1.1f;
 	
 	if ( trace->DidHitWorld() )
 	{
@@ -115,12 +115,11 @@ void GetColorForSurface( trace_t *trace, Vector *color )
 			// If we hit the world, then ask the world for the fleck color
 			if ( !engine->TraceLineMaterialAndLighting( trace->startpos, end, diffuseColor, baseColor ) ) {
 				Warning( "Couldn't find surface in GetColorForSurface( World )\n" );
-				color->x = 255;
-				color->y = 255;
-				color->z = 255;
-				return;
+				baseColor.x = .75f;
+				baseColor.y = .75f;
+				baseColor.z = .75f;
+				diffuseColor = engine->GetLightForPoint( trace->endpos, true );
 			}
-			Warning( "GetColorForSurface( World ) -> ( %f, %f, %f ), ( %f, %f, %f )\n", baseColor.x, baseColor.y, baseColor.z, diffuseColor.x, diffuseColor.y, diffuseColor.z );
 		}
 		else
 		{
@@ -134,20 +133,20 @@ void GetColorForSurface( trace_t *trace, Vector *color )
 		C_BaseEntity *pEnt = trace->m_pEnt;
 		if ( !pEnt )
 		{
-			Msg("Couldn't find surface in GetColorForSurface()\n");
-			color->x = 255;
-			color->y = 255;
-			color->z = 255;
-			return;
+			Msg("Couldn't find surface in GetColorForSurface( Model )\n");
+			baseColor.x = .75f;
+			baseColor.y = .75f;
+			baseColor.z = .75f;
+			diffuseColor = engine->GetLightForPoint( trace->endpos, true );
+		} else {
+			ICollideable *pCollide = pEnt->GetCollideable();
+			int modelIndex = pCollide->GetCollisionModelIndex();
+			model_t* pModel = const_cast<model_t*>(modelinfo->GetModel( modelIndex ));
+
+			// Ask the model info about what we need to know
+			modelinfo->GetModelMaterialColorAndLighting( pModel, pCollide->GetCollisionOrigin(),
+				pCollide->GetCollisionAngles(), trace, diffuseColor, baseColor );
 		}
-
-		ICollideable *pCollide = pEnt->GetCollideable();
-		int modelIndex = pCollide->GetCollisionModelIndex();
-		model_t* pModel = const_cast<model_t*>(modelinfo->GetModel( modelIndex ));
-
-		// Ask the model info about what we need to know
-		modelinfo->GetModelMaterialColorAndLighting( pModel, pCollide->GetCollisionOrigin(),
-			pCollide->GetCollisionAngles(), trace, diffuseColor, baseColor );
 	}
 
 	//Get final light value
