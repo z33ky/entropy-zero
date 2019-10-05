@@ -113,7 +113,10 @@ void GetColorForSurface( trace_t *trace, Vector *color )
 		if ( trace->hitbox == 0 )
 		{
 			// If we hit the world, then ask the world for the fleck color
-			engine->TraceLineMaterialAndLighting( trace->startpos, end, diffuseColor, baseColor );
+			if ( !engine->TraceLineMaterialAndLighting( trace->startpos, end, diffuseColor, baseColor ) ) {
+				Warning( "Couldn't find surface in GetColorForSurface( World )\n" );
+			}
+			Warning( "GetColorForSurface( World ) -> ( %f, %f, %f ), ( %f, %f, %f )\n", baseColor.x, baseColor.y, baseColor.z, diffuseColor.x, diffuseColor.y, diffuseColor.z );
 		}
 		else
 		{
@@ -362,6 +365,7 @@ void FX_DebrisFlecks( const Vector& origin, trace_t *tr, char materialType, int 
 
 	Vector	color;
 	GetColorForSurface( tr, &color );
+	Warning( "Surface color %f %f %f\n", color.x, color.y, color.z );
 
 	if ( !bNoFlecks )
 	{
