@@ -1827,7 +1827,7 @@ CAmmoDef *GetAmmoDef()
 		def.AddAmmoType("AirboatGun",		DMG_AIRBOAT,				TRACER_LINE,			"sk_plr_dmg_airboat",		"sk_npc_dmg_airboat",		NULL,					BULLET_IMPULSE(10, 600), 0 );
 			
 		//Entropy Zero
-		def.AddAmmoType("Manhack", DMG_BURN, TRACER_NONE, 0, 0, 2, 0, 0);
+		def.AddAmmoType("Manhack", DMG_BURN, TRACER_NONE, 0, 0, 3, 0, 0);
 
 		// Custom
 		def.AddAmmoType("FlareRound", DMG_BURN, TRACER_NONE, "sk_plr_dmg_flare_round", "sk_npc_dmg_flare_round", "sk_max_flare_round", 0, 0);

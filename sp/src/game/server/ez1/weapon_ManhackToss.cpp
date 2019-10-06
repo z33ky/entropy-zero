@@ -22,15 +22,6 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-#define	MANHACKTOSS_FASTEST_REFIRE_TIME		1.0f
-#define	MANHACKTOSS_FASTEST_DRY_REFIRE_TIME	1.0f
-
-#define	MANHACKTOSS_ACCURACY_SHOT_PENALTY_TIME		0.2f	// Applied amount of time each shot adds to the time we must recover from
-#define	MANHACKTOSS_ACCURACY_MAXIMUM_PENALTY_TIME	1.5f	// Maximum penalty to deal out
-#define	MAXBURST	1
-
-ConVar	manhacktoss_use_new_accuracy("manhacktoss_use_new_accuracy", "1");
-
 //-----------------------------------------------------------------------------
 // CWeaponManhackToss
 //-----------------------------------------------------------------------------
@@ -115,6 +106,7 @@ private:
 	float	m_flAccuracyPenalty;
 	int		m_nNumShotsFired;
 	int		m_iSemi;
+	bool m_bDeploying;
 };
 
 
@@ -170,6 +162,7 @@ CWeaponManhackToss::CWeaponManhackToss(void)
 
 	m_bFiresUnderwater = true;
 	m_iSemi = MAXBURST;
+	m_bDeploying = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -247,10 +240,10 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	// Time we wait before allowing to throw another
 	m_flNextPrimaryAttack = gpGlobals->curtime + 0.75;
 
-	// Remove a bullet from the clip
-	m_iClip1 = m_iClip1 - 1;
 
 	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
+	if (!pOwner)
+		return;
 	
 	Vector vecThrow;
 	AngleVectors(pOwner->EyeAngles() + pOwner->GetPunchAngle(), &vecThrow);
@@ -267,11 +260,8 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	PlayerManhacks->Activate();
 	PlayerManhacks->ShouldFollowPlayer(true);
 
-	// View punch stuff inherited from the Pistol
-	if (pOwner)
-	{
-		pOwner->ViewPunchReset();
-	}
+	pOwner->ViewPunchReset();
+	pOwner->RemoveAmmo( 1, m_iPrimaryAmmoType );
 
 	if (m_iSemi <= 0)
 		return;
@@ -351,6 +341,25 @@ void CWeaponManhackToss::ItemPostFrame(void)
 	{
 		DryFire();
 	}
+
+   if ( m_bDeploying && IsViewModelSequenceFinished() )
+   {
+       if ( !HasPrimaryAmmo() )
+       {
+           if ( pOwner )
+           {
+               pOwner->ClearActiveWeapon();
+               pOwner->SwitchToNextBestWeapon( this );
+           }
+       }
+       else
+       {
+           SendWeaponAnim( ACT_VM_DRAW );
+           m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
+       }
+
+       m_bDeploying = false;
+   }
 }
 
 //-----------------------------------------------------------------------------
