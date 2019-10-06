@@ -22,6 +22,47 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+// Like CTraceFilterSimple, except it only filters just a single entity, no owner entities
+class CTraceFilterSingle : public CTraceFilter
+{
+public:
+	// It does have a base, but we'll never network anything below here..
+	DECLARE_CLASS_NOBASE( CTraceFilterSingle );
+
+	CTraceFilterSingle( const IHandleEntity *passedict, int collisionGroup )
+	{
+		m_pPassEnt = passedict;
+		m_collisionGroup = collisionGroup;
+	}
+
+	virtual bool ShouldHitEntity( IHandleEntity *pHandleEntity, int contentsMask )
+	{
+		if ( !StandardFilterRules( pHandleEntity, contentsMask ) )
+			return false;
+
+		if ( m_pPassEnt == pHandleEntity )
+		{
+			return false;
+		}
+
+		// Don't test if the game code tells us we should ignore this collision...
+		CBaseEntity *pEntity = EntityFromEntityHandle( pHandleEntity );
+		if ( !pEntity )
+			return false;
+		if ( !pEntity->ShouldCollide( m_collisionGroup, contentsMask ) )
+			return false;
+		if ( pEntity && !g_pGameRules->ShouldCollide( m_collisionGroup, pEntity->GetCollisionGroup() ) )
+			return false;
+
+		return true;
+	}
+
+private:
+	const IHandleEntity *m_pPassEnt;
+	int m_collisionGroup;
+
+};
+
 //-----------------------------------------------------------------------------
 // CWeaponManhackToss
 //-----------------------------------------------------------------------------
@@ -143,11 +184,24 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	Vector vecThrow;
 	AngleVectors(pOwner->EyeAngles() + pOwner->GetPunchAngle(), &vecThrow);
 	VectorScale(vecThrow, 25.0f, vecThrow);
+	Vector vecSpawnPos = pOwner->Weapon_ShootPosition() + vecThrow;
 
 	// This is where we actually make the manhack spawn
-	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", pOwner->Weapon_ShootPosition() + vecThrow, pOwner->EyeAngles(), pOwner);
+	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", vecSpawnPos, pOwner->EyeAngles(), pOwner);
 
 	if (PlayerManhacks == NULL) { return; }
+
+	trace_t tr;
+	CTraceFilterSingle filter( pOwner, COLLISION_GROUP_NONE );
+	Vector hullOffset( 1.0f ); //some additional space
+	UTIL_TraceHull( PlayerManhacks->GetAbsOrigin(), pOwner->Weapon_ShootPosition(), PlayerManhacks->GetHullMins() - hullOffset, PlayerManhacks->GetHullMaxs() + hullOffset, MASK_NPCSOLID, &filter, &tr );
+	if ( tr.DidHit() )
+	{
+		UTIL_Remove( PlayerManhacks );
+		WeaponSound( EMPTY );
+		m_flNextPrimaryAttack = gpGlobals->curtime + 0.25f;
+		return;
+	}
 
 	SendWeaponAnim(ACT_VM_THROW);
 
