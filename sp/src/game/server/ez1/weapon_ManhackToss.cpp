@@ -210,6 +210,7 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	PlayerManhacks->Spawn();
 	PlayerManhacks->Activate();
 	PlayerManhacks->ShouldFollowPlayer(true);
+	PlayerManhacks->SetUse(&CNPC_Manhack::PlayerPickup);
 
 	pOwner->ViewPunchReset();
 	pOwner->RemoveAmmo( 1, m_iPrimaryAmmoType );

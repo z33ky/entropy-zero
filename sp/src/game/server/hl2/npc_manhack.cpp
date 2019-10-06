@@ -189,6 +189,9 @@ BEGIN_DATADESC( CNPC_Manhack )
 	DEFINE_INPUTFUNC( FIELD_VOID,   "Unpack",		InputUnpack ),
 
 	DEFINE_ENTITYFUNC( CrashTouch ),
+#ifdef EZ
+	DEFINE_USEFUNC( PlayerPickup ),
+#endif
 
 	DEFINE_BASENPCINTERACTABLE_DATADESC(),
 
@@ -1116,10 +1119,16 @@ void CNPC_Manhack::MaintainGroundHeight( void )
 bool CNPC_Manhack::OverrideMove( float flInterval )
 {
 	SpinBlades( flInterval );
-		
+
 	// Don't execute any move code if packed up.
 	if( HasSpawnFlags(SF_MANHACK_PACKED_UP|SF_MANHACK_CARRIED) )
 		return true;
+
+#ifdef EZ
+	//this can happen on player pickup
+	if ( IsMarkedForDeletion() )
+		return true;
+#endif
 
 	if( IsLoitering() )
 	{
@@ -2471,6 +2480,17 @@ void CNPC_Manhack::Spawn(void)
 }
 
 #ifdef EZ
+int CNPC_Manhack::ObjectCaps(void)
+{
+	int caps = UsableNPCObjectCaps( BaseClass::ObjectCaps() );
+	if ( caps & FCAP_IMPULSE_USE )
+	{
+		//this is apparently required if this is to be used by the owner entity
+		caps |= FCAP_USE_IN_RADIUS;
+	}
+	return caps;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Return the pointer for a given sprite given an index
 //-----------------------------------------------------------------------------
@@ -3426,6 +3446,20 @@ bool CNPC_Manhack::CreateVPhysics( void )
 
 	return BaseClass::CreateVPhysics();
 }
+
+#ifdef EZ
+void CNPC_Manhack::PlayerPickup( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
+{
+	CBasePlayer *pPlayer = ToBasePlayer( pActivator );
+	if ( !pPlayer || GetOwnerEntity() != pPlayer || IsInAScript() || m_NPCState == NPC_STATE_SCRIPT || IRelationType( pActivator ) == D_HT )
+		return;
+
+	if ( pPlayer->GiveAmmo( 1, "Manhack" ) )
+	{
+		UTIL_Remove( this );
+	}
+}
+#endif
 
 //-----------------------------------------------------------------------------
 //

@@ -116,6 +116,10 @@ public:
 	void			Spawn(void);
 	void			Activate();
 	void			StartTask( const Task_t *pTask );
+#ifdef EZ
+	//allow use/pickup
+	int			ObjectCaps( void );
+#endif
 
 	virtual void			BladesInit();
 	virtual void			SoundInit( void );
@@ -160,6 +164,10 @@ public:
 	// 	CDefaultPlayerPickupVPhysics
 	virtual void	OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t reason );
 	virtual void	OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t Reason );
+
+#ifdef EZ
+	void	PlayerPickup( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+#endif
 
 	CBasePlayer *HasPhysicsAttacker( float dt );
 
