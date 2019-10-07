@@ -175,18 +175,55 @@ void CWeaponManhackToss::ItemPostFrame(void)
 //-----------------------------------------------------------------------------
 void CWeaponManhackToss::PrimaryAttack(void)
 {
-
 	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
 	if (!pOwner)
 		return;
-	
-	Vector vecThrow;
-	AngleVectors(pOwner->EyeAngles(), &vecThrow);
-	VectorScale(vecThrow, 15.0f, vecThrow);
-	Vector vecSpawnPos = pOwner->Weapon_ShootPosition() + vecThrow;
+
+	QAngle ang = pOwner->EyeAngles();
+
+	//align manhack spawn position to viewmodel
+	Vector tossOffset = Vector(13.75f, 0.5f, -1.75f);
+	//correct for viewmodel movement when looking up/down
+	static const Vector tossOffsetUp(15.5f, -2.5f, 0.5f);
+	static const Vector tossOffsetDown(12.5f, 3.0f, -3.0f);
+	float pitch = ang.x / 90;
+	if ( pitch <= 0 ) {
+		tossOffset = Lerp( -pitch, tossOffset, tossOffsetUp );
+	} else {
+		tossOffset = Lerp( pitch, tossOffset, tossOffsetDown );
+	}
+	Vector rotatedTossOffset;
+	VectorRotate( tossOffset, ang, rotatedTossOffset );
+
+	Vector vecSpawnPos = pOwner->Weapon_ShootPosition() + rotatedTossOffset;
+
+	//align manhack spawn orientation to viewmodel
+	{
+		//the quaternion was generated via this code
+#if 0
+		Quaternion a, b{0, 0, 0, 1}, c;
+		AxisAngleQuaternion( Vector( 0, -1, 0 ), -23, a );
+		QuaternionMult( a, b, c );
+		AxisAngleQuaternion( Vector( 0, 0, 1 ), -105, a );
+		QuaternionMult( a, c, b );
+		AxisAngleQuaternion( Vector( 0, -1, 0 ), 10, a );
+		QuaternionMult( a, b, c );
+		Msg( "%.10ff, %.10ff, %.10ff, %.10ff,\n", c.x, c.y, c.z, c.w );
+#endif
+		static const Quaternion rot{
+			0.2253245115f,
+			0.0689137503f,
+			-0.7606828212f,
+			0.6048482060f,
+		};
+		Quaternion angAsQuat, result;
+		AngleQuaternion( ang, angAsQuat );
+		QuaternionMult( angAsQuat, rot, result );
+		QuaternionAngles( result, ang );
+	}
 
 	// This is where we actually make the manhack spawn
-	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", vecSpawnPos, pOwner->EyeAngles(), pOwner);
+	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", vecSpawnPos, ang, pOwner);
 
 	if (PlayerManhacks == NULL) { return; }
 
