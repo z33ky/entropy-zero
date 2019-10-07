@@ -81,7 +81,6 @@ public:
 	void	Precache(void);
 	void	ItemPostFrame(void);
 	void	PrimaryAttack(void);
-	void	AddViewKick(void);
 
 	int		CapabilitiesGet(void) { return bits_CAP_WEAPON_RANGE_ATTACK1; }
 	Activity	GetPrimaryAttackActivity(void) { return ACT_VM_THROW; }
@@ -182,8 +181,8 @@ void CWeaponManhackToss::PrimaryAttack(void)
 		return;
 	
 	Vector vecThrow;
-	AngleVectors(pOwner->EyeAngles() + pOwner->GetPunchAngle(), &vecThrow);
-	VectorScale(vecThrow, 25.0f, vecThrow);
+	AngleVectors(pOwner->EyeAngles(), &vecThrow);
+	VectorScale(vecThrow, 15.0f, vecThrow);
 	Vector vecSpawnPos = pOwner->Weapon_ShootPosition() + vecThrow;
 
 	// This is where we actually make the manhack spawn
@@ -212,7 +211,6 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	PlayerManhacks->ShouldFollowPlayer(true);
 	PlayerManhacks->SetUse(&CNPC_Manhack::PlayerPickup);
 
-	pOwner->ViewPunchReset();
 	pOwner->RemoveAmmo( 1, m_iPrimaryAmmoType );
 
 	m_iPrimaryAttacks++;
@@ -221,24 +219,4 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	m_bDeploying = true;
 
 	gamestats->Event_WeaponFired(pOwner, true, GetClassname());
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::AddViewKick(void)
-{
-	CBaseCombatCharacter *pPlayer = GetOwner();
-
-	if (pPlayer == NULL)
-		return;
-
-	QAngle viewPunch;
-
-	viewPunch.x = random->RandomFloat(0.25f, 0.5f);
-	viewPunch.y = random->RandomFloat(-.6f, .6f);
-	viewPunch.z = 0.0f;
-
-	//Add it to the view punch
-	pPlayer->ViewPunch(viewPunch);
 }
