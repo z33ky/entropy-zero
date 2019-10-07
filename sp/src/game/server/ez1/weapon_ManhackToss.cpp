@@ -81,6 +81,7 @@ public:
 	void	Precache(void);
 	void	ItemPostFrame(void);
 	void	PrimaryAttack(void);
+	void	TossManhack(void);
 
 	int		CapabilitiesGet(void) { return bits_CAP_WEAPON_RANGE_ATTACK1; }
 	Activity	GetPrimaryAttackActivity(void) { return ACT_VM_THROW; }
@@ -89,6 +90,7 @@ public:
 
 private:
 	bool m_bDeploying;
+	float m_flDelayedToss;
 };
 
 
@@ -149,24 +151,42 @@ void CWeaponManhackToss::ItemPostFrame(void)
 {
 	BaseClass::ItemPostFrame();
 
-	if ( m_bDeploying && IsViewModelSequenceFinished() )
+	if ( m_bDeploying )
 	{
-		if ( !HasPrimaryAmmo() )
+		if ( m_flDelayedToss != 0 && m_flDelayedToss < gpGlobals->curtime )
 		{
-			CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
-			if ( pPlayer )
-			{
-				pPlayer->ClearActiveWeapon();
-				pPlayer->SwitchToNextBestWeapon( this );
-			}
-		}
-		else
-		{
-			SendWeaponAnim( ACT_VM_DRAW );
-			m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
+			TossManhack();
+			m_flDelayedToss = 0;
+			// check if the toss was aborted
+			if ( !m_bDeploying )
+				return;
 		}
 
-		m_bDeploying = false;
+		if ( IsViewModelSequenceFinished() )
+		{
+			if ( m_flDelayedToss >= gpGlobals->curtime )
+			{
+				DevWarning( "weapon_manhacktoss sequence was finished before manhack was tossed.\n" );
+				TossManhack();
+			}
+
+			if ( !HasPrimaryAmmo() )
+			{
+				CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
+				if ( pPlayer )
+				{
+					pPlayer->ClearActiveWeapon();
+					pPlayer->SwitchToNextBestWeapon( this );
+				}
+			}
+			else
+			{
+				SendWeaponAnim( ACT_VM_DRAW );
+				m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
+			}
+
+			m_bDeploying = false;
+		}
 	}
 }
 
@@ -174,6 +194,21 @@ void CWeaponManhackToss::ItemPostFrame(void)
 // Purpose: Primary attack - Spawn the Manhack
 //-----------------------------------------------------------------------------
 void CWeaponManhackToss::PrimaryAttack(void)
+{
+	if ( m_bDeploying )
+		return;
+	m_bDeploying = true;
+
+	SendWeaponAnim(ACT_VM_THROW);
+
+	float sequenceDuration = SequenceDuration();
+	m_flDelayedToss = gpGlobals->curtime + sequenceDuration * 0.49f;
+
+	// Time we wait before allowing to throw another
+	m_flNextPrimaryAttack = gpGlobals->curtime + sequenceDuration;
+}
+
+void CWeaponManhackToss::TossManhack(void)
 {
 	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
 	if (!pOwner)
@@ -235,11 +270,13 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	{
 		UTIL_Remove( PlayerManhacks );
 		WeaponSound( EMPTY );
+		SendWeaponAnim( ACT_VM_IDLE );
 		m_flNextPrimaryAttack = gpGlobals->curtime + 0.25f;
+
+		m_bDeploying = false;
+
 		return;
 	}
-
-	SendWeaponAnim(ACT_VM_THROW);
 
 	PlayerManhacks->AddSpawnFlags(SF_MANHACK_PACKED_UP);
 	PlayerManhacks->KeyValue("squadname", "controllable_manhack_squad");
@@ -251,9 +288,6 @@ void CWeaponManhackToss::PrimaryAttack(void)
 	pOwner->RemoveAmmo( 1, m_iPrimaryAmmoType );
 
 	m_iPrimaryAttacks++;
-	// Time we wait before allowing to throw another
-	m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
-	m_bDeploying = true;
 
 	gamestats->Event_WeaponFired(pOwner, true, GetClassname());
 }
