@@ -131,7 +131,7 @@ void CShieldGrenade::Spawn( void )
 
 	m_flEMPDamageEndTime = 0.0f;
 
-	SetTouch( StickyTouch );
+	SetTouch(&CShieldGrenade::StickyTouch);
 	SetCollisionGroup( TFCOLLISION_GROUP_GRENADE );
 
 	// Create a green light
@@ -240,7 +240,7 @@ void CShieldGrenade::StickyTouch( CBaseEntity *pOther )
 	EmitSound( "ShieldGrenade.StickBeep" );
 
 	// Start ticking...
-	SetThink( BeepThink );
+	SetThink(&CShieldGrenade::BeepThink);
 	m_IsDeployed = true;
 	SetNextThink( gpGlobals->curtime + 0.01f );
 	m_flDetonateTime = gpGlobals->curtime + SHIELD_GRENADE_FUSE_TIME;
@@ -342,7 +342,7 @@ void CShieldGrenade::BeepThink( void )
 	{
 		// Here we must project the shield
 		CreateShield();
-		SetThink( ShieldActiveThink );
+		SetThink(&CShieldGrenade::ShieldActiveThink);
 		m_flDetonateTime = gpGlobals->curtime + m_ShieldLifetime;
 
 		// Get the EMP state correct
@@ -388,7 +388,7 @@ void CShieldGrenade::ShieldActiveThink( void )
 			m_hDeployedShield->Activate( false );
 		}
 		SetNextThink( gpGlobals->curtime + SHIELD_FLAT_SHUTDOWN_TIME + 0.2f );
-		SetThink( DeathThink );
+		SetThink(&CShieldGrenade::DeathThink);
 	}
 }
 

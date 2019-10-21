@@ -11,14 +11,12 @@
 #include "tf_gamerules.h"
 #include "tf_team.h"
 
-
-
 // Damage CVars
-ConVar	weapon_mortar_shell_damage( "weapon_mortar_shell_damage","0", FCVAR_NONE, "Mortar's standard shell maximum damage" );
-ConVar	weapon_mortar_shell_radius( "weapon_mortar_shell_radius","0", FCVAR_NONE, "Mortar's standard shell splash radius" );
-ConVar	weapon_mortar_starburst_damage( "weapon_mortar_starburst_damage","0", FCVAR_NONE, "Mortar's starburst maximum damage" );
-ConVar	weapon_mortar_starburst_radius( "weapon_mortar_starburst_radius","0", FCVAR_NONE, "Mortar's starburst splash radius" );
-ConVar	weapon_mortar_cluster_shells( "weapon_mortar_cluster_shells","0", FCVAR_NONE, "Number of shells a mortar cluster round bursts into" );
+extern ConVar weapon_mortar_shell_damage;
+extern ConVar weapon_mortar_shell_radius;
+extern ConVar weapon_mortar_starburst_damage;
+extern ConVar weapon_mortar_starburst_radius;
+extern ConVar weapon_mortar_cluster_shells;
 
 //=====================================================================================================
 // MORTAR ROUND

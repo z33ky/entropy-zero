@@ -158,6 +158,7 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_laserrifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.h
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_shotgun.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 					$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
@@ -175,6 +176,18 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.h
 					$File	$SRCDIR\game\shared\fortress\weapon_limpetmine.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_limpetmine.h
+					$File	$SRCDIR\game\shared\fortress\weapon_drainbeam.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_harpoon.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_infiltrator.cpp
+					//$File	$SRCDIR\game\shared\fortress\weapon_laserdesignator.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_laserrifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_minigun.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_mortar.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_obj_empgenerator.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_obj_rallyflag.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
 				}
 			}
 			
@@ -306,6 +319,7 @@ $Project "Server"
 			$File	fortress/sensor_tf_team.cpp
 			$File	fortress/team_messages.h
 			$File	fortress/tf2_eventlog.cpp
+			$File	fortress/tf_basecombatweapon.cpp
 			$File	fortress/tf_basecombatweapon.h
 			$File	fortress/tf_client.cpp
 			$File	fortress/tf_func_no_build.cpp
@@ -331,6 +345,7 @@ $Project "Server"
 			$File	fortress/tf_reconvars.h
 			$File	fortress/tf_shield.cpp
 			$File	fortress/tf_shield.h
+			$File	fortress/tf_shieldgrenade.cpp
 			$File	fortress/tf_shield_flat.cpp
 			$File	fortress/tf_shield_flat.h
 			$File	fortress/tf_stats.cpp
