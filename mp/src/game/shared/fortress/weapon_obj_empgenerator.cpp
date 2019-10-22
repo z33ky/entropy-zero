@@ -20,7 +20,7 @@ class CWeaponObjEMPGenerator : public CWeaponBaseCombatObject
 public:
 	CWeaponObjEMPGenerator( void );
 
-	//DECLARE_SERVERCLASS();
+	DECLARE_SERVERCLASS();
 };
 
 #if 0
