@@ -1,0 +1,5 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "materials/models/props/common/meteorites/meteorplaceholder"
+	"$surfaceprop" "rock"
+}
