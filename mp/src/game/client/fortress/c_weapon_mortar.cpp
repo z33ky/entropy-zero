@@ -420,7 +420,7 @@ void C_WeaponMortar::HandleInput( void )
 				break;
 			}
 
-			input->ClearInputButton( IN_ATTACK );
+			::input->ClearInputButton( IN_ATTACK );
 			gHUD.m_iKeyBits &= ~IN_ATTACK;
 
 			m_flNextClick = gpGlobals->curtime + 0.05;
@@ -462,7 +462,7 @@ void C_WeaponMortar::Redraw()
 		m_pPowerBar->m_flPower = 0;
 		break;
 	case MORTAR_CHARGING_POWER:
-		m_pPowerBar->m_flPower = min( m_pPowerBar->m_flPower + ( (1.0 / MORTAR_CHARGE_POWER_RATE) * gpGlobals->curtimeDelta), 1.0f);
+		m_pPowerBar->m_flPower = min(m_pPowerBar->m_flPower + ((1.0 / MORTAR_CHARGE_POWER_RATE) * /* gpGlobals->curtimeDelta */ gpGlobals->curtime), 1.0f);
 		m_pPowerBar->m_flFiringPower = 0;
 		m_pPowerBar->m_flFiringAccuracy = 0;
 		if ( m_pPowerBar->m_flPower >= 1.0 )
@@ -483,7 +483,7 @@ void C_WeaponMortar::Redraw()
 			m_flAccuracySpeed += (m_pPowerBar->m_flFiringPower * flAdjustedPower);
 		}
 
-		m_pPowerBar->m_flPower = max( m_pPowerBar->m_flPower - ( m_flAccuracySpeed * gpGlobals->curtimeDelta), -0.25f);
+		m_pPowerBar->m_flPower = max(m_pPowerBar->m_flPower - (m_flAccuracySpeed * /* gpGlobals->curtimeDelta */ gpGlobals->curtime), -0.25f);
 		if ( m_pPowerBar->m_flPower <= -0.25 )
 		{
 			// Hit Min, fire mortar
@@ -509,7 +509,8 @@ void C_WeaponMortar::Redraw()
 		int iX = (parentWidth - iWidth) / 2;
 		int iY = (parentHeight - 216);
 
-		IMesh* pMesh = materials->GetDynamicMesh( true, NULL, NULL, m_pRotateIcon );
+		CMatRenderContextPtr pRenderContext(materials);
+		IMesh* pMesh = pRenderContext->GetDynamicMesh(true, NULL, NULL, m_pRotateIcon);
 
 		CMeshBuilder meshBuilder;
 		meshBuilder.Begin( pMesh, MATERIAL_QUADS, 1 );
