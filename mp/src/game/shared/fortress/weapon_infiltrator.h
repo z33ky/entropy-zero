@@ -20,7 +20,7 @@ class CWeaponInfiltrator : public CBaseTFCombatWeapon
 {
 	DECLARE_CLASS( CWeaponInfiltrator, CBaseTFCombatWeapon );
 public:
-	DECLARE_SERVERCLASS();
+	//DECLARE_SERVERCLASS();
 
 	CWeaponInfiltrator();
 
