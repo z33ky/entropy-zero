@@ -74,6 +74,7 @@ config.cfg
 *.vpc_crc
 *.sentinel
 
+/mp/game/invasion/scripts/hintdisplaystats.txt
 /mp/game/invasion/class_stats_detailed.txt
 /mp/game/invasion/class_stats.txt
 /mp/game/invasion/stats.txt
@@ -82,6 +83,7 @@ config.cfg
 /mp/game/invasion/cfg/pet.txt
 /mp/game/invasion/cfg/vmt.txt
 /mp/game/invasion/cfg/server_blacklist.txt
+/mp/game/invasion/cfg/settings.scr
 /mp/game/invasion/cubemap_screenshots
 /mp/game/invasion/screenshots
 /mp/game/invasion/user_custom
