@@ -375,8 +375,10 @@ void CPlayerClass::CreateClass( void )
 	// Make sure they can build at least 1 object
 	if ( GetTFClassInfo( m_TFClass )->m_pClassObjects[0] != OBJ_LAST )
 	{
-		m_pPlayer->GiveNamedItem( "weapon_builder" );
+		CWeaponBuilder *pWeaponBuilder = dynamic_cast<CWeaponBuilder*>(m_pPlayer->GiveNamedItem("weapon_builder"));
+		Assert(pWeaponBuilder);
 
+		m_pPlayer->SetWeaponBuilder(pWeaponBuilder);
 		Assert( m_pPlayer->GetWeaponBuilder() );
 
 		// Do we have a construction yard?

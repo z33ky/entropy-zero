@@ -59,20 +59,26 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 		return NULL;
 	}
 
+	ClientPutInServer( pEdict, botname );
+
 	// Allocate a CBasePlayer for the bot, and call spawn
-	// Commented out for now, just to avoid assigning teams twice for bots ~hogsy
-	//ClientPutInServer( pEdict, botname );
-	CBaseTFPlayer *pPlayer = ((CBaseTFPlayer *)CBaseEntity::Instance( pEdict ));
+	CBaseTFPlayer *pPlayer = ((CBaseTFPlayer *)CBaseEntity::Instance(pEdict));
 	pPlayer->ClearFlags();
-	pPlayer->AddFlag( FL_CLIENT | FL_FAKECLIENT );
+	pPlayer->AddFlag(FL_CLIENT | FL_FAKECLIENT);
 
 	if ( bFrozen )
 		pPlayer->AddEFlags( EFL_BOT_FROZEN );
 
   	if ( iTeam != -1 )
-	{
 		pPlayer->ChangeTeam( iTeam );
-	}
+	else if (pPlayer->GetTeamNumber() == TEAM_UNASSIGNED)
+		pPlayer->PlacePlayerInTeam();
+
+	if (iClass != -1)
+		pPlayer->ChangeClass((TFClass)iClass);
+	else
+		pPlayer->ChangeClass((TFClass)random->RandomInt(TFCLASS_RECON, TFCLASS_CLASS_COUNT - 1));
+	
 	pPlayer->ForceRespawn();
 
 	BotNumber++;

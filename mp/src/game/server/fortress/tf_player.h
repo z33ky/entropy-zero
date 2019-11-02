@@ -374,7 +374,6 @@ public:
 	CMenu	*m_pCurrentMenu;
 	char	m_MenuStringBuffer[MENU_STRING_BUFFER_SIZE];
 	int		m_MenuSelectionBuffer;
-	float	m_MenuRefreshTime;
 	float	m_MenuUpdateTime;
 
 	bool	m_bBuffHealthBoost;

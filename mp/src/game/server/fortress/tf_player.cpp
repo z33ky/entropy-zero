@@ -172,7 +172,6 @@ BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 	DEFINE_FIELD( m_MenuSelectionBuffer, FIELD_INTEGER ),
 	DEFINE_FIELD( m_MenuUpdateTime, FIELD_FLOAT ),
 	DEFINE_FIELD( m_MenuDisplayTime, FIELD_FLOAT ),
-	DEFINE_FIELD( m_MenuRefreshTime, FIELD_FLOAT ),
 	DEFINE_FIELD( m_bRampage, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bIsBlocking, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bIsParrying, FIELD_BOOLEAN ),
@@ -298,6 +297,7 @@ void CBaseTFPlayer::Spawn( void )
 {
 	m_bUnderAttack = false;
 	m_pCurrentZone = NULL;
+
 	ClearClientRagdoll( false );
 
 	g_pNotify->ReportNamedEvent( this, "PlayerSpawned" );
@@ -328,6 +328,13 @@ void CBaseTFPlayer::Spawn( void )
 	// Create second view model ( for support/commando, etc )
 	CreateViewModel( 1 );
 
+	RemoveAllDecals();
+
+	// Holster weapon immediately, to allow it to cleanup
+	CBaseCombatWeapon *pWeapon = GetActiveWeapon();
+	if (pWeapon != nullptr)
+		pWeapon->Holster();
+
 	// Tell the PlayerClass that this player's just respawned
 	if ( GetPlayerClass()  )
 	{
@@ -336,15 +343,12 @@ void CBaseTFPlayer::Spawn( void )
 
 		GetPlayerClass()->RespawnClass();
 
-		if ( GetActiveWeapon() )
+		if (pWeapon)
 		{
-			// Holster weapon immediately, to allow it to cleanup
-//			GetActiveWeapon()->Holster( ); // NJS: test
-
-			if (GetActiveWeapon()->HasAnyAmmo())
-				Weapon_Switch( GetActiveWeapon() );
+			if (pWeapon->HasAnyAmmo())
+				Weapon_Switch(pWeapon);
 			else
-				SwitchToNextBestWeapon( GetActiveWeapon() );
+				SwitchToNextBestWeapon(pWeapon);
 		}
 		else
 			SwitchToNextBestWeapon( NULL );
@@ -353,61 +357,16 @@ void CBaseTFPlayer::Spawn( void )
 
 		// Make sure they're not deployed
 		FinishUnDeploying();
-
-		// Remove my personal orders
-		if ( GetTFTeam() )
-			GetTFTeam()->RemoveOrdersToPlayer( this );
-
-		RemoveAllDecals();
 	}
-	else
-	{
-		// No class? can't target this dude
-		AddFlag( FL_NOTARGET );
+	else if (
+		GetTeamNumber() != TEAM_UNASSIGNED && 
+		GetTeamNumber() != TEAM_SPECTATOR)
+		// They probably haven't yet chosen a class
+		ShowViewPortPanel(PANEL_CLASS);
 
-		// Remove everything
-		RemoveAllItems( false );
-
-		// Set/unset m_bHidden instead to hide the tf player
-		SetHidden( true );
-
-		AddSolidFlags( FSOLID_NOT_SOLID );
-		SetMoveType( MOVETYPE_NONE );
-
-		SetModel( "models/player/human_commando.mdl" );
-
-		// Revised this ~hogsy
-		if(GetTeamNumber() == TEAM_UNASSIGNED)
-		{
-			// Bots can't deal with menus, so just throw us into a team.
-			if(tf_autoteam.GetBool() || IsFakeClient())
-			{
-				PlacePlayerInTeam();
-				ForceRespawn();
-			}
-			// But if we're a player, let us choose.
-			else
-				ShowViewPortPanel(PANEL_TEAM);
-		}
-		else
-		{
-			// Bots can't deal with menus, so we'll just throw them into a random class.
-			if(IsFakeClient())
-			{
-				ChangeClass((TFClass)random->RandomInt(TFCLASS_RECON,TFCLASS_CLASS_COUNT-1));
-				ForceRespawn();
-			}
-			// Otherwise just show us the class menu.
-			else
-				ShowViewPortPanel(PANEL_CLASS);
-		}
-		
-		m_MenuRefreshTime = gpGlobals->curtime;
-		
-		m_nPreferredTechnology = -1;
-	}
-
-	SetCantMove( false );
+	// Remove my personal orders
+	if (GetTFTeam())
+		GetTFTeam()->RemoveOrdersToPlayer(this);
 
 	m_TFLocal.m_nInTacticalView = false;
 	m_flLastTimeDamagedByEnemy = -1000;
@@ -422,10 +381,6 @@ void CBaseTFPlayer::Spawn( void )
 	ClearCamouflage();
 	SetIDEnt( NULL );
 	m_iPowerups = 0;
-
-	// MUST set the right player hull before placing the player somewhere.
-	if ( GetPlayerClass() )
-		GetPlayerClass()->SetPlayerHull();
 
 	g_pGameRules->GetPlayerSpawnSpot( this );
 }
@@ -472,7 +427,32 @@ void CBaseTFPlayer::InitialSpawn( void )
 
 	SetWeaponBuilder( NULL );
 
+	// Setup default state...
+
+	m_lifeState = LIFE_DEAD;
 	m_bFirstTeamSpawn = true;
+
+	AddEffects(EF_NODRAW);
+	ChangeTeam(TEAM_UNASSIGNED);
+
+	SetCantMove(true);
+
+	AddFlag(FL_NOTARGET);
+
+	SetHidden(true);
+
+	AddSolidFlags(FSOLID_NOT_SOLID);
+	SetMoveType(MOVETYPE_NONE);
+
+	if (tf_autoteam.GetBool())
+	{
+		PlacePlayerInTeam();
+		ShowViewPortPanel(PANEL_CLASS);
+	}
+	else 
+		ShowViewPortPanel(PANEL_TEAM);
+
+	m_nPreferredTechnology = -1;
 }
 
 void CBaseTFPlayer::Precache( void )
@@ -493,9 +473,6 @@ void CBaseTFPlayer::UpdateClientData( void )
 void CBaseTFPlayer::ForceClientDllUpdate( void )
 {
 	BaseClass::ForceClientDllUpdate();
-
-	// Force any active menu to be reset
-	m_MenuRefreshTime = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -582,6 +559,8 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 
 	// Clear the client ragdoll, when changing teams.
 	ClearClientRagdoll( false );
+
+	// TODO: fix weapons not being assigned again upon switching teams
 }
 
 //-----------------------------------------------------------------------------
@@ -686,6 +665,8 @@ void CBaseTFPlayer::SetPlayerModel( void )
 		UTIL_SetSize(this, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX);
 	else
 		UTIL_SetSize(this, VEC_HULL_MIN, VEC_HULL_MAX);
+
+	GetPlayerClass()->SetPlayerHull();
 }
 
 void CBaseTFPlayer::PlayerRespawn( void )

@@ -1,3 +1,8 @@
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2019 TalonBrave.info
+*/
+
 #include "cbase.h"
 #include "player.h"
 #include "gamerules.h"
@@ -111,17 +116,15 @@ void ClientGamePrecache( void )
 // called by ClientKill and DeadThink
 void respawn( CBaseEntity *pEdict, bool fCopyCorpse )
 {
-	if (gpGlobals->coop || gpGlobals->deathmatch)
-	{
-		if ( fCopyCorpse )
-			// make a copy of the dead body for appearances sake
-			((CBaseTFPlayer *)pEdict)->CreateCorpse();
+	CBaseTFPlayer *pPlayer = dynamic_cast<CBaseTFPlayer*>(pEdict);
+	if (pPlayer == nullptr)
+		return;
 
-		// respawn player
-		pEdict->Spawn();
-	}
-	else // restart the entire server
-		engine->ServerCommand("reload\n");
+	if (fCopyCorpse)
+		// make a copy of the dead body for appearances sake
+		pPlayer->CreateCorpse();
+
+	pPlayer->Spawn();
 }
 
 void GameStartFrame( void )
@@ -160,16 +163,7 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 	if(!pPlayer)
 		return;
 
-#if 1
 	pPlayer->InitialSpawn();
-	pPlayer->Spawn();
-
-	// When the player first joins the server, they
-	pPlayer->m_lifeState = LIFE_DEAD;
-	pPlayer->AddEffects(EF_NODRAW);
-	pPlayer->ChangeTeam(TEAM_UNASSIGNED);
-	pPlayer->SetThink(NULL);
-#endif
 
 	char sName[128];
 	V_strncpy(sName, pPlayer->GetPlayerName(), sizeof(sName));
@@ -184,4 +178,6 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 
 	// notify other clients of player joining the game
 	UTIL_ClientPrintAll(HUD_PRINTNOTIFY, "#Game_connected", sName[0] != 0 ? sName : "<unconnected>");
+
+	pPlayer->Spawn();
 }
