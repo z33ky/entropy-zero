@@ -78,6 +78,18 @@ void CPlayerClassInfiltrator::ClassActivate( void )
 	memset( &m_ClassData, 0, sizeof( m_ClassData ) );
 }
 
+void CPlayerClassInfiltrator::CreateClass(void)
+{
+	BaseClass::CreateClass();
+
+	m_pPlayer->GiveNamedItem("weapon_infiltrator");
+	m_pPlayer->GiveNamedItem("weapon_limpetmine");
+
+	CBaseCombatWeapon* pWeapon = static_cast<CBaseCombatWeapon*>(m_pPlayer->GiveNamedItem("weapon_combat_shotgun"));
+	if (pWeapon != nullptr)
+		m_pPlayer->SetActiveWeapon(pWeapon);
+}
+
 
 //-----------------------------------------------------------------------------
 // Purpose: Register for precaching.

@@ -90,17 +90,20 @@ void CPlayerClassCommando::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
-	// Create our two handed weapon layout
-	m_hWpnShield = m_pPlayer->GetCombatShield();
+	m_pPlayer->GiveNamedItem("weapon_rocket_launcher");
+	m_pPlayer->GiveNamedItem("weapon_combat_grenade");
 
+	// Create our two handed weapon layout
+	m_hWpnPlasma = static_cast< CBaseTFCombatWeapon * >(m_pPlayer->GiveNamedItem("weapon_combat_plasmarifle"));
+	m_hWpnShield = m_pPlayer->GetCombatShield();
 	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * )m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
 	if ( !p )
 		p = static_cast< CWeaponTwoHandedContainer * >( m_pPlayer->GiveNamedItem( "weapon_twohandedcontainer" ) );
 
-	if ( p && m_hWpnShield.Get() )
+	if ( p && m_hWpnShield.Get() && m_hWpnPlasma.Get() )
 	{
 		m_hWpnShield->SetReflectViewModelAnimations( true );
-		p->SetWeapons( NULL, m_hWpnShield );
+		p->SetWeapons(m_hWpnPlasma, m_hWpnShield);
 	}
 }
 

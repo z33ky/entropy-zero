@@ -135,6 +135,10 @@ void CPlayerClassEscort::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
+	m_pPlayer->GiveNamedItem("weapon_shield_grenade");
+
+	CBaseTFCombatWeapon* pWeapon = static_cast<CBaseTFCombatWeapon*>(m_pPlayer->GiveNamedItem("weapon_minigun"));
+
 	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * )m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
 	if ( !p )
 	{
@@ -142,9 +146,9 @@ void CPlayerClassEscort::CreateClass( void )
 	}
 
 	CWeaponShield *pShield = GetProjectedShield();
-	if ( p && pShield )
+	if ( p && pShield && pWeapon != nullptr )
 	{
-		p->SetWeapons( NULL, pShield );
+		p->SetWeapons(pWeapon, pShield);
 	}
 }
 

@@ -30,6 +30,7 @@ public:
 	virtual void	GainedNewTechnology( CBaseTechnology *pTechnology );
 
 	// Class Initialization
+	virtual void	CreateClass(void);
 	virtual void	RespawnClass( void );			// Called upon all respawns
 	virtual bool	ResupplyAmmo( float flPercentage, ResupplyReason_t reason );
 	virtual void    SetupMoveData( void );			// Override class specific movement data here.

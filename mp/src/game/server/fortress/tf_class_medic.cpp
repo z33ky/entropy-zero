@@ -103,6 +103,9 @@ void CPlayerClassMedic::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
+	m_pPlayer->GiveNamedItem("weapon_combat_grenade");
+	m_pPlayer->GiveNamedItem("weapon_repairgun");
+
 	// Create our two handed weapon layout
 	m_hWpnPlasma = static_cast< CBaseTFCombatWeapon * >( m_pPlayer->GiveNamedItem( "weapon_combat_burstrifle" ) );
 	m_hWpnShield = m_pPlayer->GetCombatShield();

@@ -32,6 +32,7 @@ public:
 	virtual const char*	GetClassModelString( int nTeam );
 
 	// Class Initialization
+	virtual void	CreateClass(void);
 	virtual bool	ResupplyAmmo( float flPercentage, ResupplyReason_t reason );
 	virtual void    SetupMoveData( void );			// Override class specific movement data here.
 	virtual void	SetupSizeData( void );			// Override class specific size data here.

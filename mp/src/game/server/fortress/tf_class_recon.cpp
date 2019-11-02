@@ -88,6 +88,15 @@ void CPlayerClassRecon::ClassDeactivate( void )
 	BaseClass::ClassDeactivate();
 }
 
+void CPlayerClassRecon::CreateClass(void)
+{
+	BaseClass::CreateClass();
+
+	CBaseCombatWeapon* pWeapon = static_cast<CBaseCombatWeapon*>(m_pPlayer->GiveNamedItem("weapon_pistols"));
+	if (pWeapon != nullptr)
+		m_pPlayer->SetActiveWeapon(pWeapon);
+}
+
 bool CPlayerClassRecon::ResupplyAmmo( float flFraction, ResupplyReason_t reason )
 {
 	bool bGiven = false;

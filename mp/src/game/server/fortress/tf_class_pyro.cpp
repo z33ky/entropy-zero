@@ -63,6 +63,8 @@ void CPlayerClassPyro::CreateClass()
 {
 	BaseClass::CreateClass();
 
+	m_pPlayer->GiveNamedItem("weapon_combat_shotgun");
+
 	// Create our two handed weapon layout
 	m_hWpnFlameThrower = static_cast< CWeaponFlameThrower * >( m_pPlayer->GiveNamedItem( "weapon_flame_thrower" ) );
 	m_hWpnGasCan = static_cast< CWeaponGasCan * >( m_pPlayer->GiveNamedItem( "weapon_gas_can" ) );

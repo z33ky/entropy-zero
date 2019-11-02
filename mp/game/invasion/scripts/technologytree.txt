@@ -1,5 +1,6 @@
 TechTreeDataFile
 {	
+	/*
 	HumanBaseWeapons
 	{
 		hidden		1
@@ -17,6 +18,7 @@ TechTreeDataFile
 			0	"weapon_combat_burstrifle"
 		}
 	}
+	*/
 	
 	com_obj_rallyflag
 	{

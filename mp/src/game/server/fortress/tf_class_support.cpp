@@ -89,6 +89,12 @@ void CPlayerClassSupport::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
+	m_pPlayer->GiveNamedItem("weapon_limpetmine");
+	m_pPlayer->GiveNamedItem("weapon_harpoon");
+
+	CBaseCombatWeapon* pWeapon = static_cast<CBaseCombatWeapon*>(m_pPlayer->GiveNamedItem("weapon_combat_plasmagrenadelauncher"));
+	if (pWeapon != nullptr)
+		m_pPlayer->SetActiveWeapon(pWeapon);
 }
 
 //-----------------------------------------------------------------------------

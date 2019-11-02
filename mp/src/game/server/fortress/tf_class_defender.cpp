@@ -118,8 +118,11 @@ void CPlayerClassDefender::CreateClass( void )
 {
 	BaseClass::CreateClass();
 
+	m_pPlayer->GiveNamedItem("weapon_limpetmine");
+	m_pPlayer->GiveNamedItem("weapon_arcwelder");
+
 	// Create our two handed weapon layout
-	m_hWpnPlasma = static_cast< CBaseTFCombatWeapon * >( m_pPlayer->GiveNamedItem( "weapon_combat_burstrifle" ) );
+	m_hWpnPlasma = static_cast< CBaseTFCombatWeapon * >( m_pPlayer->GiveNamedItem( "weapon_combat_laserrifle" ) );
 	m_hWpnShield = m_pPlayer->GetCombatShield();
 	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * )m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
 	if ( !p )
