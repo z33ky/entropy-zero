@@ -201,6 +201,16 @@ $Project "Server"
 				$File	fortress/tf_obj_barbed_wire.h
 				$File	fortress/tf_obj_buff_station.cpp
 				$File	fortress/tf_obj_buff_station.h
+				$File	fortress/tf_obj_bunker.cpp
+				$File	fortress/tf_obj_dragonsteeth.cpp
+				$File	fortress/tf_obj_empgenerator.cpp
+				$File	fortress/tf_obj_explosives.cpp
+				$File	fortress/tf_obj_manned_missilelauncher.cpp
+				$File	fortress/tf_obj_manned_missilelauncher.h
+				$File	fortress/tf_obj_manned_shield.cpp
+				$File	fortress/tf_obj_mapdefined.cpp
+				$File	fortress/tf_obj_mcv_selection_panel.cpp
+				$File	fortress/tf_obj_mortar.cpp
 				$File	fortress/tf_obj_powerpack.cpp
 				$File	fortress/tf_obj_powerpack.h
 				$File	fortress/tf_obj_rallyflag.cpp
@@ -213,10 +223,12 @@ $Project "Server"
 				$File	fortress/tf_obj_resupply.h
 				$File	fortress/tf_obj_sandbag_bunker.cpp
 				$File	fortress/tf_obj_sandbag_bunker.h
+				$File	fortress/tf_obj_selfheal.cpp
 				$File	fortress/tf_obj_shieldwall.cpp
 				$File	fortress/tf_obj_shieldwall.h
-				$File	fortress/tf_obj_manned_missilelauncher.cpp
-				$File	fortress/tf_obj_manned_missilelauncher.h
+				$File	fortress/tf_obj_tower.cpp
+				$File	fortress/tf_obj_tunnel.cpp
+				$File	fortress/tf_obj_vehicleboost.cpp
 				$File	fortress/tf_obj_sentrygun.cpp
 				$File	fortress/tf_obj_sentrygun.h
 

@@ -393,7 +393,7 @@ void CMortarMinimapPanel::OnMousePressed( vgui::MouseCode code )
 {
 	BaseClass::OnMousePressed( code );
 
-	if (code != vgui::MOUSE_LEFT)
+	if (code != MOUSE_LEFT)
 		return;
 
 	C_BaseEntity *pMortar = GetMortar();
@@ -458,7 +458,7 @@ void CMortarMinimapPanel::OnMouseReleased( vgui::MouseCode code )
 {
 	BaseClass::OnMouseReleased( code );
 
-	if ( code != vgui::MOUSE_LEFT )
+	if ( code != MOUSE_LEFT )
 		return;
 
 	m_bMouseDown = false;

@@ -79,7 +79,7 @@ void CObjectSelfHeal::FinishedBuilding( void )
 {
 	BaseClass::FinishedBuilding();
 
-	SetContextThink( SelfHealThink, gpGlobals->curtime + obj_selfheal_rate.GetFloat(), SELFHEAL_THINK_CONTEXT );
+	SetContextThink(&CObjectSelfHeal::SelfHealThink, gpGlobals->curtime + obj_selfheal_rate.GetFloat(), SELFHEAL_THINK_CONTEXT);
 }
 
 //-----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ void CObjectSelfHeal::SelfHealThink( void )
 	CBaseObject *pObject = GetParentObject();
 	if ( !pObject )
 	{
-		Killed();
+		Killed(CTakeDamageInfo(this, this, 999.0f, DMG_GENERIC));
 		return;
 	}
 

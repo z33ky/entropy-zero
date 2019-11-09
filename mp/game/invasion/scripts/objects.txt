@@ -135,7 +135,7 @@ objects
 	
 	OBJ_RALLYFLAG
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_rallyflag
 		StatusName		"Rally Flag"
 		BuilderWeaponName	"Rally Flag"
 		BuilderPlacementString	"Place on ground"
@@ -268,7 +268,7 @@ objects
 	
 	OBJ_MCV_SELECTION_PANEL
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_mcv_selection_panel
 		StatusName		"Buffstation"
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
@@ -288,7 +288,7 @@ objects
 	
 	OBJ_MAPDEFINED
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_mapdefined
 		StatusName		"Buffstation"
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
@@ -307,7 +307,7 @@ objects
 	
 	OBJ_MORTAR
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_mortar
 		StatusName		"Buffstation"
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
@@ -326,9 +326,9 @@ objects
 	
 	OBJ_SELFHEAL
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName		obj_selfheal
+		StatusName		"Self Heal"
+		BuilderWeaponName	"Self Heal"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -590,9 +590,10 @@ objects
 		SapperAttachTime		1
 	}
 	
+	// todo
 	OBJ_WALKER_MINI_STRIDER
 	{
-		ClassName				obj_buff_station
+		ClassName				walker_strider
 		StatusName				"MINI WALKER"
 		BuilderWeaponName		"MINI WALKER"
 		BuilderPlacementString	"Place on ground"
@@ -611,7 +612,7 @@ objects
 	
 	OBJ_TOWER
 	{
-		ClassName		obj_buff_station
+		ClassName		obj_tower
 		StatusName		"Tower"
 		BuilderWeaponName	"Tower"
 		BuilderPlacementString	"Place on ground"

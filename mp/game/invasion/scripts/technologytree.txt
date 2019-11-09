@@ -1,24 +1,22 @@
 TechTreeDataFile
-{	
-	/*
+{
 	HumanBaseWeapons
 	{
 		hidden		1
 		
-		class_results
-		{
-			all
-			{
-				associateweapons	1
-			}
-		}
+		//class_results
+		//{
+		//	all
+		//	{
+		//		associateweapons	1
+		//	}
+		//}
 		
-		associated_weapons
-		{
-			0	"weapon_combat_burstrifle"
-		}
+		//associated_weapons
+		//{
+		//	0	"weapon_combat_burstrifle"
+		//}
 	}
-	*/
 	
 	com_obj_rallyflag
 	{

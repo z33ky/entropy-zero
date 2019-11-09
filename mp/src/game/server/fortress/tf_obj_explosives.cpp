@@ -33,7 +33,7 @@ public:
 
 	virtual void	Spawn();
 	virtual void	Precache();
-	virtual void	Killed( void );
+	virtual void	Killed(const CTakeDamageInfo &info);
 
 	// Explosivo
 	void			ExplodeThink( void );
@@ -93,7 +93,7 @@ void CObjectExplosives::Precache()
 //-----------------------------------------------------------------------------
 // Purpose: Explosivo!
 //-----------------------------------------------------------------------------
-void CObjectExplosives::Killed( void )
+void CObjectExplosives::Killed(const CTakeDamageInfo &info)
 {
 	// Tell 'em I'm dying now
 	m_bDying = true;
@@ -102,7 +102,7 @@ void CObjectExplosives::Killed( void )
 	DetachObjectFromObject();
 
 	// Delay the explosion & death so that it's not blocked by the entity we were built on
-	SetThink( ExplodeThink );
+	SetThink( &CObjectExplosives::ExplodeThink );
 	SetNextThink( gpGlobals->curtime + 0.3 );
 }
 
@@ -111,9 +111,11 @@ void CObjectExplosives::Killed( void )
 //-----------------------------------------------------------------------------
 void CObjectExplosives::ExplodeThink( void )
 {
+	CTakeDamageInfo info(this, GetBuilder(), obj_explosives_damage.GetFloat(), DMG_BLAST);
+
 	// Do radius damage
-	RadiusDamage( CTakeDamageInfo( this, GetBuilder(), obj_explosives_damage.GetFloat(), DMG_BLAST ), GetAbsOrigin(), obj_explosives_radius.GetFloat(), CLASS_NONE, NULL );
+	RadiusDamage(info, GetAbsOrigin(), obj_explosives_radius.GetFloat(), CLASS_NONE, NULL);
 
 	// Kill myself
-	BaseClass::Killed();
+	BaseClass::Killed(info);
 }

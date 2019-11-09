@@ -132,6 +132,7 @@ $Project "Client"
 			
 			$Folder "Vehicles"
 			{
+				$File	fortress/c_vehicle_mortar.cpp
 				$File	fortress/c_vehicle_teleport_station.cpp
 				$File	fortress/c_vehicle_teleport_station.h
 				$File	fortress/c_basefourwheelvehicle.cpp
@@ -193,7 +194,6 @@ $Project "Client"
 
 				// These have been merged into shared/fortress/weapon_builder now.
 				$File	fortress/c_weapon_builder.cpp
-				//$File	fortress/c_weapon_builder.h
 				$File	fortress/c_harpoon.cpp
 				$File	fortress/c_weapon_mortar.cpp
 				$File	fortress/c_weapon_twohandedcontainer.cpp
@@ -209,27 +209,31 @@ $Project "Client"
 				}
 				
 				$File	fortress/c_obj_armor_upgrade.cpp
-				$File	fortress/c_obj_armor_upgrade.h
 				$File 	fortress/c_obj_barbed_wire.cpp
-				$File 	fortress/c_obj_barbed_wire.h
+				$File	fortress/c_obj_base_manned_gun.cpp
+				$File	fortress/c_obj_buff_station.cpp
+				$File	fortress/c_obj_bunker.cpp
+				$File	fortress/c_obj_dragonsteeth.cpp
 				$File 	fortress/c_obj_empgenerator.cpp
 				$File	fortress/c_obj_explosives.cpp
-				$File	fortress/c_obj_sentrygun.cpp
-				$File	fortress/c_obj_sentrygun.h
-				$File	fortress/c_obj_buff_station.cpp
+				$File	fortress/c_obj_manned_missilelauncher.cpp
+				//$File	fortress/c_obj_manned_plasmagun.cpp
+				$File	fortress/c_obj_manned_shield.cpp
+				$File	fortress/c_obj_mapdefined.cpp
+				$File	fortress/c_obj_mcv_selection_panel.cpp
+				$File	fortress/c_obj_mortar.cpp
 				$File	fortress/c_obj_powerpack.cpp
 				$File	fortress/c_obj_rallyflag.cpp
 				$File	fortress/c_obj_resourcepump.cpp
-				$File	fortress/c_obj_resourcepump.h
 				$File	fortress/c_obj_respawn_station.cpp
-				$File	fortress/c_obj_respawn_station.h
 				$File	fortress/c_obj_resupply.cpp
 				$File	fortress/c_obj_sandbag_bunker.cpp
-				$File	fortress/c_obj_manned_missilelauncher.cpp
-				$File	fortress/c_obj_mcv_selection_panel.cpp
-				$File	fortress/c_obj_base_manned_gun.cpp
-				$File	fortress/c_obj_base_manned_gun.h
+				$File	fortress/c_obj_selfheal.cpp
+				$File	fortress/c_obj_sentrygun.cpp
 				$File	fortress/c_obj_shieldwall.cpp
+				$File	fortress/c_obj_tower.cpp
+				$File	fortress/c_obj_tunnel.cpp
+				$File	fortress/c_obj_vehicleboost.cpp
 			}
 
 			$Folder "Orders"
