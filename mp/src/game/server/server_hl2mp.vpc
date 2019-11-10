@@ -246,6 +246,13 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\tf_obj_manned_plasmagun.h
 				}
 			}
+
+			$Folder "NPCs"
+			{
+				$File	fortress/npc_bug_builder.cpp
+				$File	fortress/npc_bug_hole.cpp
+				$File	fortress/npc_bug_warrior.cpp
+			}
 			
 			$Folder "Classes"
 			{

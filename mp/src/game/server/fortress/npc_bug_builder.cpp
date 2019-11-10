@@ -387,7 +387,7 @@ void CNPC_Bug_Builder::Event_Killed( const CTakeDamageInfo &info )
 	// Remove myself in a minute
 	if ( !ShouldFadeOnDeath() )
 	{
-		SetThink( SUB_Remove );
+		SetThink(&CNPC_Bug_Builder::SUB_Remove);
 		SetNextThink( gpGlobals->curtime + 20 );
 	}
 }

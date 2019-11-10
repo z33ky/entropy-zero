@@ -13,6 +13,7 @@
 
 class CNPC_Bug_Warrior;
 class CNPC_Bug_Builder;
+class CBugHoleActor;
 
 //-----------------------------------------------------------------------------
 // Purpose: BUG HOLE
@@ -71,6 +72,9 @@ private:
 	CUtlVector<WarriorHandle_t>	m_aWarriorBugs;
 	typedef	CHandle<CNPC_Bug_Builder> BuilderHandle_t;
 	CUtlVector<BuilderHandle_t>	m_aBuilderBugs;
+
+	// Model representation
+	//CHandle<CBugHoleActor> m_hActor;
 };
 
 #endif // NPC_BUG_HOLE_H

@@ -45,10 +45,10 @@ public:
 	DECLARE_DATADESC();
 };
 
-abstract_class CBaseNPCMaker : public CBaseEntity
+abstract_class CBaseNPCMaker : public CBaseAnimating
 {
 public:
-	DECLARE_CLASS( CBaseNPCMaker, CBaseEntity );
+	DECLARE_CLASS(CBaseNPCMaker, CBaseAnimating);
 
 	void Spawn( void );
 	virtual int	ObjectCaps( void ) { return BaseClass::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

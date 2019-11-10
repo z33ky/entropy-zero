@@ -304,6 +304,8 @@ $Project "Client"
 			$File	fortress/c_info_act.h
 			$File	fortress/c_info_customtech.cpp
 
+			$File	fortress/c_maker_bughole.cpp
+
 			$File	fortress/c_ragdoll_shadow.cpp
 			$File	fortress/c_resource_chunk.cpp
 			$File	fortress/c_shield.cpp

@@ -75,7 +75,8 @@ void CMaker_BugHole::Spawn( void )
 
 	// Bug holes are destroyable
 	SetSolid( SOLID_BBOX );
-	SetModel( "models/npcs/bugs/bug_hole.mdl" );
+	SetModel("models/npcs/bugs/bug_hole.mdl");
+
 	m_takedamage = DAMAGE_YES;
 	m_iHealth = npc_bughole_health.GetInt();
 
@@ -85,18 +86,18 @@ void CMaker_BugHole::Spawn( void )
 	m_flNextPatrolTime = gpGlobals->curtime + m_flPatrolTime;
 
 	// Override the base class think, and think with some random so bugholes don't all think at the same time
-	SetThink ( BugHoleThink );
+	SetThink(&CMaker_BugHole::BugHoleThink);
 	SetNextThink( gpGlobals->curtime + BUGHOLE_THINK_SPEED + random->RandomFloat( -0.5, 0.5 ) );
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CMaker_BugHole::Precache( void )
+void CMaker_BugHole::Precache(void)
 {
 	BaseClass::Precache();
 
-	PrecacheModel( "models/npcs/bugs/bug_hole.mdl" );
+	PrecacheModel("models/npcs/bugs/bug_hole.mdl");
 }
 
 //-----------------------------------------------------------------------------
@@ -362,7 +363,7 @@ void CMaker_BugHole::Event_Killed( const CTakeDamageInfo &info )
 	SetMoveType( MOVETYPE_FLYGRAVITY );
 	SetGroundEntity( NULL );
 
-	SetThink( SUB_Remove );
+	SetThink(&CMaker_BugHole::SUB_Remove);
 	SetNextThink( gpGlobals->curtime + 5.0 );
 }
 

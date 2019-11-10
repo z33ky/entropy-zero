@@ -13,9 +13,9 @@
 //-----------------------------------------------------------------------------
 // Purpose: Client side entity for the NPC Bug hole
 //-----------------------------------------------------------------------------
-class C_Maker_Bughole : public C_BaseEntity
+class C_Maker_Bughole : public C_BaseAnimating
 {
-	DECLARE_CLASS( C_Maker_Bughole, C_BaseEntity );
+	DECLARE_CLASS(C_Maker_Bughole, C_BaseAnimating);
 public:
 	DECLARE_CLIENTCLASS();
 
