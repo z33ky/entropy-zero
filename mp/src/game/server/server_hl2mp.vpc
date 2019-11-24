@@ -385,12 +385,19 @@ $Project "Server"
 			{
 				$File	fortress/tf_basefourwheelvehicle.cpp
 				$File	fortress/tf_basefourwheelvehicle.h
-				$File	fortress/tf_vehicle_teleport_station.cpp
-				$File	fortress/tf_vehicle_teleport_station.h
+				$File	fortress/tf_vehicle_battering_ram.cpp
+				$File	fortress/tf_vehicle_flatbed.cpp
+				$File	fortress/tf_vehicle_mortar.cpp
+				$File	fortress/tf_vehicle_motorcycle.cpp
+				$File	fortress/tf_vehicle_siege_tower.cpp
 				$File	fortress/tf_vehicle_tank.cpp
 				$File	fortress/tf_vehicle_tank.h
+				$File	fortress/tf_vehicle_teleport_station.cpp
+				$File	fortress/tf_vehicle_teleport_station.h
+				$File	fortress/tf_vehicle_wagon.cpp
 				$File	fortress/tf_walker_base.cpp
 				$File	fortress/tf_walker_base.h
+				$File	fortress/tf_walker_ministrider.cpp
 				$File	fortress/tf_walker_strider.cpp
 				$File	fortress/tf_walker_strider.h
 			}

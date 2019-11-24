@@ -478,83 +478,83 @@ objects
 	
 	OBJ_FLATBED
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName				vehicle_flatbed
+		StatusName				"Flatbed"
+		BuilderWeaponName		"Flatbed"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
-		CostMultiplier		1
-		UpgradeCost		0
-		MaxUpgradeLevel		0
-		SelectionSlot		0
-		SelectionPosition	0
-		SapperAttachTime	1
+		Icon					"placeholder"
+		BuildTime				10
+		MaxObjects				1
+		Cost					100
+		CostMultiplier			1
+		UpgradeCost				0
+		MaxUpgradeLevel			0
+		SelectionSlot			0
+		SelectionPosition		0
+		SapperAttachTime		1
 	}
 	
 	OBJ_VEHICLE_MORTAR
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName				vehicle_mortar
+		StatusName				"Mortar"
+		BuilderWeaponName		"Mortar"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
-		CostMultiplier		1
-		UpgradeCost		0
-		MaxUpgradeLevel		0
-		SelectionSlot		0
-		SelectionPosition	0
-		SapperAttachTime	1
+		Icon					"placeholder"
+		BuildTime				10
+		MaxObjects				1
+		Cost					100
+		CostMultiplier			1
+		UpgradeCost				0
+		MaxUpgradeLevel			0
+		SelectionSlot			0
+		SelectionPosition		0
+		SapperAttachTime		1
 	}
 	
 	OBJ_VEHICLE_TELEPORT_STATION
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName				vehicle_teleport_station
+		StatusName				"Teleport Station"
+		BuilderWeaponName		"Teleport Station"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
-		CostMultiplier		1
-		UpgradeCost		0
-		MaxUpgradeLevel		0
-		SelectionSlot		0
-		SelectionPosition	0
-		SapperAttachTime	1
+		Icon					"placeholder"
+		BuildTime				10
+		MaxObjects				1
+		Cost					100
+		CostMultiplier			1
+		UpgradeCost				0
+		MaxUpgradeLevel			0
+		SelectionSlot			0
+		SelectionPosition		0
+		SapperAttachTime		1
 	}
 	
 	OBJ_VEHICLE_TANK
 	{
-		ClassName		obj_buff_station
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		ClassName				vehicle_tank
+		StatusName				"Tank"
+		BuilderWeaponName		"Tank"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon			"placeholder"
-		BuildTime		10
-		MaxObjects		1
-		Cost			100
-		CostMultiplier		1
-		UpgradeCost		0
-		MaxUpgradeLevel		0
-		SelectionSlot		0
-		SelectionPosition	0
-		SapperAttachTime	1
+		Icon					"placeholder"
+		BuildTime				10
+		MaxObjects				1
+		Cost					100
+		CostMultiplier			1
+		UpgradeCost				0
+		MaxUpgradeLevel			0
+		SelectionSlot			0
+		SelectionPosition		0
+		SapperAttachTime		1
 	}
 	
 	OBJ_VEHICLE_MOTORCYCLE
 	{
-		ClassName				obj_buff_station
+		ClassName				vehicle_motorcycle
 		StatusName				"Motorcycle"
 		BuilderWeaponName		"Motorcycle"
 		BuilderPlacementString	"Place on ground"
@@ -574,8 +574,8 @@ objects
 	OBJ_WALKER_STRIDER
 	{
 		ClassName				walker_strider
-		StatusName				"WALKER"
-		BuilderWeaponName		"WALKER"
+		StatusName				"Walker"
+		BuilderWeaponName		"Walker"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon					"placeholder"
@@ -590,12 +590,11 @@ objects
 		SapperAttachTime		1
 	}
 	
-	// todo
 	OBJ_WALKER_MINI_STRIDER
 	{
-		ClassName				walker_strider
-		StatusName				"MINI WALKER"
-		BuilderWeaponName		"MINI WALKER"
+		ClassName				walker_mini_strider
+		StatusName				"Mini Walker"
+		BuilderWeaponName		"Mini Walker"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon					"placeholder"

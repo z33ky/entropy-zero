@@ -175,9 +175,11 @@ void CVehicleMortar::UpdateElevation( const Vector &vecTargetVel )
 }
 
 
-bool CVehicleMortar::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, ICommandArguments *pArg )
+bool CVehicleMortar::ClientCommand(CBaseTFPlayer *pPlayer, const CCommand &args)
 {
 	ResetDeteriorationTime();
+
+	const char *pCmd = args[0];
 
 	if ( !Q_stricmp( pCmd, "Deploy" ) )
 	{
@@ -195,22 +197,22 @@ bool CVehicleMortar::ClientCommand( CBaseTFPlayer *pPlayer, const char *pCmd, IC
 	}
 	else if ( !Q_stricmp( pCmd, "FireMortar" ) )
 	{
-		if ( pArg->Argc() == 3 )
+		if ( args.ArgC() == 3 )
 		{
-			FireMortar( atof( pArg->Argv(1) ), atof( pArg->Argv(2) ), false, false );
+			FireMortar( atof( args[1] ), atof( args[2] ), false, false );
 		}
 		return true;
 	}
 	else if ( !Q_stricmp( pCmd, "MortarYaw" ) )
 	{
-		if ( pArg->Argc() == 2 )
+		if (args.ArgC() == 2)
 		{
-			m_flMortarYaw = atof( pArg->Argv(1) );
+			m_flMortarYaw = atof( args[1] );
 		}
 		return true;
 	}
 
-	return BaseClass::ClientCommand( pPlayer, pCmd, pArg );
+	return BaseClass::ClientCommand( pPlayer, args );
 }
 
 
@@ -344,7 +346,7 @@ bool CVehicleMortar::FireMortar( float flFiringPower, float flFiringAccuracy, bo
 
 	// Put in a delay before thinking again.
 	m_bAllowedToFire = false;
-	SetContextThink( NextFireThink, gpGlobals->curtime + MORTAR_FIRE_DELAY, g_pMortarNextFireContextName );
+	SetContextThink(&CVehicleMortar::NextFireThink, gpGlobals->curtime + MORTAR_FIRE_DELAY, g_pMortarNextFireContextName);
 
 	return true;
 }

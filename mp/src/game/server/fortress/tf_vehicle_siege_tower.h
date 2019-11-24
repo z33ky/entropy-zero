@@ -80,7 +80,7 @@ public:
 
 	void				Spawn();
 	void				Precache();
-	void				Killed(void );
+	void				Killed(const CTakeDamageInfo &info);
 	void				GetControlPanelInfo( int nPanelIndex, const char *&pPanelName );
 	bool				CanTakeEMPDamage( void ) { return true; }
 
