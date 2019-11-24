@@ -132,15 +132,24 @@ $Project "Client"
 			
 			$Folder "Vehicles"
 			{
-				$File	fortress/c_vehicle_mortar.cpp
-				$File	fortress/c_vehicle_teleport_station.cpp
-				$File	fortress/c_vehicle_teleport_station.h
-				$File	fortress/c_basefourwheelvehicle.cpp
-				$File	fortress/c_basefourwheelvehicle.h
-				$File	fortress/c_walker_base.cpp
-				$File	fortress/c_walker_base.h
-				$File	fortress/c_walker_strider.cpp
-				$File	fortress/c_walker_strider.h
+				$File fortress/c_basefourwheelvehicle.cpp
+				$File fortress/c_basefourwheelvehicle.h
+				$File fortress/c_vehicle_battering_ram.cpp
+				$File fortress/c_vehicle_flatbed.cpp
+				$File fortress/c_vehicle_mortar.cpp
+				$File fortress/c_vehicle_motorcycle.cpp
+				$File fortress/c_vehicle_siege_tower.cpp
+				$File fortress/c_vehicle_tank.cpp
+				$File fortress/c_vehicle_tank.h
+				$File fortress/c_vehicle_teleport_station.cpp
+				$File fortress/c_vehicle_teleport_station.h
+				$File fortress/c_vehicle_wagon.cpp
+				$File fortress/c_walker_base.cpp
+				$File fortress/c_walker_base.h
+				$File fortress/c_walker_ministrider.cpp
+				$File fortress/c_walker_ministrider.h
+				$File fortress/c_walker_strider.cpp
+				$File fortress/c_walker_strider.h
 			}
 
 			$Folder "Weapons"

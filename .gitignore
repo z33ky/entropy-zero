@@ -87,6 +87,7 @@ config.cfg
 /mp/game/invasion/cubemap_screenshots
 /mp/game/invasion/screenshots
 /mp/game/invasion/user_custom
+/mp/game/invasion/ServerConfig.vdf
 
 # Ignore output directories
 mp/src/game/server/Debug_invasion/

@@ -172,10 +172,10 @@ void CVehicleSiegeTower::DestroyLadder( void )
 //------------------------------------------------------------------------------
 // Purpose:
 //------------------------------------------------------------------------------
-void CVehicleSiegeTower::Killed( void )
+void CVehicleSiegeTower::Killed(const CTakeDamageInfo &info)
 {
 	DestroyLadder();
-	BaseClass::Killed();
+	BaseClass::Killed(info);
 }
 
 //==============================================================================
