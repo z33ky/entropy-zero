@@ -344,19 +344,17 @@ END_NETWORK_TABLE()
 	{
 		CBaseEntity *pSpawnSpot = pPlayer->EntSelectSpawnPoint();
 
-#if 0
 		// Make sure the spawn spot isn't blocked...
 		Vector vecTestOrg = pSpawnSpot->GetAbsOrigin();
 
-		vecTestOrg.z += pPlayer->WorldAlignSize().z * 0.5;
 		Vector origin;
 		EntityPlacementTest( pPlayer, vecTestOrg, origin, true );
 		
 		// Move the player to the place it said.
 		pPlayer->Teleport( &origin, NULL, NULL );
-#else
-		pPlayer->SetLocalOrigin(MaybeDropToGround(pPlayer,true,pSpawnSpot->GetAbsOrigin(),VEC_HULL_MIN,VEC_HULL_MAX));
-#endif
+
+		UTIL_DropToFloor(pPlayer, MASK_SOLID);
+
 		pPlayer->SetAbsVelocity( vec3_origin );
 		pPlayer->SetLocalAngles( pSpawnSpot->GetLocalAngles() );
 		pPlayer->m_Local.m_vecPunchAngle = vec3_angle;
