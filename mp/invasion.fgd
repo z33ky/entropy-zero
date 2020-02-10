@@ -36,6 +36,12 @@
 	MinDisabledHealth(float)	:	"Disabled health"	:	10	:	"Minimum health before object becomes disabled."
 ]
 
+@PointClass base(PlayerClass, BaseTeam, Angles) studio("models/editor/playerstart.mdl") = info_player_deathmatch :
+	"This entity indicates the position and facing direction at which the player will spawn during a deathmatch map. Any number of "+
+	"info_player_deathmatch entities may be placed in a map."
+[
+]
+
 // 
 
 @SolidClass base(Trigger) = trigger_controlzone : "Control Zone"
