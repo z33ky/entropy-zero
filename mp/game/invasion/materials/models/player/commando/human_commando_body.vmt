@@ -12,5 +12,8 @@
 	
 	$lightwarptexture	"lightwarp/mirv_lightwarp"
 	
+	//$selfillum 1
+    //$selfillummask "models/player/human/defender/classoverlay"
+	
 	$halflambert	0
 }
