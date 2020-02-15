@@ -346,19 +346,15 @@ END_NETWORK_TABLE()
 
 		// Make sure the spawn spot isn't blocked...
 		Vector vecTestOrg = pSpawnSpot->GetAbsOrigin();
-
 		Vector origin;
-		EntityPlacementTest( pPlayer, vecTestOrg, origin, true );
+		if (!EntityPlacementTest(pPlayer, vecTestOrg, origin, true)) {
+			origin = pSpawnSpot->GetAbsOrigin() + Vector( 0, 5.0f, 0 );
+			UTIL_DropToFloor(pPlayer, MASK_SOLID);
+		}
 		
 		// Move the player to the place it said.
-		pPlayer->Teleport( &origin, NULL, NULL );
-
-		UTIL_DropToFloor(pPlayer, MASK_SOLID);
-
-		pPlayer->SetAbsVelocity( vec3_origin );
-		pPlayer->SetLocalAngles( pSpawnSpot->GetLocalAngles() );
+		pPlayer->Teleport(&origin, &pSpawnSpot->GetLocalAngles(), &vec3_origin);
 		pPlayer->m_Local.m_vecPunchAngle = vec3_angle;
-		pPlayer->SnapEyeAngles( pSpawnSpot->GetLocalAngles() );
 		
 		return pSpawnSpot;
 	}
