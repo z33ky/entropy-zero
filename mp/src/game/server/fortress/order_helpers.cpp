@@ -113,6 +113,9 @@ bool OrderCreator_ResourceZoneObject(
 	COrder *pOrder
 	)
 {
+#if 1
+	return false;
+#elif IMPLEMENT_ME
 	// Can we even build a resource box?
 	if ( pPlayer->CanBuild( objType ) != CB_CAN_BUILD )
 		return false;
@@ -168,6 +171,7 @@ bool OrderCreator_ResourceZoneObject(
 	{
 		return false;
 	}
+#endif
 }
 
 
@@ -299,6 +303,9 @@ bool OrderCreator_GenericObject(
 	COrder *pOrder
 	)
 {
+#if 1
+	return false;
+#elif IMPLEMENT_ME
 	// Can we build one?
 	if ( pClass->CanBuild( objectType ) != CB_CAN_BUILD )
 		return false;
@@ -342,4 +349,5 @@ bool OrderCreator_GenericObject(
 	{
 		return false;
 	}
+#endif
 }
