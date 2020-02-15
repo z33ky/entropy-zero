@@ -198,7 +198,7 @@ void CMaker_BugHole::BugHoleUnderAttack( void )
 	}
 
 	// Try and spawn a warrior
-	SpawnWarrior( random->RandomFloat( 1.0, 3.0 ) );
+	SpawnWarrior( random->RandomFloat( 0.0f, 3.0f ) );
 }
 
 //-----------------------------------------------------------------------------
