@@ -1,9 +1,9 @@
 WeaponData
 {
 	printname		"Shotgun"
-	viewmodel		"models/weapons/v_smg1.mdl"
-	playermodel		"models/weapons/placeholders/w_smg.mdl"
-	anim_prefix		"smg2"
+	viewmodel		"models/weapons/v_shotgun.mdl"
+	playermodel		"models/weapons/w_shotgun.mdl"
+	anim_prefix		"shotgun"
 	bucket			0
 	bucket_position	4
 	clip_size		30
@@ -19,7 +19,7 @@ WeaponData
 	SoundData
 	{
 		single_shot		"Weapon_BurstRifle.Single"
-		reload			"Weapon_SMG1.Reload"
+		reload			"Weapon_Shotgun.NPC_Reload"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.

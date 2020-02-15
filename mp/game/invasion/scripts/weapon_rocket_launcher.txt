@@ -1,9 +1,9 @@
 WeaponData
 {
 	printname		"Rocket Launcher"
-	viewmodel		models/weapons/v_pistol.mdl
-	playermodel		models/weapons/placeholders/w_smg.mdl
-	anim_prefix		smg2
+	viewmodel		models/weapons/v_rpg.mdl
+	playermodel		models/weapons/w_rocket_launcher.mdl
+	anim_prefix		"missile launcher"
 	bucket			0
 	bucket_position		4
 	clip_size		1
@@ -17,7 +17,7 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		single_shot		"Weapon_RocketLauncher.Single"
+		single_shot		"Weapon_RPG.Single"
 		reload			"Weapon_RocketLauncher.Reload"
 	}
 
