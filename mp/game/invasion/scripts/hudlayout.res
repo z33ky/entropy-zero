@@ -66,6 +66,16 @@ HudLayout
 		enabled	1
 	}
 	
+	HudHintKeyDisplay
+	{
+		fieldName	HudHintKeyDisplay
+		xpos	30
+		ypos	30
+		wide	120
+		tall	120
+		visible	1
+		enabled	1
+	}
 	HudHintDisplayLabel
 	{
 		xpos		10
@@ -335,6 +345,68 @@ HudLayout
 		PaintBackgroundType	2
 	}
 	
+	HudVoiceSelfStatus
+	{
+		"fieldName" "HudVoiceSelfStatus"
+		"visible" "0"
+		"enabled" "0"
+		"xpos" "r43"
+		"ypos" "355"
+		"wide" "24"
+		"tall" "24"
+	}
+
+	HudVoiceStatus
+	{
+		"fieldName" "HudVoiceStatus"
+		"visible" "0"
+		"enabled" "0"
+		"xpos" "r200"
+		"ypos" "0"
+		"wide" "100"
+		"tall" "400"
+
+		"item_tall"	"24"
+		"item_wide"	"100"
+
+		"item_spacing" "2"
+
+		"icon_ypos"	"0"
+		"icon_xpos"	"0"
+		"icon_tall"	"24"
+		"icon_wide"	"24"
+
+		"text_xpos"	"26"
+	}
+
+	HudCommentary
+	{
+		"fieldName" "HudCommentary"
+		"xpos"	"c-190"
+		"ypos"	"350"
+		"wide"	"380"
+		"tall"  "40"
+		"visible" "1"
+		"enabled" "1"
+		
+		"PaintBackgroundType"	"2"
+		
+		"bar_xpos"		"50"
+		"bar_ypos"		"20"
+		"bar_height"	"8"
+		"bar_width"		"320"
+		"speaker_xpos"	"50"
+		"speaker_ypos"	"8"
+		"count_xpos_from_right"	"10"	// Counts from the right side
+		"count_ypos"	"8"
+		
+		"icon_texture"	"vgui/hud/icon_commentary"
+		"icon_xpos"		"0"
+		"icon_ypos"		"0"		
+		"icon_width"	"40"
+		"icon_height"	"40"
+	}
+
 	HudOrderList
 	{
 		fieldName	HudOrderList
@@ -448,11 +520,21 @@ HudLayout
 	
 	HudCloseCaption
 	{
-		fieldName	HudCloseCaption
-		visible		1
-		enabled		1
-		wide		640
-		tall		480
+		"fieldName" "HudCloseCaption"
+		"visible"	"1"
+		"enabled"	"1"
+		"xpos"		"c-250"
+		"ypos"		"276"
+		"wide"		"500"
+		"tall"		"136"
+
+		"BgAlpha"	"128"
+
+		"GrowTime"		"0.25"
+		"ItemHiddenTime"	"0.2"  // Nearly same as grow time so that the item doesn't start to show until growth is finished
+		"ItemFadeInTime"	"0.15"	// Once ItemHiddenTime is finished, takes this much longer to fade in
+		"ItemFadeOutTime"	"0.3"
+
 	}
 	
 	HudGeiger
