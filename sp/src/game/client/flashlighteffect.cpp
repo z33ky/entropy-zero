@@ -38,6 +38,7 @@ static ConVar r_swingflashlight( "r_swingflashlight", "1", FCVAR_CHEAT );
 static ConVar r_flashlightlockposition( "r_flashlightlockposition", "0", FCVAR_CHEAT );
 #ifdef EZ
 static ConVar r_nvgfov( "r_nvgfov", "100", FCVAR_CHEAT ); // Breadman - Changed for NVG effect
+static ConVar r_nvg_force_nonbordered( "r_nvg_force_nonbordered", "0" ); // z33ky - workaround for Linux issue with bordercolor-support detection
 #endif
 static ConVar r_flashlightfov( "r_flashlightfov", "45.0", FCVAR_CHEAT );
 static ConVar r_flashlightoffsetx( "r_flashlightoffsetx", "10.0", FCVAR_CHEAT );
@@ -93,7 +94,7 @@ CFlashlightEffect::CFlashlightEffect(int nEntIndex)
 	}
 #ifdef EZ
 	m_iFlashLightType = type;
-	if ( g_pMaterialSystemHardwareConfig->SupportsBorderColor() && IsNVG() )
+	if ( g_pMaterialSystemHardwareConfig->SupportsBorderColor() && !r_nvg_force_nonbordered.GetBool() && IsNVG() )
 	{
 		m_FlashlightTexture.Init( "effects/Ez_MetroVision_border", TEXTURE_GROUP_OTHER, true );
 	}
