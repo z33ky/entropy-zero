@@ -88,7 +88,7 @@ ConVar sv_combine_eye_tracers("sv_combine_eye_tracers", "1", FCVAR_REPLICATED);
 //-----------------------------------------------------------------------------
 // This is the index to the name of the shotgun's classname in the string pool
 // so that we can get away with an integer compare rather than a string compare.
-string_t	s_iszShotgunClassname;
+static string_t s_iszShotgunClassname;
 
 //-----------------------------------------------------------------------------
 // Interactions
@@ -106,8 +106,8 @@ int	g_interactionCombineBash		= 0; // melee bash attack
 #define COMBINE_AE_GREN_DROP		( 9 )
 #define COMBINE_AE_CAUGHT_ENEMY		( 10) // grunt established sight with an enemy (player only) that had previously eluded the squad.
 
-int COMBINE_AE_BEGIN_ALTFIRE;
-int COMBINE_AE_ALTFIRE;
+static int COMBINE_AE_BEGIN_ALTFIRE;
+static int COMBINE_AE_ALTFIRE;
 #ifdef EZ
 static int AE_METROPOLICE_START_DEPLOY;
 static int AE_METROPOLICE_DEPLOY_MANHACK;
@@ -116,23 +116,23 @@ static int AE_METROPOLICE_DEPLOY_MANHACK;
 //=========================================================
 // Combine activities
 //=========================================================
-//Activity ACT_COMBINE_STANDING_SMG1;
-//Activity ACT_COMBINE_CROUCHING_SMG1;
-//Activity ACT_COMBINE_STANDING_AR2;
-//Activity ACT_COMBINE_CROUCHING_AR2;
-//Activity ACT_COMBINE_WALKING_AR2;
-//Activity ACT_COMBINE_STANDING_SHOTGUN;
-//Activity ACT_COMBINE_CROUCHING_SHOTGUN;
-Activity ACT_COMBINE_THROW_GRENADE;
-Activity ACT_COMBINE_LAUNCH_GRENADE;
-Activity ACT_COMBINE_BUGBAIT;
-Activity ACT_COMBINE_AR2_ALTFIRE;
+//static Activity ACT_COMBINE_STANDING_SMG1;
+//static Activity ACT_COMBINE_CROUCHING_SMG1;
+//static Activity ACT_COMBINE_STANDING_AR2;
+//static Activity ACT_COMBINE_CROUCHING_AR2;
+//static Activity ACT_COMBINE_WALKING_AR2;
+//static Activity ACT_COMBINE_STANDING_SHOTGUN;
+//static Activity ACT_COMBINE_CROUCHING_SHOTGUN;
+static Activity ACT_COMBINE_THROW_GRENADE;
+static Activity ACT_COMBINE_LAUNCH_GRENADE;
+static Activity ACT_COMBINE_BUGBAIT;
+static Activity ACT_COMBINE_AR2_ALTFIRE;
 Activity ACT_WALK_EASY;
 Activity ACT_WALK_MARCH; 
 #ifdef EZ
-Activity ACT_IDLE_UNARMED;
-Activity ACT_WALK_UNARMED;
-Activity ACT_METROPOLICE_DEPLOY_MANHACK;
+static Activity ACT_IDLE_UNARMED;
+static Activity ACT_WALK_UNARMED;
+static Activity ACT_METROPOLICE_DEPLOY_MANHACK;
 #endif
 
 // -----------------------------------------------

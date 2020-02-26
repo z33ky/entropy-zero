@@ -123,12 +123,12 @@ ConVar  metropolice_charge("metropolice_charge", "1" );
 #define METROPOLICE_NUM_CLIPS			5
 #define METROPOLICE_BURST_RELOAD_COUNT	20
 
-int AE_METROPOLICE_BATON_ON;
-int	AE_METROPOLICE_BATON_OFF;
-int AE_METROPOLICE_SHOVE;
-int AE_METROPOLICE_START_DEPLOY;
-int AE_METROPOLICE_DRAW_PISTOL;		// was	50
-int AE_METROPOLICE_DEPLOY_MANHACK;	// was	51
+static int AE_METROPOLICE_BATON_ON;
+static int AE_METROPOLICE_BATON_OFF;
+static int AE_METROPOLICE_SHOVE;
+static int AE_METROPOLICE_START_DEPLOY;
+static int AE_METROPOLICE_DRAW_PISTOL;    // was 50
+static int AE_METROPOLICE_DEPLOY_MANHACK; // was 51
 
 // -----------------------------------------------
 //	> Squad slots
@@ -149,16 +149,16 @@ enum SquadSlot_T
 //=========================================================
 // Metro Police  Activities
 //=========================================================
-int ACT_METROPOLICE_DRAW_PISTOL;
-int ACT_METROPOLICE_DEPLOY_MANHACK;
-int ACT_METROPOLICE_FLINCH_BEHIND;
+static int ACT_METROPOLICE_DRAW_PISTOL;
+static int ACT_METROPOLICE_DEPLOY_MANHACK;
+static int ACT_METROPOLICE_FLINCH_BEHIND;
 
-int	ACT_WALK_BATON;
-int	ACT_IDLE_ANGRY_BATON;
-int	ACT_PUSH_PLAYER;
-int ACT_MELEE_ATTACK_THRUST;
-int ACT_ACTIVATE_BATON;
-int ACT_DEACTIVATE_BATON;
+static int ACT_WALK_BATON;
+static int ACT_IDLE_ANGRY_BATON;
+static int ACT_PUSH_PLAYER;
+static int ACT_MELEE_ATTACK_THRUST;
+static int ACT_ACTIVATE_BATON;
+static int ACT_DEACTIVATE_BATON;
  
 LINK_ENTITY_TO_CLASS( npc_metropolice, CNPC_MetroPolice );
 
