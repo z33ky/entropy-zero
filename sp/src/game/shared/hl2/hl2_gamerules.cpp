@@ -1943,7 +1943,7 @@ CAmmoDef *GetAmmoDef()
 			
 #ifdef EZ1
 		// Entropy Zero
-		def.AddAmmoType("Manhack", DMG_BURN, TRACER_NONE, 0, 0, 2, 0, 0);
+		def.AddAmmoType("Manhack", DMG_BURN, TRACER_NONE, 0, 0, 3, 0, 0);
 #endif
 #ifdef EZ2
 		// Entropy Zero 2

@@ -22,14 +22,46 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-#define	MANHACKTOSS_FASTEST_REFIRE_TIME		1.0f
-#define	MANHACKTOSS_FASTEST_DRY_REFIRE_TIME	1.0f
+// Like CTraceFilterSimple, except it only filters just a single entity, no owner entities
+class CTraceFilterSingle : public CTraceFilter
+{
+public:
+	// It does have a base, but we'll never network anything below here..
+	DECLARE_CLASS_NOBASE( CTraceFilterSingle );
 
-#define	MANHACKTOSS_ACCURACY_SHOT_PENALTY_TIME		0.2f	// Applied amount of time each shot adds to the time we must recover from
-#define	MANHACKTOSS_ACCURACY_MAXIMUM_PENALTY_TIME	1.5f	// Maximum penalty to deal out
-#define	MAXBURST	1
+	CTraceFilterSingle( const IHandleEntity *passedict, int collisionGroup )
+	{
+		m_pPassEnt = passedict;
+		m_collisionGroup = collisionGroup;
+	}
 
-ConVar	manhacktoss_use_new_accuracy("manhacktoss_use_new_accuracy", "1");
+	virtual bool ShouldHitEntity( IHandleEntity *pHandleEntity, int contentsMask )
+	{
+		if ( !StandardFilterRules( pHandleEntity, contentsMask ) )
+			return false;
+
+		if ( m_pPassEnt == pHandleEntity )
+		{
+			return false;
+		}
+
+		// Don't test if the game code tells us we should ignore this collision...
+		CBaseEntity *pEntity = EntityFromEntityHandle( pHandleEntity );
+		if ( !pEntity )
+			return false;
+		if ( !pEntity->ShouldCollide( m_collisionGroup, contentsMask ) )
+			return false;
+		if ( pEntity && !g_pGameRules->ShouldCollide( m_collisionGroup, pEntity->GetCollisionGroup() ) )
+			return false;
+
+		return true;
+	}
+
+private:
+	const IHandleEntity *m_pPassEnt;
+	int m_collisionGroup;
+
+};
 
 //-----------------------------------------------------------------------------
 // CWeaponManhackToss
@@ -48,73 +80,17 @@ public:
 
 	void	Precache(void);
 	void	ItemPostFrame(void);
-	void	ItemPreFrame(void);
-	void	ItemBusyFrame(void);
 	void	PrimaryAttack(void);
-	void	AddViewKick(void);
-	void	DryFire(void);
-	void	Operator_HandleAnimEvent(animevent_t *pEvent, CBaseCombatCharacter *pOperator);
-
-
-	void	UpdatePenaltyTime(void);
+	void	TossManhack(void);
 
 	int		CapabilitiesGet(void) { return bits_CAP_WEAPON_RANGE_ATTACK1; }
-	Activity	GetPrimaryAttackActivity(void);
-
-	virtual bool Reload(void);
-
-	virtual const Vector& GetBulletSpread(void)
-	{
-		// Handle NPCs first
-		static Vector npcCone = VECTOR_CONE_5DEGREES;
-		if (GetOwner() && GetOwner()->IsNPC())
-			return npcCone;
-
-		static Vector cone;
-
-		if (manhacktoss_use_new_accuracy.GetBool())
-		{
-			float ramp = RemapValClamped(m_flAccuracyPenalty,
-				0.0f,
-				MANHACKTOSS_ACCURACY_MAXIMUM_PENALTY_TIME,
-				0.0f,
-				1.0f);
-
-			// We lerp from very accurate to inaccurate over time
-			VectorLerp(VECTOR_CONE_1DEGREES, VECTOR_CONE_6DEGREES, ramp, cone);
-		}
-		else
-		{
-			// Old value
-			cone = VECTOR_CONE_4DEGREES;
-		}
-
-		return cone;
-	}
-
-	virtual int	GetMinBurst()
-	{
-		return 1;
-	}
-
-	virtual int	GetMaxBurst()
-	{
-		return 3;
-	}
-
-	virtual float GetFireRate(void)
-	{
-		return 2.0f;
-	}
+	Activity	GetPrimaryAttackActivity(void) { return ACT_VM_THROW; }
 
 	DECLARE_ACTTABLE();
 
 private:
-	float	m_flSoonestPrimaryAttack;
-	float	m_flLastAttackTime;
-	float	m_flAccuracyPenalty;
-	int		m_nNumShotsFired;
-	int		m_iSemi;
+	bool m_bDeploying;
+	float m_flDelayedToss;
 };
 
 
@@ -125,12 +101,6 @@ LINK_ENTITY_TO_CLASS(weapon_manhacktoss, CWeaponManhackToss);
 PRECACHE_WEAPON_REGISTER(weapon_manhacktoss);
 
 BEGIN_DATADESC(CWeaponManhackToss)
-
-DEFINE_FIELD(m_flSoonestPrimaryAttack, FIELD_TIME),
-DEFINE_FIELD(m_flLastAttackTime, FIELD_TIME),
-DEFINE_FIELD(m_flAccuracyPenalty, FIELD_FLOAT), //NOTENOTE: This is NOT tracking game time
-DEFINE_FIELD(m_nNumShotsFired, FIELD_INTEGER),
-
 END_DATADESC()
 
 acttable_t	CWeaponManhackToss::m_acttable[] =
@@ -160,16 +130,8 @@ IMPLEMENT_ACTTABLE(CWeaponManhackToss);
 //-----------------------------------------------------------------------------
 CWeaponManhackToss::CWeaponManhackToss(void)
 {
-	m_flSoonestPrimaryAttack = gpGlobals->curtime;
-	m_flAccuracyPenalty = 0.0f;
-
-	m_fMinRange1 = 24;
-	m_fMaxRange1 = 1500;
-	m_fMinRange2 = 24;
-	m_fMaxRange2 = 200;
-
 	m_bFiresUnderwater = true;
-	m_iSemi = MAXBURST;
+	m_bDeploying = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -184,48 +146,48 @@ void CWeaponManhackToss::Precache(void)
 
 //-----------------------------------------------------------------------------
 // Purpose:
-// Input  :
-// Output :
 //-----------------------------------------------------------------------------
-void CWeaponManhackToss::Operator_HandleAnimEvent(animevent_t *pEvent, CBaseCombatCharacter *pOperator)
+void CWeaponManhackToss::ItemPostFrame(void)
 {
-	switch (pEvent->event)
+	BaseClass::ItemPostFrame();
+
+	if ( m_bDeploying )
 	{
-	case EVENT_WEAPON_PISTOL_FIRE:
-	{
-		Vector vecShootOrigin, vecShootDir;
-		vecShootOrigin = pOperator->Weapon_ShootPosition();
+		if ( m_flDelayedToss != 0 && m_flDelayedToss < gpGlobals->curtime )
+		{
+			TossManhack();
+			m_flDelayedToss = 0;
+			// check if the toss was aborted
+			if ( !m_bDeploying )
+				return;
+		}
 
-		CAI_BaseNPC *npc = pOperator->MyNPCPointer();
-		ASSERT(npc != NULL);
+		if ( IsViewModelSequenceFinished() )
+		{
+			if ( m_flDelayedToss >= gpGlobals->curtime )
+			{
+				DevWarning( "weapon_manhacktoss sequence was finished before manhack was tossed.\n" );
+				TossManhack();
+			}
 
-		vecShootDir = npc->GetActualShootTrajectory(vecShootOrigin);
+			if ( !HasPrimaryAmmo() )
+			{
+				CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
+				if ( pPlayer )
+				{
+					pPlayer->ClearActiveWeapon();
+					pPlayer->SwitchToNextBestWeapon( this );
+				}
+			}
+			else
+			{
+				SendWeaponAnim( ACT_VM_DRAW );
+				m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
+			}
 
-		CSoundEnt::InsertSound(SOUND_COMBAT | SOUND_CONTEXT_GUNFIRE, pOperator->GetAbsOrigin(), SOUNDENT_VOLUME_PISTOL, 0.2, pOperator, SOUNDENT_CHANNEL_WEAPON, pOperator->GetEnemy());
-
-		WeaponSound(SINGLE_NPC);
-		pOperator->FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_PRECALCULATED, MAX_TRACE_LENGTH, m_iPrimaryAmmoType, 2);
-		pOperator->DoMuzzleFlash();
-
-		m_iClip1 = m_iClip1 - 1;
+			m_bDeploying = false;
+		}
 	}
-	break;
-	default:
-		BaseClass::Operator_HandleAnimEvent(pEvent, pOperator);
-		break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Purpose:
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::DryFire(void)
-{
-	WeaponSound(EMPTY);
-	//SendWeaponAnim(ACT_VM_DRYFIRE);
-
-	m_flSoonestPrimaryAttack = gpGlobals->curtime + MANHACKTOSS_FASTEST_DRY_REFIRE_TIME;
-	m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
 }
 
 //-----------------------------------------------------------------------------
@@ -233,173 +195,99 @@ void CWeaponManhackToss::DryFire(void)
 //-----------------------------------------------------------------------------
 void CWeaponManhackToss::PrimaryAttack(void)
 {
+	if ( m_bDeploying )
+		return;
+	m_bDeploying = true;
+
 	SendWeaponAnim(ACT_VM_THROW);
 
-	if ((gpGlobals->curtime - m_flLastAttackTime) > 0.5f)
-	{
-		m_nNumShotsFired = 0;
-	}
-	else
-	{
-		m_nNumShotsFired++;
-	}
+	float sequenceDuration = SequenceDuration();
+	m_flDelayedToss = gpGlobals->curtime + sequenceDuration * 0.49f;
 
 	// Time we wait before allowing to throw another
-	m_flNextPrimaryAttack = gpGlobals->curtime + 0.75;
+	m_flNextPrimaryAttack = gpGlobals->curtime + sequenceDuration;
+}
 
-	// Remove a bullet from the clip
-	m_iClip1 = m_iClip1 - 1;
-
+void CWeaponManhackToss::TossManhack(void)
+{
 	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
-	
-	Vector vecThrow;
-	AngleVectors(pOwner->EyeAngles() + pOwner->GetPunchAngle(), &vecThrow);
-	VectorScale(vecThrow, 25.0f, vecThrow);
+	if (!pOwner)
+		return;
+
+	QAngle ang = pOwner->EyeAngles();
+
+	//align manhack spawn position to viewmodel
+	Vector tossOffset = Vector(13.75f, 0.5f, -1.75f);
+	//correct for viewmodel movement when looking up/down
+	static const Vector tossOffsetUp(15.5f, -2.5f, 0.5f);
+	static const Vector tossOffsetDown(12.5f, 3.0f, -3.0f);
+	float pitch = ang.x / 90;
+	if ( pitch <= 0 ) {
+		tossOffset = Lerp( -pitch, tossOffset, tossOffsetUp );
+	} else {
+		tossOffset = Lerp( pitch, tossOffset, tossOffsetDown );
+	}
+	Vector rotatedTossOffset;
+	VectorRotate( tossOffset, ang, rotatedTossOffset );
+
+	Vector vecSpawnPos = pOwner->Weapon_ShootPosition() + rotatedTossOffset;
+
+	//align manhack spawn orientation to viewmodel
+	{
+		//the quaternion was generated via this code
+#if 0
+		Quaternion a, b{0, 0, 0, 1}, c;
+		AxisAngleQuaternion( Vector( 0, -1, 0 ), -23, a );
+		QuaternionMult( a, b, c );
+		AxisAngleQuaternion( Vector( 0, 0, 1 ), -105, a );
+		QuaternionMult( a, c, b );
+		AxisAngleQuaternion( Vector( 0, -1, 0 ), 10, a );
+		QuaternionMult( a, b, c );
+		Msg( "%.10ff, %.10ff, %.10ff, %.10ff,\n", c.x, c.y, c.z, c.w );
+#endif
+		static const Quaternion rot{
+			0.2253245115f,
+			0.0689137503f,
+			-0.7606828212f,
+			0.6048482060f,
+		};
+		Quaternion angAsQuat, result;
+		AngleQuaternion( ang, angAsQuat );
+		QuaternionMult( angAsQuat, rot, result );
+		QuaternionAngles( result, ang );
+	}
 
 	// This is where we actually make the manhack spawn
-	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", pOwner->Weapon_ShootPosition() + vecThrow, GetOwner()->EyeAngles(), GetOwnerEntity());
+	CNPC_Manhack *PlayerManhacks = (CNPC_Manhack * )CBaseEntity::CreateNoSpawn("npc_manhack", vecSpawnPos, ang, pOwner);
 
 	if (PlayerManhacks == NULL) { return; }
+
+	trace_t tr;
+	CTraceFilterSingle filter( pOwner, COLLISION_GROUP_NONE );
+	Vector hullOffset( 1.0f ); //some additional space
+	UTIL_TraceHull( PlayerManhacks->GetAbsOrigin(), pOwner->Weapon_ShootPosition(), PlayerManhacks->GetHullMins() - hullOffset, PlayerManhacks->GetHullMaxs() + hullOffset, MASK_NPCSOLID, &filter, &tr );
+	if ( tr.DidHit() )
+	{
+		UTIL_Remove( PlayerManhacks );
+		WeaponSound( EMPTY );
+		SendWeaponAnim( ACT_VM_IDLE );
+		m_flNextPrimaryAttack = gpGlobals->curtime + 0.25f;
+
+		m_bDeploying = false;
+
+		return;
+	}
 
 	PlayerManhacks->AddSpawnFlags(SF_MANHACK_PACKED_UP);
 	PlayerManhacks->KeyValue("squadname", "controllable_manhack_squad");
 	DispatchSpawn( PlayerManhacks );
 	PlayerManhacks->Activate();
 	PlayerManhacks->ShouldFollowPlayer(true);
+	PlayerManhacks->SetUse(&CNPC_Manhack::PlayerPickup);
 
-	// View punch stuff inherited from the Pistol
-	if (pOwner)
-	{
-		pOwner->ViewPunchReset();
-	}
-
-	if (m_iSemi <= 0)
-		return;
-	m_iSemi--;
+	pOwner->RemoveAmmo( 1, m_iPrimaryAmmoType );
 
 	m_iPrimaryAttacks++;
 
 	gamestats->Event_WeaponFired(pOwner, true, GetClassname());
-
-	/*if ( !HasPrimaryAmmo() )
-	{
-	pPlayer->SwitchToNextBestWeapon( this );
-	}*/
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::UpdatePenaltyTime(void)
-{
-	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
-
-	if (pOwner == NULL)
-		return;
-
-	// Check our penalty time decay
-	if (((pOwner->m_nButtons & IN_ATTACK) == false) && (m_flSoonestPrimaryAttack < gpGlobals->curtime))
-	{
-		m_flAccuracyPenalty -= gpGlobals->frametime;
-		m_flAccuracyPenalty = clamp(m_flAccuracyPenalty, 0.0f, MANHACKTOSS_ACCURACY_MAXIMUM_PENALTY_TIME);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::ItemPreFrame(void)
-{
-	UpdatePenaltyTime();
-
-	BaseClass::ItemPreFrame();
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::ItemBusyFrame(void)
-{
-	UpdatePenaltyTime();
-
-	BaseClass::ItemBusyFrame();
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: Allows firing as fast as button is pressed
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::ItemPostFrame(void)
-{
-	BaseClass::ItemPostFrame();
-
-	if (m_bInReload)
-		return;
-
-	CBasePlayer *pOwner = ToBasePlayer(GetOwner());
-	if (!(pOwner->m_nButtons & IN_ATTACK))
-		m_iSemi = MAXBURST;
-
-	if (pOwner == NULL)
-		return;
-
-	//Allow a refire as fast as the player can click
-	if (((pOwner->m_nButtons & IN_ATTACK) == false) && (m_flSoonestPrimaryAttack < gpGlobals->curtime))
-	{
-		m_flNextPrimaryAttack = gpGlobals->curtime - 1.0f;
-	}
-	else if ((pOwner->m_nButtons & IN_ATTACK) && (m_flNextPrimaryAttack < gpGlobals->curtime) && (m_iClip1 <= 0))
-	{
-		DryFire();
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Output : int
-//-----------------------------------------------------------------------------
-Activity CWeaponManhackToss::GetPrimaryAttackActivity(void)
-{
-	if (m_nNumShotsFired < 1)
-		return ACT_VM_THROW;
-
-	if (m_nNumShotsFired < 2)
-		return ACT_VM_RECOIL1;
-
-	if (m_nNumShotsFired < 3)
-		return ACT_VM_RECOIL2;
-
-	return ACT_VM_RECOIL3;
-}
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-bool CWeaponManhackToss::Reload(void)
-{
-	bool fRet = DefaultReload(GetMaxClip1(), GetMaxClip2(), ACT_VM_RELOAD);
-	if (fRet)
-	{
-		WeaponSound(RELOAD);
-		m_flAccuracyPenalty = 0.0f;
-	}
-	return fRet;
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void CWeaponManhackToss::AddViewKick(void)
-{
-	CBasePlayer *pPlayer = ToBasePlayer(GetOwner());
-
-	if (pPlayer == NULL)
-		return;
-
-	QAngle	viewPunch;
-
-	viewPunch.x = random->RandomFloat(0.25f, 0.5f);
-	viewPunch.y = random->RandomFloat(-.6f, .6f);
-	viewPunch.z = 0.0f;
-
-	//Add it to the view punch
-	pPlayer->ViewPunch(viewPunch);
 }
