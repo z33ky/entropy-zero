@@ -1,7 +1,7 @@
 "UnlitGeneric"
 {
-	"$basetexture" "effects/redflare"
+	"$basetexture" "sprites/strider_blackball"
 	"$additive" "1"
 	"$vertexcolor" 1
-	"$ignoreZ" "1"
+	"$ignoreZ" "0"
 }
