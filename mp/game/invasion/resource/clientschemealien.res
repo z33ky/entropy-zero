@@ -12,6 +12,7 @@ HudScheme
 		LightBlack	"0 0 0 240"
 		Blue		"0 255 0 255"
 		Invisible	"0 0 0 0"
+		Blank "0 0 0 0"
 		
 		TeamColour			"0 0 255 255"
 		TeamColourLight		"0 0 255 200"
