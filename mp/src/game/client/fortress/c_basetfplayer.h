@@ -260,6 +260,8 @@ private:
 	// Client-side obstacle avoidance
 	void PerformClientSideObstacleAvoidance( float flFrameTime, CUserCmd *pCmd );
 
+	void ReloadHudScheme();
+
 	float		m_flLastAttackTime;
 
 	EHANDLE m_hSelectedMCV;
@@ -300,6 +302,7 @@ private:
 
 	bool				m_bUnderAttack;
 	int					m_iMaxHealth;
+	int					oldTeam{ 0 };
 	bool				m_bDeployed;
 	bool				m_bDeploying;
 	bool				m_bUnDeploying;

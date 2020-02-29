@@ -1,4 +1,4 @@
-HudScheme
+TeamSchemeHuman
 {
 	Colors
 	{
@@ -10,7 +10,7 @@ HudScheme
 		Green		"0 255 0 255"
 		Black		"0 0 0 255"
 		LightBlack	"0 0 0 240"
-		Blue			"0 255 0 255"
+		Blue		"0 255 0 255"
 		Invisible	"0 0 0 0"
 		
 		TeamColour			"255 0 0 255"

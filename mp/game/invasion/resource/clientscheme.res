@@ -1,4 +1,4 @@
-Scheme
+Client
 {
 	Colors
 	{

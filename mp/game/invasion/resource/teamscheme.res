@@ -1,4 +1,4 @@
-HudScheme
+TeamScheme
 {
 	Colors
 	{
@@ -13,10 +13,10 @@ HudScheme
 		Blue		"0 255 0 255"
 		Invisible	"0 0 0 0"
 		
-		TeamColour			"0 0 255 255"
-		TeamColourLight		"0 0 255 200"
-		TeamColourDark		"0 0 65 255"
-		TeamColourDarkLight	"0 0 65 192"
+		TeamColour			"65 65 65 255"
+		TeamColourLight		"65 65 65 200"
+		TeamColourDark		"0 0 0 255"
+		TeamColourDarkLight	"0 0 0 192"
 	}
 
 	BaseSettings

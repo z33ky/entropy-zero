@@ -30,9 +30,9 @@ public:
 		Viewport();
 		virtual ~Viewport();
 
-		virtual void	OnThink();
 		virtual void	CreateDefaultPanels();
-		void			ReloadScheme();
+
+		void SetTeamScheme( int teamId = TEAM_UNASSIGNED );
 
 		virtual void ApplySchemeSettings(vgui::IScheme *pScheme)
 		{
@@ -64,8 +64,6 @@ public:
 		vgui::HCursor m_CursorCommander;
 		vgui::HCursor m_CursorRightMouseMove;
 		// hogsy end
-
-		bool m_bHumanScheme;
 	};
 
 	virtual void Update();

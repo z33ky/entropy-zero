@@ -68,69 +68,34 @@ ClientModeTFNormal::Viewport::Viewport() :
 	m_CursorCommander(vgui::dc_arrow),
 	m_CursorRightMouseMove(vgui::dc_hand)
 {
-	// hogsy start
 	m_pOverlayPanel = new CCommanderOverlayPanel();
-	m_pOverlayPanel->SetParent(this);
-	m_pOverlayPanel->SetVisible(false);
+	m_pOverlayPanel->SetParent( this );
+	m_pOverlayPanel->SetVisible( false );
+	m_pOverlayPanel->SetEnabled( false );
 
 #if 0
 	SetPaintEnabled(false);
 	SetPaintBorderEnabled(false);
 	SetPaintBackgroundEnabled(false);
 #endif
-	// hogsy end
 
-	// use a custom scheme for the hud
-	m_bHumanScheme = true;
-	vgui::HScheme scheme = vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/clientschemehuman.res", "HudScheme");
-	SetScheme(scheme);
-
-	/*	Try to reload, so element colours are set appropriately to the custom schemes.
-		Traditionally, just setting the scheme and then reloading it sometimes isn't enough, which appears to be a bug. 
-		~hogsy
-	*/
-	ReloadScheme();
+	SetScheme( vgui::scheme()->LoadSchemeFromFileEx( enginevgui->GetPanel( PANEL_CLIENTDLL ), "resource/teamscheme.res", "TeamScheme" ) );
 }
 
-ClientModeTFNormal::Viewport::~Viewport()
-{
-}
+ClientModeTFNormal::Viewport::~Viewport() {}
 
-void ClientModeTFNormal::Viewport::OnThink()
-{
-	BaseClass::OnThink();
-
-	// See if scheme should change
-	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
-	if(!pPlayer)
-		return;
-	int team = pPlayer->GetTeamNumber();
-	if ( !team )
-		return;
-
-	bool human = ( team == TEAM_HUMANS ) ? true : false;
-	if ( human != m_bHumanScheme )
-		ReloadScheme();
-}
-
-void ClientModeTFNormal::Viewport::ReloadScheme()
-{
-	// See if scheme should change
-	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
-	if(!pPlayer)
-		return;
-
-	const char *schemeFile = "resource/clientschemehuman.res";;
-
-	int team = pPlayer->GetTeamNumber();
-	if ( team )
-	{
-		m_bHumanScheme = ( team == TEAM_HUMANS ) ? true : false;
-		if ( !m_bHumanScheme )
-			schemeFile = "resource/clientschemealien.res";
+/** 
+ * Fetch the correct scheme depending on whatever team we're currently on.
+ */
+void ClientModeTFNormal::Viewport::SetTeamScheme( int teamId ) {
+	const char *schemePath = "resource/teamscheme.res";
+	if ( teamId == TEAM_HUMANS ) {
+		schemePath = "resource/teamschemehuman.res";
+	} else if ( teamId == TEAM_ALIENS ) {
+		schemePath = "resource/teamschemealien.res";
 	}
 
-	BaseClass::ReloadScheme( schemeFile );
+	ReloadScheme( schemePath );
 }
 
 void ClientModeTFNormal::Viewport::CreateDefaultPanels()
