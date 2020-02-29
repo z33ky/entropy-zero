@@ -536,7 +536,7 @@ CPlayerAnimState::CPlayerAnimState( CBaseTFPlayer *outer )
 //-----------------------------------------------------------------------------
 void CPlayerAnimState::Update()
 {
-	m_angRender = GetOuter()->GetLocalAngles();
+	m_angRender = GetOuter()->GetAbsAngles();
 
 	ComputePoseParam_BodyYaw();
 	ComputePoseParam_BodyPitch();

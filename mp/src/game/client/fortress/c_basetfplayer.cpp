@@ -949,13 +949,13 @@ int C_BaseTFPlayer::DrawModel( int flags )
 	if ( !m_bReadyToDraw )
 		return 0;
 
-	QAngle saveAngles(0,0,0);
-	Vector saveLocalOrigin(0,0,0);
+	QAngle saveAngles = GetLocalAngles();
+	Vector saveLocalOrigin = GetLocalOrigin();
 	bool angleschanged = false;
 	bool originchanged = false;
 
 	// If we're in a vehicle, use the vehicle's angles for the local player
-	if ( IsInAVehicle() && !IsInAVehicle() )
+	if ( IsInAVehicle() )
 	{
 		IClientVehicle *pVehicle = GetVehicle();
 		int nRole = pVehicle->GetPassengerRole( this );
@@ -1986,10 +1986,10 @@ void C_BaseTFPlayer::AddEntity( void )
 {
 	BaseClass::AddEntity();
 
+	m_PlayerAnimState.Update();
+
 	// Zero out model pitch, blending takes care of all of it.
 	SetLocalAnglesDim( X_INDEX, 0 );
-
-	m_PlayerAnimState.Update();
 }
 
 //-----------------------------------------------------------------------------
