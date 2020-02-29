@@ -1798,9 +1798,9 @@ void CTempEnts::MuzzleFlash( int type, ClientEntityHandle_t hEntity, int attachm
 
 void CTempEnts::LegacyMuzzleFlash( const Vector &pos1, int type, ClientEntityHandle_t hEntity ) {
 	int index = type % 10;
-	float scale = ( type / 10 ) * 0.1;
+	float scale = ( type / 10 ) * 0.1f;
 	if ( scale == 0 )
-		scale = 0.5;
+		scale = 0.5f;
 
 	int frameCount = modelinfo->GetModelFrameCount( m_pSpriteMuzzleFlash[ index ] );
 
@@ -1819,7 +1819,7 @@ void CTempEnts::LegacyMuzzleFlash( const Vector &pos1, int type, ClientEntityHan
 
 	if ( index == 0 ) {
 		// Rifle flash
-		pTemp->m_flSpriteScale = scale * random->RandomFloat( 0.5, 0.6 );
+		pTemp->m_flSpriteScale = scale * random->RandomFloat( 0.5f, 0.6f );
 		pTemp->SetAbsAngles( QAngle( 0, 0, 90 * random->RandomInt( 0, 3 ) ) );
 	} else {
 		pTemp->m_flSpriteScale = scale;
@@ -1906,7 +1906,7 @@ void CTempEnts::MuzzleFlash( const Vector& pos1, const QAngle& angles, int type,
 		break;
 	
 	default:
-		// Reintroduced this, as the Invasion Sentry uses it
+		// Reintroduced this, as some of the placeholders use it
 		LegacyMuzzleFlash( pos1, type, hEntity );
 		break;
 	}
