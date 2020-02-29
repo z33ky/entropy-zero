@@ -22,9 +22,7 @@
 #include "tf_team.h"
 #include "orders.h"
 #include "order_repair.h"
-#ifdef IMPLEMENT_ME
 #include "order_buildsentrygun.h"
-#endif
 #include "weapon_twohandedcontainer.h"
 #include "weapon_combatshield.h"
 #include "tf_vehicle_teleport_station.h"
@@ -46,11 +44,7 @@ END_SEND_TABLE()
 
 bool OrderCreator_BuildSentryGun( CPlayerClassDefender *pClass )
 {
-#ifdef IMPLEMENT_ME
 	return COrderBuildSentryGun::CreateOrder( pClass );
-#else
-	return false;
-#endif
 }
 
 

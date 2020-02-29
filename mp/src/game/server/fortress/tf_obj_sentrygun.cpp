@@ -9,15 +9,11 @@
 #include "tf_team.h"
 #include "tf_obj.h"
 #include "tf_obj_sentrygun.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_dragonsteeth.h"
 #include "tf_obj_tower.h"
-#endif
 #include "tf_obj_sandbag_bunker.h"
-#ifdef IMPLEMENT_ME
 #include "tf_obj_bunker.h"
 #include "tf_obj_mapdefined.h"
-#endif
 #include "tf_gamerules.h"
 #include "gamerules.h"
 #include "ammodef.h"
