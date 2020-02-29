@@ -1796,6 +1796,53 @@ void CTempEnts::MuzzleFlash( int type, ClientEntityHandle_t hEntity, int attachm
 	}
 }
 
+void CTempEnts::LegacyMuzzleFlash( const Vector &pos1, int type, ClientEntityHandle_t hEntity ) {
+	int index = type % 10;
+	float scale = ( type / 10 ) * 0.1;
+	if ( scale == 0 )
+		scale = 0.5;
+
+	int frameCount = modelinfo->GetModelFrameCount( m_pSpriteMuzzleFlash[ index ] );
+
+	C_LocalTempEntity *pTemp = TempEntAlloc( pos1, ( model_t * ) m_pSpriteMuzzleFlash[ index ] );
+	if ( !pTemp )
+		return;
+
+	pTemp->SetRenderMode( kRenderTransAdd );
+	pTemp->SetRenderColor( 255, 255, 255, 255 );
+
+	pTemp->SetAbsOrigin( pos1 );
+
+	pTemp->die = gpGlobals->curtime + 0.01;
+	pTemp->m_flFrame = random->RandomInt( 0, frameCount - 1 );
+	pTemp->m_flFrameMax = frameCount - 1;
+
+	if ( index == 0 ) {
+		// Rifle flash
+		pTemp->m_flSpriteScale = scale * random->RandomFloat( 0.5, 0.6 );
+		pTemp->SetAbsAngles( QAngle( 0, 0, 90 * random->RandomInt( 0, 3 ) ) );
+	} else {
+		pTemp->m_flSpriteScale = scale;
+		pTemp->SetAbsAngles( QAngle( 0, 0, random->RandomInt( 0, 359 ) ) );
+	}
+
+	C_BaseEntity *entityPtr = ClientEntityList().GetBaseEntityFromHandle( hEntity );
+	if ( entityPtr ) {
+		dlight_t *dynamicLight = effects->CL_AllocDlight( LIGHT_INDEX_MUZZLEFLASH + entityPtr->entindex() );
+
+		dynamicLight->origin = pos1;
+
+		dynamicLight->color.r = 216;
+		dynamicLight->color.g = 219;
+		dynamicLight->color.b = 44;
+		dynamicLight->color.exponent = 5;
+
+		dynamicLight->radius = random->RandomInt( 32, 128 );
+		dynamicLight->decay = dynamicLight->radius / 0.05f;
+		dynamicLight->die = gpGlobals->curtime + 0.05f;
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Play muzzle flash
 // Input  : *pos1 - 
@@ -1803,14 +1850,6 @@ void CTempEnts::MuzzleFlash( int type, ClientEntityHandle_t hEntity, int attachm
 //-----------------------------------------------------------------------------
 void CTempEnts::MuzzleFlash( const Vector& pos1, const QAngle& angles, int type, ClientEntityHandle_t hEntity, bool firstPerson )
 {
-#ifdef CSTRIKE_DLL
-
-	return;
-
-#else
-
-	//NOTENOTE: This function is becoming obsolete as the muzzles are moved over to being local to attachments
-
 	switch ( type )
 	{
 	//
@@ -1867,13 +1906,10 @@ void CTempEnts::MuzzleFlash( const Vector& pos1, const QAngle& angles, int type,
 		break;
 	
 	default:
-		// There's no supported muzzle flash for the type specified!
-		Assert(0);
+		// Reintroduced this, as the Invasion Sentry uses it
+		LegacyMuzzleFlash( pos1, type, hEntity );
 		break;
 	}
-
-#endif
-
 }
 
 //-----------------------------------------------------------------------------
