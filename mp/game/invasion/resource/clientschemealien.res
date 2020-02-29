@@ -12,7 +12,6 @@ HudScheme
 		LightBlack	"0 0 0 240"
 		Blue		"0 255 0 255"
 		Invisible	"0 0 0 0"
-		Blank "0 0 0 0"
 		
 		TeamColour			"0 0 255 255"
 		TeamColourLight		"0 0 255 200"
@@ -24,6 +23,10 @@ HudScheme
 	{
 		Black						Black
 		White						White
+
+		Panel.FgColor "255 220 0 100"
+		Panel.BgColor Invisible
+		ViewportBG    Invisible
 
 		BrightFg					Yellow
 		FgColor						Orange
