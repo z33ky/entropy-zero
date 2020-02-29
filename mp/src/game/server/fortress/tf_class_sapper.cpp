@@ -45,10 +45,10 @@ END_SEND_TABLE()
 //-----------------------------------------------------------------------------
 const char *CPlayerClassSapper::GetClassModelString( int nTeam )
 {
-	if (nTeam == TEAM_HUMANS)
-		return "models/player/human_technician.mdl";
+	if ( nTeam == TEAM_HUMANS )
+		return "models/player/human_sapper.mdl"; // technician.mdl";
 	else
-		return "models/player/alien_technician.mdl";
+		return "models/player/alien_sapper.mdl"; // technician.mdl";
 }
 
 //-----------------------------------------------------------------------------

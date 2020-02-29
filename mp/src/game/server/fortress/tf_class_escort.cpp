@@ -57,8 +57,10 @@ bool OrderCreator_ShieldWall( CPlayerClassEscort *pClass )
 //-----------------------------------------------------------------------------
 const char *CPlayerClassEscort::GetClassModelString( int nTeam )
 {
-	static const char *string = "models/player/alien_escort.mdl";
-	return string;
+	if ( nTeam == TEAM_HUMANS )
+		return "models/player/human_escort.mdl";
+	else
+		return "models/player/alien_escort.mdl";
 }
 
 //-----------------------------------------------------------------------------
