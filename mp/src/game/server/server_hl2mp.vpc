@@ -280,16 +280,22 @@ $Project "Server"
 			
 			//$Folder "Orders"
 			//{
-				$File	fortress/orders.cpp
-				$File	fortress/orders.h
 				$File	fortress/order_assist.cpp
 				$File	fortress/order_assist.h
+				$File	fortress/order_buildsentrygun.cpp
+				$File	fortress/order_buildsentrygun.h
+				$File	fortress/order_buildshieldwall.cpp
+				$File	fortress/order_buildshieldwall.h
 				$File	fortress/order_events.cpp
 				$File	fortress/order_events.h
 				$File	fortress/order_heal.cpp
 				$File	fortress/order_heal.h
 				$File	fortress/order_helpers.cpp
 				$File	fortress/order_helpers.h
+				$File	fortress/order_killmortarguy.cpp
+				$File	fortress/order_killmortarguy.h
+				$File	fortress/order_mortar_attack.cpp
+				$File	fortress/order_mortar_attack.h
 				$File	fortress/order_player.cpp
 				$File	fortress/order_player.h
 				$File	fortress/order_repair.cpp
@@ -298,12 +304,8 @@ $Project "Server"
 				$File	fortress/order_resourcepump.h
 				$File	fortress/order_resupply.cpp
 				$File	fortress/order_resupply.h
-				$File	fortress/order_mortar_attack.cpp
-				$File	fortress/order_mortar_attack.h
-				$File	fortress/order_buildshieldwall.cpp
-				$File	fortress/order_buildshieldwall.h
-				$File	fortress/order_killmortarguy.cpp
-				$File	fortress/order_killmortarguy.h
+				$File	fortress/orders.cpp
+				$File	fortress/orders.h
 			//}
 			
 			$File	fortress/entity_burn_effect.cpp
