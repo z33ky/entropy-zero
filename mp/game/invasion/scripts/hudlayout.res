@@ -359,24 +359,30 @@ HudLayout
 	HudVoiceStatus
 	{
 		"fieldName" "HudVoiceStatus"
-		"visible" "0"
-		"enabled" "0"
-		"xpos" "r200"
+		"visible" "1"
+		"enabled" "1"
+		"xpos" "r145"
 		"ypos" "0"
-		"wide" "100"
+		"wide" "145"
 		"tall" "400"
 
-		"item_tall"	"24"
-		"item_wide"	"100"
-
-		"item_spacing" "2"
-
-		"icon_ypos"	"0"
-		"icon_xpos"	"0"
-		"icon_tall"	"24"
-		"icon_wide"	"24"
-
-		"text_xpos"	"26"
+		"item_wide"	"135"
+		
+		"show_avatar"		"0"
+		
+		"show_dead_icon"	"1"
+		"dead_xpos"			"1"
+		"dead_ypos"			"0"
+		"dead_wide"			"16"
+		"dead_tall"			"16"
+		
+		"show_voice_icon"	"1"
+		"icon_ypos"			"0"
+		"icon_xpos"			"15"
+		"icon_tall"			"16"
+		"icon_wide"			"16"
+		
+		"text_xpos"			"33"
 	}
 
 	HudCommentary
