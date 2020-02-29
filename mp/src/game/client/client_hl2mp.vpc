@@ -251,22 +251,26 @@ $Project "Client"
 				$File	fortress/c_order.h
 				$File	fortress/c_order_assist.cpp
 				$File	fortress/c_order_assist.h
+				$File	fortress/c_order_buildsentrygun.cpp
+				$File	fortress/c_order_buildsentrygun.h
+				$File	fortress/c_order_buildshieldwall.cpp
+				$File	fortress/c_order_buildshieldwall.h
 				$File	fortress/c_order_heal.cpp
 				$File	fortress/c_order_heal.h
+				$File	fortress/c_order_killmortarguy.cpp
+				$File	fortress/c_order_killmortarguy.h
+				$File	fortress/c_order_mortar_attack.cpp
+				$File	fortress/c_order_mortar_attack.h
 				$File	fortress/c_order_player.cpp
 				$File	fortress/c_order_player.h
 				$File	fortress/c_order_repair.cpp
 				$File	fortress/c_order_repair.h
 				$File	fortress/c_order_resourcepump.cpp
 				$File	fortress/c_order_resourcepump.h
+				$File	fortress/c_order_respawnstation.cpp
+				$File	fortress/c_order_respawnstation.h
 				$File	fortress/c_order_resupply.cpp
 				$File	fortress/c_order_resupply.h
-				$File	fortress/c_order_buildshieldwall.cpp
-				$File	fortress/c_order_buildshieldwall.h
-				$File	fortress/c_order_mortar_attack.cpp
-				$File	fortress/c_order_mortar_attack.h
-				$File	fortress/c_order_killmortarguy.cpp
-				$File	fortress/c_order_killmortarguy.h
 			}
 
 			$Folder "Grenades"
