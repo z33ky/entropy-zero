@@ -90,6 +90,8 @@ config.cfg
 /mp/game/invasion/ServerConfig.vdf
 
 # Ignore output directories
+mp/src/game/server/Release_invasion/
+mp/src/game/client/Release_invasion/
 mp/src/game/server/Debug_invasion/
 mp/src/game/client/Debug_invasion/
 mp/src/mathlib/Debug/
