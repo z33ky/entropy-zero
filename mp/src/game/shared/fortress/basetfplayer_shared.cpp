@@ -96,37 +96,43 @@ bool CBaseTFPlayer::IsHittingShield( const Vector &vecVelocity, float *flDamage 
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::PainSound( void )
 {
-	char *sSoundName = NULL;
+	static const char *humanSoundList[ TFCLASS_CLASS_COUNT ] = {
+		nullptr,
+		"HumanRecon.Pain",
+		"HumanCommando.Pain",
+		"HumanMedic.Pain",
+		"HumanDefender.Pain",
+		"HumanSniper.Pain",
+		"HumanSupport.Pain",
+		"HumanEscort.Pain",
+		"HumanSapper.Pain",
+		"HumanInfiltrator.Pain",
+		"HumanPyro.Pain",
+	};
+	static const char *alienSoundList[ TFCLASS_CLASS_COUNT ] = {
+		nullptr,
+		"AlienRecon.Pain",
+		"AlienCommando.Pain",
+		"AlienMedic.Pain",
+		"AlienDefender.Pain",
+		"AlienSniper.Pain",
+		"AlienSupport.Pain",
+		"AlienEscort.Pain",
+		"AlienSapper.Pain",
+		"AlienInfiltrator.Pain",
+		"AlienPyro.Pain",
+	};
 
-	if ( GetTeamNumber() == TEAM_HUMANS )
-		// TODO: Class-specific pain sounds.
-		sSoundName = "Humans.Pain";
-	else if ( GetTeamNumber() == TEAM_ALIENS )
-	{
-		switch( PlayerClass() )
-		{
-		case TFCLASS_COMMANDO:
-			sSoundName = "AlienCommando.Pain";
-			break;
+	const char *sSoundName = nullptr;
 
-		case TFCLASS_MEDIC:
-			sSoundName = "AlienMedic.Pain";
-			break;
-
-		case TFCLASS_DEFENDER:
-			sSoundName = "AlienDefender.Pain";
-			break;
-
-		case TFCLASS_ESCORT:
-			sSoundName = "AlienEscort.Pain";
-			break;
-
-		default:
-			break;
-		}
+	int playerClassNum = PlayerClass();
+	if ( GetTeamNumber() == TEAM_ALIENS ) {
+		sSoundName = alienSoundList[ playerClassNum ];
+	} else {
+		sSoundName = humanSoundList[ playerClassNum ];
 	}
 
-	if ( !sSoundName )
+	if ( sSoundName == nullptr )
 		return;
 
 	CPASAttenuationFilter filter( this, sSoundName );
