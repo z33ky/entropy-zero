@@ -35,7 +35,9 @@ public:
 	
 	// This is called when removing the order.
 	void			DetachFromPlayer();
-	
+
+	static bool PlayerHasOrder( CBaseTFPlayer *player, int orderType );
+	static bool TeamHasOrder( CTFTeam *team, int orderType );
 
 // Overridables.
 public:

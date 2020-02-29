@@ -75,6 +75,19 @@ void COrder::DetachFromPlayer()
 	}
 }
 
+bool COrder::PlayerHasOrder( CBaseTFPlayer *player, int orderType ) {
+	CTFTeam *team = dynamic_cast< CTFTeam* >( player->GetTeam() );
+	if ( team == nullptr ) {
+		return false;
+	}
+
+	return team->HasPersonalOrderOfType( player, orderType );
+}
+
+bool COrder::TeamHasOrder( CTFTeam *team, int orderType ) {
+	return team->HasOrderOfType( orderType );
+}
+
 
 //-----------------------------------------------------------------------------
 // Purpose: 

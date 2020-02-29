@@ -1111,6 +1111,38 @@ void CTFTeam::UpdateOrdersOnEvent( COrderEvent_Base *pOrder )
 	}
 }
 
+/**
+ * Checks whether or not an order of this type was already queued up.
+ */
+bool CTFTeam::HasOrderOfType( int orderType ) {
+	for ( int i = 0; i < m_aOrders.Count(); ++i ) {
+		COrder *order = m_aOrders[ i ];
+		if ( order->GetType() == orderType ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Checks whether or not the specified player has an order of this type already queued up.
+ */
+bool CTFTeam::HasPersonalOrderOfType( CBaseTFPlayer *player, int orderType ) {
+	for ( int i = 0; i < m_aOrders.Count(); ++i ) {
+		COrder *order = m_aOrders[ i ];
+		if ( order->GetOwner() ) {
+			continue;
+		}
+
+		if ( order->GetType() == orderType && order->GetOwner() == player ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Create personal orders for all the team's members
 //-----------------------------------------------------------------------------
@@ -1120,6 +1152,14 @@ void CTFTeam::CreatePersonalOrders( void )
 	for ( int i = 0; i < m_aPlayers.Count(); i++ )
 	{
 		CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)m_aPlayers[i];
+		/* TODO:
+		 * Decide if we're going to limit this to something greater.
+		 * If we are, we'll need to double check the order type, otherwise
+		 * the player will just keep being assigned the same order over and over.
+		 */
+		if ( CountOrdersOwnedByPlayer( pPlayer ) != 0 ) {
+			continue;
+		}
 
 		// Don't create orders for bots, undefined or dead people
 		if ( !(pPlayer->GetFlags() & FL_FAKECLIENT) && pPlayer->IsAlive() && !pPlayer->IsClass( TFCLASS_UNDECIDED ) )

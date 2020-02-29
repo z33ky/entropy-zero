@@ -154,6 +154,8 @@ public:
 	void	RecalcOrders( void );
 	void	UpdateOrders( void );
 	void	UpdateOrdersOnEvent( COrderEvent_Base *pEvent );
+	bool	HasOrderOfType( int orderType );
+	bool	HasPersonalOrderOfType( CBaseTFPlayer *player, int orderType );
 	
 	// Flags is a combination of COUNTORDERS_ flags telling which fields to check.
 	int		CountOrders( int flags, int iOrderType, CBaseEntity *pTarget=0, CBaseTFPlayer *pOwner=0 );
