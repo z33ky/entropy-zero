@@ -512,7 +512,6 @@ void C_BaseTFPlayer::Clear()
 		m_aMomentum[ i ] = 1.0f;
 }
 
-
 bool C_BaseTFPlayer::IsHidden() const
 {
 	return (m_TFPlayerFlags & TF_PLAYER_HIDDEN) != 0;

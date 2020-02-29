@@ -103,7 +103,6 @@ bool COrderRepair::CreateOrder_RepairFriendlyObjects( CPlayerClassDefender *pCla
 	return false;
 }
 
-
 bool COrderRepair::CreateOrder_RepairOwnObjects( CPlayerClass *pClass )
 {
 	CSortBase info;
