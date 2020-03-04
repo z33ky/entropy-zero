@@ -98,3 +98,5 @@ mp/src/mathlib/Debug/
 mp/src/raytrace/Debug/
 mp/src/tier1/Debug/
 mp/src/vgui2/vgui_controls/Debug/
+
+*.dem
