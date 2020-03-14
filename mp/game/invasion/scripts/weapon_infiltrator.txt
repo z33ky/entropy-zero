@@ -1,9 +1,9 @@
 WeaponData
 {
 	printname	"Infiltrator"
-	viewmodel	"models/weapons/v_smg1.mdl"
+	viewmodel	"models/weapons/v_crowbar.mdl"
 	playermodel	"models/weapons/w_human_burstrifle.mdl"
-	anim_prefix	"smg2"
+	anim_prefix	"crowbar"
 	bucket		0
 	bucket_position	4
 	clip_size	30
@@ -19,8 +19,9 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		single_shot		"Weapon_BurstRifle.Single"
-		reload			"Weapon_SMG1.Reload"
+		"single_shot"     "Weapon_Crowbar.Single"
+		"melee_hit"       "Weapon_Crowbar.Melee_Hit"
+		"melee_hit_world" "Weapon_Crowbar.Melee_HitWorld"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
