@@ -279,3 +279,14 @@ ObjectPortablePowerGenerator.Shutdown
 	soundlevel	"SNDLVL_95db"
 	wave		"vehicles/apc/apc_shutdown.wav"
 }
+
+// Resources
+
+ResourceZone.AmbientActiveSound
+{
+	channel    CHAN_STATIC
+	volume     "1"
+	pitch      100
+	soundlevel SNDLVL_90dB
+	wave       "ambience/resourcezone_ambience_loop00.wav"
+}
