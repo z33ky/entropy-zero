@@ -197,7 +197,7 @@ void C_ResourceSpawner::SpawnEffect( bool bSpawningChunk )
 	{
 		CSmartPtr<CSimpleEmitter> pSmokeEmitter = CSimpleEmitter::Create( "SpawnEffect 2" );
 		pSmokeEmitter->SetSortOrigin( offset );
-		PMaterialHandle	hSphereMaterial = pSmokeEmitter->GetPMaterial( "particle/particle_noisesphere" );;
+		PMaterialHandle	hSphereMaterial = pSmokeEmitter->GetPMaterial( "particle/particle_noisesphere" );
 		int iSmokeClouds = 2;
 		if ( !bSpawningChunk )
 			iSmokeClouds = 1;

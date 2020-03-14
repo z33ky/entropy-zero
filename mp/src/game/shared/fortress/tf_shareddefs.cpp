@@ -41,9 +41,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"	
 
-ConVar inv_demo( "inv_demo","0", FCVAR_REPLICATED, "Invasion demo." );
+ConVar inv_demo( "inv_demo", "0", FCVAR_REPLICATED | FCVAR_CHEAT, "Invasion demo." );
 ConVar lod_effect_distance( "lod_effect_distance","3240000", FCVAR_REPLICATED, "Distance at which effects LOD." );
-ConVar tf_cheapobjects( "tf_cheapobjects","0", FCVAR_REPLICATED, "Set to 1 and all objects will cost 0" );
+ConVar tf_cheapobjects( "tf_cheapobjects","0", FCVAR_REPLICATED | FCVAR_CHEAT, "Set to 1 and all objects will cost 0" );
 
 
 //--------------------------------------------------------------------------
