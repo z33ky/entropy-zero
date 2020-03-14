@@ -521,37 +521,38 @@ END_NETWORK_TABLE()
 		}
 
 		// TF Commands
-		if ( FStrEq( pcmd, "changeclass" ) )
-		// Rewrote this... ~hogsy
-		{
-			if(args.ArgC() < 2)
-				return true;
+		if ( FStrEq( pcmd, "changeclass" ) ) {
+			// TODO: revisit this...
 
-			int iClass		= atoi(args.Arg(1)),
-				iOldClass	= pPlayer->PlayerClass();
-			if(iClass == iOldClass)
+			if ( args.ArgC() < 2 ) {
 				return true;
+			}
+
+			int newClass = atoi( args.Arg( 1 ) );
+			int oldClass = pPlayer->PlayerClass();
+			if ( newClass == oldClass ) {
+				// Nothing more to do, we're already that class.
+				return true;
+			}
+
+			pPlayer->HideViewModels();
 
 			// Random class selection.
-			if(iClass <= -1)
-				iClass = random->RandomInt(TFCLASS_RECON,TFCLASS_CLASS_COUNT-1);
-
-			pPlayer->ChangeClass((TFClass)iClass);
-			
-			int iTeam = pPlayer->GetTeamNumber();
-			if(	!pPlayer->IsDead() && 
-				((iTeam == TEAM_HUMANS || iTeam == TEAM_ALIENS) && 
-				((iOldClass > TFCLASS_UNDECIDED) && (iOldClass < TFCLASS_CLASS_COUNT))))
-			{
-				pPlayer->RemoveAllItems(false);
-				pPlayer->HideViewModels();
-				pPlayer->ClearPlayerClass();
-
-				pPlayer->CommitSuicide(false,true);
-				pPlayer->IncrementFragCount(1);
+			if ( newClass <= -1 ) {
+				newClass = random->RandomInt( TFCLASS_RECON, TFCLASS_CLASS_COUNT - 1 );
 			}
-			else
+
+			// Why are we doing this before we're dead? Because then we can't pick up our new items.
+			pPlayer->ChangeClass( ( TFClass ) newClass );
+
+			if ( oldClass != TFCLASS_UNDECIDED ) {
+				if ( !pPlayer->IsDead() ) {
+					pPlayer->CommitSuicide( false, true );
+					pPlayer->IncrementFragCount( 1 );
+				}
+			} else {
 				pPlayer->ForceRespawn();
+			}
 
 			return true;
 		}
