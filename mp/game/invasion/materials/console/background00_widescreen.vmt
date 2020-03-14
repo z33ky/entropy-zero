@@ -1,5 +1,5 @@
 "UnlitGeneric"
 {
-	"$basetexture" "console/background00"
+	"$basetexture" "console/background00_widescreen"
 	"$nolod" 1
 }
