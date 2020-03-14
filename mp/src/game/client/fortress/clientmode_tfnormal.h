@@ -57,6 +57,9 @@ public:
 		CCommanderOverlayPanel *GetCommanderOverlayPanel() { return m_pOverlayPanel; }
 		// hogsy end
 
+	protected:
+		virtual void Paint();
+
 	private:
 		// hogsy start
 		CCommanderOverlayPanel	*m_pOverlayPanel;
@@ -64,6 +67,8 @@ public:
 		vgui::HCursor m_CursorCommander;
 		vgui::HCursor m_CursorRightMouseMove;
 		// hogsy end
+
+		vgui::Label *versionLabel;
 	};
 
 	virtual void Update();

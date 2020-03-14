@@ -101,7 +101,6 @@ void ClientModeTFBase::LevelInit( const char *newmap )
 	BaseClass::LevelInit( newmap );
 
 	// Tell the radar to load the radar's overlay map
-	//g_Radar.LoadMap( newmap );
 	if ( GetMinimap() )
 	{
 		GetMinimap()->LevelInit( newmap );
