@@ -157,7 +157,7 @@ void CTFTeam::Think( void )
 
 	UpdateTechnologies();
 	
-#if 1	// FIXME: Re-enable once we figure out what the correct orders should be
+#if 0	// FIXME: Re-enable once we figure out what the correct orders should be
 	// Create new personal orders
 	if ( m_flPersonalOrderUpdateTime < gpGlobals->curtime )
 	{
