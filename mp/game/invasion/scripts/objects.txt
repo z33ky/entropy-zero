@@ -97,21 +97,21 @@ objects
 	
 	OBJ_RESOURCEPUMP
 	{
-		ClassName				obj_resourcepump
-		StatusName				"Resource Pump"
-		BuilderWeaponName		"Resource Pump"
-		BuilderPlacementString	"Place on zone"
-		SolidToPlayerMovement	0
-		Icon					"selection_obj_resourcepump"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			2
-		SelectionPosition		0
-		SapperAttachTime		1
+		ClassName              obj_resourcepump
+		StatusName             "Resource Pump"
+		BuilderWeaponName      "Resource Pump"
+		BuilderPlacementString "Place on zone"
+		SolidToPlayerMovement  0
+		Icon                   "selection_obj_resourcepump"
+		BuildTime              10
+		MaxObjects             1
+		Cost                   100
+		CostMultiplier         1
+		UpgradeCost            0
+		MaxUpgradeLevel        4
+		SelectionSlot          2
+		SelectionPosition      0
+		SapperAttachTime       1
 	}
 	
 	OBJ_RESPAWN_STATION
