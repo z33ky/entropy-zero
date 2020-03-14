@@ -227,8 +227,7 @@ bool CResourceZone::RemoveResources( int nResourcesRemoved )
 		SetActive( false );
 		
 		// Tell teams about it
-		for ( i = 1; i <= GetNumberOfTeams(); i++ )
-		{
+		for ( i = FIRST_GAME_TEAM; i < GetNumberOfTeams(); i++ ) {
 			CTFTeam *pTeam = GetGlobalTFTeam( i );
 			pTeam->PostMessage( TEAMMSG_RESOURCE_ZONE_EMPTIED );
 		}
@@ -399,6 +398,11 @@ bool CResourceZone::ShouldSpawnChunk( void )
 	// Don't spawn chunks if we're outta resources
 	if ( IsEmpty() )
 		return false;
+
+	// If we have a resource pump on us, spawning chunks isn't necessary!
+	if ( m_hResourcePump != nullptr ) {
+		return false;
+	}
 
 	// Create a chunk if we're below our max
 	if ( m_aChunks.Size() >= m_iMaxChunks )
