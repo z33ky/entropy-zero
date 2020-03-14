@@ -287,6 +287,6 @@ ResourceZone.AmbientActiveSound
 	channel    CHAN_STATIC
 	volume     "1"
 	pitch      100
-	soundlevel SNDLVL_90dB
+	soundlevel SNDLVL_IDLE
 	wave       "ambience/resourcezone_ambience_loop00.wav"
 }
