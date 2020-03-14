@@ -58,6 +58,7 @@ void CResourceChunk::Spawn( )
 	BaseClass::Spawn();
 
 	UTIL_SetSize( this, Vector(-4,-4,-4), Vector(4,4,4) );
+
 	SetMoveType( MOVETYPE_FLYGRAVITY, MOVECOLLIDE_FLY_BOUNCE );
 	SetSolid( SOLID_BBOX );
 	SetSolidFlags( FSOLID_TRIGGER );
@@ -69,9 +70,9 @@ void CResourceChunk::Spawn( )
 	SetNextThink( gpGlobals->curtime + random->RandomFloat( 50.0, 80.0 ) ); // Remove myself the
 
 	// Override to make chunks easier to pick up
-	Vector vMins = WorldAlignMins() + Vector(-24, -24, -24);
-	Vector vMaxs = WorldAlignMaxs() + Vector(24, 24, 24);
-	SetCollisionBounds(vMins, vMaxs);
+	//Vector vMins = WorldAlignMins() + Vector(-24, -24, -24);
+	//Vector vMaxs = WorldAlignMaxs() + Vector(24, 24, 24);
+	//SetCollisionBounds(vMins, vMaxs);
 }
 
 void CResourceChunk::Precache( void )
