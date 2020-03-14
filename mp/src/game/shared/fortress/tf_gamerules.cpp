@@ -555,35 +555,35 @@ END_NETWORK_TABLE()
 			}
 
 			return true;
-		}
-		else if ( FStrEq( pcmd, "changeteam" ) )
-		// Rewrote this... ~hogsy
-		{
-			if(args.ArgC() < 2)
+		} else if ( FStrEq( pcmd, "changeteam" ) ) {
+			if ( args.ArgC() < 2 ) {
 				return true;
+			}
 
-			int	iTeam		= atoi(args.Arg(1)),
-				iOldTeam	= pPlayer->GetTeamNumber();
-			if(iTeam == iOldTeam)
+			int newTeam = atoi( args.Arg( 1 ) );
+			int oldTeam = pPlayer->GetTeamNumber();
+			if ( newTeam == oldTeam ) {
+				// Nothing more to do, we're already that team.
 				return true;
+			}
+
+			pPlayer->HideViewModels();
 			
 			// Automatic team selection.
-			if(iTeam <= -1)
+			if ( newTeam <= -1 ) {
 				pPlayer->PlacePlayerInTeam();
-			// Otherwise throw us into our selected team.
-			else
-				pPlayer->ChangeTeam(iTeam);
+			} else {
+				// Otherwise throw us into our selected team.
+				pPlayer->ChangeTeam( newTeam );
+			}
 
 			// Don't commit suicide unless we're already in a team.
-			if(!pPlayer->IsDead() && (iOldTeam == TEAM_HUMANS || iOldTeam == TEAM_ALIENS))
-			{
-				pPlayer->RemoveAllItems(false);
-				pPlayer->HideViewModels();
-				pPlayer->CommitSuicide(false,true);
-				pPlayer->IncrementFragCount(1);
-			}
-			else
+			if ( !pPlayer->IsDead() && oldTeam != TEAM_UNASSIGNED ) {
+				pPlayer->CommitSuicide( false, true );
+				pPlayer->IncrementFragCount( 1 );
+			} else {
 				pPlayer->ForceRespawn();
+			}
 
 			return true;
 		}
