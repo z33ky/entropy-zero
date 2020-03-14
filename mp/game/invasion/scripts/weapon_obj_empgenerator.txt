@@ -1,30 +1,24 @@
 WeaponData
 {
-	// Weapon data is loaded by both the Game and Client DLLs.
-	"printname"		"Plasma Rifle"
-	"viewmodel"		"models/weapons/v_pistol.mdl"
-	"playermodel"		"models/weapons/w_human_plasmarifle.mdl"
-	"anim_prefix"		"python"
-	"bucket"		0
-	"bucket_position"	4
-
-	"clip_size"		15
-	"default_clip"		15
-	"primary_ammo"		"Bullets"
-	"secondary_ammo"	"None"
-
-	"weight"		"7"
-	"item_flags"		"0"
-
-	"damage"		"75"
-	
-	showusagehint	1
+	printname		"EMP Generator"
+	viewmodel		"models/weapons/v_pistol.mdl"
+	playermodel		"models/weapons/placeholders/w_smg.mdl"
+	anim_prefix		"smg2"
+	bucket			0
+	bucket_position	4
+	clip_size		30
+	default_clip	30
+	primary_ammo	"Bullets"
+	secondary_ammo	"None"
+	weight			"7"
+	item_flags		"0"
+	damage			5
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		"empty"		"Weapon_Pistol.Empty"
-		"single_shot"	"Weapon_357.Single"
+		single_shot		"Weapon_BurstRifle.Single"
+		reload			"Weapon_SMG1.Reload"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
