@@ -469,6 +469,13 @@ $Project "Client"
 				$File	fortress/vgui_teammenu.h
 				$File	fortress/VGuiScreenVehicleBay.cpp
 				$File	fortress/RespawnWaveVGuiScreen.cpp
+
+				$File	hl2mp/ui/backgroundpanel.cpp
+				$File	hl2mp/ui/backgroundpanel.h
+				$File	hl2mp/ui/hl2mpclientscoreboard.cpp
+				$File	hl2mp/ui/hl2mpclientscoreboard.h
+				$File	hl2mp/ui/hl2mptextwindow.cpp
+				$File	hl2mp/ui/hl2mptextwindow.h
 				
 				$File	fortress/paneleffect.cpp
 				$File	fortress/paneleffect.h

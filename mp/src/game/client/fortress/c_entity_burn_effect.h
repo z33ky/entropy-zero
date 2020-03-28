@@ -22,18 +22,15 @@ public:
 	DECLARE_CLASS( C_EntityBurnEffect, C_BaseEntity );
 	DECLARE_CLIENTCLASS();
 
-					C_EntityBurnEffect();
-
+	C_EntityBurnEffect();
 
 // Overrides.
 public:
-
 	virtual void	OnDataChanged( DataUpdateType_t updateType );
 	virtual void	ClientThink();
 
-
 private:
-	int		m_hBurningEntity;	// todo: this should be an ehandle but base networkables aren't setup for ehandles yet.
+	CHandle<C_BaseEntity>		m_hBurningEntity;
 	
 	TimedEvent					m_Timer;
 	CSmartPtr<CSimpleEmitter>	m_pEmitter;
