@@ -28,6 +28,7 @@ Copyright (C) 2014-2016 TalonBrave.info
 #include "vgui_int.h"
 #include "vgui_teammenu.h"
 #include "vgui_classmenu.h"
+#include "hl2mpclientscoreboard.h"
 
 #include "viewrender.h"
 
@@ -111,20 +112,22 @@ void ClientModeTFNormal::Viewport::SetTeamScheme( int teamId ) {
 
 void ClientModeTFNormal::Viewport::CreateDefaultPanels()
 {
-	AddNewPanel(CreatePanelByName(PANEL_TEAM),"PANEL_TEAM");
-	AddNewPanel(CreatePanelByName(PANEL_CLASS),"PANEL_CLASS");
+	AddNewPanel( CreatePanelByName( PANEL_TEAM ), "PANEL_TEAM" );
+	AddNewPanel( CreatePanelByName( PANEL_CLASS ), "PANEL_CLASS" );
+	AddNewPanel( CreatePanelByName( PANEL_SCOREBOARD ), "PANEL_SCOREBOARD" );
 }
 
 IViewPortPanel *ClientModeTFNormal::Viewport::CreatePanelByName(const char *szPanelName)
 {
-	IViewPortPanel *newpanel = NULL;
+	if ( !V_strcmp( PANEL_TEAM, szPanelName ) ) {
+		return new CFortressTeamMenu( this );
+	} else if ( !V_strcmp( PANEL_CLASS, szPanelName ) ) {
+		return new CFortressClassMenu( this );
+	} else if ( !V_strcmp( PANEL_SCOREBOARD, szPanelName ) ) {
+		return new CHL2MPClientScoreBoardDialog( this );
+	}
 
-	if(!V_strcmp(PANEL_TEAM,szPanelName))
-		newpanel = new CFortressTeamMenu(this);
-	else if(!V_strcmp(PANEL_CLASS,szPanelName))
-		newpanel = new CFortressClassMenu(this);
-
-	return newpanel;
+	return BaseClass::CreatePanelByName( szPanelName );
 }
 
 // hogsy start

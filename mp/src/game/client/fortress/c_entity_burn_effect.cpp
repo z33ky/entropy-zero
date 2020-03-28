@@ -7,16 +7,17 @@
 #include "cbase.h"
 #include "c_entity_burn_effect.h"
 
-
 #define NUM_BURN_PARTICLES_PER_SEC	50
 
-
-
 IMPLEMENT_CLIENTCLASS_DT( C_EntityBurnEffect, DT_EntityBurnEffect, CEntityBurnEffect )
-	RecvPropInt( RECVINFO( m_hBurningEntity ) )
+	RecvPropEHandle( RECVINFO( m_hBurningEntity ) )
 END_RECV_TABLE()
 
-
+/*
+BEGIN_PREDICTION_DATA_NO_BASE( C_EntityBurnEffect )
+	DEFINE_PRED_FIELD( m_hNetworkMoveParent, FIELD_EHANDLE, FTYPEDESC_INSENDTABLE ),
+END_PREDICTION_DATA()
+*/
 
 C_EntityBurnEffect::C_EntityBurnEffect()
 {
@@ -48,7 +49,7 @@ void C_EntityBurnEffect::ClientThink()
 		return;
 
 	// Add some burning particles to our target entity.
-	C_BaseEntity *pEnt = ClientEntityList().GetBaseEntity( m_hBurningEntity );
+	C_BaseEntity *pEnt = m_hBurningEntity;
 	if ( !pEnt )
 		return;
 

@@ -250,9 +250,9 @@ void CWeaponFlameThrower::PrimaryAttack()
 			CBaseEntity *pEnt = pHitEnts[iHitEnt];
 
 			float flDist = (pEnt->GetAbsOrigin() - vOrigin).Length();
-			float flPercent = 1.0 - flDist / FLAMETHROWER_FLAME_DISTANCE;
-			if ( flPercent < 0.1 )
-				flPercent = 0.1;
+			float flPercent = 1.0f - flDist / FLAMETHROWER_FLAME_DISTANCE;
+			if ( flPercent < 0.1f )
+				flPercent = 0.1f;
 
 			float flDamage = flPercent * FLAMETHROWER_DAMAGE_PER_SEC;
 			GetFireDamageMgr()->AddDamage( pEnt, GetOwner(), flDamage, !IsGasolineBlob( pEnt ) );

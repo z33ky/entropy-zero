@@ -536,7 +536,7 @@ CPlayerAnimState::CPlayerAnimState( CBaseTFPlayer *outer )
 //-----------------------------------------------------------------------------
 void CPlayerAnimState::Update()
 {
-	m_angRender = GetOuter()->GetAbsAngles();
+	m_angRender = GetOuter()->GetLocalAngles();
 
 	ComputePoseParam_BodyYaw();
 	ComputePoseParam_BodyPitch();
@@ -728,9 +728,7 @@ void CPlayerAnimState::ComputePoseParam_BodyPitch( void )
 
 	flPitch = clamp( flPitch, -90, 90 );
 
-	QAngle absangles = GetOuter()->GetAbsAngles();
-	absangles.x = 0.0f;
-	m_angRender = absangles;
+	m_angRender.x = 0.0f;
 
 	// See if we have a blender for pitch
 	int pitch = GetOuter()->LookupPoseParameter( "body_pitch" );
@@ -792,9 +790,7 @@ int CPlayerAnimState::ConvergeAngles( float goal,float maxrate, float dt, float&
 
 void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 {
-	QAngle absangles = GetOuter()->GetAbsAngles();
-	absangles.y = AngleNormalize( absangles.y );
-	m_angRender = absangles;
+	m_angRender.y = AngleNormalize( m_angRender.y );
 
 	// See if we even have a blender for pitch
 	int upper_body_yaw = GetOuter()->LookupPoseParameter( "body_yaw" );
@@ -905,9 +901,7 @@ void CPlayerAnimState::ComputePoseParam_BodyLookYaw( void )
 	ConvergeAngles( flGoalTorsoYaw, turnrate, gpGlobals->frametime, m_flCurrentTorsoYaw );
 
 	// Rotate entire body into position
-	absangles = GetOuter()->GetAbsAngles();
-	absangles.y = m_flCurrentFeetYaw;
-	m_angRender = absangles;
+	m_angRender.y = m_flCurrentFeetYaw;
 
 	GetOuter()->SetPoseParameter( upper_body_yaw, clamp( m_flCurrentTorsoYaw, -90.0f, 90.0f ) );
 }

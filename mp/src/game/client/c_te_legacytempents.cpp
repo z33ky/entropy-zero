@@ -2539,6 +2539,24 @@ inline void CTempEnts::CacheMuzzleFlashes( void )
 	}
 }
 
+static void EmitMuzzleFlashLight( ClientEntityHandle_t entityHandle, const Vector &origin, const Color &colour ) {
+	C_BaseEntity *entityPtr = ClientEntityList().GetBaseEntityFromHandle( entityHandle );
+	if ( entityPtr ) {
+		dlight_t *dynamicLight = effects->CL_AllocDlight( LIGHT_INDEX_MUZZLEFLASH + entityPtr->entindex() );
+
+		dynamicLight->origin = origin;
+
+		dynamicLight->color.r = colour[ 0 ];
+		dynamicLight->color.g = colour[ 1 ];
+		dynamicLight->color.b = colour[ 2 ];
+		dynamicLight->color.exponent = colour[ 3 ];
+
+		dynamicLight->radius = random->RandomInt( 32, 128 );
+		dynamicLight->decay = dynamicLight->radius / 0.05f;
+		dynamicLight->die = gpGlobals->curtime + 0.05f;
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 // Input  : entityIndex - 
@@ -2883,6 +2901,8 @@ void CTempEnts::MuzzleFlash_SMG1_Player( ClientEntityHandle_t hEntity, int attac
 		pParticle->m_flRoll			= random->RandomInt( 0, 360 );
 		pParticle->m_flRollDelta	= 0.0f;
 	}
+
+	EmitMuzzleFlashLight( hEntity, offset, Color( 255, 255, 200 + random->RandomInt( 0, 55 ), 5 ) );
 }
 
 //==================================================
@@ -2942,6 +2962,8 @@ void CTempEnts::MuzzleFlash_Shotgun_Player( ClientEntityHandle_t hEntity, int at
 		pParticle->m_flRoll			= random->RandomInt( 0, 360 );
 		pParticle->m_flRollDelta	= 0.0f;
 	}
+
+	EmitMuzzleFlashLight( hEntity, offset, Color( 255, 255, 200 + random->RandomInt( 0, 55 ), 5 ) );
 }
 
 //==================================================
@@ -3058,6 +3080,8 @@ void CTempEnts::MuzzleFlash_Shotgun_NPC( ClientEntityHandle_t hEntity, int attac
 		pTrailParticle->m_flLength	= 0.05f;
 		pTrailParticle->m_flWidth	= random->RandomFloat( 0.25f, 0.5f );
 	}
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 242, 191, 5 ) );
 }
 
 //==================================================
@@ -3143,6 +3167,8 @@ void CTempEnts::MuzzleFlash_357_Player( ClientEntityHandle_t hEntity, int attach
 		pParticle->m_flRoll			= random->RandomInt( 0, 360 );
 		pParticle->m_flRollDelta	= 0.0f;
 	}
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 255, 200 + random->RandomInt( 0, 255 ), 5 ) );
 }
 
 //==================================================
@@ -3232,34 +3258,42 @@ void CTempEnts::MuzzleFlash_Pistol_Player( ClientEntityHandle_t hEntity, int att
 		pParticle->m_flRoll			= random->RandomInt( 0, 360 );
 		pParticle->m_flRollDelta	= 0.0f;
 	}
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 255, 200 + random->RandomInt( 0, 255 ), 5 ) );
 }
 
 //==================================================
 // Purpose: 
 // Input: 
 //==================================================
-
 void CTempEnts::MuzzleFlash_Pistol_NPC( ClientEntityHandle_t hEntity, int attachmentIndex )
 {
 	FX_MuzzleEffectAttached( 0.5f, hEntity, attachmentIndex, NULL, true );
+
+	Vector origin;
+
+	// Get our attachment's transformation matrix
+	FX_GetAttachmentTransform( hEntity, attachmentIndex, &origin, NULL );
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 255, 200 + random->RandomInt( 0, 255 ), 5 ) );
 }
-
-
-
 
 //==================================================
 // Purpose: 
 // Input: 
 //==================================================
-
 void CTempEnts::MuzzleFlash_RPG_NPC( ClientEntityHandle_t hEntity, int attachmentIndex )
 {
 	//Draw the cloud of fire
 	FX_MuzzleEffectAttached( 1.5f, hEntity, attachmentIndex );
 
+	Vector origin;
+
+	// Get our attachment's transformation matrix
+	FX_GetAttachmentTransform( hEntity, attachmentIndex, &origin, NULL );
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 255, 200 + random->RandomInt( 0, 255 ), 5 ) );
 }
-
-
 
 void CTempEnts::RocketFlare( const Vector& pos )
 {

@@ -2073,6 +2073,7 @@ void CBaseTFPlayer::FinishUnDeploying( void )
 {
 	m_bUnDeploying = false;
 	m_bDeployed = false;
+	m_takedamage = DAMAGE_YES;
 	SetCantMove( false );
 }
 

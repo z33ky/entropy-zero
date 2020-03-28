@@ -53,7 +53,7 @@ void CGrenadeObjectSapper::Spawn( void )
 
 void CGrenadeObjectSapper::Precache( void )
 {
-	engine->PrecacheModel( "models/sapper.mdl" );
+	PrecacheModel( "models/sapper.mdl" );
 
 	PrecacheScriptSound("WeaponObjectSapper.Attach");
 	PrecacheScriptSound("WeaponObjectSapper.AttachFail");
@@ -151,13 +151,11 @@ void CGrenadeObjectSapper::SetTargetObject( CBaseObject *pObject )
 void CGrenadeObjectSapper::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	// Only enemies remove the sapper
-	if ( !InSameTeam( pActivator ) )
-	{
+	if ( !InSameTeam( pActivator ) ) {
 		// Enemy is grabbing me
-		EmitSound( "GrenadeObjectSapper.RemoveSapper" );
-		SetTargetObject( NULL );
-		UTIL_Remove( this );
+		RemoveFromObject();
 	}
+
 /*	
 	ROBIN: Removed self-removal of sapper
 
@@ -174,6 +172,15 @@ void CGrenadeObjectSapper::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, U
 		}
 	}
 */
+}
+
+void CGrenadeObjectSapper::RemoveFromObject() {
+	StopLoopingSounds();
+	EmitSound( "GrenadeObjectSapper.RemoveSapper" );
+	
+	SetTargetObject( NULL );
+	
+	Remove();
 }
 
 //-----------------------------------------------------------------------------

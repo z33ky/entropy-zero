@@ -2386,7 +2386,7 @@ void CBaseObject::RemoveAllSappers( CBaseEntity *pRemovingEntity )
 	// Loop through all the sappers and fire a +use on them (backwards because list will change)
 	int iSize = m_hSappers.Size();
 	for (int i = iSize-1; i >= 0; i--)
-		m_hSappers[i]->Use( pRemovingEntity, pRemovingEntity, USE_TOGGLE, 0 );
+		m_hSappers[i]->RemoveFromObject();
 }
 
 //-----------------------------------------------------------------------------

@@ -17,7 +17,6 @@ END_SEND_TABLE()
 
 LINK_ENTITY_TO_CLASS( entity_burn_effect, CEntityBurnEffect );
 
-
 CEntityBurnEffect* CEntityBurnEffect::Create( CBaseEntity *pBurningEntity )
 {
 	CEntityBurnEffect *pEffect = static_cast<CEntityBurnEffect*>(CreateEntityByName( "entity_burn_effect" ));
@@ -36,7 +35,6 @@ int CEntityBurnEffect::UpdateTransmitState()
 {
 	return SetTransmitState( FL_EDICT_FULLCHECK );
 }
-
 
 int CEntityBurnEffect::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
