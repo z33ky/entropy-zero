@@ -39,7 +39,7 @@ END_NETWORK_TABLE()
 
 #if !defined( CLIENT_DLL )
 // Server Only
-ConVar weapon_rocket_launcher_damage( "weapon_rocket_launcher_damage","300", FCVAR_NONE, "Rocker launcher damage" );
+ConVar weapon_rocket_launcher_damage( "weapon_rocket_launcher_damage","80", FCVAR_NONE, "Rocker launcher damage" );
 ConVar weapon_rocket_launcher_range( "weapon_rocket_launcher_range", "768", FCVAR_NONE, "Rocket launcher range" );
 #endif
 
