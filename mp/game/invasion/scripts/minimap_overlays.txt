@@ -157,8 +157,8 @@ MinimapOverlays
 		
 		localplayeroffset	"0 0"
 		localplayersize		"16 16"
-		voiceoffset			"0 0"
-		voicesize			"16 16"
+		voiceoffset		"0 0"
+		voicesize		"16 16"
 	}
 	
 	minimap_resource_zone

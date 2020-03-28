@@ -147,6 +147,12 @@
 	RespawnTeam1InitialDelay(integer)		: "Respawn Team 1 Initial Delay"
 	RespawnTeam2InitialDelay(integer)		: "Respawn Team 2 Initial Delay"
 
+	spawnflags(flags) =
+	[
+		1 : "Intermission" : 0
+		2 : "Waiting for Game Start" : 0
+	]
+
 	input Start(void)
 	input FinishWinNone(void)
 	input FinishWin1(void)

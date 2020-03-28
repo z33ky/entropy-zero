@@ -20,34 +20,31 @@ WeaponRepairGun.NoTarget
 // Sapper
 WeaponObjectSapper.Attach
 {
-	channel		CHAN_ITEM
+	channel		CHAN_VOICE
 	soundlevel	SNDLVL_85dB
 	pitch		PITCH_NORM
 	volume		VOL_NORM
 	wave		objects/sapper/attach.wav
 }
-
 WeaponObjectSapper.AttachFail
 {
-	channel		CHAN_ITEM
+	channel		CHAN_VOICE
 	soundlevel	SNDLVL_85dB
 	pitch		PITCH_NORM
 	volume		VOL_NORM
 	wave		common/wpn_denyselect.wav
 }
-
 GrenadeObjectSapper.Arming
 {
-	channel		CHAN_ITEM
+	channel		CHAN_VOICE
 	soundlevel	SNDLVL_85dB
 	pitch		PITCH_NORM
 	volume		VOL_NORM
 	wave		objects/sapper/arming.wav
 }
-
 GrenadeObjectSapper.RemoveSapper
 {
-	channel		CHAN_ITEM
+	channel		CHAN_VOICE
 	soundlevel	SNDLVL_85dB
 	pitch		PITCH_NORM
 	volume		VOL_NORM
