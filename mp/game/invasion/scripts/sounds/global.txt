@@ -1,3 +1,21 @@
+// Minigun
+Weapon_HumanMinigun.Single
+{
+	channel		CHAN_WEAPON
+	volume		0.8
+	soundlevel	SNDLVL_GUNFIRE
+	pitch		PITCH_NORM
+	wave		weapons/minigun/asscan2.wav
+}
+Weapon_HumanMinigun.Special1
+{
+	channel		CHAN_WEAPON
+	volume		0.8
+	soundlevel	SNDLVL_GUNFIRE
+	pitch		PITCH_NORM
+	wave		weapons/minigun/asscan4.wav
+}
+
 // Repair Gun
 WeaponRepairGun.Healing
 {
