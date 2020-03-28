@@ -1620,15 +1620,15 @@ CAmmoDef *GetAmmoDef()
 		bInitted = true;
 		
 		// Added some basic physics force ~hogsy
-		def.AddAmmoType("Bullets",			DMG_BULLET,					TRACER_LINE,	0,	0,	INFINITE_AMMO,	20,	0);
-		def.AddAmmoType("Rockets",			DMG_BLAST,					TRACER_LINE,	0,	0,	6,				50,	0);
-		def.AddAmmoType("Grenades",			DMG_BLAST,					TRACER_LINE,	0,	0,	3,				50,	0);
-		def.AddAmmoType("ShieldGrenades",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	5,				0,	0);
-		def.AddAmmoType("ShotgunEnergy",	DMG_ENERGYBEAM,				TRACER_LINE,	0,	0,	INFINITE_AMMO,	0,	0);
-		def.AddAmmoType("PlasmaGrenade",	DMG_ENERGYBEAM|DMG_BLAST,	TRACER_LINE,	0,	0,	30,				0,	0);
-		def.AddAmmoType("ResourceChunks",	DMG_GENERIC,				TRACER_LINE,	0,	0,	4,				0,	0);		// Resource chunks
-		def.AddAmmoType("Limpets",			DMG_BLAST,					TRACER_LINE,	0,	0,	40,				0,	0);
-		def.AddAmmoType("Gasoline",			DMG_BURN,					TRACER_LINE,	0,	0,	80,				0,	0);
+		def.AddAmmoType( "Bullets", DMG_BULLET, TRACER_LINE_AND_WHIZ, 0, 0, INFINITE_AMMO, 2, 0 );
+		def.AddAmmoType( "Rockets", DMG_BLAST, TRACER_NONE, 0, 0, 6, 32, 0 );
+		def.AddAmmoType( "Grenades", DMG_BLAST, TRACER_NONE, 0, 0, 3, 32, 0 );
+		def.AddAmmoType( "ShieldGrenades", DMG_ENERGYBEAM, TRACER_NONE, 0, 0, 5, 0, 0 );
+		def.AddAmmoType( "ShotgunEnergy", DMG_ENERGYBEAM, TRACER_LINE, 0, 0, INFINITE_AMMO, 0, 0 );
+		def.AddAmmoType( "PlasmaGrenade", DMG_ENERGYBEAM | DMG_BLAST, TRACER_NONE, 0, 0, 30, 0, 0 );
+		def.AddAmmoType( "ResourceChunks", DMG_GENERIC, TRACER_NONE, 0, 0, 4, 0, 0 );		// Resource chunks
+		def.AddAmmoType( "Limpets", DMG_BLAST, TRACER_NONE, 0, 0, 40, 0, 0 );
+		def.AddAmmoType( "Gasoline", DMG_BURN, TRACER_NONE, 0, 0, 80, 0, 0 );
 
 		// Combat Objects
 		def.AddAmmoType("RallyFlags",		DMG_GENERIC,				TRACER_NONE,	0,	0,	1,	0,	0);
