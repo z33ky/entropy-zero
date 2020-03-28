@@ -101,6 +101,38 @@
 [
 ]
 
+// Filters
+
+@FilterClass base(BaseFilter) size(-8 -8 -8, 8 8 8) = filter_activator_team : "A filter that filters by the team of the activator."
+[
+	filterteam(choices) : "Filter Team Number" : 2 : 
+		"The team number to filter by.  If the filter mode is Allow, only entities whose "+
+		"team number matches the given team will pass the filter. If the filter mode is Disallow, "+
+		"all entities EXCEPT those whose team number matches the given team will pass the filter." =
+	[
+		2 : "Human"
+		3 : "Alien"
+	]
+]
+
+// Sensors
+
+@PointClass = sensor_tf_team : "Team Sensor"
+[
+	team(choices) : "Team" : 2 : "Team" =
+	[
+		2 : "Human"
+		3 : "Alien"
+	]
+	
+	output OnRespawnCountChanged(integer)
+	output OnResourceCountChanged(integer)
+	output OnMemberCountChanged(integer)
+	output OnRespawnCountChangedDelta(integer)
+	output OnResourceCountChangedDelta(integer)
+	output OnMemberCountChangedDelta(integer)
+]
+
 // Info Entities
 
 @PointClass base(Targetname) = info_act : "Act Information"
@@ -194,7 +226,7 @@
 	output TechPercentage(void)
 ]
 
-// OBJECTS
+// Objects
 
 @PointClass base(BaseObject, BaseTeam) = obj_manned_plasmagun : "Manned Plasma Gun" []
 @PointClass base(BaseObject, BaseTeam) = obj_respawn_station : "Respawn Station"
