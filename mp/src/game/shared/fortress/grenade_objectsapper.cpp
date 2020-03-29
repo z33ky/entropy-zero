@@ -74,7 +74,9 @@ void CGrenadeObjectSapper::SetArmed( bool armed )
 	// Going armed
 	if ( ch && m_bArmed )
 	{
+#ifdef IMPLEMENT_ME // Reintroduce once we can stop this looping!
 		PlayArmingSound();
+#endif
 	}
 
 	if ( m_bArmed )
@@ -110,7 +112,7 @@ void CGrenadeObjectSapper::SapperThink( void )
 	// Remove myself if I'm armed, but don't have an object to sap
 	if ( !m_hTargetObject )
 	{
-		UTIL_Remove( this );
+		RemoveFromObject();
 		return;
 	}
 

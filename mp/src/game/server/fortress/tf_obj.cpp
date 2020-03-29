@@ -2383,7 +2383,7 @@ void CBaseObject::AddSapper( CGrenadeObjectSapper *pSapper )
 //-----------------------------------------------------------------------------
 void CBaseObject::RemoveAllSappers( CBaseEntity *pRemovingEntity )
 {
-	// Loop through all the sappers and fire a +use on them (backwards because list will change)
+	// Loop through all the sappers and remove them
 	int iSize = m_hSappers.Size();
 	for (int i = iSize-1; i >= 0; i--)
 		m_hSappers[i]->RemoveFromObject();

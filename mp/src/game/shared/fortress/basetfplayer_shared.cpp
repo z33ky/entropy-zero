@@ -299,13 +299,8 @@ void CBaseTFPlayer::StopAttaching( void )
 {
 	CleanupAfterAttaching();	
 
-	if ( m_hSapper != NULL )
-	{
-		CPASAttenuationFilter filter( m_hSapper, "WeaponObjectSapper.AttachFail" );
-		EmitSound( filter, m_hSapper->entindex(), "WeaponObjectSapper.AttachFail" );
-
-		m_hSapper->SetTargetObject( NULL );
-		m_hSapper->Remove( );
+	if ( m_hSapper != NULL ) {
+		m_hSapper->RemoveFromObject();
 	}
 }
 
@@ -319,6 +314,7 @@ void CBaseTFPlayer::FinishAttaching( void )
 		m_hSapper->SetArmed( true );
 	}
 }
+
 #endif
 
 //-----------------------------------------------------------------------------
