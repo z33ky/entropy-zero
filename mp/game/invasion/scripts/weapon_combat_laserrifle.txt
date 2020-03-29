@@ -2,18 +2,18 @@ WeaponData
 {
 	printname		"Laser Rifle"
 	viewmodel		"models/weapons/v_human_laserrifle.mdl"
-	playermodel		"models/weapons/placeholders/w_smg.mdl"
+	playermodel		"models/weapons/w_human_burstrifle.mdl"
 	anim_prefix		"smg2"
 	bucket			0
-	bucket_position	4
+	bucket_position		4
 	clip_size		30
-	default_clip	30
-	primary_ammo	"Bullets"
-	secondary_ammo	"None"
+	default_clip		30
+	primary_ammo		"Bullets"
+	secondary_ammo		"None"
 	weight			"7"
 	item_flags		"0"
 	damage			5
-	showusagehint	1
+	showusagehint		1
 
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData

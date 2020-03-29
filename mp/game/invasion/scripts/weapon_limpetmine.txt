@@ -2,7 +2,7 @@ WeaponData
 {
 	printname		"Limpet Mine"
 	viewmodel		"models/weapons/v_pistol.mdl"
-	playermodel		"models/weapons/placeholders/w_smg.mdl"
+	playermodel		"models/weapons/w_human_burstrifle.mdl"
 	anim_prefix		"smg2"
 	bucket			0
 	bucket_position		4
