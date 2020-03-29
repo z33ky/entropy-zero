@@ -6,7 +6,7 @@ objects
 		StatusName 				"Powerpack"
 		BuilderWeaponName 		"Powerpack"
 		BuilderPlacementString 	"Place on ground"
-		SolidToPlayerMovement 	1
+		SolidToPlayerMovement 	0
 		Icon 					"placeholder"
 		BuildTime 				5
 		MaxObjects				2
