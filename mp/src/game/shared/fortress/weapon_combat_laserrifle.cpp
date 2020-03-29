@@ -198,7 +198,7 @@ void CWeaponCombatLaserRifle::PrimaryAttack( void )
 	TFGameRules()->FireBullets( CTakeDamageInfo( this, pPlayer, weapon_combat_laserrifle_damage.GetFloat(), DMG_PLASMA), 1, 
 		vecSrc, vecAiming, vecSpread, weapon_combat_laserrifle_range.GetFloat(), m_iPrimaryAmmoType, 0, entindex(), 0 );
 
-	m_flInaccuracy += 0.3;
+	m_flInaccuracy += 0.3f;
 	m_flInaccuracy = clamp(m_flInaccuracy, 0, 1);
 
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();

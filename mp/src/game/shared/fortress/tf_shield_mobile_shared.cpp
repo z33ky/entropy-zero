@@ -610,11 +610,11 @@ void CShieldMobile::SimulateShield( void )
 	SetNetworkAngles( m_ShieldEffect.GetCurrentAngles() );
 #endif
 
+	ComputeBoundingBox();
+
 	// Compute a composite bounding box surrounding the initial + new positions..
 	Vector vecCompositeMins = WorldAlignMins() + vecOldOrigin;
 	Vector vecCompositeMaxs = WorldAlignMaxs() + vecOldOrigin;
-
-	ComputeBoundingBox();
 
 	// Sweep the shield through the world + touch things it hits...
 	SweepContext_t ctx( this, GetCollisionGroup() );

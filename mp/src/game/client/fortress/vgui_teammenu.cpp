@@ -87,15 +87,9 @@ void CFortressTeamMenu::OnTick(void)
 
 void CFortressTeamMenu::OnCommand(const char *command)
 {
-	if (V_strcmp(command, "Cancel") == 0)
-	{
-		Close();
-		return;
+	if ( V_strstr( command, "changeteam " ) ) {
+		engine->ClientCmd( command );
 	}
-
-	if(V_strstr(command,"changeteam "))
-		// TODO: Check if this is valid before sending... ~hogsy
-		engine->ClientCmd(command);
 
 	BaseClass::OnCommand(command);
 

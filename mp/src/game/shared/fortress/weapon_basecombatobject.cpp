@@ -113,5 +113,5 @@ void CWeaponBaseCombatObject::PlaceCombatObject( CBaseTFPlayer *pBuilder, Vector
 
 float CWeaponBaseCombatObject::GetFireRate( void )
 {
-	return 0.5;
+	return 0.5f;
 }

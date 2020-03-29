@@ -36,7 +36,7 @@
 	#include "IserverVehicle.h"
 	#include "weapon_builder.h"
 	#include "weapon_objectselection.h"
-
+	#include "ndebugoverlay.h"
 #endif
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -1393,10 +1393,12 @@ void CTeamFortress::WeaponTraceLine( const Vector& src, const Vector& end, unsig
 	// we don't intersect with them...
 	CShield::ActivateShields( false, pShooter->GetTeamNumber() );
 
-	UTIL_TraceLine(src, end, mask, pShooter, TFCOLLISION_GROUP_WEAPON, pTrace);
+	UTIL_TraceLine(src, end, mask, pShooter, /* TFCOLLISION_GROUP_WEAPON */ COLLISION_GROUP_NONE, pTrace);
 
-//	NDebugOverlay::Line( src, pTrace->endpos, 255,255,255, true, 5.0 );
-//	NDebugOverlay::Box( pTrace->endpos, Vector(-2,-2,-2), Vector(2,2,2), 255,255,255, true, 5.0 );
+#if !defined( CLIENT_DLL )
+	NDebugOverlay::Line( src, pTrace->endpos, 255,255,255, true, 5.0 );
+	NDebugOverlay::Box( pTrace->endpos, Vector(-2,-2,-2), Vector(2,2,2), 255,255,255, true, 5.0 );
+#endif
 
 	// Shield check...
 	if (pTrace->fraction != 1.0)
@@ -1469,7 +1471,6 @@ bool CTeamFortress::ShouldCollide( int collisionGroup0, int collisionGroup1 )
 	return BaseClass::ShouldCollide( collisionGroup0, collisionGroup1 ); 
 }
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Fire a generic bullet
 //-----------------------------------------------------------------------------
@@ -1477,6 +1478,9 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 								const Vector &vecSpread, float flDistance, int iAmmoType, 
 								int iTracerFreq, int firingEntID, int attachmentID, const char *sCustomTracer )
 {
+	// This function should've been implemented as an override for FireBullets in the CBaseEntity class, under CBaseTFCombatWeapon
+	// instead of here. So in the long term we should probably move it across to there (and use FireBulletsInfo_t).
+
 	static int tracerCount;
 	bool tracer;
 	trace_t	tr;
@@ -1583,6 +1587,7 @@ void CTeamFortress::FireBullets( const CTakeDamageInfo &info, int cShots, const 
 				{
 					bTargetCouldBeHurt = true;
 				}
+
 #ifndef CLIENT_DLL
 				subInfo.SetDamagePosition( vecSrc );
 				// Hit the target 

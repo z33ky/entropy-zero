@@ -103,121 +103,121 @@ void CFortressClassMenu::OnTick(void)
 	if(!pPlayer)
 		return;
 
-	if(bReconButton->IsCursorOver() && (iLastPreview != 0))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_recon.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_recon.mdl");
+	if ( bReconButton->IsCursorOver() ) {
+		if ( iLastPreview != 0 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_recon.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_recon.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_RECONDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_RECONDESCRIPTION" );
+		}
 
 		iLastPreview = 0;
-	}
-	else if(bCommandoButton->IsCursorOver() && (iLastPreview != 1))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_commando.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_commando.mdl");
+	} else if ( bCommandoButton->IsCursorOver() ) {
+		if ( iLastPreview != 1 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_commando.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_commando.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_COMMANDODESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_COMMANDODESCRIPTION" );
+		}
 
 		iLastPreview = 1;
-	}
-	else if(bMedicButton->IsCursorOver() && (iLastPreview != 2))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_medic.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_medic.mdl");
+	} else if ( bMedicButton->IsCursorOver() ) {
+		if ( iLastPreview != 2 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_medic.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_medic.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_MEDICDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_MEDICDESCRIPTION" );
+		}
 
 		iLastPreview = 2;
-	}
-	else if(bDefenderButton->IsCursorOver() && (iLastPreview != 3))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_defender.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_defender.mdl");
+	} else if ( bDefenderButton->IsCursorOver() ) {
+		if ( iLastPreview != 3 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_defender.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_defender.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_DEFENDERDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_DEFENDERDESCRIPTION" );
+		}
 
 		iLastPreview = 3;
-	}
-	else if(bSniperButton->IsCursorOver() && (iLastPreview != 4))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_sniper.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_sniper.mdl");
+	} else if ( bSniperButton->IsCursorOver() ) {
+		if ( iLastPreview != 4 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_sniper.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_sniper.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_SNIPERDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_SNIPERDESCRIPTION" );
+		}
 
 		iLastPreview = 4;
-	}
-	else if(bSupportButton->IsCursorOver() && (iLastPreview != 5))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_support.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_support.mdl");
+	} else if ( bSupportButton->IsCursorOver() ) {
+		if ( iLastPreview != 5 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_support.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_support.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_SUPPORTDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_SUPPORTDESCRIPTION" );
+		}
 
 		iLastPreview = 5;
-	}
-	else if(bEscortButton->IsCursorOver() && (iLastPreview != 6))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_escort.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_escort.mdl");
+	} else if ( bEscortButton->IsCursorOver() ) {
+		if ( iLastPreview != 6 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_escort.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_escort.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_ESCORTDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_ESCORTDESCRIPTION" );
+		}
 
 		iLastPreview = 6;
-	}
-	else if(bSapperButton->IsCursorOver() && (iLastPreview != 7))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_sapper.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_sapper.mdl");
+	} else if ( bSapperButton->IsCursorOver() ) {
+		if ( iLastPreview != 7 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_sapper.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_sapper.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_SAPPERDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_SAPPERDESCRIPTION" );
+		}
 
 		iLastPreview = 7;
-	}
-	else if(bInfiltratorButton->IsCursorOver() && (iLastPreview != 8))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_infiltrator.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_infiltrator.mdl");
+	} else if ( bInfiltratorButton->IsCursorOver() ) {
+		if ( iLastPreview != 8 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_infiltrator.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_infiltrator.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_INFILTRATORDESCRIPTION");
+			rtClassDescription->SetText( "#FORTRESS_INFILTRATORDESCRIPTION" );
+		}
 
 		iLastPreview = 8;
-	}
-	else if(bPyroButton->IsCursorOver() && (iLastPreview != 10))
-	{
-		if(pPlayer->GetTeamNumber() == TEAM_HUMANS)
-			mClassPreview->SwapModel("models/player/human_pyro.mdl");
-		else
-			mClassPreview->SwapModel("models/player/alien_pyro.mdl");
+	} else if ( bPyroButton->IsCursorOver() ) {
+		if ( iLastPreview != 10 ) {
+			if ( pPlayer->GetTeamNumber() == TEAM_HUMANS )
+				mClassPreview->SwapModel( "models/player/human_pyro.mdl" );
+			else
+				mClassPreview->SwapModel( "models/player/alien_pyro.mdl" );
 
-		rtClassDescription->SetText("#FORTRESS_CLASSPYROINFO");
+			rtClassDescription->SetText( "#FORTRESS_CLASSPYROINFO" );
+		}
 
 		iLastPreview = 10;
-	}
-	else if(bRandomButton->IsCursorOver() && (iLastPreview != 11))
-	{
-		mClassPreview->DeleteModelData();
-
-		rtClassDescription->SetText("#FORTRESS_CLASSRANDOMINFO");
+	} else if ( bRandomButton->IsCursorOver() ) {
+		if ( iLastPreview != 11 ) {
+			mClassPreview->DeleteModelData();
+			rtClassDescription->SetText( "#FORTRESS_CLASSRANDOMINFO" );
+		}
 
 		iLastPreview = 11;
 	}
@@ -225,15 +225,10 @@ void CFortressClassMenu::OnTick(void)
 
 void CFortressClassMenu::OnCommand(const char *command)
 {
-	if (V_strcmp(command, "Cancel") == 0)
-	{
-		Close();
-		return;
-	}
-
-	if (V_strstr(command, "changeclass "))
+	if ( V_strstr( command, "changeclass " ) ) {
 		// TODO: Check if this is valid before sending... ~hogsy
-		engine->ClientCmd(command);
+		engine->ClientCmd( command );
+	}
 
 	BaseClass::OnCommand(command);
 

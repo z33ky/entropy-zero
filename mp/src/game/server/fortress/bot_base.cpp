@@ -69,9 +69,9 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	if ( bFrozen )
 		pPlayer->AddEFlags( EFL_BOT_FROZEN );
 
-  	if ( iTeam != -1 )
+	if ( iTeam != -1 )
 		pPlayer->ChangeTeam( iTeam );
-	else if (pPlayer->GetTeamNumber() == TEAM_UNASSIGNED)
+	else if ( pPlayer->GetTeamNumber() == TEAM_UNASSIGNED )
 		pPlayer->PlacePlayerInTeam();
 
 	if (iClass != -1)

@@ -558,7 +558,6 @@ void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 				UpdateScale( pParticle, timeDelta ),
 				UpdateRoll( pParticle, timeDelta ) );
 
-			/*
 			if ( m_flNextSparkEffect < gpGlobals->curtime )
 			{
 				// Drop sparks?
@@ -572,7 +571,6 @@ void CBasePlasmaProjectile::RenderParticles(CParticleRenderIterator *pIterator)
 				}
 				m_flNextSparkEffect = gpGlobals->curtime + RandomFloat( 0.5, 2 );
 			}
-			*/
 
 			return;
 		}

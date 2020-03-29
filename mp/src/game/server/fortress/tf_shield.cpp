@@ -91,12 +91,12 @@ void CShield::Spawn( void )
 
 	m_flNextRechargeTime = gpGlobals->curtime;
 
-	CollisionProp()->SetSurroundingBoundsType(USE_GAME_CODE);
-	SetSolid( SOLID_CUSTOM );
+	CollisionProp()->SetSurroundingBoundsType( USE_OBB_COLLISION_BOUNDS /* USE_GAME_CODE */ );
+	SetSolid( SOLID_OBB_YAW /* SOLID_CUSTOM */ );
 
 	// Stuff can't come to a rest on shields!
 	AddSolidFlags( FSOLID_NOT_STANDABLE );
-	UTIL_SetSize( this, vec3_origin, vec3_origin );
+	SetSize( vec3_origin, vec3_origin );
 }
 
 

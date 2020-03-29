@@ -139,6 +139,7 @@ void CPlayerClassEscort::CreateClass( void )
 
 	m_pPlayer->GiveNamedItem("weapon_shield_grenade");
 
+#ifdef IMPLEMENT_ME // Reintroduce once the shield is fixed
 	CBaseTFCombatWeapon* pWeapon = static_cast<CBaseTFCombatWeapon*>(m_pPlayer->GiveNamedItem("weapon_minigun"));
 
 	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * )m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
@@ -152,6 +153,14 @@ void CPlayerClassEscort::CreateClass( void )
 	{
 		p->SetWeapons(pWeapon, pShield);
 	}
+#else
+	m_pPlayer->GiveNamedItem( "weapon_minigun" );
+
+	CWeaponTwoHandedContainer *p = ( CWeaponTwoHandedContainer * ) m_pPlayer->Weapon_OwnsThisType( "weapon_twohandedcontainer" );
+	if ( !p ) {
+		p = static_cast< CWeaponTwoHandedContainer * >( m_pPlayer->GiveNamedItem( "weapon_twohandedcontainer" ) );
+	}
+#endif
 }
 
 

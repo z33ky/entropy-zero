@@ -231,6 +231,7 @@ CBaseTFPlayer::CBaseTFPlayer() : m_PlayerClasses( this ), m_PlayerAnimState( thi
 	m_TFLocal.m_nInTacticalView = false;
 	m_TFLocal.m_pPlayer = this;
 	m_bSwitchingView = false;
+
 	ClearActiveWeapon();
 	
 	m_iPlayerClass = TFCLASS_UNDECIDED;
@@ -311,15 +312,15 @@ void CBaseTFPlayer::Spawn( void )
 	if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) )
 		m_hSpawnPoint = GetInitialSpawnPoint();
 
-	// Must be done before baseclass spawn, so it's correct for when we find a spawnpoint
-	if ( GetPlayerClass()  )
-		GetPlayerClass()->SetPlayerHull();
-
 	// Added to resolve assert issue on spawn. ~hogsy
 	MDLCACHE_CRITICAL_SECTION();
 
 	// Use human commando model until we know our class
 	SetModel( "models/player/human_commando.mdl" );
+
+	// Must be done before baseclass spawn, so it's correct for when we find a spawnpoint
+	if ( GetPlayerClass() )
+		GetPlayerClass()->SetPlayerHull();
 
 	BaseClass::Spawn();
 
@@ -338,10 +339,10 @@ void CBaseTFPlayer::Spawn( void )
 	// Tell the PlayerClass that this player's just respawned
 	if ( GetPlayerClass()  )
 	{
+		GetPlayerClass()->RespawnClass();
+
 		RemoveFlag( FL_NOTARGET );
 		RemoveSolidFlags( FSOLID_NOT_SOLID );
-
-		GetPlayerClass()->RespawnClass();
 
 		if (pWeapon)
 		{
@@ -559,8 +560,6 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 
 	// Clear the client ragdoll, when changing teams.
 	ClearClientRagdoll( false );
-
-	// TODO: fix weapons not being assigned again upon switching teams
 }
 
 //-----------------------------------------------------------------------------
@@ -569,15 +568,18 @@ void CBaseTFPlayer::ChangeTeam( int iTeamNum )
 void CBaseTFPlayer::PlacePlayerInTeam( void )
 {
 	// Rewrote this ~hogsy
-	CTFTeam *pHumanTeam = GetGlobalTFTeam(TEAM_HUMANS);
-	CTFTeam *pAlienTeam = GetGlobalTFTeam(TEAM_ALIENS);
+	CTFTeam *pHumanTeam = GetGlobalTFTeam( TEAM_HUMANS );
+	CTFTeam *pAlienTeam = GetGlobalTFTeam( TEAM_ALIENS );
 
-	if(pAlienTeam->GetNumPlayers() > pHumanTeam->GetNumPlayers())
-		ChangeTeam(TEAM_HUMANS);
-	else if(pHumanTeam->GetNumPlayers() > pAlienTeam->GetNumPlayers())
-		ChangeTeam(TEAM_ALIENS);
+	unsigned int targetTeam;
+	if ( pAlienTeam->GetNumPlayers() > pHumanTeam->GetNumPlayers() )
+		targetTeam = TEAM_HUMANS;
+	else if ( pHumanTeam->GetNumPlayers() > pAlienTeam->GetNumPlayers() )
+		targetTeam = TEAM_ALIENS;
 	else
-		ChangeTeam(random->RandomInt(TEAM_HUMANS,TEAM_ALIENS));
+		targetTeam = random->RandomInt( TEAM_HUMANS, TEAM_ALIENS );
+
+	ChangeTeam( targetTeam );
 }
 
 //-----------------------------------------------------------------------------
