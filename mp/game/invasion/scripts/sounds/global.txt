@@ -115,13 +115,15 @@ Humans.Death
 	channel		CHAN_VOICE
 	volume		1
 	pitch		PITCH_NORM
-	soundlevel  	SNDLVL_TALKING
+	soundlevel  SNDLVL_TALKING
 
 	rndwave
 	{
-		wave	player/humans/commando/aaagh2.wav
-		wave	player/humans/commando/aaagh7.wav
-		wave	player/humans/commando/aaagh8.wav
+		wave	player/humans/commando/death1.wav
+		wave	player/humans/commando/death2.wav
+		wave	player/humans/commando/death3.wav
+		wave	player/humans/commando/death4.wav
+		wave	player/humans/commando/death5.wav
 	}
 }
 
@@ -130,14 +132,16 @@ Humans.Pain
 	channel		CHAN_VOICE
 	volume		1
 	pitch		PITCH_NORM
-	soundlevel  	SNDLVL_TALKING
+	soundlevel  SNDLVL_TALKING
 
 	rndwave
 	{
-		wave	player/humans/commando/aaagh1.wav
-		wave	player/humans/commando/aaagh3.wav
-		wave	player/humans/commando/aaagh4.wav
-		wave	player/humans/commando/aaagh6.wav
+		wave	player/humans/commando/pain1.wav
+		wave	player/humans/commando/pain2.wav
+		wave	player/humans/commando/pain3.wav
+		wave	player/humans/commando/pain4.wav
+		wave	player/humans/commando/pain5.wav
+		wave	player/humans/commando/pain6.wav
 	}
 }
 
