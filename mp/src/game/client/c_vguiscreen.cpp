@@ -105,6 +105,8 @@ C_VGuiScreen::C_VGuiScreen()
 	m_WriteZMaterial.Init( "engine/writez", TEXTURE_GROUP_VGUI );
 	m_OverlayMaterial.Init( m_WriteZMaterial );
 
+	mouseCursor.Init( "vgui/cursor_arrow", TEXTURE_GROUP_VGUI );
+
 	g_pVGUIScreens.AddToTail(this);
 }
 
@@ -583,6 +585,67 @@ void C_VGuiScreen::DrawScreenOverlay()
 	pRenderContext->PopMatrix();
 }
 
+void C_VGuiScreen::DrawScreenCursor() {
+	if ( !m_PanelWrapper.GetPanel()->IsMouseInputEnabled() ) {
+		return;
+	}
+
+	CMatRenderContextPtr pRenderContext( materials );
+	pRenderContext->MatrixMode( MATERIAL_MODEL );
+	pRenderContext->PushMatrix();
+	pRenderContext->LoadMatrix( m_PanelToWorld );
+
+	unsigned char pColor[ 4 ] = { 255, 255, 255, 255 };
+
+	static const float mouseWidth = 8;
+	static const float mouseHeight = 8;
+
+	// Fetch the x and y cursor positions, ensuring they're within the valid area
+
+	float xPos = m_nOldPx * m_flWidth / m_nPixelWidth;
+	if ( xPos > m_flWidth ) {
+		xPos = m_flWidth;
+	} else if ( xPos < 0 ) {
+		xPos = 0;
+	}
+
+	float yPos = -m_nOldPy * m_flHeight / m_nPixelHeight;
+	if ( yPos < -m_flHeight ) {
+		yPos = -m_flHeight;
+	} else if ( yPos > 0 ) {
+		yPos = 0;
+	}
+
+	CMeshBuilder meshBuilder;
+	IMesh *pMesh = pRenderContext->GetDynamicMesh( true, NULL, NULL, mouseCursor );
+	meshBuilder.Begin( pMesh, MATERIAL_QUADS, 1 );
+
+	meshBuilder.Position3f( xPos, yPos, 0 );
+	meshBuilder.TexCoord2f( 0, 0.0f, 0.0f );
+	meshBuilder.Color4ubv( pColor );
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Position3f( xPos + mouseWidth, yPos, 0 );
+	meshBuilder.TexCoord2f( 0, 1.0f, 0.0f );
+	meshBuilder.Color4ubv( pColor );
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Position3f( xPos + mouseWidth, yPos + -mouseHeight, 0 );
+	meshBuilder.TexCoord2f( 0, 1.0f, 1.0f );
+	meshBuilder.Color4ubv( pColor );
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.Position3f( xPos, yPos + -mouseHeight, 0 );
+	meshBuilder.TexCoord2f( 0, 0.0f, 1.0f );
+	meshBuilder.Color4ubv( pColor );
+	meshBuilder.AdvanceVertex();
+
+	meshBuilder.End();
+	pMesh->Draw();
+
+	pRenderContext->PopMatrix();
+}
+
 
 //-----------------------------------------------------------------------------
 // Draws the panel using a 3D transform...
@@ -613,6 +676,9 @@ int	C_VGuiScreen::DrawModel( int flags )
 
 	g_pMatSystemSurface->DrawPanelIn3DSpace( pPanel->GetVPanel(), m_PanelToWorld, 
 		m_nPixelWidth, m_nPixelHeight, m_flWidth, m_flHeight );
+
+	// Draw the mouse cursor
+	DrawScreenCursor();
 
 	// Finally, a pass to set the z buffer...
 	DrawScreenOverlay();

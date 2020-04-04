@@ -193,6 +193,7 @@ Scheme
 				"name"		"Impact"
 				"tall"		"32"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -204,6 +205,7 @@ Scheme
 				"tall"		"32"
 				"weight"	"900"
 				"underline" "1"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -214,6 +216,7 @@ Scheme
 				"name"		"Impact"
 				"tall"		"24"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -224,6 +227,7 @@ Scheme
 				"name"		"Impact"
 				"tall"		"18"
 				"weight"	"900"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -235,6 +239,7 @@ Scheme
 				"name"		"Impact"
 				"tall"		"48"
 				"weight"	"0"
+				"antialias" "1"
 				"range"		"0x0000 0x017F" //	Basic Latin, Latin-1 Supplement, Latin Extended-A
 			}
 		}
@@ -248,6 +253,7 @@ Scheme
 				"tall"		"14"
 				"weight"	"0"
 				"symbol"	"1"
+				"antialias" "1"
 				"range"		"0x0000 0x007F"	//	Basic Latin
 			}
 		}

@@ -58,6 +58,8 @@ DECLARE_VGUI_SCREEN_FACTORY( CHumanPDAPanel, "human_pda" );
 CHumanPDAPanel::CHumanPDAPanel( vgui::Panel *parent, const char *panelName )
 	: BaseClass( parent, "CHumanPDAPanel", vgui::scheme()->LoadSchemeFromFile( "resource/PDAControlPanelScheme.res", "TFBase" ) ) 
 {
+	SetMouseInputEnabled( false );
+
 	m_pObjectImage = NULL;
 
 	m_pObjectName = new vgui::Label( this, "ObjectName", "" );
@@ -89,7 +91,6 @@ CHumanPDAPanel::~CHumanPDAPanel()
 //-----------------------------------------------------------------------------
 bool CHumanPDAPanel::Init( KeyValues* pKeyValues, VGuiScreenInitData_t* pInitData )
 {
-
 	// Make sure we get ticked...
 	vgui::ivgui()->AddTickSignal( GetVPanel() );
 

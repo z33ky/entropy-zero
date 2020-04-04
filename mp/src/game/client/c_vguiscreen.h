@@ -125,6 +125,7 @@ private:
 
 	// Writes the z buffer
 	void DrawScreenOverlay();
+	void DrawScreenCursor();
 
 private:
 	int m_nPixelWidth; 
@@ -151,6 +152,7 @@ private:
 
 	CMaterialReference	m_WriteZMaterial;
 	CMaterialReference	m_OverlayMaterial;
+	CMaterialReference mouseCursor;
 
 	VMatrix	m_PanelToWorld;
 
