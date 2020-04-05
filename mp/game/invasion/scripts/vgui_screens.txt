@@ -19,8 +19,8 @@ Screens
 	screen_obj_power_pack
 	{
 		type		"powerpack_control_panel"
-		pixelswide	640
-		pixelshigh	480
+		pixelswide	400
+		pixelshigh	400
 		resfile		"scripts/screens/powerpack_control_panel.res"
 	}
 	
