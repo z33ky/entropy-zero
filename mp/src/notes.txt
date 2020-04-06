@@ -13,7 +13,7 @@ Invasion Demo Dates (UK Format)
 
 /*
 Copyright (C) Valve Corporation
-Copyright (C) 2014-2017 TalonBrave.info
+Copyright (C) 2014-2020 Mark Sowden <markelswo@gmail.com>
 */
 
 --------------------------
