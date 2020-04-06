@@ -333,8 +333,8 @@ void CBaseTFPlayer::Spawn( void )
 
 	// Holster weapon immediately, to allow it to cleanup
 	CBaseCombatWeapon *pWeapon = GetActiveWeapon();
-	if (pWeapon != nullptr)
-		pWeapon->Holster();
+	//if (pWeapon != nullptr)
+		//pWeapon->Holster();
 
 	// Tell the PlayerClass that this player's just respawned
 	if ( GetPlayerClass()  )
@@ -346,9 +346,9 @@ void CBaseTFPlayer::Spawn( void )
 
 		if (pWeapon)
 		{
-			if (pWeapon->HasAnyAmmo())
-				Weapon_Switch(pWeapon);
-			else
+			if (!pWeapon->HasAnyAmmo())
+				//Weapon_Switch(pWeapon);
+			//else
 				SwitchToNextBestWeapon(pWeapon);
 		}
 		else
