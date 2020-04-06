@@ -1,7 +1,7 @@
 "UnlitTwoTexture"
 {
- 	$basetexture 		"effects/com_shield002a"
-	$texture2			"effects/tvscreen_noise001a"
+ 	$basetexture 		"vgui/screens/vgui_overlay"
+	$texture2			"effects/tvscreen_noise001b"
 	$texture2scale 		0
 	$additive 			1
 
