@@ -49,20 +49,10 @@ void CBaseTFPlayer::Event_Killed( const CTakeDamageInfo &info )
 
 	ClearUseEntity();
 
-	// If I'm ragdolling due to a knockdown, don't play any animations
-	if ( m_hRagdollShadow == NULL )
-	{
-		if ( PlayerClass() != TFCLASS_INFILTRATOR )
-		{
-			// Calculate death force
-			Vector forceVector = CalcDamageForceVector( info );
+	if ( m_hRagdollShadow == nullptr ) {
+		ClearClientRagdoll( true );
 
-			BecomeRagdollOnClient( forceVector );
-		}
-		else
-		{
-			SetAnimation( PLAYER_DIE );
-		}
+		BecomeRagdollOnClient( CalcDamageForceVector( info ) );
 	}
 
 	DeathSound();

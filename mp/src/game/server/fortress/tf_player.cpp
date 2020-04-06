@@ -3088,66 +3088,57 @@ void CBaseTFPlayer::FollowClientRagdoll( void )
 //-----------------------------------------------------------------------------
 bool CBaseTFPlayer::ClearClientRagdoll( bool moveplayertofinalspot )
 {
-	if ( m_hRagdollShadow )
-	{
-		if ( GetContainingEntity( edict() ) )
-		{
-			if ( moveplayertofinalspot )
-			{
-				// Move player to resting spot of shadow object
-				FollowClientRagdoll();
+	if ( m_hRagdollShadow == nullptr ) {
+		return true;
+	}
 
-				// Check for a valid standing position.  If an entity is blocking impart some
-				// velocity to them and check again.
-				trace_t trace;
-				if ( CheckRagdollToStand( trace ) )
-				{
-					// Switch back to normal movement and kill off ragdoll bone setup on client
-					SetMoveType( MOVETYPE_WALK );
-					m_nRenderFX = kRenderFxNone;
-					//RemoveSolidFlags( FSOLID_NOTSOLID );
-					Assert( GetPlayerClass() != NULL );
-					Vector vecMin, vecMax;
-					GetPlayerClass()->GetPlayerHull( ( ( GetFlags() & FL_DUCKING ) == 1 ), vecMin, vecMax );
-					UTIL_SetSize( this, vecMin, vecMax );
-				}
-				else
-				{
-					CBaseEntity *pEntity = trace.m_pEnt;
-					if ( pEntity != GetContainingEntity( INDEXENT( 0 ) ) )
-					{
-						// Check for a physics object and apply force!
-						IPhysicsObject *pPhysObject = pEntity->VPhysicsGetObject();
-						if ( pPhysObject )
-						{
-							Vector vecDirection( random->RandomFloat( 0.0f, 1.0f ),
-								random->RandomFloat( 0.0f, 1.0f ),
-								random->RandomFloat( 0.0f, 1.0f ) );
-							vecDirection *= 40000.0f;
-							pPhysObject->ApplyForceCenter( vecDirection );
-						}
-						
-						return false;
+	if ( GetContainingEntity( edict() ) ) {
+		if ( moveplayertofinalspot ) {
+			// Move player to resting spot of shadow object
+			FollowClientRagdoll();
+
+			// Check for a valid standing position.  If an entity is blocking impart some
+			// velocity to them and check again.
+			trace_t trace;
+			if ( CheckRagdollToStand( trace ) ) {
+				// Switch back to normal movement and kill off ragdoll bone setup on client
+				SetMoveType( MOVETYPE_WALK );
+				m_nRenderFX = kRenderFxNone;
+				//RemoveSolidFlags( FSOLID_NOTSOLID );
+				Assert( GetPlayerClass() != NULL );
+				Vector vecMin, vecMax;
+				GetPlayerClass()->GetPlayerHull( ( ( GetFlags() & FL_DUCKING ) == 1 ), vecMin, vecMax );
+				UTIL_SetSize( this, vecMin, vecMax );
+			} else {
+				CBaseEntity *pEntity = trace.m_pEnt;
+				if ( pEntity != GetContainingEntity( INDEXENT( 0 ) ) ) {
+					// Check for a physics object and apply force!
+					IPhysicsObject *pPhysObject = pEntity->VPhysicsGetObject();
+					if ( pPhysObject ) {
+						Vector vecDirection( random->RandomFloat( 0.0f, 1.0f ),
+							random->RandomFloat( 0.0f, 1.0f ),
+							random->RandomFloat( 0.0f, 1.0f ) );
+						vecDirection *= 40000.0f;
+						pPhysObject->ApplyForceCenter( vecDirection );
 					}
-					else
-					{
-						UTIL_SetOrigin( this, Vector( m_vecLastGoodRagdollPos.x, m_vecLastGoodRagdollPos.y, m_vecLastGoodRagdollPos.z + 18.0f ) );
-						return false;
-					}
+
+					return false;
+				} else {
+					UTIL_SetOrigin( this, Vector( m_vecLastGoodRagdollPos.x, m_vecLastGoodRagdollPos.y, m_vecLastGoodRagdollPos.z + 18.0f ) );
+					return false;
 				}
 			}
 		}
-
-		// Kill the shadow object
-		UTIL_Remove( m_hRagdollShadow );
-		m_hRagdollShadow = NULL;
 	}
+
+	// Kill the shadow object
+	UTIL_Remove( m_hRagdollShadow );
+	m_hRagdollShadow = nullptr;
 
 	return true;
 }
 
-bool CBaseTFPlayer::CheckRagdollToStand( trace_t &trace )
-{
+bool CBaseTFPlayer::CheckRagdollToStand( trace_t &trace ) {
 	Assert( GetPlayerClass() != NULL );
 	Vector vecMin, vecMax;
 
@@ -3176,24 +3167,12 @@ bool CBaseTFPlayer::CheckRagdollToStand( trace_t &trace )
 // Input  : &force - 
 // Output : Returns true on success, false on failure.
 //-----------------------------------------------------------------------------
-bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force )
-{
-	// Defender doesn't support it yet
-	if ( PlayerClass() == TFCLASS_INFILTRATOR )
-		return false;
-
+bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force ) {
 	// Initialize the good ragdoll position.
 	VectorCopy( GetAbsOrigin(), m_vecLastGoodRagdollPos );
 
-	bool bret = BaseClass::BecomeRagdollOnClient( force );
-
-#if 1
-	// ROBIN: Disabled ragdoll shadows for now.
-	//		  We'll re-enable them if we need to know the end position again
-	//		  If we re-enable them, we need to fix the ragdoll shadow not having the correct mass
-	return bret;
-#else
 	AddSolidFlags( FSOLID_NOT_SOLID );
+	AddEffects( EF_NODRAW );
 
 	// Clear any old shadow object ( should never occur )
 	ClearClientRagdoll( false );
@@ -3201,8 +3180,7 @@ bool CBaseTFPlayer::BecomeRagdollOnClient( const Vector &force )
 	// Create new shadow object
 	m_hRagdollShadow = CRagdollShadow::Create( this, force );
 
-	return bret;
-#endif
+	return true;
 }
 
 //=========================================================

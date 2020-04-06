@@ -1,245 +1,231 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
-//
-// Purpose: 
-//
-// $NoKeywords: $
-//=============================================================================
-#include "cbase.h"
-#include "model_types.h"
-#include "vcollide.h"
-#include "vcollide_parse.h"
-#include "solidsetdefaults.h"
-#include "c_basetfplayer.h"
-#include "bone_setup.h"
-#include "engine/ivmodelinfo.h"
+/*
+Copyright (C) Valve Corporation
+Copyright (C) 2014-2020 Mark Sowden <markelswo@gmail.com>
+*/
 
-CPhysCollide *PhysCreateBbox( const Vector &mins, const Vector &maxs );
-extern CSolidSetDefaults g_SolidSetup;
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-class C_RagdollShadow : public C_BaseAnimating
-{
-	DECLARE_CLASS( C_RagdollShadow, C_BaseAnimating );
+#include "cbase.h"
+#include "c_baseplayer.h"
+
+class C_RagdollShadow : public C_BaseAnimatingOverlay {
 public:
+	DECLARE_CLASS( C_RagdollShadow, C_BaseAnimatingOverlay );
 	DECLARE_CLIENTCLASS();
 
-	C_RagdollShadow( void );
-	~C_RagdollShadow( void );
+	C_RagdollShadow();
+	~C_RagdollShadow();
 
-	virtual void OnDataChanged( DataUpdateType_t updateType );
+	virtual void OnDataChanged( DataUpdateType_t type );
 
-	virtual void ClientThink( void );
-	virtual int DrawModel( int flags );
+	int GetPlayerEntIndex() const;
+	IRagdoll* GetIRagdoll() const;
 
-public:
-	IPhysicsObject *VPhysicsInitShadow( bool allowPhysicsMovement, bool allowPhysicsRotation );
-	void			VPhysicsSetObject( IPhysicsObject *pPhysics );
-	void			VPhysicsDestroyObject( void );
+	void ImpactTrace( trace_t *pTrace, int iDamageType, const char *pCustomImpactName );
+	void UpdateOnRemove( void );
+	virtual void SetupWeights( const matrix3x4_t *pBoneToWorld, int nFlexWeightCount, float *pFlexWeights, float *pFlexDelayedWeights );
 
-	int			m_nPlayer;
-	EHANDLE		m_hPlayer;
+private:
+	C_RagdollShadow( const C_RagdollShadow & ) {}
 
-	IPhysicsObject	*m_pPhysicsObject;
-	IPhysicsSpring		*m_pSpring;
+	void Interp_Copy( C_BaseAnimatingOverlay *pDestinationEntity );
+	void CreateRagdollShadow();
+
+	EHANDLE	playerHandle;
+	CNetworkVector( ragdollVelocity );
+	CNetworkVector( ragdollOrigin );
 };
 
-IMPLEMENT_CLIENTCLASS_DT( C_RagdollShadow, DT_RagdollShadow, CRagdollShadow )
-	RecvPropInt( RECVINFO( m_nPlayer ) ),
+IMPLEMENT_CLIENTCLASS_DT_NOBASE( C_RagdollShadow, DT_RagdollShadow, CRagdollShadow )
+	RecvPropVector( RECVINFO( ragdollOrigin ) ),
+	RecvPropEHandle( RECVINFO( playerHandle ) ),
+	RecvPropInt( RECVINFO( m_nModelIndex ) ),
+	RecvPropInt( RECVINFO( m_nForceBone ) ),
+	RecvPropVector( RECVINFO( m_vecForce ) ),
+	RecvPropVector( RECVINFO( ragdollVelocity ) )
 END_RECV_TABLE()
 
-C_RagdollShadow::C_RagdollShadow( void )
-{
-	m_nPlayer = -1;
-	m_hPlayer = NULL;
 
-	m_pPhysicsObject = NULL;
-	m_pSpring = NULL;
-}
+C_RagdollShadow::C_RagdollShadow() {}
 
-C_RagdollShadow::~C_RagdollShadow( void )
-{
-	VPhysicsDestroyObject();
+C_RagdollShadow::~C_RagdollShadow() {
+	PhysCleanupFrictionSounds( this );
 
-	delete m_pSpring;
-}
-
-void C_RagdollShadow::VPhysicsDestroyObject( void )
-{
-	if ( m_pPhysicsObject )
-	{
-		physenv->DestroyObject( m_pPhysicsObject );
-		m_pPhysicsObject = NULL;
+	if ( playerHandle ) {
+		playerHandle->CreateModelInstance();
 	}
 }
 
-// Create a physics thingy based on an existing collision model
-IPhysicsObject *PhysModelCreateCustom( C_BaseEntity *pEntity, const CPhysCollide *pModel, const Vector &origin, const QAngle &angles, const char *props )
-{
-	solid_t solid;
-	solid.params = g_PhysDefaultObjectParams;
-	solid.params.mass = 85.0f;
-	solid.params.inertia = 1e24f;
-	int surfaceProp = -1;
-	if ( props && props[0] )
-	{
-		surfaceProp = physprops->GetSurfaceIndex( props );
-	}
-	solid.params.pGameData = static_cast<void *>(pEntity);
-	IPhysicsObject *pObject = physenv->CreatePolyObject( pModel, surfaceProp, origin, angles, &solid.params );
-	return pObject;
-}
+void C_RagdollShadow::Interp_Copy( C_BaseAnimatingOverlay *pSourceEntity ) {
+	if ( !pSourceEntity )
+		return;
 
-IPhysicsObject *PhysModelCreateRagdoll( C_BaseEntity *pEntity, int modelIndex, const Vector &origin, const QAngle &angles )
-{
-	vcollide_t *pCollide = modelinfo->GetVCollide( modelIndex );
-	if ( !pCollide )
-		return NULL;
+	VarMapping_t *pSrc = pSourceEntity->GetVarMapping();
+	VarMapping_t *pDest = GetVarMapping();
 
-	solid_t solid;
-	memset( &solid, 0, sizeof(solid) );
-	solid.params = g_PhysDefaultObjectParams;
-
-	IVPhysicsKeyParser *pParse = physcollision->VPhysicsKeyParserCreate( pCollide->pKeyValues );
-	while ( !pParse->Finished() )
-	{
-		const char *pBlock = pParse->GetCurrentBlockName();
-		if ( !strcmpi( pBlock, "solid" ) )
-		{
-			pParse->ParseSolid( &solid, &g_SolidSetup );
-			break;
-		}
-		else
-		{
-			pParse->SkipBlock();
-		}
-	}
-	physcollision->VPhysicsKeyParserDestroy( pParse );
-
-	// collisions are off by default
-	solid.params.enableCollisions = true;
-
-	int surfaceProp = -1;
-	if ( solid.surfaceprop[0] )
-	{
-		surfaceProp = physprops->GetSurfaceIndex( solid.surfaceprop );
-	}
-	solid.params.pGameData = static_cast<void *>(pEntity);
-	solid.params.pName = "ragdoll_player";
-	IPhysicsObject *pObject = physenv->CreatePolyObject( pCollide->solids[0], surfaceProp, origin, angles, &solid.params );
-	//PhysCheckAdd( pObject, STRING(pEntity->m_iClassname) );
-	return pObject;
-}
-
-void C_RagdollShadow::VPhysicsSetObject( IPhysicsObject *pPhysics )
-{
-	if ( m_pPhysicsObject && pPhysics )
-	{
-		Warning( "C_RagdollShadow::Overwriting physics object!\n" );
-	}
-	m_pPhysicsObject = pPhysics;
-}
-
-// This creates a vphysics object with a shadow controller that follows the AI
-IPhysicsObject *C_RagdollShadow::VPhysicsInitShadow( bool allowPhysicsMovement, bool allowPhysicsRotation )
-{
-	CStudioHdr *hdr = GetModelPtr();
-	if ( !hdr )
-	{
-		return NULL;
-	}
-
-	// If this entity already has a physics object, then it should have been deleted prior to making this call.
-	Assert(!m_pPhysicsObject);
-
-	// make sure m_vecOrigin / m_vecAngles are correct
-	const Vector &origin = GetAbsOrigin();
-	QAngle angles = GetAbsAngles();
-	IPhysicsObject *pPhysicsObject = NULL;
-
-	if ( GetSolid() == SOLID_BBOX )
-	{
-		const char *pSurfaceProps = "flesh";
-		if ( GetModelIndex() && modelinfo->GetModelType( GetModel() ) == mod_studio )
-		{
-			pSurfaceProps = Studio_GetDefaultSurfaceProps( hdr );
-		}
-		angles = vec3_angle;
-		CPhysCollide *pCollide = PhysCreateBbox( WorldAlignMins(), WorldAlignMaxs() );
-		if ( !pCollide )
-			return NULL;
-		pPhysicsObject = PhysModelCreateCustom( this, pCollide, origin, angles, pSurfaceProps );
-	}
-	else
-	{
-		pPhysicsObject = PhysModelCreateRagdoll( this, GetModelIndex(), origin, angles );
-	}
-	VPhysicsSetObject( pPhysicsObject );
-	pPhysicsObject->SetShadow( 1e4, 1e4, allowPhysicsMovement, allowPhysicsRotation );
-	pPhysicsObject->UpdateShadow( GetAbsOrigin(), GetAbsAngles(), false, 0 );
-//	PhysAddShadow( this );
-	return pPhysicsObject;
-}	
-
-void C_RagdollShadow::OnDataChanged( DataUpdateType_t updateType )
-{
-	BaseClass::OnDataChanged( updateType );
-
-	// Has to happen *after* the client handle is set
-	SetNextClientThink( CLIENT_THINK_ALWAYS );
-
-	bool bnewentity = (updateType == DATA_UPDATE_CREATED);
-	if ( bnewentity && ( m_nPlayer != 0 ) )
-	{
-		SetNextClientThink( CLIENT_THINK_ALWAYS );
-
-		Assert( !m_pPhysicsObject );
-
-		C_BaseEntity *pl = static_cast< C_BaseEntity * >( cl_entitylist->GetEnt( m_nPlayer ) );
-		if ( pl )
-		{
-			m_hPlayer = pl;
-		}
-
-		m_pPhysicsObject = VPhysicsInitShadow( true, false );
-	}
-
-	if ( m_pPhysicsObject )
-	{
-		// Create the spring if we don't have one yet
-		if ( !m_pSpring )
-		{
-			C_BaseTFPlayer *pl = static_cast< C_BaseTFPlayer * >( (C_BaseEntity *)m_hPlayer );
-			if ( pl && pl->VPhysicsGetObject() )
-			{
-				springparams_t spring;
-				spring.constant = 15000;
-				spring.damping = 1.0;
-				spring.naturalLength = 0.0f;
-				spring.relativeDamping = 100.0f;
-				VectorCopy( vec3_origin, spring.startPosition );
-				VectorCopy( vec3_origin, spring.endPosition );
-				spring.useLocalPositions = true;
-
-				m_pSpring = physenv->CreateSpring( m_pPhysicsObject, pl->VPhysicsGetObject(), &spring );
-
-				PhysDisableObjectCollisions( m_pPhysicsObject, pl->VPhysicsGetObject() );
+	// Find all the VarMapEntry_t's that represent the same variable.
+	for ( int i = 0; i < pDest->m_Entries.Count(); i++ ) {
+		VarMapEntry_t *pDestEntry = &pDest->m_Entries[ i ];
+		const char *pszName = pDestEntry->watcher->GetDebugName();
+		for ( int j = 0; j < pSrc->m_Entries.Count(); j++ ) {
+			VarMapEntry_t *pSrcEntry = &pSrc->m_Entries[ j ];
+			if ( !Q_strcmp( pSrcEntry->watcher->GetDebugName(), pszName ) ) {
+				pDestEntry->watcher->Copy( pSrcEntry->watcher );
+				break;
 			}
 		}
+	}
+}
 
-		m_pPhysicsObject->UpdateShadow( GetAbsOrigin(), GetAbsAngles(), false, 0 );
+void C_RagdollShadow::ImpactTrace( trace_t *pTrace, int iDamageType, const char *pCustomImpactName ) {
+	IPhysicsObject *pPhysicsObject = VPhysicsGetObject();
+
+	if ( !pPhysicsObject )
+		return;
+
+	Vector dir = pTrace->endpos - pTrace->startpos;
+
+	if ( iDamageType == DMG_BLAST ) {
+		dir *= 4000;  // adjust impact strenght
+
+		// apply force at object mass center
+		pPhysicsObject->ApplyForceCenter( dir );
+	} else {
+		Vector hitpos;
+
+		VectorMA( pTrace->startpos, pTrace->fraction, dir, hitpos );
+		VectorNormalize( dir );
+
+		dir *= 4000;  // adjust impact strenght
+
+		// apply force where we hit it
+		pPhysicsObject->ApplyForceOffset( dir, hitpos );
+
+		// Blood spray!
+		//		FX_CS_BloodSpray( hitpos, dir, 10 );
 	}
 
+	m_pRagdoll->ResetRagdollSleepAfterTime();
 }
 
-void C_RagdollShadow::ClientThink( void )
-{
-	BaseClass::ClientThink();
+
+void C_RagdollShadow::CreateRagdollShadow( void ) {
+	// First, initialize all our data. If we have the player's entity on our client,
+	// then we can make ourselves start out exactly where the player is.
+	C_BasePlayer *pPlayer = dynamic_cast< C_BasePlayer* >( playerHandle.Get() );
+
+	if ( pPlayer && !pPlayer->IsDormant() ) {
+		// move my current model instance to the ragdoll's so decals are preserved.
+		pPlayer->SnatchModelInstance( this );
+
+		VarMapping_t *varMap = GetVarMapping();
+
+		// Copy all the interpolated vars from the player entity.
+		// The entity uses the interpolated history to get bone velocity.
+		bool bRemotePlayer = ( pPlayer != C_BasePlayer::GetLocalPlayer() );
+		if ( bRemotePlayer ) {
+			Interp_Copy( pPlayer );
+
+			SetAbsAngles( pPlayer->GetRenderAngles() );
+			GetRotationInterpolator().Reset();
+
+			m_flAnimTime = pPlayer->m_flAnimTime;
+			SetSequence( pPlayer->GetSequence() );
+			m_flPlaybackRate = pPlayer->GetPlaybackRate();
+		} else {
+			// This is the local player, so set them in a default
+			// pose and slam their velocity, angles and origin
+			SetAbsOrigin( ragdollOrigin );
+
+			SetAbsAngles( pPlayer->GetRenderAngles() );
+
+			SetAbsVelocity( ragdollVelocity );
+
+			int iSeq = pPlayer->GetSequence();
+			if ( iSeq == -1 ) {
+				Assert( false );	// missing walk_lower?
+				iSeq = 0;
+			}
+
+			SetSequence( iSeq );	// walk_lower, basic pose
+			SetCycle( 0.0 );
+
+			Interp_Reset( varMap );
+		}
+	} else {
+		// overwrite network origin so later interpolation will
+		// use this position
+		SetNetworkOrigin( ragdollOrigin );
+
+		SetAbsOrigin( ragdollOrigin );
+		SetAbsVelocity( ragdollVelocity );
+
+		Interp_Reset( GetVarMapping() );
+
+	}
+
+	SetModelIndex( m_nModelIndex );
+
+	// Make us a ragdoll..
+	m_nRenderFX = kRenderFxRagdoll;
+
+	matrix3x4_t boneDelta0[ MAXSTUDIOBONES ];
+	matrix3x4_t boneDelta1[ MAXSTUDIOBONES ];
+	matrix3x4_t currentBones[ MAXSTUDIOBONES ];
+	const float boneDt = 0.05f;
+
+	if ( pPlayer && !pPlayer->IsDormant() ) {
+		pPlayer->GetRagdollInitBoneArrays( boneDelta0, boneDelta1, currentBones, boneDt );
+	} else {
+		GetRagdollInitBoneArrays( boneDelta0, boneDelta1, currentBones, boneDt );
+	}
+
+	InitAsClientRagdoll( boneDelta0, boneDelta1, currentBones, boneDt );
 }
 
-int C_RagdollShadow::DrawModel( int flags )
-{
-//	int drawn = BaseClass::DrawModel( flags );
-//	return drawn;
-	return 0;
+
+void C_RagdollShadow::OnDataChanged( DataUpdateType_t type ) {
+	BaseClass::OnDataChanged( type );
+
+	if ( type == DATA_UPDATE_CREATED ) {
+		CreateRagdollShadow();
+	}
+}
+
+IRagdoll* C_RagdollShadow::GetIRagdoll() const {
+	return m_pRagdoll;
+}
+
+void C_RagdollShadow::UpdateOnRemove( void ) {
+	VPhysicsSetObject( NULL );
+
+	BaseClass::UpdateOnRemove();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: clear out any face/eye values stored in the material system
+//-----------------------------------------------------------------------------
+void C_RagdollShadow::SetupWeights( const matrix3x4_t *pBoneToWorld, int nFlexWeightCount, float *pFlexWeights, float *pFlexDelayedWeights ) {
+	BaseClass::SetupWeights( pBoneToWorld, nFlexWeightCount, pFlexWeights, pFlexDelayedWeights );
+
+	static float destweight[ 128 ];
+	static bool bIsInited = false;
+
+	CStudioHdr *hdr = GetModelPtr();
+	if ( !hdr )
+		return;
+
+	int nFlexDescCount = hdr->numflexdesc();
+	if ( nFlexDescCount ) {
+		Assert( !pFlexDelayedWeights );
+		memset( pFlexWeights, 0, nFlexWeightCount * sizeof( float ) );
+	}
+
+	if ( m_iEyeAttachment > 0 ) {
+		matrix3x4_t attToWorld;
+		if ( GetAttachment( m_iEyeAttachment, attToWorld ) ) {
+			Vector local, tmp;
+			local.Init( 1000.0f, 0.0f, 0.0f );
+			VectorTransform( local, attToWorld, tmp );
+			modelrender->SetViewTarget( GetModelPtr(), GetBody(), tmp );
+		}
+	}
 }

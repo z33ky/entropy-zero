@@ -60,6 +60,10 @@ public:
 		return ( static_cast< C_BaseTFPlayer * >( C_BasePlayer::GetLocalPlayer() ) );
 	}
 
+	virtual C_BaseAnimating *BecomeRagdollOnClient() {
+		return nullptr;
+	}
+
 	virtual void		ClientThink( void );
 	virtual void		OnPreDataChanged( DataUpdateType_t updateType );
 	virtual void		OnDataChanged( DataUpdateType_t updateType );
