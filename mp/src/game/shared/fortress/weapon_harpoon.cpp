@@ -47,6 +47,8 @@ public:
 	void ConstrainThink( void );
 	void HarpoonTouch( CBaseEntity *pOther );
 
+	void RemoveFromImpaledTarget();
+
 	static CHarpoon *Create( const Vector &vecOrigin, const Vector &vecForward, CBasePlayer *pOwner );
 	CRopeKeyframe	*GetRope( void ) { return m_hRope; }
 	void			SetRope( CRopeKeyframe *pRope ) { m_hRope = pRope; }
@@ -100,7 +102,7 @@ void CHarpoon::Spawn( void )
 	SetSolid( SOLID_BBOX );
 	//m_flGravity = 1.0;
 	SetFriction( 0.75 );
-	SetModel( "models/weapons/w_harpoon.mdl" );
+	SetModel( "models/harpoon.mdl" );
 	UTIL_SetSize(this, Vector( -4, -4, -4), Vector(4, 4, 4));
 	SetCollisionGroup( TFCOLLISION_GROUP_GRENADE );
 
@@ -114,7 +116,7 @@ void CHarpoon::Spawn( void )
 //-----------------------------------------------------------------------------
 void CHarpoon::Precache( void )
 {
-	PrecacheModel( "models/weapons/w_harpoon.mdl" );
+	PrecacheModel( "models/harpoon.mdl" );
 
 	PrecacheScriptSound( "Harpoon.Impact" );
 	PrecacheScriptSound( "Harpoon.Impale" );
@@ -193,6 +195,23 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 	SetMoveType( MOVETYPE_NONE );
 }
 
+void CHarpoon::RemoveFromImpaledTarget() {
+	// Break the rope
+	if ( m_hRope ) {
+		m_hRope->DetachPoint( 1 );
+		m_hRope->DieAtNextRest();
+		m_hRope = NULL;
+	}
+
+	// If we're impaling a player, remove his movement constraint
+	CBaseTFPlayer *player = dynamic_cast< CBaseTFPlayer* >( GetImpaledTarget() );
+	if ( player != nullptr ) {
+		player->DeactivateMovementConstraint();
+	}
+
+	SetThink( NULL );
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: Check to see if we've got a linked harpoon, and see if we should constrain something
 //-----------------------------------------------------------------------------
@@ -208,7 +227,6 @@ void CHarpoon::CheckLinkedHarpoon( void )
 		{
 			// Only care about players for now. One of the targets must be a player.
 			CBaseTFPlayer *pPlayer = NULL;
-			CBaseEntity *pOtherTarget = NULL;
 			if ( GetImpaledTarget()->IsPlayer() )
 			{
 				pPlayer = (CBaseTFPlayer*)GetImpaledTarget();
@@ -225,7 +243,7 @@ void CHarpoon::CheckLinkedHarpoon( void )
 			// Found a player?
 			if ( pPlayer )
 			{
-				pOtherTarget = pNonMovingHarpoon->GetImpaledTarget();
+				CBaseEntity *pOtherTarget = pNonMovingHarpoon->GetImpaledTarget();
 
 				// For now, we have to be linked to a non-moving target. Eventually we could support linked moving targets.
 				// pOtherTarget == NULL means the harpoon's buried in the world.
@@ -276,6 +294,10 @@ void CHarpoon::ImpaleTarget( CBaseEntity *pOther )
 			return;
 
 		pOther->TakeDamage( CTakeDamageInfo( this, pOwner, weapon_harpoon_damage.GetFloat(), DMG_GENERIC ) );
+
+		if ( !pOther->IsAlive() ) {
+			RemoveFromImpaledTarget();
+		}
 	}
 }
 
@@ -292,34 +314,20 @@ void CHarpoon::FlyThink( void )
 //-----------------------------------------------------------------------------
 // Purpose: Check to see if our target has moved beyond our length
 //-----------------------------------------------------------------------------
-void CHarpoon::ConstrainThink( void )
-{
+void CHarpoon::ConstrainThink( void ) {
 	if ( !GetImpaledTarget() || !m_hLinkedHarpoon.Get() )
 		return;
 
-	// Moved too far away?
-	float flDistSq = m_hLinkedHarpoon->GetAbsOrigin().DistToSqr( GetImpaledTarget()->GetAbsOrigin() ); 
-	if ( flDistSq > m_flConstrainLength )
-	{
-		// Break the rope
-		if ( m_hRope )
-		{
-			m_hRope->DetachPoint(1);
-			m_hRope->DieAtNextRest();
-			m_hRope = NULL;
-		}
-
-		// If we're impaling a player, remove his movement constraint
-		if ( GetImpaledTarget()->IsPlayer() )
-		{
-			CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)GetImpaledTarget();
-			pPlayer->DeactivateMovementConstraint();
-		}
-
-		SetThink( NULL );
+	CBaseTFPlayer *pPlayer = ( CBaseTFPlayer * ) GetImpaledTarget();
+	if ( !pPlayer->IsAlive() ) {
+		RemoveFromImpaledTarget();
 	}
-	else
-	{
+
+	// Moved too far away?
+	float flDistSq = m_hLinkedHarpoon->GetAbsOrigin().DistToSqr( GetImpaledTarget()->GetAbsOrigin() );
+	if ( flDistSq > m_flConstrainLength ) {
+		RemoveFromImpaledTarget();
+	} else {
 		SetNextThink( gpGlobals->curtime + 0.1f );
 	}
 }
@@ -436,7 +444,7 @@ CWeaponHarpoon::CWeaponHarpoon( void )
 //-----------------------------------------------------------------------------
 float CWeaponHarpoon::GetFireRate( void )
 {	
-	return 2.0; 
+	return 2.0f; 
 }
 
 //-----------------------------------------------------------------------------
@@ -696,15 +704,12 @@ void CWeaponHarpoon::DetachRope( void )
 CHarpoon *CWeaponHarpoon::CreateHarpoon( const Vector &vecOrigin, const Vector &vecAngles, CBasePlayer *pOwner )
 {
 #if !defined( CLIENT_DLL )
-	CHarpoon *pHarpoon = CHarpoon::Create(vecOrigin, vecAngles, pOwner );
-	if ( pHarpoon )
-	{
+	CHarpoon *pHarpoon = CHarpoon::Create( vecOrigin, vecAngles, pOwner );
+	if ( pHarpoon ) {
 		// Create the rope on first throw. Otherwise attach our existing rope.
-		if ( !m_hRope )
-		{
+		if ( !m_hRope ) {
 			CRopeKeyframe *pRope = CRopeKeyframe::Create( pHarpoon, pOwner, 0, 0 );
-			if ( pRope )
-			{
+			if ( pRope ) {
 				pRope->m_RopeLength = 1.0;
 				pRope->m_Slack = 50.0f;
 				pRope->m_Width = 2;
@@ -713,11 +718,9 @@ CHarpoon *CWeaponHarpoon::CreateHarpoon( const Vector &vecOrigin, const Vector &
 			}
 			m_hRope = pRope;
 			pHarpoon->SetRope( m_hRope );
-		}
-		else
-		{
+		} else {
 			m_hRope->SetEndPoint( pHarpoon, 0 );
-			pHarpoon->SetRope( m_hRope ); 
+			pHarpoon->SetRope( m_hRope );
 			m_hRope = NULL;
 		}
 
@@ -725,13 +728,13 @@ CHarpoon *CWeaponHarpoon::CreateHarpoon( const Vector &vecOrigin, const Vector &
 		CHarpoon *pOldHarpoon = m_hHarpoon;
 		m_hHarpoon = pHarpoon;
 
-		if ( pOldHarpoon )
-		{
+		if ( pOldHarpoon ) {
 			pOldHarpoon->SetLinkedHarpoon( m_hHarpoon );
 			pHarpoon->SetLinkedHarpoon( pOldHarpoon );
 			m_hHarpoon = NULL;
 		}
 	}
+
 	return pHarpoon;
 #else
 	return NULL;
