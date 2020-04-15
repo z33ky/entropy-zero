@@ -18,7 +18,7 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		single_shot		"Weapon_BurstRifle.Single"
+		single_shot		"Weapon_Shotgun.Single"
 		reload			"Weapon_Shotgun.NPC_Reload"
 	}
 
