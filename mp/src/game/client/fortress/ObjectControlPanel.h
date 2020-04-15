@@ -85,6 +85,7 @@ private:
 	vgui::Label *m_pHealthLabel;
 	vgui::Label *m_pOwnerLabel;
 	vgui::Button *m_pDismantleButton;
+	vgui::Button *cancelDismantleButton{ nullptr };
 	vgui::Button *m_pAssumeControlButton;
 	vgui::Label *m_pDismantleTimeLabel;
 
@@ -98,7 +99,7 @@ private:
 // This is used for child panels. It forwards the messages to the parent panel.
 class CCommandChainingPanel : public vgui::EditablePanel
 {
-	typedef vgui::EditablePanel BaseClass;
+	DECLARE_CLASS( CCommandChainingPanel, vgui::EditablePanel );
 
 public:
 	CCommandChainingPanel( vgui::Panel *parent, const char *panelName ) :

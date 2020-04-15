@@ -62,8 +62,11 @@ bool CObjectControlPanel::Init( KeyValues* pKeyValues, VGuiScreenInitData_t* pIn
 	// Grab ahold of certain well-known controls
 	m_pHealthLabel = new vgui::Label( this, "HealthReadout", "" );
 	m_pOwnerLabel = new vgui::Label( this, "OwnerReadout", "" );
-	m_pDismantleButton = new CBitmapButton( this, "DismantleButton", "Dismantle" );
-	m_pAssumeControlButton = new CBitmapButton( GetDeterioratingPanel(), "AssumeControl", "" );
+	m_pDismantleButton = new CBitmapButton( this, "DismantleButton", "#INVASION_DISMANTLE" );
+
+	m_pAssumeControlButton = new CBitmapButton( GetDeterioratingPanel(), "AssumeControl", "#INVASION_ASSUME_CONTROL" );
+
+	cancelDismantleButton = new CBitmapButton( GetDismantlingPanel(), "CancelDismantleButton", "#INVASION_CANCEL" );
 	m_pDismantleTimeLabel = new vgui::Label( GetDismantlingPanel(), "DismantleTime", "" );
 
 	m_flDismantleTime = -1;

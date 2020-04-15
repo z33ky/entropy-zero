@@ -282,8 +282,7 @@ CPowerPackControlPanel::CPowerPackControlPanel( vgui::Panel *parent, const char 
 //-----------------------------------------------------------------------------
 bool CPowerPackControlPanel::Init( KeyValues* pKeyValues, VGuiScreenInitData_t* pInitData )
 {
-	// BUG: parent to this, otherwise can't position it!
-	m_pSocketsLabel = new vgui::Label( /* GetActivePanel() */ this, "SocketReadout", "" );
+	m_pSocketsLabel = new vgui::Label( GetActivePanel(), "SocketReadout", "" );
 
 	if (!BaseClass::Init(pKeyValues, pInitData))
 		return false;
