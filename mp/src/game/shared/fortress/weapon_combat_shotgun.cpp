@@ -15,6 +15,7 @@
 ConVar	weapon_combat_shotgun_damage( "weapon_combat_shotgun_damage","5", FCVAR_REPLICATED, "Shotgun damage per pellet" );
 ConVar	weapon_combat_shotgun_powered_damage( "weapon_combat_shotgun_powered_damage","10", FCVAR_REPLICATED, "Shotgun damage per pellet when powered" );
 ConVar	weapon_combat_shotgun_range( "weapon_combat_shotgun_range","900", FCVAR_REPLICATED, "Shotgun maximum range" );
+ConVar	weapon_combat_shotgun_rate_of_fire( "weapon_combat_shotgun_rate_of_fire", "0.40", FCVAR_REPLICATED, "Shotgun rate of fire" );
 ConVar	weapon_combat_shotgun_pellets( "weapon_combat_shotgun_pellets","8", FCVAR_REPLICATED, "Shotgun pellets per fire" );
 ConVar	weapon_combat_shotgun_ducking_mod( "weapon_combat_shotgun_ducking_mod", "0.75", FCVAR_REPLICATED, "Shotgun ducking speed modifier" );
 ConVar	weapon_combat_shotgun_energy_cost( "weapon_combat_shotgun_energy_cost", "0.1", FCVAR_REPLICATED, "Sapper's energy cost to fire a powered shotgun round" );
@@ -228,7 +229,7 @@ void CWeaponCombatShotgun::PrimaryAttack( void )
 //-----------------------------------------------------------------------------
 float CWeaponCombatShotgun::GetFireRate( void )
 {	
-	float flFireRate = ( SequenceDuration() * 2) + SHARED_RANDOMFLOAT( 0.0, 0.035f );
+	float flFireRate = weapon_combat_shotgun_rate_of_fire.GetFloat() + SHARED_RANDOMFLOAT( 0.0f, 0.035f ); // ( SequenceDuration() * 2) + SHARED_RANDOMFLOAT( 0.0, 0.035f );
 
 	CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer*>( GetOwner() );
 	if ( pPlayer )
