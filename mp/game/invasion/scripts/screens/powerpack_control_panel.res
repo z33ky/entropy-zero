@@ -53,7 +53,8 @@ powerpack_control_panel {
 			ControlName "Button"
 			fieldName	"AssumeControl"
 			label		"#INVASION_ASSUME_CONTROL"
-			visible		0
+			visible		1
+			enabled		1
 			xpos		160
 			ypos 		50
 			wide 		150
