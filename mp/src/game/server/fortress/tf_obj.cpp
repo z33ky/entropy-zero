@@ -200,6 +200,8 @@ void CBaseObject::UpdateOnRemove( void )
 	DetachObjectFromObject();
 	// hogsy end
 
+	RemoveAllSappers();
+
 	// Make sure the object isn't in either team's list of objects...
 	Assert( !GetGlobalTFTeam(TEAM_HUMANS)->IsObjectOnTeam( this ) );
 	Assert( !GetGlobalTFTeam(TEAM_ALIENS)->IsObjectOnTeam( this ) );
@@ -1787,7 +1789,7 @@ int CBaseObject::OnTakeDamage( const CTakeDamageInfo &info )
 	{
 		// Remove any sappers on me
 		if ( m_bCantDie )
-			RemoveAllSappers( this );
+			RemoveAllSappers();
 
 		// Make sure this only fires first time we cross the threshold and go disabled
 		if ( !IsDisabled() )
@@ -2028,6 +2030,8 @@ void CBaseObject::Killed( const CTakeDamageInfo &info )
 
 	DetachObjectFromObject();
 
+	RemoveAllSappers();
+
 	UTIL_Remove( this );
 }
 
@@ -2099,7 +2103,7 @@ bool CBaseObject::RemoveEnemyAttachments( CBaseEntity *pActivator )
 	{
 		if (HasSapper())
 		{
-			RemoveAllSappers( pActivator );
+			RemoveAllSappers();
 			bRemoved = true;
 		}
 	}
@@ -2113,63 +2117,54 @@ bool CBaseObject::RemoveEnemyAttachments( CBaseEntity *pActivator )
 //-----------------------------------------------------------------------------
 void CBaseObject::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
+	if ( !pActivator->IsPlayer() ) {
+		return;
+	}
+
 	// If we're friendly, pickup / remove sappers
 	// If we're an enemy, plant a sapper
-	if ( pActivator->IsPlayer() )
-	{
-		if ( InSameTeam( pActivator ) )
-		{
-			if ( useType == USE_ON )
-			{
-				// Some combat objects can be picked up
-				if ( m_fObjectFlags & OF_CAN_BE_PICKED_UP )
-				{
-					if ( GetBuilder() == pActivator )
-					{
-						if ( GetBuilder()->GetPlayerClass()->ResupplyAmmoType( 1, m_szAmmoName ) )
-							PickupObject();
+	if ( InSameTeam( pActivator ) ) {
+		if ( useType == USE_ON ) {
+			// Some combat objects can be picked up
+			if ( m_fObjectFlags & OF_CAN_BE_PICKED_UP ) {
+				if ( GetBuilder() == pActivator ) {
+					if ( GetBuilder()->GetPlayerClass()->ResupplyAmmoType( 1, m_szAmmoName ) )
+						PickupObject();
 
-						return;
-					}
-				}
-
-				// Sapper removal
-				if ( RemoveEnemyAttachments( pActivator ) )
 					return;
+				}
 			}
+
+			// Sapper removal
+			if ( RemoveEnemyAttachments( pActivator ) )
+				return;
 		}
-		else
-		{
-			CBaseTFPlayer *pPlayer = (CBaseTFPlayer *)pActivator;
+	} else {
+		CBaseTFPlayer *pPlayer = ( CBaseTFPlayer * ) pActivator;
 
-			// If we're already planting a sapper, abort
-			if ( useType == USE_OFF || pPlayer->IsAttachingSapper() ) 
-			{
-				// Don't abort if we just started placing it. This is to catch people who'd like to +use toggle instead of hold down
-				if ( pPlayer->GetSapperAttachmentTime() > 0.2 && pPlayer->IsAttachingSapper() )
-					pPlayer->StopAttaching();
-			}
-			else if ( useType == USE_ON )
-			{
-				// Don't allow sappers to be planted on invulnerable objects
-				if ( m_bInvulnerable )
-					return;
+		// If we're already planting a sapper, abort
+		if ( useType == USE_OFF || pPlayer->IsAttachingSapper() ) {
+			// Don't abort if we just started placing it. This is to catch people who'd like to +use toggle instead of hold down
+			if ( pPlayer->GetSapperAttachmentTime() > 0.2 && pPlayer->IsAttachingSapper() )
+				pPlayer->StopAttaching();
+		} else if ( useType == USE_ON ) {
+			// Don't allow sappers to be planted on invulnerable objects
+			if ( m_bInvulnerable )
+				return;
 
-				// If the object's already got a sapper from me on it, I can't put another
-				if ( HasSapperFromPlayer( ((CBaseTFPlayer*)pActivator ) ) )
-					return;
+			// If the object's already got a sapper from me on it, I can't put another
+			if ( HasSapperFromPlayer( ( ( CBaseTFPlayer* ) pActivator ) ) )
+				return;
 
-				Vector vecAiming;
-				pPlayer->EyeVectors( &vecAiming );
-				// Trace from the player to the object to find an attachment position
-				trace_t tr;
-				Vector vecStart = pPlayer->EyePosition();
-				UTIL_TraceLine( vecStart, vecStart + (vecAiming * 256), MASK_SOLID, pPlayer, COLLISION_GROUP_NONE, &tr );
-				if ( tr.fraction < 1.0 && tr.m_pEnt == this )
-				{
-					CGrenadeObjectSapper *sapper = CGrenadeObjectSapper::Create( tr.endpos, vecAiming, pPlayer, this );
-					pPlayer->StartAttachingSapper( this, sapper );
-				}
+			Vector vecAiming;
+			pPlayer->EyeVectors( &vecAiming );
+			// Trace from the player to the object to find an attachment position
+			trace_t tr;
+			Vector vecStart = pPlayer->EyePosition();
+			UTIL_TraceLine( vecStart, vecStart + ( vecAiming * 256 ), MASK_SOLID, pPlayer, COLLISION_GROUP_NONE, &tr );
+			if ( tr.fraction < 1.0 && tr.m_pEnt == this ) {
+				CGrenadeObjectSapper *sapper = CGrenadeObjectSapper::Create( tr.endpos, vecAiming, pPlayer, this );
+				pPlayer->StartAttachingSapper( this, sapper );
 			}
 		}
 	}
@@ -2381,12 +2376,16 @@ void CBaseObject::AddSapper( CGrenadeObjectSapper *pSapper )
 //-----------------------------------------------------------------------------
 // Purpose: Tell all sappers on this object to remove themselves 
 //-----------------------------------------------------------------------------
-void CBaseObject::RemoveAllSappers( CBaseEntity *pRemovingEntity )
+void CBaseObject::RemoveAllSappers()
 {
 	// Loop through all the sappers and remove them
 	int iSize = m_hSappers.Size();
-	for (int i = iSize-1; i >= 0; i--)
-		m_hSappers[i]->RemoveFromObject();
+	for ( int i = iSize - 1; i >= 0; i-- ) {
+		RemoveSapper( m_hSappers[ i ] );
+	}
+
+	// Free up memory...
+	m_hSappers.Compact();
 }
 
 //-----------------------------------------------------------------------------
@@ -2394,8 +2393,12 @@ void CBaseObject::RemoveAllSappers( CBaseEntity *pRemovingEntity )
 //-----------------------------------------------------------------------------
 void CBaseObject::RemoveSapper( CGrenadeObjectSapper *pSapper )
 {
+	// Clean up!
+	pSapper->CleanUp();
+
 	SapperHandle hSapper;
 	hSapper = pSapper;
+
 	m_hSappers.FindAndRemove( hSapper );
 	m_bHasSapper = HasSapper();
 }

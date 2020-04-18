@@ -300,7 +300,8 @@ void CBaseTFPlayer::StopAttaching( void )
 	CleanupAfterAttaching();	
 
 	if ( m_hSapper != NULL ) {
-		m_hSapper->RemoveFromObject();
+		m_hSapper->CleanUp();
+		m_hSapper = nullptr;
 	}
 }
 

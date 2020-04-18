@@ -333,7 +333,7 @@ protected:
 	// Clean off the object of offensive material, returns true if it found anything
 	bool RemoveEnemyAttachments( CBaseEntity *pActivator );
 	void RemoveAnalyzer( CBaseEntity *pRemovingEntity );
-	void RemoveAllSappers( CBaseEntity *pRemovingEntity );
+	void RemoveAllSappers();
 
 	void GiveNamedTechnology( CBaseTFPlayer *pRecipient, const char *techname );
 

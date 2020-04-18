@@ -38,7 +38,7 @@ public:
 	virtual int		ObjectCaps( void ) { return FCAP_IMPULSE_USE; };
 	virtual void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
-	void RemoveFromObject();
+	void CleanUp();
 
 	static CGrenadeObjectSapper *CGrenadeObjectSapper::Create( const Vector &vecOrigin, const Vector &vecAngles, CBasePlayer *pOwner, CBaseObject *pObject );
 
