@@ -219,7 +219,7 @@
 	output OnReadyToBuildAgain(void)
 ]
 
-@PointClass = info_buildpoint :	"Build Point"
+@PointClass iconsprite( "editor/icon_build_point.vmt" ) = info_buildpoint :	"Build Point"
 [
 	AllowedObject(string)	: "Allowed Object"
 ]
@@ -242,4 +242,26 @@
 		0	: "False"
 		1	: "True"
 	]
+]
+
+// Tunnels
+
+@PointClass base(BaseObject, BaseTeam) = obj_tunnel : "Tunnel" []
+@PointClass iconsprite( "editor/icon_tunnel_exit.vmt" ) = info_tunnel_exit : "Tunnel Exit" []
+
+@SolidClass base(Trigger) = obj_tunnel_trigger : "Tunnel Trigger"
+[
+	TeleportDuration( float ) : "Teleport duration" : 1 : ""
+	TeleportVelocity( float ) : "Teleport velocity" : 1 : ""
+
+	input SetActive( void )
+	input SetInactive( void )
+	input ToggleActive( void )
+
+	input SetTarget( string )
+	input SetTeleportDuration( float )
+	input SetTeleportVelocity( float )
+	
+	output OnTunnelTriggerStart( void )
+	output OnTunnelTriggerEnd( void )
 ]
