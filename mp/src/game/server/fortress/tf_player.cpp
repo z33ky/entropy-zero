@@ -320,9 +320,6 @@ void CBaseTFPlayer::Spawn( void )
 
 	BaseClass::Spawn();
 
-	// Automatically hides the player if they don't have a class, otherwise sets the model based on their class
-	SetPlayerModel();
-
 	m_flFractionalBoost = 0.0f;
 
 	// Create second view model ( for support/commando, etc )
@@ -333,6 +330,7 @@ void CBaseTFPlayer::Spawn( void )
 	// Tell the PlayerClass that this player's just respawned
 	if ( GetPlayerClass()  )
 	{
+		RemoveEffects( EF_NODRAW );
 		RemoveFlag( FL_NOTARGET );
 		RemoveSolidFlags( FSOLID_NOT_SOLID );
 
@@ -451,7 +449,7 @@ void CBaseTFPlayer::InitialSpawn( void )
 
 	AddFlag(FL_NOTARGET);
 
-	SetHidden(true);
+	SetHidden( true );
 
 	AddSolidFlags(FSOLID_NOT_SOLID);
 	SetMoveType(MOVETYPE_NONE);
