@@ -34,7 +34,7 @@ ConVar bot_flipout( "bot_flipout", "0", 0, "When on, all bots fire their guns." 
 ConVar bot_defend( "bot_defend", "0", 0, "Set to a team number, and that team will all keep their combat shields raised." );
 ConVar bot_changeclass( "bot_changeclass", "0", 0, "Force all bots to change to the specified class." );
 static ConVar bot_mimic( "bot_mimic", "0", 0, "Bot uses usercmd of player by index." );
-static ConVar bot_freeze( "bot_freeze", "false", 0, "Freezes the bot in place." );
+static ConVar bot_freeze( "bot_freeze", "0", 0, "Freezes the bot in place." );
 
 static int BotNumber = 1;
 static int g_iNextBotTeam = -1;
