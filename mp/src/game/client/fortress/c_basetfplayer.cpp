@@ -594,13 +594,11 @@ bool C_BaseTFPlayer::ShouldDraw()
 	return BaseClass::ShouldDraw();
 }
 
-
 //-----------------------------------------------------------------------------
 // Should this object cast shadows?
 //-----------------------------------------------------------------------------
-ShadowType_t C_BaseTFPlayer::ShadowCastType()
-{
-	if (IsCamouflaged())
+ShadowType_t C_BaseTFPlayer::ShadowCastType() {
+	if ( IsCamouflaged() || IsHidden() || IsEffectActive( EF_NODRAW ) )
 		return SHADOWS_NONE;
 
 	return SHADOWS_RENDER_TO_TEXTURE_DYNAMIC;
