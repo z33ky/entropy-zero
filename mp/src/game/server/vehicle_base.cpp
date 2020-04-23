@@ -22,6 +22,8 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#if 0 // dummy
+
 #define SF_PROP_VEHICLE_ALWAYSTHINK		0x00000001
 
 ConVar g_debug_vehiclebase( "g_debug_vehiclebase", "0", FCVAR_CHEAT );
@@ -1341,3 +1343,5 @@ bool CFourWheelServerVehicle::GetWheelContactPoint( int nWheelIndex, Vector &vec
 	}
 	return false;
 }
+
+#endif // dummy

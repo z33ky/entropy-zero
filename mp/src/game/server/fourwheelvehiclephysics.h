@@ -23,7 +23,7 @@
 #define MPH2INS(x)		( (x) * (1/INS2MPH_SCALE) )
 
 class CBaseAnimating;
-class CFourWheelServerVehicle;
+class CBaseTFFourWheelVehicle;
 
 
 //-----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ public:
 
 	// Call Precache + Spawn from the containing entity's Precache + Spawn methods
 	void Spawn();
-	void SetOuter(CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle);
+	void SetOuter( CBaseAnimating *pOuter, CBaseTFFourWheelVehicle *pServerVehicle );
 	
 	// Initializes the vehicle physics so we can drive it
 	bool Initialize( const char *pScriptName, unsigned int nVehicleType );
@@ -126,7 +126,7 @@ private:
 private:
 	// This is the entity that contains this class
 	CHandle<CBaseAnimating>		m_pOuter;
-	CFourWheelServerVehicle		*m_pOuterServerVehicle;
+	CBaseTFFourWheelVehicle		*m_pOuterServerVehicle;
 
 	vehicle_controlparams_t		m_controls;
 	IPhysicsVehicleController	*m_pVehicle;
@@ -201,7 +201,7 @@ inline int CFourWheelVehiclePhysics::BoostTimeLeft() const
 	return m_nBoostTimeLeft;
 }
 
-inline void CFourWheelVehiclePhysics::SetOuter(CBaseAnimating *pOuter, CFourWheelServerVehicle *pServerVehicle)
+inline void CFourWheelVehiclePhysics::SetOuter( CBaseAnimating *pOuter, CBaseTFFourWheelVehicle *pServerVehicle )
 { 
 	m_pOuter = pOuter; 
 	m_pOuterServerVehicle = pServerVehicle; 
