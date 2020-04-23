@@ -67,6 +67,8 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	pPlayer->ClearFlags();
 	pPlayer->AddFlag(FL_CLIENT | FL_FAKECLIENT);
 
+	pPlayer->ForceRespawn();
+
 	if ( bFrozen )
 		pPlayer->AddEFlags( EFL_BOT_FROZEN );
 
@@ -80,8 +82,6 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	else {
 		pPlayer->ChangeClass( ( TFClass ) random->RandomInt( TFCLASS_RECON, TFCLASS_CLASS_COUNT - 1 ) );
 	}
-
-	pPlayer->ForceRespawn();
 
 	BotNumber++;
 

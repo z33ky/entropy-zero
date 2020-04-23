@@ -283,6 +283,10 @@ bool CBaseTFPlayer::IsHidden() const
 	return (m_TFPlayerFlags & TF_PLAYER_HIDDEN) != 0;
 }
 
+/**
+ * Sets the hidden player flag. This will automatically stop the player from being 
+ * displayed on the client.
+ */
 void CBaseTFPlayer::SetHidden( bool bHidden )
 {
 	if ( bHidden )
@@ -327,15 +331,19 @@ void CBaseTFPlayer::Spawn( void )
 
 	RemoveAllDecals();
 
+	// If the player doesn't have a spawn station set, find one
+	if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) ) {
+		m_hSpawnPoint = GetInitialSpawnPoint();
+	}
+
 	// Tell the PlayerClass that this player's just respawned
-	if ( GetPlayerClass()  )
-	{
-		RemoveEffects( EF_NODRAW );
+	if ( GetPlayerClass()  ) {
 		RemoveFlag( FL_NOTARGET );
 		RemoveSolidFlags( FSOLID_NOT_SOLID );
 
 		GetPlayerClass()->RespawnClass();
 
+		// BUG: doesn't appear to be working in all cases, is this our fault? Need to look into...
 		CBaseCombatWeapon *pWeapon = GetActiveWeapon();
 		if ( pWeapon ) {
 			if ( pWeapon->HasAnyAmmo() ) {
@@ -355,11 +363,6 @@ void CBaseTFPlayer::Spawn( void )
 		AddSolidFlags( FSOLID_NOT_SOLID );
 
 		if ( GetTeamNumber() != TEAM_UNASSIGNED && GetTeamNumber() != TEAM_SPECTATOR ) {
-			// If the player doesn't have a spawn station set, find one
-			if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) ) {
-				m_hSpawnPoint = GetInitialSpawnPoint();
-			}
-
 			// They probably haven't yet chosen a class
 			ShowViewPortPanel( PANEL_CLASS );
 		} else {
@@ -372,6 +375,8 @@ void CBaseTFPlayer::Spawn( void )
 			}
 		}
 	}
+
+	SetPlayerModel();
 
 	// Remove my personal orders
 	if ( GetTFTeam() ) {
@@ -442,7 +447,6 @@ void CBaseTFPlayer::InitialSpawn( void )
 	m_lifeState = LIFE_DEAD;
 	m_bFirstTeamSpawn = true;
 
-	AddEffects(EF_NODRAW);
 	ChangeTeam(TEAM_UNASSIGNED);
 
 	SetCantMove(true);
@@ -594,13 +598,16 @@ bool CBaseTFPlayer::IsClassAvailable( TFClass iClass )
 	return HasNamedTechnology( str );
 }
 
-void CBaseTFPlayer::ChangeClass( TFClass iClass )
-{
+void CBaseTFPlayer::ChangeClass( TFClass iClass ) {
 	// If they've got a playerclass, kill it
-	if ( GetPlayerClass()  )
-	{
+	TFClass oldClassId = TFCLASS_UNDECIDED;
+	CPlayerClass *curClass = GetPlayerClass();
+	if ( curClass != nullptr ) {
 		if ( tf_destroyobjects.GetFloat() )
 			RemoveAllObjects( false, iClass );
+
+		// Store the original class
+		oldClassId = curClass->GetTFClass();
 
 		ClearPlayerClass();
 	}
@@ -616,9 +623,15 @@ void CBaseTFPlayer::ChangeClass( TFClass iClass )
 	CTFTeam *pTFTeam = GetTFTeam();
 	SetPreferredTechnology( pTFTeam->m_pTechnologyTree, -1 );
 
-	// Force a respawn if they're alive
-	if ( IsAlive() )
+	// Now force a respawn if they haven't yet deployed
+	if ( oldClassId != TFCLASS_UNDECIDED ) {
+		if ( !IsDead() ) {
+			CommitSuicide( false, true );
+			IncrementFragCount( 1 );
+		}
+	} else {
 		ForceRespawn();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2077,6 +2090,7 @@ void CBaseTFPlayer::FinishUnDeploying( void )
 	m_bUnDeploying = false;
 	m_bDeployed = false;
 	m_takedamage = DAMAGE_YES;
+
 	SetCantMove( false );
 }
 

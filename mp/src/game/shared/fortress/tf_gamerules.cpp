@@ -544,16 +544,6 @@ END_NETWORK_TABLE()
 
 			// Why are we doing this before we're dead? Because then we can't pick up our new items.
 			pPlayer->ChangeClass( ( TFClass ) newClass );
-
-			if ( oldClass != TFCLASS_UNDECIDED ) {
-				if ( !pPlayer->IsDead() ) {
-					pPlayer->CommitSuicide( false, true );
-					pPlayer->IncrementFragCount( 1 );
-				}
-			} else {
-				pPlayer->ForceRespawn();
-			}
-
 			return true;
 		} else if ( FStrEq( pcmd, "changeteam" ) ) {
 			if ( args.ArgC() < 2 ) {
