@@ -34,6 +34,7 @@ ConVar bot_flipout( "bot_flipout", "0", 0, "When on, all bots fire their guns." 
 ConVar bot_defend( "bot_defend", "0", 0, "Set to a team number, and that team will all keep their combat shields raised." );
 ConVar bot_changeclass( "bot_changeclass", "0", 0, "Force all bots to change to the specified class." );
 static ConVar bot_mimic( "bot_mimic", "0", 0, "Bot uses usercmd of player by index." );
+static ConVar bot_freeze( "bot_freeze", "false", 0, "Freezes the bot in place." );
 
 static int BotNumber = 1;
 static int g_iNextBotTeam = -1;
@@ -69,16 +70,17 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 	if ( bFrozen )
 		pPlayer->AddEFlags( EFL_BOT_FROZEN );
 
-	if ( iTeam != -1 )
+	if ( iTeam != -1 ) {
 		pPlayer->ChangeTeam( iTeam );
-	else if ( pPlayer->GetTeamNumber() == TEAM_UNASSIGNED )
-		pPlayer->PlacePlayerInTeam();
+	}
 
-	if (iClass != -1)
-		pPlayer->ChangeClass((TFClass)iClass);
-	else
-		pPlayer->ChangeClass((TFClass)random->RandomInt(TFCLASS_RECON, TFCLASS_CLASS_COUNT - 1));
-	
+	if ( iClass != -1 ) {
+		pPlayer->ChangeClass( ( TFClass ) iClass );
+	}
+	else {
+		pPlayer->ChangeClass( ( TFClass ) random->RandomInt( TFCLASS_RECON, TFCLASS_CLASS_COUNT - 1 ) );
+	}
+
 	pPlayer->ForceRespawn();
 
 	BotNumber++;
@@ -91,6 +93,10 @@ CBasePlayer *BotPutInServer( bool bFrozen, int iTeam, int iClass )
 //-----------------------------------------------------------------------------
 void Bot_RunAll( void )
 {
+	if ( bot_freeze.GetBool() ) {
+		return;
+	}
+
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
 	{
 		CBaseTFPlayer *pPlayer = ToBaseTFPlayer( UTIL_PlayerByIndex( i ) );
