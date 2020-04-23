@@ -308,10 +308,6 @@ void CBaseTFPlayer::Spawn( void )
 	if ( IsInAVehicle() )
 		LeaveVehicle();
 
-	// If the player doesn't have a spawn station set, find one
-	if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) )
-		m_hSpawnPoint = GetInitialSpawnPoint();
-
 	// Added to resolve assert issue on spawn. ~hogsy
 	MDLCACHE_CRITICAL_SECTION();
 
@@ -331,43 +327,51 @@ void CBaseTFPlayer::Spawn( void )
 
 	RemoveAllDecals();
 
-	// Holster weapon immediately, to allow it to cleanup
-	CBaseCombatWeapon *pWeapon = GetActiveWeapon();
-	//if (pWeapon != nullptr)
-		//pWeapon->Holster();
-
 	// Tell the PlayerClass that this player's just respawned
 	if ( GetPlayerClass()  )
 	{
-		GetPlayerClass()->RespawnClass();
+		// If the player doesn't have a spawn station set, find one
+		if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) ) {
+			m_hSpawnPoint = GetInitialSpawnPoint();
+		}
 
 		RemoveFlag( FL_NOTARGET );
 		RemoveSolidFlags( FSOLID_NOT_SOLID );
 
-		if (pWeapon)
-		{
-			if (!pWeapon->HasAnyAmmo())
-				//Weapon_Switch(pWeapon);
-			//else
-				SwitchToNextBestWeapon(pWeapon);
-		}
-		else
+		GetPlayerClass()->RespawnClass();
+
+		CBaseCombatWeapon *pWeapon = GetActiveWeapon();
+		if ( pWeapon ) {
+			if ( pWeapon->HasAnyAmmo() ) {
+				Weapon_Switch( pWeapon );
+			} else {
+				SwitchToNextBestWeapon( pWeapon );
+			}
+		} else {
 			SwitchToNextBestWeapon( NULL );
+		}
 
 		SetPlayerModel();
 
 		// Make sure they're not deployed
 		FinishUnDeploying();
+	} else {
+		AddFlag( FL_NOTARGET );
+
+		AddSolidFlags( FSOLID_NOT_SOLID );
+
+		SetHidden( true );
+
+		if ( GetTeamNumber() != TEAM_UNASSIGNED && GetTeamNumber() != TEAM_SPECTATOR ) {
+			// They probably haven't yet chosen a class
+			ShowViewPortPanel( PANEL_CLASS );
+		}
 	}
-	else if (
-		GetTeamNumber() != TEAM_UNASSIGNED && 
-		GetTeamNumber() != TEAM_SPECTATOR)
-		// They probably haven't yet chosen a class
-		ShowViewPortPanel(PANEL_CLASS);
 
 	// Remove my personal orders
-	if (GetTFTeam())
-		GetTFTeam()->RemoveOrdersToPlayer(this);
+	if ( GetTFTeam() ) {
+		GetTFTeam()->RemoveOrdersToPlayer( this );
+	}
 
 	m_TFLocal.m_nInTacticalView = false;
 	m_flLastTimeDamagedByEnemy = -1000;
