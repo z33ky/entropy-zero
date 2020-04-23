@@ -40,7 +40,8 @@ public:
 	bool	PointIsWithin( const Vector &vecPoint );
 
 	// need to transmit to players who are in commander mode
-	bool	ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea );
+	int	UpdateTransmitState() override { return SetTransmitState( FL_EDICT_FULLCHECK ); }
+	int	ShouldTransmit( const CCheckTransmitInfo *pInfo ) override;
 
 private:
 	bool m_bActive;
@@ -170,20 +171,21 @@ bool CFuncConstructionYard::PointIsWithin( const Vector &vecPoint )
 //-----------------------------------------------------------------------------
 // Purpose: Transmit this to all players who are in commander mode
 //-----------------------------------------------------------------------------
-bool CFuncConstructionYard::ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea )
+int CFuncConstructionYard::ShouldTransmit( const CCheckTransmitInfo *pInfo )
 {
 	// Team rules may tell us that we should
-	CBaseEntity* pRecipientEntity = CBaseEntity::Instance( recipient );
+	CBaseEntity* pRecipientEntity = CBaseEntity::Instance( pInfo->m_pClientEnt );
+	Assert( pRecipientEntity->IsPlayer() );
 	if ( pRecipientEntity->IsPlayer() )
 	{
 		CBasePlayer *pPlayer = (CBasePlayer*)pRecipientEntity;
 		if ( pPlayer->GetTeam() )
 		{
 			if (pPlayer->GetTeam()->ShouldTransmitToPlayer( pPlayer, this ))
-				return true;
+				return FL_EDICT_ALWAYS;
 		}
 	}
-	return false;
+	return FL_EDICT_DONTSEND;
 }
 
 
