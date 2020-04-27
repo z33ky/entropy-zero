@@ -55,10 +55,11 @@ public:
 	CBaseEntity		*GetImpaledTarget( void ) { return m_hImpaledTarget; }
 	void			SetLinkedHarpoon( CHarpoon *pLinkedHarpoon ) { m_hLinkedHarpoon = pLinkedHarpoon; }
 	void			CheckLinkedHarpoon( void );
-	void			ImpaleTarget( CBaseEntity *pOther );
+	void			ImpaleTarget( CBaseAnimating *pOther );
 
 private:
 	// Impaling
+	int attachedBone{ -1 };
 	CNetworkVector( m_vecOffset );
 	CNetworkQAngle( m_angOffset );
 	float		m_flConstrainLength;
@@ -141,13 +142,13 @@ void CHarpoon::SetHarpoonAngles( void )
 //-----------------------------------------------------------------------------
 void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 {
+#if 0 // move this...
 	// If we've stuck something, freeze. Make sure we hit it along our velocity.
 	if ( pOther->GetCollisionGroup() != TFCOLLISION_GROUP_SHIELD )
 	{
 		// Perform the collision response...
-		const trace_t &tr = CBaseEntity::GetTouchTrace( );
-
 		Vector vecNewVelocity;
+		const trace_t &tr = CBaseEntity::GetTouchTrace( );
 		PhysicsClipVelocity (GetAbsVelocity(), tr.plane.normal, vecNewVelocity, 2.0 - GetFriction());
 		SetAbsVelocity( vecNewVelocity );
 	}
@@ -162,9 +163,11 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 		VectorMultiply( vecCenter, 400.0f, vecNewVelocity );
 		SetAbsVelocity( vecNewVelocity );
 	}
+#endif
 
-	if ( !pOther->IsBSPModel() && !pOther->GetBaseAnimating() )
+	if ( ( pOther->IsPlayer() && pOther->InSameTeam( this ) ) || ( !pOther->IsBSPModel() && !pOther->GetBaseAnimating() ) ) {
 		return;
+	}
 
 	// At this point, it shouldn't affect player movement
 	SetCollisionGroup( COLLISION_GROUP_DEBRIS );
@@ -176,13 +179,12 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 	m_hImpaledTarget = pOther;
 
 	// Should I impale something?
-	if ( pOther->GetBaseAnimating() )
-	{
+	CBaseAnimating *animatingEntity = pOther->GetBaseAnimating();
+	if ( animatingEntity != nullptr ) {
 		CheckLinkedHarpoon();
 
-		if ( pOther->GetMoveType() != MOVETYPE_NONE )
-		{
-			ImpaleTarget( pOther );
+		if ( animatingEntity->GetMoveType() != MOVETYPE_NONE ) {
+			ImpaleTarget( animatingEntity );
 			return;
 		}
 	}
@@ -196,6 +198,8 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 }
 
 void CHarpoon::RemoveFromImpaledTarget() {
+	DevMsg( "RemoveFromImpaledTarget" );
+
 	// Break the rope
 	if ( m_hRope ) {
 		m_hRope->DetachPoint( 1 );
@@ -275,16 +279,36 @@ void CHarpoon::CheckLinkedHarpoon( void )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CHarpoon::ImpaleTarget( CBaseEntity *pOther )
-{
+void CHarpoon::ImpaleTarget( CBaseAnimating *pOther ) {
 	// Impale!
 	EmitSound( "Harpoon.Impale" );
 
 	// Calculate our impale offset
-	m_vecOffset = (pOther->GetAbsOrigin() - GetAbsOrigin());
-	m_angOffset = (pOther->GetAbsAngles() - GetAbsAngles());
+	m_vecOffset = GetAbsOrigin(); // (pOther->GetAbsOrigin() - GetAbsOrigin());
+	m_angOffset = GetAbsAngles(); // (pOther->GetAbsAngles() - GetAbsAngles());
 
-	FollowEntity( pOther );
+	Vector tracePos = GetAbsOrigin() - GetAbsVelocity() * 0.15f;
+	Vector endTracePos = GetAbsOrigin() + GetAbsVelocity() * 0.15f;
+
+	// Find the bone for the hitbox we hit
+	trace_t tr;
+	UTIL_TraceLine( tracePos, endTracePos, MASK_SHOT, this, COLLISION_GROUP_NONE, &tr );
+	//DebugDrawLine( tracePos, endTracePos, 255, 0, 0, true, 100.0f );
+
+	Vector vecBonePos;
+	QAngle vecBoneAngles;
+	if ( tr.hitbox ) {
+		attachedBone = pOther->GetHitboxBone( tr.hitbox );
+	} else {
+		attachedBone = 0;
+	}
+
+	pOther->GetBonePosition( attachedBone, vecBonePos, vecBoneAngles );
+
+	SetAbsOrigin( vecBonePos );
+
+	SetMoveType( MOVETYPE_NONE );
+	AddSolidFlags( FSOLID_NOT_SOLID );
 
 	// Do some damage to the target
 	if ( pOther->m_takedamage )
@@ -318,9 +342,25 @@ void CHarpoon::ConstrainThink( void ) {
 	if ( !GetImpaledTarget() || !m_hLinkedHarpoon.Get() )
 		return;
 
-	CBaseTFPlayer *pPlayer = ( CBaseTFPlayer * ) GetImpaledTarget();
-	if ( !pPlayer->IsAlive() ) {
-		RemoveFromImpaledTarget();
+	CBaseEntity *impaledTarget = GetImpaledTarget();
+	if ( impaledTarget != nullptr ) {
+		if ( !impaledTarget->IsAlive() ) {
+			RemoveFromImpaledTarget();
+			return;
+		}
+
+		// Ensure we follow whatever bone we're linked to
+		CBaseAnimating *animatingEntity = ( CBaseAnimating * ) GetImpaledTarget();
+		if ( animatingEntity != nullptr && attachedBone != -1 ) {
+			Vector vecBonePos;
+			QAngle vecBoneAngles;
+			animatingEntity->GetBonePosition( attachedBone, vecBonePos, vecBoneAngles );
+
+			SetAbsOrigin( vecBonePos );
+			//SetAbsAngles( vecBoneAngles );
+
+			DevMsg( "%f %f %f\n", vecBonePos.x, vecBonePos.y, vecBonePos.z );
+		}
 	}
 
 	// Moved too far away?
@@ -363,36 +403,36 @@ public:
 	DECLARE_NETWORKCLASS();
 	DECLARE_PREDICTABLE();
 
-	virtual void	ItemPostFrame( void );
-	virtual void	PrimaryAttack( void );
-	virtual void	SecondaryAttack( void );
-	virtual float	GetFireRate( void );
-	virtual void	ThrowGrenade( void );
-	virtual void	DetachRope( void );
-	virtual void	YankHarpoon( void );
+	virtual void	ItemPostFrame( void ) override;
+	virtual void	PrimaryAttack( void ) override;
+	virtual void	SecondaryAttack( void ) override;
+	virtual float	GetFireRate( void ) override;
+
+	void ThrowGrenade();
+	
+	void DetachRope();
+	void YankHarpoon();
 
 	// Custom grenade types
 	virtual CHarpoon *CreateHarpoon( const Vector &vecOrigin, const Vector &vecAngles, CBasePlayer *pOwner );
 
-	/*
 	// All predicted weapons need to implement and return true
-	virtual bool			IsPredicted( void ) const
+	virtual bool IsPredicted( void ) const override
 	{ 
 		return true;
 	}
 
 #if defined( CLIENT_DLL )
-	virtual bool	ShouldPredict( void )
+	virtual bool ShouldPredict( void ) override
 	{
-		if ( GetOwner() == C_BasePlayer::GetLocalPlayer() )
+		if ( GetOwner() && GetOwner() == C_BasePlayer::GetLocalPlayer() )
 			return true;
 
 		return BaseClass::ShouldPredict();
 	}
 #endif
-	*/
 
-public:
+private:
 	CNetworkVar( float, m_flStartedThrowAt );
 	float	m_flCantThrowUntil;
 	float	m_flSecondaryAttackAt;
@@ -402,8 +442,7 @@ public:
 	CHandle< CRopeKeyframe >	m_hRope;
 	CHandle< CHarpoon >			m_hHarpoon;
 #endif
-
-private:														
+													
 	CWeaponHarpoon( const CWeaponHarpoon & );
 };
 
@@ -460,12 +499,9 @@ void CWeaponHarpoon::ItemPostFrame( void )
 	if ( (pOwner->m_afButtonPressed & IN_ATTACK) && !m_flStartedThrowAt && (m_flNextPrimaryAttack <= gpGlobals->curtime) )
 	{
 		// If we don't have a harpoon, throw one out. Otherwise, yank it back.
-		if ( m_bActiveHarpoon )
-		{
+		if ( m_bActiveHarpoon ) {
 			YankHarpoon();
-		}
-		else
-		{
+		} else {
 			m_bActiveHarpoon = true;
 			m_flStartedThrowAt = gpGlobals->curtime;
 			PlayAttackAnimation( ACT_VM_PULLBACK );
@@ -479,8 +515,15 @@ void CWeaponHarpoon::ItemPostFrame( void )
 		m_flStartedThrowAt = 0;
 		m_flCantThrowUntil = 0;
 	}
-	else if ( (pOwner->m_nButtons & IN_ATTACK2) && (m_flNextPrimaryAttack <= gpGlobals->curtime) )
-	{
+	else if ( (pOwner->m_nButtons & IN_ATTACK2) && (m_flNextPrimaryAttack <= gpGlobals->curtime) ) {
+		if ( m_bActiveHarpoon ) {
+			m_flNextPrimaryAttack = gpGlobals->curtime;
+			PrimaryAttack();
+			m_flStartedThrowAt = 0;
+			m_flCantThrowUntil = 0;
+			return;
+		}
+
 		PlayAttackAnimation( ACT_VM_SECONDARYATTACK );
 		m_flSecondaryAttackAt = gpGlobals->curtime + SequenceDuration() * 0.3;
 		m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
