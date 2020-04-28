@@ -324,6 +324,12 @@ void CBaseTFPlayer::Spawn( void )
 
 	BaseClass::Spawn();
 
+	// Nothing more to do here if the map is a background...
+	if ( gpGlobals->eLoadType == MapLoad_Background ) {
+		m_Local.m_iHideHUD |= HIDEHUD_ALL;
+		return;
+	}
+
 	m_flFractionalBoost = 0.0f;
 
 	// Create second view model ( for support/commando, etc )

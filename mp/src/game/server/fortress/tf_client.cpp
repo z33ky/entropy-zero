@@ -122,9 +122,16 @@ void respawn( CBaseEntity *pEdict, bool fCopyCorpse )
 	if (pPlayer == nullptr)
 		return;
 
-	if (fCopyCorpse)
+	// If it's not a multiplayer game, reload
+	if ( !gpGlobals->deathmatch ) {
+		engine->ServerCommand( "reload\n" );
+		return;
+	}
+
+	if ( fCopyCorpse ) {
 		// make a copy of the dead body for appearances sake
 		pPlayer->CreateCorpse();
+	}
 
 	pPlayer->Spawn();
 }

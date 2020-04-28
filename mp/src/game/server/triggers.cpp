@@ -3036,9 +3036,8 @@ void CTriggerCamera::Enable( void )
 {
 	m_state = USE_ON;
 
-	if ( !m_hPlayer || !m_hPlayer->IsPlayer() )
-	{
-		m_hPlayer = UTIL_GetLocalPlayer();
+	if ( !m_hPlayer || !m_hPlayer->IsPlayer() ) {
+		m_hPlayer = UTIL_GetListenServerHost();
 	}
 
 	if ( !m_hPlayer )
