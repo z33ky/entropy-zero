@@ -1,4 +1,12 @@
+
 exec joystick.cfg
 exec autoexec.cfg
 
 stuffcmds
+
+startupmenu
+
+sv_unlockedchapters 99
+
+// Just do this manually for now, god fucking dumb ass shit
+map_background background00
