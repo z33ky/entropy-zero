@@ -14,7 +14,8 @@ class CTriggerFall : public CBaseTrigger
 {
 	DECLARE_CLASS( CTriggerFall, CBaseTrigger );
 public:
-	void Spawn( void );
+	void Spawn( void ) override;
+
 	void FallTouch( CBaseEntity *pOther );
 	
 	DECLARE_DATADESC();
@@ -44,7 +45,7 @@ void CTriggerFall::Spawn( void )
 {
 	BaseClass::Spawn();
 	InitTrigger();
-	SetTouch( FallTouch );
+	SetTouch( &CTriggerFall::FallTouch );
 }
 
 //-----------------------------------------------------------------------------

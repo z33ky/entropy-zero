@@ -8,10 +8,13 @@
 #include "tf_player.h"
 #include "weapon_combat_usedwithshieldbase.h"
 #include "weapon_combatshield.h"
+#ifdef IMPLEMENT_ME // This is missing, could probably reproduce it though - it's a guided plasma shot I guess
 #include "tf_guidedplasma.h"
+#endif
 #include "in_buttons.h"
 #include "tf_gamerules.h"
 
+#define MAX_CHARGED_TIME		1.50 // Pulled this out my ass, will probably want tweaking
 #define BURST_FIRE_RATE			0.15
 
 //-----------------------------------------------------------------------------
@@ -205,6 +208,7 @@ void CWeaponCombat_ChargeablePlasma::ItemPostFrame( void )
 //-----------------------------------------------------------------------------
 void CWeaponCombat_ChargeablePlasma::PrimaryAttack( void )
 {
+#ifdef IMPLEMENT_ME // This is missing, could probably reproduce it though - it's a guided plasma shot I guess
 	CBaseTFPlayer *pPlayer = (CBaseTFPlayer*)GetOwner();
 	if (!pPlayer)
 		return;
@@ -244,6 +248,7 @@ void CWeaponCombat_ChargeablePlasma::PrimaryAttack( void )
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 	m_iClip1 = m_iClip1 - 1;
 	m_hLockTarget = NULL;
+#endif
 }
 
 //-----------------------------------------------------------------------------

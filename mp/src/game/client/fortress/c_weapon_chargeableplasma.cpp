@@ -126,9 +126,9 @@ void C_WeaponCombat_ChargeablePlasma::OnDataChanged( DataUpdateType_t updateType
 	case DATA_UPDATE_CREATED:
 		// So we can update our lights
 		if ( GetTeamNumber() == 1 )
-			m_hMaterial.Init( "sprites/chargeball_team1" );
+			m_hMaterial.Init( "sprites/chargeball_team1", TEXTURE_GROUP_CLIENT_EFFECTS );
 		else 
-			m_hMaterial.Init( "sprites/chargeball_team2" );
+			m_hMaterial.Init( "sprites/chargeball_team2", TEXTURE_GROUP_CLIENT_EFFECTS );
 
 		break;								
 
@@ -253,7 +253,8 @@ void C_WeaponCombat_ChargeablePlasma::DrawChargingEffect( float flSize, C_BaseAn
 	if ( pAttachedEnt->GetAttachment( iAttachment, vecOrigin, vecAngles ) )
 	{
 		color32 color = { 255, 255, 255, 255 };
-		materials->Bind( m_hMaterial, (IClientRenderable*)this );
+		CMatRenderContextPtr renderContext( materials );
+		renderContext->Bind( m_hMaterial, ( IClientRenderable* )this );
 		DrawSprite( vecOrigin, flSize, flSize, color );
 	}
 }
@@ -321,7 +322,7 @@ void C_WeaponCombat_ChargeablePlasma::DrawCrosshair( void )
 		if ( pEntity && pEntity->IsPlayer() && !pPlayer->InSameTeam( pEntity ) )
 		{
 			// Draw a reticle
-			vgui::Color clr = gHUD.m_clrYellowish;
+			Color clr = gHUD.m_clrYellowish;
 			clr[3] = 128;
 
 			// Calculate circle size

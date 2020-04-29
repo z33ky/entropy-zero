@@ -164,7 +164,8 @@ void CHudEMP::Paint()
 		}
 	}
 
-	IMesh* pMesh = materials->GetDynamicMesh( true, NULL, NULL, m_pEMPIcon );
+	CMatRenderContextPtr renderContext( materials );
+	IMesh* pMesh = renderContext->GetDynamicMesh( true, NULL, NULL, m_pEMPIcon );
 
 	CMeshBuilder meshBuilder;
 	meshBuilder.Begin( pMesh, MATERIAL_QUADS, 1 );
