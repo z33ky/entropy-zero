@@ -8,7 +8,7 @@ WeaponData
 	bucket_position		4
 	clip_size		8
 	default_clip		8
-	primary_ammo		"Bullets"
+	primary_ammo		ShotgunEnergy
 	secondary_ammo		"None"
 	weight			"7"
 	item_flags		"0"
