@@ -50,7 +50,7 @@ public:
 	bool	PointIsWithin( const Vector &vecPoint );
 
 	// need to transmit to players who are in commander mode
-	bool	ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea );
+	int	ShouldTransmit( const CCheckTransmitInfo *info ) override;
 
 	// Team handling
 	void	SetOwningTeam( int iTeamNumber );
