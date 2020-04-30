@@ -5,5 +5,19 @@ CommanderOverlays
 		type		resourcezone
 		color		"255 255 255 255"
 		material	hud/minimap/object_icon
+		iconposition	"0 0 32 32"
+
+		Usage 
+		{
+			okcolor 	"0 255 0 255"
+			badcolor	"255 0 0 255"
+			position	"0 0 64 8"
+		}
+
+		Alpha
+		{
+			material 	hud/minimap/resourcezone_icon
+			color		"0 255 0 255"
+		}
 	}
 }

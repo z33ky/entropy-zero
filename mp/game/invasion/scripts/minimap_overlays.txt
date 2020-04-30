@@ -165,8 +165,9 @@ MinimapOverlays
 	{
 		type		minimap_resource_zone_panel
 		offset		"0 0"
-		size		"64 64"
-		material	placeholder/placeholder
+		size		"8 8"
+		color		"255 0 0 255"
+		material	hud/minimap/resourcezone_icon
 	}
 	
 	minimap_order
