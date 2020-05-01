@@ -2,14 +2,14 @@ WeaponData
 {
 	// Weapon data is loaded by both the Game and Client DLLs.
 	"printname"		"Plasma Rifle"
-	"viewmodel"		"models/weapons/v_pistol.mdl"
+	viewmodel		"models/weapons/v_human_laserrifle.mdl"
 	playermodel		"models/weapons/w_human_burstrifle.mdl"
-	"anim_prefix"		"python"
+	anim_prefix		"smg2"
 	"bucket"		0
 	"bucket_position"	4
 
-	"clip_size"		15
-	"default_clip"		15
+	"clip_size"		32
+	"default_clip"		32
 	"primary_ammo"		"Bullets"
 	"secondary_ammo"	"None"
 
@@ -23,8 +23,8 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		"empty"		"Weapon_BurstRifle.Single"
-		"single_shot"	"Weapon_357.Single"
+		"empty"		"Weapon_PlasmaRifle.Single"
+		"single_shot"	"Weapon_PlasmaRifle.Single"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
