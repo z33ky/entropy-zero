@@ -371,18 +371,16 @@ void CPlayerClass::CreateClass( void )
 	// Give them a full loadout on the initial spawn
 	ResupplyAmmo( 100.0f, RESUPPLY_ALL_FROM_STATION );
 
-	if ( m_pPlayer->GetWeaponBuilder() == nullptr ) {
+	// Create the builder weapon & all objects in it (Helpers are automatically deleted when the weapon's deleted)
+	// Make sure they can build at least 1 object
+	if ( GetTFClassInfo( m_TFClass )->m_pClassObjects[0] != OBJ_LAST )
+	{
 		CWeaponBuilder *pWeaponBuilder = dynamic_cast< CWeaponBuilder* >( m_pPlayer->GiveNamedItem( "weapon_builder" ) );
 		Assert( pWeaponBuilder );
 
 		m_pPlayer->SetWeaponBuilder( pWeaponBuilder );
 		Assert( m_pPlayer->GetWeaponBuilder() );
-	}
 
-	// Create the builder weapon & all objects in it (Helpers are automatically deleted when the weapon's deleted)
-	// Make sure they can build at least 1 object
-	if ( GetTFClassInfo( m_TFClass )->m_pClassObjects[0] != OBJ_LAST )
-	{
 		// Do we have a construction yard?
 		bool bHaveYard = false;
 		CBaseEntity *pEntity = NULL;
