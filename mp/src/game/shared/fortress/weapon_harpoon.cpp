@@ -196,8 +196,6 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 }
 
 void CHarpoon::CleanUp() {
-	DevMsg( "CleanUp\n" );
-
 	// If we're impaling a player, remove his movement constraint
 	CBaseTFPlayer *player = dynamic_cast< CBaseTFPlayer* >( GetImpaledTarget() );
 	if ( player != nullptr ) {
