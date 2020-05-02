@@ -83,7 +83,7 @@ bool ParseRGBA( KeyValues* pValues, const char* pFieldName, Color& c )
 } */
 
 
-bool ParseCoord( KeyValues *pValues, const char* pFieldName, int& x, int& y )
+bool ParseCoord( KeyValues *pValues, const char* pFieldName, int& x, int& y, bool isExplicit )
 {
 	x = y = 0;
 	const char *pCoordString = pValues->GetString( pFieldName, "0 0" );
@@ -100,13 +100,15 @@ bool ParseCoord( KeyValues *pValues, const char* pFieldName, int& x, int& y )
 	}
 
 	// coords are within 640x480 screen space
-	x = ( x * ( ( float )ScreenWidth() / 640.0 ) );
-	y = ( y * ( ( float )ScreenHeight() / 480.0 ) );
+	if ( !isExplicit ) {
+		x = ( x * ( ( float ) ScreenWidth() / 640.0 ) );
+		y = ( y * ( ( float ) ScreenHeight() / 480.0 ) );
+	}
 
 	return true;
 }
 
-bool ParseRect( KeyValues *pValues, const char* pFieldName, int& x, int& y, int& w, int& h )
+bool ParseRect( KeyValues *pValues, const char* pFieldName, int& x, int& y, int& w, int& h, bool isExplicit )
 {
 	x = y = w = h = 0;
 	const char *pRectString = pValues->GetString( pFieldName, "0 0 0 0" );
@@ -123,10 +125,12 @@ bool ParseRect( KeyValues *pValues, const char* pFieldName, int& x, int& y, int&
 	}
 
 	// coords are within 640x480 screen space
-	x = ( x * ( ( float )ScreenWidth() / 640.0 ) );
-	y = ( y * ( ( float )ScreenHeight() / 480.0 ) );
-	w = ( w * ( ( float )ScreenWidth() / 640.0 ) );
-	h = ( h * ( ( float )ScreenHeight() / 480.0 ) );
+	if ( !isExplicit ) {
+		x = ( x * ( ( float ) ScreenWidth() / 640.0 ) );
+		y = ( y * ( ( float ) ScreenHeight() / 480.0 ) );
+		w = ( w * ( ( float ) ScreenWidth() / 640.0 ) );
+		h = ( h * ( ( float ) ScreenHeight() / 480.0 ) );
+	}
 
 	return true;
 }

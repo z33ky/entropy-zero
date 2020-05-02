@@ -235,7 +235,7 @@ void CEntityTeamImagePanel::Paint( void )
 	if ( MapData().IsEntityVisibleToTactical( GetEntity() ) == false )
 		return;
 
-	ComputeAndSetSize();
+	ComputeSizeAndFade( m_iOrgWidth, m_iOrgHeight );
 
 	vgui::surface()->DrawSetColor( m_Images[ teamnumber ].m_r, m_Images[ teamnumber ].m_g, m_Images[ teamnumber ].m_b, m_Images[ teamnumber ].m_b );
 	Color color;

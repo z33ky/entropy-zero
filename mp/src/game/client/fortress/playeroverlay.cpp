@@ -86,7 +86,7 @@ bool CHudPlayerOverlay::Init( KeyValues* pInitData, C_BaseEntity* pEntity )
 		return false;
 
 	int w, h;
-	if (!ParseCoord(pInitData, "size", w, h ))
+	if (!ParseCoord(pInitData, "size", w, h, true ))
 		return false;
 
 	SetSize( w, h );

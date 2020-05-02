@@ -25,6 +25,7 @@ CEntityPanel::CEntityPanel( vgui::Panel *pParent, const char *panelName )
 : BaseClass( pParent, panelName )
 {
 	SetPaintBackgroundEnabled( false );
+
 	m_pBaseEntity = NULL;
 
 	// FIXME: ComputeParent is yucky... can we be rid of it?
@@ -82,37 +83,54 @@ void CEntityPanel::ComputeParent( void )
 //-----------------------------------------------------------------------------
 // Purpose: Compute the size of the panel based upon the commander's zoom level
 //-----------------------------------------------------------------------------
-void CEntityPanel::ComputeAndSetSize( void )
-{
-	m_flScale = 1.0;
+unsigned char CEntityPanel::ComputeSizeAndFade( int targW, int targH, bool scale ) {
+	if ( !m_pBaseEntity || !ShouldDraw() ) {
+		return 0;
+	}
+
+	/* original tactical impl. cut for now since we don't use it
+	ClientModeTFNormal *commander = ( ClientModeTFNormal * ) g_pClientMode;
+	Assert( commander );
+	float flZoom = commander->GetCommanderOverlayPanel()->GetZoom();
+
+	// Scale our size
+	m_flScale = 0.75 + ( 0.25 * ( 1.0 - flZoom ) ); // 1/2 size at max zoomed out, full size by half zoomed in
+	*/
 
 	// Scale the image
-	// Use different scales in tactical / normal
-	if ( IsLocalPlayerInTactical() )
-	{
-		ClientModeTFNormal *commander = (ClientModeTFNormal *)g_pClientMode;
-		Assert( commander );
-		float flZoom = commander->GetCommanderOverlayPanel()->GetZoom();
 
-		// Scale our size
-		m_flScale = 0.75 + (0.25 * (1.0 - flZoom)); // 1/2 size at max zoomed out, full size by half zoomed in
-	}
-	else if ( m_pBaseEntity )
-	{
-		// Get distance to entity
-		float flDistance = (m_pBaseEntity->GetRenderOrigin() - MainViewOrigin()).Length();
-		flDistance *= 2;
-  		m_flScale = 0.25 + MAX( 0, 2.0 - (flDistance / 2048) );
-	}
+	// Get distance to entity
+	float flDistance = ( m_pBaseEntity->GetRenderOrigin() - MainViewOrigin() ).Length();
+	flDistance *= 2.0f;
+	m_flScale = 0.25f + MAX( 0, 2.0f - ( flDistance / 2048.0f ) );
+	m_flScale = clamp( m_flScale, 0.0f, 1.0f );
+
+	// Fade based on distance from center of screen along the x coord
+	int centerScreenWidth = ScreenWidth() / 2;
+	int thisX, thisY;
+	ipanel()->GetPos( GetVPanel(), thisX, thisY );
+	thisX += m_iOrgOffsetX;
+	float diffPos = fabsf( centerScreenWidth - thisX ) / ( centerScreenWidth - 300 );
+	float fade = clamp( ( flDistance / 1024.0f ) * diffPos, 0.0f, 1.0f );
+	// todo: fade by distance from viewer as well...
 
 	// Update the size
-	int w = m_iOrgWidth * m_flScale;
-	int h = m_iOrgHeight * m_flScale;
-	SetSize( w,h );
+	int w, h;
+	if ( scale ) {
+		w = ( targW - m_iOrgWidth ) + m_iOrgWidth * m_flScale;
+		h = ( targH - m_iOrgHeight ) + m_iOrgHeight * m_flScale;
 
-	// Update the offsets too
-	m_OffsetX = m_iOrgOffsetX * m_flScale;
-	m_OffsetY = m_iOrgOffsetY * m_flScale;
+		// Update the offsets too
+		m_OffsetX = m_iOrgOffsetX * m_flScale;
+		m_OffsetY = m_iOrgOffsetY * m_flScale;
+	} else {
+		w = targW;
+		h = targH;
+	}
+
+	SetSize( w, h );
+	
+	return ( unsigned char ) roundf( ( 1.0f - fade ) * 255.f );
 }
 
 //-----------------------------------------------------------------------------
@@ -198,7 +216,7 @@ void CEntityPanel::OnTick()
 	GetEntityPosition( sx, sy );
 
 	// Recalculate our size
-	ComputeAndSetSize();
+	ComputeSizeAndFade( m_iOrgWidth, m_iOrgHeight );
 
 	// Set the position
 	SetPos( (int)(sx + m_OffsetX + 0.5f), (int)(sy + m_OffsetY + 0.5f));

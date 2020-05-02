@@ -33,7 +33,7 @@ public:
 	CEntityPanel( vgui::Panel *pParent, const char *panelName );
 
 	virtual void	ComputeParent( void );
-	virtual void	ComputeAndSetSize( void );
+	virtual unsigned char ComputeSizeAndFade( int targW, int targH, bool scale = false );
 
 	// Initialize from key values
 	bool Init( KeyValues* pKeyValues, C_BaseEntity* pEntity );
