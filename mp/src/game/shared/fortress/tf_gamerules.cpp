@@ -1617,6 +1617,7 @@ CAmmoDef *GetAmmoDef()
 		bInitted = true;
 		
 		// Added some basic physics force ~hogsy
+		def.AddAmmoType( "Harpoons", DMG_CLUB, TRACER_NONE, 0, 0, 0, 0, 0 );
 		def.AddAmmoType( "Bullets", DMG_BULLET, TRACER_LINE_AND_WHIZ, 0, 0, INFINITE_AMMO, 2, 0 );
 		def.AddAmmoType( "Rockets", DMG_BLAST, TRACER_NONE, 0, 0, 6, 32, 0 );
 		def.AddAmmoType( "Grenades", DMG_BLAST, TRACER_NONE, 0, 0, 3, 32, 0 );

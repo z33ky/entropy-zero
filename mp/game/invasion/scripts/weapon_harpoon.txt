@@ -6,9 +6,9 @@ WeaponData
 	anim_prefix	"smg2"
 	bucket		0
 	bucket_position	4
-	clip_size	30
-	default_clip	30
-	primary_ammo	"Bullets"
+	clip_size	0
+	default_clip	4
+	primary_ammo	"Harpoons"
 	secondary_ammo	"None"
 	weight		"7"
 	item_flags	"0"
@@ -19,8 +19,7 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		single_shot		"Weapon_BurstRifle.Single"
-		reload			"Weapon_SMG1.Reload"
+		double_shot	"Weapon_Harpoon.Launch"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
