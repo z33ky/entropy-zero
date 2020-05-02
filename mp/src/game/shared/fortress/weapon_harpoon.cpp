@@ -47,7 +47,7 @@ public:
 	void ConstrainThink( void );
 	void HarpoonTouch( CBaseEntity *pOther );
 
-	void RemoveFromImpaledTarget();
+	void CleanUp();
 
 	static CHarpoon *Create( const Vector &vecOrigin, const Vector &vecForward, CBasePlayer *pOwner );
 	CRopeKeyframe	*GetRope( void ) { return m_hRope; }
@@ -142,7 +142,6 @@ void CHarpoon::SetHarpoonAngles( void )
 //-----------------------------------------------------------------------------
 void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 {
-#if 0 // move this...
 	// If we've stuck something, freeze. Make sure we hit it along our velocity.
 	if ( pOther->GetCollisionGroup() != TFCOLLISION_GROUP_SHIELD )
 	{
@@ -163,7 +162,10 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 		VectorMultiply( vecCenter, 400.0f, vecNewVelocity );
 		SetAbsVelocity( vecNewVelocity );
 	}
-#endif
+
+	// Remove myself soon
+	SetThink( &CHarpoon::CleanUp );
+	SetNextThink( gpGlobals->curtime + 30.0 );
 
 	if ( ( pOther->IsPlayer() && pOther->InSameTeam( this ) ) || ( !pOther->IsBSPModel() && !pOther->GetBaseAnimating() ) ) {
 		return;
@@ -171,10 +173,6 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 
 	// At this point, it shouldn't affect player movement
 	SetCollisionGroup( COLLISION_GROUP_DEBRIS );
-
-	// Remove myself soon
-	SetThink(&CBaseEntity::SUB_Remove);
-	SetNextThink( gpGlobals->curtime + 30.0 );
 
 	m_hImpaledTarget = pOther;
 
@@ -197,15 +195,8 @@ void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 	SetMoveType( MOVETYPE_NONE );
 }
 
-void CHarpoon::RemoveFromImpaledTarget() {
-	DevMsg( "RemoveFromImpaledTarget" );
-
-	// Break the rope
-	if ( m_hRope ) {
-		m_hRope->DetachPoint( 1 );
-		m_hRope->DieAtNextRest();
-		m_hRope = NULL;
-	}
+void CHarpoon::CleanUp() {
+	DevMsg( "CleanUp\n" );
 
 	// If we're impaling a player, remove his movement constraint
 	CBaseTFPlayer *player = dynamic_cast< CBaseTFPlayer* >( GetImpaledTarget() );
@@ -213,7 +204,19 @@ void CHarpoon::RemoveFromImpaledTarget() {
 		player->DeactivateMovementConstraint();
 	}
 
-	SetThink( NULL );
+	if ( m_hLinkedHarpoon.Get() != nullptr ) {
+		m_hLinkedHarpoon->SetLinkedHarpoon( nullptr );
+		m_hLinkedHarpoon->CleanUp();
+	}
+
+	if ( m_hRope ) {
+		m_hRope->Remove();
+		m_hRope = nullptr;
+	}
+	
+	SetThink( nullptr );
+
+	SUB_Remove();
 }
 
 //-----------------------------------------------------------------------------
@@ -221,55 +224,49 @@ void CHarpoon::RemoveFromImpaledTarget() {
 //-----------------------------------------------------------------------------
 void CHarpoon::CheckLinkedHarpoon( void )
 {
-	if ( m_hLinkedHarpoon )
-	{
-		CHarpoon *pPlayerHarpoon = NULL;
-		CHarpoon *pNonMovingHarpoon = NULL;
+	if ( !m_hLinkedHarpoon ) {
+		return;
+	}
 
-		// Find out if either of us has impaled something
-		if ( GetImpaledTarget() && m_hLinkedHarpoon->GetImpaledTarget() )
-		{
-			// Only care about players for now. One of the targets must be a player.
-			CBaseTFPlayer *pPlayer = NULL;
-			if ( GetImpaledTarget()->IsPlayer() )
-			{
-				pPlayer = (CBaseTFPlayer*)GetImpaledTarget();
-				pPlayerHarpoon = this;
-				pNonMovingHarpoon = m_hLinkedHarpoon;
-			}
-			else if ( m_hLinkedHarpoon->GetImpaledTarget()->IsPlayer() )
-			{
-				pPlayer = (CBaseTFPlayer*)m_hLinkedHarpoon->GetImpaledTarget();
-				pNonMovingHarpoon = this;
-				pPlayerHarpoon = m_hLinkedHarpoon;
-			}
+	CHarpoon *pPlayerHarpoon = NULL;
+	CHarpoon *pNonMovingHarpoon = NULL;
 
-			// Found a player?
-			if ( pPlayer )
-			{
-				CBaseEntity *pOtherTarget = pNonMovingHarpoon->GetImpaledTarget();
+	// Find out if either of us has impaled something
+	if ( GetImpaledTarget() && m_hLinkedHarpoon->GetImpaledTarget() ) {
+		// Only care about players for now. One of the targets must be a player.
+		CBaseTFPlayer *pPlayer = NULL;
+		if ( GetImpaledTarget()->IsPlayer() ) {
+			pPlayer = ( CBaseTFPlayer* ) GetImpaledTarget();
+			pPlayerHarpoon = this;
+			pNonMovingHarpoon = m_hLinkedHarpoon;
+		} else if ( m_hLinkedHarpoon->GetImpaledTarget()->IsPlayer() ) {
+			pPlayer = ( CBaseTFPlayer* ) m_hLinkedHarpoon->GetImpaledTarget();
+			pNonMovingHarpoon = this;
+			pPlayerHarpoon = m_hLinkedHarpoon;
+		}
 
-				// For now, we have to be linked to a non-moving target. Eventually we could support linked moving targets.
-				// pOtherTarget == NULL means the harpoon's buried in the world.
-				if ( pOtherTarget->IsBSPModel() || pOtherTarget->GetMoveType() == MOVETYPE_NONE )
-				{
-					// Add a little slack
-					m_flConstrainLength = ( m_hLinkedHarpoon->GetAbsOrigin() - GetAbsOrigin() ).Length() + 150;
-					pPlayer->ActivateMovementConstraint( NULL, pNonMovingHarpoon->GetAbsOrigin(), m_flConstrainLength, 150.0f, 0.1f );
-					// Square it for later checking
-					m_flConstrainLength *= m_flConstrainLength;
+		// Found a player?
+		if ( pPlayer ) {
+			CBaseEntity *pOtherTarget = pNonMovingHarpoon->GetImpaledTarget();
 
-					// Start checking the length
-					pPlayerHarpoon->m_flConstrainLength = m_flConstrainLength;
-					pPlayerHarpoon->SetThink( &CHarpoon::ConstrainThink );
-					pPlayerHarpoon->SetNextThink( gpGlobals->curtime + 0.1f );
+			// For now, we have to be linked to a non-moving target. Eventually we could support linked moving targets.
+			// pOtherTarget == NULL means the harpoon's buried in the world.
+			if ( pOtherTarget->IsBSPModel() || pOtherTarget->GetMoveType() == MOVETYPE_NONE ) {
+				// Add a little slack
+				m_flConstrainLength = ( m_hLinkedHarpoon->GetAbsOrigin() - GetAbsOrigin() ).Length() + 150;
+				pPlayer->ActivateMovementConstraint( NULL, pNonMovingHarpoon->GetAbsOrigin(), m_flConstrainLength, 150.0f, 0.1f );
+				// Square it for later checking
+				m_flConstrainLength *= m_flConstrainLength;
 
-					// Make the rope taught, and prevent it resizing
-					if ( m_hRope )
-					{
-						m_hRope->m_RopeFlags &= ~ROPE_RESIZE;
-						m_hRope->RecalculateLength();
-					}
+				// Start checking the length
+				pPlayerHarpoon->m_flConstrainLength = m_flConstrainLength;
+				pPlayerHarpoon->SetThink( &CHarpoon::ConstrainThink );
+				pPlayerHarpoon->SetNextThink( gpGlobals->curtime + 0.1f );
+
+				// Make the rope taught, and prevent it resizing
+				if ( m_hRope ) {
+					m_hRope->m_RopeFlags &= ~ROPE_RESIZE;
+					m_hRope->RecalculateLength();
 				}
 			}
 		}
@@ -320,9 +317,13 @@ void CHarpoon::ImpaleTarget( CBaseAnimating *pOther ) {
 		pOther->TakeDamage( CTakeDamageInfo( this, pOwner, weapon_harpoon_damage.GetFloat(), DMG_GENERIC ) );
 
 		if ( !pOther->IsAlive() ) {
-			RemoveFromImpaledTarget();
+			CleanUp();
+			return;
 		}
 	}
+
+	SetThink( &CHarpoon::ConstrainThink );
+	SetNextThink( gpGlobals->curtime + 0.1f );
 }
 
 //-----------------------------------------------------------------------------
@@ -339,37 +340,33 @@ void CHarpoon::FlyThink( void )
 // Purpose: Check to see if our target has moved beyond our length
 //-----------------------------------------------------------------------------
 void CHarpoon::ConstrainThink( void ) {
-	if ( !GetImpaledTarget() || !m_hLinkedHarpoon.Get() )
-		return;
-
 	CBaseEntity *impaledTarget = GetImpaledTarget();
-	if ( impaledTarget != nullptr ) {
-		if ( !impaledTarget->IsAlive() ) {
-			RemoveFromImpaledTarget();
+	if ( impaledTarget == nullptr || !impaledTarget->IsAlive() ) {
+		CleanUp();
+		return;
+	}
+
+	// Ensure we follow whatever bone we're linked to
+	CBaseAnimating *animatingEntity = ( CBaseAnimating * ) GetImpaledTarget();
+	if ( animatingEntity != nullptr && attachedBone != -1 ) {
+		Vector vecBonePos;
+		QAngle vecBoneAngles;
+		animatingEntity->GetBonePosition( attachedBone, vecBonePos, vecBoneAngles );
+
+		SetAbsOrigin( vecBonePos );
+		//SetAbsAngles( vecBoneAngles );
+	}
+
+	if ( m_hLinkedHarpoon.Get() != nullptr && m_flConstrainLength > 0 ) {
+		// Moved too far away?
+		float flDistSq = m_hLinkedHarpoon->GetAbsOrigin().DistToSqr( GetImpaledTarget()->GetAbsOrigin() );
+		if ( flDistSq > m_flConstrainLength ) {
+			CleanUp();
 			return;
 		}
-
-		// Ensure we follow whatever bone we're linked to
-		CBaseAnimating *animatingEntity = ( CBaseAnimating * ) GetImpaledTarget();
-		if ( animatingEntity != nullptr && attachedBone != -1 ) {
-			Vector vecBonePos;
-			QAngle vecBoneAngles;
-			animatingEntity->GetBonePosition( attachedBone, vecBonePos, vecBoneAngles );
-
-			SetAbsOrigin( vecBonePos );
-			//SetAbsAngles( vecBoneAngles );
-
-			DevMsg( "%f %f %f\n", vecBonePos.x, vecBonePos.y, vecBonePos.z );
-		}
 	}
 
-	// Moved too far away?
-	float flDistSq = m_hLinkedHarpoon->GetAbsOrigin().DistToSqr( GetImpaledTarget()->GetAbsOrigin() );
-	if ( flDistSq > m_flConstrainLength ) {
-		RemoveFromImpaledTarget();
-	} else {
-		SetNextThink( gpGlobals->curtime + 0.1f );
-	}
+	SetNextThink( gpGlobals->curtime + 0.1f );
 }
 
 //-----------------------------------------------------------------------------
@@ -601,7 +598,7 @@ void CWeaponHarpoon::SecondaryAttack( void )
 		CBaseEntity *pEntity = pList[i];
 		if ( !pEntity->m_takedamage )
 			continue;
-		if ( pEntity->InSameTeam( this ) )
+		if ( pEntity->InSameTeam( pPlayer ) )
 			continue;
 
 		//NDebugOverlay::EntityBounds( pEntity, 0,255,0,20,2.0);
@@ -723,8 +720,8 @@ void CWeaponHarpoon::YankHarpoon( void )
 				PlayAttackAnimation( ACT_VM_HAULBACK );
 			}
 		}
-		m_hHarpoon->SetThink( &CBaseEntity::SUB_Remove );
-		m_hHarpoon->SetNextThink( gpGlobals->curtime + 5.0 );
+		// Remove it immediately
+		m_hHarpoon->CleanUp();
 		m_hHarpoon = NULL;
 		m_bActiveHarpoon = false;
 	}
