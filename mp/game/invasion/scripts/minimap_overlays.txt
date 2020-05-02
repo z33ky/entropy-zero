@@ -91,12 +91,13 @@ MinimapOverlays
 			Team0		
 			{
 				material	"hud/minimap/arrow_icon"
+				color		"255 255 255 255"
 			}
 				
 			Team1		
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"0 255 0 255"
+				color		"255 255 255 255"
 			}
 			
 			Team2	
@@ -108,13 +109,13 @@ MinimapOverlays
 			Team3
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"255 0 0 255"
+				color		"0 0 255 255"
 			}
 			
 			Team4
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"255 0 0 255"
+				color		"255 255 255 255"
 			}
 		}
 		
@@ -140,7 +141,7 @@ MinimapOverlays
 			Team3
 			{
 				material	"placeholder/placeholder"
-				color		"255 0 0 255"
+				color		"0 0 255 255"
 			}
 			
 			Team4
