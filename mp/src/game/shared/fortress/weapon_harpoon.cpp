@@ -452,9 +452,9 @@ IMPLEMENT_NETWORKCLASS_ALIASED( WeaponHarpoon, DT_WeaponHarpoon )
 
 BEGIN_NETWORK_TABLE( CWeaponHarpoon, DT_WeaponHarpoon )
 #if !defined( CLIENT_DLL )
-	SendPropTime( SENDINFO( m_flStartedThrowAt ) ),
+SendPropTime( SENDINFO( m_flStartedThrowAt ) ),
 #else
-	RecvPropTime( RECVINFO( m_flStartedThrowAt ) ),
+RecvPropTime( RECVINFO( m_flStartedThrowAt ) ),
 #endif
 END_NETWORK_TABLE()
 
@@ -462,11 +462,13 @@ END_NETWORK_TABLE()
 
 BEGIN_PREDICTION_DATA( CWeaponHarpoon  )
 
-	DEFINE_PRED_FIELD_TOL( m_flStartedThrowAt, FIELD_FLOAT, FTYPEDESC_INSENDTABLE, TD_MSECTOLERANCE ),
+DEFINE_PRED_FIELD_TOL( m_flStartedThrowAt, FIELD_FLOAT, FTYPEDESC_INSENDTABLE, TD_MSECTOLERANCE ),
 
 END_PREDICTION_DATA()
 
 #endif
+
+static ConVar weapon_harpoon_pullback_multiplier( "weapon_harpoon_pullback_multiplier", "0.2", FCVAR_REPLICATED, "Delay before throwing is possible." );
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -495,50 +497,43 @@ void CWeaponHarpoon::ItemPostFrame( void )
 	if (!pOwner)
 		return;
 
-	// Look for button downs
-	if ( (pOwner->m_afButtonPressed & IN_ATTACK) && !m_flStartedThrowAt && (m_flNextPrimaryAttack <= gpGlobals->curtime) )
-	{
-		// If we don't have a harpoon, throw one out. Otherwise, yank it back.
+	if ( m_flStartedThrowAt != 0.0f ) {
+		if ( m_flCantThrowUntil <= gpGlobals->curtime ) {
+			PrimaryAttack();
+
+			m_flStartedThrowAt = 0.0f;
+			m_flCantThrowUntil = 0.0f;
+
+#if !defined( CLIENT_DLL )
+			m_bActiveHarpoon = ( m_hHarpoon.Get() != nullptr );
+#else
+			m_bActiveHarpoon = true;
+#endif
+		}
+
+		return;
+	}
+
+	if ( pOwner->m_afButtonPressed & IN_ATTACK ) {
+		if ( m_flStartedThrowAt == 0.0f ) {
+			PlayAttackAnimation( ACT_VM_PULLBACK );
+
+			m_flStartedThrowAt = gpGlobals->curtime;
+			m_flCantThrowUntil = gpGlobals->curtime + weapon_harpoon_pullback_multiplier.GetFloat();
+		}
+
+		return;
+	} else if ( pOwner->m_afButtonPressed & IN_ATTACK2 ) {
 		if ( m_bActiveHarpoon ) {
 			YankHarpoon();
-		} else {
-			m_bActiveHarpoon = true;
-			m_flStartedThrowAt = gpGlobals->curtime;
-			PlayAttackAnimation( ACT_VM_PULLBACK );
-			m_flCantThrowUntil = gpGlobals->curtime + SequenceDuration();
-		}
-	}
-	else if ( m_flCantThrowUntil && m_bActiveHarpoon && !(pOwner->m_nButtons & IN_ATTACK) && (m_flNextPrimaryAttack <= gpGlobals->curtime) && (m_flCantThrowUntil <= gpGlobals->curtime)  )
-	{
-		m_flNextPrimaryAttack = gpGlobals->curtime;
-		PrimaryAttack();
-		m_flStartedThrowAt = 0;
-		m_flCantThrowUntil = 0;
-	}
-	else if ( (pOwner->m_nButtons & IN_ATTACK2) && (m_flNextPrimaryAttack <= gpGlobals->curtime) ) {
-		if ( m_bActiveHarpoon ) {
-			m_flNextPrimaryAttack = gpGlobals->curtime;
-			PrimaryAttack();
-			m_flStartedThrowAt = 0;
-			m_flCantThrowUntil = 0;
 			return;
 		}
 
-		PlayAttackAnimation( ACT_VM_SECONDARYATTACK );
-		m_flSecondaryAttackAt = gpGlobals->curtime + SequenceDuration() * 0.3;
-		m_flNextPrimaryAttack = gpGlobals->curtime + SequenceDuration();
-	}
-	else if ( m_flSecondaryAttackAt && m_flSecondaryAttackAt < gpGlobals->curtime )
-	{
 		SecondaryAttack();
-		m_flSecondaryAttackAt = 0;
+		return;
 	}
 
-	//  No buttons down?
-	if ( !((pOwner->m_nButtons & IN_ATTACK) || (pOwner->m_nButtons & IN_ATTACK2) || (pOwner->m_nButtons & IN_RELOAD)) )
-	{
-		WeaponIdle( );
-	}
+	WeaponIdle();
 }
 
 //-----------------------------------------------------------------------------
@@ -553,15 +548,19 @@ void CWeaponHarpoon::PrimaryAttack( void )
 	if ( !ComputeEMPFireState() )
 		return;
 
+	// If I'm now out of ammo, switch away
+	if ( !HasPrimaryAmmo() ) {
+		pPlayer->SelectLastItem();
+		return;
+	}
+
 	ThrowGrenade();
 
 	// Setup for refire
 	m_flNextPrimaryAttack = gpGlobals->curtime + 1.0;
 	CheckRemoveDisguise();
 
-	// If I'm now out of ammo, switch away
-	if ( !HasPrimaryAmmo() )
-	{
+	if ( !HasPrimaryAmmo() ) {
 		pPlayer->SelectLastItem();
 	}
 }
@@ -574,6 +573,12 @@ void CWeaponHarpoon::SecondaryAttack( void )
 	CBasePlayer *pPlayer = dynamic_cast<CBasePlayer*>( GetOwner() );
 	if ( !pPlayer )
 		return;
+
+	if ( m_flNextSecondaryAttack >= gpGlobals->curtime ) {
+		return;
+	}
+
+	PlayAttackAnimation( ACT_VM_SECONDARYATTACK );
 
 	// Slap things in front of me
 	Vector vecForward;
@@ -607,7 +612,7 @@ void CWeaponHarpoon::SecondaryAttack( void )
 			CalculateMeleeDamageForce( &info, (pEntity->GetAbsOrigin() - vecCenter), pEntity->GetAbsOrigin() );
 			pEntity->TakeDamage( info );
 		}
-		else if ( pEntity->Classify() == CLASS_MILITARY )
+		else if ( pEntity->IsBaseObject() )
 		{
 			bHitMetal = true;
 			CTakeDamageInfo info( this, pPlayer, weapon_fist_damage_objects.GetFloat(), DMG_CLUB );
@@ -633,6 +638,8 @@ void CWeaponHarpoon::SecondaryAttack( void )
 		EmitSound( "Harpoon.HitMetal" );
 	}
 #endif
+
+	m_flNextSecondaryAttack = gpGlobals->curtime + 0.5f;
 }
 
 //-----------------------------------------------------------------------------
