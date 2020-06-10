@@ -219,9 +219,9 @@ static ConVar	cl_bobup( "cl_bobup","0.5" );
 static ConVar	v_iyaw_cycle( "v_iyaw_cycle", "2"/*, FCVAR_UNREGISTERED*/ );
 static ConVar	v_iroll_cycle( "v_iroll_cycle", "0.5"/*, FCVAR_UNREGISTERED*/ );
 static ConVar	v_ipitch_cycle( "v_ipitch_cycle", "1"/*, FCVAR_UNREGISTERED*/ );
-static ConVar	v_iyaw_level( "v_iyaw_level", "0.3"/*, FCVAR_UNREGISTERED*/ );
-static ConVar	v_iroll_level( "v_iroll_level", "0.1"/*, FCVAR_UNREGISTERED*/ );
-static ConVar	v_ipitch_level( "v_ipitch_level", "0.3"/*, FCVAR_UNREGISTERED*/ );
+static ConVar	v_iyaw_level( "v_iyaw_level", "0.03"/*, FCVAR_UNREGISTERED*/ );
+static ConVar	v_iroll_level( "v_iroll_level", "0.01"/*, FCVAR_UNREGISTERED*/ );
+static ConVar	v_ipitch_level( "v_ipitch_level", "0.03"/*, FCVAR_UNREGISTERED*/ );
 
 float CBaseTFCombatWeapon::CalcViewmodelBob( void )
 {
