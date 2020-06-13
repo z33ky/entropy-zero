@@ -1,6 +1,6 @@
 @include "base.fgd"
 
-// BASE
+// BASE//
 
 @BaseClass = BaseTeam
 [
@@ -80,6 +80,20 @@
 ]
 
 @SolidClass base(Trigger) = func_construction_yard : "Construction Yard" []
+
+@SolidClass base(Trigger) = func_mass_teleport : "Mass Teleporter"
+[
+	MCV(choices) : "Is MCV teleport" : 1 =
+	[
+		0 : "False"
+		1 : "True"
+	]
+
+	input DoTeleport( void )
+	output OnTeleport( void )
+	output OnActive( void )
+	output OnInactive( void )
+]
 
 @PointClass = env_resourcespawner :	"Resource Spawner"
 [
