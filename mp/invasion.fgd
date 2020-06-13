@@ -265,3 +265,17 @@
 	output OnTunnelTriggerStart( void )
 	output OnTunnelTriggerEnd( void )
 ]
+
+// Bugs
+
+@PointClass base(BaseNPCMaker) studio( "models/npcs/bugs/bug_hole.mdl" ) = npc_bughole : "Bug Spawner"
+[
+	PoolSize( integer ) : "Pool size" : 100
+	PoolRegen( float ) : "Pool regen time" : 20
+	PatrolTime( float ) : "Patrol time" : 20
+	PatrolName( string ) : "Patrol name"
+	MaxPatrollers( integer ) : "Maximum patrollers" : 4
+	MaxBuilders( integer ) : "Maximum builders" : 10
+]
+@PointClass base(BaseNPC, Parentname) studio( "models/npcs/bugs/bug_builder.mdl" ) = npc_bug_builder : "Builder Bug" []
+@PointClass base(BaseNPC, Parentname) studio( "models/npcs/bugs/bug_warrior.mdl" ) = npc_bug_warrior : "Builder Warrior" []
