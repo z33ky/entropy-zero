@@ -142,6 +142,19 @@ void CHarpoon::SetHarpoonAngles( void )
 //-----------------------------------------------------------------------------
 void CHarpoon::HarpoonTouch( CBaseEntity *pOther )
 {
+	if ( pOther->IsSolidFlagSet( FSOLID_TRIGGER | FSOLID_VOLUME_CONTENTS ) ) {
+		return;
+	}
+
+	// Originally I had hoped there was a better way to do this, but if there is I can't see it
+	// so fuck it all; get the original touch trace and then check the surface flag to see if we
+	// hit the goddamn sky!
+	const trace_t &trace = GetTouchTrace();
+	if (trace.surface.flags & SURF_SKY) {
+		CleanUp();
+		return;
+	}
+
 	// If we've stuck something, freeze. Make sure we hit it along our velocity.
 	if ( pOther->GetCollisionGroup() != TFCOLLISION_GROUP_SHIELD )
 	{
