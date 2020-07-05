@@ -71,6 +71,21 @@ bool CWeaponRocketLauncher::ComputeEMPFireState( void )
 	return true;
 }
 
+void CWeaponRocketLauncher::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -1.75f) - 2.0f, 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
@@ -180,6 +195,8 @@ void CWeaponRocketLauncher::PrimaryAttack( void )
 		pRocket->SetDamage( weapon_rocket_launcher_damage.GetFloat() );
 #endif
 	}
+
+	AddViewKick();
 
 	// Essentially you are done!
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();

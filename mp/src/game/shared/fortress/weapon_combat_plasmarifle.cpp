@@ -70,6 +70,8 @@ public:
 	void			ChargeThink( void );
 	virtual float	GetDefaultAnimSpeed( void );
 
+	void AddViewKick() override;
+
 	// All predicted weapons need to implement and return true
 	virtual bool			IsPredicted( void ) const
 	{ 
@@ -207,6 +209,8 @@ void CWeaponCombatPlasmaRifle::PrimaryAttack( void )
 		pPlasma->Activate();
 	}
 
+	AddViewKick();
+
 	// Go explosive if fully charged
 //	if ( m_flPower >= MAX_RIFLE_POWER )
 //	{
@@ -266,6 +270,21 @@ bool CWeaponCombatPlasmaRifle::Holster( CBaseCombatWeapon *pSwitchingTo )
 	}
 
 	return false;
+}
+
+void CWeaponCombatPlasmaRifle::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.75f), 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
 }
 
 //-----------------------------------------------------------------------------

@@ -43,6 +43,8 @@ public:
 	float	GetFireRate( void );
 	bool	ComputeEMPFireState( void );
 
+	void AddViewKick() override;
+
 #if defined( CLIENT_DLL )
 // Client Only
 

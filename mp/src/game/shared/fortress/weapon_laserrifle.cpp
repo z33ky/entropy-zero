@@ -34,6 +34,8 @@ public:
 	virtual float	GetFireRate( void );
 	virtual void	PrimaryAttack( void );
 	virtual bool	ComputeEMPFireState( void );
+
+	void AddViewKick() override;
 	
 	// Beam
 	int		m_iSpriteTexture;
@@ -73,6 +75,21 @@ bool CWeaponLaserRifle::ComputeEMPFireState( void )
 		return false;
 	}
 	return true;
+}
+
+void CWeaponLaserRifle::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.75f), 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
 }
 
 //-----------------------------------------------------------------------------
@@ -151,6 +168,8 @@ void CWeaponLaserRifle::PrimaryAttack( void )
 					255,	// b
 					255,	// a
 					255	);	// speed
+
+	AddViewKick();
 
 	pPlayer->RemoveAmmo(1, m_iPrimaryAmmoType);
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();

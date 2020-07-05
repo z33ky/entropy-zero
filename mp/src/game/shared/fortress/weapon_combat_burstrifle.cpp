@@ -51,6 +51,8 @@ public:
 	virtual float	GetDefaultAnimSpeed( void );
 	virtual const Vector& GetBulletSpread( void );
 
+	void AddViewKick() override;
+
 	// All predicted weapons need to implement and return true
 	virtual bool			IsPredicted( void ) const
 	{ 
@@ -158,6 +160,21 @@ const Vector& CWeaponCombatBurstRifle::GetBulletSpread( void )
 	return cone;
 }
 
+void CWeaponCombatBurstRifle::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.75f), 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -217,6 +234,8 @@ void CWeaponCombatBurstRifle::PrimaryAttack( void )
 		pPlasma->SetMaxRange( weapon_combat_burstrifle_range.GetFloat() );
 		pPlasma->Activate();
 	}
+
+	AddViewKick();
 
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 	m_iClip1 = m_iClip1 - 1;
