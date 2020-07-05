@@ -1,7 +1,7 @@
 WeaponData
 {
 	printname	"Burst Rifle"
-	viewmodel	"models/weapons/v_smg1.mdl"
+	viewmodel	"models/weapons/v_human_burstrifle.mdl"
 	playermodel	"models/weapons/w_human_burstrifle.mdl"
 	anim_prefix	"smg2"
 	bucket		0
@@ -20,7 +20,7 @@ WeaponData
 	SoundData
 	{
 		single_shot		"Weapon_BurstRifle.Single"
-		reload			"Weapon_SMG1.Reload"
+		reload			"Weapon_BurstRifle.Reload"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
