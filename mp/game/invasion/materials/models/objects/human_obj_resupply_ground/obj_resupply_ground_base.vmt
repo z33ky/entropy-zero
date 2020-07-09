@@ -1,0 +1,5 @@
+"VertexLitGeneric" {
+	"$basetexture" "models/objects/human_obj_resupply_ground/human_obj_resupply_ground_diffuse"
+	"$surfaceprop" "Metal"
+	"$vertexcolor" 1
+}

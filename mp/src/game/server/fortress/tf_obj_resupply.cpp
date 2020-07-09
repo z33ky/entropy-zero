@@ -17,13 +17,13 @@
 #define RESUPPLY_AMMO_AMT				0.25f
 
 // Wall mounted version
-#define RESUPPLY_WALL_MODEL				"models/objects/obj_resupply.mdl"
+#define RESUPPLY_WALL_MODEL				"models/objects/human_obj_resupply.mdl"
 #define RESUPPLY_WALL_MODEL_ALIEN		"models/objects/alien_obj_resupply.mdl"
 #define RESUPPLY_WALL_MINS				Vector(-10, -10, -40)
 #define RESUPPLY_WALL_MAXS				Vector( 10,  10, 40)
 
 // Ground placed version
-#define RESUPPLY_GROUND_MODEL			"models/objects/obj_resupply_ground.mdl"
+#define RESUPPLY_GROUND_MODEL			"models/objects/alien_obj_resupply_ground.mdl"
 #define RESUPPLY_GROUND_MODEL_HUMAN		"models/objects/human_obj_resupply_ground.mdl"
 #define RESUPPLY_GROUND_MINS			Vector(-20, -20, 0)
 #define RESUPPLY_GROUND_MAXS			Vector( 20,  20, 55)
