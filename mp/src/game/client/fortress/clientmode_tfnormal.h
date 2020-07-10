@@ -28,13 +28,13 @@ public:
 		// Panel overrides.
 	public:
 		Viewport();
-		virtual ~Viewport();
+		virtual ~Viewport() override;
 
-		virtual void	CreateDefaultPanels();
+		virtual void CreateDefaultPanels() override;
 
 		void SetTeamScheme( int teamId = TEAM_UNASSIGNED );
 
-		virtual void ApplySchemeSettings(vgui::IScheme *pScheme)
+		virtual void ApplySchemeSettings(vgui::IScheme *pScheme) override
 		{
 			BaseClass::ApplySchemeSettings(pScheme);
 
@@ -58,7 +58,7 @@ public:
 		// hogsy end
 
 	protected:
-		virtual void Paint();
+		virtual void Paint() override;
 
 	private:
 		// hogsy start
@@ -71,29 +71,29 @@ public:
 		vgui::Label *versionLabel;
 	};
 
-	virtual void Update();
-	virtual bool CreateMove( float flInputSampleTime, CUserCmd *cmd );
+	virtual void Update() override;
+	virtual bool CreateMove( float flInputSampleTime, CUserCmd *cmd ) override;
 
 	virtual bool ShouldDrawViewModel( void );
 // hogsy start
-	virtual bool ShouldDrawEntity(C_BaseEntity *pEnt);
-	virtual bool ShouldDrawDetailObjects();
-	virtual bool ShouldDrawLocalPlayer(C_BasePlayer *pPlayer);
-	virtual bool ShouldDrawCrosshair();
-	virtual bool ShouldDrawParticles();
-	virtual bool ShouldDrawFog();
+	virtual bool ShouldDrawEntity(C_BaseEntity *pEnt) override;
+	virtual bool ShouldDrawDetailObjects() override;
+	virtual bool ShouldDrawLocalPlayer( C_BasePlayer *pPlayer ) override;
+	virtual bool ShouldDrawCrosshair() override;
+	virtual bool ShouldDrawParticles() override;
+	virtual bool ShouldDrawFog() override;
 
-	virtual void Init();
+	virtual void Init() override;
 
-	virtual void Enable();
-	virtual void Disable();
+	virtual void Enable() override;
+	virtual void Disable() override;
 
-	virtual void OverrideView(CViewSetup *pSetup);
+	virtual void OverrideView( CViewSetup *pSetup ) override;
 
-	virtual void LevelInit(const char *newmap);
-	virtual void LevelShutdown();
+	virtual void LevelInit( const char *newmap ) override;
+	virtual void LevelShutdown() override;
 
-	virtual void Layout();
+	virtual void Layout() override;
 
 	bool IsCommanderMode() { return commander_mode; }
 	void EnableCommanderMode();
@@ -105,15 +105,15 @@ public:
 	virtual vgui::Panel *GetMinimapParent();
 
 // hogsy start
-	virtual int	KeyInput(int down, ButtonCode_t keynum, const char *pszCurrentBinding);
+	virtual int	KeyInput( int down, ButtonCode_t keynum, const char *pszCurrentBinding ) override;
 
-	virtual void MinimapClicked(const Vector& clickWorldPos);
+	virtual void MinimapClicked( const Vector& clickWorldPos ) override;
 
 	// Makes the mouse sit over a particular world location
 	void MoveMouse(Vector& worldPos);
 
-	virtual void PreRender(CViewSetup *pSetup);
-	virtual void PostRender();
+	virtual void PreRender( CViewSetup *pSetup ) override;
+	virtual void PostRender() override;
 
 	Viewport *GetNormalViewport();
 
