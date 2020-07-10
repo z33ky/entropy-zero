@@ -1,6 +1,5 @@
-"UnlitGeneric"
-{
-	"$basetexture" 	"hud/menu/selection_obj_powerpack"
+"UnlitGeneric" {
+	"$basetexture" 	"hud/menu/weapon_repairgun"
 	"$additive" 	"1"
 	"$vertexcolor" 	"1"
 	"$vertexalpha" 	"1"

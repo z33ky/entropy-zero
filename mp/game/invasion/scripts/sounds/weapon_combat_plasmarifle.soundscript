@@ -3,5 +3,5 @@ Weapon_PlasmaRifle.Single {
 	pitch		90,105
 	volume		VOL_NORM
 	soundlevel	SNDLVL_GUNFIRE
-	wave		"weapons/plasma_rifle/plasma_rifle_fire_v2.wav"
+	wave 		"weapons/plasma_rifle/plasma_rifle_fire_v2.wav"
 }

@@ -67,58 +67,65 @@
 
 		weapon_selection_offensive
 		{
-				file	hud/menu/weapon_selection_offensive
-				x	0
-				y	0
-				width	256
-				height	128
+			file	hud/menu/menu_icon_sheet
+			x	512
+			y	0
+			width	256
+			height	128
 		}
 		
 		weapon_selection_defensive
 		{
-				file	hud/menu/weapon_selection_defensive
-				x	0
-				y	0
-				width	256
-				height	128
+			file	hud/menu/menu_icon_sheet
+			x	0
+			y	0
+			width	256
+			height	128
 		}
 		
 		weapon_selection_general
 		{
-				file	hud/menu/weapon_selection_general
-				x		0
-				y		0
-				width	256
-				height	128
+			file	hud/menu/menu_icon_sheet
+			x	256
+			y	0
+			width	256
+			height	128
 		}
 		
 		selection_obj_powerpack
 		{
-			file	hud/menu/selection_obj_powerpack
-			x		0
-			y		0
+			file	hud/menu/menu_icon_sheet
+			x	0
+			y	128
 			width	256
 			height	128
 		}
 		
 		selection_obj_resourcepump
 		{
-			file	hud/menu/selection_obj_resourcepump
-			x		0
-			y		0
+			file	hud/menu/menu_icon_sheet
+			x	256
+			y	128
 			width	256
 			height	128
 		}
-		
-		// Custom Icons //
-		
-		crosshair_hover
+
+		selection_obj_respawn_station
 		{
-			file	vgui/vgui_hover
-			x		0
-			y		0
-			width	64
-			height	64
+			file	hud/menu/menu_icon_sheet
+			x	512
+			y	128
+			width	256
+			height	128
+		}
+
+		selection_obj_powerpack
+		{
+			file	hud/menu/menu_icon_sheet
+			x	0
+			y	0
+			width	256
+			height	128
 		}
 		
 		//////////////////////

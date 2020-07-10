@@ -34,18 +34,19 @@ WeaponData
 	{
 		"weapon"
 		{
-				"font"		"WeaponIcons"
-				"character"	"k"
+				"file"		"hud/menu/weapon_grenade"
+				"x"		"0"
+				"y"		"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"weapon_s"
 		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"k"
-		}
-		"weapon_small"
-		{
-				"font"		"WeaponIconsSmall"
-				"character"	"k"
+				"file"		"hud/menu/weapon_grenade"
+				"x"		"0"
+				"y"		"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"ammo"
 		{
