@@ -29,16 +29,16 @@ WeaponData
 	TextureData
 	{
 		"weapon" {
-				"file"		"hud/menu/placeholder"
-				"x"		"0"
-				"y"		"0"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"256"
+				"y"			"896"
 				"width"		"256"
 				"height"	"128"
 		}
 		"weapon_s" {	
-				"file"		"hud/menu/placeholder"
-				"x"		"0"
-				"y"		"0"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"256"
+				"y"			"896"
 				"width"		"256"
 				"height"	"128"
 		}

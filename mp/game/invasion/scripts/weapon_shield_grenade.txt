@@ -26,17 +26,17 @@ WeaponData
 	{
 		"weapon"
 		{
-				"file"		"hud/menu/weapon_grenade_shield"
-				"x"		"0"
-				"y"		"0"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"0"
+				"y"			"896"
 				"width"		"256"
 				"height"	"128"
 		}
 		"weapon_s"
 		{	
-				"file"		"hud/menu/weapon_grenade_shield"
-				"x"		"0"
-				"y"		"0"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"0"
+				"y"			"896"
 				"width"		"256"
 				"height"	"128"
 		}
