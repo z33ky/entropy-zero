@@ -217,7 +217,6 @@ Client
 	Fonts
 	{
 		// fonts are used in order that they are listed
-		// fonts are used in order that they are listed
 		"DebugFixed"
 		{
 			"1"
@@ -228,7 +227,7 @@ Client
 				"antialias" "1"
 			}
 		}
-		// fonts are used in order that they are listed
+		
 		"DebugFixedSmall"
 		{
 			"1"
@@ -350,6 +349,7 @@ Client
 				"weight"		"0"
 			}
 		}
+
 		"DefaultVerySmall"
 		{
 			"1"
@@ -433,6 +433,7 @@ Client
 				"custom"	"1"
 			}
 		}
+
 		WeaponIconsSelected
 		{
 			"1"
@@ -442,11 +443,11 @@ Client
 				"weight"	"0"
 				"antialias" "1"
 				"blur"		"5"
-				"scanlines"	"2"
 				"additive"	"1"
 				"custom"	"1"
 			}
 		}
+
 		Crosshairs
 		{
 			"1"
@@ -461,6 +462,7 @@ Client
 				"yres"		"1 10000"
 			}
 		}
+
 		QuickInfo
 		{
 			"1"
@@ -474,6 +476,7 @@ Client
 				"custom"	"1" [!$OSX]
 			}
 		}
+
 		HudNumbers
 		{
 			"1"
@@ -486,6 +489,7 @@ Client
 				"custom"	"1"
 			}
 		}
+
 		HudNumbersGlow
 		{
 			"1"
@@ -494,7 +498,6 @@ Client
 				"tall"		"32"
 				"weight"	"0"
 				"blur"		"4"
-				"scanlines" "2"
 				"antialias" "1"
 				"additive"	"1"
 				"custom"	"1"
@@ -512,6 +515,7 @@ Client
 				"additive"	"1"
 			}
 		}
+
 		HudHintTextLarge
 		{
 			"1"
@@ -524,6 +528,7 @@ Client
 				"additive"	"1"
 			}
 		}
+
 		HudHintTextSmall
 		{
 			"1"
@@ -554,7 +559,7 @@ Client
 		{
 			"1"
 			{
-				"name"		"Verdana"
+				"name"		"Squada One"
 				"tall"		"8"
 				"weight"	"700"
 				"antialias" "1"
@@ -562,7 +567,7 @@ Client
 			}
 			"2"
 			{
-				"name"		"Verdana"
+				"name"		"Squada One"
 				"tall"		"10"
 				"weight"	"700"
 				"antialias" "1"
@@ -570,7 +575,7 @@ Client
 			}
 			"3"
 			{
-				"name"		"Verdana"
+				"name"		"Squada One"
 				"tall"		"12"
 				"weight"	"900"
 				"antialias" "1"
@@ -578,7 +583,7 @@ Client
 			}
 			"4"
 			{
-				"name"		"Verdana"
+				"name"		"Squada One"
 				"tall"		"16"
 				"weight"	"900"
 				"antialias" "1"
@@ -586,13 +591,14 @@ Client
 			}
 			"5"
 			{
-				"name"		"Verdana"
+				"name"		"Squada One"
 				"tall"		"17"
 				"weight"	"1000"
 				"antialias" "1"
 				"yres"	"1200 10000"
 			}
 		}
+
 		BudgetLabel
 		{
 			"1"
@@ -603,6 +609,7 @@ Client
 				"outline"	"1"
 			}
 		}
+
 		DebugOverlay
 		{
 			"1"
@@ -613,6 +620,7 @@ Client
 				"outline"	"1"
 			}
 		}
+
 		"CloseCaption_Normal"
 		{
 			"1"
@@ -901,7 +909,7 @@ Client
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Squada One"
 				tall		"16"
 				weight		"0"
 				antialias	"1"
@@ -912,7 +920,7 @@ Client
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Squada One"
 				tall		"10"
 				weight		"0"
 				additive	"1"
@@ -924,7 +932,7 @@ Client
 		{
 			1
 			{
-				name		"Verdana"
+				name		"Squada One"
 				tall		"10"
 				weight		"0"
 				additive	"1"
@@ -1546,5 +1554,7 @@ Client
 		"1"	"resource/HALFLIFE2.ttf"
 		"2"	"resource/HL2crosshairs.ttf"
 		"3"	"resource/fonts/Squada_One/SquadaOne-Regular.ttf"
+		"4" "resource/fonts/Michroma/Michroma.ttf"
+		"5" "resource/fonts/CRYSRG__.TTF"
 	}
 }
