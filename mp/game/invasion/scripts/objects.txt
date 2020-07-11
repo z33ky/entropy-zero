@@ -2,97 +2,97 @@ objects
 {
 	OBJ_POWERPACK
 	{
-		ClassName 				obj_powerpack
-		StatusName 				"Powerpack"
-		BuilderWeaponName 		"Powerpack"
+		ClassName 		obj_powerpack
+		StatusName 		"Powerpack"
+		BuilderWeaponName 	"Powerpack"
 		BuilderPlacementString 	"Place on ground"
 		SolidToPlayerMovement 	0
-		Icon 					"placeholder"
-		BuildTime 				5
-		MaxObjects				2
-		Cost					20
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			2
-		SelectionPosition		1
-		SapperAttachTime		1
+		Icon 			"placeholder"
+		BuildTime 		5
+		MaxObjects		2
+		Cost			15
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		2
+		SelectionPosition	1
+		SapperAttachTime	1
 	}
 	
 	OBJ_RESUPPLY
 	{
-		ClassName				obj_resupply
-		StatusName				"Resupply"
-		BuilderWeaponName		"Resupply"
+		ClassName		obj_resupply
+		StatusName		"Resupply"
+		BuilderWeaponName	"Resupply"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		1
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			35
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	1
+		SapperAttachTime	1
 	}
 	
 	OBJ_SENTRYGUN_PLASMA
 	{
-		ClassName				obj_sentrygun_plasma
-		StatusName				"PlasmaSentryGun"
-		BuilderWeaponName		"Sentry Gun (Plasma)"
+		ClassName		obj_sentrygun_plasma
+		StatusName		"PlasmaSentryGun"
+		BuilderWeaponName	"Sentry Gun (Plasma)"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			50
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_SENTRYGUN_ROCKET_LAUNCHER
 	{
-		ClassName				obj_sentrygun_rocket_launcher
-		StatusName				"RocketLauncherSentryGun"
-		BuilderWeaponName		"Sentry Gun (Rocket Launcher)"
+		ClassName		obj_sentrygun_rocket_launcher
+		StatusName		"RocketLauncherSentryGun"
+		BuilderWeaponName	"Sentry Gun (Rocket Launcher)"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			75
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_SHIELDWALL
 	{
-		ClassName				obj_shieldwall
-		StatusName				"ShieldWall"
-		BuilderWeaponName		"Shield Wall"
+		ClassName		obj_shieldwall
+		StatusName		"ShieldWall"
+		BuilderWeaponName	"Shield Wall"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			45
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_RESOURCEPUMP
@@ -105,7 +105,7 @@ objects
 		Icon                   "selection_obj_resourcepump"
 		BuildTime              10
 		MaxObjects             1
-		Cost                   100
+		Cost                   35
 		CostMultiplier         1
 		UpgradeCost            0
 		MaxUpgradeLevel        4
@@ -116,21 +116,21 @@ objects
 	
 	OBJ_RESPAWN_STATION
 	{
-		ClassName			obj_respawn_station
-		StatusName			"Respawn Station"
-		BuilderWeaponName		"Respawn Station"
-		BuilderPlacementString		"Place on ground"
-		SolidToPlayerMovement		0
-		Icon					"placeholder"
-		BuildTime			10
-		MaxObjects			1
-		Cost				100
-		CostMultiplier			1
-		UpgradeCost			0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		ClassName		obj_respawn_station
+		StatusName		"Respawn Station"
+		BuilderWeaponName	"Respawn Station"
+		BuilderPlacementString	"Place on ground"
+		SolidToPlayerMovement	0
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			75
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_RALLYFLAG
@@ -143,7 +143,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			35
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -162,7 +162,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			65
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -181,7 +181,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			75
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -219,7 +219,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			45
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -238,7 +238,7 @@ objects
 		Icon			"obj_buff_station"
 		BuildTime		5
 		MaxObjects		1
-		Cost			50
+		Cost			45
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -257,7 +257,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			25
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -273,13 +273,12 @@ objects
 		BuilderWeaponName	"Buff Station"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		
-		Icon				"placeholder"
-		BuildTime			10
-		MaxObjects			1
-		Cost				100
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			100
 		CostMultiplier		1
-		UpgradeCost			0
+		UpgradeCost		0
 		MaxUpgradeLevel		0
 		SelectionSlot		0
 		SelectionPosition	0
@@ -308,8 +307,8 @@ objects
 	OBJ_MORTAR
 	{
 		ClassName		obj_mortar
-		StatusName		"Buffstation"
-		BuilderWeaponName	"Buff Station"
+		StatusName		"Mortar"
+		BuilderWeaponName	"Mortar"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
 		Icon			"placeholder"
@@ -334,7 +333,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			65
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -383,21 +382,21 @@ objects
 	
 	OBJ_EXPLOSIVES
 	{
-		ClassName				obj_explosives
-		StatusName				"Explosives"
-		BuilderWeaponName		"Explosives"
+		ClassName		obj_explosives
+		StatusName		"Explosives"
+		BuilderWeaponName	"Explosives"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			100
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_DRIVER_MACHINEGUN
@@ -410,7 +409,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			45
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -429,7 +428,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			75
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -448,7 +447,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			75
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -467,7 +466,7 @@ objects
 		Icon			"placeholder"
 		BuildTime		10
 		MaxObjects		1
-		Cost			100
+		Cost			75
 		CostMultiplier		1
 		UpgradeCost		0
 		MaxUpgradeLevel		0
@@ -478,21 +477,21 @@ objects
 	
 	OBJ_FLATBED
 	{
-		ClassName				vehicle_flatbed
-		StatusName				"Flatbed"
-		BuilderWeaponName		"Flatbed"
+		ClassName		vehicle_flatbed
+		StatusName		"Flatbed"
+		BuilderWeaponName	"Flatbed"
 		BuilderPlacementString	"Place on ground"
 		SolidToPlayerMovement	0
-		Icon					"placeholder"
-		BuildTime				10
-		MaxObjects				1
-		Cost					100
-		CostMultiplier			1
-		UpgradeCost				0
-		MaxUpgradeLevel			0
-		SelectionSlot			0
-		SelectionPosition		0
-		SapperAttachTime		1
+		Icon			"placeholder"
+		BuildTime		10
+		MaxObjects		1
+		Cost			75
+		CostMultiplier		1
+		UpgradeCost		0
+		MaxUpgradeLevel		0
+		SelectionSlot		0
+		SelectionPosition	0
+		SapperAttachTime	1
 	}
 	
 	OBJ_VEHICLE_MORTAR
