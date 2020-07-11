@@ -197,6 +197,7 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_sniperrifle.cpp
 				}
 			}
 			
