@@ -224,6 +224,7 @@ $Project "Client"
 					//$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_sniperrifle.cpp
 				}
 
 				// These have been merged into shared/fortress/weapon_builder now.
