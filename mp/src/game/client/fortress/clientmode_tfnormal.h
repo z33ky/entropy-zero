@@ -74,7 +74,7 @@ public:
 	virtual void Update() override;
 	virtual bool CreateMove( float flInputSampleTime, CUserCmd *cmd ) override;
 
-	virtual bool ShouldDrawViewModel( void );
+	virtual bool ShouldDrawViewModel( void ) override;
 // hogsy start
 	virtual bool ShouldDrawEntity(C_BaseEntity *pEnt) override;
 	virtual bool ShouldDrawDetailObjects() override;

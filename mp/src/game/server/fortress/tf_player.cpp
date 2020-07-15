@@ -187,10 +187,7 @@ BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 END_PREDICTION_DATA()
 #endif
 
-bool IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot );
 void respawn( CBaseEntity *pEdict, bool fCopyCorpse );
-int TrainSpeed(int iSpeed, int iMax);
-void BulletWizz( Vector vecSrc, Vector vecEndPos, edict_t *pShooter, bool isTracer );
 
 extern float	g_flNextReinforcementTime;
 extern short	g_sModelIndexFireball;

@@ -25,19 +25,12 @@ vgui::HScheme g_hVGuiObjectScheme = 0;
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-ClientModeTFBase::ClientModeTFBase( void )
-{
-	m_bInitialized = false;
-
-	m_pCVDrawFullSkybox = NULL;
-}
+ClientModeTFBase::ClientModeTFBase( void ) {}
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-ClientModeTFBase::~ClientModeTFBase( void )
-{
-}
+ClientModeTFBase::~ClientModeTFBase( void ) {}
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -55,6 +48,7 @@ CMinimapPanel *ClientModeTFBase::GetMinimap( void )
 void ClientModeTFBase::Init()
 {
 	BaseClass::Init();
+
 	C_BaseTFCombatWeapon::CreateCrosshairPanels();
 
 	if ( !m_pMinimap )
@@ -79,6 +73,7 @@ void ClientModeTFBase::Init()
 void ClientModeTFBase::Shutdown()
 {
 	C_BaseTFCombatWeapon::DestroyCrosshairPanels();
+
 	BaseClass::Shutdown();
 }
 
@@ -120,59 +115,19 @@ void ClientModeTFBase::LevelShutdown( void )
 	}
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-// Input  : *pSetup - 
-//-----------------------------------------------------------------------------
-void ClientModeTFBase::PreRender( CViewSetup *pSetup )
-{
-	Initialize();
+void ClientModeTFBase::FireGameEvent( IGameEvent *event ) {
+	// TODO: handle any custom events here
 
-	if ( !m_pCVDrawFullSkybox )
-	{
-#if 0
-		assert( 0 );
-#endif
-		return;
-	}
-
-	m_flOldDrawFullSkybox = m_pCVDrawFullSkybox->GetFloat();
-
-	m_pCVDrawFullSkybox->SetValue( 1 );
+	BaseClass::FireGameEvent( event );
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void ClientModeTFBase::PostRender( void )
-{
+void ClientModeTFBase::PostRender( void ) {
+	BaseClass::PostRender();
+
 	C_BaseTFPlayer *pl = C_BaseTFPlayer::GetLocalPlayer();
-	if ( pl )
-	{
+	if( pl != nullptr ) {
 		pl->UpdateTargetReticles();
 	}
-
-	if ( !m_pCVDrawFullSkybox )
-	{
-#if 0
-		assert( 0 );
-#endif
-		return;
-	}
-
-	m_pCVDrawFullSkybox->SetValue( m_flOldDrawFullSkybox );
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-void ClientModeTFBase::Initialize( void )
-{
-	if ( m_bInitialized )
-		return;
-	m_bInitialized = true;
-
-	m_pCVDrawFullSkybox = (ConVar *)cvar->FindVar( "r_drawfullskybox" );
 }
 
 //-----------------------------------------------------------------------------

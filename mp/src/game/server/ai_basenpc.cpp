@@ -1316,7 +1316,7 @@ CBaseEntity *CAI_BaseNPC::PlayerInRange( const Vector &vecLocation, float flDist
 	return NULL;
 }
 
-
+#if 0 // This isn't used... (and it's such a fucking weird place for it anyway)
 #define BULLET_WIZZDIST	80.0
 #define SLOPE ( -1.0 / BULLET_WIZZDIST )
 
@@ -1354,6 +1354,7 @@ void BulletWizz( Vector vecSrc, Vector vecEndPos, edict_t *pShooter, bool isTrac
 		flBulletDist = ( vecNearestPoint - pPlayer->EarPosition() ).Length();
 	}
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Hits triggers with raycasts
