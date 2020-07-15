@@ -371,9 +371,8 @@ void C_ObjectSentrygun::ClientThink( void )
 	if ( IsTurtled() )
 		return;
 
-	if ( IsPlacing() || IsBuilding() )
+	if ( IsPlacing() || IsBuilding() || !ShouldBeActive() )
 		return;
-
 
 	if ( m_hEnemy != NULL )
 	{
