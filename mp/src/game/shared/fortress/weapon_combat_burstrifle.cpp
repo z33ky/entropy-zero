@@ -72,8 +72,8 @@ public:
 		return BaseClass::ShouldPredict();
 	}
 
-	void GetViewmodelBoneControllers( C_BaseViewModel *pViewModel, float controllers[MAXSTUDIOBONECTRLS]);
-	void ViewModelDrawn( C_BaseViewModel *pViewModel );
+	void GetViewmodelBoneControllers( C_BaseViewModel *pViewModel, float controllers[MAXSTUDIOBONECTRLS]) override;
+	void ViewModelDrawn( C_BaseViewModel *pViewModel ) override;
 
 private:
 
