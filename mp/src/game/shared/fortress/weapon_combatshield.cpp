@@ -5,6 +5,7 @@
 // $NoKeywords: $
 //=============================================================================
 #include "cbase.h"
+#include "tf_gamerules.h"
 #include "basetfplayer_shared.h"
 #include "weapon_twohandedcontainer.h"
 #include "weapon_combatshield.h"
@@ -38,6 +39,7 @@ extern ConVar tf_knockdowntime;
 ConVar	weapon_combat_shield_rechargetime( "weapon_combat_shield_rechargetime","4", FCVAR_REPLICATED, "Time after taking damage before the shields starts recharging" );
 ConVar	weapon_combat_shield_rechargeamount( "weapon_combat_shield_rechargeamount","0.03", FCVAR_REPLICATED, "Amount shield recharges every 10th of a second (must be an int)" );
 ConVar	weapon_combat_shield_factor( "weapon_combat_shield_factor","0.4", FCVAR_REPLICATED, "Factor applied to damage the shield blocks" );
+ConVar	weapon_combat_shield_damage( "weapon_combat_shield_damage", "25", FCVAR_REPLICATED, "Amount of damage applied via a shield bash." );
 
 ConVar  weapon_combat_shield_teslaspeed( "weapon_combat_shield_teslaspeed", "0.025f", FCVAR_REPLICATED, "Speed of the tesla effect on the view model." );
 ConVar	weapon_combat_shield_teslaskitter( "weapon_combat_shield_teslaskitter", "0.3f", FCVAR_REPLICATED, "Speed of the tesla skitter effect (percentage)." );
@@ -497,7 +499,6 @@ void CWeaponCombatShield::ShieldPostFrame( void )
 //-----------------------------------------------------------------------------
 void CWeaponCombatShield::ShieldBash( void )
 {
-#if 0	// ROBIN: Disabled shield bash
 	// Get any players in front of me
 	CBaseTFPlayer *pOwner = ToBaseTFPlayer( GetOwner() );
 	if ( !pOwner )
@@ -505,31 +506,53 @@ void CWeaponCombatShield::ShieldBash( void )
 
 	// Get the target point and location
 	Vector vecAiming;
-	Vector vecSrc = pOwner->Weapon_ShootPosition( pOwner->GetOrigin() );	
+	Vector vecSrc = pOwner->Weapon_ShootPosition();	
 	pOwner->EyeVectors( &vecAiming );
 
 	// Find a player in range of this player, and make sure they're healable
 	trace_t tr;
 	Vector vecEnd = vecSrc + (vecAiming * SHIELD_BASH_RANGE);
-	UTIL_TraceLine( vecSrc, vecEnd, MASK_SHOT, pOwner->edict(), COLLISION_GROUP_NONE, &tr);
+	UTIL_TraceLine( vecSrc, vecEnd, MASK_SHOT, pOwner, COLLISION_GROUP_NONE, &tr);
 	if (tr.fraction != 1.0)
 	{
-		CBaseEntity *pEntity = CBaseEntity::Instance(tr.u.ent);
-		if ( pEntity )
-		{
-			CBaseTFPlayer *pPlayer = ToBaseTFPlayer( pEntity );
-			if ( pPlayer && (pPlayer != pOwner) )
-			{
-				// Target needs to be on the eneny team
-				if ( pPlayer->IsAlive() && !pPlayer->InSameTeam( pOwner ) )
-				{
-					// Ok, we have an enemy player
-					pPlayer->TakeShieldBash( pOwner );
+		CBaseEntity *pEntity = tr.m_pEnt;
+		if( pEntity == nullptr ) {
+			return;
+		}
+
+		CBaseTFPlayer *pPlayer = ToBaseTFPlayer( pEntity );
+		if( pPlayer && ( pPlayer != pOwner ) ) {
+			// Target needs to be on the eneny team
+			if( pPlayer->IsAlive() && !pPlayer->InSameTeam( pOwner ) ) {
+#if 0 // TODO: Implement this?
+				// Ok, we have an enemy player
+				pPlayer->TakeShieldBash( pOwner );
+#else // Otherwise I've just rolled my own implementation below
+				// If we can't actually damage them, proceed no further!
+				if( !pPlayer->m_takedamage ) {
+					return;
 				}
+
+				CWeaponCombatShield *playerShield = pPlayer->GetCombatShield();
+				if( playerShield != nullptr ) {
+					playerShield->TakeShieldBash( pOwner );
+				}
+
+				// Assuming aliens do plasma shield damage and humans don't... ?
+				int damageType = pOwner->GetTeamNumber() == TEAM_ALIENS ? DMG_PLASMA : DMG_CLUB;
+				CTakeDamageInfo info( this, pOwner, weapon_combat_shield_damage.GetFloat(), damageType );
+
+#ifndef CLIENT_DLL
+				// Apply the actual damage
+				info.SetDamagePosition( vecSrc );
+				pEntity->DispatchTraceAttack( info, vecAiming, &tr );
+#endif
+				
+				WeaponImpact( &tr, vecAiming, true, pOwner, damageType );
+#endif
 			}
 		}
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
