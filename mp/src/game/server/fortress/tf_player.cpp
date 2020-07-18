@@ -852,9 +852,6 @@ void CBaseTFPlayer::PostThink()
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->SetPlayerHull();
 
-	// Menus
-	MenuDisplay();
-
 	// Player class Think
 	if (GetPlayerClass())
 		GetPlayerClass()->ClassThink();
@@ -1787,41 +1784,21 @@ int CBaseTFPlayer::TakeHealth( float flHealth, int bitsDamageType )
 	return flAmountToHeal;
 }
 
-
-//=====================================================================
-// MENU HANDLING
-//=====================================================================
-void CBaseTFPlayer::MenuDisplay( void )	
-{
-	// TODO: remove
-}
-
-bool CBaseTFPlayer::MenuInput( int iInput )
-{
-	// TODO: remove
-	return false;
-}
-
-void CBaseTFPlayer::MenuReset( void )
-{
-	// TODO: remove
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: Enables/disables tactical/map view for the player
 // Input  : bTactical - true == enable it
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 {
-#if 0
+#if 0 // Completely disable this for now
 	// TODO:  Decide if we are going to keep the tactical view in TF2
 	if ( !inv_demo.GetBool() )
 		return;
-#endif
 
 	m_bSwitchingView	= true;
 
 	m_TFLocal.m_nInTacticalView = bTactical ? true : false;
+#endif
 }
 
 //-----------------------------------------------------------------------------

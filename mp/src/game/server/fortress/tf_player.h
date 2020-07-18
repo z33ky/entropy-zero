@@ -177,11 +177,6 @@ public:
 
 	int		ClassCostAdjustment( ResupplyBuyType_t nType );
 
-	// Menu Handling
-	void	MenuDisplay( void );
-	bool	MenuInput( int iInput );
-	void	MenuReset( void );
-
 	// Standard functions
 	virtual void ItemPostFrame();
 
