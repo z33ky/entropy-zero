@@ -190,7 +190,7 @@ public:
 	void	PostThink( void );
 	void	PreThink( void );
 	void	PlayerRespawn( void );
-	CBaseEntity *EntSelectSpawnPoint( void );
+	CBaseEntity *EntSelectSpawnPoint( void ) override;
 
 	// Death
 	virtual void	DeathSound( void );

@@ -190,7 +190,6 @@ END_PREDICTION_DATA()
 void respawn( CBaseEntity *pEdict, bool fCopyCorpse );
 
 extern float	g_flNextReinforcementTime;
-extern short	g_sModelIndexFireball;
 extern CBaseEntity	*g_pLastSpawn;
 
 //-----------------------------------------------------------------------------
@@ -1298,30 +1297,46 @@ void CBaseTFPlayer::SetRespawnStation( CBaseEntity* pRespawnStation )
 //-----------------------------------------------------------------------------
 // Purpose: Find a starting respawn station
 //-----------------------------------------------------------------------------
-CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void )
-{
-	if ( !GetTFTeam() )
-		return NULL;
-
-	CBaseEntity *pFirstStation = NULL;
-
-	// Cycle through all the respawn stations on my team
-	for ( int i = 0; i < GetTFTeam()->GetNumObjects(); i++ )
-	{
-		CBaseObject *pObject = GetTFTeam()->GetObject(i);
-		if ( pObject->GetType() == OBJ_RESPAWN_STATION )
-		{
-			// Store off the first station we find
-			if ( !pFirstStation )
-				pFirstStation = pObject;
-
-			// Map specified initial spawnpoint?
-			if ( ((CObjectRespawnStation*)pObject)->IsInitialSpawnPoint() )
-				return pObject;
-		}
+CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void ) {
+	if( !GetTFTeam() ) {
+		return nullptr;
 	}
 
-	return pFirstStation;
+	CObjectRespawnStation *fallbackStation = nullptr;
+	CUtlVector< CObjectRespawnStation * > respawnStationsList;
+
+	// Cycle through all the respawn stations on my team
+	for( int i = 0; i < GetTFTeam()->GetNumObjects(); i++ ) {
+		CBaseObject *pObject = GetTFTeam()->GetObject( i );
+		if( pObject->GetType() != OBJ_RESPAWN_STATION ) {
+			continue;
+		}
+
+		CObjectRespawnStation *respawnStation = dynamic_cast<CObjectRespawnStation *>( pObject );
+		if( respawnStation == nullptr ) {
+			continue;
+		}
+
+		// Set the fallback, so we can use that if we don't find anything
+		if( fallbackStation == nullptr ) {
+			fallbackStation = respawnStation;
+		}
+
+		if( !respawnStation->IsInitialSpawnPoint() ) {
+			continue;
+		}
+		
+		respawnStationsList.AddToTail( respawnStation );
+	}
+
+	// If we didn't find an initial station to spawn at, just return the fallback
+	if( respawnStationsList.Size() == 0 ) {
+		return fallbackStation;
+	}
+
+	// Otherwise return a random initial station
+	int randomStation = RandomInt( 0, respawnStationsList.Size() - 1 );
+	return respawnStationsList[ randomStation ];
 }
 
 CBaseEntity *FindEntityForward( CBasePlayer *pMe, bool fHull );
