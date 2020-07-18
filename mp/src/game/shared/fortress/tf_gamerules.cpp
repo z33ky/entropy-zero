@@ -1091,9 +1091,10 @@ END_NETWORK_TABLE()
 		IGameEvent * event = gameeventmanager->CreateEvent( "player_death" );
 		if(event)
 		{
-			event->SetInt("killer", pScorer ? pScorer->GetUserID() : 0 );
-			event->SetInt("victim", pVictim->GetUserID() );
-			event->SetString("weapon", killer_weapon_name );
+			event->SetInt( "userid", pVictim->GetUserID() );
+			event->SetInt( "attacker", pScorer ? pScorer->GetUserID() : 0 );
+			event->SetInt( "assister", pAssistant ? pAssistant->GetUserID() : 0 );
+			event->SetString( "weapon", killer_weapon_name );
 
 			gameeventmanager->FireEvent( event, false );
 		}

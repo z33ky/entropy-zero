@@ -241,9 +241,9 @@ void CHudDeathNotice::FireGameEvent( IGameEvent *event ) {
 	if( !g_PR )
 		return;
 
-	int killer = engine->GetPlayerForUserID( event->GetInt( "killer" ) );
+	int killer = engine->GetPlayerForUserID( event->GetInt( "attacker" ) );
+	int victim = engine->GetPlayerForUserID( event->GetInt( "userid" ) );
 	int assist = engine->GetPlayerForUserID( event->GetInt( "assister" ) );
-	int victim = engine->GetPlayerForUserID( event->GetInt( "victim" ) );
 
 	const char *killedwith = event->GetString( "weapon" );
 	char fullkilledwith[ 128 ];
