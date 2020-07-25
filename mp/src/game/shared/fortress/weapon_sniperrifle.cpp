@@ -12,7 +12,7 @@
 // Damage CVars
 ConVar weapon_sniperrifle_damage( "weapon_sniperrifle_damage", "50", FCVAR_REPLICATED, "Sniper damage per pellet" );
 ConVar weapon_sniperrifle_range( "weapon_sniperrifle_range", "10000", FCVAR_REPLICATED, "Sniper maximum range" );
-ConVar weapon_sniperrifle_ducking_mod( "weapon_sniperrifle_ducking_mod", "0.75", FCVAR_REPLICATED, "Minigun ducking speed modifier" );
+ConVar weapon_sniperrifle_ducking_mod( "weapon_sniperrifle_ducking_mod", "0.75", FCVAR_REPLICATED, "Sniper ducking speed modifier" );
 
 #if defined( CLIENT_DLL )
 #include "hud.h"
@@ -24,7 +24,6 @@ extern ConVar default_fov;
 #endif
 
 // Time taken to fully wind up/down
-#define MINIGUN_WIND_TIME		2
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -74,8 +73,10 @@ public:
 #endif
 
 public:
-	float	m_flOwnersMaxSpeed;
-	CNetworkVar( float, m_flRotationSpeed );	// When 1, firing commences.
+	//float	m_flOwnersMaxSpeed;
+	//CNetworkVar( float, m_flRotationSpeed );	// When 1, firing commences.
+	bool m_bZoomed;
+	CNetworkVar( float, m_flCharge );
 	bool	m_bSoundPlaying;
 
 private:
@@ -87,7 +88,7 @@ private:
 //-----------------------------------------------------------------------------
 CWeaponSniperRifle::CWeaponSniperRifle( void ) {
 	SetPredictionEligible( true );
-	m_flRotationSpeed = 0;
+	//m_flRotationSpeed = 0;
 	m_bSoundPlaying = false;
 }
 
@@ -95,16 +96,18 @@ IMPLEMENT_NETWORKCLASS_ALIASED( WeaponSniperRifle, DT_WeaponSniperRifle )
 
 BEGIN_NETWORK_TABLE( CWeaponSniperRifle, DT_WeaponSniperRifle )
 #if !defined( CLIENT_DLL )
-SendPropFloat( SENDINFO( m_flRotationSpeed ), 8, SPROP_ROUNDDOWN, 0, 1 ),
+//SendPropFloat( SENDINFO( m_flRotationSpeed ), 8, SPROP_ROUNDDOWN, 0, 1 ),
+SendPropFloat( SENDINFO( m_flCharge ), 8, SPROP_ROUNDDOWN, 0, 1 ),
 #else
-RecvPropFloat( RECVINFO( m_flRotationSpeed ) ),
+//RecvPropFloat( RECVINFO( m_flRotationSpeed ) ),
+RecvPropFloat( RECVINFO( m_flCharge ) ),
 #endif
 END_NETWORK_TABLE()
 
 #ifdef CLIENT_DLL
 
 BEGIN_PREDICTION_DATA( CWeaponSniperRifle )
-DEFINE_PRED_FIELD_TOL( m_flRotationSpeed, FIELD_FLOAT, FTYPEDESC_INSENDTABLE, 0.01f ),
+//DEFINE_PRED_FIELD_TOL( m_flRotationSpeed, FIELD_FLOAT, FTYPEDESC_INSENDTABLE, 0.01f ),
 END_PREDICTION_DATA()
 
 #endif
@@ -117,7 +120,7 @@ void CWeaponSniperRifle::Precache() {
 }
 
 bool CWeaponSniperRifle::Holster( CBaseCombatWeapon *pSwitchingTo ) {
-	m_flRotationSpeed = 0;
+	//m_flRotationSpeed = 0;
 
 	return BaseClass::Holster( pSwitchingTo );
 }
@@ -126,7 +129,7 @@ bool CWeaponSniperRifle::Holster( CBaseCombatWeapon *pSwitchingTo ) {
 // Purpose: Get the accuracy derived from weapon and player, and return it
 //-----------------------------------------------------------------------------
 const Vector &CWeaponSniperRifle::GetBulletSpread( void ) {
-	static Vector cone = VECTOR_CONE_8DEGREES;
+	static Vector cone = VECTOR_CONE_PRECALCULATED;
 	return cone;
 }
 
@@ -136,26 +139,25 @@ void CWeaponSniperRifle::ItemPostFrame( void ) {
 		return;
 
 	// This should work, and avoids sending extra network data. If it doesn't, we'll have to send down the unchanged max speed.
-	if( !m_flRotationSpeed ) {
-		m_flOwnersMaxSpeed = pOwner->MaxSpeed();
-	}
+	//if( !m_flRotationSpeed ) {
+	//	m_flOwnersMaxSpeed = pOwner->MaxSpeed();
+	//}
 
-	float flLastRotationSpeed = m_flRotationSpeed;
+	//float flLastRotationSpeed = m_flRotationSpeed;
 
 	CheckReload();
 
 	// Handle firing
 	if( ( pOwner->m_nButtons & IN_ATTACK ) && ( m_flNextPrimaryAttack <= gpGlobals->curtime ) ) {
 		if( m_iClip1 > 0 ) {
-			if( m_flRotationSpeed < 0.99 ) {
-				// If we're starting, play the sound
-				m_flRotationSpeed = min( 1, m_flRotationSpeed + ( gpGlobals->frametime / MINIGUN_WIND_TIME ) );
-			} else {
-				PrimaryAttack();
-			}
+			PrimaryAttack();
 		} else {
 			AttemptToReload();
 		}
+	}
+
+	if ( ( pOwner->m_nButtons & IN_ATTACK2 ) && ( m_flNextSecondaryAttack <= gpGlobals->curtime ) ) {
+		SecondaryAttack();
 	}
 
 	// Reload button (or fire button when we're out of ammo)
@@ -172,20 +174,21 @@ void CWeaponSniperRifle::ItemPostFrame( void ) {
 	}
 
 	// If the speed changed, modify our movement speed
-	if( m_flRotationSpeed != flLastRotationSpeed ) {
-		pOwner->SetMaxSpeed( m_flOwnersMaxSpeed * ( 1.0 - ( m_flRotationSpeed * 0.5 ) ) );
-	}
+	//if( m_flRotationSpeed != flLastRotationSpeed ) {
+	//	pOwner->SetMaxSpeed( m_flOwnersMaxSpeed * ( 1.0 - ( m_flRotationSpeed * 0.5 ) ) );
+	//}
 
 	WeaponIdle();
 }
 
 void CWeaponSniperRifle::AttemptToReload( void ) {
-	// Wind down before reloading
+	/*// Wind down before reloading
 	if( m_flRotationSpeed > 0 ) {
 		//ReduceRotation();
 	} else {
 		Reload();
-	}
+	}*/
+	Reload();
 }
 
 //-----------------------------------------------------------------------------
@@ -213,6 +216,8 @@ void CWeaponSniperRifle::PrimaryAttack( void ) {
 	TFGameRules()->FireBullets( info, 1, vecSrc, vecAiming, GetBulletSpread(), weapon_sniperrifle_range.GetFloat(), m_iPrimaryAmmoType, 0, entindex(), 0 );
 
 	AddViewKick();
+	
+	WeaponSound( SINGLE );
 
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 	m_iClip1 = m_iClip1 - 1;
@@ -227,6 +232,20 @@ void CWeaponSniperRifle::SecondaryAttack() {
 		return;
 	}
 
+	if ( !m_bZoomed ) {
+		player->SetFOV( this, 20, 0.2f, 0 );
+		m_bZoomed = true;
+	} else {
+		player->SetFOV( this, 0, 0.2f, 0 );
+		m_bZoomed = false;
+	}
+	m_flNextSecondaryAttack = gpGlobals->curtime + 0.5f;
+
+	/*//temp zoom sound, switch to using WeaponSound() eventually, minimap sounds should be already precached right????? nope they arent
+	CSingleUserRecipientFilter filter(player);
+	EmitSound_t params;
+	params.m_pSoundName = "Minimap.ZoomIn";
+	EmitSound( filter, entindex(), params );*/
 
 }
 
@@ -240,7 +259,7 @@ void CWeaponSniperRifle::AddViewKick( void ) {
 		return;
 	}
 
-	QAngle viewPunch( SHARED_RANDOMFLOAT( 0.0f, -45.00f ), 0.0f, 0.0f );
+	QAngle viewPunch( SHARED_RANDOMFLOAT( -1.0f, -3.00f ), 0.0f, 0.0f );
 	if( player->GetFlags() & FL_DUCKING ) {
 		viewPunch *= 0.25;
 	}
@@ -252,7 +271,7 @@ void CWeaponSniperRifle::AddViewKick( void ) {
 // Purpose: 
 //-----------------------------------------------------------------------------
 float CWeaponSniperRifle::GetFireRate( void ) {
-	float flFireRate = SHARED_RANDOMFLOAT( 0.05, 0.1 );
+	float flFireRate = 2.0f;
 
 	CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer *>( GetOwner() );
 	if( pPlayer ) {
@@ -313,7 +332,7 @@ void CWeaponSniperRifle::ClientThink() {
 	if( !pPlayer )
 		return;
 
-	if( m_flRotationSpeed ) {
+	/*if( m_flRotationSpeed ) {
 		WeaponSound_t nSound = SPECIAL1;
 
 		// If we're firing, play that sound instead
@@ -353,7 +372,7 @@ void CWeaponSniperRifle::ClientThink() {
 		m_bSoundPlaying = false;
 		StopWeaponSound( SPECIAL1 );
 		StopWeaponSound( SINGLE );
-	}
+	}*/
 }
 
 #endif
