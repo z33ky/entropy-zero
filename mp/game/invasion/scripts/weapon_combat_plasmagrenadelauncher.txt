@@ -7,7 +7,7 @@ WeaponData
 	bucket			0
 	bucket_position		4
 	clip_size		1
-	default_clip		1
+	default_clip		48
 	primary_ammo		"PlasmaGrenade"
 	secondary_ammo		None
 	weight			7

@@ -7,7 +7,7 @@ WeaponData
 	bucket		0
 	bucket_position	4
 	clip_size	0
-	default_clip	4
+	default_clip	32
 	primary_ammo	"Harpoons"
 	secondary_ammo	"None"
 	weight		"7"
