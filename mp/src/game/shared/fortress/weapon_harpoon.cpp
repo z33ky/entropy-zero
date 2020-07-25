@@ -416,6 +416,8 @@ public:
 	virtual void	SecondaryAttack( void ) override;
 	virtual float	GetFireRate( void ) override;
 
+	bool Holster( CBaseCombatWeapon *pSwitchingTo = NULL ) override;
+
 	void ThrowGrenade();
 	
 	void DetachRope();
@@ -496,6 +498,20 @@ float CWeaponHarpoon::GetFireRate( void )
 	return 2.0f; 
 }
 
+bool CWeaponHarpoon::Holster( CBaseCombatWeapon *pSwitchingTo ) {
+	// If we have a harpoon out, immediately yank it!
+	if( m_bActiveHarpoon ) {
+		CBasePlayer *owner = ToBasePlayer( GetOwner() );
+		if( owner != nullptr && owner->IsAlive() ) {
+			YankHarpoon();
+		}
+		
+		DetachRope();
+	}
+
+	return BaseClass::Holster( pSwitchingTo );
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -549,11 +565,11 @@ void CWeaponHarpoon::ItemPostFrame( void )
 //-----------------------------------------------------------------------------
 void CWeaponHarpoon::PrimaryAttack( void )
 {
-	CBasePlayer *pPlayer = dynamic_cast<CBasePlayer*>( GetOwner() );
-	if ( !pPlayer )
+	if ( !ComputeEMPFireState() )
 		return;
 
-	if ( !ComputeEMPFireState() )
+	CBasePlayer *pPlayer = dynamic_cast<CBasePlayer *>( GetOwner() );
+	if( !pPlayer )
 		return;
 
 	// If I'm now out of ammo, switch away
@@ -561,6 +577,8 @@ void CWeaponHarpoon::PrimaryAttack( void )
 		pPlayer->SelectLastItem();
 		return;
 	}
+
+	m_iClip1--;
 
 	ThrowGrenade();
 
