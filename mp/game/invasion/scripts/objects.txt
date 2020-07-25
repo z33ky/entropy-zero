@@ -105,7 +105,7 @@ objects
 		Icon                   "selection_obj_resourcepump"
 		BuildTime              10
 		MaxObjects             1
-		Cost                   35
+		Cost                   5
 		CostMultiplier         1
 		UpgradeCost            0
 		MaxUpgradeLevel        4
