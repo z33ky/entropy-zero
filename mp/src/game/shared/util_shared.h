@@ -622,7 +622,7 @@ class RealTimeCountdownTimer : public CountdownTimer
 	}
 };
 
-char* ReadAndAllocStringValue( KeyValues *pSub, const char *pName, const char *pFilename = NULL );
+char* ReadAndAllocStringValue( KeyValues *pSub, const char *pName, const char *pFilename = NULL, const char *defaultValue = nullptr );
 
 int UTIL_StringFieldToInt( const char *szValue, const char **pValueStrings, int iNumStrings );
 

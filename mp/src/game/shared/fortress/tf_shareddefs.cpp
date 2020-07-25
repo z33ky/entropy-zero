@@ -56,130 +56,261 @@ static int g_iClassInfo_Undecided[] =
 
 static int g_iClassInfo_Recon[] =
 {
-	OBJ_RESOURCEPUMP,
+	//OBJ_RESOURCEPUMP,
 	OBJ_RESPAWN_STATION,
-	OBJ_WAGON,
+	//OBJ_WAGON,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Commando[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-#ifdef IMPLEMENT_ME
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
 	OBJ_MANNED_MISSILELAUNCHER,
-#endif
-	OBJ_DRAGONSTEETH,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
-	OBJ_VEHICLE_BOOST,
+	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Medic[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-	OBJ_BUFF_STATION,
-#ifdef IMPLEMENT_ME
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
 	OBJ_MANNED_PLASMAGUN,
-#endif
-	OBJ_RESUPPLY,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
 	OBJ_BUNKER,
 	OBJ_DRAGONSTEETH,
-	OBJ_SELFHEAL,			// TODO: should be provided via technologytree.txt
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Defender[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-	OBJ_SENTRYGUN_PLASMA,
-#ifdef IMPLEMENT_ME
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
 	OBJ_MANNED_MISSILELAUNCHER,
-#endif
-	OBJ_BARBED_WIRE,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
 	OBJ_BUNKER,
-	OBJ_TOWER,
 	OBJ_DRAGONSTEETH,
-	OBJ_DRIVER_MACHINEGUN,	// TODO: should be provided via technologytree.txt
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Sniper[] =
 {
-	OBJ_RESPAWN_STATION,
+	OBJ_POWERPACK,
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
 	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
+	OBJ_SANDBAG_BUNKER,
+	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Support[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-	OBJ_VEHICLE_MORTAR,
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
 	OBJ_BUNKER,
-	OBJ_EXPLOSIVES,	// TODO: should be provided via technologytree.txt
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Escort[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-	OBJ_SHIELDWALL,
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
 	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Sapper[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-#ifdef IMPLEMENT_ME
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
 	OBJ_MANNED_PLASMAGUN,
-#endif
-	OBJ_DRAGONSTEETH,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
 	OBJ_TOWER,
+	OBJ_TUNNEL,
 	OBJ_SANDBAG_BUNKER,
+	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Infiltrator[] =
 {
-	OBJ_RESPAWN_STATION,
+	OBJ_POWERPACK,
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
 	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
+	OBJ_MANNED_PLASMAGUN,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
+	OBJ_SANDBAG_BUNKER,
+	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
 
 static int g_iClassInfo_Pyro[] =
 {
-	OBJ_RESPAWN_STATION,
-	OBJ_RESOURCEPUMP,
 	OBJ_POWERPACK,
-#ifdef IMPLEMENT_ME
+	OBJ_RESUPPLY,					// Support
+	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
+	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
+	OBJ_SHIELDWALL,					// Defense?
+	OBJ_RESOURCEPUMP,
+	OBJ_RESPAWN_STATION,
+	OBJ_RALLYFLAG,
 	OBJ_MANNED_PLASMAGUN,
-#endif
-	OBJ_BARBED_WIRE,
+	OBJ_MANNED_MISSILELAUNCHER,
+	OBJ_MANNED_SHIELD,
+	OBJ_EMPGENERATOR,
+	OBJ_BUFF_STATION,
+	OBJ_BARBED_WIRE,				// Defense
+	OBJ_MCV_SELECTION_PANEL,
+	OBJ_MAPDEFINED,
+	OBJ_MORTAR,
+	OBJ_TOWER,
+	OBJ_TUNNEL,
+	OBJ_SANDBAG_BUNKER,
+	OBJ_BUNKER,
+	OBJ_DRAGONSTEETH,
 
 	OBJ_LAST
 };
@@ -351,6 +482,11 @@ const CTFClassInfo* GetTFClassInfo( int i )
 // CObjectInfo tables.
 // ------------------------------------------------------------------------------------------------ //
 
+static char *humanFallbackModel = "models/objects/human_obj_placeholder.mdl";
+static char *alienFallbackModel = "models/objects/alien_obj_placeholder.mdl";
+static char *humanFallbackBuildModel = "models/objects/human_obj_placeholder.mdl";
+static char *alienFallbackBuildModel = "models/objects/alien_obj_placeholder.mdl";
+
 CObjectInfo::CObjectInfo( char *pObjectName )
 {
 	m_pObjectName = pObjectName;
@@ -368,6 +504,10 @@ CObjectInfo::CObjectInfo( char *pObjectName )
 	m_bSolidToPlayerMovement = false;
 	m_flSapperAttachTime = -9999;
 	m_pIconActive = NULL;
+	humanModelPath = humanFallbackModel;
+	humanBuildModelPath = humanFallbackBuildModel;
+	alienModelPath = alienFallbackModel;
+	alienBuildModelPath = alienFallbackBuildModel;
 }
 
 CObjectInfo::~CObjectInfo()
@@ -419,22 +559,6 @@ CObjectInfo g_ObjectInfos[OBJ_LAST] =
 	CObjectInfo( "OBJ_BUNKER" ),
 	CObjectInfo( "OBJ_DRAGONSTEETH" ),
 };
-
-#if 0
-char* ReadAndAllocStringValue( KeyValues *pSub, const char *pName, const char *pFilename )
-{
-	const char *pValue = pSub->GetString( pName, NULL );
-	if ( !pValue )
-	{
-		DevWarning( "Can't get key value	'%s' from file '%s'.", pName, pFilename );
-		return "";
-	}
-
-	char *pAlloced = new char[ strlen( pValue ) + 1];
-	strcpy( pAlloced, pValue );
-	return pAlloced;
-}
-#endif
 
 bool AreObjectInfosLoaded()
 {
@@ -490,6 +614,11 @@ void LoadObjectInfos( IBaseFileSystem *pFileSystem )
 		pInfo->m_pBuilderPlacementString = ReadAndAllocStringValue( pSub, "BuilderPlacementString", pFilename );
 		pInfo->m_bSolidToPlayerMovement = pSub->GetInt( "SolidToPlayerMovement", 0 ) ? true : false;
 		pInfo->m_pIconActive = ReadAndAllocStringValue( pSub, "Icon", pFilename );
+
+		pInfo->humanModelPath = ReadAndAllocStringValue( pSub, "HumanModel", pFilename, humanFallbackModel );
+		pInfo->humanBuildModelPath = ReadAndAllocStringValue( pSub, "HumanBuildModel", pFilename, humanFallbackBuildModel );
+		pInfo->alienModelPath = ReadAndAllocStringValue( pSub, "AlienModel", pFilename, alienFallbackModel );
+		pInfo->alienBuildModelPath = ReadAndAllocStringValue( pSub, "AlienBuildModel", pFilename, alienFallbackBuildModel );
 	}
 
 	pValues->deleteThis();

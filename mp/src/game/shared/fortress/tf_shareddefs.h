@@ -112,10 +112,10 @@ enum
 enum
 {
 	OBJ_POWERPACK=0,
-	OBJ_RESUPPLY,
+	OBJ_RESUPPLY,					// Support
 	OBJ_SENTRYGUN_PLASMA,			// Orders always refer to this type of sentry gun.
 	OBJ_SENTRYGUN_ROCKET_LAUNCHER,
-	OBJ_SHIELDWALL,
+	OBJ_SHIELDWALL,					// Defense?
 	OBJ_RESOURCEPUMP,
 	OBJ_RESPAWN_STATION,
 	OBJ_RALLYFLAG,
@@ -124,7 +124,7 @@ enum
 	OBJ_MANNED_SHIELD,
 	OBJ_EMPGENERATOR,
 	OBJ_BUFF_STATION,
-	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE,				// Defense
 	OBJ_MCV_SELECTION_PANEL,
 	OBJ_MAPDEFINED,
 	OBJ_MORTAR,
@@ -198,6 +198,11 @@ public:
 	int		m_SelectionPosition;			// Weapon selection positions for objects
 	bool	m_bSolidToPlayerMovement;
 	float	m_flSapperAttachTime;			// Time it takes to place a sapper on this object
+
+	char *humanModelPath;		// Path to human model
+	char *humanBuildModelPath;	// Path to human model during build process
+	char *alienModelPath;		// Path to alien model
+	char *alienBuildModelPath;	// Path to alien model during build process
 
 	// HUD weapon selection menu icon ( from hud_textures.txt )
 	char	*m_pIconActive;
