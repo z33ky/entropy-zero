@@ -261,6 +261,12 @@ void CBaseObject::Precache()
 
 	if ( m_iszDisabledModel != NULL_STRING )
 		PrecacheModel( STRING( m_iszDisabledModel ) );
+
+	const CObjectInfo *info = GetObjectInfo( m_iObjectType );
+	PrecacheModel( info->humanModelPath );
+	PrecacheModel( info->humanBuildModelPath );
+	PrecacheModel( info->alienModelPath );
+	PrecacheModel( info->alienBuildModelPath );
 }
 
 void CBaseObject::Spawn( void )

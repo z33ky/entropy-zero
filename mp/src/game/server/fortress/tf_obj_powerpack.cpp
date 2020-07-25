@@ -21,9 +21,6 @@ Copyright (C) 2014-2016 TalonBrave.info
 #include "VGuiScreen.h"
 #include "hierarchy.h"
 
-#define POWERPACK_MODEL	"models/objects/human_obj_powerpack.mdl"
-#define POWERPACK_ASSEMBLING_MODEL	"models/objects/human_obj_powerpack_build.mdl"
-
 IMPLEMENT_SERVERCLASS_ST( CObjectPowerPack, DT_ObjectPowerPack )
 	SendPropInt( SENDINFO(m_iObjectsAttached), 3, SPROP_UNSIGNED ),
 END_SEND_TABLE();
@@ -40,13 +37,18 @@ CObjectPowerPack::CObjectPowerPack()
 
 void CObjectPowerPack::Spawn( void )
 {
-	SetModel( POWERPACK_MODEL );
+	SetType( OBJ_POWERPACK );
+
+	Precache();
+
+	const CObjectInfo *info = GetObjectInfo( OBJ_POWERPACK );
+	SetModel( info->humanModelPath );
+
 	SetSolid( SOLID_BBOX );
 	UTIL_SetSize(this, POWERPACK_MINS, POWERPACK_MAXS);
 
 	m_iHealth = obj_powerpack_health.GetInt();
 	m_fObjectFlags |= OF_DOESNT_NEED_POWER;
-	SetType( OBJ_POWERPACK );
 	m_hPoweredObjects.Purge();
 	m_iFreeAttachments = 0;
 	m_iObjectsAttached = 0;
@@ -88,8 +90,7 @@ void CObjectPowerPack::FinishedBuilding( void )
 void CObjectPowerPack::Precache()
 {
 	BaseClass::Precache();
-	engine->PrecacheModel( POWERPACK_MODEL );
-	engine->PrecacheModel( POWERPACK_ASSEMBLING_MODEL );
+
 	PrecacheVGuiScreen( "screen_obj_power_pack" );
 }
 
@@ -315,13 +316,14 @@ void CObjectPowerPack::OnActivityChanged( Activity act )
 {
 	BaseClass::OnActivityChanged( act );
 
+	const CObjectInfo *info = GetObjectInfo( OBJ_POWERPACK );
 	switch ( act )
 	{
 	case ACT_OBJ_ASSEMBLING:
-		SetModel( POWERPACK_ASSEMBLING_MODEL );
+		SetModel( info->humanBuildModelPath );
 		break;
 	default:
-		SetModel( POWERPACK_MODEL );
+		SetModel( info->humanModelPath );
 		break;
 	}
 }
