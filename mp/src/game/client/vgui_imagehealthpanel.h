@@ -41,7 +41,7 @@ public:
 	// called when we're ticked...
 	virtual void OnTick();
 	virtual bool ShouldDraw( void );
-	virtual void ComputeAndSetSize( void );
+	//virtual void ComputeAndSetSize( void );
 
 private:
 	CHealthBarPanel			*m_CommanderHealthBar;

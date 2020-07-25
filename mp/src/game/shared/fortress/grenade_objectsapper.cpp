@@ -61,8 +61,7 @@ void CGrenadeObjectSapper::Precache( void )
 	PrecacheScriptSound("GrenadeObjectSapper.RemoveSapper");
 }
 
-void CGrenadeObjectSapper::PlayArmingSound( void )
-{
+void CGrenadeObjectSapper::PlayArmingSound( void ) {
 	EmitSound( "GrenadeObjectSapper.Arming" );
 }
 
@@ -72,11 +71,8 @@ void CGrenadeObjectSapper::SetArmed( bool armed )
 	m_bArmed = armed;
 
 	// Going armed
-	if ( ch && m_bArmed )
-	{
-#ifdef IMPLEMENT_ME // Reintroduce once we can stop this looping!
+	if ( ch && m_bArmed ) {
 		PlayArmingSound();
-#endif
 	}
 
 	if ( m_bArmed )
@@ -112,7 +108,7 @@ void CGrenadeObjectSapper::SapperThink( void )
 	// Remove myself if I'm armed, but don't have an object to sap
 	if ( !m_hTargetObject )
 	{
-		RemoveFromObject();
+		CleanUp();
 		return;
 	}
 
@@ -155,7 +151,8 @@ void CGrenadeObjectSapper::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, U
 	// Only enemies remove the sapper
 	if ( !InSameTeam( pActivator ) ) {
 		// Enemy is grabbing me
-		RemoveFromObject();
+		SetTargetObject( NULL );
+		return;
 	}
 
 /*	
@@ -176,12 +173,10 @@ void CGrenadeObjectSapper::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, U
 */
 }
 
-void CGrenadeObjectSapper::RemoveFromObject() {
-	StopLoopingSounds();
+void CGrenadeObjectSapper::CleanUp() {
+	StopSound( entindex(), "GrenadeObjectSapper.Arming" );
 	EmitSound( "GrenadeObjectSapper.RemoveSapper" );
-	
-	SetTargetObject( NULL );
-	
+
 	Remove();
 }
 

@@ -169,8 +169,8 @@ private:
 //-----------------------------------------------------------------------------
 bool ParseRGBA( KeyValues* pValues, const char* pFieldName, int& r, int& g, int& b, int& a );
 bool ParseRGBA( KeyValues* pValues, const char* pFieldName, Color& c );
-bool ParseCoord( KeyValues* pValues, const char* pFieldName, int& x, int& y );
-bool ParseRect( KeyValues* pValues, const char* pFieldName, int& x, int& y, int& w, int& h );
+bool ParseCoord( KeyValues* pValues, const char* pFieldName, int& x, int& y, bool isExplicit = false );
+bool ParseRect( KeyValues* pValues, const char* pFieldName, int& x, int& y, int& w, int& h, bool isExplicit = false );
 
 
 /* FIXME: Why do we have KeyValues too!?!??! Bleah

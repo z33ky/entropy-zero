@@ -23,6 +23,22 @@ Screens
 		pixelshigh	400
 		resfile		"scripts/screens/powerpack_control_panel.res"
 	}
+
+	sentrygun_control_panel
+	{
+		type		sentrygun_control_panel
+		pixelswide	640
+		pixelshigh	480
+		resfile		"scripts/screens/sentrygun_control_panel.res"
+	}
+
+	screen_obj_resupply
+	{
+		type		"resupply_control_panel"
+		pixelswide	640
+		pixelshigh	480
+		resfile		"scripts/screens/resupply_control_panel.res"
+	}
 	
 	screen_obj_buffstation
 	{

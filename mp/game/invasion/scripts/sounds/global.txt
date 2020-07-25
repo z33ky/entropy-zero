@@ -75,8 +75,15 @@ Weapon_BurstRifle.Single
 	channel		CHAN_WEAPON
 	volume		0.8
 	soundlevel	SNDLVL_GUNFIRE
-	pitch		85,115
+	pitch		99,100
 	wave		weapons/burstrifle/single.wav
+}
+
+Weapon_BurstRifle.Reload {
+	channel		CHAN_WEAPON
+	volume		0.8
+	soundlevel	SNDLVL_GUNFIRE
+	wave		weapons/burstrifle/reload.wav
 }
 
 // Minimap

@@ -8,6 +8,7 @@ TeamSchemeHuman
 		Red			"255 0 0 255"
 		DarkRed		"100 0 0 255"
 		Green		"0 255 0 255"
+		DarkGreen	"0 100 0 255"
 		Black		"0 0 0 255"
 		LightBlack	"0 0 0 240"
 		Blue		"0 255 0 255"
@@ -52,86 +53,8 @@ TeamSchemeHuman
 		AmmoNormal					Green
 		AmmoCaution					Red
 
-		OtherSlotFg	Green
+		OtherSlotFg		Green
 		OtherSlotText	Green
-	}
-
-	Fonts
-	{
-		HudSelectionNumbers
-		{
-			1
-			{
-				name			"Michroma"
-				tall			"24"
-				weight		"0"
-				antialias	"1"
-				outline		1
-			}
-		}
-		
-		HudSelectionText
-		{
-			1
-			{
-				name			"Oswald"
-				tall			"13"
-				weight		"0"
-				antialias	"1"
-				outline		1
-			}
-		}
-		
-		HudSelectionTextSmall
-		{
-			1
-			{
-				name			"Michroma"
-				tall			"10"
-				weight		"0"
-				antialias	"1"
-				outline		1
-			}
-		}
-		
-		HudNumbersLabelFont
-		{
-			1
-			{
-				name			"Oswald"
-				tall			"18"
-				weight		"100"
-				antialias	"1"
-				outline		1
-			}
-		}
-		
-		HudNumbersSmall
-		{
-			1
-			{
-				name			"Michroma"
-				tall			"14"
-				weight		"100"
-				additive		"1"
-				antialias 	"1"
-				outline		1
-			}
-		}
-		
-		HudNumbersSmallGlow
-		{
-			1
-			{
-				name			"Michroma"
-				tall			"14"
-				weight		"100"
-				additive		"1"
-				scanlines	"3"
-				antialias 	"1"
-				blur			"2"
-			}
-		}
 	}
 
 	Borders

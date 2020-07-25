@@ -222,10 +222,10 @@ void CResourceZoneOverlay::Paint( void )
 	if ( !m_pImage )
 		return;
 
-	ComputeAndSetSize();
+	unsigned char fade = ComputeSizeAndFade( m_Icon.w, m_Icon.h );
 
 	Color color;
-	color.SetColor( m_r, m_g, m_b, m_a );
+	color.SetColor( m_r, m_g, m_b, fade );
 	m_pImage->SetPos( m_Icon.x, m_Icon.y );
 	m_pImage->SetColor( color );
 	m_pImage->DoPaint( GetVPanel() );

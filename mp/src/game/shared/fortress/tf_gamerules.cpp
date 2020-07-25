@@ -544,16 +544,6 @@ END_NETWORK_TABLE()
 
 			// Why are we doing this before we're dead? Because then we can't pick up our new items.
 			pPlayer->ChangeClass( ( TFClass ) newClass );
-
-			if ( oldClass != TFCLASS_UNDECIDED ) {
-				if ( !pPlayer->IsDead() ) {
-					pPlayer->CommitSuicide( false, true );
-					pPlayer->IncrementFragCount( 1 );
-				}
-			} else {
-				pPlayer->ForceRespawn();
-			}
-
 			return true;
 		} else if ( FStrEq( pcmd, "changeteam" ) ) {
 			if ( args.ArgC() < 2 ) {
@@ -1101,9 +1091,10 @@ END_NETWORK_TABLE()
 		IGameEvent * event = gameeventmanager->CreateEvent( "player_death" );
 		if(event)
 		{
-			event->SetInt("killer", pScorer ? pScorer->GetUserID() : 0 );
-			event->SetInt("victim", pVictim->GetUserID() );
-			event->SetString("weapon", killer_weapon_name );
+			event->SetInt( "userid", pVictim->GetUserID() );
+			event->SetInt( "attacker", pScorer ? pScorer->GetUserID() : 0 );
+			event->SetInt( "assister", pAssistant ? pAssistant->GetUserID() : 0 );
+			event->SetString( "weapon", killer_weapon_name );
 
 			gameeventmanager->FireEvent( event, false );
 		}
@@ -1627,6 +1618,7 @@ CAmmoDef *GetAmmoDef()
 		bInitted = true;
 		
 		// Added some basic physics force ~hogsy
+		def.AddAmmoType( "Harpoons", DMG_CLUB, TRACER_NONE, 0, 0, 0, 0, 0 );
 		def.AddAmmoType( "Bullets", DMG_BULLET, TRACER_LINE_AND_WHIZ, 0, 0, INFINITE_AMMO, 2, 0 );
 		def.AddAmmoType( "Rockets", DMG_BLAST, TRACER_NONE, 0, 0, 6, 32, 0 );
 		def.AddAmmoType( "Grenades", DMG_BLAST, TRACER_NONE, 0, 0, 3, 32, 0 );

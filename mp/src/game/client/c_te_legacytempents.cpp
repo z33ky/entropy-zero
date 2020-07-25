@@ -2540,6 +2540,10 @@ inline void CTempEnts::CacheMuzzleFlashes( void )
 }
 
 static void EmitMuzzleFlashLight( ClientEntityHandle_t entityHandle, const Vector &origin, const Color &colour ) {
+	if ( !muzzleflash_light.GetBool() ) {
+		return;
+	}
+	
 	C_BaseEntity *entityPtr = ClientEntityList().GetBaseEntityFromHandle( entityHandle );
 	if ( entityPtr ) {
 		dlight_t *dynamicLight = effects->CL_AllocDlight( LIGHT_INDEX_MUZZLEFLASH + entityPtr->entindex() );
@@ -2902,7 +2906,10 @@ void CTempEnts::MuzzleFlash_SMG1_Player( ClientEntityHandle_t hEntity, int attac
 		pParticle->m_flRollDelta	= 0.0f;
 	}
 
-	EmitMuzzleFlashLight( hEntity, offset, Color( 255, 255, 200 + random->RandomInt( 0, 55 ), 5 ) );
+	Vector origin;
+	FX_GetAttachmentTransform( hEntity, attachmentIndex, &origin, nullptr );
+
+	EmitMuzzleFlashLight( hEntity, origin, Color( 255, 255, 200 + random->RandomInt( 0, 55 ), 5 ) );
 }
 
 //==================================================

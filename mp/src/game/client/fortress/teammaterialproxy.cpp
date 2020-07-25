@@ -18,9 +18,20 @@ class CTeamMaterialProxy : public CEntityMaterialProxy
 {
 public:
 	CTeamMaterialProxy();
-	virtual ~CTeamMaterialProxy();
-	virtual bool Init( IMaterial *pMaterial, KeyValues* pKeyValues );
-	virtual void OnBind( C_BaseEntity *pEnt );
+	~CTeamMaterialProxy() override;
+
+	bool Init( IMaterial *pMaterial, KeyValues* pKeyValues ) override;
+	
+	IMaterial *GetMaterial() override {
+		if ( m_FrameVar == nullptr ) {
+			return nullptr;
+		}
+
+		return m_FrameVar->GetOwningMaterial();
+	}
+
+protected:
+	void OnBind( C_BaseEntity *pEnt ) override;
 
 private:
 	IMaterialVar* m_FrameVar;
@@ -39,7 +50,6 @@ CTeamMaterialProxy::CTeamMaterialProxy()
 CTeamMaterialProxy::~CTeamMaterialProxy()
 {
 }
-
 
 //-----------------------------------------------------------------------------
 // Init baby...

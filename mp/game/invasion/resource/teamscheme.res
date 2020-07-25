@@ -8,6 +8,7 @@ TeamScheme
 		Red			"255 0 0 255"
 		DarkRed		"100 0 0 255"
 		Green		"0 255 0 255"
+		DarkGreen	"0 100 0 255"
 		Black		"0 0 0 255"
 		LightBlack	"0 0 0 240"
 		Blue		"0 255 0 255"
@@ -56,28 +57,22 @@ TeamScheme
 		OtherSlotText				Green
 	}
 
-	Fonts
-	{
-		HudSelectionNumbers
-		{
-			1
-			{
-				name		"Oswald"
+	Fonts {
+		HudSelectionNumbers {
+			1 {
+				name		"Crystal"
 				tall		"24"
 				weight		"0"
 				antialias	"1"
 			}
 		}
 		
-		HudSelectionText
-		{
-			1
-			{
-				name		"Oswald"
-				tall		"13"
-				weight		"0"
+		HudSelectionText {
+			1 {
+				name		"Squada One"
+				tall		"12"
+				weight		"2"
 				antialias	"1"
-				scanlines	"3"
 			}
 		}
 		
@@ -85,45 +80,39 @@ TeamScheme
 		{
 			1
 			{
-				name		"Oswald"
+				name		"Crystal"
 				tall		"10"
 				weight		"0"
 				antialias	"1"
 			}
 		}
 		
-		HudNumbersLabelFont
-		{
-			1
-			{
-				name		"Oswald"
-				tall		"18"
-				weight		"0"
+		HudNumbersLabelFont {
+			1 {
+				name		"Michroma"
+				tall		"14"
+				weight		"10"
 				antialias	"1"
 			}
 		}
 		
-		HudNumbersSmall
-		{
-			1
-			{
-				name		"Michroma"
-				tall		"14"
+		HudNumbersSmall {
+			1 {
+				name		"Crystal"
+				tall		"15"
 				weight		"100"
 				additive	"1"
 				antialias 	"1"
 			}
 		}
 		
-		HudNumbersSmallGlow
-		{
-			1
-			{
-				name		"Michroma"
-				tall		"14"
+		HudNumbersSmallGlow {
+			1 {
+				name		"Crystal"
+				tall		"15"
 				weight		"100"
-				additive	"1"
-				scanlines	"3"
+				additive	"0"
+				scanlines	"2"
 				antialias 	"1"
 				blur		"2"
 			}

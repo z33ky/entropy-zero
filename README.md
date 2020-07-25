@@ -2,6 +2,18 @@
 
 **THIS PROJECT AND README ARE A WORK IN PROGRESS**
 
+Invasion, or otherwise known as _Project Invasion_, is a game that intends to reproduce and complete Valve's vision of Team Fortress 2 as it was to be in 2003, before it restarted development to become the game we know today.
+
+While we aim for authenticity, we do have to take some creative liberties given the nature of Team Fortress 2's state at the time, being very much a mess of ideas carried through years of development.
+
+## Developers
+- hogsy				
+	+ https://www.hogsy.me/
+- G-Gnome505		
+- SleepingHollow	
+- Laggies			
+	+ https://www.deviantart.com/mcstick11
+
 ## Contributing
 
 If you're interested in contributing to the project then we recommend jumping onto our [Discord](https://discord.gg/EdmwgVk), so we can better coordinate everything.

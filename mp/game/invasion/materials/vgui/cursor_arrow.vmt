@@ -1,5 +1,5 @@
 UnlitGeneric {
 	$basetexture 	vgui/cursor_arrow
 	$alphatest		1
-	$ignorez     	1
+	$ignorez     	0
 }

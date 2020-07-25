@@ -374,20 +374,19 @@ void CResourceZone::SetOwningTeam( int iTeamNumber )
 //-----------------------------------------------------------------------------
 // Purpose: Transmit this to all players who are in commander mode
 //-----------------------------------------------------------------------------
-bool CResourceZone::ShouldTransmit( const edict_t *recipient, const void *pvs, int clientArea )
-{
+int CResourceZone::ShouldTransmit( const CCheckTransmitInfo *info ) {
 	// Team rules may tell us that we should
-	CBaseEntity* pRecipientEntity = CBaseEntity::Instance( recipient );
-	if ( pRecipientEntity->IsPlayer() )
-	{
-		CBasePlayer *pPlayer = (CBasePlayer*)pRecipientEntity;
-		if ( pPlayer->GetTeam() )
-		{
-			if (pPlayer->GetTeam()->ShouldTransmitToPlayer( pPlayer, this ))
-				return true;
+	CBaseEntity* pRecipientEntity = CBaseEntity::Instance( info->m_pClientEnt );
+	if ( pRecipientEntity->IsPlayer() ) {
+		CBasePlayer *pPlayer = ( CBasePlayer* ) pRecipientEntity;
+		if ( pPlayer->GetTeam() ) {
+			if ( pPlayer->GetTeam()->ShouldTransmitToPlayer( pPlayer, this ) ) {
+				return FL_EDICT_ALWAYS;
+			}
 		}
 	}
-	return false;
+
+	return FL_EDICT_DONTSEND;
 }
 
 //-----------------------------------------------------------------------------

@@ -187,13 +187,9 @@ BEGIN_PREDICTION_DATA( CBaseTFPlayer )
 END_PREDICTION_DATA()
 #endif
 
-bool IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot );
 void respawn( CBaseEntity *pEdict, bool fCopyCorpse );
-int TrainSpeed(int iSpeed, int iMax);
-void BulletWizz( Vector vecSrc, Vector vecEndPos, edict_t *pShooter, bool isTracer );
 
 extern float	g_flNextReinforcementTime;
-extern short	g_sModelIndexFireball;
 extern CBaseEntity	*g_pLastSpawn;
 
 //-----------------------------------------------------------------------------
@@ -283,6 +279,10 @@ bool CBaseTFPlayer::IsHidden() const
 	return (m_TFPlayerFlags & TF_PLAYER_HIDDEN) != 0;
 }
 
+/**
+ * Sets the hidden player flag. This will automatically stop the player from being 
+ * displayed on the client.
+ */
 void CBaseTFPlayer::SetHidden( bool bHidden )
 {
 	if ( bHidden )
@@ -308,10 +308,6 @@ void CBaseTFPlayer::Spawn( void )
 	if ( IsInAVehicle() )
 		LeaveVehicle();
 
-	// If the player doesn't have a spawn station set, find one
-	if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) )
-		m_hSpawnPoint = GetInitialSpawnPoint();
-
 	// Added to resolve assert issue on spawn. ~hogsy
 	MDLCACHE_CRITICAL_SECTION();
 
@@ -324,6 +320,12 @@ void CBaseTFPlayer::Spawn( void )
 
 	BaseClass::Spawn();
 
+	// Nothing more to do here if the map is a background...
+	if ( gpGlobals->eLoadType == MapLoad_Background ) {
+		m_Local.m_iHideHUD |= HIDEHUD_ALL;
+		return;
+	}
+
 	m_flFractionalBoost = 0.0f;
 
 	// Create second view model ( for support/commando, etc )
@@ -331,43 +333,57 @@ void CBaseTFPlayer::Spawn( void )
 
 	RemoveAllDecals();
 
-	// Holster weapon immediately, to allow it to cleanup
-	CBaseCombatWeapon *pWeapon = GetActiveWeapon();
-	//if (pWeapon != nullptr)
-		//pWeapon->Holster();
+	// If the player doesn't have a spawn station set, find one
+	if ( m_hSpawnPoint == NULL || !InSameTeam( m_hSpawnPoint ) ) {
+		m_hSpawnPoint = GetInitialSpawnPoint();
+	}
 
 	// Tell the PlayerClass that this player's just respawned
-	if ( GetPlayerClass()  )
-	{
-		GetPlayerClass()->RespawnClass();
-
+	if ( GetPlayerClass()  ) {
 		RemoveFlag( FL_NOTARGET );
 		RemoveSolidFlags( FSOLID_NOT_SOLID );
 
-		if (pWeapon)
-		{
-			if (!pWeapon->HasAnyAmmo())
-				//Weapon_Switch(pWeapon);
-			//else
-				SwitchToNextBestWeapon(pWeapon);
-		}
-		else
-			SwitchToNextBestWeapon( NULL );
+		GetPlayerClass()->RespawnClass();
 
-		SetPlayerModel();
+		// BUG: doesn't appear to be working in all cases, is this our fault? Need to look into...
+		CBaseCombatWeapon *pWeapon = GetActiveWeapon();
+		if ( pWeapon ) {
+			if ( pWeapon->HasAnyAmmo() ) {
+				Weapon_Switch( pWeapon );
+			} else {
+				SwitchToNextBestWeapon( pWeapon );
+			}
+		} else {
+			SwitchToNextBestWeapon( NULL );
+		}
 
 		// Make sure they're not deployed
 		FinishUnDeploying();
+	} else {
+		AddFlag( FL_NOTARGET );
+
+		AddSolidFlags( FSOLID_NOT_SOLID );
+
+		if ( GetTeamNumber() != TEAM_UNASSIGNED && GetTeamNumber() != TEAM_SPECTATOR ) {
+			// They probably haven't yet chosen a class
+			ShowViewPortPanel( PANEL_CLASS );
+		} else {
+			if ( tf_autoteam.GetBool() || IsBot() ) {
+				PlacePlayerInTeam();
+				ForceRespawn();
+				return;
+			} else {
+				ShowViewPortPanel( PANEL_TEAM );
+			}
+		}
 	}
-	else if (
-		GetTeamNumber() != TEAM_UNASSIGNED && 
-		GetTeamNumber() != TEAM_SPECTATOR)
-		// They probably haven't yet chosen a class
-		ShowViewPortPanel(PANEL_CLASS);
+
+	SetPlayerModel();
 
 	// Remove my personal orders
-	if (GetTFTeam())
-		GetTFTeam()->RemoveOrdersToPlayer(this);
+	if ( GetTFTeam() ) {
+		GetTFTeam()->RemoveOrdersToPlayer( this );
+	}
 
 	m_TFLocal.m_nInTacticalView = false;
 	m_flLastTimeDamagedByEnemy = -1000;
@@ -433,25 +449,16 @@ void CBaseTFPlayer::InitialSpawn( void )
 	m_lifeState = LIFE_DEAD;
 	m_bFirstTeamSpawn = true;
 
-	AddEffects(EF_NODRAW);
 	ChangeTeam(TEAM_UNASSIGNED);
 
 	SetCantMove(true);
 
 	AddFlag(FL_NOTARGET);
 
-	SetHidden(true);
+	SetHidden( true );
 
 	AddSolidFlags(FSOLID_NOT_SOLID);
 	SetMoveType(MOVETYPE_NONE);
-
-	if (tf_autoteam.GetBool())
-	{
-		PlacePlayerInTeam();
-		ShowViewPortPanel(PANEL_CLASS);
-	}
-	else 
-		ShowViewPortPanel(PANEL_TEAM);
 
 	m_nPreferredTechnology = -1;
 }
@@ -593,13 +600,16 @@ bool CBaseTFPlayer::IsClassAvailable( TFClass iClass )
 	return HasNamedTechnology( str );
 }
 
-void CBaseTFPlayer::ChangeClass( TFClass iClass )
-{
+void CBaseTFPlayer::ChangeClass( TFClass iClass ) {
 	// If they've got a playerclass, kill it
-	if ( GetPlayerClass()  )
-	{
+	TFClass oldClassId = TFCLASS_UNDECIDED;
+	CPlayerClass *curClass = GetPlayerClass();
+	if ( curClass != nullptr ) {
 		if ( tf_destroyobjects.GetFloat() )
 			RemoveAllObjects( false, iClass );
+
+		// Store the original class
+		oldClassId = curClass->GetTFClass();
 
 		ClearPlayerClass();
 	}
@@ -615,9 +625,15 @@ void CBaseTFPlayer::ChangeClass( TFClass iClass )
 	CTFTeam *pTFTeam = GetTFTeam();
 	SetPreferredTechnology( pTFTeam->m_pTechnologyTree, -1 );
 
-	// Force a respawn if they're alive
-	if ( IsAlive() )
+	// Now force a respawn if they haven't yet deployed
+	if ( oldClassId != TFCLASS_UNDECIDED ) {
+		if ( !IsDead() ) {
+			CommitSuicide( false, true );
+			IncrementFragCount( 1 );
+		}
+	} else {
 		ForceRespawn();
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -835,9 +851,6 @@ void CBaseTFPlayer::PostThink()
 	// We will just have to deal with a little redundancy for now.
 	if ( GetPlayerClass()  )
 		GetPlayerClass()->SetPlayerHull();
-
-	// Menus
-	MenuDisplay();
 
 	// Player class Think
 	if (GetPlayerClass())
@@ -1281,30 +1294,46 @@ void CBaseTFPlayer::SetRespawnStation( CBaseEntity* pRespawnStation )
 //-----------------------------------------------------------------------------
 // Purpose: Find a starting respawn station
 //-----------------------------------------------------------------------------
-CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void )
-{
-	if ( !GetTFTeam() )
-		return NULL;
-
-	CBaseEntity *pFirstStation = NULL;
-
-	// Cycle through all the respawn stations on my team
-	for ( int i = 0; i < GetTFTeam()->GetNumObjects(); i++ )
-	{
-		CBaseObject *pObject = GetTFTeam()->GetObject(i);
-		if ( pObject->GetType() == OBJ_RESPAWN_STATION )
-		{
-			// Store off the first station we find
-			if ( !pFirstStation )
-				pFirstStation = pObject;
-
-			// Map specified initial spawnpoint?
-			if ( ((CObjectRespawnStation*)pObject)->IsInitialSpawnPoint() )
-				return pObject;
-		}
+CBaseEntity *CBaseTFPlayer::GetInitialSpawnPoint( void ) {
+	if( !GetTFTeam() ) {
+		return nullptr;
 	}
 
-	return pFirstStation;
+	CObjectRespawnStation *fallbackStation = nullptr;
+	CUtlVector< CObjectRespawnStation * > respawnStationsList;
+
+	// Cycle through all the respawn stations on my team
+	for( int i = 0; i < GetTFTeam()->GetNumObjects(); i++ ) {
+		CBaseObject *pObject = GetTFTeam()->GetObject( i );
+		if( pObject->GetType() != OBJ_RESPAWN_STATION ) {
+			continue;
+		}
+
+		CObjectRespawnStation *respawnStation = dynamic_cast<CObjectRespawnStation *>( pObject );
+		if( respawnStation == nullptr ) {
+			continue;
+		}
+
+		// Set the fallback, so we can use that if we don't find anything
+		if( fallbackStation == nullptr ) {
+			fallbackStation = respawnStation;
+		}
+
+		if( !respawnStation->IsInitialSpawnPoint() ) {
+			continue;
+		}
+		
+		respawnStationsList.AddToTail( respawnStation );
+	}
+
+	// If we didn't find an initial station to spawn at, just return the fallback
+	if( respawnStationsList.Size() == 0 ) {
+		return fallbackStation;
+	}
+
+	// Otherwise return a random initial station
+	int randomStation = RandomInt( 0, respawnStationsList.Size() - 1 );
+	return respawnStationsList[ randomStation ];
 }
 
 CBaseEntity *FindEntityForward( CBasePlayer *pMe, bool fHull );
@@ -1755,41 +1784,21 @@ int CBaseTFPlayer::TakeHealth( float flHealth, int bitsDamageType )
 	return flAmountToHeal;
 }
 
-
-//=====================================================================
-// MENU HANDLING
-//=====================================================================
-void CBaseTFPlayer::MenuDisplay( void )	
-{
-	// TODO: remove
-}
-
-bool CBaseTFPlayer::MenuInput( int iInput )
-{
-	// TODO: remove
-	return false;
-}
-
-void CBaseTFPlayer::MenuReset( void )
-{
-	// TODO: remove
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: Enables/disables tactical/map view for the player
 // Input  : bTactical - true == enable it
 //-----------------------------------------------------------------------------
 void CBaseTFPlayer::ShowTacticalView( bool bTactical )
 {
-#if 0
+#if 0 // Completely disable this for now
 	// TODO:  Decide if we are going to keep the tactical view in TF2
 	if ( !inv_demo.GetBool() )
 		return;
-#endif
 
 	m_bSwitchingView	= true;
 
 	m_TFLocal.m_nInTacticalView = bTactical ? true : false;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2076,6 +2085,7 @@ void CBaseTFPlayer::FinishUnDeploying( void )
 	m_bUnDeploying = false;
 	m_bDeployed = false;
 	m_takedamage = DAMAGE_YES;
+
 	SetCantMove( false );
 }
 

@@ -85,6 +85,7 @@ private:
 	vgui::Label *m_pHealthLabel;
 	vgui::Label *m_pOwnerLabel;
 	vgui::Button *m_pDismantleButton;
+	vgui::Button *cancelDismantleButton{ nullptr };
 	vgui::Button *m_pAssumeControlButton;
 	vgui::Label *m_pDismantleTimeLabel;
 

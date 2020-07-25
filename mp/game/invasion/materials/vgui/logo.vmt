@@ -2,5 +2,5 @@
 {
 	"$basetexture" "vgui/logo"
 	"$nolod" 1
-	"$translucent" 1
+	"$translucent" "1"
 }

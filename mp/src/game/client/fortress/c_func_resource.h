@@ -17,8 +17,8 @@ public:
 	DECLARE_MINIMAP_PANEL();
 
 	C_ResourceZone();
-	virtual void	SetDormant( bool bDormant );
-	virtual void	OnDataChanged( DataUpdateType_t updateType );
+	virtual void	SetDormant( bool bDormant ) override;
+	virtual void	OnDataChanged( DataUpdateType_t updateType ) override;
 	const char	*GetTargetDescription( void ) const;
 
 public:

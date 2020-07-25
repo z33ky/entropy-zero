@@ -2074,13 +2074,11 @@ void CBasePlayer::ShowViewPortPanel( const char * name, bool bShow, KeyValues *d
 
 void CBasePlayer::PlayerDeathThink(void)
 {
-	float flForward;
-
 	SetNextThink( gpGlobals->curtime + 0.1f );
 
 	if (GetFlags() & FL_ONGROUND)
 	{
-		flForward = GetAbsVelocity().Length() - 20;
+		float flForward = GetAbsVelocity().Length() - 20;
 		if (flForward <= 0)
 		{
 			SetAbsVelocity( vec3_origin );

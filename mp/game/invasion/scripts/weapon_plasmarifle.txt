@@ -30,15 +30,19 @@ WeaponData
 	// Weapon Sprite data is loaded by the Client DLL.
 	TextureData
 	{
-		"weapon"
-		{
-				"font"		"WeaponIcons"
-				"character"	"e"
+		"weapon" {
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"256"
+				"y"			"896"
+				"width"		"256"
+				"height"	"128"
 		}
-		"weapon_s"
-		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"e"
+		"weapon_s" {	
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"256"
+				"y"			"896"
+				"width"		"256"
+				"height"	"128"
 		}
 		"ammo"
 		{

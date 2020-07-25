@@ -18,6 +18,7 @@
 #include "movevars_shared.h"
 #include "te_effect_dispatch.h"
 #include "particle_parse.h"
+#include "tf_basefourwheelvehicle.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -478,7 +479,9 @@ void CFourWheelVehiclePhysics::TurnOn( )
 
 	if ( !m_bIsOn )
 	{
+#ifdef IMPLEMENT_ME
 		m_pOuterServerVehicle->SoundStart();
+#endif
 		m_bIsOn = true;
 	}
 }
@@ -492,7 +495,9 @@ void CFourWheelVehiclePhysics::TurnOff( )
 
 	if ( m_bIsOn )
 	{
+#ifdef IMPLEMENT_ME
 		m_pOuterServerVehicle->SoundShutdown();
+#endif
 		m_bIsOn = false;
 	}
 }
@@ -547,6 +552,7 @@ void CFourWheelVehiclePhysics::Teleport( matrix3x4_t& relativeTransform )
 	}
 	
 	// Wake the vehicle back up after a teleport
+#ifdef IMPLEMENT_ME
 	if ( m_pOuterServerVehicle && m_pOuterServerVehicle->GetFourWheelVehicle() )
 	{
 		IPhysicsObject *pObj = m_pOuterServerVehicle->GetFourWheelVehicle()->VPhysicsGetObject();
@@ -555,6 +561,7 @@ void CFourWheelVehiclePhysics::Teleport( matrix3x4_t& relativeTransform )
 			pObj->Wake();
 		}
 	}
+#endif
 }
 
 #if 1
@@ -757,8 +764,10 @@ bool CFourWheelVehiclePhysics::Think()
 			if ( !m_bLastSkid )	// only play sound once
 			{
 				m_bLastSkid = true;
+#ifdef IMPLEMENT_ME
 				CPASAttenuationFilter filter( m_pOuter );
 				m_pOuterServerVehicle->PlaySound( VS_SKID_FRICTION_NORMAL );
+#endif
 			}
 
 			// kick up dust from the wheels while skidding
@@ -770,7 +779,9 @@ bool CFourWheelVehiclePhysics::Think()
 		else if ( m_bLastSkid == true )
 		{
 			m_bLastSkid = false;
+#ifdef IMPLEMENT_ME
 			m_pOuterServerVehicle->StopSound( VS_SKID_FRICTION_NORMAL );
+#endif
 		}
 
 		// toss dust up from the wheels of the vehicle if we're moving fast enough
@@ -1084,7 +1095,9 @@ void CFourWheelVehiclePhysics::UpdateDriverControls( CUserCmd *cmd, float flFram
 		}
 	}
 
-	//Msg("F: %4.1f \tS: %4.1f!\tSTEER: %3.1f\n", cmd->forwardmove, cmd->sidemove, carState.steeringAngle);
+#if defined( _DEBUG )
+	Msg("F: %4.1f \tS: %4.1f!\tSTEER: %3.1f\n", cmd->forwardmove, cmd->sidemove, carState.steeringAngle);
+#endif
 	// If changing direction, use default "return to zero" speed to more quickly transition.
 	if ( ( nButtons & IN_MOVELEFT ) || ( nButtons & IN_MOVERIGHT ) )
 	{
@@ -1118,7 +1131,7 @@ void CFourWheelVehiclePhysics::UpdateDriverControls( CUserCmd *cmd, float flFram
 	// forward unless the player makes a significant motion towards reverse.
 	// (The inverse is true when driving in reverse and the stick is moved slightly forward)
 	//-------------------------------------------------------------------------
-	CBaseEntity *pDriver = m_pOuterServerVehicle->GetDriver();
+	CBaseEntity *pDriver = m_pOuterServerVehicle->GetDriverPlayer();
 	CBasePlayer *pPlayerDriver;
 	float flBiasThreshold = xbox_throttlebias.GetFloat();
 
@@ -1391,11 +1404,17 @@ void CFourWheelVehiclePhysics::UpdateDriverControls( CUserCmd *cmd, float flFram
 	params.bReverse = (m_controls.throttle < 0);
 	params.bThrottleDown = bThrottle;
 	params.bTurbo = IsBoosting();
+#ifdef IMPLEMENT_ME
 	params.bVehicleInWater = m_pOuterServerVehicle->IsVehicleBodyInWater();
+#else
+	params.bVehicleInWater = m_pOuterServerVehicle->PhysicsCheckWater();
+#endif
 	params.flCurrentSpeedFraction = flSpeedPercentage;
 	params.flFrameTime = flFrameTime;
 	params.flWorldSpaceSpeed = carState.speed;
+#ifdef IMPLEMENT_ME
 	m_pOuterServerVehicle->SoundUpdate( params );
+#endif
 }
 
 //-----------------------------------------------------------------------------

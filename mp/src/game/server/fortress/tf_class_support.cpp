@@ -107,12 +107,15 @@ bool CPlayerClassSupport::ResupplyAmmo( float flFraction, ResupplyReason_t reaso
 	bool bGiven = false;
 
 	// On respawn, resupply base weapon ammo
-	if ( reason == RESUPPLY_RESPAWN )
-	{
+	if ( reason == RESUPPLY_RESPAWN ) {
+		if ( ResupplyAmmoType( 8, "Harpoons" ) ) {
+			bGiven = true;
+		}
 	}
 
 	if ( BaseClass::ResupplyAmmo(flFraction, reason) )
 		bGiven = true;
+
 	return bGiven;
 }
 

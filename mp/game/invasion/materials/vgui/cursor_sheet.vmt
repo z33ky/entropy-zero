@@ -1,0 +1,5 @@
+UnlitGeneric {
+	$basetexture 	vgui/cursor_sheet
+	$alphatest		1
+	$ignorez     	0
+}

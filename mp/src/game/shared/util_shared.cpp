@@ -1061,9 +1061,9 @@ float CountdownTimer::Now( void ) const
 #endif
 
 
-char* ReadAndAllocStringValue( KeyValues *pSub, const char *pName, const char *pFilename )
+char* ReadAndAllocStringValue( KeyValues *pSub, const char *pName, const char *pFilename, const char *defaultValue )
 {
-	const char *pValue = pSub->GetString( pName, NULL );
+	const char *pValue = pSub->GetString( pName, defaultValue );
 	if ( !pValue )
 	{
 		if ( pFilename )

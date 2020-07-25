@@ -65,7 +65,7 @@ void CObjectTunnel::Killed( void )
 {
 	m_bDying = true;
 
-	RemoveAllSappers( this );
+	RemoveAllSappers();
 
 	// Do an explosion.
 	CPASFilter filter( GetAbsOrigin() );

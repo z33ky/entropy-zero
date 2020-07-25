@@ -25,13 +25,19 @@ WeaponData
 	{
 		"weapon"
 		{
-				"font"		"WeaponIcons"
-				"character"	"e"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"weapon_s"
 		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"e"
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"ammo"
 		{

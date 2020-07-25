@@ -177,11 +177,6 @@ public:
 
 	int		ClassCostAdjustment( ResupplyBuyType_t nType );
 
-	// Menu Handling
-	void	MenuDisplay( void );
-	bool	MenuInput( int iInput );
-	void	MenuReset( void );
-
 	// Standard functions
 	virtual void ItemPostFrame();
 
@@ -190,7 +185,7 @@ public:
 	void	PostThink( void );
 	void	PreThink( void );
 	void	PlayerRespawn( void );
-	CBaseEntity *EntSelectSpawnPoint( void );
+	CBaseEntity *EntSelectSpawnPoint( void ) override;
 
 	// Death
 	virtual void	DeathSound( void );

@@ -8,7 +8,7 @@ WeaponData
 	bucket_position		4
 	clip_size		8
 	default_clip		8
-	primary_ammo		"Bullets"
+	primary_ammo		ShotgunEnergy
 	secondary_ammo		"None"
 	weight			"7"
 	item_flags		"0"
@@ -18,22 +18,26 @@ WeaponData
 	// Sounds for the weapon. There is a max of 16 sounds per category (i.e. max 16 "single_shot" sounds)
 	SoundData
 	{
-		single_shot		"Weapon_BurstRifle.Single"
+		single_shot		"Weapon_Shotgun.Single"
 		reload			"Weapon_Shotgun.NPC_Reload"
 	}
 
 	// Weapon Sprite data is loaded by the Client DLL.
 	TextureData
 	{
-		"weapon"
-		{
-				"font"		"WeaponIcons"
-				"character"	"e"
+		"weapon" {
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
-		"weapon_s"
-		{	
-				"font"		"WeaponIconsSelected"
-				"character"	"e"
+		"weapon_s" {	
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
+				"y"			"0"
+				"width"		"256"
+				"height"	"128"
 		}
 		"ammo"
 		{

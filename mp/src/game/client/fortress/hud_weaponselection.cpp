@@ -1552,10 +1552,11 @@ int CHudWeaponItemPanel::GetTeamIndex()
 	C_BasePlayer *pPlayer = C_BasePlayer::GetLocalPlayer();
 	if (!pPlayer)
 		return HUMAN_WEAPON_SELECTION;
+
 	int team = pPlayer->GetTeamNumber();
 	if (!team)
 		return HUMAN_WEAPON_SELECTION;
 
-	bool human = (team == TEAM_HUMANS) ? true : false;
-	return human ? HUMAN_WEAPON_SELECTION : ALIEN_WEAPON_SELECTION;
+	bool alienTeam = ( team == TEAM_ALIENS ) ? true : false;
+	return alienTeam ? ALIEN_WEAPON_SELECTION : HUMAN_WEAPON_SELECTION;
 }

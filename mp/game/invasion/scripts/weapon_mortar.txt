@@ -26,18 +26,16 @@ WeaponData
 	// Weapon Sprite data is loaded by the Client DLL.
 	TextureData
 	{
-		"weapon"
-		{
-				"file"		"hud/menu/human_weapon_combat_burstrifle"
-				"x"			"0"
+		"weapon" {
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
 				"y"			"0"
 				"width"		"256"
 				"height"	"128"
 		}
-		"weapon_s"
-		{	
-				"file"		"hud/menu/human_weapon_combat_burstrifle"
-				"x"			"0"
+		"weapon_s" {	
+				"file"		"hud/menu/menu_icon_sheet"
+				"x"			"768"
 				"y"			"0"
 				"width"		"256"
 				"height"	"128"

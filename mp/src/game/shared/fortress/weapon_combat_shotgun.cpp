@@ -15,6 +15,7 @@
 ConVar	weapon_combat_shotgun_damage( "weapon_combat_shotgun_damage","5", FCVAR_REPLICATED, "Shotgun damage per pellet" );
 ConVar	weapon_combat_shotgun_powered_damage( "weapon_combat_shotgun_powered_damage","10", FCVAR_REPLICATED, "Shotgun damage per pellet when powered" );
 ConVar	weapon_combat_shotgun_range( "weapon_combat_shotgun_range","900", FCVAR_REPLICATED, "Shotgun maximum range" );
+ConVar	weapon_combat_shotgun_rate_of_fire( "weapon_combat_shotgun_rate_of_fire", "0.40", FCVAR_REPLICATED, "Shotgun rate of fire" );
 ConVar	weapon_combat_shotgun_pellets( "weapon_combat_shotgun_pellets","8", FCVAR_REPLICATED, "Shotgun pellets per fire" );
 ConVar	weapon_combat_shotgun_ducking_mod( "weapon_combat_shotgun_ducking_mod", "0.75", FCVAR_REPLICATED, "Shotgun ducking speed modifier" );
 ConVar	weapon_combat_shotgun_energy_cost( "weapon_combat_shotgun_energy_cost", "0.1", FCVAR_REPLICATED, "Sapper's energy cost to fire a powered shotgun round" );
@@ -46,6 +47,8 @@ public:
 	virtual void	PrimaryAttack( void );
 	virtual float 	GetFireRate( void );
 	virtual float	GetDefaultAnimSpeed( void );
+
+	void AddViewKick() override;
 
 	// All predicted weapons need to implement and return true
 	virtual bool	IsPredicted( void ) const
@@ -219,6 +222,8 @@ void CWeaponCombatShotgun::PrimaryAttack( void )
 	CTakeDamageInfo info( this, pPlayer, vecForce, vec3_origin, flDamage, DMG_BULLET | DMG_BUCKSHOT);
 	TFGameRules()->FireBullets( info, weapon_combat_shotgun_pellets.GetFloat(), vecSrc, vecAiming, GetBulletSpread(), weapon_combat_shotgun_range.GetFloat(), m_iPrimaryAmmoType, 2, entindex(), 0 );
 
+	AddViewKick();
+
 	m_flNextPrimaryAttack = gpGlobals->curtime + GetFireRate();
 	m_iClip1 = m_iClip1 - 1;
 }
@@ -228,7 +233,7 @@ void CWeaponCombatShotgun::PrimaryAttack( void )
 //-----------------------------------------------------------------------------
 float CWeaponCombatShotgun::GetFireRate( void )
 {	
-	float flFireRate = ( SequenceDuration() * 2) + SHARED_RANDOMFLOAT( 0.0, 0.035f );
+	float flFireRate = weapon_combat_shotgun_rate_of_fire.GetFloat() + SHARED_RANDOMFLOAT( 0.0f, 0.035f ); // ( SequenceDuration() * 2) + SHARED_RANDOMFLOAT( 0.0, 0.035f );
 
 	CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer*>( GetOwner() );
 	if ( pPlayer )
@@ -255,6 +260,21 @@ float CWeaponCombatShotgun::GetDefaultAnimSpeed( void )
 	}
 
 	return 1.0;
+}
+
+void CWeaponCombatShotgun::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.75f) - 1.0f, 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
 }
 
 #if defined ( CLIENT_DLL )

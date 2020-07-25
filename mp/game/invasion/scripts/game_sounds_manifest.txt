@@ -7,6 +7,8 @@ game_sounds_manifest
 	// Weapon sounds
 	precache_file	scripts/game_sounds_weapons.txt
 	precache_file	scripts/sounds/weapon_harpoon.soundscript
+	precache_file	scripts/sounds/weapon_flame_thrower.soundscript
+	precache_file	scripts/sounds/weapon_combat_plasmarifle.soundscript
 
 	// HL2 World, Ambient Generic, Items, Physics, Vehicles
 	"precache_file"		"scripts/game_sounds_world.txt"

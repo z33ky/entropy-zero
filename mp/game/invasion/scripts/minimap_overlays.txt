@@ -3,7 +3,7 @@ MinimapOverlays
 	minimap_object
 	{
 		type		minimap_image_panel
-		offset		"0 0"
+		offset		"-4 -4"
 		size		"8 8"
 		material	hud/minimap/object_icon
 		//detail		1 (eventually change this to detail since they can quickly clutter!)
@@ -12,8 +12,8 @@ MinimapOverlays
 	minimap_construction_yard
 	{
 		type 		minimap_image_panel
-		offset 		"0 0"
-		size		"8 8"
+		offset 		"-8 -8"
+		size		"16 16"
 		material	hud/minimap/construction_yard
 		detail		0
 	}
@@ -21,7 +21,7 @@ MinimapOverlays
 	minimap_player
 	{
 		type	minimap_player_panel
-		offset	"0 0"
+		offset	"-4 -4"
 		size	"8 8"
 		
 		localaliveimage
@@ -91,12 +91,13 @@ MinimapOverlays
 			Team0		
 			{
 				material	"hud/minimap/arrow_icon"
+				color		"255 255 255 255"
 			}
 				
 			Team1		
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"0 255 0 255"
+				color		"255 255 255 255"
 			}
 			
 			Team2	
@@ -108,13 +109,13 @@ MinimapOverlays
 			Team3
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"255 0 0 255"
+				color		"0 0 255 255"
 			}
 			
 			Team4
 			{
 				material	"hud/minimap/arrow_icon"
-				color		"255 0 0 255"
+				color		"255 255 255 255"
 			}
 		}
 		
@@ -140,7 +141,7 @@ MinimapOverlays
 			Team3
 			{
 				material	"placeholder/placeholder"
-				color		"255 0 0 255"
+				color		"0 0 255 255"
 			}
 			
 			Team4
@@ -155,24 +156,25 @@ MinimapOverlays
 			material	placeholder/placeholder
 		}
 		
-		localplayeroffset	"0 0"
+		localplayeroffset	"-8 -8"
 		localplayersize		"16 16"
-		voiceoffset		"0 0"
+		voiceoffset		"-8 -8"
 		voicesize		"16 16"
 	}
 	
 	minimap_resource_zone
 	{
 		type		minimap_resource_zone_panel
-		offset		"0 0"
-		size		"64 64"
-		material	placeholder/placeholder
+		offset		"-8 -8"
+		size		"16 16"
+		color		"0 255 0 255"
+		material	hud/minimap/resourcezone_icon
 	}
 	
 	minimap_order
 	{
 		type		minimap_order_panel
-		offset		"0 0"
+		offset		"-8 -8"
 		size		"16 16"
 		material	placeholder/placeholder
 	}

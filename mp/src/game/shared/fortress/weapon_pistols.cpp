@@ -29,6 +29,8 @@ public:
 	virtual void			SecondaryAttack( void );
 	virtual void			ItemPostFrame( void );
 
+	void AddViewKick() override;
+
 private:
 	float		m_flSoonestPrimaryAttack;
 	float		m_flLastPrimaryAttack;
@@ -132,3 +134,17 @@ void CWeaponPistols::ItemPostFrame( void )
 	BaseClass::ItemPostFrame();
 }
 
+void CWeaponPistols::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.45f), 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
+}

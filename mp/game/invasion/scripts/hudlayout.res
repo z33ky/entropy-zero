@@ -10,6 +10,20 @@ HudLayout
 		wide	 	252
 		tall	 	35
 	}
+
+	HudDeathNotice {
+		"fieldName"			"HudDeathNotice"
+		"visible"			"1"
+		"enabled"			"1"
+		"xpos"				"r640"
+		"ypos"				"12"
+		"wide"				"628"
+		"tall"				"468"
+		"MaxDeathNotices"	"4"
+		"LineHeight"		"22"
+		"RightJustify"		"1"	// If 1, draw notices from the right
+		"TextFont"			"Default"
+	}
 	
 	HudTrain
 	{
@@ -86,19 +100,17 @@ HudLayout
 		enabled	1
 	}
 	
-	HudWeaponSelection
-	{
+	HudWeaponSelection {
 		fieldName			HudWeaponSelection
-		xpos				-80
+		xpos				-90
 		ypos				30
 		wide				640
 		tall				480
 		visible 			1
 		enabled 			1
 
-		WeaponMenu1
-		{
-			wide		80
+		WeaponMenu1 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		10
@@ -106,9 +118,8 @@ HudLayout
 			visible	1
 		}
 
-		WeaponMenu2
-		{
-			wide		80
+		WeaponMenu2 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		74
@@ -116,9 +127,8 @@ HudLayout
 			visible	1
 		}
 
-		WeaponMenu3
-		{
-			wide		80
+		WeaponMenu3 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		138
@@ -126,9 +136,8 @@ HudLayout
 			visible	1
 		}
 
-		WeaponMenu4
-		{
-			wide		80
+		WeaponMenu4 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		202
@@ -136,9 +145,8 @@ HudLayout
 			visible	1
 		}
 
-		WeaponMenu5
-		{
-			wide		80
+		WeaponMenu5 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		266
@@ -146,9 +154,8 @@ HudLayout
 			visible	1
 		}
 
-		WeaponMenu6
-		{
-			wide		80
+		WeaponMenu6 {
+			wide		90
 			tall		60
 			xpos		-3
 			ypos		330
@@ -156,49 +163,43 @@ HudLayout
 			visible	1
 		}
 
-		BuildMenu1
-		{
-			wide		80
+		BuildMenu1 {
+			wide		90
 			tall		60
 			xpos		100
 			visible	1
 		}
 
-		BuildMenu2
-		{
-			wide		80
+		BuildMenu2 {
+			wide		90
 			tall		60
 			xpos		200
 			visible	1
 		}
 
-		BuildMenu3
-		{
-			wide		80
+		BuildMenu3 {
+			wide		90
 			tall		60
 			xpos		300
 			visible	1
 		}
 
-		BuildMenu4
-		{
-			wide		80
+		BuildMenu4 {
+			wide		90
 			tall		60
 			xpos		400
 			visible	1
 		}
 
-		BuildMenu5
-		{
-			wide		80
+		BuildMenu5 {
+			wide		90
 			tall		60
 			xpos		500
 			visible	1
 		}
 
-		BuildMenu6
-		{
-			wide		80
+		BuildMenu6 {
+			wide		90
 			tall		60
 			xpos		600
 			visible	1
@@ -214,7 +215,7 @@ HudLayout
 		tall					100
 		visible 				1
 		enabled 				1
-		PaintBackgroundType	2
+		PaintBackgroundType	1
 	}
 
 	HudHealth
@@ -225,12 +226,12 @@ HudLayout
 		wide				"95"
 		tall  				"36"
 		visible 			"1"
-		enabled 			"1"	
+		enabled 			"1"
 		label_xpos_right 	"10"
 		label_ypos 			"2"
 		value_xpos_right 	"10"
 		value_ypos 			"20"
-		PaintBackgroundType	2
+		PaintBackgroundType	3
 	}
 	
 	HudVehicle
@@ -250,12 +251,12 @@ HudLayout
 		wide				"95"
 		tall  				"36"
 		visible 			"1"
-		enabled 			"1"	
+		enabled 			"1"
 		label_xpos_right 	"10"
 		label_ypos 			"2"
 		value_xpos_right 	"10"
 		value_ypos 			"20"
-		PaintBackgroundType	2
+		PaintBackgroundType	3
 	}
 	
 	VehicleRoleHudElement
@@ -285,7 +286,7 @@ HudLayout
 
 		Alpha				150
 
-		PaintBackgroundType	2
+		PaintBackgroundType	3
 	}
 	
 	HudResourcesPickup
@@ -427,7 +428,7 @@ HudLayout
 		"ypos"		"432"
 		"wide"		"170"
 		"tall"  		"36"
-		"visible" 	"1"
+		"visible" 	"0"
 		"enabled" 	"1"
 
 		"PaintBackgroundType"	"2"

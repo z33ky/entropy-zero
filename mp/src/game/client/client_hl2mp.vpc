@@ -29,7 +29,9 @@ $Project "Client"
 		$File	"c_team_objectiveresource.h"
 		$File	"c_team_train_watcher.cpp"
 		$File	"c_team_train_watcher.h"
+
 		$File	"hud_voicestatus.cpp"
+
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.cpp"
 		$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
 		$File	"$SRCDIR\game\shared\teamplay_round_timer.cpp"
@@ -49,6 +51,7 @@ $Project "Client"
 			{			
 				$File	$SRCDIR\game\shared\fortress\weapon_repairgun.cpp
 				$File	$SRCDIR\game\shared\fortress\weapon_repairgun.h
+
 				$File	$SRCDIR\game\shared\fortress\baseobject_shared.cpp
 				$File	$SRCDIR\game\shared\fortress\baseobject_shared.h
 				$File	$SRCDIR\game\shared\fortress\basetfcombatweapon_shared.cpp
@@ -154,22 +157,44 @@ $Project "Client"
 
 			$Folder "Weapons"
 			{
+				$Folder "Grenades"
+				{
+					$Folder "Shared"
+					{
+						$File	$SRCDIR\game\shared\fortress\weapon_combat_basegrenade.cpp
+						$File	$SRCDIR\game\shared\fortress\weapon_combat_grenade.cpp
+						$File	$SRCDIR\game\shared\fortress\weapon_combat_grenade_emp.cpp
+
+						$File	$SRCDIR\game\shared\fortress\grenade_base_empable.cpp
+						$File	$SRCDIR\game\shared\fortress\grenade_emp.cpp
+					}
+
+					$File	fortress/c_grenade_antipersonnel.cpp
+					$File	fortress/c_grenade_objectsapper.cpp
+					$File	fortress/c_grenade_rocket.cpp
+					$File	fortress/c_grenade_limpetmine.cpp
+				}
+
 				$Folder "Shared"
 				{
 					$File	$SRCDIR\game\shared\fortress\weapon_repairgun.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_repairgun.h
-					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.cpp
-					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.h
+					
 					$File	$SRCDIR\game\shared\fortress\weapon_builder.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_builder.h
+
+					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.h
 					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.h
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_burstrifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_plasmarifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_plasma_grenade_launcher.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_laserrifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.h
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_shotgun.cpp
+
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 					$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
@@ -199,10 +224,12 @@ $Project "Client"
 					//$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_sniperrifle.cpp
 				}
 
 				// These have been merged into shared/fortress/weapon_builder now.
 				$File	fortress/c_weapon_builder.cpp
+				$File	fortress/c_weapon_chargeableplasma.cpp
 				$File	fortress/c_harpoon.cpp
 				$File	fortress/c_weapon_mortar.cpp
 				$File	fortress/c_weapon_twohandedcontainer.cpp
@@ -272,12 +299,6 @@ $Project "Client"
 				$File	fortress/c_order_resupply.cpp
 				$File	fortress/c_order_resupply.h
 			}
-
-			$Folder "Grenades"
-			{
-				$File	fortress/c_grenade_rocket.cpp
-				$File	fortress/c_grenade_limpetmine.cpp
-			}
 		
 			$File	fortress/clientmode_commander.cpp
 			$File	fortress/clientmode_commander.h
@@ -310,9 +331,10 @@ $Project "Client"
 			$File	fortress/c_func_resource.cpp
 			$File	fortress/c_func_resource.h
 			$File	fortress/c_func_construction_yard.cpp
-			$File	fortress/c_grenade_objectsapper.cpp
+
 			$File	fortress/c_hint_events.cpp
 			$File	fortress/c_hint_events.h
+
 			$File	fortress/c_info_act.cpp
 			$File	fortress/c_info_act.h
 			$File	fortress/c_info_customtech.cpp
@@ -392,7 +414,15 @@ $Project "Client"
 			$File	fortress/ObjectControlPanel.h
 			$File	fortress/overlay_orders.cpp
 
-			$File	fortress/proxy_shield.cpp
+			$Folder "Proxies"
+			{
+				$File	fortress/proxy_objpower.cpp
+				$File	fortress/proxy_shield.cpp
+				$File	fortress/proxy_sunroof.cpp
+				$File	fortress/ProxyTFPlayer.cpp
+				$File	fortress/teammaterialproxy.cpp
+			}
+
 			$File	fortress/resourcezoneoverlay.cpp
 			$File	fortress/tf_clientmode.cpp
 			$File	fortress/tf_in_main.cpp
@@ -407,6 +437,8 @@ $Project "Client"
 					$File	fortress/hud_commander_statuspanel.cpp
 					$File	fortress/hud_commander_statuspanel.h
 					$File	fortress/hud_damageindicator.cpp
+					$File	fortress/hud_deathnotice.cpp
+					$File	fortress/hud_emp.cpp
 					$File	fortress/hud_health.cpp
 					$File	fortress/hud_minimap.cpp
 					$File	fortress/hud_minimap.h

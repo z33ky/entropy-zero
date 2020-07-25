@@ -37,12 +37,13 @@ public:
 
 	virtual void	Enable();
 	
-	virtual void	PreRender( CViewSetup *pSetup );
 	virtual void	PostRender();
 	virtual	void	Update();
 
 	virtual void	LevelInit( const char *newmap );
 	virtual void	LevelShutdown( void );
+
+	void FireGameEvent( IGameEvent *event ) override;
 
 	// Input
 	virtual int		KeyInput( int down, ButtonCode_t keynum, const char *pszCurrentBinding );
@@ -55,14 +56,6 @@ public:
 	virtual vgui::Panel *GetMinimapParent( void ) = 0;
 
 private:
-	void			Initialize( void );
-
-	bool			m_bInitialized;
-
-	ConVar			*m_pCVDrawFullSkybox;
-
-	float			m_flOldDrawFullSkybox;
-
 	static CMinimapPanel *m_pMinimap;
 	// hogsy start
 	static CCommanderStatusPanel *m_pCommanderStatus;

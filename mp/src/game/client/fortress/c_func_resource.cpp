@@ -74,10 +74,6 @@ END_RECV_TABLE()
 
 C_ResourceSpawner::C_ResourceSpawner( void )
 {
-	// Moved these here, brush entities don't appear to spawn on the client... :( ~hogsy
-	CONSTRUCT_MINIMAP_PANEL("minimap_resource_zone", MINIMAP_RESOURCE_ZONES);
-	ENTITY_PANEL_ACTIVATE("resourcezone", true);
-
 	m_bActive = false;
 }
 

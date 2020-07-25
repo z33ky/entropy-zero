@@ -375,10 +375,10 @@ void CPlayerClass::CreateClass( void )
 	// Make sure they can build at least 1 object
 	if ( GetTFClassInfo( m_TFClass )->m_pClassObjects[0] != OBJ_LAST )
 	{
-		CWeaponBuilder *pWeaponBuilder = dynamic_cast<CWeaponBuilder*>(m_pPlayer->GiveNamedItem("weapon_builder"));
-		Assert(pWeaponBuilder);
+		CWeaponBuilder *pWeaponBuilder = dynamic_cast< CWeaponBuilder* >( m_pPlayer->GiveNamedItem( "weapon_builder" ) );
+		Assert( pWeaponBuilder );
 
-		m_pPlayer->SetWeaponBuilder(pWeaponBuilder);
+		m_pPlayer->SetWeaponBuilder( pWeaponBuilder );
 		Assert( m_pPlayer->GetWeaponBuilder() );
 
 		// Do we have a construction yard?
@@ -430,8 +430,9 @@ void CPlayerClass::CreateClass( void )
 
 			// Give the player a fake weapon to select this object with
 			CWeaponObjectSelection *pSelection = (CWeaponObjectSelection *)m_pPlayer->GiveNamedItem( "weapon_objectselection", iClassObject  );
-			if ( pSelection )
+			if ( pSelection ) {
 				pSelection->SetType( iClassObject );
+			}
 		}
 	}
 

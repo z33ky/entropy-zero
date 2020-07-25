@@ -28,6 +28,8 @@ public:
 	virtual void	FireBullets( CBaseTFCombatWeapon *pWeapon, int cShots, const Vector &vecSrc, const Vector &vecDirShooting, const Vector &vecSpread, float flDistance, int iBulletType, int iTracerFreq);
 	virtual const Vector& GetBulletSpread( void ); 
 	virtual float	GetFireRate( void );
+
+	void AddViewKick() override;
 };
 
 LINK_ENTITY_TO_CLASS( weapon_plasmarifle, CWeaponPlasmaRifle );
@@ -72,3 +74,17 @@ float CWeaponPlasmaRifle::GetFireRate( void )
 	return 0.2; 
 }
 
+void CWeaponPlasmaRifle::AddViewKick() {
+	// Get the view kick
+	CBaseTFPlayer *player = ToBaseTFPlayer(GetOwner());
+	if (player == nullptr) {
+		return;
+	}
+
+	QAngle viewPunch(SHARED_RANDOMFLOAT(0.0f, -0.75f), 0.0f, 0.0f);
+	if (player->GetFlags() & FL_DUCKING) {
+		viewPunch *= 0.25;
+	}
+
+	player->ViewPunch(viewPunch);
+}

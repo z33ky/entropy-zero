@@ -1,23 +1,18 @@
 powerpack_control_panel {
-	CPowerPackControlPanel {
-		ControlName	"CPowerPackControlPanel"
-		fieldName	"CPowerPackControlPanel"
-		xpos		0
-		ypos		0
-		wide		400
-		tall		400
-		visible		1
-		enabled		1
-	}
+	ActivePanel {
+		ControlName	"EditablePanel"
+		fieldName	"ActivePanel"
 
-	SocketReadout {
-		ControlName	"Label"
-		fieldName	"SocketReadout"
-		xpos		10
-		ypos		100
-		wide		300
-		tall		40
-		visible		0
+		SocketReadout {
+			ControlName	"Label"
+			fieldName	"SocketReadout"
+			xpos		10
+			ypos		100
+			wide		300
+			tall		40
+			visible		1
+			enabled		1
+		}
 	}
 
 	HealthReadout {
@@ -41,6 +36,7 @@ powerpack_control_panel {
 	DismantleButton {
 		ControlName "Button"
 		fieldName	"DismantleButton"
+		label		"#INVASION_DISMANTLE"
 		enabled		1
 		xpos		10
 		ypos		50
@@ -49,25 +45,50 @@ powerpack_control_panel {
 		command		"Dismantle"
 	}
 
-	AssumeControlButton {
-		ControlName "Button"
-		fieldName	"AssumeControl"
-		visible		1
-		enabled		1
-		xpos		160
-		ypos 		50
-		wide 		150
-		tall		50
-		label		"#INVASION_BUTTON_ASSUME_CONTROL"
+	DeterioratingPanel {
+		ControlName	"EditablePanel"
+		fieldName	"DeterioratingPanel"
+
+		AssumeControlButton {
+			ControlName "Button"
+			fieldName	"AssumeControl"
+			label		"#INVASION_ASSUME_CONTROL"
+			visible		1
+			enabled		1
+			xpos		160
+			ypos 		50
+			wide 		150
+			tall		50
+			command		"AssumeControl"
+		}
 	}
 
-	DismantleTime {
-		ControlName "Label"
-		fieldName	"DismantleTime"
-		xpos		10
-		ypos		100
-		wide		300
-		tall		40
-		visible		1
+	DismantlingPanel {
+		ControlName	"EditablePanel"
+		fieldName	"DismantlingPanel"
+
+		DismantleTime {
+			ControlName "Label"
+			fieldName	"DismantleTime"
+			xpos		10
+			ypos		100
+			wide		300
+			tall		40
+			visible		1
+			enabled		1
+		}
+
+		CancelDismantleButton {
+			ControlName "Button"
+			fieldName	"CancelDismantleButton"
+			label		"#INVASION_CANCEL"
+			visible		1
+			enabled		1
+			xpos		10
+			ypos		50
+			wide		150
+			tall		50
+			command		"CancelDismantle"
+		}
 	}
 }

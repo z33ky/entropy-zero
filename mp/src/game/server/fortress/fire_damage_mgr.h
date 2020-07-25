@@ -57,11 +57,11 @@ private:
 			m_flDamageSum = 0;
 		}		
 		
-		EHANDLE	m_hAttacker;
-		float	m_flVelocity;	// Current damage velocity.
+		EHANDLE	m_hAttacker{ nullptr };
+		float	m_flVelocity{ 0.0f };	// Current damage velocity.
 		
-		float	m_flDamageSum;	// Damage is summed up and applied a couple times per second instead of 
-								// each frame since fractional damage is rounded to 1.
+		float	m_flDamageSum{ 0.0f };	// Damage is summed up and applied a couple times per second instead of 
+										// each frame since fractional damage is rounded to 1.
 	};
 
 	class CDamageEnt

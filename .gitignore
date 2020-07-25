@@ -55,7 +55,6 @@ config.cfg
 # shader files
 *.tmp
 
-/mp/tools/SSbump_Generator_5_3
 /mp/src/vgui2/vgui_controls/generated_proto
 
 *.backup
@@ -99,4 +98,10 @@ mp/src/raytrace/Debug/
 mp/src/tier1/Debug/
 mp/src/vgui2/vgui_controls/Debug/
 
+mp/game_src/maps/hogsy/*.bsp
+
 *.dem
+/mp/game/invasion/custom/ServerConfig.vdf
+*.old
+*.rehex-meta
+*.ztmp

@@ -57,6 +57,7 @@ void C_Harpoon::OnDataChanged( DataUpdateType_t updateType )
 //-----------------------------------------------------------------------------
 void C_Harpoon::GetAimEntOrigin( IClientEntity *pAttachedTo, Vector *pOrigin, QAngle *pAngles )
 {
+#if 0 // todo: this is all wrong... currently handled server-side
 	C_BaseAnimating *pEnt = dynamic_cast< C_BaseAnimating * >( pAttachedTo->GetBaseEntity() );
 	if (!pEnt)
 		return;
@@ -92,4 +93,5 @@ void C_Harpoon::GetAimEntOrigin( IClientEntity *pAttachedTo, Vector *pOrigin, QA
 	
 	// HACK: Until we have a proper bone solution, hack the origin for all moving objects
 	*pOrigin = pEnt->WorldSpaceCenter( );
+#endif
 }

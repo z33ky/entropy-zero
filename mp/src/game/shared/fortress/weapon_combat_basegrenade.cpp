@@ -22,11 +22,13 @@ BEGIN_NETWORK_TABLE( CWeaponCombatBaseGrenade, DT_WeaponCombatBaseGrenade )
 #endif
 END_NETWORK_TABLE()
 
+#if defined(CLIENT_DLL)
 BEGIN_PREDICTION_DATA( CWeaponCombatBaseGrenade  )
 
 	DEFINE_PRED_FIELD_TOL( m_flStartedThrowAt, FIELD_FLOAT, FTYPEDESC_INSENDTABLE, TD_MSECTOLERANCE ),
 
 END_PREDICTION_DATA()
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: 

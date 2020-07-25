@@ -83,10 +83,14 @@ $Project "Server"
 				$File	$SRCDIR\game\shared\fortress\env_meteor_shared.cpp
 
 				// Grenades
+				$File	$SRCDIR\game\shared\fortress\grenade_antipersonnel.cpp
+				$File	$SRCDIR\game\shared\fortress\grenade_base_empable.cpp
+				$File	$SRCDIR\game\shared\fortress\grenade_emp.cpp
 				$File	$SRCDIR\game\shared\fortress\grenade_objectsapper.cpp
 				$File	$SRCDIR\game\shared\fortress\grenade_objectsapper.h
 				$File	$SRCDIR\game\shared\fortress\grenade_limpetmine.cpp
 				$File	$SRCDIR\game\shared\fortress\grenade_limpetmine.h
+				$File	$SRCDIR\game\shared\fortress\grenade_stickybomb.cpp
 
 				$File	$SRCDIR\game\shared\fortress\ihasbuildpoints.h
 				$File	$SRCDIR\game\shared\fortress\plasmaprojectile.cpp
@@ -145,25 +149,33 @@ $Project "Server"
 			{
 				$Folder "Shared"
 				{
+					$File	$SRCDIR\game\shared\fortress\weapon_arcwelder.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_repairgun.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_repairgun.h
 					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_basecombatobject.h
 					$File	$SRCDIR\game\shared\fortress\weapon_builder.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_builder.h
-					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.cpp
-					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.h
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_basegrenade.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_burstrifle.cpp
-					$File	$SRCDIR\game\shared\fortress\weapon_combat_plasmarifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_chargeableplasma.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_grenade.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_grenade_emp.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_laserrifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_plasma_grenade_launcher.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_plasmarifle.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combat_shotgun.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_combat_usedwithshieldbase.h
-					$File	$SRCDIR\game\shared\fortress\weapon_combat_shotgun.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_combatshield.h
+					$File	$SRCDIR\game\shared\fortress\weapon_drainbeam.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.h
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_objectselection.h
 					$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_twohandedcontainer.h
-					$File	$SRCDIR\game\shared\fortress\weapon_arcwelder.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shield.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shield.h
 					$File	$SRCDIR\game\shared\fortress\weapon_rocketlauncher.cpp
@@ -172,11 +184,8 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\weapon_grenade_rocket.h
 					$File	$SRCDIR\game\shared\fortress\weapon_gas_can.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_gas_can.h
-					$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.cpp
-					$File	$SRCDIR\game\shared\fortress\weapon_flame_thrower.h
 					$File	$SRCDIR\game\shared\fortress\weapon_limpetmine.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_limpetmine.h
-					$File	$SRCDIR\game\shared\fortress\weapon_drainbeam.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_harpoon.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_infiltrator.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_laserdesignator.cpp
@@ -188,6 +197,7 @@ $Project "Server"
 					$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
+					$File	$SRCDIR\game\shared\fortress\weapon_sniperrifle.cpp
 				}
 			}
 			
@@ -322,15 +332,23 @@ $Project "Server"
 			$File	fortress/controlzone.h
 			$File	fortress/env_meteor.cpp
 			$File	fortress/env_meteor.h
+
 			$File	fortress/info_act.cpp
 			$File	fortress/info_act.h
+			$File	fortress/info_add_resources.cpp
 			$File	fortress/info_buildpoint.cpp
 			$File	fortress/info_buildpoint.h
 			$File	fortress/info_customtech.cpp
 			$File	fortress/info_customtech.h
+			$File	fortress/info_input_playsound.cpp
+			$File	fortress/info_input_resetbanks.cpp
+			$File	fortress/info_input_resetobjects.cpp
 			$File	fortress/info_input_respawnplayers.cpp
+			$File	fortress/info_minimappulse.cpp
+			$File	fortress/info_output_team.cpp
 			$File	fortress/info_vehicle_bay.cpp
 			$File	fortress/info_vehicle_bay.h
+
 			//$File	fortress/menu_base.cpp
 			//$File	fortress/menu_base.h
 			$File	fortress/ragdoll_shadow.cpp
@@ -380,7 +398,8 @@ $Project "Server"
 			
 			$Folder "Triggers" 
 			{
-				$File fortress/trigger_skybox.cpp
+				$File	fortress/trigger_fall.cpp
+				$File	fortress/trigger_skybox.cpp
 			}
 
 			$Folder "Vehicles"

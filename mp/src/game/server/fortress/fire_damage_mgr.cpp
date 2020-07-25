@@ -196,10 +196,7 @@ void CFireDamageMgr::FrameUpdatePostEntityThink()
 float GetFireDamageScale( CBaseEntity *pEnt )
 {
 	// Objects have a lot more health and we want them to take damage faster.
-	if ( dynamic_cast< CBaseObject* >( pEnt ) )
-		return 4;
-	else
-		return 1;
+	return pEnt->IsBaseObject() ? 4 : 1;
 }
 
 
@@ -218,34 +215,28 @@ void CFireDamageMgr::ApplyCollectedDamage( CFireDamageMgr::CDamageEnt *pEnt, int
 // Global functions.
 // ------------------------------------------------------------------------------------------------ //
 
-bool IsBurnableEnt( CBaseEntity *pEntity, int iIgnoreTeam )
-{
-	if ( pEntity->m_takedamage == DAMAGE_NO )
+bool IsBurnableEnt( CBaseEntity *pEntity, int iIgnoreTeam ) {
+	if ( pEntity->m_takedamage == DAMAGE_NO ) {
 		return false;
+	}
 
 	CGasolineBlob *pBlob = dynamic_cast< CGasolineBlob* >( pEntity );
-	if ( pBlob )
-	{
+	if ( pBlob ) {
 		return !pBlob->IsLit();
 	}
 
-	if ( pEntity->GetTeamNumber() == iIgnoreTeam && !fire_damageall.GetInt() )
-	{
+	if ( pEntity->GetTeamNumber() == iIgnoreTeam && !fire_damageall.GetInt() ) {
 		// Don't damage anyone on the pyro's team (including the pyro himself).
 		return false;
 	}
 
 	// Now only allow specific types of objects to be damaged.
-	if ( dynamic_cast< CBasePlayer* >( pEntity ) || 
-		dynamic_cast< CAI_BaseNPC* >( pEntity ) || 
-		dynamic_cast< CBaseObject* >( pEntity ) )
-	{
+	if ( pEntity->IsPlayer() || pEntity->IsNPC() || pEntity->IsBaseObject() ) {
 		return true;
 	}
 
 	return false;
 }
-
 
 int FindBurnableEntsInSphere(
 	CBaseEntity **ents,
