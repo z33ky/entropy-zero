@@ -12,6 +12,7 @@
 // Damage CVars
 ConVar weapon_sniperrifle_damage( "weapon_sniperrifle_damage", "50", FCVAR_REPLICATED, "Sniper damage per pellet" );
 ConVar weapon_sniperrifle_range( "weapon_sniperrifle_range", "10000", FCVAR_REPLICATED, "Sniper maximum range" );
+ConVar weapon_sniperrifle_rate( "weapon_sniperrifle_rate", "1.15", FCVAR_REPLICATED, "Sniper rate of fire" );
 ConVar weapon_sniperrifle_ducking_mod( "weapon_sniperrifle_ducking_mod", "0.75", FCVAR_REPLICATED, "Sniper ducking speed modifier" );
 
 #if defined( CLIENT_DLL )
@@ -54,8 +55,6 @@ public:
 	virtual bool	IsPredicted( void ) const {
 		return true;
 	}
-
-	void			AttemptToReload( void );
 
 #if defined( CLIENT_DLL )
 public:
@@ -112,8 +111,8 @@ END_PREDICTION_DATA()
 
 #endif
 
-LINK_ENTITY_TO_CLASS( weapon_sniperrifle_human, CWeaponSniperRifle );
-PRECACHE_WEAPON_REGISTER( weapon_sniperrifle_human );
+LINK_ENTITY_TO_CLASS( weapon_sniperrifle, CWeaponSniperRifle );
+PRECACHE_WEAPON_REGISTER( weapon_sniperrifle );
 
 void CWeaponSniperRifle::Precache() {
 	BaseClass::Precache();
@@ -152,7 +151,7 @@ void CWeaponSniperRifle::ItemPostFrame( void ) {
 		if( m_iClip1 > 0 ) {
 			PrimaryAttack();
 		} else {
-			AttemptToReload();
+			Reload();
 		}
 	}
 
@@ -163,10 +162,10 @@ void CWeaponSniperRifle::ItemPostFrame( void ) {
 	// Reload button (or fire button when we're out of ammo)
 	if( m_flNextPrimaryAttack <= gpGlobals->curtime ) {
 		if( pOwner->m_nButtons & IN_RELOAD ) {
-			AttemptToReload();
+			Reload();
 		} else if( !( ( pOwner->m_nButtons & IN_ATTACK ) || ( pOwner->m_nButtons & IN_ATTACK2 ) || ( pOwner->m_nButtons & IN_RELOAD ) ) ) {
 			if( !m_iClip1 && HasPrimaryAmmo() ) {
-				AttemptToReload();
+				Reload();
 			} else {
 				//ReduceRotation();
 			}
@@ -179,16 +178,6 @@ void CWeaponSniperRifle::ItemPostFrame( void ) {
 	//}
 
 	WeaponIdle();
-}
-
-void CWeaponSniperRifle::AttemptToReload( void ) {
-	/*// Wind down before reloading
-	if( m_flRotationSpeed > 0 ) {
-		//ReduceRotation();
-	} else {
-		Reload();
-	}*/
-	Reload();
 }
 
 //-----------------------------------------------------------------------------
@@ -233,20 +222,15 @@ void CWeaponSniperRifle::SecondaryAttack() {
 	}
 
 	if ( !m_bZoomed ) {
+		WeaponSound( SPECIAL1 );
 		player->SetFOV( this, 20, 0.2f, 0 );
 		m_bZoomed = true;
 	} else {
+		WeaponSound( SPECIAL2 );
 		player->SetFOV( this, 0, 0.2f, 0 );
 		m_bZoomed = false;
 	}
 	m_flNextSecondaryAttack = gpGlobals->curtime + 0.5f;
-
-	/*//temp zoom sound, switch to using WeaponSound() eventually, minimap sounds should be already precached right????? nope they arent
-	CSingleUserRecipientFilter filter(player);
-	EmitSound_t params;
-	params.m_pSoundName = "Minimap.ZoomIn";
-	EmitSound( filter, entindex(), params );*/
-
 }
 
 //-----------------------------------------------------------------------------
@@ -271,7 +255,7 @@ void CWeaponSniperRifle::AddViewKick( void ) {
 // Purpose: 
 //-----------------------------------------------------------------------------
 float CWeaponSniperRifle::GetFireRate( void ) {
-	float flFireRate = 2.0f;
+	float flFireRate = weapon_sniperrifle_rate.GetFloat();
 
 	CBaseTFPlayer *pPlayer = static_cast<CBaseTFPlayer *>( GetOwner() );
 	if( pPlayer ) {

@@ -1,7 +1,7 @@
 WeaponData {
 	printname			"#INVASION_WEAPON_SNIPER"
-	viewmodel			"models/weapons/v_alien_sniper.mdl"
-	playermodel			"models/weapons/w_alien_sniper.mdl"
+	viewmodel			"models/weapons/v_human_sniper.mdl"
+	playermodel			"models/weapons/w_human_sniper.mdl"
 	anim_prefix			"sniper"
 	bucket				0
 	bucket_position		4
@@ -14,7 +14,8 @@ WeaponData {
 
 	SoundData {
 		single_shot	"Weapon_HumanSniper.Single"
-		special1	"Weapon_HumanSniper.Special1"
+		special1	"Weapon_HumanSniper.ZoomIn"
+		special2	"Weapon_HumanSniper.ZoomOut"
 		reload		"Weapon_HumanSniper.Reload"
 	}
 
