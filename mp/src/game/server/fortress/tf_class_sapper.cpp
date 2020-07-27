@@ -108,7 +108,6 @@ void CPlayerClassSapper::CreateClass( void )
 
 	m_pPlayer->GiveNamedItem("weapon_drainbeam");
 	m_pPlayer->GiveNamedItem("weapon_combat_grenade_emp");
-	m_pPlayer->GiveNamedItem("weapon_obj_empgenerator");
 
 	// Create our two handed weapon layout
 	m_hWpnPlasma = static_cast< CBaseTFCombatWeapon * >( m_pPlayer->GiveNamedItem( "weapon_combat_shotgun" ) );

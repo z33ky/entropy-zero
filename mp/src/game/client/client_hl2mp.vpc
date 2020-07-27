@@ -220,7 +220,7 @@ $Project "Client"
 					$File	$SRCDIR\game\shared\fortress\weapon_minigun.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_mortar.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_obj_empgenerator.cpp
-					$File	$SRCDIR\game\shared\fortress\weapon_obj_rallyflag.cpp
+					//$File	$SRCDIR\game\shared\fortress\weapon_obj_rallyflag.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_pistols.cpp
 					//$File	$SRCDIR\game\shared\fortress\weapon_plasmarifle.cpp
 					$File	$SRCDIR\game\shared\fortress\weapon_shieldgrenade.cpp
