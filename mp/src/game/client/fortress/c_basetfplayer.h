@@ -264,7 +264,7 @@ private:
 	// Client-side obstacle avoidance
 	void PerformClientSideObstacleAvoidance( float flFrameTime, CUserCmd *pCmd );
 
-	void ReloadHudScheme();
+	void ReloadHudScheme( int teamNum );
 
 	float		m_flLastAttackTime;
 

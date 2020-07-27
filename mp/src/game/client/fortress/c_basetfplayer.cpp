@@ -1392,6 +1392,8 @@ void C_BaseTFPlayer::TeamChange( int iNewTeam )
 		// Tell the tech tree to reload itself
 		GetTechnologyTreeDoc().ReloadTechTree();
 	}
+
+	ReloadHudScheme( iNewTeam );
 }
 
 //-----------------------------------------------------------------------------
@@ -2119,12 +2121,6 @@ void C_BaseTFPlayer::PreThink( void )
 {
 	BaseClass::PreThink();
 
-	int curTeam = GetTeamNumber();
-	if ( oldTeam != curTeam ) {
-		ReloadHudScheme();
-		oldTeam = curTeam;
-	}
-
 	// Chain pre-think to player class.
 	if ( GetPlayerClass() )
 		GetPlayerClass()->PreClassThink();
@@ -2361,18 +2357,18 @@ void C_BaseTFPlayer::PerformClientSideObstacleAvoidance( float flFrameTime, CUse
 	pCmd->sidemove = clamp( pCmd->sidemove, -cl_sidespeed.GetFloat(), cl_sidespeed.GetFloat() );
 }
 
-void C_BaseTFPlayer::ReloadHudScheme() {
-	ClientModeTFNormal *mode = dynamic_cast<ClientModeTFNormal*>( GetClientModeNormal() );
-	if ( mode == nullptr ) {
+void C_BaseTFPlayer::ReloadHudScheme( int teamNum ) {
+	ClientModeTFNormal *mode = dynamic_cast<ClientModeTFNormal *>( GetClientModeNormal() );
+	if( mode == nullptr ) {
 		return;
 	}
 
 	ClientModeTFNormal::Viewport *viewport = mode->GetNormalViewport();
-	if ( viewport == nullptr ) {
+	if( viewport == nullptr ) {
 		return;
 	}
 
-	viewport->SetTeamScheme( GetTeamNumber() );
+	viewport->SetTeamScheme( teamNum );
 }
 
 
