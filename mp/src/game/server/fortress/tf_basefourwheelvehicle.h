@@ -50,6 +50,8 @@ public:
 	virtual void SetupMove( CBasePlayer *player, CUserCmd *ucmd, IMoveHelper *pHelper, CMoveData *move );
 	virtual void ProcessMovement( CBasePlayer *pPlayer, CMoveData *pMoveData );
 	virtual void SetPassenger( int nRole, CBasePlayer *pEnt );
+	virtual void HandlePassengerEntry( CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone = false );
+	virtual bool HandlePassengerExit( CBaseCombatCharacter *pPlayer );
 
 	// Powerup handling
 	virtual void PowerupStart( int iPowerup, float flAmount, CBaseEntity *pAttacker, CDamageModifier *pDamageModifier );

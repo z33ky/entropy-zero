@@ -353,6 +353,7 @@ void CBaseTFFourWheelVehicle::FinishedBuilding( void )
 	//  set.  We create and activate it, but then release the handbrake for a single Think function call and 
 	//  then zero out the controls right then.  This seems to stabilize something in the physics simulator.
 	m_VehiclePhysics.ReleaseHandbrake();
+	m_VehiclePhysics.TurnOn(); //not turned on by default
 	SetContextThink(&CBaseTFFourWheelVehicle::BaseFourWheeledVehicleStopTheRodeoMadnessThink, gpGlobals->curtime, BASEFOURWHEELEDVEHICLE_STOPTHERODEO_CONTEXT);
 	
 	ResetDeteriorationTime();
@@ -448,6 +449,19 @@ void CBaseTFFourWheelVehicle::SetPassenger( int nRole, CBasePlayer *pEnt )
 	BaseClass::SetPassenger( nRole, pEnt );
 }
 
+void CBaseTFFourWheelVehicle::HandlePassengerEntry( CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone )
+{
+	m_VehiclePhysics.ReleaseHandbrake();
+	BaseClass::HandlePassengerEntry(pPlayer, bAllowEntryOutsideZone);
+}
+bool CBaseTFFourWheelVehicle::HandlePassengerExit( CBaseCombatCharacter *pPlayer )
+{
+	m_VehiclePhysics.SetHandbrake( true );
+	m_VehiclePhysics.SetThrottle( 0.0f );
+	BaseClass::HandlePassengerExit( pPlayer );
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -482,6 +496,8 @@ void CBaseTFFourWheelVehicle::PlayerControlShutdown()
 	m_attack2axis.Set( 0, pPlayer, this );
 
 	InputTurnOff( inputdata_t() );
+	m_VehiclePhysics.SetHandbrake( true ); //to stop the vehicle from sliding away with no driver
+	m_VehiclePhysics.SetThrottle( 0.0f );
 }
 
 //-----------------------------------------------------------------------------

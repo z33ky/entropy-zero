@@ -136,8 +136,8 @@ public:
 	int	 GetEntryAnimForPoint( const Vector &vecPoint );
 	int  GetExitAnimToUse( Vector &vecEyeExitEndpoint, bool &bAllPointsBlocked );
 	void HandleEntryExitFinish( bool bExitAnimOn, bool bResetAnim );
-	void HandlePassengerEntry(CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone = false);
-	bool HandlePassengerExit(CBaseCombatCharacter *pPlayer);
+	virtual void HandlePassengerEntry(CBaseCombatCharacter *pPlayer, bool bAllowEntryOutsideZone = false);
+	virtual bool HandlePassengerExit(CBaseCombatCharacter *pPlayer);
 
 	// Deterioration
 	void	VehicleDeteriorationThink( void );
