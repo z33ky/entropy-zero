@@ -1,3 +1,0 @@
-Marco Hladik	(Additional models)
-ScarT		(Human/Alien Commando model sources)
-Valve		(For Team Fortress 2 and for additional fixes sto- er... taken from the 2007 Source Engine leak)
