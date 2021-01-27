@@ -162,7 +162,12 @@ void C_Shield::ActivateShields( bool activate, int team )
 //-----------------------------------------------------------------------------
 // Helper method for collision testing
 //-----------------------------------------------------------------------------
+#ifdef _MSC_VER
 #pragma warning ( disable : 4701 )
+#elif defined __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
 
 bool C_Shield::TestCollision( const Ray_t& ray, unsigned int mask, trace_t& trace )
 {
@@ -268,7 +273,11 @@ bool C_Shield::TestCollision( const Ray_t& ray, unsigned int mask, trace_t& trac
 	return true;
 }
 
+#ifdef _MSC_VER
 #pragma warning ( default : 4701 )
+#elif defined __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
 //-----------------------------------------------------------------------------
 // Called when we hit something that we deflect...

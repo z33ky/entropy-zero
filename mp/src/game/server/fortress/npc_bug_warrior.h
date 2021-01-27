@@ -81,7 +81,7 @@ private:
 	virtual int				IRelationPriority( CBaseEntity *pTarget );
 
 	void	Event_Killed( const CTakeDamageInfo &info );
-	void	MeleeAttack( float distance, float damage, QAngle& viewPunch, Vector& shove );
+	void	MeleeAttack( float distance, float damage, const QAngle& viewPunch, const Vector& shove );
 
 	float	m_flIdleDelay;
 

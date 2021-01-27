@@ -246,7 +246,7 @@ void CShieldEffect::ComputeVertexActivity()
 //-----------------------------------------------------------------------------
 // bounding box for collision
 //-----------------------------------------------------------------------------
-void CShieldEffect::SetShieldPanelSize( Vector& mins, Vector& maxs )
+void CShieldEffect::SetShieldPanelSize( const Vector& mins, const Vector& maxs )
 {
 	m_PanelBoxMin = mins;
 	m_PanelBoxMax = maxs;

@@ -172,7 +172,7 @@ public:
 private:
 	// Simulation set up
 	void ComputeRestPositions();
-	void SetShieldPanelSize( Vector& mins, Vector& maxs );
+	void SetShieldPanelSize( const Vector& mins, const Vector& maxs );
 	void SimulateTranslation( float dt );
 	void SimulateRotation( float dt, const Vector& forward );
 	void ComputeOrientationMatrix();
