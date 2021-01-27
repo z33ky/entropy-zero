@@ -101,6 +101,9 @@
 #include "tier1/functors.h"
 #include "tier0/memdbgon.h"
 
+#include <type_traits>
+#include <utility>
+
 #if defined( _WIN32 )
 #pragma once
 #endif
@@ -634,9 +637,9 @@ struct ScriptEnumDesc_t
 // forwards T (and T&) if T is neither enum or an unsigned integer
 // the overload for int below captures enums and unsigned integers and "bends" them to int
 template<typename T>
-static constexpr inline typename std::enable_if<!std::is_enum<typename std::remove_reference<T>::type>::value && !std::is_unsigned<typename std::remove_reference<T>::type>::value, T>::type ToConstantVariant(T &&value)
+static constexpr inline typename std::enable_if<!std::is_enum<typename std::remove_reference<T>::type>::value && !std::is_unsigned<typename std::remove_reference<T>::type>::value, T&&>::type ToConstantVariant(T &&value)
 {
-	return value;
+	return std::forward<T>(value);
 }
 
 static constexpr inline int ToConstantVariant(int value)
