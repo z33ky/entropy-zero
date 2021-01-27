@@ -428,7 +428,7 @@ void CScriptGameEventListener::DumpEventListeners()
 	CGMsg( 0, CON_GROUP_VSCRIPT, "--- Script game event listener dump start\n" );
 	FOR_EACH_VEC( s_GameEventListeners, i )
 	{
-		CGMsg( 0, CON_GROUP_VSCRIPT, " %d   (0x%p) %d : %d\n", i,s_GameEventListeners[i],
+		CGMsg( 0, CON_GROUP_VSCRIPT, " %d   (0x%p) %p : %d\n", i,s_GameEventListeners[i],
 										s_GameEventListeners[i],
 										s_GameEventListeners[i]->m_iContextHash );
 	}

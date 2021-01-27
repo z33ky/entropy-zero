@@ -171,9 +171,9 @@ void CGMsg( int level, const char *pszGroup, const tchar* pMsg, ... )
 		}
 		else
 		{
-			ConColorMsg( level, pGroup->GetColor(), string );
+			ConColorMsg( level, pGroup->GetColor(), "%s", string );
 		}
 	}
 	else
-		DevMsg( level, string );
+		DevMsg( level, "%s", string );
 }

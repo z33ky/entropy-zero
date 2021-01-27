@@ -241,7 +241,9 @@ public:
 	HSQOBJECT regexpClass_;
 };
 
-SQUserPointer TYPETAG_VECTOR = "VectorTypeTag";
+// we cast away constness here, but this looks to be an API deficit of squrrel,
+// since the typetag shouldn't be modified
+static SQUserPointer TYPETAG_VECTOR = const_cast<char*>("VectorTypeTag");
 
 namespace SQVector
 {
@@ -827,7 +829,7 @@ void PushVariant(HSQUIRRELVM vm, const ScriptVariant_t& value)
 		sq_createinstance(vm, -1);
 		SQUserPointer p;
 		sq_getinstanceup(vm, -1, &p, 0);
-		new(p) Vector(value);
+		new(p) Vector(static_cast<const Vector&>(value));
 		sq_remove(vm, -2);
 		break;
 	}

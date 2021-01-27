@@ -31,7 +31,7 @@
 #define CON_GROUP_VSCRIPT_PRINT "VScript Print"
 
 // Mapbase console group message.
-void CGMsg( int level, const char *pszGroup, PRINTF_FORMAT_STRING const tchar* pMsg, ... ) FMTFUNCTION( 2, 3 );
+void CGMsg( int level, const char *pszGroup, PRINTF_FORMAT_STRING const tchar* pMsg, ... ) FMTFUNCTION( 3, 4 );
 
 #define CGWarning CGMsg
 
