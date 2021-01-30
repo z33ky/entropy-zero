@@ -321,7 +321,7 @@ const char *CHintDeployWeapon::GetKeyName( void )
 				
 				if ( !stricmp( weapon->GetName(), GetWeaponType() ) )
 				{
-					Q_snprintf( keyname, 128, GetKeyNameForBinding( VarArgs( "slot%i", slot + 1 ) ) );
+					Q_snprintf( keyname, 128, "%s", GetKeyNameForBinding( VarArgs( "slot%i", slot + 1 ) ) );
 					break;
 				}
 			}

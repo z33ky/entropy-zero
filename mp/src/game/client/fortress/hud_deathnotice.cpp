@@ -317,7 +317,7 @@ void CHudDeathNotice::FireGameEvent( IGameEvent *event ) {
 		Q_strncat( sDeathMsg, VarArgs( " with %s.\n", fullkilledwith + 2 ), sizeof( sDeathMsg ), COPY_ALL_CHARACTERS );
 	}
 
-	Msg( sDeathMsg );
+	Msg( "%s", sDeathMsg );
 }
 
 
